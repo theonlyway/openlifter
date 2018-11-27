@@ -17,6 +17,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "lint": "eslint --fix --ext .js,.jsx src/",
     "eject": "react-scripts eject",
     "electron-dev": "concurrently \"BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
     "electron-pack": "build -c.extraMetadata.main=build/electron.js",
@@ -35,6 +36,10 @@
     "concurrently": "^4.1.0",
     "electron": "^3.0.10",
     "electron-builder": "^20.36.2",
+    "eslint-config-prettier": "^3.3.0",
+    "eslint-config-react-app": "^3.0.5",
+    "eslint-plugin-prettier": "^3.0.0",
+    "prettier": "^1.15.2",
     "wait-on": "^3.2.0"
   }
 }
