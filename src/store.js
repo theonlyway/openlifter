@@ -1,3 +1,5 @@
+// vim: set ts=2 sts=2 sw=2 et:
+//
 // The redux store will:
 // Hold application state
 // Allow access to state via getState()

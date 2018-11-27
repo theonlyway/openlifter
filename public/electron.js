@@ -1,3 +1,5 @@
+// vim: set ts=2 sts=2 sw=2 et:
+
 const electron = require('electron');
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;

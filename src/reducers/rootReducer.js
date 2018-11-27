@@ -1,3 +1,5 @@
+// vim: set ts=2 sts=2 sw=2 et:
+
 import { combineReducers } from "redux";
 import sampleReducer from "./sampleReducer";
 

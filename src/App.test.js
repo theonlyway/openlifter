@@ -1,3 +1,5 @@
+// vim: set ts=2 sts=2 sw=2 et:
+
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";

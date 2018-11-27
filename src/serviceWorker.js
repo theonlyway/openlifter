@@ -1,3 +1,5 @@
+// vim: set ts=2 sts=2 sw=2 et:
+//
 // This optional code is used to register a service worker.
 // register() is not called by default.
 

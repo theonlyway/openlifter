@@ -1,3 +1,5 @@
+// vim: set ts=2 sts=2 sw=2 et:
+
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import logo from "./logo.svg";
