@@ -1,4 +1,4 @@
-.PHONY: dev-electron dev-web package
+.PHONY: dev-electron dev-web package test
 
 all: package
 
@@ -13,3 +13,6 @@ dev-web: node_modules
 
 package: node_modules
 	yarn run electron-pack
+
+test: node_modules
+	CI="yes" yarn run test
