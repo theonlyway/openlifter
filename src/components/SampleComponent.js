@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { sampleAction } from "../actions/sampleAction";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import { FormattedMessage } from "react-intl";
 
 // Allows react component to subscribe to redux state updates
 const mapStateToProps = state => ({
@@ -32,6 +33,7 @@ class SampleComponent extends React.Component {
         <button onClick={this.sayHello}>Say Hello</button>
         <Link to="/test">Go to second page</Link>
         <div>{result}</div>
+        <FormattedMessage id="SampleComponent.sampleTranslation" defaultMessage="English" />
       </div>
     );
   }

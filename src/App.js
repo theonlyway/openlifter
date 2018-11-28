@@ -6,6 +6,11 @@ import configureStore from "./store";
 import "./App.css";
 import SampleComponent from "./components/SampleComponent";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { addLocaleData } from "react-intl";
+import esLocaleData from "react-intl/locale-data/es";
+import OpenLifterIntlProvider from "./components/OpenLifterIntlProvider";
+
+addLocaleData(esLocaleData);
 
 class App extends Component {
   render() {
@@ -19,17 +24,19 @@ class App extends Component {
       // Route takes a path and a component, and renders the given component if the current path matches the specified path.
       <div>
         <Provider store={configureStore()}>
-          <Router>
-            <Switch>
-              <Route
-                path="/test"
-                component={() => {
-                  return <Link to="/">Go Back</Link>;
-                }}
-              />
-              <Route path="/" component={SampleComponent} />
-            </Switch>
-          </Router>
+          <OpenLifterIntlProvider>
+            <Router>
+              <Switch>
+                <Route
+                  path="/test"
+                  component={() => {
+                    return <Link to="/">Go Back</Link>;
+                  }}
+                />
+                <Route path="/" component={SampleComponent} />
+              </Switch>
+            </Router>
+          </OpenLifterIntlProvider>
         </Provider>
       </div>
     );
