@@ -1,7 +1,7 @@
 import * as React from "react";
 import { IntlProvider } from "react-intl";
 import PropTypes from "prop-types";
-import translations from "../i18n/locales";
+import translations from "../translations/locales";
 
 class OpenLifterIntlProvider extends React.Component {
   render() {
