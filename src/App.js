@@ -7,10 +7,11 @@ import "./App.css";
 import SampleComponent from "./components/SampleComponent";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import { addLocaleData } from "react-intl";
-import esLocaleData from "react-intl/locale-data/es";
+import * as es from "react-intl/locale-data/es";
+import * as eo from "react-intl/locale-data/eo";
 import OpenLifterIntlProvider from "./components/OpenLifterIntlProvider";
 
-addLocaleData(esLocaleData);
+addLocaleData([...es, ...eo]);
 
 class App extends Component {
   render() {
