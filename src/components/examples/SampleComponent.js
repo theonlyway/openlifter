@@ -2,11 +2,9 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import { sampleAction } from "../actions/sampleAction";
-import { Link } from "react-router-dom";
+import { sampleAction } from "../../actions/sampleAction";
 import PropTypes from "prop-types";
 import { FormattedMessage } from "react-intl";
-import LanguageSelector from "./LanguageSelector";
 
 // Allows react component to subscribe to redux state updates
 const mapStateToProps = state => ({
@@ -31,9 +29,7 @@ class SampleComponent extends React.Component {
     const { result } = this.props.sampleReducer;
     return (
       <div>
-        <LanguageSelector />
         <button onClick={this.sayHello}>Say Hello</button>
-        <Link to="/test">Go to second page</Link>
         <div>{result}</div>
         <FormattedMessage id="SampleComponent.sampleTranslation" defaultMessage="English" />
         <div>The current selected language is stored in redux state as:</div>

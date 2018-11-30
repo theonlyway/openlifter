@@ -3,19 +3,14 @@
 import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { changeLanguage } from "../actions/languageActions";
+import { changeLanguage } from "../../actions/languageActions";
 import Select from "react-select";
+import styled from "styled-components";
 
-// Allows react component to subscribe to redux state updates
-const mapStateToProps = state => ({
-  ...state
-});
-
-const mapDispatchToProps = dispatch => {
-  return {
-    changeLanguage: item => dispatch(changeLanguage(item.value))
-  };
-};
+const LanguageSelect = styled(Select)`
+  width: 150px;
+  float: right;
+`;
 
 // Can we get these from the i18n lib somehow?
 const languages = [
@@ -30,10 +25,9 @@ class LanguageSelector extends React.Component {
   });
   render() {
     return (
-      <div>
-        <div>Select a language:</div>
-        <Select value={this.selectedLanguage} onChange={this.props.changeLanguage} options={languages} />
-      </div>
+      <span>
+        <LanguageSelect value={this.selectedLanguage} onChange={this.props.changeLanguage} options={languages} />
+      </span>
     );
   }
 }
@@ -43,6 +37,17 @@ LanguageSelector.propTypes = {
   languageReducer: PropTypes.shape({
     lang: PropTypes.string
   })
+};
+
+// Allows react component to subscribe to redux state updates
+const mapStateToProps = state => ({
+  ...state
+});
+
+const mapDispatchToProps = dispatch => {
+  return {
+    changeLanguage: item => dispatch(changeLanguage(item.value))
+  };
 };
 
 export default connect(

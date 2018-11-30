@@ -2,6 +2,6 @@
   {
     "id": "SampleComponent.sampleTranslation",
     "defaultMessage": "English",
-    "filepath": "src/components/SampleComponent.js"
+    "filepath": "src/components/examples/SampleComponent.js"
   }
 ]

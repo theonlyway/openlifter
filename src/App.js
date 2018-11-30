@@ -4,12 +4,15 @@ import React, { Component } from "react";
 import { Provider } from "react-redux";
 import configureStore from "./store";
 import "./App.css";
-import SampleComponent from "./components/SampleComponent";
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { addLocaleData } from "react-intl";
 import es from "react-intl/locale-data/es";
 import eo from "react-intl/locale-data/eo";
-import OpenLifterIntlProvider from "./components/OpenLifterIntlProvider";
+import OpenLifterIntlProvider from "./components/translations/OpenLifterIntlProvider";
+import MeetConfigurationContainer from "./containers/MeetConfigurationContainer";
+import ExamplesContainer from "./containers/ExamplesContainer";
+import HomeContainer from "./containers/HomeContainer";
+import Navigation from "./components/navigation/Navigation";
 
 addLocaleData([...es, ...eo]);
 
@@ -27,15 +30,14 @@ class App extends Component {
         <Provider store={configureStore()}>
           <OpenLifterIntlProvider>
             <Router>
-              <Switch>
-                <Route
-                  path="/test"
-                  component={() => {
-                    return <Link to="/">Go Back</Link>;
-                  }}
-                />
-                <Route path="/" component={SampleComponent} />
-              </Switch>
+              <div>
+                <Navigation />
+                <Switch>
+                  <Route exact path="/" component={HomeContainer} />
+                  <Route path="/configure-meet" component={MeetConfigurationContainer} />
+                  <Route path="/examples" component={ExamplesContainer} />
+                </Switch>
+              </div>
             </Router>
           </OpenLifterIntlProvider>
         </Provider>

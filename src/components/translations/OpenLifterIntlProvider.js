@@ -2,7 +2,7 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { IntlProvider } from "react-intl";
 import PropTypes from "prop-types";
-import translations from "../translations/locales";
+import translations from "../../translations/locales";
 
 class OpenLifterIntlProvider extends React.Component {
   render() {
