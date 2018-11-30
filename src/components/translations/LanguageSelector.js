@@ -9,7 +9,6 @@ import styled from "styled-components";
 
 const LanguageSelect = styled(Select)`
   width: 150px;
-  float: right;
 `;
 
 // Can we get these from the i18n lib somehow?

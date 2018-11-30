@@ -3,7 +3,6 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import LanguageSelector from "../translations/LanguageSelector";
 
 const NavbarHolder = styled.div.attrs({
   id: "navbarSupportedContent"
@@ -32,7 +31,6 @@ const NavigationLinks = () => {
         <NavLink to="/">Home</NavLink>
         <NavLink to="/configure-meet">Meet Configuration</NavLink>
         <NavLink to="/examples">Examples</NavLink>
-        <LanguageSelector />
       </Navbar>
     </NavbarHolder>
   );
