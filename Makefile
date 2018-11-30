@@ -1,6 +1,6 @@
 .PHONY: dev-electron dev-web package test
 
-all: package
+all: dev-web
 
 node_modules:
 	yarn
