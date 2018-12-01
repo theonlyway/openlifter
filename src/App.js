@@ -12,7 +12,7 @@ import OpenLifterIntlProvider from "./components/translations/OpenLifterIntlProv
 import MeetConfigurationContainer from "./containers/MeetConfigurationContainer";
 import ExamplesContainer from "./containers/ExamplesContainer";
 import HomeContainer from "./containers/HomeContainer";
-import Navigation from "./components/navigation/Navigation";
+import Navigation from "./components/Navigation";
 
 addLocaleData([...es, ...eo]);
 
