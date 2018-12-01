@@ -11,9 +11,15 @@ const HomeContainer = () => {
       <p>App Icon Goes Here</p>
       <p>Documentation Link Goes Here</p>
       <ul>
-        <li><button>New Meet (◕ᴥ◕ʋ)</button></li>
-        <li><button>Load Meet (TODO)</button></li>
-        <li><button>Save Meet (TODO)</button></li>
+        <li>
+          <button>New Meet (◕ᴥ◕ʋ)</button>
+        </li>
+        <li>
+          <button>Load Meet (TODO)</button>
+        </li>
+        <li>
+          <button>Save Meet (TODO)</button>
+        </li>
       </ul>
     </div>
   );
