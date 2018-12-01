@@ -22,7 +22,7 @@ const Navigation = () => {
       <Navbar.Toggle />
       <Navbar.Collapse>
         <Nav>
-          <LinkContainer to="/">
+          <LinkContainer exact to="/">
             <NavItem eventKey={1}>
               Home
             </NavItem>
