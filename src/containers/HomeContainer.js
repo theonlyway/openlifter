@@ -1,7 +1,10 @@
 // vim: set ts=2 sts=2 sw=2 et:
 
 import React from "react";
+import { Button } from 'react-bootstrap';
+
 import LanguageSelector from "../components/translations/LanguageSelector";
+
 
 const HomeContainer = () => {
   return (
@@ -12,13 +15,13 @@ const HomeContainer = () => {
       <p>Documentation Link Goes Here</p>
       <ul>
         <li>
-          <button>New Meet (◕ᴥ◕ʋ)</button>
+          <Button>New Meet (◕ᴥ◕ʋ)</Button>
         </li>
         <li>
-          <button>Load Meet (TODO)</button>
+          <Button>Load Meet (TODO)</Button>
         </li>
         <li>
-          <button>Save Meet (TODO)</button>
+          <Button>Save Meet (TODO)</Button>
         </li>
       </ul>
     </div>
