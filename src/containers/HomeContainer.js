@@ -1,7 +1,7 @@
 // vim: set ts=2 sts=2 sw=2 et:
 
 import React from "react";
-import { Button, ButtonToolbar } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
 import LanguageSelector from "../components/translations/LanguageSelector";

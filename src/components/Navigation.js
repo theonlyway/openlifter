@@ -3,7 +3,6 @@
 // Defines the Navigation component for navigating between pages using react-router.
 
 import React from "react";
-import styled from "styled-components";
 import { Navbar, Nav, NavItem } from "react-bootstrap";
 
 // The LinkContainer is used to wrap Components that change the URL,
