@@ -13,9 +13,7 @@ import { LinkContainer } from "react-router-bootstrap";
 const Navigation = () => {
   return (
     <Navbar>
-      <Navbar.Brand>
-        OpenLifter
-      </Navbar.Brand>
+      <Navbar.Brand>OpenLifter</Navbar.Brand>
 
       {/* Navbar uses Toggle and Collapse to automatically create a hamburger menu
           in case of overflow on small screens.*/}
@@ -23,19 +21,13 @@ const Navigation = () => {
       <Navbar.Collapse>
         <Nav>
           <LinkContainer exact to="/">
-            <NavItem eventKey={1}>
-              Home
-            </NavItem>
+            <NavItem eventKey={1}>Home</NavItem>
           </LinkContainer>
           <LinkContainer to="/configure-meet">
-            <NavItem eventKey={2}>
-              Meet Setup
-            </NavItem>
+            <NavItem eventKey={2}>Meet Setup</NavItem>
           </LinkContainer>
           <LinkContainer to="/examples">
-            <NavItem eventKey={3}>
-              Examples
-            </NavItem>
+            <NavItem eventKey={3}>Examples</NavItem>
           </LinkContainer>
         </Nav>
       </Navbar.Collapse>
