@@ -2,6 +2,10 @@
 
 > Simple software for running a local powerlifting competition.
 
+#### Software Stack
+
+OpenLifter is a single-page webapp built with React, Redux, and Bootstrap. Help is welcome!
+
 #### Development Setup
 
 This project was initialized through `create-react-app`. There is a bunch of implicit project-wide build magic that `create-react-app` manages through dependent scripts. The magic behavior is described in the [Create React App Documentation](https://facebook.github.io/create-react-app/docs/getting-started).
