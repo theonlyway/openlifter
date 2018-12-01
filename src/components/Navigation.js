@@ -23,7 +23,7 @@ const Navigation = () => {
           <LinkContainer exact to="/">
             <NavItem eventKey={1}>Home</NavItem>
           </LinkContainer>
-          <LinkContainer to="/configure-meet">
+          <LinkContainer to="/meet-setup">
             <NavItem eventKey={2}>Meet Setup</NavItem>
           </LinkContainer>
           <LinkContainer to="/examples">

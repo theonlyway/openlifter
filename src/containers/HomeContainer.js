@@ -2,6 +2,7 @@
 
 import React from "react";
 import { Button, ButtonToolbar } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
 
 import LanguageSelector from "../components/translations/LanguageSelector";
 
@@ -17,13 +18,15 @@ const HomeContainer = () => {
       <p>App Icon Goes Here</p>
       <p>Documentation Link Goes Here</p>
       <div style={buttonConsole}>
-        <Button bsStyle="primary" bsSize="large" block>
-          New Meet (TODO)
-        </Button>
-        <Button bsStyle="warning" bsSize="large" block>
+        <LinkContainer to="/meet-setup">
+          <Button bsStyle="primary" bsSize="large" block>
+            New Meet
+          </Button>
+        </LinkContainer>
+        <Button bsStyle="warning" bsSize="large" block disabled>
           Load Meet (TODO)
         </Button>
-        <Button bsStyle="success" bsSize="large" block>
+        <Button bsStyle="success" bsSize="large" block disabled>
           Save Meet (TODO)
         </Button>
       </div>
