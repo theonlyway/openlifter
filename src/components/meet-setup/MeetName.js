@@ -43,12 +43,16 @@ class MeetName extends React.Component {
     const value = e.target.value;
 
     // Render the component based on its internal state change.
-    this.setState({ value: value });
-
-    // If the change is successful, save the successful value into the Redux store.
-    if (this.getValidationState() !== "error") {
-      this.props.setMeetName(e.target.value);
-    }
+    //
+    // Because setState() is asynchronous, checking validation and
+    // potentially updating the Redux store is handled in a callback.
+    // Note that setState() is asynchronous, so "this.state" cannot be read.
+    this.setState({ value: value }, () => {
+      // If the change is successful, save the successful value into the Redux store.
+      if (this.getValidationState() !== "error") {
+        this.props.setMeetName(value);
+      }
+    });
   }
 
   render() {
