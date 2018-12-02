@@ -27,12 +27,12 @@ class MeetName extends React.Component {
     this.handleBlur = this.handleBlur.bind(this);
 
     this.state = {
-      value: "" // The text content of the meet input field.
+      value: this.props.meet.name
     };
   }
 
   getValidationState() {
-    const value = this.state.value;
+    let value = this.state.value;
     if (value === "") return null;
     if (value.includes('"')) return "error";
     return "success";
@@ -55,7 +55,7 @@ class MeetName extends React.Component {
     return (
       <FormGroup validationState={this.getValidationState()}>
         <ControlLabel>Meet Name</ControlLabel>
-        <FormControl type="text" placeholder="Meet Name" value={this.props.name} onBlur={this.handleBlur} />
+        <FormControl type="text" placeholder="Meet Name" defaultValue={this.props.meet.name} onBlur={this.handleBlur} />
         <FormControl.Feedback />
       </FormGroup>
     );
