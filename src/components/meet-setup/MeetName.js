@@ -64,7 +64,10 @@ class MeetName extends React.Component {
 
 // Verifies the shape of the "props" given the component.
 MeetName.propTypes = {
-  name: PropTypes.string
+  meet: PropTypes.shape({
+    name: PropTypes.string.isRequired
+  }).isRequired,
+  setMeetName: PropTypes.func.isRequired
 };
 
 export default connect(

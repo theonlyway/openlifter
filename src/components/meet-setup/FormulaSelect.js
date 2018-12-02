@@ -7,10 +7,7 @@ import Select from "react-select";
 
 import { setFormula } from "../../actions/meetSetupActions";
 
-const options = [
-  { value: "Glossbrenner", label: "Glossbrenner" },
-  { value: "Wilks", label: "Wilks" }
-];
+const options = [{ value: "Glossbrenner", label: "Glossbrenner" }, { value: "Wilks", label: "Wilks" }];
 
 const mapStateToProps = state => ({
   ...state
@@ -19,7 +16,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => {
   return {
     setFormula: item => dispatch(setFormula(item.value))
-  }
+  };
 };
 
 class FormulaSelect extends React.Component {
@@ -33,9 +30,7 @@ class FormulaSelect extends React.Component {
   }
 
   render() {
-    return (
-      <Select defaultValue={this.valueObject} onChange={this.props.setFormula} options={options} />
-    );
+    return <Select defaultValue={this.valueObject} onChange={this.props.setFormula} options={options} />;
   }
 }
 
@@ -44,7 +39,7 @@ FormulaSelect.propTypes = {
   meet: PropTypes.shape({
     formula: PropTypes.string
   })
-}
+};
 
 export default connect(
   mapStateToProps,

@@ -31,7 +31,9 @@ class StateTools extends React.Component {
       <Panel bsStyle="primary">
         <Panel.Heading>Redux State Tools</Panel.Heading>
         <Panel.Body>
-          <Button bsStyle="info" onClick={this.showState}>Show State</Button>
+          <Button bsStyle="info" onClick={this.showState}>
+            Show State
+          </Button>
         </Panel.Body>
       </Panel>
     );

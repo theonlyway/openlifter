@@ -12,10 +12,7 @@ const LanguageSelect = styled(Select)`
 `;
 
 // Can we get these from the i18n lib somehow?
-const languages = [
-  { value: "en", label: "English" },
-  { value: "eo", label: "Esperanto" }
-];
+const languages = [{ value: "en", label: "English" }, { value: "eo", label: "Esperanto" }];
 
 class LanguageSelector extends React.Component {
   selectedLanguage = languages.find(lang => {
@@ -31,10 +28,8 @@ class LanguageSelector extends React.Component {
 }
 
 LanguageSelector.propTypes = {
-  changeLanguage: PropTypes.func,
-  languageReducer: PropTypes.shape({
-    lang: PropTypes.string
-  })
+  changeLanguage: PropTypes.func.isRequired,
+  language: PropTypes.string.isRequired
 };
 
 // Allows react component to subscribe to redux state updates
