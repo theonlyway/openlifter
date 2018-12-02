@@ -3,6 +3,8 @@
 import React from "react";
 import { FormControl, Panel } from "react-bootstrap";
 
+import MeetName from "./MeetName";
+
 const marginStyle = { margin: "0 40px 0 40px" };
 
 const MeetSetup = () => {
@@ -10,7 +12,7 @@ const MeetSetup = () => {
     <div style={marginStyle}>
       <Panel>
         <Panel.Body>
-          <FormControl type="text" placeholder="Meet Name" />
+          <MeetName />
         </Panel.Body>
       </Panel>
     </div>

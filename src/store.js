@@ -12,5 +12,11 @@ import thunk from "redux-thunk";
 import rootReducer from "./reducers/rootReducer";
 
 export default function configureStore(initialState = {}) {
-  return createStore(rootReducer, applyMiddleware(thunk));
+  let store = createStore(rootReducer, applyMiddleware(thunk));
+
+  // The two lines below are commonly used when debugging.
+  // console.log(store.getState());
+  // store.subscribe(() => console.log(store.getState()));
+
+  return store;
 }
