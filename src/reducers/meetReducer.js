@@ -11,6 +11,16 @@ function nameReducer(state = "", action) {
   }
 }
 
+function formulaReducer(state = "Wilks", action) {
+  switch (action.type) {
+    case "SET_FORMULA":
+      return action.payload;
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
-  name: nameReducer
+  name: nameReducer,
+  formula: formulaReducer
 });

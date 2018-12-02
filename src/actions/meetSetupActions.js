@@ -6,3 +6,10 @@ export const setMeetName = name => {
     payload: name
   };
 };
+
+export const setFormula = formula => {
+  return {
+    type: "SET_FORMULA",
+    payload: formula
+  };
+};

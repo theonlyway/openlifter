@@ -4,6 +4,7 @@ import React from "react";
 import { FormControl, Panel } from "react-bootstrap";
 
 import MeetName from "./MeetName";
+import FormulaSelect from "./FormulaSelect";
 
 const marginStyle = { margin: "0 40px 0 40px" };
 
@@ -13,6 +14,7 @@ const MeetSetup = () => {
       <Panel>
         <Panel.Body>
           <MeetName />
+          <FormulaSelect />
         </Panel.Body>
       </Panel>
     </div>
