@@ -14,13 +14,12 @@ const LanguageSelect = styled(Select)`
 // Can we get these from the i18n lib somehow?
 const languages = [
   { value: "en", label: "English" },
-  { value: "es", label: "Español" },
   { value: "eo", label: "Esperanto" }
 ];
 
 class LanguageSelector extends React.Component {
   selectedLanguage = languages.find(lang => {
-    return lang.value === this.props.languageReducer.lang;
+    return lang.value === this.props.language;
   });
   render() {
     return (

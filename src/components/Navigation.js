@@ -25,8 +25,8 @@ const Navigation = () => {
           <LinkContainer to="/meet-setup">
             <NavItem eventKey={2}>Meet Setup</NavItem>
           </LinkContainer>
-          <LinkContainer to="/examples">
-            <NavItem eventKey={3}>Examples</NavItem>
+          <LinkContainer to="/debug">
+            <NavItem eventKey={3}>Debug</NavItem>
           </LinkContainer>
         </Nav>
       </Navbar.Collapse>

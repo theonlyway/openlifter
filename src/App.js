@@ -10,7 +10,7 @@ import es from "react-intl/locale-data/es";
 import eo from "react-intl/locale-data/eo";
 import OpenLifterIntlProvider from "./components/translations/OpenLifterIntlProvider";
 import MeetSetupContainer from "./containers/MeetSetupContainer";
-import ExamplesContainer from "./containers/ExamplesContainer";
+import DebugContainer from "./containers/DebugContainer";
 import HomeContainer from "./containers/HomeContainer";
 import Navigation from "./components/Navigation";
 
@@ -35,7 +35,7 @@ class App extends Component {
                 <Switch>
                   <Route exact path="/" component={HomeContainer} />
                   <Route path="/meet-setup" component={MeetSetupContainer} />
-                  <Route path="/examples" component={ExamplesContainer} />
+                  <Route path="/debug" component={DebugContainer} />
                 </Switch>
               </div>
             </Router>

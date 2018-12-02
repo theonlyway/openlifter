@@ -8,15 +8,13 @@ import LanguageSelector from "../components/translations/LanguageSelector";
 
 // Temporary CSS, just for prototyping.
 const centerConsole = { maxWidth: 800, margin: "0 auto 10px" };
-const buttonConsole = { maxWidth: 400, margin: "0 auto 0 auto" };
+const buttonConsole = { maxWidth: 400, margin: "20px auto 0 auto" };
 
 const HomeContainer = () => {
   return (
     <div style={centerConsole}>
-      <h1>Welcome to OpenLifter!! (ﾉ◕ヮ◕)ﾉ*:・ﾟ✧</h1>
       <LanguageSelector />
-      <p>App Icon Goes Here</p>
-      <p>Documentation Link Goes Here</p>
+      <h1>Welcome to OpenLifter!! (ﾉ◕ヮ◕)ﾉ*:・ﾟ✧</h1>
       <div style={buttonConsole}>
         <LinkContainer to="/meet-setup">
           <Button bsStyle="primary" bsSize="large" block>
