@@ -5,6 +5,7 @@ import { FormControl, Panel } from "react-bootstrap";
 
 import MeetName from "./MeetName";
 import FormulaSelect from "./FormulaSelect";
+import FederationSelect from "./FederationSelect";
 
 const marginStyle = { margin: "0 40px 0 40px" };
 
@@ -12,8 +13,15 @@ const MeetSetup = () => {
   return (
     <div style={marginStyle}>
       <Panel>
+        <Panel.Heading>Meet Information</Panel.Heading>
         <Panel.Body>
           <MeetName />
+        </Panel.Body>
+      </Panel>
+      <Panel>
+        <Panel.Heading>Rules</Panel.Heading>
+        <Panel.Body>
+          <FederationSelect />
           <FormulaSelect />
         </Panel.Body>
       </Panel>

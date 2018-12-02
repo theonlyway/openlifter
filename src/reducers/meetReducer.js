@@ -20,7 +20,17 @@ function formulaReducer(state = "Wilks", action) {
   }
 }
 
+function federationReducer(state = "", action) {
+  switch (action.type) {
+    case "SET_FEDERATION":
+      return action.payload;
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   name: nameReducer,
-  formula: formulaReducer
+  formula: formulaReducer,
+  federation: federationReducer
 });

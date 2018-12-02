@@ -3,6 +3,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+
+import { ControlLabel, FormGroup } from "react-bootstrap";
 import Select from "react-select";
 
 import { setFormula } from "../../actions/meetSetupActions";
@@ -30,7 +32,12 @@ class FormulaSelect extends React.Component {
   }
 
   render() {
-    return <Select defaultValue={this.valueObject} onChange={this.props.setFormula} options={options} />;
+    return (
+      <FormGroup validationState="success">
+        <ControlLabel>Best Lifter Formula</ControlLabel>
+        <Select defaultValue={this.valueObject} onChange={this.props.setFormula} options={options} />
+      </FormGroup>
+    );
   }
 }
 

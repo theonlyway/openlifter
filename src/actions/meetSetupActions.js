@@ -13,3 +13,10 @@ export const setFormula = formula => {
     payload: formula
   };
 };
+
+export const setFederation = federation => {
+  return {
+    type: "SET_FEDERATION",
+    payload: federation
+  };
+};
