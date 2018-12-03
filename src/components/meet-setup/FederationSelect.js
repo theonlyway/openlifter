@@ -50,10 +50,6 @@ class FederationSelect extends React.Component {
     }
   }
 
-  handleChange(e) {
-    const value = e.target.value;
-  }
-
   render() {
     return (
       <FormGroup>

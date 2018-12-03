@@ -9,9 +9,11 @@ import { addLocaleData } from "react-intl";
 import es from "react-intl/locale-data/es";
 import eo from "react-intl/locale-data/eo";
 import OpenLifterIntlProvider from "./components/translations/OpenLifterIntlProvider";
-import MeetSetupContainer from "./containers/MeetSetupContainer";
-import DebugContainer from "./containers/DebugContainer";
+
 import HomeContainer from "./containers/HomeContainer";
+import MeetSetupContainer from "./containers/MeetSetupContainer";
+import LiftingContainer from "./containers/LiftingContainer";
+import DebugContainer from "./containers/DebugContainer";
 import Navigation from "./components/Navigation";
 
 addLocaleData([...es, ...eo]);
@@ -35,6 +37,7 @@ class App extends Component {
                 <Switch>
                   <Route exact path="/" component={HomeContainer} />
                   <Route path="/meet-setup" component={MeetSetupContainer} />
+                  <Route path="/lifting" component={LiftingContainer} />
                   <Route path="/debug" component={DebugContainer} />
                 </Switch>
               </div>

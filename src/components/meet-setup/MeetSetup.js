@@ -1,7 +1,7 @@
 // vim: set ts=2 sts=2 sw=2 et:
 
 import React from "react";
-import { FormControl, Panel } from "react-bootstrap";
+import { Panel } from "react-bootstrap";
 
 import MeetName from "./MeetName";
 import FormulaSelect from "./FormulaSelect";

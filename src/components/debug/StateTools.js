@@ -4,7 +4,7 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import { Button, ButtonToolbar, Panel } from "react-bootstrap";
+import { Button, Panel } from "react-bootstrap";
 
 const mapStateToProps = state => ({
   ...state
