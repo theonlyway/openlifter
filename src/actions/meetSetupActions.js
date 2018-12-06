@@ -3,20 +3,27 @@
 export const setMeetName = name => {
   return {
     type: "SET_MEET_NAME",
-    payload: name
+    name
   };
 };
 
 export const setFormula = formula => {
   return {
     type: "SET_FORMULA",
-    payload: formula
+    formula
   };
 };
 
 export const setFederation = federation => {
   return {
     type: "SET_FEDERATION",
-    payload: federation
+    federation
+  };
+};
+
+export const setMeetDate = date => {
+  return {
+    type: "SET_MEET_DATE",
+    payload: date
   };
 };

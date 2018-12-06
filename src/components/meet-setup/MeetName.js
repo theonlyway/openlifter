@@ -32,8 +32,8 @@ class MeetName extends React.Component {
   }
 
   getValidationState() {
-    let value = this.state.value;
-    if (value === "") return "warning";
+    const { value } = this.state;
+    if (!value) return "warning";
     if (value.includes('"')) return "error";
     return "success";
   }
