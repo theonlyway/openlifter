@@ -24,6 +24,6 @@ export const setFederation = federation => {
 export const setMeetDate = date => {
   return {
     type: "SET_MEET_DATE",
-    payload: date
+    date
   };
 };
