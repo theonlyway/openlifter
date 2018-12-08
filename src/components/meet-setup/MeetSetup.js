@@ -6,6 +6,7 @@ import { Panel } from "react-bootstrap";
 import MeetName from "./MeetName";
 import MeetDate from "./MeetDate";
 import MeetLength from "./MeetLength";
+import PlatformCounts from "./PlatformCounts";
 import FormulaSelect from "./FormulaSelect";
 import FederationSelect from "./FederationSelect";
 
@@ -20,6 +21,7 @@ const MeetSetup = () => {
           <MeetName />
           <MeetDate />
           <MeetLength />
+          <PlatformCounts />
         </Panel.Body>
       </Panel>
       <Panel>
