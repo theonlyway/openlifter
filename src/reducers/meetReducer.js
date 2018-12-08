@@ -5,7 +5,8 @@ const initialState = {
   formula: "Wilks",
   federation: "",
   date: new Date(),
-  dateString: getDateString(new Date())
+  dateString: getDateString(new Date()),
+  lengthDays: 1
 };
 
 function getDateString(dateTime) {
@@ -22,6 +23,8 @@ export default (state = initialState, action) => {
       return { ...state, federation: action.federation };
     case "SET_MEET_DATE":
       return { ...state, date: action.date, dateString: getDateString(action.date) };
+    case "SET_LENGTH_DAYS":
+      return { ...state, lengthDays: Number(action.length) };
     default:
       return state;
   }

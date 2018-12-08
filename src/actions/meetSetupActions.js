@@ -27,3 +27,10 @@ export const setMeetDate = date => {
     date
   };
 };
+
+export const setLengthDays = length => {
+  return {
+    type: "SET_LENGTH_DAYS",
+    length
+  };
+};
