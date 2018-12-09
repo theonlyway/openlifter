@@ -7,6 +7,7 @@ import MeetName from "./MeetName";
 import MeetDate from "./MeetDate";
 import MeetLength from "./MeetLength";
 import PlatformCounts from "./PlatformCounts";
+import InKg from "./InKg";
 import FormulaSelect from "./FormulaSelect";
 import FederationSelect from "./FederationSelect";
 
@@ -22,6 +23,7 @@ const MeetSetup = () => {
           <MeetDate />
           <MeetLength />
           <PlatformCounts />
+          <InKg />
         </Panel.Body>
       </Panel>
       <Panel>

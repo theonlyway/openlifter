@@ -7,7 +7,8 @@ const initialState = {
   date: new Date(),
   dateString: getDateString(new Date()),
   lengthDays: 1,
-  platformsOnDays: [1]
+  platformsOnDays: [1],
+  inKg: true
 };
 
 function getDateString(dateTime) {
@@ -31,6 +32,8 @@ export default (state = initialState, action) => {
       newPlatformsOnDays[action.data.day - 1] = Number(action.data.count);
       return { ...state, platformsOnDays: newPlatformsOnDays };
     }
+    case "SET_IN_KG":
+      return { ...state, inKg: action.inKg };
     default:
       return state;
   }

@@ -41,3 +41,10 @@ export const setPlatformsOnDays = data => {
     data
   };
 };
+
+export const setInKg = inKg => {
+  return {
+    type: "SET_IN_KG",
+    inKg
+  };
+};
