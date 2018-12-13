@@ -12,9 +12,7 @@ const LiftingView = () => {
     <div style={marginStyle}>
       <Panel>
         <Panel.Heading>Testing</Panel.Heading>
-        <Panel.Body>
-          Testing
-        </Panel.Body>
+        <Panel.Body>Testing</Panel.Body>
       </Panel>
     </div>
   );

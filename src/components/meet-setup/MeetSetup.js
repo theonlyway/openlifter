@@ -10,6 +10,7 @@ import PlatformCounts from "./PlatformCounts";
 import InKg from "./InKg";
 import FormulaSelect from "./FormulaSelect";
 import FederationSelect from "./FederationSelect";
+import DivisionSelect from "./DivisionSelect";
 
 const marginStyle = { margin: "0 40px 0 40px" };
 
@@ -30,6 +31,7 @@ const MeetSetup = () => {
         <Panel.Heading>Rules</Panel.Heading>
         <Panel.Body>
           <FederationSelect />
+          <DivisionSelect />
           <FormulaSelect />
         </Panel.Body>
       </Panel>

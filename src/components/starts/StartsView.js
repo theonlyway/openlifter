@@ -12,9 +12,7 @@ const StartsView = () => {
     <div style={marginStyle}>
       <Panel>
         <Panel.Heading>Testing</Panel.Heading>
-        <Panel.Body>
-          Testing2
-        </Panel.Body>
+        <Panel.Body>Testing2</Panel.Body>
       </Panel>
     </div>
   );

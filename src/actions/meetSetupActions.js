@@ -21,6 +21,13 @@ export const setFederation = federation => {
   };
 };
 
+export const setDivisions = divisions => {
+  return {
+    type: "SET_DIVISIONS",
+    divisions
+  };
+};
+
 export const setMeetDate = date => {
   return {
     type: "SET_MEET_DATE",
