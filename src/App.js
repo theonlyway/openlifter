@@ -12,6 +12,7 @@ import OpenLifterIntlProvider from "./components/translations/OpenLifterIntlProv
 
 import HomeContainer from "./containers/HomeContainer";
 import MeetSetupContainer from "./containers/MeetSetupContainer";
+import StartsContainer from "./containers/StartsContainer";
 import LiftingContainer from "./containers/LiftingContainer";
 import DebugContainer from "./containers/DebugContainer";
 import Navigation from "./components/Navigation";
@@ -37,6 +38,7 @@ class App extends Component {
                 <Switch>
                   <Route exact path="/" component={HomeContainer} />
                   <Route path="/meet-setup" component={MeetSetupContainer} />
+                  <Route path="/starts" component={StartsContainer} />
                   <Route path="/lifting" component={LiftingContainer} />
                   <Route path="/debug" component={DebugContainer} />
                 </Switch>
