@@ -28,11 +28,14 @@ const Navigation = () => {
           <LinkContainer to="/registration">
             <NavItem eventKey={3}>Registration</NavItem>
           </LinkContainer>
+          <LinkContainer to="/weigh-ins">
+            <NavItem eventKey={4}>Weigh-ins</NavItem>
+          </LinkContainer>
           <LinkContainer to="/lifting">
-            <NavItem eventKey={4}>Lifting</NavItem>
+            <NavItem eventKey={5}>Lifting</NavItem>
           </LinkContainer>
           <LinkContainer to="/debug">
-            <NavItem eventKey={5}>Debug</NavItem>
+            <NavItem eventKey={6}>Debug</NavItem>
           </LinkContainer>
         </Nav>
       </Navbar.Collapse>
