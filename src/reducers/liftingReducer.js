@@ -7,3 +7,14 @@
 // when an action occurs must be a pure function that accepts an existing state
 // (of the meet) and produces the next state (of the meet).
 //
+
+const initialState = {
+
+};
+
+export default (state = initialState, action) => {
+  switch (action.type) {
+    default:
+      return state;
+  }
+};

@@ -1,11 +1,11 @@
 // vim: set ts=2 sts=2 sw=2 et:
 //
-// Container for the Starts page.
+// Container for the Registration page.
 
 import React from "react";
 import { connect } from "react-redux";
 
-import StartsView from "../components/starts/StartsView";
+import RegistrationView from "../components/registration/RegistrationView";
 
 const mapStateToProps = state => ({
   ...state
@@ -15,11 +15,11 @@ const mapDispatchToProps = dispatch => {
   return {};
 };
 
-class StartsContainer extends React.Component {
+class RegistrationContainer extends React.Component {
   render() {
     return (
       <div>
-        <StartsView />
+        <RegistrationView />
       </div>
     );
   }
@@ -28,4 +28,4 @@ class StartsContainer extends React.Component {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(StartsContainer);
+)(RegistrationContainer);
