@@ -10,6 +10,12 @@ OpenLifter is a single-page webapp built with React, Redux, and Bootstrap. Help 
 
 This project was initialized through `create-react-app`. There is a bunch of implicit project-wide build magic that `create-react-app` manages through dependent scripts. The magic behavior is described in the [Create React App Documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
+First, you need to install yarn. You can find the installation steps here https://yarnpkg.com/en/.
+
+Second, navigate to your local project's root directory and run the `yarn install` command. The command installs all packages specified in the package.json file.
+
+Once the command finishes then you can run the make commands below: 
+
 ```bash
 # Opens an Electron app with hot reload.
 make dev-electron
