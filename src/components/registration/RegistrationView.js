@@ -3,24 +3,27 @@
 // The parent component of the Registration page, contained by the RegistrationContainer.
 
 import React from "react";
-import { Button } from "react-bootstrap";
 import { Panel } from "react-bootstrap";
+
 import LifterTable from "./LifterTable";
+import NewButton from "./NewButton";
 
 const marginStyle = { margin: "0 40px 0 40px" };
 
-const RegistrationView = () => {
-  return (
-    <div style={marginStyle}>
-      <Panel>
-        <Panel.Heading>Lifter Registration</Panel.Heading>
-        <Panel.Body>
-          <LifterTable/>
-          <Button bsStyle="primary" bsSize="large" block>New Lifter</Button>
-        </Panel.Body>
-      </Panel>
-    </div>
-  );
+class RegistrationView extends React.Component {
+  render() {
+    return (
+      <div style={marginStyle}>
+        <Panel>
+          <Panel.Heading>Lifter Registration</Panel.Heading>
+          <Panel.Body>
+            <LifterTable/>
+            <NewButton/>
+          </Panel.Body>
+        </Panel>
+      </div>
+    );
+  }
 };
 
 export default RegistrationView;

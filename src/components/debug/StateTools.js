@@ -15,10 +15,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 class StateTools extends React.Component {
-  constructor(props, context) {
-    super(props, context);
-  }
-
   render() {
     return (
       <Panel bsStyle="info">

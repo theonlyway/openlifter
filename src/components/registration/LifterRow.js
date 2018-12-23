@@ -6,13 +6,32 @@
 
 import React from "react";
 import { connect } from "react-redux";
+import { Button } from "react-bootstrap";
+
+import { deleteRegistration } from "../../actions/registrationActions";
 
 class LifterRow extends React.Component {
   constructor() {
-     super();
+    super();
+    this.deleteRegistrationClick = this.deleteRegistrationClick.bind(this);
   }
+
+  deleteRegistrationClick(event) {
+    this.props.deleteRegistration(this.props.id);
+  }
+
   render() {
-    return <h2>A row</h2>;
+    return (
+      <div>
+        Row {this.props.id}
+        <Button
+          onClick={this.deleteRegistrationClick}
+          bsStyle="danger"
+        >
+          Delete
+        </Button>
+      </div>
+    );
   }
 };
 
@@ -22,6 +41,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
+    deleteRegistration: entryId => dispatch(deleteRegistration(entryId))
   };
 };
 

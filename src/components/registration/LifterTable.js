@@ -15,9 +15,13 @@ class LifterTable extends React.Component {
   }
 
   renderRows() {
+    const numEntries = this.props.registration.entries.length;
+
     let rows = [];
-    for (let i = 1; i <= 3; i++) {
-      rows.push(<LifterRow/>);
+    for (let i = 0; i < numEntries; i++) {
+      let entry = this.props.registration.entries[i];
+
+      rows.push(<LifterRow key={entry.id} id={entry.id}/>);
     }
     return rows;
   }
