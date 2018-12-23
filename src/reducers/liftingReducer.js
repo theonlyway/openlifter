@@ -8,9 +8,7 @@
 // (of the meet) and produces the next state (of the meet).
 //
 
-const initialState = {
-
-};
+const initialState = {};
 
 export default (state = initialState, action) => {
   switch (action.type) {

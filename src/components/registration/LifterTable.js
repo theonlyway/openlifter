@@ -21,7 +21,7 @@ class LifterTable extends React.Component {
     for (let i = 0; i < numEntries; i++) {
       let entry = this.props.registration.entries[i];
 
-      rows.push(<LifterRow key={entry.id} id={entry.id}/>);
+      rows.push(<LifterRow key={entry.id} id={entry.id} />);
     }
     return rows;
   }
@@ -29,7 +29,7 @@ class LifterTable extends React.Component {
   render() {
     return <div>{this.renderRows()}</div>;
   }
-};
+}
 
 const mapStateToProps = state => ({
   ...state
@@ -37,5 +37,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  null 
+  null
 )(LifterTable);

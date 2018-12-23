@@ -20,17 +20,12 @@ class NewButton extends React.Component {
 
   render() {
     return (
-      <Button
-        onClick={this.handleClick}
-        bsStyle="primary"
-        bsSize="large"
-        block
-      >
+      <Button onClick={this.handleClick} bsStyle="primary" bsSize="large" block>
         New Lifter
       </Button>
     );
   }
-};
+}
 
 const mapStateToProps = state => ({
   ...state

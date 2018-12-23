@@ -17,13 +17,13 @@ class RegistrationView extends React.Component {
         <Panel>
           <Panel.Heading>Lifter Registration</Panel.Heading>
           <Panel.Body>
-            <LifterTable/>
-            <NewButton/>
+            <LifterTable />
+            <NewButton />
           </Panel.Body>
         </Panel>
       </div>
     );
   }
-};
+}
 
 export default RegistrationView;

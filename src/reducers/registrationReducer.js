@@ -23,18 +23,30 @@ const initialState = {
   //
   // This lookup table allows mapping those identifiers to whatever
   // the current location of that data is in the canonical `entries` store.
-  lookup: {},
+  lookup: {}
 };
 
 const makeNewEntry = id => {
   return {
-    id: id,  // The global unique ID of this registration.
-    name: "",  // The lifter's name.
-    sex: "",  // The lifter's sex.
-    equipment: "",  // The equipment category for which the lifter registered.
-    divisions: [],  // A list of divisions the lifter entered.
+    // Bookkeeping internal information for OpenLifter.
+    id: id, // The global unique ID of this registration.
+
+    // Information about when the lifter is scheduled to lift.
+    day: 1, // The day on which the lifter is lifting.
+    platform: 1, // The platform on which the lifter is lifting.
+    flight: "A", // The flight in which the lifter is lifting.
+
+    // Information about the lifter themselves.
+    name: "", // The lifter's name.
+    sex: "", // The lifter's sex.
+    intended_weightclass: "", // The weightclass for which the lifter registered.
+    equipment: "", // The equipment category for which the lifter registered.
+    divisions: [], // A list of divisions the lifter entered.
+    events: [], // A list of events the lifter entered.
+
+    // Metadata about the lifter, assigned by the meet director.
     lot: 0, // The lifter's lot number, for breaking ties in lifting order.
-    paid: false,  // Used by the meet director for tracking whether the lifter paid.
+    paid: false // Used by the meet director for tracking whether the lifter paid.
   };
 };
 
@@ -52,7 +64,7 @@ export default (state = initialState, action) => {
 
       return {
         ...state,
-        nextEntryId: (state.nextEntryId + 1),
+        nextEntryId: state.nextEntryId + 1,
         entries: entries,
         lookup: lookup
       };
@@ -76,7 +88,7 @@ export default (state = initialState, action) => {
         ...state,
         entries: entries,
         lookup: lookup
-      }
+      };
     }
 
     default:

@@ -20,4 +20,4 @@ export const deleteRegistration = entryId => {
     type: "DELETE_REGISTRATION",
     entryId: entryId
   };
-}
+};

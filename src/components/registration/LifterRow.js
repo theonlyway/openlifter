@@ -24,16 +24,13 @@ class LifterRow extends React.Component {
     return (
       <div>
         Row {this.props.id}
-        <Button
-          onClick={this.deleteRegistrationClick}
-          bsStyle="danger"
-        >
+        <Button onClick={this.deleteRegistrationClick} bsStyle="danger">
           Delete
         </Button>
       </div>
     );
   }
-};
+}
 
 const mapStateToProps = state => ({
   ...state
