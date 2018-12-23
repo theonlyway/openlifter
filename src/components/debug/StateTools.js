@@ -4,7 +4,7 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import { Button, Panel } from "react-bootstrap";
+import { Panel } from "react-bootstrap";
 
 const mapStateToProps = state => ({
   ...state
@@ -17,23 +17,14 @@ const mapDispatchToProps = dispatch => {
 class StateTools extends React.Component {
   constructor(props, context) {
     super(props, context);
-    this.showState = this.showState.bind(this);
-  }
-
-  showState() {
-    const propstr = JSON.stringify(this.props);
-    console.log(propstr);
-    window.alert(propstr);
   }
 
   render() {
     return (
-      <Panel bsStyle="primary">
-        <Panel.Heading>Redux State Tools</Panel.Heading>
+      <Panel bsStyle="info">
+        <Panel.Heading>Redux State</Panel.Heading>
         <Panel.Body>
-          <Button bsStyle="info" onClick={this.showState}>
-            Show State
-          </Button>
+          <pre>{JSON.stringify(this.props, null, 2)}</pre>
         </Panel.Body>
       </Panel>
     );
