@@ -39,6 +39,7 @@ const makeNewEntry = id => {
     // Information about the lifter themselves.
     name: "", // The lifter's name.
     sex: "", // The lifter's sex.
+    birthdate: "", // The lifter's birthdate (YYYY-MM-DD).
     intended_weightclass: "", // The weightclass for which the lifter registered.
     equipment: "", // The equipment category for which the lifter registered.
     divisions: [], // A list of divisions the lifter entered.
@@ -88,6 +89,25 @@ export default (state = initialState, action) => {
         ...state,
         entries: entries,
         lookup: lookup
+      };
+    }
+
+    case "UPDATE_REGISTRATION": {
+      const entryId = action.entryId;
+      const changes = action.changes;
+
+      // Clone the entries array, since one entry will reference a new object.
+      let entries = state.entries.slice();
+      console.log(entries);
+
+      // Make a new object with just the changes overwritten,
+      // and reference that object from the new array.
+      let index = entries.findIndex(obj => obj.id === entryId);
+      entries[index] = Object.assign(entries[index], changes);
+
+      return {
+        ...state,
+        entries: entries
       };
     }
 

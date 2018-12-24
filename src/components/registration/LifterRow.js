@@ -6,28 +6,57 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import { Button } from "react-bootstrap";
+import { Button, Col, FormControl, Row } from "react-bootstrap";
 
-import { deleteRegistration } from "../../actions/registrationActions";
+import { deleteRegistration, updateRegistration } from "../../actions/registrationActions";
 
 class LifterRow extends React.Component {
   constructor() {
     super();
+    this.getReduxEntry = this.getReduxEntry.bind(this);
     this.deleteRegistrationClick = this.deleteRegistrationClick.bind(this);
+    this.updateRegistrationName = this.updateRegistrationName.bind(this);
+  }
+
+  // Uses the global ID to return the currently-set entry object.
+  getReduxEntry() {
+    const lookup = this.props.registration.lookup;
+    return this.props.registration.entries[lookup[this.props.id]];
   }
 
   deleteRegistrationClick(event) {
     this.props.deleteRegistration(this.props.id);
   }
 
+  updateRegistrationName(event) {
+    const name = event.target.value;
+    this.props.updateRegistration(this.props.id, { name: name });
+  }
+
   render() {
+    const initial = this.getReduxEntry();
+
     return (
-      <div>
-        Row {this.props.id}
-        <Button onClick={this.deleteRegistrationClick} bsStyle="danger">
-          Delete
-        </Button>
-      </div>
+      <Row>
+        <Col md={2}>
+          <FormControl
+            type="text"
+            placeholder="Name"
+            defaultValue={initial.name}
+            onBlur={this.updateRegistrationName}
+          />
+        </Col>
+
+        <Col md={1}>{this.props.id}</Col>
+
+        <Col md={2}>Test</Col>
+
+        <Col md={1}>
+          <Button onClick={this.deleteRegistrationClick} bsStyle="danger">
+            Delete
+          </Button>
+        </Col>
+      </Row>
     );
   }
 }
@@ -38,7 +67,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    deleteRegistration: entryId => dispatch(deleteRegistration(entryId))
+    deleteRegistration: entryId => dispatch(deleteRegistration(entryId)),
+    updateRegistration: (entryId, obj) => dispatch(updateRegistration(entryId, obj))
   };
 };
 

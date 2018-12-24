@@ -21,3 +21,17 @@ export const deleteRegistration = entryId => {
     entryId: entryId
   };
 };
+
+// Updates an existing entry in the registrations table.
+//
+// Because there are a lot of fields in a single entry, for the sake of
+// simplicity, this is a general method that knows how to update the
+// existing entry object with whatever has changed, as passed
+// through object properties.
+export const updateRegistration = (entryId, obj) => {
+  return {
+    type: "UPDATE_REGISTRATION",
+    entryId: entryId,
+    changes: obj
+  };
+};

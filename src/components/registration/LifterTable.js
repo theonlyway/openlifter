@@ -6,6 +6,9 @@
 
 import React from "react";
 import { connect } from "react-redux";
+
+import { Grid } from "react-bootstrap";
+
 import LifterRow from "./LifterRow";
 
 class LifterTable extends React.Component {
@@ -27,7 +30,7 @@ class LifterTable extends React.Component {
   }
 
   render() {
-    return <div>{this.renderRows()}</div>;
+    return <Grid fluid={true}>{this.renderRows()}</Grid>;
   }
 }
 
