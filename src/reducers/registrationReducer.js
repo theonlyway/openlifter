@@ -40,14 +40,23 @@ const makeNewEntry = id => {
     name: "", // The lifter's name.
     sex: "M", // The lifter's sex.
     birthdate: "", // The lifter's birthdate (YYYY-MM-DD).
-    intended_weightclass: "", // The weightclass for which the lifter registered.
+    intendedWeightClassKg: "", // The weightclass for which the lifter registered.
     equipment: "", // The equipment category for which the lifter registered.
     divisions: [], // A list of divisions the lifter entered.
     events: [], // A list of events the lifter entered.
 
     // Metadata about the lifter, assigned by the meet director.
     lot: 0, // The lifter's lot number, for breaking ties in lifting order.
-    paid: false // Used by the meet director for tracking whether the lifter paid.
+    paid: false, // Used by the meet director for tracking whether the lifter paid.
+
+    // Information added on the "Weigh-ins" page.
+    // But we might as well track it in this object.
+    bodyweightKg: 0.0,
+    squatFirstAttemptKg: 0.0,
+    squatRackInfo: "", // A freeform string for the benefit of the loaders.
+    benchFirstAttemptKg: 0.0,
+    benchRackInfo: "", // A freeform string for the benefit of the loaders.
+    deadliftFirstAttemptKg: 0.0
   };
 };
 
