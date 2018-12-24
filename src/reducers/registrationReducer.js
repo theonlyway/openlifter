@@ -98,7 +98,6 @@ export default (state = initialState, action) => {
 
       // Clone the entries array, since one entry will reference a new object.
       let entries = state.entries.slice();
-      console.log(entries);
 
       // Make a new object with just the changes overwritten,
       // and reference that object from the new array.
