@@ -4,6 +4,7 @@ import { combineReducers } from "redux";
 import languageReducer from "./languageReducer";
 import meetReducer from "./meetReducer";
 import registrationReducer from "./registrationReducer";
+import weighinsReducer from "./weighinsReducer";
 import liftingReducer from "./liftingReducer";
 
 // Using combineReducers() guarantees that each part of the state object
@@ -18,5 +19,6 @@ export default combineReducers({
   language: languageReducer,
   meet: meetReducer,
   registration: registrationReducer,
+  weighins: weighinsReducer,
   lifting: liftingReducer
 });
