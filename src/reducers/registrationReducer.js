@@ -38,7 +38,7 @@ const makeNewEntry = id => {
 
     // Information about the lifter themselves.
     name: "", // The lifter's name.
-    sex: "", // The lifter's sex.
+    sex: "M", // The lifter's sex.
     birthdate: "", // The lifter's birthdate (YYYY-MM-DD).
     intended_weightclass: "", // The weightclass for which the lifter registered.
     equipment: "", // The equipment category for which the lifter registered.
