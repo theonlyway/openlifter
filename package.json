@@ -8,6 +8,7 @@
   "dependencies": {
     "cross-env": "^5.2.0",
     "electron-is-dev": "^1.0.1",
+    "file-saver": "^2.0.0",
     "prop-types": "^15.6.2",
     "react": "^16.6.3",
     "react-datepicker": "^2.0.0",
