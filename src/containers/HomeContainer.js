@@ -8,6 +8,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import saveAs from "file-saver";
 
 import LanguageSelector from "../components/translations/LanguageSelector";
+import { overwriteStore } from "../actions/globalActions";
 
 // Temporary CSS, just for prototyping.
 const centerConsole = { maxWidth: 800, margin: "0 auto 10px" };
@@ -17,27 +18,59 @@ class HomeContainer extends React.Component {
   constructor() {
     super();
     this.handleLoadClick = this.handleLoadClick.bind(this);
+    this.handleLoadFileInput = this.handleLoadFileInput.bind(this);
     this.handleSaveClick = this.handleSaveClick.bind(this);
   }
 
   // The file input is hidden, and we want to use a button to activate it.
   // This event handler is just a proxy to call the *real* event handler.
   handleLoadClick() {
-    let loadhelper = document.getElementById("loadhelper");
+    const loadhelper = document.getElementById("loadhelper");
     loadhelper.click();
   }
 
-  // TODO: Load in the file and overwrite Redux state.
+  // Called when a file is selected.
+  handleLoadFileInput() {
+    const selectedFile = document.getElementById("loadhelper").files[0];
+    let rememberThis = this;
+
+    let reader = new FileReader();
+    reader.onload = function(event) {
+      let errored = false;
+      try {
+        let obj = JSON.parse(event.target.result);
+
+        // Basic error checking, make sure it's the right format.
+        if (obj.language === undefined
+            || obj.meet === undefined
+            || obj.registration === undefined
+            || obj.lifting === undefined)
+        {
+          errored = true;
+        } else {
+          rememberThis.props.overwriteStore(obj);
+        }
+      } catch(err) {
+        errored = true;
+      }
+
+      if (errored) {
+        // TODO: Be a little more helpful.
+        window.alert("That didn't look like an OpenLifter file!");
+      }
+    };
+    reader.readAsText(selectedFile);
+  }
 
   handleSaveClick() {
     let meetname = this.props.redux.meet.name;
     if (meetname === "") {
-      meetname = "OpenLifter";
+      meetname = "Unnamed-Meet";
     }
     meetname = meetname.replace(/ /g, '-');
 
     let state = JSON.stringify(this.props.redux);
-    let blob = new Blob([state], {type: "text/json;charset=utf-8"});
+    let blob = new Blob([state], {type: "application/json;charset=utf-8"});
     saveAs(blob, meetname + ".json");
   }
 
@@ -60,7 +93,7 @@ class HomeContainer extends React.Component {
           </Button>
         </div>
 
-        <input id="loadhelper" type="file" style={{display: 'none'}} />
+        <input id="loadhelper" type="file" accept=".json" style={{display: 'none'}} onChange={this.handleLoadFileInput}/>
       </div>
     );
   };
@@ -74,7 +107,13 @@ const mapStateToProps = state => ({
   }
 });
 
+const mapDispatchToProps = dispatch => {
+  return {
+    overwriteStore: store => dispatch(overwriteStore(store))
+  }
+};
+
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(HomeContainer);

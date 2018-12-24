@@ -110,6 +110,9 @@ export default (state = initialState, action) => {
       };
     }
 
+    case "OVERWRITE_STORE":
+      return action.store.registration;
+
     default:
       return state;
   }

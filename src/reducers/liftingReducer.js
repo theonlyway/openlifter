@@ -12,6 +12,9 @@ const initialState = {};
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case "OVERWRITE_STORE":
+      return action.store.lifting;
+
     default:
       return state;
   }

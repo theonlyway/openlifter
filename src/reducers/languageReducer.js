@@ -4,6 +4,10 @@ export default (state = "en", action) => {
   switch (action.type) {
     case "CHANGE_LANGUAGE":
       return action.payload;
+
+    case "OVERWRITE_STORE":
+      return action.store.language;
+
     default:
       return state;
   }

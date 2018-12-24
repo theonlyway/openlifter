@@ -34,6 +34,8 @@ export default (state = initialState, action) => {
     }
     case "SET_IN_KG":
       return { ...state, inKg: action.inKg };
+    case "OVERWRITE_STORE":
+      return action.store.meet;
     default:
       return state;
   }
