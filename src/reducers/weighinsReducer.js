@@ -12,12 +12,12 @@ const initialState = {
 const makeNewEntry = id => {
   return {
     id: id, // EntryId, stored again for use during iteration.
-    bodyweightKg: 0.00,
-    squatFirstAttemptKg: 0.00,
+    bodyweightKg: 0.0,
+    squatFirstAttemptKg: 0.0,
     squatRackInfo: "", // A freeform string for the benefit of the loaders.
-    benchFirstAttemptKg: 0.00,
+    benchFirstAttemptKg: 0.0,
     benchRackInfo: "", // A freeform string for the benefit of the loaders.
-    deadliftFirstAttemptKg: 0.00
+    deadliftFirstAttemptKg: 0.0
   };
 };
 

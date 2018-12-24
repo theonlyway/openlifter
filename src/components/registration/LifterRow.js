@@ -17,6 +17,7 @@ class LifterRow extends React.Component {
     this.deleteRegistrationClick = this.deleteRegistrationClick.bind(this);
     this.updateRegistrationName = this.updateRegistrationName.bind(this);
     this.updateRegistrationSex = this.updateRegistrationSex.bind(this);
+    this.updateRegistrationEquipment = this.updateRegistrationEquipment.bind(this);
   }
 
   // Uses the global ID to return the currently-set entry object.
@@ -43,6 +44,13 @@ class LifterRow extends React.Component {
     }
   }
 
+  updateRegistrationEquipment(event) {
+    const equipment = event.target.value;
+    if (this.getReduxEntry().equipment !== equipment) {
+      this.props.updateRegistration(this.props.id, { equipment: equipment });
+    }
+  }
+
   render() {
     const initial = this.getReduxEntry();
 
@@ -63,6 +71,19 @@ class LifterRow extends React.Component {
           <FormControl defaultValue={initial.sex} componentClass="select" onChange={this.updateRegistrationSex}>
             <option value="M">M</option>
             <option value="F">F</option>
+          </FormControl>
+        </Col>
+
+        <Col md={2}>
+          <FormControl
+            defaultValue={initial.equipment}
+            componentClass="select"
+            onChange={this.updateRegistrationEquipment}
+          >
+            <option value="Sleeves">Sleeves</option>
+            <option value="Wraps">Wraps</option>
+            <option value="Single-ply">Single-ply</option>
+            <option value="Multi-ply">Multi-ply</option>
           </FormControl>
         </Col>
 
