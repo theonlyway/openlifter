@@ -15,6 +15,7 @@ class LifterRow extends React.Component {
     super();
     this.getReduxEntry = this.getReduxEntry.bind(this);
     this.deleteRegistrationClick = this.deleteRegistrationClick.bind(this);
+    this.updateRegistrationFlight = this.updateRegistrationFlight.bind(this);
     this.updateRegistrationName = this.updateRegistrationName.bind(this);
     this.updateRegistrationSex = this.updateRegistrationSex.bind(this);
     this.updateRegistrationEquipment = this.updateRegistrationEquipment.bind(this);
@@ -28,6 +29,13 @@ class LifterRow extends React.Component {
 
   deleteRegistrationClick(event) {
     this.props.deleteRegistration(this.props.id);
+  }
+
+  updateRegistrationFlight(event) {
+    const flight = event.target.value;
+    if (this.getReduxEntry().flight !== flight) {
+      this.props.updateRegistration(this.props.id, { flight: flight });
+    }
   }
 
   updateRegistrationName(event) {
@@ -56,6 +64,23 @@ class LifterRow extends React.Component {
 
     return (
       <Row>
+        <Col md={1}>
+          <FormControl
+            defaultValue={initial.flight}
+            componentClass="select"
+            onChange={this.updateRegistrationFlight}
+          >
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="D">D</option>
+            <option value="E">E</option>
+            <option value="F">F</option>
+            <option value="G">G</option>
+            <option value="H">H</option>
+          </FormControl>
+        </Col>
+
         <Col md={2}>
           <FormControl
             type="text"
@@ -64,8 +89,6 @@ class LifterRow extends React.Component {
             onBlur={this.updateRegistrationName}
           />
         </Col>
-
-        <Col md={1}>{this.props.id}</Col>
 
         <Col md={1}>
           <FormControl defaultValue={initial.sex} componentClass="select" onChange={this.updateRegistrationSex}>
