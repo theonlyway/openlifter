@@ -65,11 +65,7 @@ class LifterRow extends React.Component {
     return (
       <Row>
         <Col md={1}>
-          <FormControl
-            defaultValue={initial.flight}
-            componentClass="select"
-            onChange={this.updateRegistrationFlight}
-          >
+          <FormControl defaultValue={initial.flight} componentClass="select" onChange={this.updateRegistrationFlight}>
             <option value="A">A</option>
             <option value="B">B</option>
             <option value="C">C</option>

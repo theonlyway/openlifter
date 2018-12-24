@@ -41,16 +41,17 @@ class HomeContainer extends React.Component {
         let obj = JSON.parse(event.target.result);
 
         // Basic error checking, make sure it's the right format.
-        if (obj.language === undefined
-            || obj.meet === undefined
-            || obj.registration === undefined
-            || obj.lifting === undefined)
-        {
+        if (
+          obj.language === undefined ||
+          obj.meet === undefined ||
+          obj.registration === undefined ||
+          obj.lifting === undefined
+        ) {
           errored = true;
         } else {
           rememberThis.props.overwriteStore(obj);
         }
-      } catch(err) {
+      } catch (err) {
         errored = true;
       }
 
@@ -67,10 +68,10 @@ class HomeContainer extends React.Component {
     if (meetname === "") {
       meetname = "Unnamed-Meet";
     }
-    meetname = meetname.replace(/ /g, '-');
+    meetname = meetname.replace(/ /g, "-");
 
     let state = JSON.stringify(this.props.redux);
-    let blob = new Blob([state], {type: "application/json;charset=utf-8"});
+    let blob = new Blob([state], { type: "application/json;charset=utf-8" });
     saveAs(blob, meetname + ".json");
   }
 
@@ -93,11 +94,17 @@ class HomeContainer extends React.Component {
           </Button>
         </div>
 
-        <input id="loadhelper" type="file" accept=".json" style={{display: 'none'}} onChange={this.handleLoadFileInput}/>
+        <input
+          id="loadhelper"
+          type="file"
+          accept=".json"
+          style={{ display: "none" }}
+          onChange={this.handleLoadFileInput}
+        />
       </div>
     );
-  };
-};
+  }
+}
 
 // Because we want to save the state, separate it out specifically
 // into a "redux" prop. Otherwise it gets contaminated by other props.
@@ -110,7 +117,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => {
   return {
     overwriteStore: store => dispatch(overwriteStore(store))
-  }
+  };
 };
 
 export default connect(
