@@ -7,7 +7,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { Grid } from "react-bootstrap";
+import { Table } from "react-bootstrap";
 
 import LifterRow from "./LifterRow";
 
@@ -30,7 +30,22 @@ class LifterTable extends React.Component {
   }
 
   render() {
-    return <Grid fluid={true}>{this.renderRows()}</Grid>;
+    return (
+      <Table>
+        <thead>
+          <tr>
+            <th>Day</th>
+            <th>Platform</th>
+            <th>Flight</th>
+            <th>Name</th>
+            <th>Sex</th>
+            <th>Equipment</th>
+            <th />
+          </tr>
+        </thead>
+        <tbody>{this.renderRows()}</tbody>
+      </Table>
+    );
   }
 }
 
