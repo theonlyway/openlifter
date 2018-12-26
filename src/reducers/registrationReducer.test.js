@@ -1,6 +1,6 @@
 // vim: set ts=2 sts=2 sw=2 et:
 
-import reducer from "./registrationReducer";
+import reducer, { getLiftersOnDay } from "./registrationReducer";
 
 const initialState = {
   nextEntryId: 5000,
@@ -129,5 +129,31 @@ describe("registrationReducer", () => {
 
     // The other entry should have remained untouched
     expect(newState.entries[0]).toEqual(preUpdateState.entries[0]);
+  });
+
+  describe("getLiftersOnDay()", () => {
+    it("is [] for no entries", () => {
+      expect(getLiftersOnDay([], 1)).toEqual([]);
+    });
+
+    let entries = [
+      {
+        id: 5000,
+        name: "Lifter One",
+        day: 1
+      },
+      {
+        id: 5001,
+        name: "Lifter Two",
+        day: 2
+      }
+    ];
+    it("is [] with entries, but none on that day", () => {
+      expect(getLiftersOnDay(entries, 9)).toEqual([]);
+    });
+    it("only returns entries that are on the given day", () => {
+      expect(getLiftersOnDay(entries, 2)).toEqual([entries[1]]);
+      expect(getLiftersOnDay(entries, 1)).toEqual([entries[0]]);
+    });
   });
 });

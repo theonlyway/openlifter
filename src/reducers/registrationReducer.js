@@ -60,6 +60,16 @@ const makeNewEntry = id => {
   };
 };
 
+// Filter entries to only get lifters that are lifting on a given day
+export const getLiftersOnDay = (entries, day) => {
+  if (!entries) {
+    return [];
+  }
+  return entries.filter(entry => {
+    return entry.day === day;
+  });
+};
+
 export default (state = initialState, action) => {
   switch (action.type) {
     case "NEW_DEFAULT_REGISTRATION": {

@@ -7,6 +7,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Panel } from "react-bootstrap";
+import { getLiftersOnDay } from "../../reducers/registrationReducer";
+import LifterTable from "../common/LifterTable";
+import LifterRow from "./LifterRow";
 
 const marginStyle = { margin: "0 40px 0 40px" };
 
@@ -40,10 +43,13 @@ class WeighinsView extends React.Component {
     const numDays = this.getNumDaysFromEntries();
     let dayPanels = [];
     for (let i = 1; i <= numDays; i++) {
+      const lifters = getLiftersOnDay(this.props.registration.entries, i);
       dayPanels.push(
-        <Panel>
+        <Panel key={i}>
           <Panel.Heading>Day {i} Weigh-ins</Panel.Heading>
-          <Panel.Body>Testing {i}</Panel.Body>
+          <Panel.Body>
+            <LifterTable entries={lifters} rowRenderer={LifterRow} />
+          </Panel.Body>
         </Panel>
       );
     }
@@ -51,7 +57,7 @@ class WeighinsView extends React.Component {
     // If there are no days thus far, show a default warning panel.
     if (dayPanels.length === 0) {
       dayPanels.push(
-        <Panel bsStyle="info">
+        <Panel key={0} bsStyle="info">
           <Panel.Heading>Waiting for Registration</Panel.Heading>
           <Panel.Body>Add lifters on the Registration page before weighing them in.</Panel.Body>
         </Panel>
