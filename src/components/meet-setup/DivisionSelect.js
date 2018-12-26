@@ -81,6 +81,16 @@ class DivisionSelect extends React.Component {
     const { inputValue, value } = this.state;
     if (!inputValue) return;
     if (event.key === "Enter" || event.key === "Tab") {
+      // Disallow creating redundant divisions.
+      for (let i = 0; i < value.length; i++) {
+        if (value[i].label == inputValue) {
+          // Silently drop the redundant division.
+          this.setState({ inputValue: "" });
+          event.preventDefault();
+          return;
+        }
+      }
+
       const newValue = [...value, createOption(inputValue)];
       this.setState({
         inputValue: "",
