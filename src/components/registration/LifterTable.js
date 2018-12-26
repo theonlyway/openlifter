@@ -31,7 +31,7 @@ class LifterTable extends React.Component {
 
   render() {
     // Styling for small, single-character selector columns.
-    const shortStyle = {width: "75px"};
+    const shortStyle = { width: "75px" };
 
     return (
       <Table>
@@ -42,7 +42,7 @@ class LifterTable extends React.Component {
             <th style={shortStyle}>Flight</th>
             <th>Name</th>
             <th style={shortStyle}>Sex</th>
-            <th style={{width: "120px"}}>Equipment</th>
+            <th style={{ width: "120px" }}>Equipment</th>
             <th />
           </tr>
         </thead>

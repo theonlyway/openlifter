@@ -7,6 +7,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Button, FormControl } from "react-bootstrap";
+import Select from "react-select";
 
 import { deleteRegistration, updateRegistration } from "../../actions/registrationActions";
 
@@ -20,6 +21,7 @@ class LifterRow extends React.Component {
     this.updateRegistrationFlight = this.updateRegistrationFlight.bind(this);
     this.updateRegistrationName = this.updateRegistrationName.bind(this);
     this.updateRegistrationSex = this.updateRegistrationSex.bind(this);
+    this.updateRegistrationDivisions = this.updateRegistrationDivisions.bind(this);
     this.updateRegistrationEquipment = this.updateRegistrationEquipment.bind(this);
   }
 
@@ -76,6 +78,18 @@ class LifterRow extends React.Component {
     }
   }
 
+  updateRegistrationDivisions(value, actionMeta) {
+    // Value is an array of { value, label } objects.
+    // Since updates are synchronous, we can just compare lengths.
+    if (value.length !== this.getReduxEntry().divisions.length) {
+      let divisions = [];
+      for (let i = 0; i < value.length; i++) {
+        divisions.push(value[i].label);
+      }
+      this.props.updateRegistration(this.props.id, { divisions: divisions });
+    }
+  }
+
   updateRegistrationEquipment(event) {
     const equipment = event.target.value;
     if (this.getReduxEntry().equipment !== equipment) {
@@ -88,12 +102,32 @@ class LifterRow extends React.Component {
 
     let dayOptions = [];
     for (let i = 1; i <= this.props.meet.lengthDays; i++) {
-      dayOptions.push(<option value={i} key={i}>{i}</option>);
+      dayOptions.push(
+        <option value={i} key={i}>
+          {i}
+        </option>
+      );
     }
 
     let platformOptions = [];
     for (let i = 1; i <= this.props.meet.platformsOnDays[initial.day - 1]; i++) {
-      platformOptions.push(<option value={i} key={i}>{i}</option>);
+      platformOptions.push(
+        <option value={i} key={i}>
+          {i}
+        </option>
+      );
+    }
+
+    let divisionOptions = [];
+    for (let i = 0; i < this.props.meet.divisions.length; i++) {
+      let division = this.props.meet.divisions[i];
+      divisionOptions.push({ value: division, label: division });
+    }
+
+    let selectedDivisions = [];
+    for (let i = 0; i < initial.divisions.length; i++) {
+      const division = initial.divisions[i];
+      selectedDivisions.push({ value: division, label: division });
     }
 
     return (
@@ -154,6 +188,15 @@ class LifterRow extends React.Component {
             <option value="Single-ply">Single-ply</option>
             <option value="Multi-ply">Multi-ply</option>
           </FormControl>
+        </td>
+
+        <td>
+          <Select
+            options={divisionOptions}
+            isMulti={true}
+            onChange={this.updateRegistrationDivisions}
+            defaultValue={selectedDivisions}
+          />
         </td>
 
         <td>
