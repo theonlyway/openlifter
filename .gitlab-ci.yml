@@ -3,7 +3,14 @@ image: node:10.13.0
 stages:
   - test
 
-test_builds:
-  script:
+tests:
+  stage: test
+  cache:
+    paths:
+      - node_modules/
+      - .yarn
+  before_script:
+    - yarn config set cache-folder .yarn
     - yarn install
-    - yarn run build
+  script:
+    - make test
