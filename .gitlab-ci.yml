@@ -1,0 +1,9 @@
+image: node:10.13.0
+
+stages:
+  - test
+
+test_builds:
+  script:
+    - yarn install
+    - yarn run build
