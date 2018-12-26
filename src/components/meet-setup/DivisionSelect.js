@@ -83,7 +83,7 @@ class DivisionSelect extends React.Component {
     if (event.key === "Enter" || event.key === "Tab") {
       // Disallow creating redundant divisions.
       for (let i = 0; i < value.length; i++) {
-        if (value[i].label == inputValue) {
+        if (value[i].label === inputValue) {
           // Silently drop the redundant division.
           this.setState({ inputValue: "" });
           event.preventDefault();
@@ -123,9 +123,10 @@ class DivisionSelect extends React.Component {
 }
 
 DivisionSelect.propTypes = {
-  setDivision: PropTypes.func,
+  setDivisions: PropTypes.func,
   meet: PropTypes.shape({
-    federation: PropTypes.string
+    federation: PropTypes.string,
+    divisions: PropTypes.array
   })
 };
 

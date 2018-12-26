@@ -1,6 +1,7 @@
 // vim: set ts=2 sts=2 sw=2 et:
 
 import React from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Button } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
@@ -118,6 +119,14 @@ const mapDispatchToProps = dispatch => {
   return {
     overwriteStore: store => dispatch(overwriteStore(store))
   };
+};
+
+HomeContainer.propTypes = {
+  redux: PropTypes.shape({
+    meet: PropTypes.shape({
+      name: PropTypes.string
+    })
+  })
 };
 
 export default connect(

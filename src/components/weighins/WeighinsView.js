@@ -4,6 +4,7 @@
 // The Weigh-ins page updates more information in the Registration state.
 
 import React from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Panel } from "react-bootstrap";
 
@@ -64,6 +65,12 @@ class WeighinsView extends React.Component {
 const mapStateToProps = state => ({
   ...state
 });
+
+WeighinsView.propTypes = {
+  registration: PropTypes.shape({
+    entries: PropTypes.array
+  })
+};
 
 export default connect(
   mapStateToProps,

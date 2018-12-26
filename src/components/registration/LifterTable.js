@@ -5,6 +5,7 @@
 // what data each row should see, etc.
 
 import React from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 import { Table } from "react-bootstrap";
@@ -57,6 +58,12 @@ class LifterTable extends React.Component {
 const mapStateToProps = state => ({
   ...state
 });
+
+LifterTable.propTypes = {
+  registration: PropTypes.shape({
+    entries: PropTypes.array
+  })
+};
 
 export default connect(
   mapStateToProps,

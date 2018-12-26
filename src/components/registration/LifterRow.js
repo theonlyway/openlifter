@@ -5,6 +5,7 @@
 // the state of a single entry.
 
 import React from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Button, FormControl } from "react-bootstrap";
 import Select from "react-select";
@@ -258,6 +259,21 @@ const mapDispatchToProps = dispatch => {
     deleteRegistration: entryId => dispatch(deleteRegistration(entryId)),
     updateRegistration: (entryId, obj) => dispatch(updateRegistration(entryId, obj))
   };
+};
+
+LifterRow.propTypes = {
+  registration: PropTypes.shape({
+    lookup: PropTypes.object,
+    entries: PropTypes.array
+  }),
+  id: PropTypes.number,
+  deleteRegistration: PropTypes.func,
+  meet: PropTypes.shape({
+    platformsOnDays: PropTypes.array,
+    lengthDays: PropTypes.number,
+    divisions: PropTypes.array
+  }),
+  updateRegistration: PropTypes.func
 };
 
 export default connect(
