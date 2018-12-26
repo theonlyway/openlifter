@@ -193,6 +193,7 @@ class LifterRow extends React.Component {
         <td>
           <Select
             options={divisionOptions}
+            isClearable={false}
             isMulti={true}
             onChange={this.updateRegistrationDivisions}
             defaultValue={selectedDivisions}
