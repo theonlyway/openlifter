@@ -11,6 +11,16 @@ import Select from "react-select";
 
 import { deleteRegistration, updateRegistration } from "../../actions/registrationActions";
 
+const eventOptions = [
+  { value: "SBD", label: "SBD" },
+  { value: "BD", label: "BD" },
+  { value: "S", label: "S" },
+  { value: "B", label: "B" },
+  { value: "D", label: "D" },
+  { value: "SB", label: "SB" },
+  { value: "SD", label: "SD" }
+];
+
 class LifterRow extends React.Component {
   constructor() {
     super();
@@ -22,6 +32,7 @@ class LifterRow extends React.Component {
     this.updateRegistrationName = this.updateRegistrationName.bind(this);
     this.updateRegistrationSex = this.updateRegistrationSex.bind(this);
     this.updateRegistrationDivisions = this.updateRegistrationDivisions.bind(this);
+    this.updateRegistrationEvents = this.updateRegistrationEvents.bind(this);
     this.updateRegistrationEquipment = this.updateRegistrationEquipment.bind(this);
   }
 
@@ -90,6 +101,18 @@ class LifterRow extends React.Component {
     }
   }
 
+  updateRegistrationEvents(value, actionMeta) {
+    // Value is an array of { value, label } objects.
+    // Since updates are synchronous, we can just compare lengths.
+    if (value.length !== this.getReduxEntry().events.length) {
+      let events = [];
+      for (let i = 0; i < value.length; i++) {
+        events.push(value[i].label);
+      }
+      this.props.updateRegistration(this.props.id, { events: events });
+    }
+  }
+
   updateRegistrationEquipment(event) {
     const equipment = event.target.value;
     if (this.getReduxEntry().equipment !== equipment) {
@@ -128,6 +151,12 @@ class LifterRow extends React.Component {
     for (let i = 0; i < initial.divisions.length; i++) {
       const division = initial.divisions[i];
       selectedDivisions.push({ value: division, label: division });
+    }
+
+    let selectedEvents = [];
+    for (let i = 0; i < initial.events.length; i++) {
+      const events = initial.events[i];
+      selectedEvents.push({ value: events, label: events });
     }
 
     return (
@@ -197,6 +226,16 @@ class LifterRow extends React.Component {
             isMulti={true}
             onChange={this.updateRegistrationDivisions}
             defaultValue={selectedDivisions}
+          />
+        </td>
+
+        <td>
+          <Select
+            options={eventOptions}
+            isClearable={false}
+            isMulti={true}
+            onChange={this.updateRegistrationEvents}
+            defaultValue={selectedEvents}
           />
         </td>
 
