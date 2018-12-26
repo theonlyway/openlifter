@@ -88,12 +88,12 @@ class LifterRow extends React.Component {
 
     let dayOptions = [];
     for (let i = 1; i <= this.props.meet.lengthDays; i++) {
-      dayOptions.push(<option value={i}>{i}</option>);
+      dayOptions.push(<option value={i} key={i}>{i}</option>);
     }
 
     let platformOptions = [];
     for (let i = 1; i <= this.props.meet.platformsOnDays[initial.day - 1]; i++) {
-      platformOptions.push(<option value={i}>{i}</option>);
+      platformOptions.push(<option value={i} key={i}>{i}</option>);
     }
 
     return (
