@@ -40,7 +40,7 @@ class LifterTable extends React.Component {
             <th style={{ width: "120px" }}>Equipment</th>
             <th style={{ width: "200px" }}>Division(s)</th>
             <th style={{ width: "150px" }}>Event(s)</th>
-            <th />
+            <th style={{ width: "80px" }}></th>
           </tr>
         </thead>
         <tbody>{this.renderRows()}</tbody>
