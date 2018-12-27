@@ -20,18 +20,19 @@ class LifterTable extends React.Component {
 
   renderHeader() {
     // Styling for small, single-character selector columns.
-    const shortStyle = { width: "75px" };
+    const shortStyle = { width: "80px" };
     return (
       <tr>
-        <th style={shortStyle}>Day</th>
         <th style={shortStyle}>Platform</th>
         <th style={shortStyle}>Flight</th>
         <th>Name</th>
-        <th style={shortStyle}>Sex</th>
-        <th style={{ width: "120px" }}>Equipment</th>
-        <th style={{ width: "200px" }}>Division(s)</th>
-        <th style={{ width: "150px" }}>Event(s)</th>
-        <th style={{ width: "80px" }} />
+
+        <th>Bodyweight</th>
+        <th>Squat Opener</th>
+        <th style={shortStyle}>Squat Rack</th>
+        <th>Bench Opener</th>
+        <th style={shortStyle}>Bench Rack</th>
+        <th>Deadlift Opener</th>
       </tr>
     );
   }
