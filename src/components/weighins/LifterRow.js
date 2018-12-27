@@ -20,6 +20,7 @@ class LifterRow extends React.Component {
 
     this.renderSquatRackInfo = this.renderSquatRackInfo.bind(this);
     this.renderBenchRackInfo = this.renderBenchRackInfo.bind(this);
+    this.renderDeadliftOpener = this.renderDeadliftOpener.bind(this);
   }
 
   // Uses the global ID to return the currently-set entry object.
@@ -62,6 +63,14 @@ class LifterRow extends React.Component {
     }
   }
 
+  renderDeadliftOpener(lifter, hasDeadlift) {
+    if (hasDeadlift) {
+      return <span>Todo</span>;
+    } else {
+      return <FormControl type="text" disabled />;
+    }
+  }
+
   render() {
     const lifter = this.getReduxEntry();
 
@@ -96,8 +105,7 @@ class LifterRow extends React.Component {
         <td>BenchFirstAttempt</td>
 
         <td>{this.renderBenchRackInfo(lifter, hasBench)}</td>
-
-        <td>DeadliftFirstAttempt</td>
+        <td>{this.renderDeadliftOpener(lifter, hasDeadlift)}</td>
       </tr>
     );
   }

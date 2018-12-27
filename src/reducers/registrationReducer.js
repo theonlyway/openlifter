@@ -52,11 +52,11 @@ const makeNewEntry = id => {
     // Information added on the "Weigh-ins" page.
     // But we might as well track it in this object.
     bodyweightKg: 0.0,
-    squatFirstAttemptKg: 0.0,
+    squatOpenerKg: 0.0,
     squatRackInfo: "", // A freeform string for the benefit of the loaders.
-    benchFirstAttemptKg: 0.0,
+    benchOpenerKg: 0.0,
     benchRackInfo: "", // A freeform string for the benefit of the loaders.
-    deadliftFirstAttemptKg: 0.0
+    deadliftOpenerKg: 0.0
   };
 };
 
