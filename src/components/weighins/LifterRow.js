@@ -14,7 +14,6 @@ import { updateRegistration } from "../../actions/registrationActions";
 class LifterRow extends React.Component {
   constructor(props) {
     super(props);
-    this.getReduxEntry = this.getReduxEntry.bind(this);
     this.updateRegistrationSquatRackInfo = this.updateRegistrationSquatRackInfo.bind(this);
     this.updateRegistrationBenchRackInfo = this.updateRegistrationBenchRackInfo.bind(this);
 
@@ -23,22 +22,16 @@ class LifterRow extends React.Component {
     this.renderDeadliftOpener = this.renderDeadliftOpener.bind(this);
   }
 
-  // Uses the global ID to return the currently-set entry object.
-  getReduxEntry() {
-    const lookup = this.props.registration.lookup;
-    return this.props.registration.entries[lookup[this.props.id]];
-  }
-
   updateRegistrationSquatRackInfo(event) {
     const info = event.target.value;
-    if (this.getReduxEntry().squatRackInfo !== info) {
+    if (this.props.entry.squatRackInfo !== info) {
       this.props.updateRegistration(this.props.id, { squatRackInfo: info });
     }
   }
 
   updateRegistrationBenchRackInfo(event) {
     const info = event.target.value;
-    if (this.getReduxEntry().benchRackInfo !== info) {
+    if (this.props.entry.benchRackInfo !== info) {
       this.props.updateRegistration(this.props.id, { benchRackInfo: info });
     }
   }
@@ -72,13 +65,13 @@ class LifterRow extends React.Component {
   }
 
   render() {
-    const lifter = this.getReduxEntry();
+    const entry = this.props.entry;
 
     let hasSquat = false;
     let hasBench = false;
     let hasDeadlift = false;
-    for (let i = 0; i < lifter.events.length; i++) {
-      const event = lifter.events[i];
+    for (let i = 0; i < entry.events.length; i++) {
+      const event = entry.events[i];
       if (event.includes("S")) {
         hasSquat = true;
       }
@@ -92,28 +85,35 @@ class LifterRow extends React.Component {
 
     return (
       <tr>
-        <td>{lifter.platform}</td>
-        <td>{lifter.flight}</td>
-        <td>{lifter.name}</td>
+        <td>{entry.platform}</td>
+        <td>{entry.flight}</td>
+        <td>{entry.name}</td>
 
         <td>BodyweightKg</td>
 
         <td>SquatFirstAttempt</td>
 
-        <td>{this.renderSquatRackInfo(lifter, hasSquat)}</td>
+        <td>{this.renderSquatRackInfo(entry, hasSquat)}</td>
 
         <td>BenchFirstAttempt</td>
 
-        <td>{this.renderBenchRackInfo(lifter, hasBench)}</td>
-        <td>{this.renderDeadliftOpener(lifter, hasDeadlift)}</td>
+        <td>{this.renderBenchRackInfo(entry, hasBench)}</td>
+        <td>{this.renderDeadliftOpener(entry, hasDeadlift)}</td>
       </tr>
     );
   }
 }
 
-const mapStateToProps = state => ({
-  ...state
-});
+const mapStateToProps = (state, ownProps) => {
+  // Only have props for the entry corresponding to this one row.
+  const lookup = state.registration.lookup;
+  const entry = state.registration.entries[lookup[ownProps.id]];
+
+  return {
+    meet: state.meet,
+    entry: entry
+  };
+};
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -122,16 +122,13 @@ const mapDispatchToProps = dispatch => {
 };
 
 LifterRow.propTypes = {
-  registration: PropTypes.shape({
-    lookup: PropTypes.object,
-    entries: PropTypes.array
-  }),
-  id: PropTypes.number,
   meet: PropTypes.shape({
     platformsOnDays: PropTypes.array,
     lengthDays: PropTypes.number,
     divisions: PropTypes.array
   }),
+  entry: PropTypes.object,
+  id: PropTypes.number,
   updateRegistration: PropTypes.func
 };
 

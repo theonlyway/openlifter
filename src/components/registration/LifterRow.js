@@ -25,7 +25,6 @@ const eventOptions = [
 class LifterRow extends React.Component {
   constructor(props) {
     super(props);
-    this.getReduxEntry = this.getReduxEntry.bind(this);
     this.deleteRegistrationClick = this.deleteRegistrationClick.bind(this);
     this.updateRegistrationDay = this.updateRegistrationDay.bind(this);
     this.updateRegistrationPlatform = this.updateRegistrationPlatform.bind(this);
@@ -37,19 +36,13 @@ class LifterRow extends React.Component {
     this.updateRegistrationEquipment = this.updateRegistrationEquipment.bind(this);
   }
 
-  // Uses the global ID to return the currently-set entry object.
-  getReduxEntry() {
-    const lookup = this.props.registration.lookup;
-    return this.props.registration.entries[lookup[this.props.id]];
-  }
-
   deleteRegistrationClick(event) {
     this.props.deleteRegistration(this.props.id);
   }
 
   updateRegistrationDay(event) {
     const day = Number(event.target.value);
-    const entry = this.getReduxEntry();
+    const entry = this.props.entry;
 
     // Also check whether the platform is now impossible.
     let platform = entry.platform;
@@ -64,28 +57,28 @@ class LifterRow extends React.Component {
 
   updateRegistrationPlatform(event) {
     const platform = Number(event.target.value);
-    if (this.getReduxEntry().platform !== platform) {
+    if (this.props.entry.platform !== platform) {
       this.props.updateRegistration(this.props.id, { platform: platform });
     }
   }
 
   updateRegistrationFlight(event) {
     const flight = event.target.value;
-    if (this.getReduxEntry().flight !== flight) {
+    if (this.props.entry.flight !== flight) {
       this.props.updateRegistration(this.props.id, { flight: flight });
     }
   }
 
   updateRegistrationName(event) {
     const name = event.target.value;
-    if (this.getReduxEntry().name !== name) {
+    if (this.props.entry.name !== name) {
       this.props.updateRegistration(this.props.id, { name: name });
     }
   }
 
   updateRegistrationSex(event) {
     const sex = event.target.value;
-    if (this.getReduxEntry().sex !== sex) {
+    if (this.props.entry.sex !== sex) {
       this.props.updateRegistration(this.props.id, { sex: sex });
     }
   }
@@ -93,7 +86,7 @@ class LifterRow extends React.Component {
   updateRegistrationDivisions(value, actionMeta) {
     // Value is an array of { value, label } objects.
     // Since updates are synchronous, we can just compare lengths.
-    if (value.length !== this.getReduxEntry().divisions.length) {
+    if (value.length !== this.props.entry.divisions.length) {
       let divisions = [];
       for (let i = 0; i < value.length; i++) {
         divisions.push(value[i].label);
@@ -105,7 +98,7 @@ class LifterRow extends React.Component {
   updateRegistrationEvents(value, actionMeta) {
     // Value is an array of { value, label } objects.
     // Since updates are synchronous, we can just compare lengths.
-    if (value.length !== this.getReduxEntry().events.length) {
+    if (value.length !== this.props.entry.events.length) {
       let events = [];
       for (let i = 0; i < value.length; i++) {
         events.push(value[i].label);
@@ -116,13 +109,13 @@ class LifterRow extends React.Component {
 
   updateRegistrationEquipment(event) {
     const equipment = event.target.value;
-    if (this.getReduxEntry().equipment !== equipment) {
+    if (this.props.entry.equipment !== equipment) {
       this.props.updateRegistration(this.props.id, { equipment: equipment });
     }
   }
 
   render() {
-    const initial = this.getReduxEntry();
+    const entry = this.props.entry;
 
     let dayOptions = [];
     for (let i = 1; i <= this.props.meet.lengthDays; i++) {
@@ -134,7 +127,7 @@ class LifterRow extends React.Component {
     }
 
     let platformOptions = [];
-    for (let i = 1; i <= this.props.meet.platformsOnDays[initial.day - 1]; i++) {
+    for (let i = 1; i <= this.props.meet.platformsOnDays[entry.day - 1]; i++) {
       platformOptions.push(
         <option value={i} key={i}>
           {i}
@@ -149,37 +142,33 @@ class LifterRow extends React.Component {
     }
 
     let selectedDivisions = [];
-    for (let i = 0; i < initial.divisions.length; i++) {
-      const division = initial.divisions[i];
+    for (let i = 0; i < entry.divisions.length; i++) {
+      const division = entry.divisions[i];
       selectedDivisions.push({ value: division, label: division });
     }
 
     let selectedEvents = [];
-    for (let i = 0; i < initial.events.length; i++) {
-      const events = initial.events[i];
+    for (let i = 0; i < entry.events.length; i++) {
+      const events = entry.events[i];
       selectedEvents.push({ value: events, label: events });
     }
 
     return (
       <tr>
         <td>
-          <FormControl defaultValue={initial.day} componentClass="select" onChange={this.updateRegistrationDay}>
+          <FormControl defaultValue={entry.day} componentClass="select" onChange={this.updateRegistrationDay}>
             {dayOptions}
           </FormControl>
         </td>
 
         <td>
-          <FormControl
-            defaultValue={initial.platform}
-            componentClass="select"
-            onChange={this.updateRegistrationPlatform}
-          >
+          <FormControl defaultValue={entry.platform} componentClass="select" onChange={this.updateRegistrationPlatform}>
             {platformOptions}
           </FormControl>
         </td>
 
         <td>
-          <FormControl defaultValue={initial.flight} componentClass="select" onChange={this.updateRegistrationFlight}>
+          <FormControl defaultValue={entry.flight} componentClass="select" onChange={this.updateRegistrationFlight}>
             <option value="A">A</option>
             <option value="B">B</option>
             <option value="C">C</option>
@@ -192,16 +181,11 @@ class LifterRow extends React.Component {
         </td>
 
         <td>
-          <FormControl
-            type="text"
-            placeholder="Name"
-            defaultValue={initial.name}
-            onBlur={this.updateRegistrationName}
-          />
+          <FormControl type="text" placeholder="Name" defaultValue={entry.name} onBlur={this.updateRegistrationName} />
         </td>
 
         <td>
-          <FormControl defaultValue={initial.sex} componentClass="select" onChange={this.updateRegistrationSex}>
+          <FormControl defaultValue={entry.sex} componentClass="select" onChange={this.updateRegistrationSex}>
             <option value="M">M</option>
             <option value="F">F</option>
           </FormControl>
@@ -209,7 +193,7 @@ class LifterRow extends React.Component {
 
         <td>
           <FormControl
-            defaultValue={initial.equipment}
+            defaultValue={entry.equipment}
             componentClass="select"
             onChange={this.updateRegistrationEquipment}
           >
@@ -250,9 +234,16 @@ class LifterRow extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  ...state
-});
+const mapStateToProps = (state, ownProps) => {
+  // Only have props for the entry corresponding to this one row.
+  const lookup = state.registration.lookup;
+  const entry = state.registration.entries[lookup[ownProps.id]];
+
+  return {
+    meet: state.meet,
+    entry: entry
+  };
+};
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -262,17 +253,14 @@ const mapDispatchToProps = dispatch => {
 };
 
 LifterRow.propTypes = {
-  registration: PropTypes.shape({
-    lookup: PropTypes.object,
-    entries: PropTypes.array
-  }),
-  id: PropTypes.number,
-  deleteRegistration: PropTypes.func,
   meet: PropTypes.shape({
     platformsOnDays: PropTypes.array,
     lengthDays: PropTypes.number,
     divisions: PropTypes.array
   }),
+  entry: PropTypes.object,
+  id: PropTypes.number,
+  deleteRegistration: PropTypes.func,
   updateRegistration: PropTypes.func
 };
 
