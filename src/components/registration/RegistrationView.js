@@ -7,7 +7,7 @@ import { Panel } from "react-bootstrap";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import LifterTable from "../common/LifterTable";
+import LifterTable from "./LifterTable";
 import LifterRow from "./LifterRow";
 import NewButton from "./NewButton";
 

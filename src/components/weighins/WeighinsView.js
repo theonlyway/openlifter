@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Panel } from "react-bootstrap";
 import { getLiftersOnDay } from "../../reducers/registrationReducer";
-import LifterTable from "../common/LifterTable";
+import LifterTable from "./LifterTable";
 import LifterRow from "./LifterRow";
 
 const marginStyle = { margin: "0 40px 0 40px" };
