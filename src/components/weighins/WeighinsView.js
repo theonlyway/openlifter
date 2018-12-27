@@ -14,8 +14,8 @@ import LifterRow from "./LifterRow";
 const marginStyle = { margin: "0 40px 0 40px" };
 
 class WeighinsView extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.getNumDaysFromEntries = this.getNumDaysFromEntries.bind(this);
   }
 

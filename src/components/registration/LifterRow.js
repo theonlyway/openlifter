@@ -23,8 +23,8 @@ const eventOptions = [
 ];
 
 class LifterRow extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.getReduxEntry = this.getReduxEntry.bind(this);
     this.deleteRegistrationClick = this.deleteRegistrationClick.bind(this);
     this.updateRegistrationDay = this.updateRegistrationDay.bind(this);

@@ -9,8 +9,8 @@ import { ControlLabel, FormGroup, FormControl } from "react-bootstrap";
 import { setPlatformsOnDays } from "../../actions/meetSetupActions";
 
 class PlatformCount extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.handleChange = this.handleChange.bind(this);
   }
   handleChange(event) {

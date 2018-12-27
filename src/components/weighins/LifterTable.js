@@ -6,8 +6,8 @@ import PropTypes from "prop-types";
 import { Table } from "react-bootstrap";
 
 class LifterTable extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.renderRows = this.renderRows.bind(this);
     this.renderHeader = this.renderHeader.bind(this);
   }

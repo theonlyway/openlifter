@@ -6,8 +6,8 @@ import PropTypes from "prop-types";
 import PlatformCount from "./PlatformCount";
 
 class PlatformCounts extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.createPlatformInputs = this.createPlatformInputs.bind(this);
   }
 

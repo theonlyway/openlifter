@@ -16,8 +16,8 @@ const centerConsole = { maxWidth: 800, margin: "0 auto 10px" };
 const buttonConsole = { maxWidth: 400, margin: "20px auto 0 auto" };
 
 class HomeContainer extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.handleLoadClick = this.handleLoadClick.bind(this);
     this.handleLoadFileInput = this.handleLoadFileInput.bind(this);
     this.handleSaveClick = this.handleSaveClick.bind(this);

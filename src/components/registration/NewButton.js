@@ -10,8 +10,8 @@ import { Button } from "react-bootstrap";
 import { newDefaultRegistration } from "../../actions/registrationActions";
 
 class NewButton extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.handleClick = this.handleClick.bind(this);
   }
 

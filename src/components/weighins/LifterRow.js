@@ -11,8 +11,8 @@ import { connect } from "react-redux";
 import { updateRegistration } from "../../actions/registrationActions";
 
 class LifterRow extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.getReduxEntry = this.getReduxEntry.bind(this);
   }
 
