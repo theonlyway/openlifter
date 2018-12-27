@@ -41,7 +41,7 @@ const makeNewEntry = id => {
     sex: "M", // The lifter's sex.
     birthdate: "", // The lifter's birthdate (YYYY-MM-DD).
     intendedWeightClassKg: "", // The weightclass for which the lifter registered.
-    equipment: "", // The equipment category for which the lifter registered.
+    equipment: "Sleeves", // The equipment category for which the lifter registered.
     divisions: [], // A list of divisions the lifter entered.
     events: [], // A list of events the lifter entered.
 
