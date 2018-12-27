@@ -14,6 +14,11 @@ tests:
   script:
     - make test
 
+lint:
+  stage: test
+  script:
+    - yarn run lint
+
 pages:
   stage: deploy
   script:
