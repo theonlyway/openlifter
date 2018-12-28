@@ -11,23 +11,13 @@ import { setFormula } from "../../actions/meetSetupActions";
 
 const options = [{ value: "Glossbrenner", label: "Glossbrenner" }, { value: "Wilks", label: "Wilks" }];
 
-const mapStateToProps = state => ({
-  ...state
-});
-
-const mapDispatchToProps = dispatch => {
-  return {
-    setFormula: item => dispatch(setFormula(item.value))
-  };
-};
-
 class FormulaSelect extends React.Component {
   constructor(props, context) {
     super(props, context);
 
     // The "value" property expects an object instead of a string.
     this.valueObject = options.find(option => {
-      return option.value === this.props.meet.formula;
+      return option.value === this.props.formula;
     });
   }
 
@@ -41,11 +31,19 @@ class FormulaSelect extends React.Component {
   }
 }
 
+const mapStateToProps = state => ({
+  formula: state.meet.formula
+});
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setFormula: item => dispatch(setFormula(item.value))
+  };
+};
+
 FormulaSelect.propTypes = {
-  setFormula: PropTypes.func,
-  meet: PropTypes.shape({
-    formula: PropTypes.string
-  })
+  formula: PropTypes.string.isRequired,
+  setFormula: PropTypes.func.isRequired
 };
 
 export default connect(

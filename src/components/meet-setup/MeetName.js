@@ -10,16 +10,6 @@ import { ControlLabel, FormControl, FormGroup } from "react-bootstrap";
 
 import { setMeetName } from "../../actions/meetSetupActions";
 
-const mapStateToProps = state => ({
-  ...state
-});
-
-const mapDispatchToProps = dispatch => {
-  return {
-    setMeetName: name => dispatch(setMeetName(name))
-  };
-};
-
 class MeetName extends React.Component {
   constructor(props, context) {
     super(props, context);
@@ -27,7 +17,7 @@ class MeetName extends React.Component {
     this.handleBlur = this.handleBlur.bind(this);
 
     this.state = {
-      value: this.props.meet.name
+      value: this.props.name
     };
   }
 
@@ -59,18 +49,25 @@ class MeetName extends React.Component {
     return (
       <FormGroup validationState={this.getValidationState()}>
         <ControlLabel>Meet Name</ControlLabel>
-        <FormControl type="text" placeholder="Meet Name" defaultValue={this.props.meet.name} onBlur={this.handleBlur} />
+        <FormControl type="text" placeholder="Meet Name" defaultValue={this.props.name} onBlur={this.handleBlur} />
         <FormControl.Feedback />
       </FormGroup>
     );
   }
 }
 
-// Verifies the shape of the "props" given the component.
+const mapStateToProps = state => ({
+  name: state.meet.name
+});
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setMeetName: name => dispatch(setMeetName(name))
+  };
+};
+
 MeetName.propTypes = {
-  meet: PropTypes.shape({
-    name: PropTypes.string.isRequired
-  }).isRequired,
+  name: PropTypes.string.isRequired,
   setMeetName: PropTypes.func.isRequired
 };
 

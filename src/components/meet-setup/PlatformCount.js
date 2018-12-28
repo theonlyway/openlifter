@@ -18,9 +18,8 @@ class PlatformCount extends React.Component {
   }
   render() {
     const { day } = this.props;
-    const { platformsOnDays } = this.props.meet;
     const label = "Platforms on Day " + day;
-    const countForDay = platformsOnDays[day - 1];
+    const countForDay = this.props.platformsOnDays[day - 1];
     return (
       <FormGroup>
         <ControlLabel>{label}</ControlLabel>
@@ -32,22 +31,20 @@ class PlatformCount extends React.Component {
   }
 }
 
-PlatformCount.propTypes = {
-  meet: PropTypes.shape({
-    platformsOnDays: PropTypes.array.isRequired
-  }).isRequired,
-  setPlatformsOnDays: PropTypes.func.isRequired,
-  day: PropTypes.number.isRequired
-};
-
 const mapStateToProps = state => ({
-  ...state
+  platformsOnDays: state.meet.platformsOnDays
 });
 
 const mapDispatchToProps = dispatch => {
   return {
     setPlatformsOnDays: data => dispatch(setPlatformsOnDays(data))
   };
+};
+
+PlatformCount.propTypes = {
+  platformsOnDays: PropTypes.array.isRequired,
+  setPlatformsOnDays: PropTypes.func.isRequired,
+  day: PropTypes.number.isRequired
 };
 
 export default connect(

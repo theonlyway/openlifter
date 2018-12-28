@@ -13,7 +13,7 @@ class PlatformCounts extends React.Component {
 
   createPlatformInputs() {
     let inputs = [];
-    const { lengthDays } = this.props.meet;
+    const lengthDays = this.props.lengthDays;
     for (let i = 1; i <= lengthDays; i++) {
       inputs.push(<PlatformCount key={i} day={i} />);
     }
@@ -24,15 +24,14 @@ class PlatformCounts extends React.Component {
   }
 }
 
+const mapStateToProps = state => ({
+  lengthDays: state.meet.lengthDays
+});
+
 PlatformCounts.propTypes = {
-  meet: PropTypes.shape({
-    lengthDays: PropTypes.number.isRequired
-  }).isRequired
+  lengthDays: PropTypes.number.isRequired
 };
 
-const mapStateToProps = state => ({
-  ...state
-});
 export default connect(
   mapStateToProps,
   null

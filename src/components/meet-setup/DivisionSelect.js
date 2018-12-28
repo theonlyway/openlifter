@@ -18,23 +18,13 @@ const createOption = label => ({
   value: label
 });
 
-const mapStateToProps = state => ({
-  ...state
-});
-
-const mapDispatchToProps = dispatch => {
-  return {
-    setDivisions: divisions => dispatch(setDivisions(divisions))
-  };
-};
-
 class DivisionSelect extends React.Component {
   constructor(props, context) {
     super(props, context);
 
     let objarray = [];
-    for (let i = 0; i < props.meet.divisions.length; i++) {
-      const division = props.meet.divisions[i];
+    for (let i = 0; i < props.divisions.length; i++) {
+      const division = props.divisions[i];
       objarray.push({ value: division, label: division });
     }
 
@@ -53,7 +43,7 @@ class DivisionSelect extends React.Component {
   // Since updates are synchronous, we can simply check length.
   maybeUpdateRedux(objarray) {
     // objarray is a list of {value: "foo", label: "foo"} objects.
-    if (objarray.length === this.props.meet.divisions.length) {
+    if (objarray.length === this.props.divisions.length) {
       return;
     }
 
@@ -122,12 +112,19 @@ class DivisionSelect extends React.Component {
   }
 }
 
+const mapStateToProps = state => ({
+  divisions: state.meet.divisions
+});
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setDivisions: divisions => dispatch(setDivisions(divisions))
+  };
+};
+
 DivisionSelect.propTypes = {
-  setDivisions: PropTypes.func,
-  meet: PropTypes.shape({
-    federation: PropTypes.string,
-    divisions: PropTypes.array
-  })
+  divisions: PropTypes.array.isRequired,
+  setDivisions: PropTypes.func.isRequired
 };
 
 export default connect(

@@ -10,7 +10,6 @@ import { setLengthDays } from "../../actions/meetSetupActions";
 
 class MeetLength extends React.Component {
   render() {
-    const { lengthDays } = this.props.meet;
     return (
       <FormGroup>
         <ControlLabel>Meet Length (Days)</ControlLabel>
@@ -18,7 +17,7 @@ class MeetLength extends React.Component {
           <FormControl
             type="number"
             placeholder="Meet Length (Days)"
-            defaultValue={lengthDays}
+            defaultValue={this.props.lengthDays}
             onChange={this.props.setLengthDays}
           />
         </div>
@@ -27,21 +26,19 @@ class MeetLength extends React.Component {
   }
 }
 
-MeetLength.propTypes = {
-  meet: PropTypes.shape({
-    lengthDays: PropTypes.number.isRequired
-  }).isRequired,
-  setLengthDays: PropTypes.func.isRequired
-};
-
 const mapStateToProps = state => ({
-  ...state
+  lengthDays: state.meet.lengthDays
 });
 
 const mapDispatchToProps = dispatch => {
   return {
     setLengthDays: event => dispatch(setLengthDays(event.target.value))
   };
+};
+
+MeetLength.propTypes = {
+  lengthDays: PropTypes.number.isRequired,
+  setLengthDays: PropTypes.func.isRequired
 };
 
 export default connect(

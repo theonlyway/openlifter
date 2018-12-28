@@ -25,14 +25,6 @@ class MeetDate extends React.Component {
   }
 }
 
-// Verifies the shape of the "props" given the component.
-MeetDate.propTypes = {
-  meet: PropTypes.shape({
-    date: PropTypes.instanceOf(Date).isRequired
-  }).isRequired,
-  setMeetDate: PropTypes.func.isRequired
-};
-
 const mapStateToProps = state => ({
   ...state
 });
@@ -41,6 +33,13 @@ const mapDispatchToProps = dispatch => {
   return {
     setMeetDate: date => dispatch(setMeetDate(date))
   };
+};
+
+MeetDate.propTypes = {
+  meet: PropTypes.shape({
+    date: PropTypes.instanceOf(Date).isRequired
+  }).isRequired,
+  setMeetDate: PropTypes.func.isRequired
 };
 
 export default connect(

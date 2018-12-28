@@ -18,31 +18,21 @@ import { setFederation } from "../../actions/meetSetupActions";
 
 const defaultOptions = [{ value: "WRPF", label: "WRPF" }];
 
-const mapStateToProps = state => ({
-  ...state
-});
-
-const mapDispatchToProps = dispatch => {
-  return {
-    setFederation: item => dispatch(setFederation(item.value))
-  };
-};
-
 class FederationSelect extends React.Component {
   constructor(props, context) {
     super(props, context);
 
     // The "value" property expects an object instead of a string.
     this.valueObject = defaultOptions.find(option => {
-      return option.value === this.props.meet.federation;
+      return option.value === this.props.federation;
     });
 
     // If the user created a new federation, it won't be present
     // in the defaultOptions. To display it, expand the options with the prop.
-    if (!this.valueObject && this.props.meet.federation) {
+    if (!this.valueObject && this.props.federation) {
       this.options = defaultOptions.concat({
-        value: this.props.meet.federation,
-        label: this.props.meet.federation
+        value: this.props.federation,
+        label: this.props.federation
       });
       this.valueObject = this.options[this.options.length - 1];
     } else {
@@ -65,11 +55,19 @@ class FederationSelect extends React.Component {
   }
 }
 
+const mapStateToProps = state => ({
+  federation: state.meet.federation
+});
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setFederation: item => dispatch(setFederation(item.value))
+  };
+};
+
 FederationSelect.propTypes = {
-  setFederation: PropTypes.func,
-  meet: PropTypes.shape({
-    federation: PropTypes.string
-  })
+  federation: PropTypes.string.isRequired,
+  setFederation: PropTypes.func.isRequired
 };
 
 export default connect(
