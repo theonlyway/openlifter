@@ -9,6 +9,8 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { FormControl } from "react-bootstrap";
 
+import WeightInput from "./WeightInput";
+
 import { updateRegistration } from "../../actions/registrationActions";
 
 class LifterRow extends React.Component {
@@ -89,7 +91,9 @@ class LifterRow extends React.Component {
         <td>{entry.flight}</td>
         <td>{entry.name}</td>
 
-        <td>BodyweightKg</td>
+        <td>
+          <WeightInput id={this.props.id} field="bodyweightKg" disabled={false} />
+        </td>
 
         <td>SquatFirstAttempt</td>
 
