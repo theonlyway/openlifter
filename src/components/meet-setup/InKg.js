@@ -4,31 +4,27 @@ import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import { ControlLabel } from "react-bootstrap";
+import { Checkbox, ControlLabel, FormGroup } from "react-bootstrap";
 
 import { setInKg } from "../../actions/meetSetupActions";
 
 class InKg extends React.Component {
   render() {
-    const { inKg } = this.props.meet;
     return (
-      <div>
-        <input type="checkbox" checked={inKg} onChange={this.props.setInKg} />
-        <ControlLabel>Kilograms</ControlLabel>
-      </div>
+      <Checkbox checked={this.props.inKg} onChange={this.props.setInKg}>
+        Kilograms
+      </Checkbox>
     );
   }
 }
 
 InKg.propTypes = {
-  meet: PropTypes.shape({
-    inKg: PropTypes.bool.isRequired
-  }).isRequired,
+  inKg: PropTypes.bool.isRequired,
   setInKg: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-  ...state
+  inKg: state.meet.inKg
 });
 
 const mapDispatchToProps = dispatch => {
