@@ -1,4 +1,4 @@
-.PHONY: dev-electron dev-web package test
+.PHONY: dev-electron dev-web package test check
 
 all: dev-web
 
@@ -16,3 +16,7 @@ package: node_modules
 
 test: node_modules
 	CI="yes" yarn run test
+
+# A simple target to run all the CI server tests.
+check: test
+	yarn run lint
