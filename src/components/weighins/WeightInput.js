@@ -71,8 +71,12 @@ class WeightInput extends React.Component {
   }
 
   render() {
+    // FormGroup provides a default padding of 15, but FormGroup is only being
+    // used here to accept a validationState. It's not really a group.
+    const undoDefaultPadding = { marginBottom: "0" };
+
     return (
-      <FormGroup validationState={this.getValidationState()}>
+      <FormGroup style={undoDefaultPadding} validationState={this.getValidationState()}>
         <FormControl
           disabled={this.props.disabled}
           type="text"
