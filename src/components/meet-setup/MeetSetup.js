@@ -11,6 +11,7 @@ import InKg from "./InKg";
 import FormulaSelect from "./FormulaSelect";
 import FederationSelect from "./FederationSelect";
 import DivisionSelect from "./DivisionSelect";
+import WeightClassesSelect from "./WeightClassesSelect";
 
 const marginStyle = { margin: "0 40px 0 40px" };
 
@@ -32,6 +33,8 @@ const MeetSetup = () => {
         <Panel.Body>
           <FederationSelect />
           <DivisionSelect />
+          <WeightClassesSelect sex="M" label="Men's Weight Classes (kg), omit SHW" />
+          <WeightClassesSelect sex="F" label="Women's Weight Classes (kg), omit SHW" />
           <FormulaSelect />
         </Panel.Body>
       </Panel>

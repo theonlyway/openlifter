@@ -55,3 +55,11 @@ export const setInKg = inKg => {
     inKg
   };
 };
+
+export const setWeightClasses = (sex, classesKg) => {
+  return {
+    type: "SET_WEIGHTCLASSES",
+    sex: sex,
+    classesKg: classesKg
+  };
+};

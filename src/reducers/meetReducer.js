@@ -9,6 +9,8 @@ const initialState = {
   lengthDays: 1,
   platformsOnDays: [1],
   divisions: [],
+  weightClassesKgMen: [],
+  weightClassesKgWomen: [],
   inKg: true
 };
 
@@ -37,6 +39,14 @@ export default (state = initialState, action) => {
     }
     case "SET_IN_KG":
       return { ...state, inKg: action.inKg };
+    case "SET_WEIGHTCLASSES": {
+      const sex = action.sex;
+      const classesKg = action.classesKg;
+      if (sex === "M") {
+        return { ...state, weightClassesKgMen: classesKg };
+      }
+      return { ...state, weightClassesKgWomen: classesKg };
+    }
     case "OVERWRITE_STORE":
       return action.store.meet;
     default:
