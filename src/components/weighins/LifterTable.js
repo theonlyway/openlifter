@@ -2,6 +2,7 @@
 
 import React from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
 import { Table } from "react-bootstrap";
 
@@ -21,18 +22,21 @@ class LifterTable extends React.Component {
   renderHeader() {
     // Styling for small, single-character selector columns.
     const shortStyle = { width: "80px" };
+
+    const units = this.props.inKg ? "Kg" : "Lbs";
+
     return (
       <tr>
         <th style={shortStyle}>Platform</th>
         <th style={shortStyle}>Flight</th>
         <th>Name</th>
 
-        <th>Bodyweight</th>
-        <th>Squat Opener</th>
+        <th style={shortStyle}>Bodyweight {units}</th>
+        <th style={shortStyle}>Squat Opener {units}</th>
         <th style={shortStyle}>Squat Rack</th>
-        <th>Bench Opener</th>
+        <th style={shortStyle}>Bench Opener {units}</th>
         <th style={shortStyle}>Bench Rack</th>
-        <th>Deadlift Opener</th>
+        <th style={shortStyle}>Deadlift Opener {units}</th>
       </tr>
     );
   }
@@ -47,9 +51,17 @@ class LifterTable extends React.Component {
   }
 }
 
+const mapStateToProps = state => ({
+  inKg: state.meet.inKg
+});
+
 LifterTable.propTypes = {
+  inKg: PropTypes.bool.isRequired,
   entries: PropTypes.array.isRequired,
   rowRenderer: PropTypes.any.isRequired
 };
 
-export default LifterTable;
+export default connect(
+  mapStateToProps,
+  null
+)(LifterTable);
