@@ -21,7 +21,6 @@ class LifterRow extends React.Component {
 
     this.renderSquatRackInfo = this.renderSquatRackInfo.bind(this);
     this.renderBenchRackInfo = this.renderBenchRackInfo.bind(this);
-    this.renderDeadliftOpener = this.renderDeadliftOpener.bind(this);
   }
 
   updateRegistrationSquatRackInfo(event) {
@@ -58,14 +57,6 @@ class LifterRow extends React.Component {
     }
   }
 
-  renderDeadliftOpener(lifter, hasDeadlift) {
-    if (hasDeadlift) {
-      return <span>Todo</span>;
-    } else {
-      return <FormControl type="text" disabled />;
-    }
-  }
-
   render() {
     const entry = this.props.entry;
 
@@ -95,14 +86,21 @@ class LifterRow extends React.Component {
           <WeightInput id={this.props.id} field="bodyweightKg" disabled={false} />
         </td>
 
-        <td>SquatFirstAttempt</td>
+        <td>
+          <WeightInput id={this.props.id} field="squatOpenerKg" disabled={!hasSquat} />
+        </td>
 
         <td>{this.renderSquatRackInfo(entry, hasSquat)}</td>
 
-        <td>BenchFirstAttempt</td>
+        <td>
+          <WeightInput id={this.props.id} field="benchOpenerKg" disabled={!hasBench} />
+        </td>
 
         <td>{this.renderBenchRackInfo(entry, hasBench)}</td>
-        <td>{this.renderDeadliftOpener(entry, hasDeadlift)}</td>
+
+        <td>
+          <WeightInput id={this.props.id} field="deadliftOpenerKg" disabled={!hasDeadlift} />
+        </td>
       </tr>
     );
   }
