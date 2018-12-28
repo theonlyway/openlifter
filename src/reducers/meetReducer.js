@@ -47,8 +47,13 @@ export default (state = initialState, action) => {
       }
       return { ...state, weightClassesKgWomen: classesKg };
     }
-    case "OVERWRITE_STORE":
-      return action.store.meet;
+    case "OVERWRITE_STORE": {
+      // Copy all the state objects into an empty object.
+      let obj = Object.assign({}, state);
+
+      // Copy in the action's objects, overwriting the state's objects.
+      return Object.assign(obj, action.store.meet);
+    }
     default:
       return state;
   }
