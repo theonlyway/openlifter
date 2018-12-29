@@ -32,10 +32,10 @@ class LifterTable extends React.Component {
         <th>Name</th>
 
         <th style={shortStyle}>Bodyweight {units}</th>
-        <th style={shortStyle}>Squat Opener {units}</th>
         <th style={shortStyle}>Squat Rack</th>
-        <th style={shortStyle}>Bench Opener {units}</th>
+        <th style={shortStyle}>Squat Opener {units}</th>
         <th style={shortStyle}>Bench Rack</th>
+        <th style={shortStyle}>Bench Opener {units}</th>
         <th style={shortStyle}>Deadlift Opener {units}</th>
       </tr>
     );
