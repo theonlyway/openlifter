@@ -15,6 +15,8 @@ import MeetSetupContainer from "./containers/MeetSetupContainer";
 import RegistrationContainer from "./containers/RegistrationContainer";
 import WeighinsContainer from "./containers/WeighinsContainer";
 import LiftingContainer from "./containers/LiftingContainer";
+import FlightOrderContainer from "./containers/FlightOrderContainer";
+import ResultsContainer from "./containers/ResultsContainer";
 import DebugContainer from "./containers/DebugContainer";
 import Navigation from "./components/Navigation";
 
@@ -41,7 +43,9 @@ class App extends Component {
                   <Route path="/meet-setup" component={MeetSetupContainer} />
                   <Route path="/registration" component={RegistrationContainer} />
                   <Route path="/weigh-ins" component={WeighinsContainer} />
+                  <Route path="/flight-order" component={FlightOrderContainer} />
                   <Route path="/lifting" component={LiftingContainer} />
+                  <Route path="/results" component={ResultsContainer} />
                   <Route path="/debug" component={DebugContainer} />
                 </Switch>
               </div>

@@ -31,11 +31,17 @@ const Navigation = () => {
           <LinkContainer to="/weigh-ins">
             <NavItem eventKey={4}>Weigh-ins</NavItem>
           </LinkContainer>
+          <LinkContainer to="/flight-order">
+            <NavItem eventKey={5}>Flight Order</NavItem>
+          </LinkContainer>
           <LinkContainer to="/lifting">
-            <NavItem eventKey={5}>Lifting</NavItem>
+            <NavItem eventKey={6}>Lifting</NavItem>
+          </LinkContainer>
+          <LinkContainer to="/results">
+            <NavItem eventKey={7}>Results</NavItem>
           </LinkContainer>
           <LinkContainer to="/debug">
-            <NavItem eventKey={6}>Debug</NavItem>
+            <NavItem eventKey={8}>Debug</NavItem>
           </LinkContainer>
         </Nav>
       </Navbar.Collapse>
