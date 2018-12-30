@@ -9,17 +9,43 @@ import { ControlLabel, FormGroup, FormControl } from "react-bootstrap";
 import { setLengthDays } from "../../actions/meetSetupActions";
 
 class MeetLength extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.getValidationState = this.getValidationState.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+
+    this.state = {
+      value: this.props.lengthDays
+    };
+  }
+
+  getValidationState() {
+    const { value } = this.state;
+    const asNumber = Number(value);
+
+    if (isNaN(asNumber) || asNumber <= 0) {
+      return "error";
+    }
+    return "success";
+  }
+
+  handleChange(event) {
+    const value = event.target.value;
+
+    this.setState({ value: value }, () => {
+      // As callback, save successful value into Redux store.
+      if (this.getValidationState() !== "error") {
+        this.props.setLengthDays(value);
+      }
+    });
+  }
+
   render() {
     return (
-      <FormGroup>
+      <FormGroup validationState={this.getValidationState()}>
         <ControlLabel>Days of Lifting</ControlLabel>
-        <div>
-          <FormControl
-            type="number"
-            defaultValue={this.props.lengthDays}
-            onChange={this.props.setLengthDays}
-          />
-        </div>
+        <FormControl type="number" value={this.state.value} onChange={this.handleChange} />
       </FormGroup>
     );
   }
@@ -31,7 +57,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    setLengthDays: event => dispatch(setLengthDays(event.target.value))
+    setLengthDays: days => dispatch(setLengthDays(days))
   };
 };
 

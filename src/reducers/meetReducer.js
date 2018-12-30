@@ -1,5 +1,7 @@
 // vim: set ts=2 sts=2 sw=2 et:
 
+const defaultPlatformsOnDay = 1;
+
 const initialState = {
   name: "",
   formula: "Wilks",
@@ -7,7 +9,7 @@ const initialState = {
   date: new Date(),
   dateString: getDateString(new Date()),
   lengthDays: 1,
-  platformsOnDays: [1],
+  platformsOnDays: [defaultPlatformsOnDay],
   divisions: [],
   weightClassesKgMen: [],
   weightClassesKgWomen: [],
@@ -30,8 +32,17 @@ export default (state = initialState, action) => {
       return { ...state, divisions: action.divisions };
     case "SET_MEET_DATE":
       return { ...state, date: action.date, dateString: getDateString(action.date) };
-    case "SET_LENGTH_DAYS":
-      return { ...state, lengthDays: Number(action.length) };
+    case "SET_LENGTH_DAYS": {
+      const numDays = Number(action.length);
+
+      if (numDays >= state.platformsOnDays.length) {
+        let newPlatformsOnDays = state.platformsOnDays.slice();
+        newPlatformsOnDays.push(defaultPlatformsOnDay);
+
+        return { ...state, lengthDays: numDays, platformsOnDays: newPlatformsOnDays };
+      }
+      return { ...state, lengthDays: numDays };
+    }
     case "SET_PLATFORM_COUNT": {
       let newPlatformsOnDays = state.platformsOnDays.slice();
       newPlatformsOnDays[action.data.day - 1] = Number(action.data.count);

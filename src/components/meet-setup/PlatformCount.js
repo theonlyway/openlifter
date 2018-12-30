@@ -11,21 +11,46 @@ import { setPlatformsOnDays } from "../../actions/meetSetupActions";
 class PlatformCount extends React.Component {
   constructor(props) {
     super(props);
+
+    this.getValidationState = this.getValidationState.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
+
+    this.state = {
+      value: this.props.platformsOnDays[this.props.day - 1]
+    };
   }
+
+  getValidationState() {
+    const { value } = this.state;
+    const asNumber = Number(value);
+
+    if (isNaN(asNumber) || asNumber <= 0) {
+      return "error";
+    }
+    return "success";
+  }
+
   handleChange(event) {
+    const value = event.target.value;
+    this.setState({ value: value });
+  }
+
+  handleBlur(event) {
+    if (this.getValidationState() !== "success") {
+      return;
+    }
     this.props.setPlatformsOnDays({ day: this.props.day, count: event.target.value });
   }
+
   render() {
     const { day } = this.props;
     const label = "Platforms on Day " + day;
-    const countForDay = this.props.platformsOnDays[day - 1];
+
     return (
-      <FormGroup>
+      <FormGroup validationState={this.getValidationState()}>
         <ControlLabel>{label}</ControlLabel>
-        <div>
-          <FormControl type="number" placeholder={label} defaultValue={countForDay} onChange={this.handleChange} />
-        </div>
+        <FormControl type="number" value={this.state.value} onChange={this.handleChange} onBlur={this.handleBlur} />
       </FormGroup>
     );
   }
