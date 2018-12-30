@@ -16,6 +16,18 @@ const footerStyle = {
   width: "100%"
 };
 
+const liftOptions = [
+  <option key={0} value={"S"}>
+    Squat
+  </option>,
+  <option key={1} value={"B"}>
+    Bench
+  </option>,
+  <option key={2} value={"D"}>
+    Deadlift
+  </option>
+];
+
 const flightOptions = [
   <option key={0} value={"A"}>
     Flight A
@@ -40,6 +52,21 @@ const flightOptions = [
   </option>,
   <option key={7} value={"H"}>
     Flight H
+  </option>
+];
+
+const attemptOptions = [
+  <option key={1} value={"1"}>
+    Attempt 1
+  </option>,
+  <option key={2} value={"2"}>
+    Attempt 2
+  </option>,
+  <option key={3} value={"3"}>
+    Attempt 3
+  </option>,
+  <option key={4} value={"4"}>
+    Attempt 4
   </option>
 ];
 
@@ -78,7 +105,9 @@ class LiftingFooter extends React.Component {
 
         <FormControl componentClass="select">{this.dayOptions}</FormControl>
         <FormControl componentClass="select">{platformOptions}</FormControl>
+        <FormControl componentClass="select">{liftOptions}</FormControl>
         <FormControl componentClass="select">{flightOptions}</FormControl>
+        <FormControl componentClass="select">{attemptOptions}</FormControl>
       </div>
     );
   }
