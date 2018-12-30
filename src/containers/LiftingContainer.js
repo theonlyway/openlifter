@@ -5,7 +5,14 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import LiftingView from "../components/lifting/LiftingView";
+import LiftingContent from "../components/lifting/LiftingContent";
+import LiftingFooter from "../components/lifting/LiftingFooter";
+
+class LiftingContainer extends React.Component {
+  render() {
+    return [<LiftingContent key={0} />, <LiftingFooter key={1} />];
+  }
+}
 
 const mapStateToProps = state => ({
   ...state
@@ -14,16 +21,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => {
   return {};
 };
-
-class LiftingContainer extends React.Component {
-  render() {
-    return (
-      <div>
-        <LiftingView />
-      </div>
-    );
-  }
-}
 
 export default connect(
   mapStateToProps,
