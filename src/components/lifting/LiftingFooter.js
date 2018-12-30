@@ -1,6 +1,6 @@
 // vim: set ts=2 sts=2 sw=2 et:
 //
-// The footer of the Lifting page, contained by the LiftingContainer.
+// The footer of the Lifting page, contained by the LiftingView.
 // This is the parent element of the controls that affect present lifting state.
 
 import React from "react";
