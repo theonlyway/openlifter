@@ -100,8 +100,8 @@ class LiftingFooter extends React.Component {
 
     return (
       <div style={footerStyle}>
-        <Button bsStyle="success">Good Lift</Button>
-        <Button bsStyle="danger">No Lift</Button>
+        <Button bsStyle="success" bsSize="large">Good Lift</Button>
+        <Button bsStyle="danger" bsSize="large">No Lift</Button>
 
         <FormControl componentClass="select">{this.dayOptions}</FormControl>
         <FormControl componentClass="select">{platformOptions}</FormControl>
