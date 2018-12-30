@@ -10,10 +10,14 @@ import { connect } from "react-redux";
 import { Button, FormControl } from "react-bootstrap";
 
 const footerStyle = {
+  display: "flex",
+  justifyContent: "space-between",
   position: "fixed",
   left: 0,
   bottom: 0,
-  width: "100%"
+  width: "100%",
+  backgroundColor: "#f8f8f8",
+  borderTop: "1px solid #e7e7e7"
 };
 
 const liftOptions = [
@@ -98,16 +102,49 @@ class LiftingFooter extends React.Component {
       );
     }
 
+    const buttonStyle = {
+      width: "200px",
+
+      // Removing rounding allows the score table operator to mash "Good Lift"
+      // by just moving the mouse into the lower-left corner of the screen.
+      borderRadius: "0px"
+    };
+    const selectStyle = { width: "120px" };
+
+    const rightControlsStyle = {
+      display: "flex",
+      alignItems: "center",
+      paddingRight: "4px"
+    };
+
     return (
       <div style={footerStyle}>
-        <Button bsStyle="success" bsSize="large">Good Lift</Button>
-        <Button bsStyle="danger" bsSize="large">No Lift</Button>
+        <div>
+          <Button bsStyle="success" bsSize="large" style={buttonStyle}>
+            Good Lift
+          </Button>
+          <Button bsStyle="danger" bsSize="large" style={buttonStyle}>
+            No Lift
+          </Button>
+        </div>
 
-        <FormControl componentClass="select">{this.dayOptions}</FormControl>
-        <FormControl componentClass="select">{platformOptions}</FormControl>
-        <FormControl componentClass="select">{liftOptions}</FormControl>
-        <FormControl componentClass="select">{flightOptions}</FormControl>
-        <FormControl componentClass="select">{attemptOptions}</FormControl>
+        <div style={rightControlsStyle}>
+          <FormControl componentClass="select" style={selectStyle}>
+            {this.dayOptions}
+          </FormControl>
+          <FormControl componentClass="select" style={selectStyle}>
+            {platformOptions}
+          </FormControl>
+          <FormControl componentClass="select" style={selectStyle}>
+            {liftOptions}
+          </FormControl>
+          <FormControl componentClass="select" style={selectStyle}>
+            {flightOptions}
+          </FormControl>
+          <FormControl componentClass="select" style={selectStyle}>
+            {attemptOptions}
+          </FormControl>
+        </div>
       </div>
     );
   }
