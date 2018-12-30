@@ -16,7 +16,7 @@ class MeetDate extends React.Component {
     const { date } = this.props.meet;
     return (
       <FormGroup>
-        <ControlLabel>Meet Date</ControlLabel>
+        <ControlLabel>Start Date</ControlLabel>
         <div>
           <DatePicker selected={date} onChange={this.props.setMeetDate} />
         </div>

@@ -22,6 +22,7 @@ const MeetSetup = () => {
         <Panel.Heading>Meet Information</Panel.Heading>
         <Panel.Body>
           <MeetName />
+          <FederationSelect />
           <MeetDate />
           <MeetLength />
           <PlatformCounts />
@@ -31,7 +32,6 @@ const MeetSetup = () => {
       <Panel>
         <Panel.Heading>Rules</Panel.Heading>
         <Panel.Body>
-          <FederationSelect />
           <DivisionSelect />
           <WeightClassesSelect sex="M" label="Men's Weight Classes (kg), omit SHW" />
           <WeightClassesSelect sex="F" label="Women's Weight Classes (kg), omit SHW" />

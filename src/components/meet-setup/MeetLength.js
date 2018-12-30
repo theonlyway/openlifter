@@ -12,11 +12,10 @@ class MeetLength extends React.Component {
   render() {
     return (
       <FormGroup>
-        <ControlLabel>Meet Length (Days)</ControlLabel>
+        <ControlLabel>Days of Lifting</ControlLabel>
         <div>
           <FormControl
             type="number"
-            placeholder="Meet Length (Days)"
             defaultValue={this.props.lengthDays}
             onChange={this.props.setLengthDays}
           />
