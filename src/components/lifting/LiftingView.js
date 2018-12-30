@@ -17,7 +17,7 @@ class LiftingView extends React.Component {
   render() {
     return [<LiftingContent key={0} />, <LiftingFooter key={1} />];
   }
-};
+}
 
 export default connect(
   null,
