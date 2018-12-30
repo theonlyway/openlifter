@@ -144,6 +144,11 @@ class LiftingFooter extends React.Component {
           <FormControl componentClass="select" style={selectStyle}>
             {attemptOptions}
           </FormControl>
+          <FormControl componentClass="select" style={selectStyle}>
+            <option key={0} value="5000">
+              Unknown Lifter
+            </option>
+          </FormControl>
         </div>
       </div>
     );
