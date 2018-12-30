@@ -25,7 +25,7 @@ class PlatformCount extends React.Component {
     const { value } = this.state;
     const asNumber = Number(value);
 
-    if (isNaN(asNumber) || asNumber <= 0) {
+    if (isNaN(asNumber) || asNumber <= 0 || asNumber > 20) {
       return "error";
     }
     return "success";
