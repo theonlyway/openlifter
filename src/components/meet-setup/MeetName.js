@@ -14,6 +14,7 @@ class MeetName extends React.Component {
   constructor(props, context) {
     super(props, context);
 
+    this.handleChange = this.handleChange.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
 
     this.state = {
@@ -28,29 +29,30 @@ class MeetName extends React.Component {
     return "success";
   }
 
-  // When the control loses focus, possibly update the Redux store.
-  handleBlur(e) {
-    const value = e.target.value;
+  handleChange(event) {
+    const value = event.target.value;
+    this.setState({ value: value });
+  }
 
-    // Render the component based on its internal state change.
-    //
-    // Because setState() is asynchronous, checking validation and
-    // potentially updating the Redux store is handled in a callback.
-    // Note that setState() is asynchronous, so "this.state" cannot be read.
-    this.setState({ value: value }, () => {
-      // If the change is successful, save the successful value into the Redux store.
-      if (this.getValidationState() !== "error") {
-        this.props.setMeetName(value);
-      }
-    });
+  // When the control loses focus, possibly update the Redux store.
+  handleBlur(event) {
+    if (this.getValidationState() !== "success") {
+      return;
+    }
+    this.props.setMeetName(event.target.value);
   }
 
   render() {
     return (
       <FormGroup validationState={this.getValidationState()}>
         <ControlLabel>Meet Name</ControlLabel>
-        <FormControl type="text" placeholder="Meet Name" defaultValue={this.props.name} onBlur={this.handleBlur} />
-        <FormControl.Feedback />
+        <FormControl
+          type="text"
+          placeholder="Meet Name"
+          value={this.state.value}
+          onChange={this.handleChange}
+          onBlur={this.handleBlur}
+        />
       </FormGroup>
     );
   }
