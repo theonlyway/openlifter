@@ -14,7 +14,6 @@ class PlatformCount extends React.Component {
 
     this.getValidationState = this.getValidationState.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.handleBlur = this.handleBlur.bind(this);
 
     this.state = {
       value: this.props.platformsOnDays[this.props.day - 1]
@@ -33,14 +32,11 @@ class PlatformCount extends React.Component {
 
   handleChange(event) {
     const value = event.target.value;
-    this.setState({ value: value });
-  }
-
-  handleBlur(event) {
-    if (this.getValidationState() !== "success") {
-      return;
-    }
-    this.props.setPlatformsOnDays({ day: this.props.day, count: event.target.value });
+    this.setState({ value: value }, () => {
+      if (this.getValidationState() === "success") {
+        this.props.setPlatformsOnDays({ day: this.props.day, count: value });
+      }
+    });
   }
 
   render() {
@@ -50,7 +46,7 @@ class PlatformCount extends React.Component {
     return (
       <FormGroup validationState={this.getValidationState()}>
         <ControlLabel>{label}</ControlLabel>
-        <FormControl type="number" value={this.state.value} onChange={this.handleChange} onBlur={this.handleBlur} />
+        <FormControl type="number" value={this.state.value} onChange={this.handleChange} />
       </FormGroup>
     );
   }
