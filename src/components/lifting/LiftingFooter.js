@@ -16,6 +16,33 @@ const footerStyle = {
   width: "100%"
 };
 
+const flightOptions = [
+  <option key={0} value={"A"}>
+    Flight A
+  </option>,
+  <option key={1} value={"B"}>
+    Flight B
+  </option>,
+  <option key={2} value={"C"}>
+    Flight C
+  </option>,
+  <option key={3} value={"D"}>
+    Flight D
+  </option>,
+  <option key={4} value={"E"}>
+    Flight E
+  </option>,
+  <option key={5} value={"F"}>
+    Flight F
+  </option>,
+  <option key={6} value={"G"}>
+    Flight G
+  </option>,
+  <option key={7} value={"H"}>
+    Flight H
+  </option>
+];
+
 class LiftingFooter extends React.Component {
   constructor(props) {
     super(props);
@@ -51,6 +78,7 @@ class LiftingFooter extends React.Component {
 
         <FormControl componentClass="select">{this.dayOptions}</FormControl>
         <FormControl componentClass="select">{platformOptions}</FormControl>
+        <FormControl componentClass="select">{flightOptions}</FormControl>
       </div>
     );
   }
