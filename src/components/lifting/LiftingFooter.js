@@ -32,13 +32,25 @@ class LiftingFooter extends React.Component {
   }
 
   render() {
-    console.log(this.dayOptions);
+    const CURRENT_DAY_FIXME = 1;
+    const numPlatforms = this.props.platformsOnDays[CURRENT_DAY_FIXME - 1];
+
+    let platformOptions = [];
+    for (let i = 1; i <= numPlatforms; i++) {
+      platformOptions.push(
+        <option value={i} key={i}>
+          Platform {i}
+        </option>
+      );
+    }
+
     return (
       <div style={footerStyle}>
         <Button>Good Lift</Button>
         <Button>No Lift</Button>
 
         <FormControl componentClass="select">{this.dayOptions}</FormControl>
+        <FormControl componentClass="select">{platformOptions}</FormControl>
       </div>
     );
   }
@@ -46,12 +58,14 @@ class LiftingFooter extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    lengthDays: state.meet.lengthDays
+    lengthDays: state.meet.lengthDays,
+    platformsOnDays: state.meet.platformsOnDays
   };
 };
 
 LiftingFooter.propTypes = {
-  lengthDays: PropTypes.number
+  lengthDays: PropTypes.number.isRequired,
+  platformsOnDays: PropTypes.array.isRequired
 };
 
 export default connect(
