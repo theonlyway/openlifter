@@ -9,6 +9,8 @@ import { connect } from "react-redux";
 
 import { Button, FormControl } from "react-bootstrap";
 
+import { setLiftingGroup, overrideAttempt, overrideEntryId } from "../../actions/liftingActions";
+
 const footerStyle = {
   display: "flex",
   justifyContent: "space-between",
@@ -87,6 +89,52 @@ class LiftingFooter extends React.Component {
         </option>
       );
     }
+
+    this.handleDayChange = this.handleDayChange.bind(this);
+    this.handlePlatformChange = this.handlePlatformChange.bind(this);
+    this.handleFlightChange = this.handleFlightChange.bind(this);
+    this.handleLiftChange = this.handleLiftChange.bind(this);
+
+    this.handleAttemptChange = this.handleAttemptChange.bind(this);
+    this.handleLifterChange = this.handleLifterChange.bind(this);
+  }
+
+  handleDayChange(event) {
+    const day = Number(event.target.value);
+    const platform = this.props.lifting.platform;
+    const flight = this.props.lifting.flight;
+    const lift = this.props.lifting.lift;
+    this.props.setLiftingGroup(day, platform, flight, lift);
+  }
+  handlePlatformChange(event) {
+    const day = this.props.lifting.day;
+    const platform = Number(event.target.value);
+    const flight = this.props.lifting.flight;
+    const lift = this.props.lifting.lift;
+    this.props.setLiftingGroup(day, platform, flight, lift);
+  }
+  handleFlightChange(event) {
+    const day = this.props.lifting.day;
+    const platform = this.props.lifting.platform;
+    const flight = event.target.value;
+    const lift = this.props.lifting.lift;
+    this.props.setLiftingGroup(day, platform, flight, lift);
+  }
+  handleLiftChange(event) {
+    const day = this.props.lifting.day;
+    const platform = this.props.lifting.platform;
+    const flight = this.props.lifting.flight;
+    const lift = event.target.value;
+    this.props.setLiftingGroup(day, platform, flight, lift);
+  }
+
+  handleAttemptChange(event) {
+    const attempt = Number(event.target.value);
+    this.props.overrideAttempt(attempt);
+  }
+  handleLifterChange(event) {
+    const entryId = Number(event.target.value);
+    this.props.overrideEntryId(entryId);
   }
 
   render() {
@@ -129,22 +177,42 @@ class LiftingFooter extends React.Component {
         </div>
 
         <div style={rightControlsStyle}>
-          <FormControl componentClass="select" style={selectStyle}>
+          <FormControl
+            componentClass="select"
+            defaultValue={this.props.lifting.day}
+            onChange={this.handleDayChange}
+            style={selectStyle}
+          >
             {this.dayOptions}
           </FormControl>
-          <FormControl componentClass="select" style={selectStyle}>
+          <FormControl
+            componentClass="select"
+            defaultValue={this.props.lifting.platform}
+            onChange={this.handlePlatformChange}
+            style={selectStyle}
+          >
             {platformOptions}
           </FormControl>
-          <FormControl componentClass="select" style={selectStyle}>
+          <FormControl
+            componentClass="select"
+            defaultValue={this.props.lifting.lift}
+            onChange={this.handleLiftChange}
+            style={selectStyle}
+          >
             {liftOptions}
           </FormControl>
-          <FormControl componentClass="select" style={selectStyle}>
+          <FormControl
+            componentClass="select"
+            defaultValue={this.props.lifting.flight}
+            onChange={this.handleFlightChange}
+            style={selectStyle}
+          >
             {flightOptions}
           </FormControl>
-          <FormControl componentClass="select" style={selectStyle}>
+          <FormControl componentClass="select" onChange={this.handleAttemptChange} style={selectStyle}>
             {attemptOptions}
           </FormControl>
-          <FormControl componentClass="select" style={selectStyle}>
+          <FormControl componentClass="select" onChange={this.handleLifterChange} style={selectStyle}>
             <option key={0} value="5000">
               Unknown Lifter
             </option>
@@ -158,16 +226,34 @@ class LiftingFooter extends React.Component {
 const mapStateToProps = state => {
   return {
     lengthDays: state.meet.lengthDays,
-    platformsOnDays: state.meet.platformsOnDays
+    platformsOnDays: state.meet.platformsOnDays,
+    lifting: state.lifting
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setLiftingGroup: (day, platform, flight, lift) => dispatch(setLiftingGroup(day, platform, flight, lift)),
+    overrideAttempt: attempt => dispatch(overrideAttempt(attempt)),
+    overrideEntryId: entryId => dispatch(overrideEntryId(entryId))
   };
 };
 
 LiftingFooter.propTypes = {
   lengthDays: PropTypes.number.isRequired,
-  platformsOnDays: PropTypes.array.isRequired
+  platformsOnDays: PropTypes.array.isRequired,
+  lifting: PropTypes.shape({
+    day: PropTypes.number.isRequired,
+    platform: PropTypes.number.isRequired,
+    flight: PropTypes.string.isRequired,
+    lift: PropTypes.string.isRequired
+  }).isRequired,
+  setLiftingGroup: PropTypes.func.isRequired,
+  overrideAttempt: PropTypes.func.isRequired,
+  overrideEntryId: PropTypes.func.isRequired
 };
 
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(LiftingFooter);

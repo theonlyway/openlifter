@@ -1,17 +1,55 @@
 // vim: set ts=2 sts=2 sw=2 et:
 //
-// This file contains the main application logic.
+// Lifting state only tracks manual overrides.
 //
-// Because OpenLifter is built with Redux, visual components on the lifting page
-// must reflect global state, and the "application logic" that determines behavior
-// when an action occurs must be a pure function that accepts an existing state
-// (of the meet) and produces the next state (of the meet).
+// Outside of overrides, the state of the meet is fully-calculated by the LiftingView.
+//
+// For safety, correctness, and ease of understanding, the state of the meet is
+// intentionally *not* stored in the global state. It is continuously recalculated.
+//
+// Please do not attempt to store meet state in the Redux store!
 //
 
-const initialState = {};
+const initialState = {
+  // Specifies the initial settings for the control widgets on the lifting page.
+  // The intention is that the score table sets these manually.
+  day: 1,
+  platform: 1,
+  flight: "A",
+  lift: "S",
+
+  // These properties are normally calculated, but exist here as a mechanism
+  // for a one-shot override of the normal logic. After being handled,
+  // they are unset.
+  overrideAttempt: null, // Allows selecting an attempt, even if it's completed.
+  overrideEntryId: null // Allows selecting a lifter, even if they've already gone.
+};
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case "MARK_LIFT": {
+      // Unset any overrides, returning to normal lifting flow.
+      return { ...state, overrideAttempt: null, overrideEntryId: null };
+    }
+
+    case "SET_LIFTING_GROUP":
+      return {
+        day: action.day,
+        platform: action.platform,
+        flight: action.flight,
+        lift: action.lift,
+
+        // If the group changes, unset any overrides.
+        overrideAttempt: null,
+        overrideEntryId: null
+      };
+
+    case "OVERRIDE_ATTEMPT":
+      return { ...state, overrideAttempt: action.attempt };
+
+    case "OVERRIDE_ENTRY_ID":
+      return { ...state, overrideEntryId: action.entryId };
+
     case "OVERWRITE_STORE":
       return action.store.lifting;
 
