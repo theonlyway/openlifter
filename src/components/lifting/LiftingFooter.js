@@ -162,7 +162,7 @@ class LiftingFooter extends React.Component {
       // by just moving the mouse into the lower-left corner of the screen.
       borderRadius: "0px"
     };
-    const selectStyle = { width: "120px" };
+    const selectStyle = { width: "110px" };
 
     const rightControlsStyle = {
       display: "flex",
