@@ -101,9 +101,15 @@ class LiftingFooter extends React.Component {
 
   handleDayChange(event) {
     const day = Number(event.target.value);
-    const platform = this.props.lifting.platform;
     const flight = this.props.lifting.flight;
     const lift = this.props.lifting.lift;
+
+    // If the new day has fewer platforms, reset the platform selector also.
+    let platform = this.props.lifting.platform;
+    if (platform > this.props.platformsOnDays[day - 1]) {
+      platform = 1;
+    }
+
     this.props.setLiftingGroup(day, platform, flight, lift);
   }
   handlePlatformChange(event) {
@@ -138,8 +144,7 @@ class LiftingFooter extends React.Component {
   }
 
   render() {
-    const CURRENT_DAY_FIXME = 1;
-    const numPlatforms = this.props.platformsOnDays[CURRENT_DAY_FIXME - 1];
+    const numPlatforms = this.props.platformsOnDays[this.props.lifting.day - 1];
 
     let platformOptions = [];
     for (let i = 1; i <= numPlatforms; i++) {
