@@ -60,6 +60,7 @@ class LifterRow extends React.Component {
   render() {
     const entry = this.props.entry;
 
+    // Check whether the event(s) include a given lift.
     let hasSquat = false;
     let hasBench = false;
     let hasDeadlift = false;
@@ -76,6 +77,11 @@ class LifterRow extends React.Component {
       }
     }
 
+    // Check whether the first attempt already occurred.
+    const disableSquatWeight = !hasSquat || entry.squatStatus[0] !== 0;
+    const disableBenchWeight = !hasBench || entry.benchStatus[0] !== 0;
+    const disableDeadliftWeight = !hasDeadlift || entry.deadliftStatus[0] !== 0;
+
     return (
       <tr>
         <td>{entry.platform}</td>
@@ -89,17 +95,17 @@ class LifterRow extends React.Component {
         <td>{this.renderSquatRackInfo(entry, hasSquat)}</td>
 
         <td>
-          <WeightInput id={this.props.id} lift="S" attemptOneIndexed={1} disabled={!hasSquat} />
+          <WeightInput id={this.props.id} lift="S" attemptOneIndexed={1} disabled={disableSquatWeight} />
         </td>
 
         <td>{this.renderBenchRackInfo(entry, hasBench)}</td>
 
         <td>
-          <WeightInput id={this.props.id} lift="B" attemptOneIndexed={1} disabled={!hasBench} />
+          <WeightInput id={this.props.id} lift="B" attemptOneIndexed={1} disabled={disableBenchWeight} />
         </td>
 
         <td>
-          <WeightInput id={this.props.id} lift="D" attemptOneIndexed={1} disabled={!hasDeadlift} />
+          <WeightInput id={this.props.id} lift="D" attemptOneIndexed={1} disabled={disableDeadliftWeight} />
         </td>
       </tr>
     );
