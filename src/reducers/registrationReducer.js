@@ -52,11 +52,24 @@ const makeNewEntry = id => {
     // Information added on the "Weigh-ins" page.
     // But we might as well track it in this object.
     bodyweightKg: 0.0,
-    squatOpenerKg: 0.0,
     squatRackInfo: "", // A freeform string for the benefit of the loaders.
-    benchOpenerKg: 0.0,
     benchRackInfo: "", // A freeform string for the benefit of the loaders.
-    deadliftOpenerKg: 0.0
+
+    // Lifting information. Weights always stored internally in kg.
+    squatKg: [0.0, 0.0, 0.0, 0.0, 0.0],
+    benchKg: [0.0, 0.0, 0.0, 0.0, 0.0],
+    deadliftKg: [0.0, 0.0, 0.0, 0.0, 0.0],
+
+    // Lifting information, success state:
+    //  -1 => No Lift.
+    //   0 => Not Yet Done.
+    //   1 => Good Lift.
+    //
+    // Note that this system has the property where corresponding (kg*status)
+    // produces the SquatXKg as expected by the main OpenPowerlifting CSV format.
+    squatStatus: [0, 0, 0, 0, 0],
+    benchStatus: [0, 0, 0, 0, 0],
+    deadliftStatus: [0, 0, 0, 0, 0]
   };
 };
 
@@ -68,6 +81,20 @@ export const getLiftersOnDay = (entries, day) => {
   return entries.filter(entry => {
     return entry.day === day;
   });
+};
+
+// Convert a lift like "S" to the array field name, like "squatKg".
+export const liftToAttemptFieldName = lift => {
+  switch (lift) {
+    case "S":
+      return "squatKg";
+    case "B":
+      return "benchKg";
+    case "D":
+      return "deadliftKg";
+    default:
+      break; // Linter complains about unreachable code if this returns.
+  }
 };
 
 export default (state = initialState, action) => {
@@ -120,12 +147,43 @@ export default (state = initialState, action) => {
 
       // Make a new object with just the changes overwritten,
       // and reference that object from the new array.
-      let index = entries.findIndex(obj => obj.id === entryId);
+      const index = entries.findIndex(obj => obj.id === entryId);
       entries[index] = Object.assign(entries[index], changes);
 
       return {
         ...state,
         entries: entries
+      };
+    }
+
+    case "ENTER_ATTEMPT": {
+      // Action parameters, with expected types.
+      const entryId = Number(action.entryId);
+      const lift = String(action.lift);
+      const attemptOneIndexed = Number(action.attemptOneIndexed);
+      const weightKg = Number(action.weightKg);
+
+      const field = liftToAttemptFieldName(lift);
+
+      // Clone the entries array, since one object will reference a new object.
+      let newEntries = state.entries.slice();
+      const index = newEntries.findIndex(obj => obj.id === entryId);
+      const oldEntry = newEntries[index];
+
+      // Make a copy of the attempts array containing the new attempt.
+      let newarray = oldEntry[field].slice();
+      newarray[attemptOneIndexed - 1] = weightKg;
+
+      // Put that new attempts array into an object so we can use Object.assign().
+      let newfields = {};
+      newfields[field] = newarray;
+
+      // Make a new entry from the old entry, with the attempts field overwritten.
+      newEntries[index] = Object.assign(oldEntry, newfields);
+
+      return {
+        ...state,
+        entries: newEntries
       };
     }
 

@@ -11,6 +11,9 @@ import { connect } from "react-redux";
 import { FormControl, FormGroup } from "react-bootstrap";
 
 import { updateRegistration } from "../../actions/registrationActions";
+import { enterAttempt } from "../../actions/liftingActions";
+
+import { liftToAttemptFieldName } from "../../reducers/registrationReducer";
 
 class WeightInput extends React.Component {
   constructor(props) {
@@ -62,8 +65,17 @@ class WeightInput extends React.Component {
     }
 
     const weightKg = this.props.inKg ? weightNum : weightNum / 2.20462262;
+    if (this.props.weightKg === weightKg) {
+      return;
+    }
 
-    if (this.props.weightKg !== weightKg) {
+    // If "attempt" is set, a specific attempt is selected.
+    if (this.props.attemptOneIndexed !== undefined) {
+      const attemptOneIndexed = this.props.attemptOneIndexed;
+      const lift = this.props.lift;
+      this.props.enterAttempt(this.props.id, lift, attemptOneIndexed, weightKg);
+    } else {
+      // Otherwise, the field is a Number.
       let newfields = {};
       newfields[this.props.field] = weightKg;
       this.props.updateRegistration(this.props.id, newfields);
@@ -93,17 +105,31 @@ const mapStateToProps = (state, ownProps) => {
   // Only have props for the entry corresponding to this one row.
   const lookup = state.registration.lookup;
   const entry = state.registration.entries[lookup[ownProps.id]];
-  const field = ownProps.field;
+
+  // If `field` is set, then read the Number from the given field name.
+  let weightKg = 0.0;
+  if (ownProps.field !== undefined) {
+    weightKg = entry[ownProps.field];
+  } else {
+    // Otherwise, refer to a specific lift and attempt.
+    const lift = ownProps.lift;
+    const attemptOneIndexed = ownProps.attemptOneIndexed;
+    const field = liftToAttemptFieldName(lift);
+    weightKg = entry[field][attemptOneIndexed - 1];
+    console.log(lift, field, weightKg);
+  }
 
   return {
     inKg: state.meet.inKg,
-    weightKg: entry[field]
+    weightKg: weightKg
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    updateRegistration: (entryId, obj) => dispatch(updateRegistration(entryId, obj))
+    updateRegistration: (entryId, obj) => dispatch(updateRegistration(entryId, obj)),
+    enterAttempt: (entryId, lift, attemptOneIndexed, weightKg) =>
+      dispatch(enterAttempt(entryId, lift, attemptOneIndexed, weightKg))
   };
 };
 
@@ -113,9 +139,16 @@ WeightInput.propTypes = {
   disabled: PropTypes.bool.isRequired,
   inKg: PropTypes.bool.isRequired,
   weightKg: PropTypes.number.isRequired,
+
   // The name of the field on the entry, like "bodyweightKg".
-  field: PropTypes.string.isRequired,
-  updateRegistration: PropTypes.func.isRequired
+  field: PropTypes.string,
+
+  // If field isn't used, say what lift and attempt this corresponds to.
+  lift: PropTypes.string,
+  attemptOneIndexed: PropTypes.number,
+
+  updateRegistration: PropTypes.func.isRequired,
+  enterAttempt: PropTypes.func.isRequired
 };
 
 export default connect(

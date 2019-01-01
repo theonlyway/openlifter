@@ -89,17 +89,17 @@ class LifterRow extends React.Component {
         <td>{this.renderSquatRackInfo(entry, hasSquat)}</td>
 
         <td>
-          <WeightInput id={this.props.id} field="squatOpenerKg" disabled={!hasSquat} />
+          <WeightInput id={this.props.id} lift="S" attemptOneIndexed={1} disabled={!hasSquat} />
         </td>
 
         <td>{this.renderBenchRackInfo(entry, hasBench)}</td>
 
         <td>
-          <WeightInput id={this.props.id} field="benchOpenerKg" disabled={!hasBench} />
+          <WeightInput id={this.props.id} lift="B" attemptOneIndexed={1} disabled={!hasBench} />
         </td>
 
         <td>
-          <WeightInput id={this.props.id} field="deadliftOpenerKg" disabled={!hasDeadlift} />
+          <WeightInput id={this.props.id} lift="D" attemptOneIndexed={1} disabled={!hasDeadlift} />
         </td>
       </tr>
     );

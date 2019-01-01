@@ -1,5 +1,16 @@
 // vim: set ts=2 sts=2 sw=2 et:
 
+// Sets a weightKg that doesn't have a good/failed value, for entering in attempts.
+export const enterAttempt = (entryId, lift, attemptOneIndexed, weightKg) => {
+  return {
+    type: "ENTER_ATTEMPT",
+    entryId: entryId,
+    lift: lift,
+    attemptOneIndexed: attemptOneIndexed,
+    weightKg: weightKg
+  };
+};
+
 // Marks a lift "good" or "failed".
 //
 // entryId is the ID of the affected entry, a Number.
