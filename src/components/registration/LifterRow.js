@@ -25,6 +25,12 @@ const eventOptions = [
 class LifterRow extends React.Component {
   constructor(props) {
     super(props);
+
+    // Store the Day in state to update the Platform options when the Day changes.
+    this.state = {
+      selectedDay: props.entry.day
+    };
+
     this.deleteRegistrationClick = this.deleteRegistrationClick.bind(this);
     this.updateRegistrationDay = this.updateRegistrationDay.bind(this);
     this.updateRegistrationPlatform = this.updateRegistrationPlatform.bind(this);
@@ -51,6 +57,7 @@ class LifterRow extends React.Component {
     }
 
     if (entry.day !== day) {
+      this.setState({ selectedDay: day });
       this.props.updateRegistration(this.props.id, { day: day, platform: platform });
     }
   }
@@ -156,7 +163,11 @@ class LifterRow extends React.Component {
     return (
       <tr>
         <td>
-          <FormControl defaultValue={entry.day} componentClass="select" onChange={this.updateRegistrationDay}>
+          <FormControl
+            defaultValue={this.state.selectedDay}
+            componentClass="select"
+            onChange={this.updateRegistrationDay}
+          >
             {dayOptions}
           </FormControl>
         </td>
