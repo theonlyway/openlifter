@@ -34,7 +34,7 @@ class PlatformCount extends React.Component {
     const value = event.target.value;
     this.setState({ value: value }, () => {
       if (this.getValidationState() === "success") {
-        this.props.setPlatformsOnDays({ day: this.props.day, count: value });
+        this.props.setPlatformsOnDays(this.props.day, value);
       }
     });
   }
@@ -58,7 +58,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    setPlatformsOnDays: data => dispatch(setPlatformsOnDays(data))
+    setPlatformsOnDays: (day, count) => dispatch(setPlatformsOnDays(day, count))
   };
 };
 

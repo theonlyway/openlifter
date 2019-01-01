@@ -36,16 +36,23 @@ export default (state = initialState, action) => {
       const numDays = Number(action.length);
 
       if (numDays >= state.platformsOnDays.length) {
+        const diff = numDays - state.platformsOnDays.length;
+
         let newPlatformsOnDays = state.platformsOnDays.slice();
-        newPlatformsOnDays.push(defaultPlatformsOnDay);
+        for (let i = 0; i < diff; i++) {
+          newPlatformsOnDays.push(defaultPlatformsOnDay);
+        }
 
         return { ...state, lengthDays: numDays, platformsOnDays: newPlatformsOnDays };
       }
       return { ...state, lengthDays: numDays };
     }
     case "SET_PLATFORM_COUNT": {
+      const day = Number(action.day);
+      const count = Number(action.count);
+
       let newPlatformsOnDays = state.platformsOnDays.slice();
-      newPlatformsOnDays[action.data.day - 1] = Number(action.data.count);
+      newPlatformsOnDays[day - 1] = count;
       return { ...state, platformsOnDays: newPlatformsOnDays };
     }
     case "SET_IN_KG":

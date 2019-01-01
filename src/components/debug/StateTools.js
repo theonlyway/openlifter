@@ -4,30 +4,39 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import { Panel } from "react-bootstrap";
+import { ButtonGroup, Panel } from "react-bootstrap";
+
+import RandomizeMeetSetupButton from "./RandomizeMeetSetup";
+
+class StateTools extends React.Component {
+  render() {
+    return (
+      <div>
+        <Panel bsStyle="danger">
+          <Panel.Heading>Generate Random Data</Panel.Heading>
+          <Panel.Body>
+            <ButtonGroup>
+              <RandomizeMeetSetupButton />
+            </ButtonGroup>
+          </Panel.Body>
+        </Panel>
+
+        <Panel bsStyle="info">
+          <Panel.Heading>Redux State</Panel.Heading>
+          <Panel.Body>
+            <pre>{JSON.stringify(this.props, null, 2)}</pre>
+          </Panel.Body>
+        </Panel>
+      </div>
+    );
+  }
+}
 
 const mapStateToProps = state => ({
   ...state
 });
 
-const mapDispatchToProps = dispatch => {
-  return {};
-};
-
-class StateTools extends React.Component {
-  render() {
-    return (
-      <Panel bsStyle="info">
-        <Panel.Heading>Redux State</Panel.Heading>
-        <Panel.Body>
-          <pre>{JSON.stringify(this.props, null, 2)}</pre>
-        </Panel.Body>
-      </Panel>
-    );
-  }
-}
-
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  null
 )(StateTools);

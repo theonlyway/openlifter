@@ -42,10 +42,11 @@ export const setLengthDays = length => {
   };
 };
 
-export const setPlatformsOnDays = data => {
+export const setPlatformsOnDays = (day, count) => {
   return {
     type: "SET_PLATFORM_COUNT",
-    data
+    day: day,
+    count: count
   };
 };
 
