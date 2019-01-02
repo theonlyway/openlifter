@@ -103,7 +103,6 @@ export default (state = initialState, action) => {
       // The object provides optional properties that can overwrite the default.
       // Although the UI doesn't pass properties this way, debugging code does.
       const obj = action.overwriteDefaults;
-      console.log(obj);
 
       // Generate an entries array with one more item (without modifying the orginal).
       // Object.assign() allows `obj` to overwrite defaults if present.

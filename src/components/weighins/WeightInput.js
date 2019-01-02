@@ -116,7 +116,6 @@ const mapStateToProps = (state, ownProps) => {
     const attemptOneIndexed = ownProps.attemptOneIndexed;
     const field = liftToAttemptFieldName(lift);
     weightKg = entry[field][attemptOneIndexed - 1];
-    console.log(lift, field, weightKg);
   }
 
   return {
