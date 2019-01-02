@@ -15,7 +15,7 @@ class StateTools extends React.Component {
     return (
       <div>
         <Panel bsStyle="danger">
-          <Panel.Heading>Generate Random Data</Panel.Heading>
+          <Panel.Heading>Generate Random Valid Data</Panel.Heading>
           <Panel.Body>
             <ButtonGroup>
               <RandomizeMeetSetupButton />
