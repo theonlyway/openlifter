@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 import { ButtonGroup, Panel } from "react-bootstrap";
 
 import RandomizeMeetSetupButton from "./RandomizeMeetSetup";
+import RandomizeRegistrationButton from "./RandomizeRegistration";
 
 class StateTools extends React.Component {
   render() {
@@ -17,6 +18,7 @@ class StateTools extends React.Component {
           <Panel.Body>
             <ButtonGroup>
               <RandomizeMeetSetupButton />
+              <RandomizeRegistrationButton />
             </ButtonGroup>
           </Panel.Body>
         </Panel>

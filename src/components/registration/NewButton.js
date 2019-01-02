@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Button } from "react-bootstrap";
 
-import { newDefaultRegistration } from "../../actions/registrationActions";
+import { newRegistration } from "../../actions/registrationActions";
 
 class NewButton extends React.Component {
   constructor(props) {
@@ -16,7 +16,7 @@ class NewButton extends React.Component {
   }
 
   handleClick(event) {
-    this.props.newDefaultRegistration();
+    this.props.newRegistration({});
   }
 
   render() {
@@ -34,12 +34,12 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    newDefaultRegistration: () => dispatch(newDefaultRegistration())
+    newRegistration: obj => dispatch(newRegistration(obj))
   };
 };
 
 NewButton.propTypes = {
-  newDefaultRegistration: PropTypes.func
+  newRegistration: PropTypes.func
 };
 
 export default connect(

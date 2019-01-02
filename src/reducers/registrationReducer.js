@@ -99,10 +99,16 @@ export const liftToAttemptFieldName = lift => {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case "NEW_DEFAULT_REGISTRATION": {
+    case "NEW_REGISTRATION": {
+      // The object provides optional properties that can overwrite the default.
+      // Although the UI doesn't pass properties this way, debugging code does.
+      const obj = action.overwriteDefaults;
+      console.log(obj);
+
       // Generate an entries array with one more item (without modifying the orginal).
+      // Object.assign() allows `obj` to overwrite defaults if present.
       let entries = state.entries.slice();
-      entries.push(makeNewEntry(state.nextEntryId));
+      entries.push(Object.assign(makeNewEntry(state.nextEntryId), obj));
 
       // Since a new entry was added, generate a new 'lookup' object,
       // mapping from the globally-unique EntryId to the array index.

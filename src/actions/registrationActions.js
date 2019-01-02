@@ -1,9 +1,10 @@
 // vim: set ts=2 sts=2 sw=2 et:
 
 // Adds a blank (or default-initalized) row to the registrations table.
-export const newDefaultRegistration = () => {
+export const newRegistration = obj => {
   return {
-    type: "NEW_DEFAULT_REGISTRATION"
+    type: "NEW_REGISTRATION",
+    overwriteDefaults: obj
   };
 };
 

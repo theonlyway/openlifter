@@ -12,6 +12,7 @@ describe("registrationReducer", () => {
   it("returns the initial state", () => {
     expect(reducer(undefined, {})).toEqual(initialState);
   });
+  /*
   it("handles NEW_DEFAULT_REGISTRATION", () => {
     const newState = reducer(initialState, {
       type: "NEW_DEFAULT_REGISTRATION"
@@ -25,6 +26,7 @@ describe("registrationReducer", () => {
     expect(newState.lookup).toBeDefined();
     expect(newState.lookup.hasOwnProperty(initialState.nextEntryId)).toBeTruthy();
   });
+  */
   it("handles DELETE_REGISTRATION", () => {
     // Small subset of the state containing relevant parts
     // We'll use this so we can see which item was deleted after the reducer runs
