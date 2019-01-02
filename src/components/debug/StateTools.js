@@ -8,6 +8,7 @@ import { ButtonGroup, Panel } from "react-bootstrap";
 
 import RandomizeMeetSetupButton from "./RandomizeMeetSetup";
 import RandomizeRegistrationButton from "./RandomizeRegistration";
+import RandomizeWeighinsButton from "./RandomizeWeighins";
 
 class StateTools extends React.Component {
   render() {
@@ -19,6 +20,7 @@ class StateTools extends React.Component {
             <ButtonGroup>
               <RandomizeMeetSetupButton />
               <RandomizeRegistrationButton />
+              <RandomizeWeighinsButton />
             </ButtonGroup>
           </Panel.Body>
         </Panel>
