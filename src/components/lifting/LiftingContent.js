@@ -14,16 +14,40 @@ class LiftingContent extends React.Component {
     this.renderRows = this.renderRows.bind(this);
   }
 
+  renderAttempt(kg, status) {
+    if (status > 0) {
+      return <span style={{ color: "green" }}>{kg}</span>;
+    }
+    if (status < 0) {
+      return <span style={{ color: "red" }}>{kg}</span>;
+    }
+    return <span>{kg}</span>;
+  }
+
   renderRows() {
-    const { orderedEntries } = this.props;
-    return orderedEntries.map(entry => (
-      <tr key={entry.id}>
-        <td>{entry.name}</td>
-        <td>{entry.squatKg[0]}</td>
-        <td>{entry.squatKg[1]}</td>
-        <td>{entry.squatKg[2]}</td>
-      </tr>
-    ));
+    const orderedEntries = this.props.orderedEntries;
+    const currentEntryId = this.props.currentEntryId;
+
+    let rows = [];
+    for (let i = 0; i < orderedEntries.length; i++) {
+      const entry = orderedEntries[i];
+      const isCurrent = entry.id === currentEntryId;
+
+      let style = {};
+      if (isCurrent) {
+        style = { backgroundColor: "yellow" };
+      }
+
+      rows.push(
+        <tr key={entry.id} style={style}>
+          <td>{entry.name}</td>
+          <td>{this.renderAttempt(entry.squatKg[0], entry.squatStatus[0])}</td>
+          <td>{this.renderAttempt(entry.squatKg[1], entry.squatStatus[1])}</td>
+          <td>{this.renderAttempt(entry.squatKg[1], entry.squatStatus[2])}</td>
+        </tr>
+      );
+    }
+    return rows;
   }
 
   render() {
@@ -50,7 +74,8 @@ const mapStateToProps = state => {
 };
 
 LiftingContent.propTypes = {
-  orderedEntries: PropTypes.array.isRequired
+  orderedEntries: PropTypes.array.isRequired,
+  currentEntryId: PropTypes.number // Can be null.
 };
 
 export default connect(

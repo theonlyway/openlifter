@@ -50,7 +50,7 @@ class LiftingView extends React.Component {
   // Returns a number in the (inclusive) range of [1, MAX_ATTEMPTS].
   // If there is not enough data to make a decision, returns 1.
   getActiveAttemptNumber() {
-    const entriesInFlight = this.props.entries;
+    const entriesInFlight = this.props.entriesInFlight;
     const lift = this.props.lifting.lift;
     const fieldKg = liftToAttemptFieldName(lift);
     const fieldStatus = liftToStatusFieldName(lift);
@@ -81,7 +81,7 @@ class LiftingView extends React.Component {
   // This function is recursive: attempts past the first are partially defined
   // by the ordering used in previous attempts, for federations not using lot numbers.
   orderEntriesForAttempt(attemptOneIndexed) {
-    const entriesInFlight = this.props.entries;
+    const entriesInFlight = this.props.entriesInFlight;
     const lift = this.props.lifting.lift;
     const fieldKg = liftToAttemptFieldName(lift);
 
@@ -130,22 +130,53 @@ class LiftingView extends React.Component {
     });
   }
 
+  // Returns either the current entry ID or null if no active entry.
+  //
+  // In the ordered entries, the earliest lifter that hasn't gone yet is going.
+  // This can be manually overridden by UI controls.
+  getCurrentEntryId(orderedEntries, attemptOneIndexed) {
+    const lift = this.props.lifting.lift;
+    const fieldKg = liftToAttemptFieldName(lift);
+    const fieldStatus = liftToStatusFieldName(lift);
+
+    if (this.props.lifting.overrideEntryId !== null) {
+      return Number(this.props.lifting.overrideEntryId);
+    }
+
+    for (let i = 0; i < orderedEntries.length; i++) {
+      const entry = orderedEntries[i];
+      const idx = attemptOneIndexed - 1;
+      if (entry[fieldKg][idx] !== 0 && entry[fieldStatus][idx] === 0) {
+        return entry.id;
+      }
+    }
+    return null;
+  }
+
   // Main application logic. Reduces the Redux store to a local lifting state.
   getLiftingState() {
     const attemptOneIndexed = this.getActiveAttemptNumber();
     const orderedEntries = this.orderEntriesForAttempt(attemptOneIndexed);
+    const currentEntryId = this.getCurrentEntryId(orderedEntries, attemptOneIndexed);
 
     return {
       orderedEntries: orderedEntries,
+      currentEntryId: currentEntryId,
       attemptOneIndexed: attemptOneIndexed
     };
   }
 
   render() {
     const now = this.getLiftingState();
+
     return [
-      <LiftingContent orderedEntries={now.orderedEntries} key={0} />,
-      <LiftingFooter attemptOneIndexed={now.attemptOneIndexed} key={1} />
+      <LiftingContent orderedEntries={now.orderedEntries} currentEntryId={now.currentEntryId} key={0} />,
+      <LiftingFooter
+        attemptOneIndexed={now.attemptOneIndexed}
+        orderedEntries={now.orderedEntries}
+        currentEntryId={now.currentEntryId}
+        key={1}
+      />
     ];
   }
 }
@@ -156,23 +187,24 @@ const mapStateToProps = state => {
   const flight = state.lifting.flight;
 
   // Only receive entries that are in the currently-lifting group.
-  const entries = state.registration.entries.filter(
+  const entriesInFlight = state.registration.entries.filter(
     entry => entry.day === day && entry.platform === platform && entry.flight === flight
   );
 
   return {
     meet: state.meet,
-    entries: entries,
+    entriesInFlight: entriesInFlight,
     lifting: state.lifting
   };
 };
 
 LiftingView.propTypes = {
   meet: PropTypes.object.isRequired,
-  entries: PropTypes.array.isRequired,
+  entriesInFlight: PropTypes.array.isRequired,
   lifting: PropTypes.shape({
     lift: PropTypes.string.isRequired,
-    overrideAttempt: PropTypes.number
+    overrideAttempt: PropTypes.number,
+    overrideEntryId: PropTypes.number
   }).isRequired
 };
 

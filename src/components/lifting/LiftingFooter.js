@@ -97,6 +97,8 @@ class LiftingFooter extends React.Component {
 
     this.handleAttemptChange = this.handleAttemptChange.bind(this);
     this.handleLifterChange = this.handleLifterChange.bind(this);
+
+    this.makeLifterOptions = this.makeLifterOptions.bind(this);
   }
 
   handleDayChange(event) {
@@ -143,6 +145,29 @@ class LiftingFooter extends React.Component {
     this.props.overrideEntryId(entryId);
   }
 
+  makeLifterOptions() {
+    const orderedEntries = this.props.orderedEntries;
+
+    if (orderedEntries.length === 0) {
+      return (
+        <option value={0} key={0}>
+          No Lifters
+        </option>
+      );
+    }
+
+    let lifterOptions = [];
+    for (let i = 0; i < orderedEntries.length; i++) {
+      const entry = orderedEntries[i];
+      lifterOptions.push(
+        <option value={entry.id} key={i}>
+          {entry.name}
+        </option>
+      );
+    }
+    return lifterOptions;
+  }
+
   render() {
     const numPlatforms = this.props.platformsOnDays[this.props.lifting.day - 1];
 
@@ -169,6 +194,8 @@ class LiftingFooter extends React.Component {
       alignItems: "center",
       paddingRight: "4px"
     };
+
+    const currentEntryId = this.props.currentEntryId === null ? undefined : this.props.currentEntryId;
 
     return (
       <div style={footerStyle}>
@@ -222,10 +249,13 @@ class LiftingFooter extends React.Component {
           >
             {attemptOptions}
           </FormControl>
-          <FormControl componentClass="select" onChange={this.handleLifterChange} style={selectStyle}>
-            <option key={0} value="5000">
-              Unknown Lifter
-            </option>
+          <FormControl
+            value={currentEntryId}
+            componentClass="select"
+            onChange={this.handleLifterChange}
+            style={selectStyle}
+          >
+            {this.makeLifterOptions()}
           </FormControl>
         </div>
       </div>
@@ -252,6 +282,8 @@ const mapDispatchToProps = dispatch => {
 LiftingFooter.propTypes = {
   // Props calculated by the LiftingView.
   attemptOneIndexed: PropTypes.number.isRequired,
+  orderedEntries: PropTypes.array.isRequired,
+  currentEntryId: PropTypes.number, // Can be null.
 
   // Props passed from Redux state.
   lengthDays: PropTypes.number.isRequired,
