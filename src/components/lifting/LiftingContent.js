@@ -21,6 +21,10 @@ class LiftingContent extends React.Component {
     if (status < 0) {
       return <span style={{ color: "red" }}>-{kg}</span>;
     }
+
+    if (kg === 0) {
+      return <span></span>;
+    }
     return <span>{kg}</span>;
   }
 
