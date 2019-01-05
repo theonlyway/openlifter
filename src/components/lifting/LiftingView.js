@@ -76,16 +76,64 @@ class LiftingView extends React.Component {
     return earliestAttemptOneIndexed;
   }
 
-  // Main application logic. Reduces the Redux store to a local lifting state.
-  getLiftingState() {
+  // Returns the entries in lifting order for the current attempt.
+  //
+  // This function is recursive: attempts past the first are partially defined
+  // by the ordering used in previous attempts, for federations not using lot numbers.
+  orderEntriesForAttempt(attemptOneIndexed) {
     const entriesInFlight = this.props.entries;
     const lift = this.props.lifting.lift;
     const fieldKg = liftToAttemptFieldName(lift);
 
-    const attemptOneIndexed = this.getActiveAttemptNumber();
+    return entriesInFlight.sort((a, b) => {
+      const aKg = a[fieldKg][attemptOneIndexed - 1];
+      const bKg = b[fieldKg][attemptOneIndexed - 1];
 
-    // TODO: Just using some temp code to make sure props are hooked up.
-    const orderedEntries = entriesInFlight.sort((a, b) => a[fieldKg][0] - b[fieldKg][0]);
+      // If both are zero, compare lexicographically by Name.
+      if (aKg === 0 && bKg === 0) {
+        if (a.name < b.name) return -1;
+        if (a.name > b.name) return 1;
+        return 0;
+      }
+
+      // If only one is zero, sort it at the end.
+      if (aKg === 0 && bKg !== 0) return 1;
+      if (aKg !== 0 && bKg === 0) return -1;
+
+      // If the weight is equal, apply tie-breaking logic.
+      if (aKg === bKg) {
+        // If the federation uses lot numbers, break ties using lot.
+        if (a.lot !== 0 && b.lot !== 0) {
+          return a.lot - b.lot;
+        }
+
+        // If this is not the first attempt, preserve the same relative order
+        // that occurred in the previous attempt.
+        if (attemptOneIndexed >= 2) {
+          const prevOrder = this.orderEntriesForAttempt(attemptOneIndexed - 1);
+          return prevOrder.indexOf(a) - prevOrder.indexOf(b);
+        }
+
+        // If this is the first attempt and their bodyweights are unequal,
+        // have the lighter lifter go first.
+        if (a.bodyweightKg !== b.bodyweightKg) return a.bodyweightKg - b.bodyweightKg;
+
+        // If this is the first attempt, two lifters have the same attempt,
+        // and they also have the same bodyweight, sort by Name.
+        if (a.name < b.name) return -1;
+        if (a.name > b.name) return 1;
+        return 0;
+      }
+
+      // Sort by WeightKg, ascending.
+      return aKg - bKg;
+    });
+  }
+
+  // Main application logic. Reduces the Redux store to a local lifting state.
+  getLiftingState() {
+    const attemptOneIndexed = this.getActiveAttemptNumber();
+    const orderedEntries = this.orderEntriesForAttempt(attemptOneIndexed);
 
     return {
       orderedEntries: orderedEntries,
@@ -124,7 +172,7 @@ LiftingView.propTypes = {
   entries: PropTypes.array.isRequired,
   lifting: PropTypes.shape({
     lift: PropTypes.string.isRequired,
-    overrideAttempt: PropTypes.any.isRequired
+    overrideAttempt: PropTypes.number
   }).isRequired
 };
 
