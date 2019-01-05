@@ -187,7 +187,7 @@ export default (state = initialState, action) => {
 
       const field = liftToAttemptFieldName(lift);
 
-      // Clone the entries array, since one object will reference a new object.
+      // Clone the entries array, since one slot will reference a new object.
       let newEntries = state.entries.slice();
       const index = newEntries.findIndex(obj => obj.id === entryId);
       const oldEntry = newEntries[index];
@@ -201,6 +201,39 @@ export default (state = initialState, action) => {
       newfields[field] = newarray;
 
       // Make a new entry from the old entry, with the attempts field overwritten.
+      newEntries[index] = Object.assign(oldEntry, newfields);
+
+      return {
+        ...state,
+        entries: newEntries
+      };
+    }
+
+    case "MARK_LIFT": {
+      const entryId = Number(action.entryId);
+      const lift = String(action.lift);
+      const attemptOneIndexed = Number(action.attemptOneIndexed);
+      const success = Boolean(action.success);
+
+      // Map true to '1' and false to '-1'.
+      const status = success === true ? 1 : -1;
+
+      const fieldStatus = liftToStatusFieldName(lift);
+
+      // Clone the entries array, since one slot will reference a new object.
+      let newEntries = state.entries.slice();
+      const index = newEntries.findIndex(obj => obj.id === entryId);
+      const oldEntry = newEntries[index];
+
+      // Make a copy of the status array containing the new status.
+      let newarray = oldEntry[fieldStatus].slice();
+      newarray[attemptOneIndexed - 1] = status;
+
+      // Put that new array into an object so we can use Object.assign().
+      let newfields = {};
+      newfields[fieldStatus] = newarray;
+
+      // Make a new entry from the old entry, with the status field overwritten.
       newEntries[index] = Object.assign(oldEntry, newfields);
 
       return {

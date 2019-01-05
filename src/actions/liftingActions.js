@@ -15,11 +15,14 @@ export const enterAttempt = (entryId, lift, attemptOneIndexed, weightKg) => {
 //
 // entryId is the ID of the affected entry, a Number.
 // lift is "S", "B", or "D".
-// attempt is 1,2,3,4.
+// attempt is 1,2,3, etc., up to MAX_ATTEMPTS.
 // success is a bool for whether to mark the lift as a success or as a failure.
-export const markLift = (entryId, lift, attempt, success) => {
+export const markLift = (entryId, lift, attemptOneIndexed, success) => {
   return {
     type: "MARK_LIFT",
+    entryId: entryId,
+    lift: lift,
+    attemptOneIndexed: attemptOneIndexed,
     success: success
   };
 };

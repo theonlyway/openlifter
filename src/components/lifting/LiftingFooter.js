@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 
 import { Button, FormControl } from "react-bootstrap";
 
-import { setLiftingGroup, overrideAttempt, overrideEntryId } from "../../actions/liftingActions";
+import { markLift, overrideAttempt, overrideEntryId, setLiftingGroup } from "../../actions/liftingActions";
 
 const footerStyle = {
   display: "flex",
@@ -95,6 +95,9 @@ class LiftingFooter extends React.Component {
     this.handleFlightChange = this.handleFlightChange.bind(this);
     this.handleLiftChange = this.handleLiftChange.bind(this);
 
+    this.handleGoodLift = this.handleGoodLift.bind(this);
+    this.handleNoLift = this.handleNoLift.bind(this);
+
     this.handleAttemptChange = this.handleAttemptChange.bind(this);
     this.handleLifterChange = this.handleLifterChange.bind(this);
 
@@ -143,6 +146,30 @@ class LiftingFooter extends React.Component {
   handleLifterChange(event) {
     const entryId = Number(event.target.value);
     this.props.overrideEntryId(entryId);
+  }
+
+  handleGoodLift() {
+    // If there's no active entry, there's nothing to set.
+    if (this.props.currentEntryId === null) {
+      return;
+    }
+
+    const entryId = Number(this.props.currentEntryId);
+    const lift = this.props.lifting.lift;
+    const attempt = this.props.attemptOneIndexed;
+    this.props.markLift(entryId, lift, attempt, true);
+  }
+
+  handleNoLift() {
+    // If there's no active entry, there's nothing to set.
+    if (this.props.currentEntryId === null) {
+      return;
+    }
+
+    const entryId = Number(this.props.currentEntryId);
+    const lift = this.props.lifting.lift;
+    const attempt = this.props.attemptOneIndexed;
+    this.props.markLift(entryId, lift, attempt, false);
   }
 
   makeLifterOptions() {
@@ -200,10 +227,10 @@ class LiftingFooter extends React.Component {
     return (
       <div style={footerStyle}>
         <div>
-          <Button bsStyle="success" bsSize="large" style={buttonStyle}>
+          <Button onClick={this.handleGoodLift} bsStyle="success" bsSize="large" style={buttonStyle}>
             Good Lift
           </Button>
-          <Button bsStyle="danger" bsSize="large" style={buttonStyle}>
+          <Button onClick={this.handleNoLift} bsStyle="danger" bsSize="large" style={buttonStyle}>
             No Lift
           </Button>
         </div>
@@ -275,7 +302,8 @@ const mapDispatchToProps = dispatch => {
   return {
     setLiftingGroup: (day, platform, flight, lift) => dispatch(setLiftingGroup(day, platform, flight, lift)),
     overrideAttempt: attempt => dispatch(overrideAttempt(attempt)),
-    overrideEntryId: entryId => dispatch(overrideEntryId(entryId))
+    overrideEntryId: entryId => dispatch(overrideEntryId(entryId)),
+    markLift: (entryId, lift, attempt, success) => dispatch(markLift(entryId, lift, attempt, success))
   };
 };
 
@@ -294,6 +322,7 @@ LiftingFooter.propTypes = {
     flight: PropTypes.string.isRequired,
     lift: PropTypes.string.isRequired
   }).isRequired,
+  markLift: PropTypes.func.isRequired,
   setLiftingGroup: PropTypes.func.isRequired,
   overrideAttempt: PropTypes.func.isRequired,
   overrideEntryId: PropTypes.func.isRequired
