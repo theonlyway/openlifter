@@ -148,7 +148,7 @@ const NonsenseLastNames = [
   "Spinnet",
   "Sprout",
   "Thicknesse",
-  "Tanks",
+  "Tonks",
   "Trelawney",
   "Twycross",
   "Umbridge",
