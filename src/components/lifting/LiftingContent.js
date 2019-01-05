@@ -7,6 +7,9 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 import { Table } from "react-bootstrap";
+import AttemptInput from "./AttemptInput";
+
+import { liftToAttemptFieldName, liftToStatusFieldName } from "../../reducers/registrationReducer";
 
 class LiftingContent extends React.Component {
   constructor(props) {
@@ -14,7 +17,15 @@ class LiftingContent extends React.Component {
     this.renderRows = this.renderRows.bind(this);
   }
 
-  renderAttempt(kg, status) {
+  renderAttemptField(entry, lift, attemptOneIndexed) {
+    const fieldKg = liftToAttemptFieldName(lift);
+    const fieldStatus = liftToStatusFieldName(lift);
+
+    const kg = entry[fieldKg][attemptOneIndexed - 1];
+    const status = entry[fieldStatus][attemptOneIndexed - 1];
+
+    // If the attempt was already made, render a colored text field.
+    // The weight cannot be changed after the fact.
     if (status > 0) {
       return <span style={{ color: "green" }}>{kg}</span>;
     }
@@ -22,8 +33,27 @@ class LiftingContent extends React.Component {
       return <span style={{ color: "red" }}>-{kg}</span>;
     }
 
+    // If the attempt isn't for the current lift, just show the number.
+    if (lift !== this.props.lifting.lift) {
+      if (kg === 0) {
+        return <span />;
+      }
+      return <span>{kg}</span>;
+    }
+
+    // Was the previous attempt taken yet?
+    let prevAttemptAttempted = attemptOneIndexed > 1 && entry[fieldStatus][attemptOneIndexed - 2] !== 0;
+
+    // If the attempt was put it but hasn't occurred yet, show it in a text input.
+    // Also if the previous attempt was attempted, show an input for entering
+    // the lifter's next attempt.
+    if (kg !== 0 || prevAttemptAttempted) {
+      return <AttemptInput entryId={entry.id} lift={lift} attemptOneIndexed={attemptOneIndexed} weightKg={kg} />;
+    }
+
+    // Default handler.
     if (kg === 0) {
-      return <span></span>;
+      return <span />;
     }
     return <span>{kg}</span>;
   }
@@ -45,17 +75,18 @@ class LiftingContent extends React.Component {
       rows.push(
         <tr key={entry.id} style={style}>
           <td>{entry.name}</td>
-          <td>{this.renderAttempt(entry.squatKg[0], entry.squatStatus[0])}</td>
-          <td>{this.renderAttempt(entry.squatKg[1], entry.squatStatus[1])}</td>
-          <td>{this.renderAttempt(entry.squatKg[1], entry.squatStatus[2])}</td>
 
-          <td>{this.renderAttempt(entry.benchKg[0], entry.benchStatus[0])}</td>
-          <td>{this.renderAttempt(entry.benchKg[1], entry.benchStatus[1])}</td>
-          <td>{this.renderAttempt(entry.benchKg[1], entry.benchStatus[2])}</td>
+          <td>{this.renderAttemptField(entry, "S", 1)}</td>
+          <td>{this.renderAttemptField(entry, "S", 2)}</td>
+          <td>{this.renderAttemptField(entry, "S", 3)}</td>
 
-          <td>{this.renderAttempt(entry.deadliftKg[0], entry.deadliftStatus[0])}</td>
-          <td>{this.renderAttempt(entry.deadliftKg[1], entry.deadliftStatus[1])}</td>
-          <td>{this.renderAttempt(entry.deadliftKg[1], entry.deadliftStatus[2])}</td>
+          <td>{this.renderAttemptField(entry, "B", 1)}</td>
+          <td>{this.renderAttemptField(entry, "B", 2)}</td>
+          <td>{this.renderAttemptField(entry, "B", 3)}</td>
+
+          <td>{this.renderAttemptField(entry, "D", 1)}</td>
+          <td>{this.renderAttemptField(entry, "D", 2)}</td>
+          <td>{this.renderAttemptField(entry, "D", 3)}</td>
         </tr>
       );
     }
@@ -94,6 +125,9 @@ const mapStateToProps = state => {
 };
 
 LiftingContent.propTypes = {
+  lifting: PropTypes.shape({
+    lift: PropTypes.string.isRequired
+  }),
   orderedEntries: PropTypes.array.isRequired,
   currentEntryId: PropTypes.number // Can be null.
 };
