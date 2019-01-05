@@ -26,6 +26,9 @@ const initialState = {
   lookup: {}
 };
 
+// Length of {squat,bench,deadlift}{Kg,status} in each entry.
+export const MAX_ATTEMPTS = 5;
+
 const makeNewEntry = id => {
   return {
     // Bookkeeping internal information for OpenLifter.
@@ -83,7 +86,7 @@ export const getLiftersOnDay = (entries, day) => {
   });
 };
 
-// Convert a lift like "S" to the array field name, like "squatKg".
+// Convert a lift like "S" to the kg array field name, like "squatKg".
 export const liftToAttemptFieldName = lift => {
   switch (lift) {
     case "S":
@@ -92,6 +95,20 @@ export const liftToAttemptFieldName = lift => {
       return "benchKg";
     case "D":
       return "deadliftKg";
+    default:
+      break; // Linter complains about unreachable code if this returns.
+  }
+};
+
+// Convert a lift like "S" to the status array field name, like "squatStatus".
+export const liftToStatusFieldName = lift => {
+  switch (lift) {
+    case "S":
+      return "squatStatus";
+    case "B":
+      return "benchStatus";
+    case "D":
+      return "deadliftStatus";
     default:
       break; // Linter complains about unreachable code if this returns.
   }

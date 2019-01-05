@@ -214,7 +214,12 @@ class LiftingFooter extends React.Component {
           >
             {flightOptions}
           </FormControl>
-          <FormControl componentClass="select" onChange={this.handleAttemptChange} style={selectStyle}>
+          <FormControl
+            value={this.props.attemptOneIndexed}
+            componentClass="select"
+            onChange={this.handleAttemptChange}
+            style={selectStyle}
+          >
             {attemptOptions}
           </FormControl>
           <FormControl componentClass="select" onChange={this.handleLifterChange} style={selectStyle}>
@@ -245,6 +250,10 @@ const mapDispatchToProps = dispatch => {
 };
 
 LiftingFooter.propTypes = {
+  // Props calculated by the LiftingView.
+  attemptOneIndexed: PropTypes.number.isRequired,
+
+  // Props passed from Redux state.
   lengthDays: PropTypes.number.isRequired,
   platformsOnDays: PropTypes.array.isRequired,
   lifting: PropTypes.shape({
