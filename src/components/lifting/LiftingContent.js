@@ -19,7 +19,7 @@ class LiftingContent extends React.Component {
       return <span style={{ color: "green" }}>{kg}</span>;
     }
     if (status < 0) {
-      return <span style={{ color: "red" }}>{kg}</span>;
+      return <span style={{ color: "red" }}>-{kg}</span>;
     }
     return <span>{kg}</span>;
   }
@@ -44,6 +44,14 @@ class LiftingContent extends React.Component {
           <td>{this.renderAttempt(entry.squatKg[0], entry.squatStatus[0])}</td>
           <td>{this.renderAttempt(entry.squatKg[1], entry.squatStatus[1])}</td>
           <td>{this.renderAttempt(entry.squatKg[1], entry.squatStatus[2])}</td>
+
+          <td>{this.renderAttempt(entry.benchKg[0], entry.benchStatus[0])}</td>
+          <td>{this.renderAttempt(entry.benchKg[1], entry.benchStatus[1])}</td>
+          <td>{this.renderAttempt(entry.benchKg[1], entry.benchStatus[2])}</td>
+
+          <td>{this.renderAttempt(entry.deadliftKg[0], entry.deadliftStatus[0])}</td>
+          <td>{this.renderAttempt(entry.deadliftKg[1], entry.deadliftStatus[1])}</td>
+          <td>{this.renderAttempt(entry.deadliftKg[1], entry.deadliftStatus[2])}</td>
         </tr>
       );
     }
@@ -51,14 +59,22 @@ class LiftingContent extends React.Component {
   }
 
   render() {
+    const shortStyle = { width: "75px" };
+
     return (
       <Table>
         <thead>
           <tr>
             <th>Name</th>
-            <th>Squat1</th>
-            <th>Squat2</th>
-            <th>Squat3</th>
+            <th style={shortStyle}>S1</th>
+            <th style={shortStyle}>S2</th>
+            <th style={shortStyle}>S3</th>
+            <th style={shortStyle}>B1</th>
+            <th style={shortStyle}>B2</th>
+            <th style={shortStyle}>B3</th>
+            <th style={shortStyle}>D1</th>
+            <th style={shortStyle}>D2</th>
+            <th style={shortStyle}>D3</th>
           </tr>
         </thead>
         <tbody>{this.renderRows()}</tbody>
