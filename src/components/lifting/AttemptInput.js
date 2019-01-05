@@ -58,7 +58,7 @@ class AttemptInput extends React.Component {
 
   render() {
     return (
-      <FormGroup validationState={this.getValidationState()}>
+      <FormGroup validationState={this.getValidationState()} style={{ marginBottom: 0 }}>
         <FormControl
           type="text"
           placeholder=""
