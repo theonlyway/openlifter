@@ -14,7 +14,12 @@ import PropTypes from "prop-types";
 import LiftingContent from "./LiftingContent";
 import LiftingFooter from "./LiftingFooter";
 
-import { liftToAttemptFieldName, liftToStatusFieldName, MAX_ATTEMPTS } from "../../reducers/registrationReducer";
+import {
+  liftToAttemptFieldName,
+  liftToStatusFieldName,
+  MAX_ATTEMPTS,
+  orderEntriesByAttempt
+} from "../../reducers/registrationReducer";
 
 class LiftingView extends React.Component {
   constructor(props) {
@@ -78,32 +83,7 @@ class LiftingView extends React.Component {
     return earliestAttemptOneIndexed;
   }
 
-  // Helper function: performs an in-place sort on an array of entries.
-  orderHelper(entries, fieldKg, attemptOneIndexed) {
-    return entries.sort((a, b) => {
-      const aKg = a[fieldKg][attemptOneIndexed - 1];
-      const bKg = b[fieldKg][attemptOneIndexed - 1];
-
-      // If non-equal, sort by weight, ascending.
-      if (aKg !== bKg) return aKg - bKg;
-
-      // If the federation uses lot numbers, break ties using lot.
-      if (a.lot !== 0 && b.lot !== 0) return a.lot - b.lot;
-
-      // Try to break ties using bodyweight, with the lighter lifter going first.
-      if (a.bodyweightKg !== b.bodyweightKg) return a.bodyweightKg - b.bodyweightKg;
-
-      // If we've run out of properties by which to compare them, resort to Name.
-      if (a.name < b.name) return -1;
-      if (a.name > b.name) return 1;
-      return 0;
-    });
-  }
-
   // Returns a copy of the entries in lifting order for the current attempt.
-  //
-  // This function is recursive: attempts past the first are partially defined
-  // by the ordering used in previous attempts, for federations not using lot numbers.
   orderEntriesForAttempt(attemptOneIndexed) {
     const entriesInFlight = this.props.entriesInFlight;
     const lift = this.props.lifting.lift;
@@ -131,10 +111,10 @@ class LiftingView extends React.Component {
 
     // Perform sorting on the relative groups.
     if (existsNextAttempt) {
-      this.orderHelper(byNextAttempt, fieldKg, attemptOneIndexed + 1);
+      orderEntriesByAttempt(byNextAttempt, fieldKg, attemptOneIndexed + 1);
     }
-    this.orderHelper(byThisAttempt, fieldKg, attemptOneIndexed);
-    this.orderHelper(notLifting, fieldKg, attemptOneIndexed);
+    orderEntriesByAttempt(byThisAttempt, fieldKg, attemptOneIndexed);
+    orderEntriesByAttempt(notLifting, fieldKg, attemptOneIndexed);
 
     // Arrange these three groups consecutively.
     return Array.prototype.concat(byNextAttempt, byThisAttempt, notLifting);
