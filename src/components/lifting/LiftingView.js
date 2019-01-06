@@ -55,10 +55,12 @@ class LiftingView extends React.Component {
     const fieldKg = liftToAttemptFieldName(lift);
     const fieldStatus = liftToStatusFieldName(lift);
 
+    // Allow manual override.
     if (this.props.lifting.overrideAttempt !== null) {
       return Number(this.props.lifting.overrideAttempt);
     }
 
+    // Iterate in reverse, looking for the earliest attempt that hasn't been lifted.
     let earliestAttemptOneIndexed = MAX_ATTEMPTS + 1;
     for (var i = 0; i < entriesInFlight.length; i++) {
       const entry = entriesInFlight[i];
@@ -69,14 +71,36 @@ class LiftingView extends React.Component {
       }
     }
 
-    // In the case of no actual data, just default to first attempt.
+    // In the case of no pending lifts, just default to first attempt.
     if (earliestAttemptOneIndexed === MAX_ATTEMPTS + 1) {
       return 1;
     }
     return earliestAttemptOneIndexed;
   }
 
-  // Returns the entries in lifting order for the current attempt.
+  // Helper function: performs an in-place sort on an array of entries.
+  orderHelper(entries, fieldKg, attemptOneIndexed) {
+    return entries.sort((a, b) => {
+      const aKg = a[fieldKg][attemptOneIndexed - 1];
+      const bKg = b[fieldKg][attemptOneIndexed - 1];
+
+      // If non-equal, sort by weight, ascending.
+      if (aKg !== bKg) return aKg - bKg;
+
+      // If the federation uses lot numbers, break ties using lot.
+      if (a.lot !== 0 && b.lot !== 0) return a.lot - b.lot;
+
+      // Try to break ties using bodyweight, with the lighter lifter going first.
+      if (a.bodyweightKg !== b.bodyweightKg) return a.bodyweightKg - b.bodyweightKg;
+
+      // If we've run out of properties by which to compare them, resort to Name.
+      if (a.name < b.name) return -1;
+      if (a.name > b.name) return 1;
+      return 0;
+    });
+  }
+
+  // Returns a copy of the entries in lifting order for the current attempt.
   //
   // This function is recursive: attempts past the first are partially defined
   // by the ordering used in previous attempts, for federations not using lot numbers.
@@ -86,98 +110,35 @@ class LiftingView extends React.Component {
     const fieldKg = liftToAttemptFieldName(lift);
     const fieldStatus = liftToStatusFieldName(lift);
 
-    // The ordering for the previous attempt. Used to break ties.
-    let prevOrder = [];
-    if (attemptOneIndexed >= 2) {
-      prevOrder = this.orderEntriesForAttempt(attemptOneIndexed - 1);
+    const attemptZeroIndexed = attemptOneIndexed - 1;
+    const existsNextAttempt = (attemptOneIndexed + 1 <= MAX_ATTEMPTS);
+
+    // Divide the entries into three disjoint groups:
+    let byNextAttempt = []; // Entries that should be sorted by their next attempt.
+    let byThisAttempt = []; // Entries that should be sorted by this attempt.
+    let notLifting = []; // Entries that don't have either this or next attempts in.
+
+    for (let i = 0; i < entriesInFlight.length; i++) {
+      const entry = entriesInFlight[i];
+
+      if (existsNextAttempt && entry[fieldKg][attemptZeroIndexed + 1] !== 0) {
+        byNextAttempt.push(entry);
+      } else if (entry[fieldKg][attemptZeroIndexed] !== 0) {
+        byThisAttempt.push(entry);
+      } else {
+        notLifting.push(entry);
+      }
     }
 
-    return entriesInFlight.sort((a, b) => {
-      const aStatus = a[fieldStatus][attemptOneIndexed - 1];
-      const bStatus = b[fieldStatus][attemptOneIndexed - 1];
+    // Perform sorting on the relative groups.
+    if (existsNextAttempt) {
+      this.orderHelper(byNextAttempt, fieldKg, attemptOneIndexed + 1);
+    }
+    this.orderHelper(byThisAttempt, fieldKg, attemptOneIndexed);
+    this.orderHelper(notLifting, fieldKg, attemptOneIndexed);
 
-      // A lifter who has gone should always sort before a waiting lifter.
-      if (aStatus !== 0 && bStatus === 0) return -1;
-      if (aStatus === 0 && bStatus !== 0) return 1;
-
-      let aKg = a[fieldKg][attemptOneIndexed - 1];
-      let bKg = b[fieldKg][attemptOneIndexed - 1];
-
-      // If both lifters have gone and put in attempts, sort them by the next attempt.
-      if (aStatus !== 0 && bStatus !== 0 && attemptOneIndexed < MAX_ATTEMPTS) {
-        let aNextKg = a[fieldKg][attemptOneIndexed];
-        let bNextKg = b[fieldKg][attemptOneIndexed];
-
-        // A lifter with a next attempt set should sort before one without.
-        if (aNextKg !== 0 && bNextKg === 0) return -1;
-        if (aNextKg === 0 && bNextKg !== 0) return 1;
-
-        // If they both have next attempts, just run through the attempt-based
-        // logic below with these new values.
-        //
-        // Remember that this function is defined recursively, so we can't
-        // just call this function on the next attempt!
-        if (aNextKg !== 0 && bNextKg !== 0) {
-          aKg = aNextKg;
-          bKg = bNextKg;
-        }
-      }
-
-      // If both are zero, compare by previous status and name.
-      if (aKg === 0 && bKg === 0) {
-        // A lifter who has taken the previous attempt should be first.
-        if (attemptOneIndexed >= 2) {
-          const aFirstStatus = a[fieldStatus][attemptOneIndexed - 2];
-          const bFirstStatus = b[fieldStatus][attemptOneIndexed - 2];
-          if (aFirstStatus !== 0 && bFirstStatus === 0) return -1;
-          if (aFirstStatus === 0 && bFirstStatus !== 0) return 1;
-
-          // If both lifters took previous attempts, sort by those.
-          if (aFirstStatus !== 0 && bFirstStatus !== 0) {
-            const aPrevKg = a[fieldKg][attemptOneIndexed - 2];
-            const bPrevKg = b[fieldKg][attemptOneIndexed - 2];
-            return aPrevKg - bPrevKg;
-          }
-        }
-
-        // Within these groups of lifters who took attempts and lifters
-        // who have not, sort lexicographically by name.
-        if (a.name < b.name) return -1;
-        if (a.name > b.name) return 1;
-        return 0;
-      }
-
-      // If only one is zero, sort it at the end.
-      if (aKg === 0 && bKg !== 0) return 1;
-      if (aKg !== 0 && bKg === 0) return -1;
-
-      // If the weight is equal, apply tie-breaking logic.
-      if (aKg === bKg) {
-        // If the federation uses lot numbers, break ties using lot.
-        if (a.lot !== 0 && b.lot !== 0) {
-          return a.lot - b.lot;
-        }
-
-        // If this is not the first attempt, preserve the same relative order
-        // that occurred in the previous attempt.
-        if (attemptOneIndexed >= 2) {
-          return prevOrder.indexOf(a) - prevOrder.indexOf(b);
-        }
-
-        // If this is the first attempt and their bodyweights are unequal,
-        // have the lighter lifter go first.
-        if (a.bodyweightKg !== b.bodyweightKg) return a.bodyweightKg - b.bodyweightKg;
-
-        // If this is the first attempt, two lifters have the same attempt,
-        // and they also have the same bodyweight, sort by Name.
-        if (a.name < b.name) return -1;
-        if (a.name > b.name) return 1;
-        return 0;
-      }
-
-      // Sort by WeightKg, ascending.
-      return aKg - bKg;
-    });
+    // Arrange these three groups consecutively.
+    return Array.prototype.concat(byNextAttempt, byThisAttempt, notLifting);
   }
 
   // Returns either the current entry ID or null if no active entry.
