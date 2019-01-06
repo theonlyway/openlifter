@@ -111,7 +111,7 @@ class LiftingView extends React.Component {
     const fieldStatus = liftToStatusFieldName(lift);
 
     const attemptZeroIndexed = attemptOneIndexed - 1;
-    const existsNextAttempt = (attemptOneIndexed + 1 <= MAX_ATTEMPTS);
+    const existsNextAttempt = attemptOneIndexed + 1 <= MAX_ATTEMPTS;
 
     // Divide the entries into three disjoint groups:
     let byNextAttempt = []; // Entries that should be sorted by their next attempt.
