@@ -219,15 +219,17 @@ class LiftingView extends React.Component {
   render() {
     const now = this.getLiftingState();
 
-    return [
-      <LiftingContent orderedEntries={now.orderedEntries} currentEntryId={now.currentEntryId} key={0} />,
-      <LiftingFooter
-        attemptOneIndexed={now.attemptOneIndexed}
-        orderedEntries={now.orderedEntries}
-        currentEntryId={now.currentEntryId}
-        key={1}
-      />
-    ];
+    return (
+      <div id="liftingView" style={{ backgroundColor: "#fff" }}>
+        <LiftingContent orderedEntries={now.orderedEntries} currentEntryId={now.currentEntryId} key={0} />
+        <LiftingFooter
+          attemptOneIndexed={now.attemptOneIndexed}
+          orderedEntries={now.orderedEntries}
+          currentEntryId={now.currentEntryId}
+          key={1}
+        />
+      </div>
+    );
   }
 }
 

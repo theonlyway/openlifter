@@ -172,6 +172,15 @@ class LiftingFooter extends React.Component {
     this.props.markLift(entryId, lift, attempt, false);
   }
 
+  handleFullscreen() {
+    if (document.fullscreenElement) {
+      document.exitFullscreen();
+    } else {
+      const liftingView = document.getElementById("liftingView");
+      liftingView.requestFullscreen();
+    }
+  }
+
   makeLifterOptions() {
     const orderedEntries = this.props.orderedEntries;
 
@@ -232,6 +241,9 @@ class LiftingFooter extends React.Component {
           </Button>
           <Button onClick={this.handleNoLift} bsStyle="danger" bsSize="large" style={buttonStyle}>
             No Lift
+          </Button>
+          <Button onClick={this.handleFullscreen} style={{ marginLeft: "7px" }} bsStyle="info">
+            Toggle Fullscreen
           </Button>
         </div>
 
