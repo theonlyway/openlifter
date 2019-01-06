@@ -7,7 +7,7 @@ import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import { FormControl, Panel } from "react-bootstrap";
+import { Button, FormControl, Panel } from "react-bootstrap";
 
 import OneFlightOrder from "./OneFlightOrder";
 
@@ -19,6 +19,7 @@ class FlightOrderView extends React.Component {
 
     this.updateDay = this.updateDay.bind(this);
     this.updatePlatform = this.updatePlatform.bind(this);
+    this.handlePrint = this.handlePrint.bind(this);
 
     // Make options for all of the available days.
     let dayOptions = [];
@@ -54,6 +55,10 @@ class FlightOrderView extends React.Component {
     if (this.state.platform !== platform) {
       this.setState({ platform: platform });
     }
+  }
+
+  handlePrint() {
+    window.print();
   }
 
   render() {
@@ -115,6 +120,10 @@ class FlightOrderView extends React.Component {
             >
               {platformOptions}
             </FormControl>
+
+            <Button bsStyle="info" onClick={this.handlePrint}>
+              Print Page
+            </Button>
           </Panel.Body>
         </Panel>
 
