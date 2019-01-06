@@ -108,7 +108,6 @@ class LiftingView extends React.Component {
     const entriesInFlight = this.props.entriesInFlight;
     const lift = this.props.lifting.lift;
     const fieldKg = liftToAttemptFieldName(lift);
-    const fieldStatus = liftToStatusFieldName(lift);
 
     const attemptZeroIndexed = attemptOneIndexed - 1;
     const existsNextAttempt = attemptOneIndexed + 1 <= MAX_ATTEMPTS;
