@@ -84,13 +84,64 @@ class LiftingView extends React.Component {
     const entriesInFlight = this.props.entriesInFlight;
     const lift = this.props.lifting.lift;
     const fieldKg = liftToAttemptFieldName(lift);
+    const fieldStatus = liftToStatusFieldName(lift);
+
+    // The ordering for the previous attempt. Used to break ties.
+    let prevOrder = [];
+    if (attemptOneIndexed >= 2) {
+      prevOrder = this.orderEntriesForAttempt(attemptOneIndexed - 1);
+    }
 
     return entriesInFlight.sort((a, b) => {
-      const aKg = a[fieldKg][attemptOneIndexed - 1];
-      const bKg = b[fieldKg][attemptOneIndexed - 1];
+      const aStatus = a[fieldStatus][attemptOneIndexed - 1];
+      const bStatus = b[fieldStatus][attemptOneIndexed - 1];
 
-      // If both are zero, compare lexicographically by Name.
+      // A lifter who has gone should always sort before a waiting lifter.
+      if (aStatus !== 0 && bStatus === 0) return -1;
+      if (aStatus === 0 && bStatus !== 0) return 1;
+
+      let aKg = a[fieldKg][attemptOneIndexed - 1];
+      let bKg = b[fieldKg][attemptOneIndexed - 1];
+
+      // If both lifters have gone and put in attempts, sort them by the next attempt.
+      if (aStatus !== 0 && bStatus !== 0 && attemptOneIndexed < MAX_ATTEMPTS) {
+        let aNextKg = a[fieldKg][attemptOneIndexed];
+        let bNextKg = b[fieldKg][attemptOneIndexed];
+
+        // A lifter with a next attempt set should sort before one without.
+        if (aNextKg !== 0 && bNextKg === 0) return -1;
+        if (aNextKg === 0 && bNextKg !== 0) return 1;
+
+        // If they both have next attempts, just run through the attempt-based
+        // logic below with these new values.
+        //
+        // Remember that this function is defined recursively, so we can't
+        // just call this function on the next attempt!
+        if (aNextKg !== 0 && bNextKg !== 0) {
+          aKg = aNextKg;
+          bKg = bNextKg;
+        }
+      }
+
+      // If both are zero, compare by previous status and name.
       if (aKg === 0 && bKg === 0) {
+        // A lifter who has taken the previous attempt should be first.
+        if (attemptOneIndexed >= 2) {
+          const aFirstStatus = a[fieldStatus][attemptOneIndexed - 2];
+          const bFirstStatus = b[fieldStatus][attemptOneIndexed - 2];
+          if (aFirstStatus !== 0 && bFirstStatus === 0) return -1;
+          if (aFirstStatus === 0 && bFirstStatus !== 0) return 1;
+
+          // If both lifters took previous attempts, sort by those.
+          if (aFirstStatus !== 0 && bFirstStatus !== 0) {
+            const aPrevKg = a[fieldKg][attemptOneIndexed - 2];
+            const bPrevKg = b[fieldKg][attemptOneIndexed - 2];
+            return aPrevKg - bPrevKg;
+          }
+        }
+
+        // Within these groups of lifters who took attempts and lifters
+        // who have not, sort lexicographically by name.
         if (a.name < b.name) return -1;
         if (a.name > b.name) return 1;
         return 0;
@@ -110,7 +161,6 @@ class LiftingView extends React.Component {
         // If this is not the first attempt, preserve the same relative order
         // that occurred in the previous attempt.
         if (attemptOneIndexed >= 2) {
-          const prevOrder = this.orderEntriesForAttempt(attemptOneIndexed - 1);
           return prevOrder.indexOf(a) - prevOrder.indexOf(b);
         }
 
