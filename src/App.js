@@ -2,6 +2,7 @@
 
 import React, { Component } from "react";
 import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
 import configureStore from "./store";
 import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -24,6 +25,8 @@ addLocaleData([...es, ...eo]);
 
 class App extends Component {
   render() {
+    let { store, persistor } = configureStore();
+
     return (
       // Provider is a React component from the react-redux library.
       // Its purpose is to "provide" the given store to its child components.
@@ -32,8 +35,8 @@ class App extends Component {
       // Switch iterates over its children (Routes) and renders the first one that matches the current path name
       //
       // Route takes a path and a component, and renders the given component if the current path matches the specified path.
-      <div>
-        <Provider store={configureStore()}>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
           <OpenLifterIntlProvider>
             <Router>
               <div>
@@ -51,8 +54,8 @@ class App extends Component {
               </div>
             </Router>
           </OpenLifterIntlProvider>
-        </Provider>
-      </div>
+        </PersistGate>
+      </Provider>
     );
   }
 }
