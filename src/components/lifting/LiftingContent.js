@@ -9,6 +9,7 @@ import PropTypes from "prop-types";
 import { Table } from "react-bootstrap";
 import AttemptInput from "./AttemptInput";
 
+import { getWeightClassStr } from "../../reducers/meetReducer.js";
 import { liftToAttemptFieldName, liftToStatusFieldName } from "../../reducers/registrationReducer";
 
 class LiftingContent extends React.Component {
@@ -67,6 +68,10 @@ class LiftingContent extends React.Component {
       const entry = orderedEntries[i];
       const isCurrent = entry.id === currentEntryId;
 
+      const classesForSex =
+        entry.sex === "M" ? this.props.meet.weightClassesKgMen : this.props.meet.weightClassesKgWomen;
+      const weightClass = getWeightClassStr(classesForSex, entry.bodyweightKg);
+
       let style = {};
       if (isCurrent) {
         style = { backgroundColor: "yellow" };
@@ -75,6 +80,10 @@ class LiftingContent extends React.Component {
       rows.push(
         <tr key={entry.id} style={style}>
           <td>{entry.name}</td>
+
+          <td>{entry.bodyweightKg}</td>
+          <td>{weightClass}</td>
+          <td>{entry.equipment}</td>
 
           <td>{this.renderAttemptField(entry, "S", 1)}</td>
           <td>{this.renderAttemptField(entry, "S", 2)}</td>
@@ -101,6 +110,9 @@ class LiftingContent extends React.Component {
         <thead>
           <tr>
             <th>Name</th>
+            <th style={shortStyle}>Bwt</th>
+            <th style={shortStyle}>Cls</th>
+            <th style={shortStyle}>Equip</th>
             <th style={shortStyle}>S1</th>
             <th style={shortStyle}>S2</th>
             <th style={shortStyle}>S3</th>
@@ -125,6 +137,10 @@ const mapStateToProps = state => {
 };
 
 LiftingContent.propTypes = {
+  meet: PropTypes.shape({
+    weightClassesKgMen: PropTypes.array.isRequired,
+    weightClassesKgWomen: PropTypes.array.isRequired
+  }),
   lifting: PropTypes.shape({
     lift: PropTypes.string.isRequired
   }),

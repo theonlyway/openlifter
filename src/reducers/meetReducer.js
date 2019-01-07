@@ -20,6 +20,19 @@ function getDateString(dateTime) {
   return [dateTime.getFullYear(), dateTime.getMonth() + 1, dateTime.getDate()].join("/");
 }
 
+// Given a sorted list of weight classes (in kg) and a bodyweight (in kg),
+// return a string describing the weight class.
+export const getWeightClassStr = (classes, bodyweightKg) => {
+  if (classes.length === 0) return "0+";
+
+  for (let i = 0; i < classes.length; i++) {
+    if (bodyweightKg <= classes[i]) {
+      return String(classes[i]);
+    }
+  }
+  return String(classes[classes.length - 1]) + "+";
+};
+
 export default (state = initialState, action) => {
   switch (action.type) {
     case "SET_MEET_NAME":
