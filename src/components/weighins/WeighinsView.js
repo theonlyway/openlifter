@@ -44,6 +44,16 @@ class WeighinsView extends React.Component {
     let dayPanels = [];
     for (let i = 1; i <= numDays; i++) {
       const lifters = getLiftersOnDay(this.props.registration.entries, i);
+
+      // Present the lifters in sorted order.
+      lifters.sort((a, b) => {
+        if (a.platform !== b.platform) return a.platform - b.platform;
+        if (a.flight !== b.flight) return a.flight < b.flight ? -1 : 1;
+        if (a.name < b.name) return -1;
+        if (a.name > b.name) return 1;
+        return 0;
+      });
+
       dayPanels.push(
         <Panel key={i}>
           <Panel.Heading>Day {i} Weigh-ins</Panel.Heading>
