@@ -80,7 +80,7 @@ class HomeContainer extends React.Component {
     return (
       <div style={centerConsole}>
         <LanguageSelector />
-        <h1>Welcome to OpenLifter!! (ﾉ◕ヮ◕)ﾉ*:・ﾟ✧</h1>
+        <h1>Welcome to OpenLifter Beta!! (ﾉ◕ヮ◕)ﾉ*:・ﾟ✧</h1>
         <div style={buttonConsole}>
           <LinkContainer to="/meet-setup">
             <Button bsStyle="primary" bsSize="large" block>
