@@ -7,7 +7,7 @@ describe("actions", () => {
     const text = "eo";
     const expectedAction = {
       type: "CHANGE_LANGUAGE",
-      payload: text
+      language: text
     };
     expect(actions.changeLanguage(text)).toEqual(expectedAction);
   });
