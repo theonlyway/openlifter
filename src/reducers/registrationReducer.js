@@ -1,4 +1,9 @@
 // vim: set ts=2 sts=2 sw=2 et:
+// @flow
+
+type Lift = "S" | "B" | "D";
+type FieldKg = "squatKg" | "benchKg" | "deadliftKg";
+type FieldStatus = "squatStatus" | "benchStatus" | "deadliftStatus";
 
 const initialState = {
   // The next unique ID to assign.
@@ -77,7 +82,7 @@ const makeNewEntry = id => {
 };
 
 // Filter entries to only get lifters that are lifting on a given day
-export const getLiftersOnDay = (entries, day) => {
+export const getLiftersOnDay = (entries: Array<Object>, day: number): Array<Object> => {
   if (!entries) {
     return [];
   }
@@ -87,7 +92,7 @@ export const getLiftersOnDay = (entries, day) => {
 };
 
 // Convert a lift like "S" to the kg array field name, like "squatKg".
-export const liftToAttemptFieldName = lift => {
+export const liftToAttemptFieldName = (lift: Lift): FieldKg => {
   switch (lift) {
     case "S":
       return "squatKg";
@@ -96,12 +101,12 @@ export const liftToAttemptFieldName = lift => {
     case "D":
       return "deadliftKg";
     default:
-      break; // Linter complains about unreachable code if this returns.
+      return "squatKg";
   }
 };
 
 // Convert a lift like "S" to the status array field name, like "squatStatus".
-export const liftToStatusFieldName = lift => {
+export const liftToStatusFieldName = (lift: Lift): FieldStatus => {
   switch (lift) {
     case "S":
       return "squatStatus";
@@ -110,13 +115,17 @@ export const liftToStatusFieldName = lift => {
     case "D":
       return "deadliftStatus";
     default:
-      break; // Linter complains about unreachable code if this returns.
+      return "squatStatus";
   }
 };
 
 // Helper function: performs an in-place sort on an array of entries.
 // Assumes that zero entries are not mixed in with non-zero entries.
-export const orderEntriesByAttempt = (entries, fieldKg, attemptOneIndexed) => {
+export const orderEntriesByAttempt = (
+  entries: Array<Object>,
+  fieldKg: FieldKg,
+  attemptOneIndexed: number
+): Array<Object> => {
   return entries.sort((a, b) => {
     const aKg = a[fieldKg][attemptOneIndexed - 1];
     const bKg = b[fieldKg][attemptOneIndexed - 1];
@@ -137,7 +146,7 @@ export const orderEntriesByAttempt = (entries, fieldKg, attemptOneIndexed) => {
   });
 };
 
-export default (state = initialState, action) => {
+export default (state: Object = initialState, action: Object) => {
   switch (action.type) {
     case "NEW_REGISTRATION": {
       // The object provides optional properties that can overwrite the default.
@@ -146,7 +155,7 @@ export default (state = initialState, action) => {
 
       // Generate an entries array with one more item (without modifying the orginal).
       // Object.assign() allows `obj` to overwrite defaults if present.
-      let entries = state.entries.slice();
+      let entries: Array<Object> = state.entries.slice();
       entries.push(Object.assign(makeNewEntry(state.nextEntryId), obj));
 
       // Since a new entry was added, generate a new 'lookup' object,
@@ -166,7 +175,7 @@ export default (state = initialState, action) => {
       const entryId = action.entryId;
 
       // Generate an entries array without the given item.
-      let entries = state.entries.filter((item, index) => item.id !== entryId);
+      let entries: Array<Object> = state.entries.filter((item, index) => item.id !== entryId);
 
       // Since the entry was deleted from anywhere in the array,
       // construct a new lookup table from scratch.
@@ -188,7 +197,7 @@ export default (state = initialState, action) => {
       const changes = action.changes;
 
       // Clone the entries array, since one entry will reference a new object.
-      let entries = state.entries.slice();
+      let entries: Array<Object> = state.entries.slice();
 
       // Make a new object with just the changes overwritten,
       // and reference that object from the new array.
@@ -204,14 +213,14 @@ export default (state = initialState, action) => {
     case "ENTER_ATTEMPT": {
       // Action parameters, with expected types.
       const entryId = Number(action.entryId);
-      const lift = String(action.lift);
+      const lift: Lift = action.lift;
       const attemptOneIndexed = Number(action.attemptOneIndexed);
       const weightKg = Number(action.weightKg);
 
-      const field = liftToAttemptFieldName(lift);
+      const field: FieldKg = liftToAttemptFieldName(lift);
 
       // Clone the entries array, since one slot will reference a new object.
-      let newEntries = state.entries.slice();
+      let newEntries: Array<Object> = state.entries.slice();
       const index = newEntries.findIndex(obj => obj.id === entryId);
       const oldEntry = newEntries[index];
 
@@ -234,7 +243,7 @@ export default (state = initialState, action) => {
 
     case "MARK_LIFT": {
       const entryId = Number(action.entryId);
-      const lift = String(action.lift);
+      const lift: Lift = action.lift;
       const attemptOneIndexed = Number(action.attemptOneIndexed);
       const success = Boolean(action.success);
 
@@ -244,7 +253,7 @@ export default (state = initialState, action) => {
       const fieldStatus = liftToStatusFieldName(lift);
 
       // Clone the entries array, since one slot will reference a new object.
-      let newEntries = state.entries.slice();
+      let newEntries: Array<Object> = state.entries.slice();
       const index = newEntries.findIndex(obj => obj.id === entryId);
       const oldEntry = newEntries[index];
 

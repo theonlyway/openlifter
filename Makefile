@@ -18,5 +18,8 @@ test: node_modules
 	CI="yes" yarn run test
 
 # A simple target to run all the CI server tests.
-check: test
+# TODO: Doesn't detect compile warnings yet.
+check:
+	yarn run flow check
 	yarn run lint
+	CI="yes" yarn run test
