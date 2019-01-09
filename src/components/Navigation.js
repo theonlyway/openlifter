@@ -12,7 +12,9 @@ import { LinkContainer } from "react-router-bootstrap";
 const Navigation = () => {
   return (
     <Navbar>
-      <Navbar.Brand>OpenLifter</Navbar.Brand>
+      <Navbar.Brand>
+        <b>Open</b>Lifter
+      </Navbar.Brand>
 
       {/* Navbar uses Toggle and Collapse to automatically create a hamburger menu
           in case of overflow on small screens.*/}
