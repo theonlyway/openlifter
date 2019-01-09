@@ -34,6 +34,14 @@ make test
 make
 ```
 
+#### Theming Bootstrap
+
+This project uses `react-bootstrap` which is stuck on an old version of Bootstrap, 3.2. Custom theming of Bootstrap requires the use of `less`, which is unsupported by `create-react-app`.
+
+To get around this, Bootstrap theming is done in `src/bootstrap-custom/bootstrap.less`; a separate compile step creates `build/bootstrap-custom.css`, which is then imported by `src/index.js`.
+
+To build the Bootstrap CSS file manually, run `make less`.
+
 #### Translations
 
 To translate text in a component, you will need to import `FormattedMessage` from `react-intl`, and use the component like this:

@@ -29,7 +29,7 @@ pages:
   script:
     - yarn run build
     - rm -rf public/
-    - cp -r build/ public/
+    - cp --dereference -r build/ public/
   artifacts:
     paths:
       - public
