@@ -27,6 +27,7 @@ lint:
 pages:
   stage: deploy
   script:
+    - make less
     - yarn run build
     - rm -rf public/
     - cp --dereference -r build/ public/
