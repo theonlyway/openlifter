@@ -102,7 +102,7 @@ class FlightOrderView extends React.Component {
         <Panel.Heading>Flight {this.props.flight}</Panel.Heading>
         <Panel.Body>
           <Table striped hover>
-            <thead>{header}</thead>
+            <thead><tr>{header}</tr></thead>
             <tbody>{rows}</tbody>
           </Table>
         </Panel.Body>
