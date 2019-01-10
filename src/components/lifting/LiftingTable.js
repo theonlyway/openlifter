@@ -36,6 +36,7 @@ type ColumnType =
   | "S1" | "S2" | "S3" | "S4" // eslint-disable-line
   | "B1" | "B2" | "B3" | "B4" // eslint-disable-line
   | "D1" | "D2" | "D3" | "D4" // eslint-disable-line
+  | "BestSquat" | "BestBench" // eslint-disable-line
   | "ProjectedTotal"
   | "Total";
 
@@ -132,6 +133,10 @@ class LiftingTable extends React.Component<Props> {
         return this.renderAttemptField(entry, "D", 3, key);
       case "D4":
         return this.renderAttemptField(entry, "D", 4, key);
+      case "BestSquat":
+        return <td key={key}>TODO</td>;
+      case "BestBench":
+        return <td key={key}>TODO</td>;
       case "ProjectedTotal":
         return <td key={key}>TODO</td>;
       case "Total":
@@ -170,22 +175,17 @@ class LiftingTable extends React.Component<Props> {
 
   render() {
     // Select the columns for display.
-    let columns: Array<ColumnType> = [
-      "Name",
-      "Bodyweight",
-      "WeightClass",
-      "Equipment",
-      "S1",
-      "S2",
-      "S3",
-      "B1",
-      "B2",
-      "B3",
-      "D1",
-      "D2",
-      "D3",
-      "ProjectedTotal"
-    ];
+    let columns: Array<ColumnType> = ["Name", "Bodyweight", "WeightClass", "Equipment"];
+
+    // Select lift columns based off the current lift.
+    if (this.props.lifting.lift === "S") {
+      columns.push("S1", "S2", "S3", "B1", "D1");
+    } else if (this.props.lifting.lift === "B") {
+      columns.push("BestSquat", "B1", "B2", "B3", "D1");
+    } else if (this.props.lifting.lift === "D") {
+      columns.push("BestSquat", "BestBench", "D1", "D2", "D3");
+    }
+    columns.push("ProjectedTotal");
 
     // Build headers.
     let headers = [];
