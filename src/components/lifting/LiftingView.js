@@ -93,10 +93,12 @@ class LiftingView extends React.Component {
 
     const attemptZeroIndexed = attemptOneIndexed - 1;
     const existsNextAttempt = attemptOneIndexed + 1 <= MAX_ATTEMPTS;
+    const existsPrevAttempt = attemptOneIndexed > 1;
 
-    // Divide the entries into three disjoint groups:
+    // Divide the entries into four disjoint groups:
     let byNextAttempt = []; // Entries that should be sorted by their next attempt.
     let byThisAttempt = []; // Entries that should be sorted by this attempt.
+    let byPrevAttempt = []; // Entries that should be sorted by previous attempt.
     let notLifting = []; // Entries that don't have either this or next attempts in.
 
     for (let i = 0; i < entriesInFlight.length; i++) {
@@ -106,6 +108,8 @@ class LiftingView extends React.Component {
         byNextAttempt.push(entry);
       } else if (entry[fieldKg][attemptZeroIndexed] !== 0) {
         byThisAttempt.push(entry);
+      } else if (existsPrevAttempt && entry[fieldKg][attemptZeroIndexed - 1] !== 0) {
+        byPrevAttempt.push(entry);
       } else {
         notLifting.push(entry);
       }
@@ -116,10 +120,13 @@ class LiftingView extends React.Component {
       orderEntriesByAttempt(byNextAttempt, fieldKg, attemptOneIndexed + 1);
     }
     orderEntriesByAttempt(byThisAttempt, fieldKg, attemptOneIndexed);
+    if (existsPrevAttempt) {
+      orderEntriesByAttempt(byPrevAttempt, fieldKg, attemptOneIndexed - 1);
+    }
     orderEntriesByAttempt(notLifting, fieldKg, attemptOneIndexed);
 
     // Arrange these three groups consecutively.
-    return Array.prototype.concat(byNextAttempt, byThisAttempt, notLifting);
+    return Array.prototype.concat(byNextAttempt, byThisAttempt, byPrevAttempt, notLifting);
   }
 
   // Returns either the current entry ID or null if no active entry.
