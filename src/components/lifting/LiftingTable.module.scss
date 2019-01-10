@@ -1,0 +1,60 @@
+// vim: set ts=2 sts=2 sw=2 et:
+//
+// Theming for the main table on the Lifting page.
+// The rest of the project uses Bootstrap tables, but since the Lifting page
+// needs to be carefully designed, and doesn't need mobile support,
+// it gets its own direct styling.
+
+$color-dark: #232323;
+$color-light: #ffffff;
+$color-alternating-stripe: #f4f4f4;
+
+$border-rounding: 8px;
+
+
+// Set the default colors.
+table.liftingtable {
+  color: $color-dark;
+  background-color: $color-light;
+  font-size: 12px;
+  box-shadow: 0 0 20px 0 hsla(0, 0%, 64%, .45);
+}
+
+th.smallCell {
+  width: 75px;
+}
+
+// The header bar gets inverse colors.
+// th is styled instead of thead to allow rounded corners.
+.liftingtable th {
+  color: $color-light;
+  background-color: $color-dark;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+// Cell alignment stuff.
+.liftingtable td,
+.liftingtable th {
+  height: 30px;
+  padding: 0px 8px 0px 8px;
+}
+
+// Make the table striped.
+.liftingtable tr:nth-child(even) {
+  background-color: $color-alternating-stripe;
+}
+
+// Rounded corners.
+.liftingtable th:first-child {
+  border-top-left-radius: $border-rounding;
+}
+.liftingtable th:last-child {
+  border-top-right-radius: $border-rounding;
+}
+.liftingtable tr:last-child td:first-child {
+  border-bottom-left-radius: $border-rounding;
+}
+.liftingtable tr:last-child td:last-child {
+  border-bottom-right-radius: $border-rounding;
+}

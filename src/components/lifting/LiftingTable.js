@@ -6,13 +6,14 @@ import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import { Table } from "react-bootstrap";
 import AttemptInput from "./AttemptInput";
 
 import { getWeightClassStr } from "../../reducers/meetReducer.js";
 import { liftToAttemptFieldName, liftToStatusFieldName } from "../../reducers/registrationReducer";
 
-class LiftingContent extends React.Component {
+import styles from "./LiftingTable.module.scss";
+
+class LiftingTable extends React.Component {
   constructor(props) {
     super(props);
     this.renderRows = this.renderRows.bind(this);
@@ -103,29 +104,27 @@ class LiftingContent extends React.Component {
   }
 
   render() {
-    const shortStyle = { width: "75px" };
-
     return (
-      <Table>
+      <table className={styles.liftingtable}>
         <thead>
           <tr>
             <th>Name</th>
-            <th style={shortStyle}>Bwt</th>
-            <th style={shortStyle}>Cls</th>
-            <th style={shortStyle}>Equip</th>
-            <th style={shortStyle}>S1</th>
-            <th style={shortStyle}>S2</th>
-            <th style={shortStyle}>S3</th>
-            <th style={shortStyle}>B1</th>
-            <th style={shortStyle}>B2</th>
-            <th style={shortStyle}>B3</th>
-            <th style={shortStyle}>D1</th>
-            <th style={shortStyle}>D2</th>
-            <th style={shortStyle}>D3</th>
+            <th className={styles.smallCell}>Bwt</th>
+            <th className={styles.smallCell}>Cls</th>
+            <th className={styles.smallCell}>Equip</th>
+            <th className={styles.smallCell}>S1</th>
+            <th className={styles.smallCell}>S2</th>
+            <th className={styles.smallCell}>S3</th>
+            <th className={styles.smallCell}>B1</th>
+            <th className={styles.smallCell}>B2</th>
+            <th className={styles.smallCell}>B3</th>
+            <th className={styles.smallCell}>D1</th>
+            <th className={styles.smallCell}>D2</th>
+            <th className={styles.smallCell}>D3</th>
           </tr>
         </thead>
         <tbody>{this.renderRows()}</tbody>
-      </Table>
+      </table>
     );
   }
 }
@@ -136,7 +135,7 @@ const mapStateToProps = state => {
   };
 };
 
-LiftingContent.propTypes = {
+LiftingTable.propTypes = {
   meet: PropTypes.shape({
     weightClassesKgMen: PropTypes.array.isRequired,
     weightClassesKgWomen: PropTypes.array.isRequired
@@ -151,4 +150,4 @@ LiftingContent.propTypes = {
 export default connect(
   mapStateToProps,
   null
-)(LiftingContent);
+)(LiftingTable);

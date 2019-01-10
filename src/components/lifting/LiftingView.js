@@ -2,7 +2,7 @@
 //
 // The parent component of the Lifting page, contained by the LiftingContainer.
 //
-// The LiftingContent, LiftingFooter, etc. all share calculated state.
+// The LiftingTable, LiftingFooter, etc. all share calculated state.
 // This class performs the state calculations and communicates that to its
 // sub-components via props.
 //
@@ -11,8 +11,10 @@ import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import LiftingContent from "./LiftingContent";
+import LiftingTable from "./LiftingTable";
 import LiftingFooter from "./LiftingFooter";
+
+import styles from "./LiftingView.module.scss";
 
 import {
   liftToAttemptFieldName,
@@ -160,8 +162,8 @@ class LiftingView extends React.Component {
     const now = this.getLiftingState();
 
     return (
-      <div id="liftingView" style={{ backgroundColor: "#fff" }}>
-        <LiftingContent orderedEntries={now.orderedEntries} currentEntryId={now.currentEntryId} key={0} />
+      <div id="liftingView" className={styles.liftingView}>
+        <LiftingTable orderedEntries={now.orderedEntries} currentEntryId={now.currentEntryId} key={0} />
         <LiftingFooter
           attemptOneIndexed={now.attemptOneIndexed}
           orderedEntries={now.orderedEntries}
