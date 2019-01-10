@@ -48,6 +48,9 @@ table.liftingtable {
   height: $row-height;
   padding: 0px $cell-left-padding 0px $cell-left-padding;
 }
+.liftingtable td.attemptInputCell {
+  padding: 0px;
+}
 
 // Make the table striped.
 .liftingtable tr:nth-child(even) {

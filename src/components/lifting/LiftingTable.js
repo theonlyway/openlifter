@@ -85,7 +85,11 @@ class LiftingTable extends React.Component<Props> {
     // Also if the previous attempt was attempted, show an input for entering
     // the lifter's next attempt.
     if (kg !== 0 || prevAttemptAttempted) {
-      return <AttemptInput entryId={entry.id} lift={lift} attemptOneIndexed={attemptOneIndexed} weightKg={kg} />;
+      return (
+        <td key={key} className={styles.attemptInputCell}>
+          <AttemptInput entryId={entry.id} lift={lift} attemptOneIndexed={attemptOneIndexed} weightKg={kg} />
+        </td>
+      );
     }
 
     // Default handler.
@@ -191,7 +195,11 @@ class LiftingTable extends React.Component<Props> {
     let headers = [];
     for (let i = 0; i < columns.length; i++) {
       const className = columns[i] === "Name" ? "" : styles.smallCell;
-      headers.push(<th className={className}>{columns[i]}</th>);
+      headers.push(
+        <th key={i} className={className}>
+          {columns[i]}
+        </th>
+      );
     }
 
     return (
