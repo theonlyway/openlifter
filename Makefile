@@ -1,4 +1,4 @@
-.PHONY: dev-electron dev-web package test check less
+.PHONY: build-deps dev-electron dev-web package test check less
 
 all: dev-web
 
@@ -16,16 +16,18 @@ build/bootstrap-custom.css: node_modules src/bootstrap-custom/bootstrap.less
 # Helpers.
 ############################################
 
-dev-electron: node_modules
+build-deps: node_modules build/bootstrap-custom.css
+
+dev-electron: build-deps
 	yarn run electron-dev
 
-dev-web: node_modules
+dev-web: build-deps
 	yarn run start
 
-package: node_modules
+package: build-deps
 	yarn run electron-pack
 
-test: node_modules
+test: build-deps
 	CI="yes" yarn run test
 
 less:
