@@ -46,7 +46,7 @@ class LiftingTable extends React.Component<Props> {
     this.renderRows = this.renderRows.bind(this);
   }
 
-  renderAttemptField(entry, lift, attemptOneIndexed: number, key: number) {
+  renderAttemptField(entry, lift, attemptOneIndexed: number, columnType: ColumnType) {
     const fieldKg = liftToAttemptFieldName(lift);
     const fieldStatus = liftToStatusFieldName(lift);
 
@@ -57,14 +57,14 @@ class LiftingTable extends React.Component<Props> {
     // The weight cannot be changed after the fact.
     if (status > 0) {
       return (
-        <td key={key} className={styles.goodlift}>
+        <td key={columnType} className={styles.goodlift}>
           {kg}
         </td>
       );
     }
     if (status < 0) {
       return (
-        <td key={key} className={styles.nolift}>
+        <td key={columnType} className={styles.nolift}>
           -{kg}
         </td>
       );
@@ -73,9 +73,9 @@ class LiftingTable extends React.Component<Props> {
     // If the attempt isn't for the current lift, just show the number.
     if (lift !== this.props.lifting.lift) {
       if (kg === 0) {
-        return <td key={key} />;
+        return <td key={columnType} />;
       }
-      return <td key={key}>{kg}</td>;
+      return <td key={columnType}>{kg}</td>;
     }
 
     // Was the previous attempt taken yet?
@@ -86,7 +86,7 @@ class LiftingTable extends React.Component<Props> {
     // the lifter's next attempt.
     if (kg !== 0 || prevAttemptAttempted) {
       return (
-        <td key={key} className={styles.attemptInputCell}>
+        <td key={columnType} className={styles.attemptInputCell}>
           <AttemptInput entryId={entry.id} lift={lift} attemptOneIndexed={attemptOneIndexed} weightKg={kg} />
         </td>
       );
@@ -94,57 +94,57 @@ class LiftingTable extends React.Component<Props> {
 
     // Default handler.
     if (kg === 0) {
-      return <td key={key} />;
+      return <td key={columnType} />;
     }
-    return <td key={key}>{kg}</td>;
+    return <td key={columnType}>{kg}</td>;
   }
 
-  renderCell = (entry: Object, columnType: ColumnType, key: number) => {
+  renderCell = (entry: Object, columnType: ColumnType) => {
     switch (columnType) {
       case "Name":
-        return <td key={key}>{entry.name}</td>;
+        return <td key={columnType}>{entry.name}</td>;
       case "Bodyweight":
-        return <td key={key}>{entry.bodyweightKg}</td>;
+        return <td key={columnType}>{entry.bodyweightKg}</td>;
       case "WeightClass": {
         const classesForSex =
           entry.sex === "M" ? this.props.meet.weightClassesKgMen : this.props.meet.weightClassesKgWomen;
         const weightClass = getWeightClassStr(classesForSex, entry.bodyweightKg);
-        return <td key={key}>{weightClass}</td>;
+        return <td key={columnType}>{weightClass}</td>;
       }
       case "Equipment":
-        return <td key={key}>{entry.equipment}</td>;
+        return <td key={columnType}>{entry.equipment}</td>;
       case "S1":
-        return this.renderAttemptField(entry, "S", 1, key);
+        return this.renderAttemptField(entry, "S", 1, columnType);
       case "S2":
-        return this.renderAttemptField(entry, "S", 2, key);
+        return this.renderAttemptField(entry, "S", 2, columnType);
       case "S3":
-        return this.renderAttemptField(entry, "S", 3, key);
+        return this.renderAttemptField(entry, "S", 3, columnType);
       case "S4":
-        return this.renderAttemptField(entry, "S", 4, key);
+        return this.renderAttemptField(entry, "S", 4, columnType);
       case "B1":
-        return this.renderAttemptField(entry, "B", 1, key);
+        return this.renderAttemptField(entry, "B", 1, columnType);
       case "B2":
-        return this.renderAttemptField(entry, "B", 2, key);
+        return this.renderAttemptField(entry, "B", 2, columnType);
       case "B3":
-        return this.renderAttemptField(entry, "B", 3, key);
+        return this.renderAttemptField(entry, "B", 3, columnType);
       case "B4":
-        return this.renderAttemptField(entry, "B", 4, key);
+        return this.renderAttemptField(entry, "B", 4, columnType);
       case "D1":
-        return this.renderAttemptField(entry, "D", 1, key);
+        return this.renderAttemptField(entry, "D", 1, columnType);
       case "D2":
-        return this.renderAttemptField(entry, "D", 2, key);
+        return this.renderAttemptField(entry, "D", 2, columnType);
       case "D3":
-        return this.renderAttemptField(entry, "D", 3, key);
+        return this.renderAttemptField(entry, "D", 3, columnType);
       case "D4":
-        return this.renderAttemptField(entry, "D", 4, key);
+        return this.renderAttemptField(entry, "D", 4, columnType);
       case "BestSquat":
-        return <td key={key}>TODO</td>;
+        return <td key={columnType}>TODO</td>;
       case "BestBench":
-        return <td key={key}>TODO</td>;
+        return <td key={columnType}>TODO</td>;
       case "ProjectedTotal":
-        return <td key={key}>TODO</td>;
+        return <td key={columnType}>TODO</td>;
       case "Total":
-        return <td key={key}>TODO</td>;
+        return <td key={columnType}>TODO</td>;
       default:
         (columnType: empty); // eslint-disable-line
         return <td />;
@@ -163,7 +163,7 @@ class LiftingTable extends React.Component<Props> {
       let cells = [];
       for (let col = 0; col < columns.length; col++) {
         const columnType = columns[col];
-        cells.push(this.renderCell(entry, columnType, col));
+        cells.push(this.renderCell(entry, columnType));
       }
 
       const isCurrent = entry.id === currentEntryId;
@@ -196,7 +196,7 @@ class LiftingTable extends React.Component<Props> {
     for (let i = 0; i < columns.length; i++) {
       const className = columns[i] === "Name" ? "" : styles.smallCell;
       headers.push(
-        <th key={i} className={className}>
+        <th key={columns[i]} className={className}>
           {columns[i]}
         </th>
       );
