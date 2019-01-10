@@ -1,10 +1,10 @@
 // vim: set ts=2 sts=2 sw=2 et:
+// @flow
 //
 // The main component of the Lifting page, contained by the LiftingView.
 
 import React from "react";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
 
 import AttemptInput from "./AttemptInput";
 
@@ -13,7 +13,19 @@ import { liftToAttemptFieldName, liftToStatusFieldName } from "../../reducers/re
 
 import styles from "./LiftingTable.module.scss";
 
-class LiftingTable extends React.Component {
+type Props = {
+  meet: {
+    weightClassesKgMen: Array<number>,
+    weightClassesKgWomen: Array<number>
+  },
+  lifting: {
+    lift: string
+  },
+  orderedEntries: Array<Object>,
+  currentEntryId?: number
+};
+
+class LiftingTable extends React.Component<Props> {
   constructor(props) {
     super(props);
     this.renderRows = this.renderRows.bind(this);
@@ -60,7 +72,7 @@ class LiftingTable extends React.Component {
     return <td>{kg}</td>;
   }
 
-  renderRows() {
+  renderRows = () => {
     const orderedEntries = this.props.orderedEntries;
     const currentEntryId = this.props.currentEntryId;
 
@@ -101,7 +113,7 @@ class LiftingTable extends React.Component {
       );
     }
     return rows;
-  }
+  };
 
   render() {
     return (
@@ -133,18 +145,6 @@ const mapStateToProps = state => {
   return {
     ...state
   };
-};
-
-LiftingTable.propTypes = {
-  meet: PropTypes.shape({
-    weightClassesKgMen: PropTypes.array.isRequired,
-    weightClassesKgWomen: PropTypes.array.isRequired
-  }),
-  lifting: PropTypes.shape({
-    lift: PropTypes.string.isRequired
-  }),
-  orderedEntries: PropTypes.array.isRequired,
-  currentEntryId: PropTypes.number // Can be null.
 };
 
 export default connect(
