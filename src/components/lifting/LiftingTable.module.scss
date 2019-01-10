@@ -5,6 +5,10 @@
 // needs to be carefully designed, and doesn't need mobile support,
 // it gets its own direct styling.
 
+$row-height: 25px;
+$cell-left-padding: 8px;
+$row-font-size: 12px;
+
 $color-dark: #232323;
 $color-light: #ffffff;
 $color-alternating-stripe: #f4f4f4;
@@ -21,7 +25,7 @@ $border-rounding: 8px;
 table.liftingtable {
   color: $color-dark;
   background-color: $color-light;
-  font-size: 12px;
+  font-size: $row-font-size;
   box-shadow: 0 0 20px 0 hsla(0, 0%, 64%, .45);
 }
 
@@ -41,8 +45,8 @@ th.smallCell {
 // Cell alignment stuff.
 .liftingtable td,
 .liftingtable th {
-  height: 30px;
-  padding: 0px 8px 0px 8px;
+  height: $row-height;
+  padding: 0px $cell-left-padding 0px $cell-left-padding;
 }
 
 // Make the table striped.
@@ -79,4 +83,11 @@ th.smallCell {
 .liftingtable td.nolift {
   background-color: $color-light-red-tint;
   color: red;
+}
+
+input.attemptInput {
+  font-size: $row-font-size;
+  border-radius: 0px;
+  height: $row-height;
+  padding-left: $cell-left-padding;
 }

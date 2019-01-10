@@ -10,6 +10,8 @@ import { FormControl, FormGroup } from "react-bootstrap";
 
 import { enterAttempt } from "../../actions/liftingActions";
 
+import styles from "./LiftingTable.module.scss";
+
 class AttemptInput extends React.Component {
   constructor(props) {
     super(props);
@@ -65,6 +67,7 @@ class AttemptInput extends React.Component {
           value={this.state.value}
           onChange={this.handleChange}
           onBlur={this.handleBlur}
+          className={styles.attemptInput}
         />
       </FormGroup>
     );
