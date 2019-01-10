@@ -23,40 +23,40 @@ const footerStyle = {
 };
 
 const liftOptions = [
-  <option key={0} value={"S"}>
+  <option key={"S"} value={"S"}>
     Squat
   </option>,
-  <option key={1} value={"B"}>
+  <option key={"B"} value={"B"}>
     Bench
   </option>,
-  <option key={2} value={"D"}>
+  <option key={"D"} value={"D"}>
     Deadlift
   </option>
 ];
 
 const flightOptions = [
-  <option key={0} value={"A"}>
+  <option key={"A"} value={"A"}>
     Flight A
   </option>,
-  <option key={1} value={"B"}>
+  <option key={"B"} value={"B"}>
     Flight B
   </option>,
-  <option key={2} value={"C"}>
+  <option key={"C"} value={"C"}>
     Flight C
   </option>,
-  <option key={3} value={"D"}>
+  <option key={"D"} value={"D"}>
     Flight D
   </option>,
-  <option key={4} value={"E"}>
+  <option key={"E"} value={"E"}>
     Flight E
   </option>,
-  <option key={5} value={"F"}>
+  <option key={"F"} value={"F"}>
     Flight F
   </option>,
-  <option key={6} value={"G"}>
+  <option key={"G"} value={"G"}>
     Flight G
   </option>,
-  <option key={7} value={"H"}>
+  <option key={"H"} value={"H"}>
     Flight H
   </option>
 ];
@@ -196,7 +196,7 @@ class LiftingFooter extends React.Component {
     for (let i = 0; i < orderedEntries.length; i++) {
       const entry = orderedEntries[i];
       lifterOptions.push(
-        <option value={entry.id} key={i}>
+        <option value={entry.id} key={entry.id}>
           {entry.name}
         </option>
       );

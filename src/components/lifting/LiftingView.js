@@ -170,12 +170,11 @@ class LiftingView extends React.Component {
 
     return (
       <div id="liftingView" className={styles.liftingView}>
-        <LiftingTable orderedEntries={now.orderedEntries} currentEntryId={now.currentEntryId} key={0} />
+        <LiftingTable orderedEntries={now.orderedEntries} currentEntryId={now.currentEntryId} />
         <LiftingFooter
           attemptOneIndexed={now.attemptOneIndexed}
           orderedEntries={now.orderedEntries}
           currentEntryId={now.currentEntryId}
-          key={1}
         />
       </div>
     );

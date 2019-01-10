@@ -95,8 +95,8 @@ class FlightOrderView extends React.Component {
     for (let i = 0; i < knownFlights.length; i++) {
       const flight = knownFlights[i];
       const entriesInFlight = shownEntries.filter(e => e.flight === flight);
-
-      flightOrders.push(<OneFlightOrder key={i} flight={flight} entriesInFlight={entriesInFlight} />);
+      const id = "" + this.state.day + "-" + this.state.platform + "-" + flight;
+      flightOrders.push(<OneFlightOrder key={id} flight={flight} entriesInFlight={entriesInFlight} />);
     }
 
     return (

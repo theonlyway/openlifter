@@ -22,7 +22,7 @@ class LifterTable extends React.Component {
   renderRows() {
     const LifterRow = this.props.rowRenderer;
     const { entries } = this.props;
-    return entries.map(lifter => <LifterRow key={lifter.id} id={lifter.id} />);
+    return entries.map(entry => <LifterRow key={entry.id} id={entry.id} />);
   }
 
   renderHeader() {

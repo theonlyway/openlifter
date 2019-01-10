@@ -45,7 +45,7 @@ class FlightOrderView extends React.Component {
           const entry = bySquat[i];
           const weight = entry.squatKg[0];
           builder.push(
-            <td key={key++}>
+            <td key={"S-" + entry.id}>
               {i + 1}. {entry.name} ({weight})
             </td>
           );
@@ -59,7 +59,7 @@ class FlightOrderView extends React.Component {
           const entry = byBench[i];
           const weight = entry.benchKg[0];
           builder.push(
-            <td key={key++}>
+            <td key={"B-" + entry.id}>
               {i + 1}. {entry.name} ({weight})
             </td>
           );
@@ -73,7 +73,7 @@ class FlightOrderView extends React.Component {
           const entry = byDeadlift[i];
           const weight = entry.deadliftKg[0];
           builder.push(
-            <td key={key++}>
+            <td key={"D-" + entry.id}>
               {i + 1}. {entry.name} ({weight})
             </td>
           );
@@ -88,13 +88,13 @@ class FlightOrderView extends React.Component {
     // Construct the table header.
     let header = [];
     if (hasSquat) {
-      header.push(<th key={0}>Squat</th>);
+      header.push(<th key={"S"}>Squat</th>);
     }
     if (hasBench) {
-      header.push(<th key={1}>Bench</th>);
+      header.push(<th key={"B"}>Bench</th>);
     }
     if (hasDeadlift) {
-      header.push(<th key={2}>Deadlift</th>);
+      header.push(<th key={"D"}>Deadlift</th>);
     }
 
     return (
