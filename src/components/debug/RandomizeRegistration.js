@@ -225,7 +225,7 @@ class RandomizeRegistrationButton extends React.Component {
       }
 
       const equipmentSelect = Math.random();
-      let equipment = "Sleeves";
+      let equipment = "Raw";
       if (equipmentSelect < 0.7) {
         // Nothing, sleeves default case.
       } else if (equipmentSelect < 0.9) {

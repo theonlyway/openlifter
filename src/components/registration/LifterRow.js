@@ -208,7 +208,7 @@ class LifterRow extends React.Component {
             componentClass="select"
             onChange={this.updateRegistrationEquipment}
           >
-            <option value="Sleeves">Sleeves</option>
+            <option value="Raw">Raw</option>
             <option value="Wraps">Wraps</option>
             <option value="Single-ply">Single-ply</option>
             <option value="Multi-ply">Multi-ply</option>
