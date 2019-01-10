@@ -29,18 +29,18 @@ class LiftingTable extends React.Component {
     // If the attempt was already made, render a colored text field.
     // The weight cannot be changed after the fact.
     if (status > 0) {
-      return <span style={{ color: "green" }}>{kg}</span>;
+      return <td className={styles.goodlift}>{kg}</td>;
     }
     if (status < 0) {
-      return <span style={{ color: "red" }}>-{kg}</span>;
+      return <td className={styles.nolift}>-{kg}</td>;
     }
 
     // If the attempt isn't for the current lift, just show the number.
     if (lift !== this.props.lifting.lift) {
       if (kg === 0) {
-        return <span />;
+        return <td></td>;
       }
-      return <span>{kg}</span>;
+      return <td>{kg}</td>;
     }
 
     // Was the previous attempt taken yet?
@@ -55,9 +55,9 @@ class LiftingTable extends React.Component {
 
     // Default handler.
     if (kg === 0) {
-      return <span />;
+      return <td></td>;
     }
-    return <span>{kg}</span>;
+    return <td>{kg}</td>;
   }
 
   renderRows() {
@@ -86,17 +86,17 @@ class LiftingTable extends React.Component {
           <td>{weightClass}</td>
           <td>{entry.equipment}</td>
 
-          <td>{this.renderAttemptField(entry, "S", 1)}</td>
-          <td>{this.renderAttemptField(entry, "S", 2)}</td>
-          <td>{this.renderAttemptField(entry, "S", 3)}</td>
+          {this.renderAttemptField(entry, "S", 1)}
+          {this.renderAttemptField(entry, "S", 2)}
+          {this.renderAttemptField(entry, "S", 3)}
 
-          <td>{this.renderAttemptField(entry, "B", 1)}</td>
-          <td>{this.renderAttemptField(entry, "B", 2)}</td>
-          <td>{this.renderAttemptField(entry, "B", 3)}</td>
+          {this.renderAttemptField(entry, "B", 1)}
+          {this.renderAttemptField(entry, "B", 2)}
+          {this.renderAttemptField(entry, "B", 3)}
 
-          <td>{this.renderAttemptField(entry, "D", 1)}</td>
-          <td>{this.renderAttemptField(entry, "D", 2)}</td>
-          <td>{this.renderAttemptField(entry, "D", 3)}</td>
+          {this.renderAttemptField(entry, "D", 1)}
+          {this.renderAttemptField(entry, "D", 2)}
+          {this.renderAttemptField(entry, "D", 3)}
         </tr>
       );
     }

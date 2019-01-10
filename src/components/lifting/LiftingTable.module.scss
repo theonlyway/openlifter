@@ -9,6 +9,11 @@ $color-dark: #232323;
 $color-light: #ffffff;
 $color-alternating-stripe: #f4f4f4;
 
+$color-light-red-tint: #ffeeee;
+$color-light-red-tint-stripe: #ffe3e3;
+$color-light-green-tint: #eeffee;
+$color-light-green-tint-stripe: #e3ffe3;
+
 $border-rounding: 8px;
 
 
@@ -44,6 +49,12 @@ th.smallCell {
 .liftingtable tr:nth-child(even) {
   background-color: $color-alternating-stripe;
 }
+.liftingtable tr:nth-child(even) td.nolift {
+  background-color: $color-light-red-tint-stripe;
+}
+.liftingtable tr:nth-child(even) td.goodlift {
+  background-color: $color-light-green-tint-stripe;
+}
 
 // Rounded corners.
 .liftingtable th:first-child {
@@ -57,4 +68,15 @@ th.smallCell {
 }
 .liftingtable tr:last-child td:last-child {
   border-bottom-right-radius: $border-rounding;
+}
+
+// A lifting cell marked "Good Lift".
+.liftingtable td.goodlift {
+  background-color: $color-light-green-tint;
+  color: green;
+}
+// A lifting cell marked "No Lift".
+.liftingtable td.nolift {
+  background-color: $color-light-red-tint;
+  color: red;
 }
