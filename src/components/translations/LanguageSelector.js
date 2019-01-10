@@ -5,11 +5,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { changeLanguage } from "../../actions/languageActions";
 import Select from "react-select";
-import styled from "styled-components";
-
-const LanguageSelect = styled(Select)`
-  width: 150px;
-`;
+import styles from "./LanguageSelector.module.scss";
 
 // Can we get these from the i18n lib somehow?
 const languages = [{ value: "en", label: "English" }, { value: "eo", label: "Esperanto" }];
@@ -21,7 +17,12 @@ class LanguageSelector extends React.Component {
   render() {
     return (
       <span>
-        <LanguageSelect value={this.selectedLanguage} onChange={this.props.changeLanguage} options={languages} />
+        <Select
+          className={styles.languageSelector}
+          value={this.selectedLanguage}
+          onChange={this.props.changeLanguage}
+          options={languages}
+        />
       </span>
     );
   }

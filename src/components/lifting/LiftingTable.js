@@ -38,7 +38,7 @@ class LiftingTable extends React.Component {
     // If the attempt isn't for the current lift, just show the number.
     if (lift !== this.props.lifting.lift) {
       if (kg === 0) {
-        return <td></td>;
+        return <td />;
       }
       return <td>{kg}</td>;
     }
@@ -55,7 +55,7 @@ class LiftingTable extends React.Component {
 
     // Default handler.
     if (kg === 0) {
-      return <td></td>;
+      return <td />;
     }
     return <td>{kg}</td>;
   }
