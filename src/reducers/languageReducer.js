@@ -22,7 +22,7 @@ export default (state: State = "en", action: Action): State => {
       return action.store.language;
 
     default:
-      (action: empty); // eslint-disable-line
+      (action.type: empty); // eslint-disable-line
       return state;
   }
 };
