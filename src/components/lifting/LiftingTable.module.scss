@@ -74,6 +74,11 @@ th.smallCell {
   border-bottom-right-radius: $border-rounding;
 }
 
+// Decoration for the current lifter's row.
+.liftingtable tr.current {
+  background-color: lightblue;
+}
+
 // A lifting cell marked "Good Lift".
 .liftingtable td.goodlift {
   background-color: $color-light-green-tint;

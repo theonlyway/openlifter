@@ -85,13 +85,9 @@ class LiftingTable extends React.Component<Props> {
         entry.sex === "M" ? this.props.meet.weightClassesKgMen : this.props.meet.weightClassesKgWomen;
       const weightClass = getWeightClassStr(classesForSex, entry.bodyweightKg);
 
-      let style = {};
-      if (isCurrent) {
-        style = { backgroundColor: "yellow" };
-      }
-
+      const rowClassName = isCurrent ? styles.current : "";
       rows.push(
-        <tr key={entry.id} style={style}>
+        <tr key={entry.id} className={rowClassName}>
           <td>{entry.name}</td>
 
           <td>{entry.bodyweightKg}</td>
