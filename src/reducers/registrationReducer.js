@@ -34,15 +34,15 @@ const initialState = {
 // Length of {squat,bench,deadlift}{Kg,status} in each entry.
 export const MAX_ATTEMPTS = 5;
 
-const makeNewEntry = id => {
+const makeNewEntry = (id, prevRowData) => {
   return {
     // Bookkeeping internal information for OpenLifter.
     id: id, // The global unique ID of this registration.
 
     // Information about when the lifter is scheduled to lift.
-    day: 1, // The day on which the lifter is lifting.
-    platform: 1, // The platform on which the lifter is lifting.
-    flight: "A", // The flight in which the lifter is lifting.
+    day: prevRowData.day || 1, // The day on which the lifter is lifting.
+    platform: prevRowData.platform || 1, // The platform on which the lifter is lifting.
+    flight: prevRowData.flight || "A", // The flight in which the lifter is lifting.
 
     // Information about the lifter themselves.
     name: "", // The lifter's name.
@@ -156,7 +156,19 @@ export default (state: Object = initialState, action: Object) => {
       // Generate an entries array with one more item (without modifying the orginal).
       // Object.assign() allows `obj` to overwrite defaults if present.
       let entries: Array<Object> = state.entries.slice();
-      entries.push(Object.assign(makeNewEntry(state.nextEntryId), obj));
+
+      // Get the previous entry so that we can avoid re-entering some data
+      const previousEntry = entries[entries.length - 1];
+      let prevRowData = {};
+      if (previousEntry) {
+        // If a previous entry exists, then pull some information from it so that the next row can pre-populate the same data
+        // Add any other fields here, and set them above in makeNewEntry
+        prevRowData.day = previousEntry.day;
+        prevRowData.platform = previousEntry.platform;
+        prevRowData.flight = previousEntry.flight;
+      }
+
+      entries.push(Object.assign(makeNewEntry(state.nextEntryId, prevRowData), obj));
 
       // Since a new entry was added, generate a new 'lookup' object,
       // mapping from the globally-unique EntryId to the array index.
