@@ -46,6 +46,23 @@ class LiftingTable extends React.Component<Props> {
     this.renderRows = this.renderRows.bind(this);
   }
 
+  renderBest3AttemptField(entry, lift, columnType: ColumnType) {
+    const fieldKg = liftToAttemptFieldName(lift);
+    const fieldStatus = liftToStatusFieldName(lift);
+
+    let best3 = 0.0;
+    for (let i = 0; i < 2; i++) {
+      if (entry[fieldStatus][i] === 1) {
+        best3 = Math.max(best3, entry[fieldKg][i]);
+      }
+    }
+
+    if (best3 === 0) {
+      return <td key={columnType} />;
+    }
+    return <td key={columnType}>{best3}</td>;
+  }
+
   renderAttemptField(entry, lift, attemptOneIndexed: number, columnType: ColumnType) {
     const fieldKg = liftToAttemptFieldName(lift);
     const fieldStatus = liftToStatusFieldName(lift);
@@ -138,9 +155,9 @@ class LiftingTable extends React.Component<Props> {
       case "D4":
         return this.renderAttemptField(entry, "D", 4, columnType);
       case "BestSquat":
-        return <td key={columnType}>TODO</td>;
+        return this.renderBest3AttemptField(entry, "S", columnType);
       case "BestBench":
-        return <td key={columnType}>TODO</td>;
+        return this.renderBest3AttemptField(entry, "B", columnType);
       case "ProjectedTotal":
         return <td key={columnType}>TODO</td>;
       case "Total":
