@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 import AttemptInput from "./AttemptInput";
 
 import { getWeightClassStr } from "../../reducers/meetReducer.js";
-import { liftToAttemptFieldName, liftToStatusFieldName } from "../../reducers/registrationReducer";
+import { getProjectedTotalKg, liftToAttemptFieldName, liftToStatusFieldName } from "../../reducers/registrationReducer";
 
 import styles from "./LiftingTable.module.scss";
 
@@ -158,8 +158,13 @@ class LiftingTable extends React.Component<Props> {
         return this.renderBest3AttemptField(entry, "S", columnType);
       case "BestBench":
         return this.renderBest3AttemptField(entry, "B", columnType);
-      case "ProjectedTotal":
-        return <td key={columnType}>TODO</td>;
+      case "ProjectedTotal": {
+        const totalKg = getProjectedTotalKg(entry);
+        if (totalKg === 0) {
+          return <td key={columnType}>DQ</td>;
+        }
+        return <td key={columnType}>{totalKg}</td>;
+      }
       case "Total":
         return <td key={columnType}>TODO</td>;
       default:
