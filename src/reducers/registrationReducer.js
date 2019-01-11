@@ -1,9 +1,12 @@
 // vim: set ts=2 sts=2 sw=2 et:
 // @flow
 
+import { wilksMen, wilksWomen } from "../common/wilks.js";
+
 // Length of {squat,bench,deadlift}{Kg,status} in each entry.
 export const MAX_ATTEMPTS = 5;
 
+type Sex = "M" | "F";
 type Lift = "S" | "B" | "D";
 type FieldKg = "squatKg" | "benchKg" | "deadliftKg";
 type FieldStatus = "squatStatus" | "benchStatus" | "deadliftStatus";
@@ -21,7 +24,7 @@ type Entry = {
   platform: number,
   flight: string,
   name: string,
-  sex: string,
+  sex: Sex,
   birthdate: string,
   intendedWeightClassKg: string,
   equipment: Equipment,
@@ -149,6 +152,19 @@ export const getProjectedTotalKg = (entry: Entry): number => {
   if (best3Dead === 0 && entry.deadliftStatus[0] === -1) return 0.0;
 
   return best3Squat + best3Bench + best3Dead;
+};
+
+// Gets the Wilks score using the projected total.
+export const getProjectedWilks = (entry: Entry): number => {
+  const totalKg = getProjectedTotalKg(entry);
+  if (totalKg === 0) {
+    return 0;
+  }
+  if (entry.sex === "F") {
+    return wilksWomen(entry.bodyweightKg) * totalKg;
+  } else {
+    return wilksMen(entry.bodyweightKg) * totalKg;
+  }
 };
 
 // Filter entries to only get lifters that are lifting on a given day

@@ -9,7 +9,12 @@ import { connect } from "react-redux";
 import AttemptInput from "./AttemptInput";
 
 import { getWeightClassStr } from "../../reducers/meetReducer.js";
-import { getProjectedTotalKg, liftToAttemptFieldName, liftToStatusFieldName } from "../../reducers/registrationReducer";
+import {
+  getProjectedTotalKg,
+  getProjectedWilks,
+  liftToAttemptFieldName,
+  liftToStatusFieldName
+} from "../../reducers/registrationReducer";
 
 import styles from "./LiftingTable.module.scss";
 
@@ -38,6 +43,7 @@ type ColumnType =
   | "D1" | "D2" | "D3" | "D4" // eslint-disable-line
   | "BestSquat" | "BestBench" // eslint-disable-line
   | "ProjectedTotal"
+  | "ProjectedPoints"
   | "Total";
 
 class LiftingTable extends React.Component<Props> {
@@ -165,11 +171,18 @@ class LiftingTable extends React.Component<Props> {
         }
         return <td key={columnType}>{totalKg}</td>;
       }
+      case "ProjectedPoints": {
+        const points = getProjectedWilks(entry);
+        if (points === 0) {
+          return <td key={columnType} />;
+        }
+        return <td key={columnType}>{points.toFixed(2)}</td>;
+      }
       case "Total":
         return <td key={columnType}>TODO</td>;
       default:
         (columnType: empty); // eslint-disable-line
-        return <td />;
+        return <td key={columnType} />;
     }
   };
 
@@ -211,7 +224,7 @@ class LiftingTable extends React.Component<Props> {
     } else if (this.props.lifting.lift === "D") {
       columns.push("BestSquat", "BestBench", "D1", "D2", "D3");
     }
-    columns.push("ProjectedTotal");
+    columns.push("ProjectedTotal", "ProjectedPoints");
 
     // Build headers.
     let headers = [];
