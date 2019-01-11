@@ -1,40 +1,46 @@
 // vim: set ts=2 sts=2 sw=2 et:
 // @flow
 
-type Lift = "S" | "B" | "D";
-type FieldKg = "squatKg" | "benchKg" | "deadliftKg";
-type FieldStatus = "squatStatus" | "benchStatus" | "deadliftStatus";
-
-const initialState = {
-  // The next unique ID to assign.
-  //
-  // This is stored in global state to handle the case of deleting registration
-  // rows during the course of lifting.
-  //
-  // A large number is used as the initial value to make it clear that this is
-  // specifically not an index into the `entries` array.
-  nextEntryId: 5000,
-
-  // Entry objects in the order they appear on the Registration page.
-  // This array owns all registration information.
-  entries: [],
-
-  // Hash from unique ID to `entries` array index.
-  //
-  // This is for the benefit of pages other than the Registration page.
-  // Because the sort order of the `entries` array can change arbitrarily,
-  // the other pages remember globally-unique identifiers for each registration,
-  // instead of a simple array index.
-  //
-  // This lookup table allows mapping those identifiers to whatever
-  // the current location of that data is in the canonical `entries` store.
-  lookup: {}
-};
-
 // Length of {squat,bench,deadlift}{Kg,status} in each entry.
 export const MAX_ATTEMPTS = 5;
 
-const makeNewEntry = id => {
+type Lift = "S" | "B" | "D";
+type FieldKg = "squatKg" | "benchKg" | "deadliftKg";
+type FieldStatus = "squatStatus" | "benchStatus" | "deadliftStatus";
+type Equipment = "Raw" | "Wraps" | "Single-ply" | "Multi-ply";
+type Event = "S" | "B" | "D" | "SB" | "SD" | "BD" | "SBD";
+
+type LiftStatus =
+  | -1 // Failure.
+  | 0 // Not yet taken.
+  | 1; // Success.
+
+type Entry = {
+  id: number,
+  day: number,
+  platform: number,
+  flight: string,
+  name: string,
+  sex: string,
+  birthdate: string,
+  intendedWeightClassKg: string,
+  equipment: Equipment,
+  divisions: Array<string>,
+  events: Array<Event>,
+  lot: number,
+  paid: boolean,
+  bodyweightKg: number,
+  squatRackInfo: string,
+  benchRackInfo: string,
+  squatKg: Array<number>,
+  benchKg: Array<number>,
+  deadliftKg: Array<number>,
+  squatStatus: Array<LiftStatus>,
+  benchStatus: Array<LiftStatus>,
+  deadliftStatus: Array<LiftStatus>
+};
+
+const makeNewEntry = (id: number): Entry => {
   return {
     // Bookkeeping internal information for OpenLifter.
     id: id, // The global unique ID of this registration.
@@ -81,8 +87,42 @@ const makeNewEntry = id => {
   };
 };
 
+type Registration = {
+  nextEntryId: number,
+  entries: Array<Entry>,
+  lookup: {
+    [id: number]: number
+  }
+};
+
+const initialState: Registration = {
+  // The next unique ID to assign.
+  //
+  // This is stored in global state to handle the case of deleting registration
+  // rows during the course of lifting.
+  //
+  // A large number is used as the initial value to make it clear that this is
+  // specifically not an index into the `entries` array.
+  nextEntryId: 5000,
+
+  // Entry objects in the order they appear on the Registration page.
+  // This array owns all registration information.
+  entries: [],
+
+  // Hash from unique ID to `entries` array index.
+  //
+  // This is for the benefit of pages other than the Registration page.
+  // Because the sort order of the `entries` array can change arbitrarily,
+  // the other pages remember globally-unique identifiers for each registration,
+  // instead of a simple array index.
+  //
+  // This lookup table allows mapping those identifiers to whatever
+  // the current location of that data is in the canonical `entries` store.
+  lookup: {}
+};
+
 // Filter entries to only get lifters that are lifting on a given day
-export const getLiftersOnDay = (entries: Array<Object>, day: number): Array<Object> => {
+export const getLiftersOnDay = (entries: Array<Entry>, day: number): Array<Entry> => {
   if (!entries) {
     return [];
   }
@@ -122,10 +162,10 @@ export const liftToStatusFieldName = (lift: Lift): FieldStatus => {
 // Helper function: performs an in-place sort on an array of entries.
 // Assumes that zero entries are not mixed in with non-zero entries.
 export const orderEntriesByAttempt = (
-  entries: Array<Object>,
+  entries: Array<Entry>,
   fieldKg: FieldKg,
   attemptOneIndexed: number
-): Array<Object> => {
+): Array<Entry> => {
   return entries.sort((a, b) => {
     const aKg = a[fieldKg][attemptOneIndexed - 1];
     const bKg = b[fieldKg][attemptOneIndexed - 1];
@@ -146,7 +186,7 @@ export const orderEntriesByAttempt = (
   });
 };
 
-export default (state: Object = initialState, action: Object) => {
+export default (state: Registration = initialState, action: Object): Registration => {
   switch (action.type) {
     case "NEW_REGISTRATION": {
       // The object provides optional properties that can overwrite the default.
@@ -155,7 +195,7 @@ export default (state: Object = initialState, action: Object) => {
 
       // Generate an entries array with one more item (without modifying the orginal).
       // Object.assign() allows `obj` to overwrite defaults if present.
-      let entries: Array<Object> = state.entries.slice();
+      let entries: Array<Entry> = state.entries.slice();
       let newEntry = makeNewEntry(state.nextEntryId);
 
       // If a previous entry exists, pre-populate some information from it.
@@ -186,7 +226,7 @@ export default (state: Object = initialState, action: Object) => {
       const entryId = action.entryId;
 
       // Generate an entries array without the given item.
-      let entries: Array<Object> = state.entries.filter((item, index) => item.id !== entryId);
+      let entries: Array<Entry> = state.entries.filter((item, index) => item.id !== entryId);
 
       // Since the entry was deleted from anywhere in the array,
       // construct a new lookup table from scratch.
@@ -208,7 +248,7 @@ export default (state: Object = initialState, action: Object) => {
       const changes = action.changes;
 
       // Clone the entries array, since one entry will reference a new object.
-      let entries: Array<Object> = state.entries.slice();
+      let entries: Array<Entry> = state.entries.slice();
 
       // Make a new object with just the changes overwritten,
       // and reference that object from the new array.
@@ -231,7 +271,7 @@ export default (state: Object = initialState, action: Object) => {
       const field: FieldKg = liftToAttemptFieldName(lift);
 
       // Clone the entries array, since one slot will reference a new object.
-      let newEntries: Array<Object> = state.entries.slice();
+      let newEntries: Array<Entry> = state.entries.slice();
       const index = newEntries.findIndex(obj => obj.id === entryId);
       const oldEntry = newEntries[index];
 
@@ -264,7 +304,7 @@ export default (state: Object = initialState, action: Object) => {
       const fieldStatus = liftToStatusFieldName(lift);
 
       // Clone the entries array, since one slot will reference a new object.
-      let newEntries: Array<Object> = state.entries.slice();
+      let newEntries: Array<Entry> = state.entries.slice();
       const index = newEntries.findIndex(obj => obj.id === entryId);
       const oldEntry = newEntries[index];
 
