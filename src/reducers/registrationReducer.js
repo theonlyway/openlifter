@@ -121,24 +121,27 @@ const initialState: Registration = {
   lookup: {}
 };
 
-// The Projected Total optimistically assumes that lifters will get attempts
-// that haven't been taken yet. It's mostly used for calculating a total while
-// lifters are still squatting and benching.
+// The ProjectedTotal optimistically assumes that lifters will get *first* attempts
+// that have not yet been taken. It is used for calculating a total while lifters
+// are still squatting and benching.
+//
+// 2nd and 3rd attempts are treated normally, where they only count toward the
+// total if they have been successful.
 export const getProjectedTotalKg = (entry: Entry): number => {
   let best3Squat = 0.0;
   if (entry.squatStatus[0] >= 0) best3Squat = Math.max(best3Squat, entry.squatKg[0]);
-  if (entry.squatStatus[1] >= 0) best3Squat = Math.max(best3Squat, entry.squatKg[1]);
-  if (entry.squatStatus[2] >= 0) best3Squat = Math.max(best3Squat, entry.squatKg[2]);
+  if (entry.squatStatus[1] > 0) best3Squat = Math.max(best3Squat, entry.squatKg[1]);
+  if (entry.squatStatus[2] > 0) best3Squat = Math.max(best3Squat, entry.squatKg[2]);
 
   let best3Bench = 0.0;
   if (entry.benchStatus[0] >= 0) best3Bench = Math.max(best3Bench, entry.benchKg[0]);
-  if (entry.benchStatus[1] >= 0) best3Bench = Math.max(best3Bench, entry.benchKg[1]);
-  if (entry.benchStatus[2] >= 0) best3Bench = Math.max(best3Bench, entry.benchKg[2]);
+  if (entry.benchStatus[1] > 0) best3Bench = Math.max(best3Bench, entry.benchKg[1]);
+  if (entry.benchStatus[2] > 0) best3Bench = Math.max(best3Bench, entry.benchKg[2]);
 
   let best3Dead = 0.0;
   if (entry.deadliftStatus[0] >= 0) best3Dead = Math.max(best3Dead, entry.deadliftKg[0]);
-  if (entry.deadliftStatus[1] >= 0) best3Dead = Math.max(best3Dead, entry.deadliftKg[1]);
-  if (entry.deadliftStatus[2] >= 0) best3Dead = Math.max(best3Dead, entry.deadliftKg[2]);
+  if (entry.deadliftStatus[1] > 0) best3Dead = Math.max(best3Dead, entry.deadliftKg[1]);
+  if (entry.deadliftStatus[2] > 0) best3Dead = Math.max(best3Dead, entry.deadliftKg[2]);
 
   // If there was no attempted success for a single lift, return zero.
   if (best3Squat === 0 && entry.squatStatus[0] === -1) return 0.0;
