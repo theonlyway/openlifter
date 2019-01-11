@@ -1,0 +1,65 @@
+// vim: set ts=2 sts=2 sw=2 et:
+//
+// Theming for the current lifter information header on the top of the Lifting page.
+
+$color-dark: #232323;
+$color-light: #ffffff;
+
+$border-rounding: 8px;
+
+
+// The whole header, looking like a "card" or a "panel".
+div.container {
+  background-color: $color-light;
+  color: $color-dark;
+
+  margin-bottom: 10px;
+  width: 100%;
+
+  border-radius: $border-rounding;
+  box-shadow: 0 0 20px 0 hsla(0, 0%, 64%, .45);
+}
+
+// The bar containing the lifter information.
+div.lifterBar {
+  display: flex;
+
+  background-color: $color-dark;
+  color: $color-light;
+
+  padding: 10px 20px 0px 20px;
+
+  border-top-left-radius: $border-rounding;
+  border-top-right-radius: $border-rounding;
+}
+
+// The call-out for the lifter name.
+div.lifterName {
+  font-size: 45px;
+  font-weight: bold;
+}
+
+div.rightInfo {
+  margin-left: auto;
+  font-size: 20px;
+  text-align: right;
+}
+
+// The bar containing loading information.
+div.loadingBar {
+  display: flex;
+
+  background-color: $color-light;
+  color: $color-dark;
+
+  border-bottom-left-radius: $border-rounding;
+  border-bottom-right-radius: $border-rounding;
+}
+
+// Textual description of the attempt and the weight on the bar.
+div.attemptText {
+  margin: 10px 20px 0px 20px;
+
+  font-size: 35px;
+  font-weight: bold;
+}
