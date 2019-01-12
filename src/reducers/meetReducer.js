@@ -6,8 +6,7 @@ const initialState = {
   name: "",
   formula: "Wilks",
   federation: "",
-  date: new Date(),
-  dateString: getDateString(new Date()),
+  date: getDateString(new Date()),
   lengthDays: 1,
   platformsOnDays: [defaultPlatformsOnDay],
   divisions: [],
@@ -44,7 +43,7 @@ export default (state = initialState, action) => {
     case "SET_DIVISIONS":
       return { ...state, divisions: action.divisions };
     case "SET_MEET_DATE":
-      return { ...state, date: action.date, dateString: getDateString(action.date) };
+      return { ...state, date: getDateString(action.date) };
     case "SET_LENGTH_DAYS": {
       const numDays = Number(action.length);
 

@@ -14,11 +14,13 @@ import { setMeetDate } from "../../actions/meetSetupActions";
 class MeetDate extends React.Component {
   render() {
     const { date } = this.props.meet;
+    // Create the initial Date object for the DatePicker from the string date in the redux store
+    const initialDateForPicker = new Date(date);
     return (
       <FormGroup>
         <ControlLabel>Start Date</ControlLabel>
         <div>
-          <DatePicker selected={date} onChange={this.props.setMeetDate} />
+          <DatePicker selected={initialDateForPicker} onChange={this.props.setMeetDate} />
         </div>
       </FormGroup>
     );
@@ -37,7 +39,7 @@ const mapDispatchToProps = dispatch => {
 
 MeetDate.propTypes = {
   meet: PropTypes.shape({
-    date: PropTypes.instanceOf(Date).isRequired
+    date: PropTypes.string.isRequired
   }).isRequired,
   setMeetDate: PropTypes.func.isRequired
 };
