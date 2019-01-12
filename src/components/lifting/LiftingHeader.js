@@ -65,7 +65,7 @@ LiftingHeader.propTypes = {
   // Props passed from Redux state.
   registration: PropTypes.shape({
     entries: PropTypes.array.isRequired,
-    lookup: PropTypes.array.isRequired
+    lookup: PropTypes.object.isRequired
   }).isRequired,
   lifting: PropTypes.shape({
     lift: PropTypes.string.isRequired
