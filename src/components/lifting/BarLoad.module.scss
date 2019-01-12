@@ -1,0 +1,144 @@
+// vim: set ts=2 sts=2 sw=2 et:
+//
+// Theming for the bar load 
+// Theming for the current lifter information header on the top of the Lifting page.
+
+$color-dark: #232323;
+$color-light: #ffffff;
+
+$plate-margin-right: 4px;
+$plate-width: 20px;
+
+// React doesn't have a default way to supply multiple classes to an element.
+// So instead we just use a macro to repeat the defaults everywhere.
+@mixin plate-defaults() {
+  display: flex;
+  flex-direction: column; // Handles the case of multiple internal textual <div>s.
+  align-items: center; // Vertical alignment.
+  justify-content: center; // Horizontal alignment.
+
+  width: $plate-width;
+  margin-right: $plate-margin-right;
+}
+
+// Stakes out an area for the BarLoad widget.
+div.container {
+  position: relative; // Needed for the absolute positioning of the rackInfo.
+
+  display: flex;
+  align-items: center;
+
+  height: 200px;
+  min-width: 400px;
+
+  // Default styling for the plate text.
+  color: $color-light;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+// Rack information text.
+div.rackInfo {
+  color: $color-dark;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+
+  font-size: 25px;
+  margin-right: 10px;
+}
+
+// Styling for the bar.
+div.bar {
+  width: $plate-width;
+  height: 10%;
+  background-color: #333333;
+}
+
+// Styling for a single 50kg plate.
+div.kg50 {
+  @include plate-defaults();
+  height: 80%;
+  width: $plate-width * 1.5;
+  background-color: green;
+}
+
+// Styling for a single 25kg plate.
+div.kg25 {
+  @include plate-defaults();
+  height: 80%;
+  background-color: red;
+}
+
+// Styling for a single 20kg plate.
+div.kg20 {
+  @include plate-defaults();
+  height: 80%;
+  background-color: blue;
+}
+
+// Styling for a single 15kg plate.
+div.kg15 {
+  @include plate-defaults();
+  height: 60%;
+  background-color: yellow;
+  color: $color-dark;
+}
+
+// Styling for a single 10kg plate.
+div.kg10 {
+  @include plate-defaults();
+  height: 50%;
+  background-color: green;
+}
+
+// Styling for a single 5kg plate.
+div.kg5 {
+  @include plate-defaults();
+  height: 40%;
+  background-color: black;
+}
+
+// Styling for a single 2.5kg plate.
+div.kg2p5 {
+  @include plate-defaults();
+  height: 30%;
+  background-color: black;
+}
+
+// Styling for a single 1.25kg plate.
+div.kg1p25 {
+  @include plate-defaults();
+  height: 20%;
+  background-color: black;
+}
+
+// Styling for a single 0.5kg plate.
+div.kg0p5 {
+  @include plate-defaults();
+  height: 18%;
+  background-color: green;
+}
+
+// Styling for a single 0.25kg plate.
+div.kg0p25 {
+  @include plate-defaults();
+  height: 16%;
+  background-color: blue;
+}
+
+// Styling for a collar.
+div.collar {
+  @include plate-defaults();
+  margin-right: 0px;
+  height: 14%;
+  background-color: gray;
+}
+
+// Styling for an error.
+div.error {
+  @include plate-defaults();
+  height: 14%;
+  width: $plate-width * 2;
+  background-color: red;
+}

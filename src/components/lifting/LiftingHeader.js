@@ -9,25 +9,34 @@ import { connect } from "react-redux";
 
 import { liftToAttemptFieldName } from "../../reducers/registrationReducer";
 
+import BarLoad from "./BarLoad.js";
+
 import styles from "./LiftingHeader.module.scss";
 
 class LiftingHeader extends React.Component {
   render() {
-    const lifterUp = this.props.currentEntryId !== null;
-
-    let entry = null;
-    if (lifterUp) {
-      const idx = this.props.registration.lookup[this.props.currentEntryId];
-      entry = this.props.registration.entries[idx];
-    }
-
     const lift = this.props.lifting.lift;
     const attempt = this.props.attemptOneIndexed;
     const fieldKg = liftToAttemptFieldName(lift);
 
-    const lifterName = lifterUp ? entry.name : "";
-    const weightKg = lifterUp ? entry[fieldKg][attempt - 1] : 0;
-    const weightLbs = weightKg * 2.20462262;
+    // Defaults, in case of no lifter.
+    let lifterName = "";
+    let weightKg = 0;
+    let weightLbs = 0;
+    let rackInfo = "";
+
+    // In the case of a lifter, set fields.
+    if (this.props.currentEntryId !== null) {
+      const idx = this.props.registration.lookup[this.props.currentEntryId];
+      const entry = this.props.registration.entries[idx];
+
+      lifterName = entry.name;
+      weightKg = entry[fieldKg][attempt - 1];
+      weightLbs = weightKg * 2.20462262;
+
+      if (lift === "S") rackInfo = entry.squatRackInfo;
+      if (lift === "B") rackInfo = entry.benchRackInfo;
+    }
 
     return (
       <div className={styles.container}>
@@ -43,6 +52,9 @@ class LiftingHeader extends React.Component {
           <div className={styles.attemptText}>
             {lift}
             {attempt}: {weightKg.toFixed(1)}kg / {weightLbs.toFixed(1)}lb
+          </div>
+          <div className={styles.rightInfo}>
+            <BarLoad weightKg={weightKg} rackInfo={rackInfo} />
           </div>
         </div>
       </div>
