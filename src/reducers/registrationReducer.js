@@ -7,7 +7,7 @@ import { wilksMen, wilksWomen } from "../common/wilks.js";
 export const MAX_ATTEMPTS = 5;
 
 type Sex = "M" | "F";
-type Lift = "S" | "B" | "D";
+export type Lift = "S" | "B" | "D";
 type FieldKg = "squatKg" | "benchKg" | "deadliftKg";
 type FieldStatus = "squatStatus" | "benchStatus" | "deadliftStatus";
 type Equipment = "Raw" | "Wraps" | "Single-ply" | "Multi-ply";

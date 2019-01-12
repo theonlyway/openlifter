@@ -1,18 +1,32 @@
 // vim: set ts=2 sts=2 sw=2 et:
+// @flow
 //
 // An editable component for attempt manipulation in the LiftingContent.
 
 import React from "react";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
 
 import { FormControl, FormGroup } from "react-bootstrap";
 
 import { enterAttempt } from "../../actions/liftingActions";
 
+import type { Lift } from "../../reducers/registrationReducer";
+
 import styles from "./LiftingTable.module.scss";
 
-class AttemptInput extends React.Component {
+type Props = {
+  entryId: number,
+  lift: Lift,
+  attemptOneIndexed: number,
+  weightKg: number,
+  enterAttempt: (entryId: number, lift: Lift, attemptOneIndexed: number, weightKg: number) => any
+};
+
+type State = {
+  value: string
+};
+
+class AttemptInput extends React.Component<Props, State> {
   constructor(props) {
     super(props);
 
@@ -40,12 +54,12 @@ class AttemptInput extends React.Component {
     return null;
   }
 
-  handleChange(event) {
+  handleChange = event => {
     const value = event.target.value;
     this.setState({ value: value });
-  }
+  };
 
-  handleBlur(event) {
+  handleBlur = event => {
     if (this.getValidationState() === "error") {
       return;
     }
@@ -56,7 +70,7 @@ class AttemptInput extends React.Component {
     const weightKg = Number(this.state.value);
 
     this.props.enterAttempt(entryId, lift, attemptOneIndexed, weightKg);
-  }
+  };
 
   render() {
     return (
@@ -79,14 +93,6 @@ const mapDispatchToProps = dispatch => {
     enterAttempt: (entryId, lift, attemptOneIndexed, weightKg) =>
       dispatch(enterAttempt(entryId, lift, attemptOneIndexed, weightKg))
   };
-};
-
-AttemptInput.propTypes = {
-  entryId: PropTypes.number.isRequired,
-  lift: PropTypes.string.isRequired,
-  attemptOneIndexed: PropTypes.number.isRequired,
-  weightKg: PropTypes.number.isRequired,
-  enterAttempt: PropTypes.func.isRequired
 };
 
 export default connect(
