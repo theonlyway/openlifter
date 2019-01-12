@@ -212,6 +212,56 @@ class LiftingTable extends React.Component<Props> {
     return rows;
   };
 
+  getColumnHeaderString = (columnType: ColumnType): string => {
+    switch (columnType) {
+      case "Name":
+        return "Name";
+      case "Bodyweight":
+        return "Bwt";
+      case "WeightClass":
+        return "Class";
+      case "Equipment":
+        return "Gear";
+      case "S1":
+        return "S1";
+      case "S2":
+        return "S2";
+      case "S3":
+        return "S3";
+      case "S4":
+        return "S4";
+      case "B1":
+        return "B1";
+      case "B2":
+        return "B2";
+      case "B3":
+        return "B3";
+      case "B4":
+        return "B4";
+      case "D1":
+        return "D1";
+      case "D2":
+        return "D2";
+      case "D3":
+        return "D3";
+      case "D4":
+        return "D4";
+      case "BestSquat":
+        return "Squat";
+      case "BestBench":
+        return "Bench";
+      case "ProjectedTotal":
+        return "Total";
+      case "ProjectedPoints":
+        return "Points";
+      case "Total":
+        return "Total";
+      default:
+        (columnType: empty); // eslint-disable-line
+        return "";
+    }
+  };
+
   render() {
     // Select the columns for display.
     let columns: Array<ColumnType> = ["Name", "Bodyweight", "WeightClass", "Equipment"];
@@ -229,10 +279,11 @@ class LiftingTable extends React.Component<Props> {
     // Build headers.
     let headers = [];
     for (let i = 0; i < columns.length; i++) {
-      const className = columns[i] === "Name" ? "" : styles.smallCell;
+      const column = columns[i];
+      const className = column === "Name" ? "" : styles.smallCell;
       headers.push(
-        <th key={columns[i]} className={className}>
-          {columns[i]}
+        <th key={column} className={className}>
+          {this.getColumnHeaderString(column)}
         </th>
       );
     }
