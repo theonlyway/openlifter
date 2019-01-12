@@ -11,7 +11,7 @@ import { getLiftersOnDay } from "../../reducers/registrationReducer";
 import LifterTable from "./LifterTable";
 import LifterRow from "./LifterRow";
 
-const marginStyle = { margin: "0 40px 0 40px" };
+const marginStyle = { margin: "0 20px 0 20px" };
 
 class WeighinsView extends React.Component {
   constructor(props) {

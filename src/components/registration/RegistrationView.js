@@ -11,7 +11,7 @@ import LifterTable from "./LifterTable";
 import LifterRow from "./LifterRow";
 import NewButton from "./NewButton";
 
-const marginStyle = { margin: "0 40px 0 40px" };
+const marginStyle = { margin: "0 20px 0 20px" };
 
 class RegistrationView extends React.Component {
   render() {

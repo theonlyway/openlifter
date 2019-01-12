@@ -6,7 +6,7 @@
 import React from "react";
 import { Panel } from "react-bootstrap";
 
-const marginStyle = { margin: "0 40px 0 40px" };
+const marginStyle = { margin: "0 20px 0 20px" };
 
 const ResultsView = () => {
   return (

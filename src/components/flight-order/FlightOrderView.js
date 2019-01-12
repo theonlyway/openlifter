@@ -11,7 +11,7 @@ import { Button, FormControl, Panel } from "react-bootstrap";
 
 import OneFlightOrder from "./OneFlightOrder";
 
-const marginStyle = { margin: "0 40px 0 40px" };
+const marginStyle = { margin: "0 20px 0 20px" };
 
 class FlightOrderView extends React.Component {
   constructor(props) {

@@ -13,7 +13,7 @@ import FederationSelect from "./FederationSelect";
 import DivisionSelect from "./DivisionSelect";
 import WeightClassesSelect from "./WeightClassesSelect";
 
-const marginStyle = { margin: "0 40px 0 40px" };
+const marginStyle = { margin: "0 20px 0 20px" };
 
 const MeetSetup = () => {
   return (

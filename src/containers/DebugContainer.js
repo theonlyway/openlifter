@@ -8,7 +8,7 @@ import StateTools from "../components/debug/StateTools";
 
 const DebugContainer = () => {
   return (
-    <div style={{ marginRight: "40px", marginLeft: "40px" }}>
+    <div style={{ marginRight: "20px", marginLeft: "20px" }}>
       <StateTools />
     </div>
   );
