@@ -57,7 +57,7 @@ class LiftingTable extends React.Component<Props> {
     const fieldStatus = liftToStatusFieldName(lift);
 
     let best3 = 0.0;
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < 3; i++) {
       if (entry[fieldStatus][i] === 1) {
         best3 = Math.max(best3, entry[fieldKg][i]);
       }
