@@ -1,9 +1,10 @@
 // vim: set ts=2 sts=2 sw=2 et:
 // @flow
 
+import type { ChangeLanguageAction } from "../actions/languageActions";
+
 type State = string;
 
-type ChangeLanguageAction = { +type: "CHANGE_LANGUAGE", +language: string };
 type OverwriteStoreAction = {
   +type: "OVERWRITE_STORE",
   +store: {
