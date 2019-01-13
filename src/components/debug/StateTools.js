@@ -4,19 +4,28 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import { ButtonGroup, Panel } from "react-bootstrap";
+import { Button, ButtonGroup, Panel } from "react-bootstrap";
 
 import RandomizeMeetSetupButton from "./RandomizeMeetSetup";
 import RandomizeRegistrationButton from "./RandomizeRegistration";
 import RandomizeWeighinsButton from "./RandomizeWeighins";
 
 class StateTools extends React.Component {
+  // The simplest possible way to implement a Reset button.
+  reInitializeRedux = () => {
+    localStorage.clear();
+    window.location.reload();
+  };
+
   render() {
     return (
       <div>
         <Panel bsStyle="danger">
           <Panel.Heading>Generate Random Valid Data</Panel.Heading>
           <Panel.Body>
+            <Button style={{ marginRight: "15px" }} bsStyle="danger" onClick={this.reInitializeRedux}>
+              Reset
+            </Button>
             <ButtonGroup>
               <RandomizeMeetSetupButton />
               <RandomizeRegistrationButton />
