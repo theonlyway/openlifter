@@ -6,19 +6,19 @@ import { wilksMen, wilksWomen } from "../common/wilks.js";
 // Length of {squat,bench,deadlift}{Kg,status} in each entry.
 export const MAX_ATTEMPTS = 5;
 
-type Sex = "M" | "F";
+export type Sex = "M" | "F";
 export type Lift = "S" | "B" | "D";
-type FieldKg = "squatKg" | "benchKg" | "deadliftKg";
-type FieldStatus = "squatStatus" | "benchStatus" | "deadliftStatus";
-type Equipment = "Raw" | "Wraps" | "Single-ply" | "Multi-ply";
-type Event = "S" | "B" | "D" | "SB" | "SD" | "BD" | "SBD";
+export type FieldKg = "squatKg" | "benchKg" | "deadliftKg";
+export type FieldStatus = "squatStatus" | "benchStatus" | "deadliftStatus";
+export type Equipment = "Raw" | "Wraps" | "Single-ply" | "Multi-ply";
+export type Event = "S" | "B" | "D" | "SB" | "SD" | "BD" | "SBD";
 
-type LiftStatus =
+export type LiftStatus =
   | -1 // Failure.
   | 0 // Not yet taken.
   | 1; // Success.
 
-type Entry = {
+export type Entry = {
   id: number,
   day: number,
   platform: number,
