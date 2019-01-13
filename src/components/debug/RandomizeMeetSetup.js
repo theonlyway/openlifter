@@ -90,7 +90,11 @@ class RandomizeMeetSetupButton extends React.Component {
         const age_upper = randomInt(age_lower + 1, 99);
         div = div + " " + String(age_lower) + "-" + String(age_upper);
       }
-      divisions.push(div);
+
+      // Disallow repeat divisions.
+      if (divisions.indexOf(div) === -1) {
+        divisions.push(div);
+      }
     }
     this.props.setDivisions(divisions);
   }
