@@ -8,6 +8,23 @@ OpenLifter is a single-page webapp built with React, Redux, and Bootstrap. Help 
 
 #### Development Setup
 
+## Fedora 29
+
+Install Yarn from the Yarn RPM package repository:
+
+```bash
+curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo | sudo tee /etc/yum.repos.d/yarn.repo
+sudo dnf install yarn make
+```
+
+Build and launch the development server in-browser:
+
+```bash
+make
+```
+
+## General
+
 This project was initialized through `create-react-app`. There is a bunch of implicit project-wide build magic that `create-react-app` manages through dependent scripts. The magic behavior is described in the [Create React App Documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 First, you need to install yarn. You can find the installation steps here https://yarnpkg.com/en/.
@@ -31,7 +48,7 @@ make test
 
 ```bash
 # Packages a release into `dist/`.
-make
+make package
 ```
 
 #### Theming Bootstrap
