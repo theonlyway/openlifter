@@ -2,13 +2,13 @@
 
 > Simple software for running a local powerlifting competition.
 
-#### Software Stack
+## Software Stack
 
 OpenLifter is a single-page webapp built with React, Redux, and Bootstrap. Help is welcome!
 
-#### Development Setup
+## Development Setup
 
-## Fedora 29
+### Fedora 29
 
 Install Yarn from the Yarn RPM package repository:
 
@@ -23,7 +23,7 @@ Build and launch the development server in-browser:
 make
 ```
 
-## General
+### General
 
 This project was initialized through `create-react-app`. There is a bunch of implicit project-wide build magic that `create-react-app` manages through dependent scripts. The magic behavior is described in the [Create React App Documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
@@ -44,14 +44,14 @@ make dev-web
 make test
 ```
 
-#### Build Setup
+## Build Setup
 
 ```bash
 # Packages a release into `dist/`.
 make package
 ```
 
-#### Theming Bootstrap
+## Theming Bootstrap
 
 This project uses `react-bootstrap` which is stuck on an old version of Bootstrap, 3.2. Custom theming of Bootstrap requires the use of `less`, which is unsupported by `create-react-app`.
 
@@ -59,7 +59,7 @@ To get around this, Bootstrap theming is done in `src/bootstrap-custom/bootstrap
 
 To build the Bootstrap CSS file manually, run `make less`.
 
-#### Translations
+## Translations
 
 To translate text in a component, you will need to import `FormattedMessage` from `react-intl`, and use the component like this:
 
