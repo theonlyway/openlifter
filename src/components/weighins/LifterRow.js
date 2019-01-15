@@ -10,6 +10,7 @@ import { connect } from "react-redux";
 import { FormControl } from "react-bootstrap";
 
 import WeightInput from "./WeightInput";
+import AgeInput from "./AgeInput";
 
 import { updateRegistration } from "../../actions/registrationActions";
 
@@ -87,6 +88,10 @@ class LifterRow extends React.Component {
         <td>{entry.platform}</td>
         <td>{entry.flight}</td>
         <td>{entry.name}</td>
+
+        <td>
+          <AgeInput id={this.props.id} age={entry.age} field="age" />
+        </td>
 
         <td>
           <WeightInput id={this.props.id} field="bodyweightKg" disabled={false} />

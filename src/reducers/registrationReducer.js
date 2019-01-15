@@ -26,6 +26,7 @@ export type Entry = {
   name: string,
   sex: Sex,
   birthdate: string,
+  age: number,
   intendedWeightClassKg: string,
   equipment: Equipment,
   divisions: Array<string>,
@@ -57,6 +58,7 @@ const makeNewEntry = (id: number): Entry => {
     name: "", // The lifter's name.
     sex: "M", // The lifter's sex.
     birthdate: "", // The lifter's birthdate (YYYY-MM-DD).
+    age: 0, // The lifter's age in years
     intendedWeightClassKg: "", // The weightclass for which the lifter registered.
     equipment: "Raw", // The equipment category for which the lifter registered.
     divisions: [], // A list of divisions the lifter entered.
@@ -90,7 +92,7 @@ const makeNewEntry = (id: number): Entry => {
   };
 };
 
-type Registration = {
+export type Registration = {
   nextEntryId: number,
   entries: Array<Entry>,
   lookup: {
@@ -292,6 +294,7 @@ export default (state: Registration = initialState, action: Object): Registratio
     case "UPDATE_REGISTRATION": {
       const entryId = action.entryId;
       const changes = action.changes;
+      console.log(JSON.stringify(changes));
 
       // Clone the entries array, since one entry will reference a new object.
       let entries: Array<Entry> = state.entries.slice();
