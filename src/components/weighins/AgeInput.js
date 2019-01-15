@@ -45,7 +45,8 @@ class AgeInput extends React.Component<Props, State> {
 
     const asNumber = Number(value);
     if (isNaN(asNumber)) return "error";
-    if (asNumber <= 0) return "warning";
+    if (asNumber <= 4) return "warning";
+    if (asNumber > 100) return "warning";
     return null;
   }
 
