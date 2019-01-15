@@ -294,7 +294,6 @@ export default (state: Registration = initialState, action: Object): Registratio
     case "UPDATE_REGISTRATION": {
       const entryId = action.entryId;
       const changes = action.changes;
-      console.log(JSON.stringify(changes));
 
       // Clone the entries array, since one entry will reference a new object.
       let entries: Array<Entry> = state.entries.slice();
