@@ -36,6 +36,12 @@ class RandomizeWeighinsButton extends React.Component {
         bodyweightKg: bodyweightKg
       });
 
+      // Get a random age.
+      const age = randomInt(5, 79);
+      this.props.updateRegistration(entry.id, {
+        age: age
+      });
+
       // Figure out which events we're generating information for.
       // ==========================================
       let hasSquat = false;
