@@ -11,6 +11,8 @@ import saveAs from "file-saver";
 import LanguageSelector from "../components/translations/LanguageSelector";
 import { overwriteStore } from "../actions/globalActions";
 
+import NewMeetModal from "../components/home/NewMeetModal";
+
 // Temporary CSS, just for prototyping.
 const centerConsole = { maxWidth: 800, margin: "0 auto 10px" };
 const buttonConsole = { maxWidth: 400, margin: "20px auto 0 auto" };
@@ -19,9 +21,13 @@ class HomeContainer extends React.Component {
   constructor(props) {
     super(props);
     this.handleLoadClick = this.handleLoadClick.bind(this);
+    this.handleNewClick = this.handleNewClick.bind(this);
+    this.closeConfirmModal = this.closeConfirmModal.bind(this);
     this.handleLoadFileInput = this.handleLoadFileInput.bind(this);
     this.handleSaveClick = this.handleSaveClick.bind(this);
     this.renderContinueButton = this.renderContinueButton.bind(this);
+
+    this.state = { showNewMeetModal: false };
   }
 
   // The file input is hidden, and we want to use a button to activate it.
@@ -29,6 +35,17 @@ class HomeContainer extends React.Component {
   handleLoadClick() {
     const loadhelper = document.getElementById("loadhelper");
     loadhelper.click();
+  }
+
+  // When we click the new meet button
+  // Open the popover modal to confirm the user is willing to delete any current progress
+  handleNewClick() {
+    this.setState({ showNewMeetModal: true });
+  }
+
+  // Close the new meet confirmation modal
+  closeConfirmModal() {
+    this.setState({ showNewMeetModal: false });
   }
 
   // Called when a file is selected.
@@ -98,15 +115,14 @@ class HomeContainer extends React.Component {
   render() {
     return (
       <div style={centerConsole}>
+        <NewMeetModal show={this.state.showNewMeetModal} close={this.closeConfirmModal} />
         <LanguageSelector />
         <h1>Welcome to OpenLifter Beta!! (ﾉ◕ヮ◕)ﾉ*:・ﾟ✧</h1>
         <div style={buttonConsole}>
           {this.renderContinueButton()}
-          <LinkContainer to="/meet-setup">
-            <Button bsStyle="primary" bsSize="large" block>
-              New Meet
-            </Button>
-          </LinkContainer>
+          <Button bsStyle="primary" bsSize="large" block onClick={this.handleNewClick}>
+            New Meet
+          </Button>
           <Button bsStyle="warning" bsSize="large" block onClick={this.handleLoadClick}>
             Load from File
           </Button>
