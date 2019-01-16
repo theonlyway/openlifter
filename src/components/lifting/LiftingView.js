@@ -177,7 +177,12 @@ class LiftingView extends React.Component {
           currentEntryId={now.currentEntryId}
         />
 
-        <LiftingTable orderedEntries={now.orderedEntries} currentEntryId={now.currentEntryId} />
+        <LiftingTable
+          attemptOneIndexed={now.attemptOneIndexed}
+          orderedEntries={now.orderedEntries}
+          currentEntryId={now.currentEntryId}
+        />
+
         <LiftingFooter
           attemptOneIndexed={now.attemptOneIndexed}
           orderedEntries={now.orderedEntries}

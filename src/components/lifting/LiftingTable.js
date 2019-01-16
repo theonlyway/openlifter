@@ -26,6 +26,7 @@ type Props = {
   lifting: {
     lift: string
   },
+  attemptOneIndexed: number,
   orderedEntries: Array<Object>,
   currentEntryId?: number
 };
@@ -78,36 +79,42 @@ class LiftingTable extends React.Component<Props> {
 
     // If the attempt was already made, render a colored text field.
     // The weight cannot be changed after the fact.
-    if (status > 0) {
+    if (status !== 0) {
+      const className = status === 1 ? styles.goodlift : styles.nolift;
+      const maybeNegative = status === 1 ? "" : "-";
       return (
-        <td key={columnType} className={styles.goodlift}>
+        <td key={columnType} className={className}>
+          {maybeNegative}
           {kg}
-        </td>
-      );
-    }
-    if (status < 0) {
-      return (
-        <td key={columnType} className={styles.nolift}>
-          -{kg}
         </td>
       );
     }
 
     // If the attempt isn't for the current lift, just show the number.
     if (lift !== this.props.lifting.lift) {
-      if (kg === 0) {
-        return <td key={columnType} />;
-      }
-      return <td key={columnType}>{kg}</td>;
+      const kgStr = kg === 0 ? "" : String(kg);
+      return <td key={columnType}>{kgStr}</td>;
     }
 
-    // Was the previous attempt taken yet?
-    let prevAttemptAttempted = attemptOneIndexed > 1 && entry[fieldStatus][attemptOneIndexed - 2] !== 0;
+    // Was any previous attempt taken?
+    let anyPreviousAttemptTaken = false;
+    for (var i = 1; i < attemptOneIndexed; i++) {
+      if (entry[fieldStatus][i - 1] !== 0) {
+        anyPreviousAttemptTaken = true;
+        break;
+      }
+    }
 
-    // If the attempt was put it but hasn't occurred yet, show it in a text input.
-    // Also if the previous attempt was attempted, show an input for entering
-    // the lifter's next attempt.
-    if (kg !== 0 || prevAttemptAttempted) {
+    // Show a text input box if either:
+    // 1. This column is for the current attempt, and the lifter has a previous attempt.
+    // 2. This column is for the next attempt, and the lifter took the current attempt.
+    // 3. For whatever reason, someone managed to specify a weight.
+    const currentAndHasPrevious = attemptOneIndexed === this.props.attemptOneIndexed && anyPreviousAttemptTaken;
+    const nextAndTookLast =
+      attemptOneIndexed === this.props.attemptOneIndexed + 1 &&
+      entry[fieldStatus][this.props.attemptOneIndexed - 1] !== 0;
+
+    if (kg !== 0 || currentAndHasPrevious || nextAndTookLast) {
       return (
         <td key={columnType} className={styles.attemptInputCell}>
           <AttemptInput entryId={entry.id} lift={lift} attemptOneIndexed={attemptOneIndexed} weightKg={kg} />
@@ -116,10 +123,8 @@ class LiftingTable extends React.Component<Props> {
     }
 
     // Default handler.
-    if (kg === 0) {
-      return <td key={columnType} />;
-    }
-    return <td key={columnType}>{kg}</td>;
+    const kgStr = kg === 0 ? "" : String(kg);
+    return <td key={columnType}>{kgStr}</td>;
   }
 
   renderCell = (entry: Object, columnType: ColumnType) => {
