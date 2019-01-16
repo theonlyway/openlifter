@@ -273,11 +273,22 @@ class LiftingTable extends React.Component<Props> {
 
     // Select lift columns based off the current lift.
     if (this.props.lifting.lift === "S") {
-      columns.push("S1", "S2", "S3", "B1", "D1");
+      columns.push("S1", "S2", "S3");
+      if (this.props.attemptOneIndexed === 4) {
+        columns.push("S4");
+      }
+      columns.push("B1", "D1");
     } else if (this.props.lifting.lift === "B") {
-      columns.push("BestSquat", "B1", "B2", "B3", "D1");
+      columns.push("BestSquat", "B1", "B2", "B3");
+      if (this.props.attemptOneIndexed === 4) {
+        columns.push("B4");
+      }
+      columns.push("D1");
     } else if (this.props.lifting.lift === "D") {
       columns.push("BestSquat", "BestBench", "D1", "D2", "D3");
+      if (this.props.attemptOneIndexed === 4) {
+        columns.push("D4");
+      }
     }
     columns.push("ProjectedTotal", "ProjectedPoints");
 
