@@ -21,6 +21,7 @@ class HomeContainer extends React.Component {
     this.handleLoadClick = this.handleLoadClick.bind(this);
     this.handleLoadFileInput = this.handleLoadFileInput.bind(this);
     this.handleSaveClick = this.handleSaveClick.bind(this);
+    this.renderContinueButton = this.renderContinueButton.bind(this);
   }
 
   // The file input is hidden, and we want to use a button to activate it.
@@ -76,12 +77,31 @@ class HomeContainer extends React.Component {
     saveAs(blob, meetname + ".json");
   }
 
+  renderContinueButton() {
+    let meetname = this.props.redux.meet.name;
+    if (meetname === "") {
+      // Unnamed or unstarted meet, so don't render a continue button
+      return;
+    }
+    return (
+      <div style={{ marginBottom: "2rem" }}>
+        <h3>In Progress: {meetname}</h3>
+        <LinkContainer to="/meet-setup">
+          <Button bsStyle="success" bsSize="large" block>
+            Continue Current Meet
+          </Button>
+        </LinkContainer>
+      </div>
+    );
+  }
+
   render() {
     return (
       <div style={centerConsole}>
         <LanguageSelector />
         <h1>Welcome to OpenLifter Beta!! (ﾉ◕ヮ◕)ﾉ*:・ﾟ✧</h1>
         <div style={buttonConsole}>
+          {this.renderContinueButton()}
           <LinkContainer to="/meet-setup">
             <Button bsStyle="primary" bsSize="large" block>
               New Meet
