@@ -6,8 +6,9 @@
 $color-dark: #232323;
 $color-light: #ffffff;
 
-$plate-margin-right: 4px;
-$plate-width: 20px;
+$plate-font-size: 23px;
+$plate-margin-right: 5px;
+$plate-width: 30px;
 
 // React doesn't have a default way to supply multiple classes to an element.
 // So instead we just use a macro to repeat the defaults everywhere.
@@ -33,7 +34,7 @@ div.container {
 
   // Default styling for the plate text.
   color: $color-light;
-  font-size: 13px;
+  font-size: $plate-font-size;
   font-weight: bold;
 }
 
