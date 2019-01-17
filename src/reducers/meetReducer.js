@@ -12,7 +12,8 @@ const initialState = {
   divisions: [],
   weightClassesKgMen: [],
   weightClassesKgWomen: [],
-  inKg: true
+  inKg: true,
+  areWrapsRaw: false
 };
 
 function getDateString(dateTime) {
@@ -84,6 +85,8 @@ export default (state = initialState, action) => {
       // Copy in the action's objects, overwriting the state's objects.
       return Object.assign(obj, action.store.meet);
     }
+    case "SET_ARE_WRAPS_RAW":
+      return { ...state, areWrapsRaw: action.areWrapsRaw };
     default:
       return state;
   }

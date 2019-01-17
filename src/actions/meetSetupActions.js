@@ -64,3 +64,10 @@ export const setWeightClasses = (sex, classesKg) => {
     classesKg: classesKg
   };
 };
+
+export const setAreWrapsRaw = areWrapsRaw => {
+  return {
+    type: "SET_ARE_WRAPS_RAW",
+    areWrapsRaw
+  };
+};
