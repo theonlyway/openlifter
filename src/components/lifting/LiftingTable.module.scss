@@ -5,9 +5,10 @@
 // needs to be carefully designed, and doesn't need mobile support,
 // it gets its own direct styling.
 
-$row-height: 25px;
+$row-height: 35px;
 $cell-left-padding: 8px;
-$row-font-size: 12px;
+$row-font-size: 20px;
+$header-font-size: 20px;
 
 $color-dark: #232323;
 $color-light: #ffffff;
@@ -33,7 +34,7 @@ table.liftingtable {
 }
 
 .liftingtable th.smallCell {
-  width: 52px;
+  width: 72px;
 }
 
 // The header bar gets inverse colors.
@@ -41,7 +42,7 @@ table.liftingtable {
 .liftingtable th {
   color: $color-light;
   background-color: $color-dark;
-  font-size: 11px;
+  font-size: $header-font-size;
   font-weight: bold;
 }
 
