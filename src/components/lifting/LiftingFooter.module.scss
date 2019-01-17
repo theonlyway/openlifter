@@ -1,0 +1,58 @@
+// vim: set ts=2 sts=2 sw=2 et:
+//
+// Theming for the control bar at the bottom of the screen.
+
+$color-dark: #232323;
+$color-light: #ffffff;
+
+$button-width: 200px;
+
+// Container element of the whole footer.
+div.footer {
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #f8f8f8;
+  border-top: 1px solid #e7e7e7;
+}
+
+div.rightControls {
+  display: flex;
+  align-items: center;
+  padding-right: 4px;
+}
+
+button.goodLift {
+  width: $button-width;
+  height: 100%;
+  padding: 10px 16px;
+
+  font-size: 18px;
+  line-height: 1.3333333;
+
+  color: #ffffff;
+  background-color: #5cb85c;
+  border-color: #4cae4c;
+  border-width: 0px;
+}
+
+button.noLift {
+  width: $button-width;
+  height: 100%;
+  padding: 10px 16px;
+
+  font-size: 18px;
+  line-height: 1.3333333;
+
+  color: #ffffff;
+  background-color: #d9534f;
+  border-color: #d43f3a;
+  border-width: 0px;
+}
+
+select.selector {
+  width: 110px;
+}

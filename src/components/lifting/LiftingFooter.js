@@ -11,16 +11,7 @@ import { Button, FormControl } from "react-bootstrap";
 
 import { markLift, overrideAttempt, overrideEntryId, setLiftingGroup } from "../../actions/liftingActions";
 
-const footerStyle = {
-  display: "flex",
-  justifyContent: "space-between",
-  position: "fixed",
-  left: 0,
-  bottom: 0,
-  width: "100%",
-  backgroundColor: "#f8f8f8",
-  borderTop: "1px solid #e7e7e7"
-};
+import styles from "./LiftingFooter.module.scss";
 
 const liftOptions = [
   <option key={"S"} value={"S"}>
@@ -216,43 +207,28 @@ class LiftingFooter extends React.Component {
       );
     }
 
-    const buttonStyle = {
-      width: "200px",
-
-      // Removing rounding allows the score table operator to mash "Good Lift"
-      // by just moving the mouse into the lower-left corner of the screen.
-      borderRadius: "0px"
-    };
-    const selectStyle = { width: "110px" };
-
-    const rightControlsStyle = {
-      display: "flex",
-      alignItems: "center",
-      paddingRight: "4px"
-    };
-
     const currentEntryId = this.props.currentEntryId === null ? undefined : this.props.currentEntryId;
 
     return (
-      <div style={footerStyle}>
+      <div className={styles.footer}>
         <div>
-          <Button onClick={this.handleGoodLift} bsStyle="success" bsSize="large" style={buttonStyle}>
+          <button type="button" onMouseDown={this.handleGoodLift} className={styles.goodLift}>
             Good Lift
-          </Button>
-          <Button onClick={this.handleNoLift} bsStyle="danger" bsSize="large" style={buttonStyle}>
+          </button>
+          <button type="button" onMouseDown={this.handleNoLift} className={styles.noLift}>
             No Lift
-          </Button>
+          </button>
           <Button onClick={this.handleFullscreen} style={{ marginLeft: "7px" }} bsStyle="info">
             Toggle Fullscreen
           </Button>
         </div>
 
-        <div style={rightControlsStyle}>
+        <div className={styles.rightControls}>
           <FormControl
             componentClass="select"
             defaultValue={this.props.lifting.day}
             onChange={this.handleDayChange}
-            style={selectStyle}
+            className={styles.selector}
           >
             {this.dayOptions}
           </FormControl>
@@ -260,7 +236,7 @@ class LiftingFooter extends React.Component {
             componentClass="select"
             defaultValue={this.props.lifting.platform}
             onChange={this.handlePlatformChange}
-            style={selectStyle}
+            className={styles.selector}
           >
             {platformOptions}
           </FormControl>
@@ -268,7 +244,7 @@ class LiftingFooter extends React.Component {
             componentClass="select"
             defaultValue={this.props.lifting.lift}
             onChange={this.handleLiftChange}
-            style={selectStyle}
+            className={styles.selector}
           >
             {liftOptions}
           </FormControl>
@@ -276,7 +252,7 @@ class LiftingFooter extends React.Component {
             componentClass="select"
             defaultValue={this.props.lifting.flight}
             onChange={this.handleFlightChange}
-            style={selectStyle}
+            className={styles.selector}
           >
             {flightOptions}
           </FormControl>
@@ -284,7 +260,7 @@ class LiftingFooter extends React.Component {
             value={this.props.attemptOneIndexed}
             componentClass="select"
             onChange={this.handleAttemptChange}
-            style={selectStyle}
+            className={styles.selector}
           >
             {attemptOptions}
           </FormControl>
@@ -292,7 +268,7 @@ class LiftingFooter extends React.Component {
             value={currentEntryId}
             componentClass="select"
             onChange={this.handleLifterChange}
-            style={selectStyle}
+            className={styles.selector}
           >
             {this.makeLifterOptions()}
           </FormControl>
