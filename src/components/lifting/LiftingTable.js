@@ -139,8 +139,13 @@ class LiftingTable extends React.Component<Props> {
         const weightClass = getWeightClassStr(classesForSex, entry.bodyweightKg);
         return <td key={columnType}>{weightClass}</td>;
       }
-      case "Equipment":
-        return <td key={columnType}>{entry.equipment}</td>;
+      case "Equipment": {
+        // Use shorter names to actually fit in the table.
+        let equipment = entry.equipment;
+        if (equipment === "Single-ply") equipment = "Single";
+        if (equipment === "Multi-ply") equipment = "Multi";
+        return <td key={columnType}>{equipment}</td>;
+      }
       case "S1":
         return this.renderAttemptField(entry, "S", 1, columnType);
       case "S2":
