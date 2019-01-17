@@ -1,7 +1,29 @@
 // vim: set ts=2 sts=2 sw=2 et:
+//
+// Styling for how component pieces are arranged in relation to each other.
 
-.liftingView {
+$left-panel-width: 35%;
+$right-panel-width: 100% - $left-panel-width;
+
+div.liftingView {
   background-color: #ffffff;
   // Padding instead of margin, because this affects the full screen view.
   padding: 10px 10px 50px 10px;
+}
+
+// The containing div of the div.leftPanel and div.rightPanel.
+div.middleParentContainer {
+  display: flex; // Lay out child nodes horizontally.
+}
+
+// The container of the Leftpanel.
+div.leftPanelContainer {
+  display: block;
+  width: $left-panel-width;
+}
+
+// The container of the LiftingTable.
+div.rightPanelContainer {
+  display: block;
+  width: $right-panel-width;
 }

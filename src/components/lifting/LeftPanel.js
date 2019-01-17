@@ -1,7 +1,7 @@
 // vim: set ts=2 sts=2 sw=2 et:
 //
-// The header of the Lifting page, contained by the LiftingView.
-// This is the parent element of information for the audience and the loaders.
+// The left panel on the lifting page, showing information about the current lifter
+// and helpful information for the loading crew.
 
 import React from "react";
 import PropTypes from "prop-types";
@@ -11,16 +11,15 @@ import { liftToAttemptFieldName } from "../../reducers/registrationReducer";
 
 import BarLoad from "./BarLoad.js";
 
-import styles from "./LiftingHeader.module.scss";
+import styles from "./LeftPanel.module.scss";
 
-class LiftingHeader extends React.Component {
+class LeftPanel extends React.Component {
   render() {
     const lift = this.props.lifting.lift;
     const attempt = this.props.attemptOneIndexed;
     const fieldKg = liftToAttemptFieldName(lift);
 
     // Defaults, in case of no lifter.
-    let lifterName = "";
     let weightKg = 0;
     let weightLbs = 0;
     let rackInfo = "";
@@ -30,7 +29,6 @@ class LiftingHeader extends React.Component {
       const idx = this.props.registration.lookup[this.props.currentEntryId];
       const entry = this.props.registration.entries[idx];
 
-      lifterName = entry.name;
       weightKg = entry[fieldKg][attempt - 1];
       weightLbs = weightKg * 2.20462262;
 
@@ -40,14 +38,6 @@ class LiftingHeader extends React.Component {
 
     return (
       <div className={styles.container}>
-        <div className={styles.lifterBar}>
-          <div className={styles.lifterName}>{lifterName}</div>
-          <div className={styles.rightInfo}>
-            <div>WEIGHT CLASS</div>
-            <div>DIVISIONS</div>
-          </div>
-        </div>
-
         <div className={styles.loadingBar}>
           <div className={styles.attemptText}>
             {lift}
@@ -68,7 +58,7 @@ const mapStateToProps = state => {
   };
 };
 
-LiftingHeader.propTypes = {
+LeftPanel.propTypes = {
   // Props calculated by the LiftingView.
   attemptOneIndexed: PropTypes.number.isRequired,
   orderedEntries: PropTypes.array.isRequired,
@@ -87,4 +77,4 @@ LiftingHeader.propTypes = {
 export default connect(
   mapStateToProps,
   null
-)(LiftingHeader);
+)(LeftPanel);

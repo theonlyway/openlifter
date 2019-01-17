@@ -11,7 +11,8 @@ import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import LiftingHeader from "./LiftingHeader";
+import TopBar from "./TopBar";
+import LeftPanel from "./LeftPanel";
 import LiftingTable from "./LiftingTable";
 import LiftingFooter from "./LiftingFooter";
 
@@ -171,17 +172,29 @@ class LiftingView extends React.Component {
 
     return (
       <div id="liftingView" className={styles.liftingView}>
-        <LiftingHeader
+        <TopBar
           attemptOneIndexed={now.attemptOneIndexed}
           orderedEntries={now.orderedEntries}
           currentEntryId={now.currentEntryId}
         />
 
-        <LiftingTable
-          attemptOneIndexed={now.attemptOneIndexed}
-          orderedEntries={now.orderedEntries}
-          currentEntryId={now.currentEntryId}
-        />
+        <div className={styles.middleParentContainer}>
+          <div className={styles.leftPanelContainer}>
+            <LeftPanel
+              attemptOneIndexed={now.attemptOneIndexed}
+              orderedEntries={now.orderedEntries}
+              currentEntryId={now.currentEntryId}
+            />
+          </div>
+
+          <div className={styles.rightPanelContainer}>
+            <LiftingTable
+              attemptOneIndexed={now.attemptOneIndexed}
+              orderedEntries={now.orderedEntries}
+              currentEntryId={now.currentEntryId}
+            />
+          </div>
+        </div>
 
         <LiftingFooter
           attemptOneIndexed={now.attemptOneIndexed}

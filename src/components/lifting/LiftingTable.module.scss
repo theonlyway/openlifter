@@ -23,8 +23,11 @@ $border-rounding: 8px;
 
 // Set the default colors.
 table.liftingtable {
+  width: 100%; // Occupy the entirety of the containing div.
+
   color: $color-dark;
   background-color: $color-light;
+
   font-size: $row-font-size;
   box-shadow: 0 0 20px 0 hsla(0, 0%, 64%, .45);
 }

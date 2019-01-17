@@ -1,0 +1,29 @@
+// vim: set ts=2 sts=2 sw=2 et:
+//
+// Theming for the top bar extending across the top of the Lifting page.
+
+$color-dark: #232323;
+$color-light: #ffffff;
+
+$border-rounding: 8px;
+
+
+// The bar containing the lifter information.
+div.topBar {
+  margin-bottom: 10px;
+  width: 100%;
+  padding: 10px 20px 0px 20px;
+
+  background-color: $color-dark;
+  color: $color-light;
+
+  border-top-left-radius: $border-rounding;
+  border-top-right-radius: $border-rounding;
+  box-shadow: 0 0 20px 0 hsla(0, 0%, 64%, .45);
+}
+
+// The call-out for the lifter name.
+span.lifterName {
+  font-size: 45px;
+  font-weight: bold;
+}
