@@ -14,37 +14,57 @@ import BarLoad from "./BarLoad.js";
 import styles from "./LeftPanel.module.scss";
 
 class LeftPanel extends React.Component {
-  render() {
+  getBarLoadProps(entryId, attemptOneIndexed) {
     const lift = this.props.lifting.lift;
-    const attempt = this.props.attemptOneIndexed;
     const fieldKg = liftToAttemptFieldName(lift);
 
     // Defaults, in case of no lifter.
-    let weightKg = 0;
-    let weightLbs = 0;
-    let rackInfo = "";
-
-    // In the case of a lifter, set fields.
-    if (this.props.currentEntryId !== null) {
-      const idx = this.props.registration.lookup[this.props.currentEntryId];
-      const entry = this.props.registration.entries[idx];
-
-      weightKg = entry[fieldKg][attempt - 1];
-      weightLbs = weightKg * 2.20462262;
-
-      if (lift === "S") rackInfo = entry.squatRackInfo;
-      if (lift === "B") rackInfo = entry.benchRackInfo;
+    if (entryId === null || entryId === undefined) {
+      return {
+        weightKg: 0,
+        weightLbs: 0,
+        rackInfo: ""
+      };
     }
+
+    const idx = this.props.registration.lookup[entryId];
+    const entry = this.props.registration.entries[idx];
+
+    const weightKg = entry[fieldKg][attemptOneIndexed - 1];
+    const weightLbs = weightKg * 2.20462262;
+
+    let rackInfo = "";
+    if (lift === "S") rackInfo = entry.squatRackInfo;
+    if (lift === "B") rackInfo = entry.benchRackInfo;
+
+    return {
+      weightKg: weightKg,
+      weightLbs: weightLbs,
+      rackInfo: rackInfo
+    };
+  }
+
+  render() {
+    const current = this.getBarLoadProps(this.props.currentEntryId, this.props.attemptOneIndexed);
+    const next = this.getBarLoadProps(this.props.nextEntryId, this.props.nextAttemptOneIndexed);
 
     return (
       <div className={styles.container}>
         <div className={styles.loadingBar}>
           <div className={styles.attemptText}>
-            {lift}
-            {attempt}: {weightKg.toFixed(1)}kg / {weightLbs.toFixed(1)}lb
+            {this.props.lifting.lift}
+            {this.props.attemptOneIndexed}: {current.weightKg.toFixed(1)}kg / {current.weightLbs.toFixed(1)}lb
           </div>
           <div className={styles.rightInfo}>
-            <BarLoad weightKg={weightKg} rackInfo={rackInfo} />
+            <BarLoad weightKg={current.weightKg} rackInfo={current.rackInfo} />
+          </div>
+        </div>
+
+        <div style={{ fontSize: "25px", fontWeight: "bold" }}>NEXT:</div>
+
+        <div className={styles.loadingBar}>
+          <div className={styles.rightInfo}>
+            <BarLoad weightKg={next.weightKg} rackInfo={next.rackInfo} />
           </div>
         </div>
       </div>
@@ -63,6 +83,8 @@ LeftPanel.propTypes = {
   attemptOneIndexed: PropTypes.number.isRequired,
   orderedEntries: PropTypes.array.isRequired,
   currentEntryId: PropTypes.number, // Can be null.
+  nextEntryId: PropTypes.number,
+  nextAttemptOneIndexed: PropTypes.number, // Can be null.
 
   // Props passed from Redux state.
   registration: PropTypes.shape({

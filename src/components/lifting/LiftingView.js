@@ -154,16 +154,72 @@ class LiftingView extends React.Component {
     return null;
   }
 
+  // Returns either an Object of {entryId, attemptOneIndexed}, or null.
+  getNextEntryInfo(currentEntryId, orderedEntries, attemptOneIndexed) {
+    const lift = this.props.lifting.lift;
+    const fieldKg = liftToAttemptFieldName(lift);
+    const fieldStatus = liftToStatusFieldName(lift);
+
+    if (currentEntryId === null) {
+      return null;
+    }
+
+    // Find the index of the currentEntryId in the orderedEntries.
+    const currentEntryIndex = orderedEntries.findIndex(e => e.id === currentEntryId);
+    if (currentEntryIndex === -1) {
+      return null;
+    }
+
+    // Walk forward, looking for additional valid attempts.
+    for (let i = currentEntryIndex + 1; i < orderedEntries.length; i++) {
+      const hasAttempt = orderedEntries[i][fieldKg][attemptOneIndexed - 1] !== 0;
+      const notTaken = orderedEntries[i][fieldStatus][attemptOneIndexed - 1] === 0;
+
+      if (hasAttempt && notTaken) {
+        return {
+          entryId: orderedEntries[i].id,
+          attemptOneIndexed: attemptOneIndexed
+        };
+      }
+    }
+
+    // If none were found walking forward, check the next attempt by wrapping around.
+    if (attemptOneIndexed + 1 > MAX_ATTEMPTS) {
+      return null;
+    }
+    const nextAttemptOneIndexed = attemptOneIndexed + 1;
+
+    for (let i = 0; i < currentEntryIndex; i++) {
+      const hasAttempt = orderedEntries[i][fieldKg][nextAttemptOneIndexed - 1] !== 0;
+      const notTaken = orderedEntries[i][fieldStatus][nextAttemptOneIndexed - 1] === 0;
+
+      if (hasAttempt && notTaken) {
+        return {
+          entryId: orderedEntries[i].id,
+          attemptOneIndexed: nextAttemptOneIndexed
+        };
+      }
+    }
+
+    return null;
+  }
+
   // Main application logic. Reduces the Redux store to a local lifting state.
   getLiftingState() {
     const attemptOneIndexed = this.getActiveAttemptNumber();
     const orderedEntries = this.orderEntriesForAttempt(attemptOneIndexed);
     const currentEntryId = this.getCurrentEntryId(orderedEntries, attemptOneIndexed);
+    const nextEntryInfo = this.getNextEntryInfo(currentEntryId, orderedEntries, attemptOneIndexed);
+
+    const nextEntryId = nextEntryInfo === null ? null : nextEntryInfo.entryId;
+    const nextAttempt = nextEntryInfo === null ? null : nextEntryInfo.attemptOneIndexed;
 
     return {
       orderedEntries: orderedEntries,
       currentEntryId: currentEntryId,
-      attemptOneIndexed: attemptOneIndexed
+      attemptOneIndexed: attemptOneIndexed,
+      nextEntryId: nextEntryId,
+      nextAttemptOneIndexed: nextAttempt
     };
   }
 
@@ -184,6 +240,8 @@ class LiftingView extends React.Component {
               attemptOneIndexed={now.attemptOneIndexed}
               orderedEntries={now.orderedEntries}
               currentEntryId={now.currentEntryId}
+              nextEntryId={now.nextEntryId}
+              nextAttemptOneIndexed={now.nextAttemptOneIndexed}
             />
           </div>
 
