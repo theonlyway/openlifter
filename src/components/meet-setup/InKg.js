@@ -4,16 +4,29 @@ import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import { Checkbox } from "react-bootstrap";
+import { ControlLabel, FormGroup } from "react-bootstrap";
+import Select from "react-select";
 
 import { setInKg } from "../../actions/meetSetupActions";
 
+const options = [{ value: true, label: "Yes" }, { value: false, label: "No" }];
+
 class InKg extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+
+    // The "value" property expects an object instead of a string.
+    this.valueObject = options.find(option => {
+      return option.value === this.props.inKg;
+    });
+  }
+
   render() {
     return (
-      <Checkbox checked={this.props.inKg} onChange={this.props.setInKg}>
-        Kilograms
-      </Checkbox>
+      <FormGroup>
+        <ControlLabel>Is this meet in kilograms?</ControlLabel>
+        <Select defaultValue={this.valueObject} onChange={this.props.setInKg} options={options} />
+      </FormGroup>
     );
   }
 }
@@ -24,7 +37,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    setInKg: event => dispatch(setInKg(event.target.checked))
+    setInKg: item => dispatch(setInKg(item.value))
   };
 };
 
