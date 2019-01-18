@@ -154,7 +154,11 @@ class LiftingTable extends React.Component<Props> {
   renderCell = (entry: Object, columnType: ColumnType) => {
     switch (columnType) {
       case "Name":
-        return <td key={columnType}>{entry.name}</td>;
+        return (
+          <td key={columnType} className={styles.nameCell}>
+            {entry.name}
+          </td>
+        );
       case "Bodyweight":
         return <td key={columnType}>{entry.bodyweightKg}</td>;
       case "WeightClass": {
@@ -345,7 +349,7 @@ class LiftingTable extends React.Component<Props> {
     let headers = [];
     for (let i = 0; i < columns.length; i++) {
       const column = columns[i];
-      const className = column === "Name" ? "" : styles.smallCell;
+      const className = column === "Name" ? styles.nameCell : styles.smallCell;
       headers.push(
         <th key={column} className={className}>
           {this.getColumnHeaderString(column)}

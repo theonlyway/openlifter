@@ -33,6 +33,13 @@ table.liftingtable {
   box-shadow: 0 0 20px 0 hsla(0, 0%, 64%, .45);
 }
 
+.liftingtable td.nameCell {
+  max-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .liftingtable th.smallCell {
   width: 72px;
 }
