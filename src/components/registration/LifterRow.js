@@ -223,6 +223,7 @@ class LifterRow extends React.Component {
             showMonthDropdown
             showYearDropdown
             scrollableYearDropdown
+            maxDate={new Date()}
           />
         </td>
 
