@@ -8,12 +8,19 @@ $color-light: #ffffff;
 $border-rounding: 8px;
 
 
-// The whole header, looking like a "card" or a "panel".
+// The whole left panel.
 div.container {
   width: 100%;
 
-  background-color: $color-light;
   color: $color-dark;
+}
+
+// The current loading, looking like a "card" to stand out.
+div.activeCard {
+  width: 100%;
+  margin-bottom: 10px;
+
+  background-color: $color-light;
 
   border-radius: $border-rounding;
   box-shadow: 0 0 20px 0 hsla(0, 0%, 64%, .45);
@@ -21,7 +28,6 @@ div.container {
 
 // The bar containing loading information.
 div.loadingBar {
-  background-color: $color-light;
   color: $color-dark;
 
   border-bottom-left-radius: $border-rounding;
@@ -30,8 +36,29 @@ div.loadingBar {
 
 // Textual description of the attempt and the weight on the bar.
 div.attemptText {
-  padding: 10px 10px 0px 10px;
+  width: 100%;
+  padding: 10px 10px 0px 20px;
+
+  background-color: $color-dark;
+  color: $color-light;
 
   font-size: 44px;
   font-weight: bold;
+
+  border-top-left-radius: $border-rounding;
+  border-top-right-radius: $border-rounding;
+}
+
+// Restricts the area available for the bar, for padding purposes.
+div.barArea {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+// The "NEXT" label for the next bar load.
+div.nextText {
+  font-size: 25px;
+  font-weight: bold;
+  padding-left: 10px;
+  padding-top: 20px;
 }

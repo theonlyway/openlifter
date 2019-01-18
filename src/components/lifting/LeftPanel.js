@@ -50,20 +50,21 @@ class LeftPanel extends React.Component {
 
     return (
       <div className={styles.container}>
-        <div className={styles.loadingBar}>
-          <div className={styles.attemptText}>
-            {this.props.lifting.lift}
-            {this.props.attemptOneIndexed}: {current.weightKg.toFixed(1)}kg / {current.weightLbs.toFixed(1)}lb
-          </div>
-          <div className={styles.rightInfo}>
-            <BarLoad weightKg={current.weightKg} rackInfo={current.rackInfo} />
+        <div className={styles.activeCard}>
+          <div className={styles.loadingBar}>
+            <div className={styles.attemptText}>
+              {this.props.lifting.lift}
+              {this.props.attemptOneIndexed}: {current.weightKg.toFixed(1)}kg / {current.weightLbs.toFixed(1)}lb
+            </div>
+            <div className={styles.barArea}>
+              <BarLoad weightKg={current.weightKg} rackInfo={current.rackInfo} />
+            </div>
           </div>
         </div>
 
-        <div style={{ fontSize: "25px", fontWeight: "bold" }}>NEXT:</div>
-
         <div className={styles.loadingBar}>
-          <div className={styles.rightInfo}>
+          <div className={styles.nextText}>NEXT UP</div>
+          <div className={styles.barArea}>
             <BarLoad weightKg={next.weightKg} rackInfo={next.rackInfo} />
           </div>
         </div>
