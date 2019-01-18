@@ -10,7 +10,6 @@ $border-rounding: 8px;
 
 // The whole header, looking like a "card" or a "panel".
 div.container {
-  margin-bottom: 10px;
   width: 100%;
 
   background-color: $color-light;
@@ -31,7 +30,7 @@ div.loadingBar {
 
 // Textual description of the attempt and the weight on the bar.
 div.attemptText {
-  margin: 10px 20px 0px 20px;
+  padding: 10px 10px 0px 10px;
 
   font-size: 44px;
   font-weight: bold;
