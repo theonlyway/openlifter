@@ -60,17 +60,38 @@ class LiftingTable extends React.Component<Props> {
     const fieldKg = liftToAttemptFieldName(lift);
     const fieldStatus = liftToStatusFieldName(lift);
 
+    // Look for either the best lift or the lightest no-lift.
     let best3 = 0.0;
+    let lightestFailed = 0.0;
+
     for (let i = 0; i < 3; i++) {
+      const kg = entry[fieldKg][i];
+
       if (entry[fieldStatus][i] === 1) {
-        best3 = Math.max(best3, entry[fieldKg][i]);
+        best3 = Math.max(best3, kg);
+      } else if (entry[fieldStatus][i] === -1) {
+        lightestFailed = lightestFailed === 0 ? kg : Math.min(lightestFailed, kg);
       }
     }
 
-    if (best3 === 0) {
-      return <td key={columnType} />;
+    // Render cells using attempt coloring.
+    if (best3 !== 0) {
+      return (
+        <td key={columnType} className={styles.goodlift}>
+          {best3}
+        </td>
+      );
     }
-    return <td key={columnType}>{best3}</td>;
+    if (lightestFailed !== 0) {
+      return (
+        <td key={columnType} className={styles.nolift}>
+          {lightestFailed}
+        </td>
+      );
+    }
+
+    // Show an empty cell by default.
+    return <td key={columnType} />;
   }
 
   renderAttemptField(entry, lift, attemptOneIndexed: number, columnType: ColumnType) {
