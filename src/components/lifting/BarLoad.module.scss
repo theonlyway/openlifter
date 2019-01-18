@@ -10,6 +10,16 @@ $plate-font-size: 23px;
 $plate-margin-right: 5px;
 $plate-width: 30px;
 
+$maximum-plate-height: 80%;
+
+// Default colors.
+$plate-default-red: red;
+$plate-default-blue: #4990e2;
+$plate-default-green: #2ab003;
+$plate-default-yellow: #ffef2a;
+$plate-default-black: black;
+
+
 // React doesn't have a default way to supply multiple classes to an element.
 // So instead we just use a macro to repeat the defaults everywhere.
 @mixin plate-defaults() {
@@ -61,71 +71,71 @@ div.kg50 {
   @include plate-defaults();
   height: 80%;
   width: $plate-width * 1.5;
-  background-color: green;
+  background-color: $plate-default-green;
 }
 
 // Styling for a single 25kg plate.
 div.kg25 {
   @include plate-defaults();
-  height: 80%;
-  background-color: red;
+  height: $maximum-plate-height;
+  background-color: $plate-default-red;
 }
 
 // Styling for a single 20kg plate.
 div.kg20 {
   @include plate-defaults();
-  height: 80%;
-  background-color: blue;
+  height: $maximum-plate-height;
+  background-color: $plate-default-blue;
 }
 
 // Styling for a single 15kg plate.
 div.kg15 {
   @include plate-defaults();
-  height: 60%;
-  background-color: yellow;
+  height: $maximum-plate-height * 0.9;
+  background-color: $plate-default-yellow;
   color: $color-dark;
 }
 
 // Styling for a single 10kg plate.
 div.kg10 {
   @include plate-defaults();
-  height: 50%;
-  background-color: green;
+  height: $maximum-plate-height * 0.8;
+  background-color: $plate-default-green;
 }
 
 // Styling for a single 5kg plate.
 div.kg5 {
   @include plate-defaults();
-  height: 40%;
-  background-color: black;
+  height: $maximum-plate-height * 0.7;
+  background-color: $plate-default-black;
 }
 
 // Styling for a single 2.5kg plate.
 div.kg2p5 {
   @include plate-defaults();
-  height: 30%;
-  background-color: black;
+  height: $maximum-plate-height * 0.6;
+  background-color: $plate-default-black;
 }
 
 // Styling for a single 1.25kg plate.
 div.kg1p25 {
   @include plate-defaults();
-  height: 20%;
-  background-color: black;
+  height: $maximum-plate-height * 0.5;
+  background-color: $plate-default-black;
 }
 
 // Styling for a single 0.5kg plate.
 div.kg0p5 {
   @include plate-defaults();
-  height: 18%;
-  background-color: green;
+  height: $maximum-plate-height * 0.4;
+  background-color: $plate-default-green;
 }
 
 // Styling for a single 0.25kg plate.
 div.kg0p25 {
   @include plate-defaults();
-  height: 16%;
-  background-color: blue;
+  height: $maximum-plate-height * 0.3;
+  background-color: $plate-default-blue;
 }
 
 // Styling for a collar.
