@@ -9,8 +9,10 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Button, FormControl } from "react-bootstrap";
 import Select from "react-select";
+import DatePicker from "react-datepicker";
 
 import { deleteRegistration, updateRegistration } from "../../actions/registrationActions";
+import { getDateString } from "../../reducers/registrationReducer";
 
 const eventOptions = [
   { value: "SBD", label: "SBD" },
@@ -27,8 +29,11 @@ class LifterRow extends React.Component {
     super(props);
 
     // Store the Day in state to update the Platform options when the Day changes.
+    // Store the Birth Date in state to re-render when a new date is selected
     this.state = {
-      selectedDay: props.entry.day
+      selectedDay: props.entry.day,
+      // Default to null to adhere to the react-datepicker api. Null is blank
+      selectedBirthDate: props.entry.birthDate ? new Date(props.entry.birthDate) : null
     };
 
     this.deleteRegistrationClick = this.deleteRegistrationClick.bind(this);
@@ -40,6 +45,7 @@ class LifterRow extends React.Component {
     this.updateRegistrationDivisions = this.updateRegistrationDivisions.bind(this);
     this.updateRegistrationEvents = this.updateRegistrationEvents.bind(this);
     this.updateRegistrationEquipment = this.updateRegistrationEquipment.bind(this);
+    this.updateRegistrationBirthDate = this.updateRegistrationBirthDate.bind(this);
   }
 
   deleteRegistrationClick(event) {
@@ -87,6 +93,14 @@ class LifterRow extends React.Component {
     const sex = event.target.value;
     if (this.props.entry.sex !== sex) {
       this.props.updateRegistration(this.props.id, { sex: sex });
+    }
+  }
+
+  updateRegistrationBirthDate(date) {
+    const birthDate = getDateString(date);
+    if (this.props.entry.birthDate !== birthDate) {
+      this.setState({ selectedBirthDate: date });
+      this.props.updateRegistration(this.props.id, { birthDate: birthDate });
     }
   }
 
@@ -200,6 +214,16 @@ class LifterRow extends React.Component {
             <option value="M">M</option>
             <option value="F">F</option>
           </FormControl>
+        </td>
+
+        <td>
+          <DatePicker
+            selected={this.state.selectedBirthDate}
+            onChange={this.updateRegistrationBirthDate}
+            showMonthDropdown
+            showYearDropdown
+            scrollableYearDropdown
+          />
         </td>
 
         <td>

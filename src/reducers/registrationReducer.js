@@ -25,7 +25,7 @@ export type Entry = {
   flight: string,
   name: string,
   sex: Sex,
-  birthdate: string,
+  birthDate: string,
   age: number,
   intendedWeightClassKg: string,
   equipment: Equipment,
@@ -44,6 +44,12 @@ export type Entry = {
   deadliftStatus: Array<LiftStatus>
 };
 
+export const getDateString = (dateTime: Date) => {
+  if (dateTime) {
+    return [dateTime.getFullYear(), dateTime.getMonth() + 1, dateTime.getDate()].join("/");
+  }
+};
+
 const makeNewEntry = (id: number): Entry => {
   return {
     // Bookkeeping internal information for OpenLifter.
@@ -57,7 +63,7 @@ const makeNewEntry = (id: number): Entry => {
     // Information about the lifter themselves.
     name: "", // The lifter's name.
     sex: "M", // The lifter's sex.
-    birthdate: "", // The lifter's birthdate (YYYY-MM-DD).
+    birthDate: "", // The lifter's birthdate (YYYY-MM-DD).
     age: 0, // The lifter's age in years
     intendedWeightClassKg: "", // The weightclass for which the lifter registered.
     equipment: "Raw", // The equipment category for which the lifter registered.
