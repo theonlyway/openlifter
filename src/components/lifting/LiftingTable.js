@@ -12,6 +12,8 @@ import { getWeightClassStr } from "../../reducers/meetReducer.js";
 import {
   getProjectedTotalKg,
   getProjectedWilks,
+  getFinalTotalKg,
+  getFinalWilks,
   liftToAttemptFieldName,
   liftToStatusFieldName
 } from "../../reducers/registrationReducer";
@@ -45,7 +47,8 @@ type ColumnType =
   | "BestSquat" | "BestBench" // eslint-disable-line
   | "ProjectedTotal"
   | "ProjectedPoints"
-  | "Total";
+  | "FinalTotal"
+  | "FinalPoints";
 
 class LiftingTable extends React.Component<Props> {
   constructor(props) {
@@ -188,8 +191,20 @@ class LiftingTable extends React.Component<Props> {
         }
         return <td key={columnType}>{points.toFixed(2)}</td>;
       }
-      case "Total":
-        return <td key={columnType}>TODO</td>;
+      case "FinalTotal": {
+        const totalKg = getFinalTotalKg(entry);
+        if (totalKg === 0) {
+          return <td key={columnType}>DQ</td>;
+        }
+        return <td key={columnType}>{totalKg}</td>;
+      }
+      case "FinalPoints": {
+        const points = getFinalWilks(entry);
+        if (points === 0) {
+          return <td key={columnType} />;
+        }
+        return <td key={columnType}>{points.toFixed(2)}</td>;
+      }
       default:
         (columnType: empty); // eslint-disable-line
         return <td key={columnType} />;
@@ -261,11 +276,13 @@ class LiftingTable extends React.Component<Props> {
       case "BestBench":
         return "Bench";
       case "ProjectedTotal":
-        return "Total";
+        return "Proj.T";
       case "ProjectedPoints":
         return "Points";
-      case "Total":
+      case "FinalTotal":
         return "Total";
+      case "FinalPoints":
+        return "Points";
       default:
         (columnType: empty); // eslint-disable-line
         return "";
@@ -295,7 +312,13 @@ class LiftingTable extends React.Component<Props> {
         columns.push("D4");
       }
     }
-    columns.push("ProjectedTotal", "ProjectedPoints");
+
+    // Use projected totals for everything before 2nd attempt deadlifts.
+    if (this.props.lifting.lift !== "D" || this.props.attemptOneIndexed < 2) {
+      columns.push("ProjectedTotal", "ProjectedPoints");
+    } else {
+      columns.push("FinalTotal", "FinalPoints");
+    }
 
     // Build headers.
     let headers = [];
