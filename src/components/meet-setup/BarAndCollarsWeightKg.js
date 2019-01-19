@@ -49,12 +49,6 @@ class BarAndCollarsWeightKg extends React.Component<Props, State> {
     });
   };
 
-  componentWillReceiveProps = nextProps => {
-    if (nextProps.barAndCollarsWeightKg !== this.state.value) {
-      this.setState({ value: nextProps.barAndCollarsWeightKg });
-    }
-  };
-
   render() {
     const label = "Bar + Collars weight (" + (this.props.inKg ? "kg" : "lbs") + ")";
 
