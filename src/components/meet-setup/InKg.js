@@ -9,7 +9,7 @@ import Select from "react-select";
 
 import { setInKg } from "../../actions/meetSetupActions";
 
-const options = [{ value: true, label: "Yes" }, { value: false, label: "No" }];
+const options = [{ value: true, label: "Kilograms" }, { value: false, label: "Pounds" }];
 
 class InKg extends React.Component {
   constructor(props, context) {
@@ -24,7 +24,7 @@ class InKg extends React.Component {
   render() {
     return (
       <FormGroup>
-        <ControlLabel>Is this meet in kilograms?</ControlLabel>
+        <ControlLabel>In what units are attempts and bodyweights?</ControlLabel>
         <Select defaultValue={this.valueObject} onChange={this.props.setInKg} options={options} />
       </FormGroup>
     );

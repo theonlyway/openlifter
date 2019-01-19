@@ -63,30 +63,30 @@ class MeetLocation extends React.Component {
     return (
       <div>
         <FormGroup validationState={this.getValidationState(this.state.country)}>
-          <ControlLabel>Meet Country</ControlLabel>
+          <ControlLabel>Country</ControlLabel>
           <FormControl
             type="text"
-            placeholder="Meet Country"
+            placeholder="Country"
             value={this.state.country}
             onChange={event => this.handleChange("country", event)}
             onBlur={event => this.handleBlur("country", event)}
           />
         </FormGroup>
         <FormGroup validationState={this.getValidationState(this.state.state)}>
-          <ControlLabel>Meet State</ControlLabel>
+          <ControlLabel>State/Province</ControlLabel>
           <FormControl
             type="text"
-            placeholder="Meet State"
+            placeholder="State/Province"
             value={this.state.state}
             onChange={event => this.handleChange("state", event)}
             onBlur={event => this.handleBlur("state", event)}
           />
         </FormGroup>
         <FormGroup validationState={this.getValidationState(this.state.city)}>
-          <ControlLabel>Meet City</ControlLabel>
+          <ControlLabel>City/Town</ControlLabel>
           <FormControl
             type="text"
-            placeholder="Meet City"
+            placeholder="City/Town"
             value={this.state.city}
             onChange={event => this.handleChange("city", event)}
             onBlur={event => this.handleBlur("city", event)}
