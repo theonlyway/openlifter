@@ -2,6 +2,39 @@
 
 const defaultPlatformsOnDay = 1;
 
+const defaultBarAndCollarsWeightKg = 25; // Assuming metal 2.5kg collars.
+const defaultBarAndCollarsWeightLbs = 45; // Assuming plastic collars.
+
+// Default kg plates, allowing for increments of 0.5kg.
+const defaultPlatesOnSideKg = [
+  { weightKg: 50, amount: 0 },
+  { weightKg: 25, amount: 8 },
+  { weightKg: 20, amount: 1 },
+  { weightKg: 15, amount: 1 },
+  { weightKg: 10, amount: 1 },
+  { weightKg: 5, amount: 1 },
+  { weightKg: 2.5, amount: 1 },
+  { weightKg: 1.25, amount: 1 },
+  { weightKg: 1, amount: 1 },
+  { weightKg: 0.75, amount: 1 },
+  { weightKg: 0.5, amount: 1 },
+  { weightKg: 0.25, amount: 1 }
+];
+
+const kg = 2.20462262;
+
+// Default lbs plates, allowing for increments of 1lb.
+const defaultPlatesOnSideLbs = [
+  { weightKg: 45 / kg, amount: 8 },
+  { weightKg: 35 / kg, amount: 0 },
+  { weightKg: 25 / kg, amount: 1 },
+  { weightKg: 10 / kg, amount: 2 },
+  { weightKg: 5 / kg, amount: 1 },
+  { weightKg: 2.5 / kg, amount: 1 },
+  { weightKg: 1.25 / kg, amount: 1 },
+  { weightKg: 0.5 / kg, amount: 2 }
+];
+
 const initialState = {
   name: "",
   formula: "Wilks",
@@ -16,7 +49,9 @@ const initialState = {
   areWrapsRaw: false,
   country: "",
   state: "",
-  city: ""
+  city: "",
+  barAndCollarsWeightKg: defaultBarAndCollarsWeightKg,
+  platesOnSide: defaultPlatesOnSideKg
 };
 
 function getDateString(dateTime) {
@@ -71,8 +106,12 @@ export default (state = initialState, action) => {
       newPlatformsOnDays[day - 1] = count;
       return { ...state, platformsOnDays: newPlatformsOnDays };
     }
-    case "SET_IN_KG":
-      return { ...state, inKg: action.inKg };
+    case "SET_IN_KG": {
+      // Changing the units also changes the loading, so re-initialize from defaults.
+      const defaultPlates = action.inKg ? defaultPlatesOnSideKg : defaultPlatesOnSideLbs;
+      const defaultBar = action.inKg ? defaultBarAndCollarsWeightKg : defaultBarAndCollarsWeightLbs / kg;
+      return { ...state, inKg: action.inKg, platesOnSide: defaultPlates, barAndCollarsWeightKg: defaultBar };
+    }
     case "SET_WEIGHTCLASSES": {
       const sex = action.sex;
       const classesKg = action.classesKg;
