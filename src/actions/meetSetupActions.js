@@ -93,6 +93,13 @@ export const setMeetCity = city => {
   };
 };
 
+export const setBarAndCollarsWeightKg = weightKg => {
+  return {
+    type: "SET_BAR_AND_COLLARS_WEIGHT_KG",
+    weightKg: weightKg
+  };
+};
+
 export const setPlatesOnSide = (weightKg, amount) => {
   return {
     type: "SET_PLATES_ON_SIDE",

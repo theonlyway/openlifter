@@ -141,6 +141,10 @@ export default (state = initialState, action) => {
     case "SET_MEET_CITY":
       return { ...state, city: action.city };
 
+    case "SET_BAR_AND_COLLARS_WEIGHT_KG": {
+      return { ...state, barAndCollarsWeightKg: action.weightKg };
+    }
+
     case "SET_PLATES_ON_SIDE": {
       const weightKg = action.weightKg;
       const amount = action.amount;

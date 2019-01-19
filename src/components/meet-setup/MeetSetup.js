@@ -14,6 +14,7 @@ import FederationSelect from "./FederationSelect";
 import DivisionSelect from "./DivisionSelect";
 import WeightClassesSelect from "./WeightClassesSelect";
 import AreWrapsRaw from "./AreWrapsRaw";
+import BarAndCollarsWeightKg from "./BarAndCollarsWeightKg";
 import Plates from "./Plates";
 
 const MeetSetup = () => {
@@ -52,6 +53,7 @@ const MeetSetup = () => {
             <Panel.Heading>Weights and Loading Setup</Panel.Heading>
             <Panel.Body>
               <InKg />
+              <BarAndCollarsWeightKg />
               <Plates />
             </Panel.Body>
           </Panel>
