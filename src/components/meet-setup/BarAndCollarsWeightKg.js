@@ -10,7 +10,8 @@ import { setBarAndCollarsWeightKg } from "../../actions/meetSetupActions";
 
 type Props = {
   inKg: boolean,
-  barAndCollarsWeightKg: number
+  barAndCollarsWeightKg: number,
+  setBarAndCollarsWeightKg: number => any
 };
 
 type State = {
@@ -29,7 +30,7 @@ class BarAndCollarsWeightKg extends React.Component<Props, State> {
     };
   }
 
-  getValidationState() {
+  getValidationState = () => {
     const { value } = this.state;
     const asNumber = Number(value);
 
@@ -37,16 +38,22 @@ class BarAndCollarsWeightKg extends React.Component<Props, State> {
       return "error";
     }
     return "success";
-  }
+  };
 
-  handleChange(event) {
+  handleChange = event => {
     const value = event.target.value;
     this.setState({ value: value }, () => {
       if (this.getValidationState() === "success") {
         this.props.setBarAndCollarsWeightKg(Number(value));
       }
     });
-  }
+  };
+
+  componentWillReceiveProps = nextProps => {
+    if (nextProps.barAndCollarsWeightKg !== this.state.value) {
+      this.setState({ value: nextProps.barAndCollarsWeightKg });
+    }
+  };
 
   render() {
     const label = "Bar + Collars weight (" + (this.props.inKg ? "kg" : "lbs") + ")";

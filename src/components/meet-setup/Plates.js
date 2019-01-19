@@ -25,8 +25,7 @@ class Plates extends React.Component<Props> {
   }
 
   validateAmountInput = id => {
-    const widget = document.getElementById(id);
-    console.log(id);
+    const widget: any = document.getElementById(id);
 
     // This can happen because the FormGroup is created before the widget exists.
     if (widget === null) return;
@@ -50,7 +49,7 @@ class Plates extends React.Component<Props> {
       return this.setState({});
     }
 
-    const widget = document.getElementById(id);
+    const widget: any = document.getElementById(id);
     this.props.setPlatesOnSide(weightKg, Number(widget.value));
   };
 
