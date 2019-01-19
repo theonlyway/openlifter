@@ -13,7 +13,10 @@ const initialState = {
   weightClassesKgMen: [],
   weightClassesKgWomen: [],
   inKg: true,
-  areWrapsRaw: false
+  areWrapsRaw: false,
+  country: "",
+  state: "",
+  city: ""
 };
 
 function getDateString(dateTime) {
@@ -87,6 +90,12 @@ export default (state = initialState, action) => {
     }
     case "SET_ARE_WRAPS_RAW":
       return { ...state, areWrapsRaw: action.areWrapsRaw };
+    case "SET_MEET_COUNTRY":
+      return { ...state, country: action.country };
+    case "SET_MEET_STATE":
+      return { ...state, state: action.state };
+    case "SET_MEET_CITY":
+      return { ...state, city: action.city };
     default:
       return state;
   }

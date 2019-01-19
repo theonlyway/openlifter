@@ -71,3 +71,24 @@ export const setAreWrapsRaw = areWrapsRaw => {
     areWrapsRaw
   };
 };
+
+export const setMeetCountry = country => {
+  return {
+    type: "SET_MEET_COUNTRY",
+    country
+  };
+};
+
+export const setMeetState = state => {
+  return {
+    type: "SET_MEET_STATE",
+    state
+  };
+};
+
+export const setMeetCity = city => {
+  return {
+    type: "SET_MEET_CITY",
+    city
+  };
+};
