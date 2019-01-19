@@ -92,3 +92,11 @@ export const setMeetCity = city => {
     city
   };
 };
+
+export const setPlatesOnSide = (weightKg, amount) => {
+  return {
+    type: "SET_PLATES_ON_SIDE",
+    weightKg,
+    amount
+  };
+};

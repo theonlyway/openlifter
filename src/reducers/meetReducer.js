@@ -75,14 +75,19 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case "SET_MEET_NAME":
       return { ...state, name: action.name };
+
     case "SET_FORMULA":
       return { ...state, formula: action.formula };
+
     case "SET_FEDERATION":
       return { ...state, federation: action.federation };
+
     case "SET_DIVISIONS":
       return { ...state, divisions: action.divisions };
+
     case "SET_MEET_DATE":
       return { ...state, date: getDateString(action.date) };
+
     case "SET_LENGTH_DAYS": {
       const numDays = Number(action.length);
 
@@ -98,6 +103,7 @@ export default (state = initialState, action) => {
       }
       return { ...state, lengthDays: numDays };
     }
+
     case "SET_PLATFORM_COUNT": {
       const day = Number(action.day);
       const count = Number(action.count);
@@ -106,12 +112,14 @@ export default (state = initialState, action) => {
       newPlatformsOnDays[day - 1] = count;
       return { ...state, platformsOnDays: newPlatformsOnDays };
     }
+
     case "SET_IN_KG": {
       // Changing the units also changes the loading, so re-initialize from defaults.
       const defaultPlates = action.inKg ? defaultPlatesOnSideKg : defaultPlatesOnSideLbs;
       const defaultBar = action.inKg ? defaultBarAndCollarsWeightKg : defaultBarAndCollarsWeightLbs / kg;
       return { ...state, inKg: action.inKg, platesOnSide: defaultPlates, barAndCollarsWeightKg: defaultBar };
     }
+
     case "SET_WEIGHTCLASSES": {
       const sex = action.sex;
       const classesKg = action.classesKg;
@@ -120,6 +128,35 @@ export default (state = initialState, action) => {
       }
       return { ...state, weightClassesKgWomen: classesKg };
     }
+
+    case "SET_ARE_WRAPS_RAW":
+      return { ...state, areWrapsRaw: action.areWrapsRaw };
+
+    case "SET_MEET_COUNTRY":
+      return { ...state, country: action.country };
+
+    case "SET_MEET_STATE":
+      return { ...state, state: action.state };
+
+    case "SET_MEET_CITY":
+      return { ...state, city: action.city };
+
+    case "SET_PLATES_ON_SIDE": {
+      const weightKg = action.weightKg;
+      const amount = action.amount;
+
+      // Find the index of the object in the platesOnSide array by comparing weights.
+      const index = state.platesOnSide.findIndex(p => p.weightKg === weightKg);
+
+      // Clone the array.
+      let newPlates = state.platesOnSide.slice();
+
+      // Replace with a new object in the new array.
+      newPlates[index] = { weightKg: weightKg, amount: amount };
+
+      return { ...state, platesOnSide: newPlates };
+    }
+
     case "OVERWRITE_STORE": {
       // Copy all the state objects into an empty object.
       let obj = Object.assign({}, state);
@@ -127,14 +164,7 @@ export default (state = initialState, action) => {
       // Copy in the action's objects, overwriting the state's objects.
       return Object.assign(obj, action.store.meet);
     }
-    case "SET_ARE_WRAPS_RAW":
-      return { ...state, areWrapsRaw: action.areWrapsRaw };
-    case "SET_MEET_COUNTRY":
-      return { ...state, country: action.country };
-    case "SET_MEET_STATE":
-      return { ...state, state: action.state };
-    case "SET_MEET_CITY":
-      return { ...state, city: action.city };
+
     default:
       return state;
   }
