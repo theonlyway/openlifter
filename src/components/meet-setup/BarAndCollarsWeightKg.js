@@ -25,8 +25,11 @@ class BarAndCollarsWeightKg extends React.Component<Props, State> {
     this.getValidationState = this.getValidationState.bind(this);
     this.handleChange = this.handleChange.bind(this);
 
+    const weight = this.props.barAndCollarsWeightKg;
+    const value = this.props.inKg ? weight : weight * 2.20462262;
+
     this.state = {
-      value: this.props.barAndCollarsWeightKg
+      value: value
     };
   }
 
@@ -44,7 +47,9 @@ class BarAndCollarsWeightKg extends React.Component<Props, State> {
     const value = event.target.value;
     this.setState({ value: value }, () => {
       if (this.getValidationState() === "success") {
-        this.props.setBarAndCollarsWeightKg(Number(value));
+        const asNum = Number(value);
+        const weight = this.props.inKg ? asNum : asNum / 2.20462262;
+        this.props.setBarAndCollarsWeightKg(weight);
       }
     });
   };

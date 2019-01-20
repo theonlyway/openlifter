@@ -25,9 +25,8 @@ type Props = {
 
 class MeetSetup extends React.Component<Props> {
   render() {
-
     // This is used as a key to force unit-dependent components to re-initialize state.
-    const inKg = this.props.inKg;
+    const inKg = String(this.props.inKg);
 
     return (
       <Grid>
