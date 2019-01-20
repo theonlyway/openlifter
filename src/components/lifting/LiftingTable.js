@@ -16,6 +16,8 @@ import {
   getFinalWilks,
   getProjectedIPFPoints,
   getFinalIPFPoints,
+  getProjectedGlossbrenner,
+  getFinalGlossbrenner,
   liftToAttemptFieldName,
   liftToStatusFieldName
 } from "../../reducers/registrationReducer";
@@ -212,7 +214,7 @@ class LiftingTable extends React.Component<Props> {
       case "ProjectedPoints": {
         let points = 0;
         if (this.props.meet.formula === "Glossbrenner") {
-          // TODO Glossbrenner
+          points = getProjectedGlossbrenner(entry);
         } else if (this.props.meet.formula === "IPF Points") {
           const event = entry.events.length > 0 ? entry.events[0] : "SBD";
           points = getProjectedIPFPoints(entry, event);
@@ -228,7 +230,7 @@ class LiftingTable extends React.Component<Props> {
       case "FinalPoints": {
         let points = 0;
         if (this.props.meet.formula === "Glossbrenner") {
-          // TODO Glossbrenner
+          points = getFinalGlossbrenner(entry);
         } else if (this.props.meet.formula === "IPF Points") {
           const event = entry.events.length > 0 ? entry.events[0] : "SBD";
           points = getFinalIPFPoints(entry, event);

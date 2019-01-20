@@ -1,8 +1,9 @@
 // vim: set ts=2 sts=2 sw=2 et:
 // @flow
 
-import { wilksMen, wilksWomen } from "../common/wilks";
+import { glossbrenner } from "../common/glossbrenner";
 import { ipfpoints } from "../common/ipfpoints";
+import { wilksMen, wilksWomen } from "../common/wilks";
 
 // Length of {squat,bench,deadlift}{Kg,status} in each entry.
 export const MAX_ATTEMPTS = 5;
@@ -221,6 +222,15 @@ export const getProjectedIPFPoints = (entry: Entry, event: Event): number => {
 export const getFinalIPFPoints = (entry: Entry, event: Event): number => {
   const totalKg = getFinalTotalKg(entry);
   return ipfpoints(totalKg, entry.bodyweightKg, entry.sex, entry.equipment, event);
+};
+
+export const getProjectedGlossbrenner = (entry: Entry): number => {
+  const totalKg = getProjectedTotalKg(entry);
+  return glossbrenner(entry.sex, entry.bodyweightKg, totalKg);
+};
+export const getFinalGlossbrenner = (entry: Entry): number => {
+  const totalKg = getFinalTotalKg(entry);
+  return glossbrenner(entry.sex, entry.bodyweightKg, totalKg);
 };
 
 // Filter entries to only get lifters that are lifting on a given day
