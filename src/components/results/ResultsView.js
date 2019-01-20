@@ -8,6 +8,8 @@ import React from "react";
 import { connect } from "react-redux";
 import { FormControl, Panel } from "react-bootstrap";
 
+import { getAllResults } from "../../common/divisionPlace";
+
 import type { Entry } from "../../reducers/registrationReducer";
 
 import styles from "./ResultsView.module.scss";
@@ -75,6 +77,13 @@ class ResultsView extends React.Component<Props, State> {
             >
               {this.makeDayOptions()}
             </FormControl>
+            <pre>
+              {JSON.stringify(
+                getAllResults(this.props.entries, this.props.weightClassesKgMen, this.props.weightClassesKgWomen),
+                null,
+                2
+              )}
+            </pre>
           </Panel.Body>
         </Panel>
       </div>
