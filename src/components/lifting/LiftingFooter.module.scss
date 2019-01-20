@@ -38,6 +38,9 @@ button.goodLift {
   border-color: #4cae4c;
   border-width: 0px;
 }
+button.goodLift:hover {
+  background-color: #31d800;
+}
 
 button.noLift {
   width: $button-width;
@@ -48,9 +51,12 @@ button.noLift {
   line-height: 1.3333333;
 
   color: #ffffff;
-  background-color: #d9534f;
+  background-color: #ae423f;
   border-color: #d43f3a;
   border-width: 0px;
+}
+button.noLift:hover {
+  background-color: #d9534f
 }
 
 select.selector {
