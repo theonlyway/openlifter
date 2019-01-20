@@ -73,15 +73,23 @@ class Loading extends React.Component<Props> {
   // Selects kilo plates using the simple greedy algorithm.
   // Weight that cannot be loaded is returned at the end as a negative number.
   selectKgPlates = (): Array<number> => {
+    // Handle the default case of a complete flight.
+    if (this.props.weightKg === 0) {
+      return [];
+    }
+
     // Sort a copy of the plates array by descending weight.
     let sortedPlates = this.props.platesOnSide.slice().sort((a, b) => {
       return b.weightKg - a.weightKg;
     });
 
     let sideWeightKg = (this.props.weightKg - this.props.barAndCollarsWeightKg) / 2;
-    let plates = [];
+    if (sideWeightKg < 0) {
+      return [sideWeightKg];
+    }
 
     // Run through each plate, applying as many as will fit, in order.
+    let plates = [];
     for (let i = 0; i < sortedPlates.length; i++) {
       let { weightKg, amount } = sortedPlates[i];
 
@@ -93,8 +101,8 @@ class Loading extends React.Component<Props> {
     }
 
     // If there was an error, report it as a negative number.
-    if (sideWeightKg !== 0) {
-      plates.push(sideWeightKg < 0 ? sideWeightKg : -sideWeightKg);
+    if (sideWeightKg > 0) {
+      plates.push(-sideWeightKg);
     }
 
     return plates;
