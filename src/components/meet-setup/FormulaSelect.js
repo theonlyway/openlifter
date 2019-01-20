@@ -9,7 +9,11 @@ import Select from "react-select";
 
 import { setFormula } from "../../actions/meetSetupActions";
 
-const options = [{ value: "Glossbrenner", label: "Glossbrenner" }, { value: "Wilks", label: "Wilks" }];
+const options = [
+  { value: "Glossbrenner", label: "Glossbrenner" },
+  { value: "IPF Points", label: "IPF Points" },
+  { value: "Wilks", label: "Wilks" }
+];
 
 class FormulaSelect extends React.Component {
   constructor(props, context) {

@@ -11,9 +11,11 @@ import AttemptInput from "./AttemptInput";
 import { getWeightClassStr } from "../../reducers/meetReducer.js";
 import {
   getProjectedTotalKg,
-  getProjectedWilks,
   getFinalTotalKg,
+  getProjectedWilks,
   getFinalWilks,
+  getProjectedIPFPoints,
+  getFinalIPFPoints,
   liftToAttemptFieldName,
   liftToStatusFieldName
 } from "../../reducers/registrationReducer";
@@ -22,6 +24,7 @@ import styles from "./LiftingTable.module.scss";
 
 type Props = {
   meet: {
+    formula: string, // TODO: Use type.
     weightClassesKgMen: Array<number>,
     weightClassesKgWomen: Array<number>
   },
@@ -204,31 +207,35 @@ class LiftingTable extends React.Component<Props> {
         return this.renderBest3AttemptField(entry, "B", columnType);
       case "ProjectedTotal": {
         const totalKg = getProjectedTotalKg(entry);
-        if (totalKg === 0) {
-          return <td key={columnType} />;
-        }
-        return <td key={columnType}>{totalKg}</td>;
+        return <td key={columnType}>{totalKg !== 0 ? totalKg : null}</td>;
       }
       case "ProjectedPoints": {
-        const points = getProjectedWilks(entry);
-        if (points === 0) {
-          return <td key={columnType} />;
+        let points = 0;
+        if (this.props.meet.formula === "Glossbrenner") {
+          // TODO Glossbrenner
+        } else if (this.props.meet.formula === "IPF Points") {
+          const event = entry.events.length > 0 ? entry.events[0] : "SBD";
+          points = getProjectedIPFPoints(entry, event);
+        } else if (this.props.meet.formula === "Wilks") {
+          points = getProjectedWilks(entry);
         }
-        return <td key={columnType}>{points.toFixed(2)}</td>;
+        return <td key={columnType}>{points !== 0 ? points.toFixed(2) : null}</td>;
       }
       case "FinalTotal": {
         const totalKg = getFinalTotalKg(entry);
-        if (totalKg === 0) {
-          return <td key={columnType} />;
-        }
-        return <td key={columnType}>{totalKg}</td>;
+        return <td key={columnType}>{totalKg !== 0 ? totalKg : null}</td>;
       }
       case "FinalPoints": {
-        const points = getFinalWilks(entry);
-        if (points === 0) {
-          return <td key={columnType} />;
+        let points = 0;
+        if (this.props.meet.formula === "Glossbrenner") {
+          // TODO Glossbrenner
+        } else if (this.props.meet.formula === "IPF Points") {
+          const event = entry.events.length > 0 ? entry.events[0] : "SBD";
+          points = getFinalIPFPoints(entry, event);
+        } else if (this.props.meet.formula === "Wilks") {
+          points = getFinalWilks(entry);
         }
-        return <td key={columnType}>{points.toFixed(2)}</td>;
+        return <td key={columnType}>{points !== 0 ? points.toFixed(2) : null}</td>;
       }
       default:
         (columnType: empty); // eslint-disable-line
