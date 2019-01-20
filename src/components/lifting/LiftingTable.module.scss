@@ -31,6 +31,7 @@ table.liftingtable {
 
   font-size: $row-font-size;
   box-shadow: 0 0 20px 0 hsla(0, 0%, 64%, .45);
+  border-radius: $border-rounding;
 }
 
 .liftingtable td.nameCell {
