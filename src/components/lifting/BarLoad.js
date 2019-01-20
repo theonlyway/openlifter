@@ -93,8 +93,8 @@ class Loading extends React.Component<Props> {
     }
 
     // If there was an error, report it as a negative number.
-    if (sideWeightKg > 0) {
-      plates.push(-sideWeightKg);
+    if (sideWeightKg !== 0) {
+      plates.push(sideWeightKg < 0 ? sideWeightKg : -sideWeightKg);
     }
 
     return plates;
