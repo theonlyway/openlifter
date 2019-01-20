@@ -205,7 +205,7 @@ class LiftingTable extends React.Component<Props> {
       case "ProjectedTotal": {
         const totalKg = getProjectedTotalKg(entry);
         if (totalKg === 0) {
-          return <td key={columnType}>DQ</td>;
+          return <td key={columnType} />;
         }
         return <td key={columnType}>{totalKg}</td>;
       }
@@ -219,7 +219,7 @@ class LiftingTable extends React.Component<Props> {
       case "FinalTotal": {
         const totalKg = getFinalTotalKg(entry);
         if (totalKg === 0) {
-          return <td key={columnType}>DQ</td>;
+          return <td key={columnType} />;
         }
         return <td key={columnType}>{totalKg}</td>;
       }

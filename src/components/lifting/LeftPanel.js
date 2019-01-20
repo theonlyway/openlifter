@@ -48,13 +48,17 @@ class LeftPanel extends React.Component {
     const current = this.getBarLoadProps(this.props.currentEntryId, this.props.attemptOneIndexed);
     const next = this.getBarLoadProps(this.props.nextEntryId, this.props.nextAttemptOneIndexed);
 
+    // Show one decimal point, and omit it if possible.
+    const weightKgText = current.weightKg.toFixed(1).replace(".0", "");
+    const weightLbsText = current.weightLbs.toFixed(1).replace(".0", "");
+
     return (
       <div className={styles.container}>
         <div className={styles.activeCard}>
           <div className={styles.loadingBar}>
             <div className={styles.attemptText}>
               {this.props.lifting.lift}
-              {this.props.attemptOneIndexed}: {current.weightKg.toFixed(1)}kg / {current.weightLbs.toFixed(1)}lb
+              {this.props.attemptOneIndexed}: {weightKgText}kg / {weightLbsText}lb
             </div>
             <div className={styles.barArea}>
               <BarLoad weightKg={current.weightKg} rackInfo={current.rackInfo} />
