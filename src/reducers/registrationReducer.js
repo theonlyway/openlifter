@@ -1,9 +1,9 @@
 // vim: set ts=2 sts=2 sw=2 et:
 // @flow
 
-import { glossbrenner } from "../common/glossbrenner";
-import { ipfpoints } from "../common/ipfpoints";
-import { wilksMen, wilksWomen } from "../common/wilks";
+import { glossbrenner } from "../common/points-glossbrenner";
+import { ipfpoints } from "../common/points-ipf";
+import { wilksMen, wilksWomen } from "../common/points-wilks";
 
 // Length of {squat,bench,deadlift}{Kg,status} in each entry.
 export const MAX_ATTEMPTS = 5;
