@@ -123,17 +123,31 @@ div.kg1p25 {
   background-color: $plate-default-black;
 }
 
+// Styling for a single 1kg plate.
+div.kg1 {
+  @include plate-defaults();
+  height: $maximum-plate-height * 0.45;
+  background-color: $plate-default-blue;
+}
+
+// Styling for a single 0.5kg plate.
+div.kg0p75 {
+  @include plate-defaults();
+  height: $maximum-plate-height * 0.4;
+  background-color: $plate-default-red;
+}
+
 // Styling for a single 0.5kg plate.
 div.kg0p5 {
   @include plate-defaults();
-  height: $maximum-plate-height * 0.4;
+  height: $maximum-plate-height * 0.3;
   background-color: $plate-default-green;
 }
 
 // Styling for a single 0.25kg plate.
 div.kg0p25 {
   @include plate-defaults();
-  height: $maximum-plate-height * 0.3;
+  height: $maximum-plate-height * 0.2;
   background-color: $plate-default-blue;
 }
 

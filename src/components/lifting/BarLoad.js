@@ -10,131 +10,106 @@ import { connect } from "react-redux";
 import styles from "./BarLoad.module.scss";
 
 type Props = {
+  // ownProps.
   weightKg: number,
-  rackInfo: string
+  rackInfo: string,
+
+  // Redux props.
+  inKg: boolean,
+  barAndCollarsWeightKg: number,
+  platesOnSide: Array<Object> // TODO: Use type.
 };
 
 class Loading extends React.Component<Props> {
+  weightKgToStyle = (weightKg: number): any => {
+    switch (weightKg) {
+      case 50:
+        return styles.kg50;
+      case 25:
+        return styles.kg25;
+      case 20:
+        return styles.kg20;
+      case 15:
+        return styles.kg15;
+      case 10:
+        return styles.kg10;
+      case 5:
+        return styles.kg5;
+      case 2.5:
+        return styles.kg2p5;
+      case 1.25:
+        return styles.kg1p25;
+      case 1:
+        return styles.kg1;
+      case 0.75:
+        return styles.kg0p75;
+      case 0.5:
+        return styles.kg0p5;
+      case 0.25:
+        return styles.kg0p25;
+      default:
+        return styles.error;
+    }
+  };
+
+  weightKgToText = (weightKg: number): string => {
+    switch (weightKg) {
+      case 1.25:
+        return "1¼";
+      case 0.75:
+        return "¾";
+      case 0.5:
+        return "½";
+      case 0.25:
+        return "¼";
+      default:
+        return String(weightKg);
+    }
+  };
+
   // Selects kilo plates using the simple greedy algorithm.
-  selectKgPlates() {
-    // The combined weight of the bar and collars, the lightest valid weight.
-    const barAndCollarWeightKg = 25;
+  selectKgPlates = () => {
+    // Sort a copy of the plates array by descending weight.
+    let sortedPlates = this.props.platesOnSide.slice().sort((a, b) => {
+      return b.weightKg - a.weightKg;
+    });
 
-    // How many of each plate is available.
-    let num50 = 0;
-    let num25 = 10;
-    let num20 = 1;
-    let num15 = 1;
-    let num10 = 1;
-    let num5 = 1;
-    let num2p5 = 1;
-    let num1p25 = 1;
-    let num0p5 = 1;
-    let num0p25 = 1;
-
-    // Ascending counters for certain plates, to be helpful.
-    let counter50Kg = 1;
-    let counter25Kg = 1;
-
-    let sideWeightKg = (this.props.weightKg - barAndCollarWeightKg) / 2;
+    let sideWeightKg = (this.props.weightKg - this.props.barAndCollarsWeightKg) / 2;
     let plates = [];
-    while (sideWeightKg > 0) {
-      if (num50 > 0 && sideWeightKg >= 50) {
+
+    // Run through each plate, applying as many as will fit, in order.
+    for (let i = 0; i < sortedPlates.length; i++) {
+      let { weightKg, amount } = sortedPlates[i];
+
+      while (amount > 0 && weightKg <= sideWeightKg) {
+        amount--;
+        sideWeightKg -= weightKg;
+
+        // For larger plates that may occur many times, show a counter.
+        let maybeCounter = <span />;
+        if (weightKg >= 5 && sortedPlates[i].amount > 3) {
+          maybeCounter = <div>{sortedPlates[i].amount - amount}</div>;
+        }
+
         plates.push(
-          <div key={"50-" + num50} className={styles.kg50}>
-            <div>50</div>
-            <div>{counter50Kg}</div>
+          <div key={weightKg + "-" + amount} className={this.weightKgToStyle(weightKg)}>
+            <div>{this.weightKgToText(weightKg)}</div>
+            {maybeCounter}
           </div>
         );
-        sideWeightKg -= 50;
-        counter50Kg++;
-        num50--;
-      } else if (num25 > 0 && sideWeightKg >= 25) {
-        plates.push(
-          <div key={"25-" + num25} className={styles.kg25}>
-            <div>25</div>
-            <div>{counter25Kg}</div>
-          </div>
-        );
-        sideWeightKg -= 25;
-        counter25Kg++;
-        num25--;
-      } else if (num20 > 0 && sideWeightKg >= 20) {
-        plates.push(
-          <div key={"20-" + num20} className={styles.kg20}>
-            20
-          </div>
-        );
-        sideWeightKg -= 20;
-        num20--;
-      } else if (num15 > 0 && sideWeightKg >= 15) {
-        plates.push(
-          <div key={"15-" + num15} className={styles.kg15}>
-            15
-          </div>
-        );
-        sideWeightKg -= 15;
-        num15--;
-      } else if (num10 > 0 && sideWeightKg >= 10) {
-        plates.push(
-          <div key={"10-" + num10} className={styles.kg10}>
-            10
-          </div>
-        );
-        sideWeightKg -= 10;
-        num10--;
-      } else if (num5 > 0 && sideWeightKg >= 5) {
-        plates.push(
-          <div key={"5-" + num5} className={styles.kg5}>
-            5
-          </div>
-        );
-        sideWeightKg -= 5;
-        num5--;
-      } else if (num2p5 > 0 && sideWeightKg >= 2.5) {
-        plates.push(
-          <div key={"2p5-" + num2p5} className={styles.kg2p5}>
-            2.5
-          </div>
-        );
-        sideWeightKg -= 2.5;
-        num2p5--;
-      } else if (num1p25 > 0 && sideWeightKg >= 1.25) {
-        plates.push(
-          <div key={"1p25-" + num1p25} className={styles.kg1p25}>
-            1¼
-          </div>
-        );
-        sideWeightKg -= 1.25;
-        num1p25--;
-      } else if (num0p5 > 0 && sideWeightKg >= 0.5) {
-        plates.push(
-          <div key={"0p5-" + num0p5} className={styles.kg0p5}>
-            ½
-          </div>
-        );
-        sideWeightKg -= 0.5;
-        num0p5--;
-      } else if (num0p25 > 0 && sideWeightKg >= 0.25) {
-        plates.push(
-          <div key={"0p25-" + num0p25} className={styles.kg0p25}>
-            ¼
-          </div>
-        );
-        sideWeightKg -= 0.25;
-        num0p25--;
-      } else {
-        plates.push(
-          <div key={"error"} className={styles.error}>
-            ?{sideWeightKg.toFixed(1)}
-          </div>
-        );
-        sideWeightKg = 0;
       }
     }
 
+    if (sideWeightKg > 0) {
+      plates.push(
+        <div key={"error"} className={styles.error}>
+          ?{sideWeightKg.toFixed(1)}
+        </div>
+      );
+    }
+
     return plates;
-  }
+  };
 
   render() {
     return (
@@ -152,7 +127,9 @@ class Loading extends React.Component<Props> {
 
 const mapStateToProps = state => {
   return {
-    ...state
+    inKg: state.meet.inKg,
+    barAndCollarsWeightKg: state.meet.barAndCollarsWeightKg,
+    platesOnSide: state.meet.platesOnSide
   };
 };
 
