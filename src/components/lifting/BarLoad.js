@@ -7,6 +7,8 @@
 import React from "react";
 import { connect } from "react-redux";
 
+import { Lift } from "../../reducers/liftingReducer";
+
 import styles from "./BarLoad.module.scss";
 
 type Props = {
@@ -17,7 +19,8 @@ type Props = {
   // Redux props.
   inKg: boolean,
   barAndCollarsWeightKg: number,
-  platesOnSide: Array<Object> // TODO: Use type.
+  platesOnSide: Array<Object>, // TODO: Use type.
+  lift: Lift
 };
 
 class Loading extends React.Component<Props> {
@@ -145,14 +148,19 @@ class Loading extends React.Component<Props> {
   };
 
   render() {
+    // Only show rack info for lifts that use a rack.
+    let rackInfo = null;
+    if (this.props.lift !== "D") {
+      rackInfo = <div className={styles.rackInfo}>Rack {this.props.rackInfo}</div>;
+    }
+
     return (
       <div className={styles.container}>
         <div className={styles.bar} />
         {this.renderKgPlates()}
         <div className={styles.collar} />
         <div className={styles.bar} />
-
-        <div className={styles.rackInfo}>Rack {this.props.rackInfo}</div>
+        {rackInfo}
       </div>
     );
   }
@@ -162,7 +170,8 @@ const mapStateToProps = state => {
   return {
     inKg: state.meet.inKg,
     barAndCollarsWeightKg: state.meet.barAndCollarsWeightKg,
-    platesOnSide: state.meet.platesOnSide
+    platesOnSide: state.meet.platesOnSide,
+    lift: state.lifting.lift
   };
 };
 
