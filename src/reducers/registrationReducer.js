@@ -134,6 +134,39 @@ const initialState: Registration = {
   lookup: {}
 };
 
+// Gets the best squat, including extra attempts that don't count for the total.
+export const getBest5SquatKg = (entry: Entry): number => {
+  let best3SquatKg = 0.0;
+  for (let i = 0; i < MAX_ATTEMPTS; i++) {
+    if (entry.squatStatus[i] === 1) {
+      best3SquatKg = Math.max(best3SquatKg, entry.squatKg[i]);
+    }
+  }
+  return best3SquatKg;
+};
+
+// Gets the best bench, including extra attempts that don't count for the total.
+export const getBest5BenchKg = (entry: Entry): number => {
+  let best3BenchKg = 0.0;
+  for (let i = 0; i < MAX_ATTEMPTS; i++) {
+    if (entry.benchStatus[i] === 1) {
+      best3BenchKg = Math.max(best3BenchKg, entry.benchKg[i]);
+    }
+  }
+  return best3BenchKg;
+};
+
+// Gets the best deadlift, including extra attempts that don't count for the total.
+export const getBest5DeadliftKg = (entry: Entry): number => {
+  let best3DeadliftKg = 0.0;
+  for (let i = 0; i < MAX_ATTEMPTS; i++) {
+    if (entry.deadliftStatus[i] === 1) {
+      best3DeadliftKg = Math.max(best3DeadliftKg, entry.deadliftKg[i]);
+    }
+  }
+  return best3DeadliftKg;
+};
+
 // The ProjectedTotal optimistically assumes that lifters will get *first* attempts
 // that have not yet been taken. It is used for calculating a total while lifters
 // are still squatting and benching.
