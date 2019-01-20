@@ -46,6 +46,7 @@ type ColumnType =
   | "Bodyweight"
   | "WeightClass"
   | "Equipment"
+  | "Age"
   | "S1" | "S2" | "S3" | "S4" // eslint-disable-line
   | "B1" | "B2" | "B3" | "B4" // eslint-disable-line
   | "D1" | "D2" | "D3" | "D4" // eslint-disable-line
@@ -53,7 +54,8 @@ type ColumnType =
   | "ProjectedTotal"
   | "ProjectedPoints"
   | "FinalTotal"
-  | "FinalPoints";
+  | "FinalPoints"
+  | "Place";
 
 class LiftingTable extends React.Component<Props> {
   constructor(props) {
@@ -179,6 +181,8 @@ class LiftingTable extends React.Component<Props> {
         if (equipment === "Multi-ply") equipment = "Multi";
         return <td key={columnType}>{equipment}</td>;
       }
+      case "Age":
+        return <td key={columnType}>{entry.age}</td>;
       case "S1":
         return this.renderAttemptField(entry, "S", 1, columnType);
       case "S2":
@@ -239,6 +243,9 @@ class LiftingTable extends React.Component<Props> {
         }
         return <td key={columnType}>{points !== 0 ? points.toFixed(2) : null}</td>;
       }
+      case "Place": {
+        return <td key={columnType}>DQ</td>;
+      }
       default:
         (columnType: empty); // eslint-disable-line
         return <td key={columnType} />;
@@ -280,7 +287,9 @@ class LiftingTable extends React.Component<Props> {
       case "WeightClass":
         return "Class";
       case "Equipment":
-        return "Gear";
+        return "Equip";
+      case "Age":
+        return "Age";
       case "S1":
         return "S1";
       case "S2":
@@ -317,6 +326,8 @@ class LiftingTable extends React.Component<Props> {
         return "Total";
       case "FinalPoints":
         return "Points";
+      case "Place":
+        return "Place";
       default:
         (columnType: empty); // eslint-disable-line
         return "";
@@ -325,7 +336,7 @@ class LiftingTable extends React.Component<Props> {
 
   render() {
     // Select the columns for display.
-    let columns: Array<ColumnType> = ["Name", "Bodyweight", "WeightClass", "Equipment"];
+    let columns: Array<ColumnType> = ["Name", "Bodyweight", "WeightClass", "Age"];
 
     // Select lift columns based off the current lift.
     if (this.props.lifting.lift === "S") {
@@ -349,9 +360,9 @@ class LiftingTable extends React.Component<Props> {
 
     // Use projected totals for everything before 2nd attempt deadlifts.
     if (this.props.lifting.lift !== "D" || this.props.attemptOneIndexed < 2) {
-      columns.push("ProjectedTotal", "ProjectedPoints");
+      columns.push("ProjectedTotal", "ProjectedPoints", "Place");
     } else {
-      columns.push("FinalTotal", "FinalPoints");
+      columns.push("FinalTotal", "FinalPoints", "Place");
     }
 
     // Build headers.
