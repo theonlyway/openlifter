@@ -12,6 +12,7 @@ import { FormControl, FormGroup, Table } from "react-bootstrap";
 import { setPlatesOnSide } from "../../actions/meetSetupActions";
 
 type Props = {
+  inKg: boolean,
   platesOnSide: Array<{ weightKg: number, amount: number }>, // TODO: Use type export.
   setPlatesOnSide: (number, number) => any
 };
@@ -56,11 +57,13 @@ class Plates extends React.Component<Props> {
   renderWeightRow = (weightKg, amount) => {
     // The input event value isn't passed by the event, so we assign a unique ID
     // and then just search the whole document for it.
-    let id = "weight" + String(weightKg);
+    const id = "weight" + String(weightKg);
+
+    const weight = this.props.inKg ? weightKg : weightKg * 2.20462262;
 
     return (
       <tr key={weightKg}>
-        <td>{weightKg}</td>
+        <td>{weight}</td>
         <td>
           <FormGroup validationState={this.validateAmountInput(id)} style={{ marginBottom: 0 }}>
             <FormControl
@@ -83,12 +86,14 @@ class Plates extends React.Component<Props> {
       plateRows.push(this.renderWeightRow(obj.weightKg, obj.amount));
     }
 
+    const units = this.props.inKg ? "kg" : "lbs";
+
     return (
       <div>
         <Table striped>
           <thead>
             <tr>
-              <th>Weight (kg)</th>
+              <th>Weight ({units})</th>
               <th># Plates on One Side</th>
             </tr>
           </thead>
@@ -100,6 +105,7 @@ class Plates extends React.Component<Props> {
 }
 
 const mapStateToProps = state => ({
+  inKg: state.meet.inKg,
   platesOnSide: state.meet.platesOnSide
 });
 
