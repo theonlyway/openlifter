@@ -68,7 +68,8 @@ class Loading extends React.Component<Props> {
   };
 
   // Selects kilo plates using the simple greedy algorithm.
-  selectKgPlates = () => {
+  // Weight that cannot be loaded is returned at the end as a negative number.
+  selectKgPlates = (): Array<number> => {
     // Sort a copy of the plates array by descending weight.
     let sortedPlates = this.props.platesOnSide.slice().sort((a, b) => {
       return b.weightKg - a.weightKg;
@@ -84,38 +85,70 @@ class Loading extends React.Component<Props> {
       while (amount > 0 && weightKg <= sideWeightKg) {
         amount--;
         sideWeightKg -= weightKg;
-
-        // For larger plates that may occur many times, show a counter.
-        let maybeCounter = <span />;
-        if (weightKg >= 5 && sortedPlates[i].amount > 3) {
-          maybeCounter = <div>{sortedPlates[i].amount - amount}</div>;
-        }
-
-        plates.push(
-          <div key={weightKg + "-" + amount} className={this.weightKgToStyle(weightKg)}>
-            <div>{this.weightKgToText(weightKg)}</div>
-            {maybeCounter}
-          </div>
-        );
+        plates.push(weightKg);
       }
     }
 
+    // If there was an error, report it as a negative number.
     if (sideWeightKg > 0) {
-      plates.push(
-        <div key={"error"} className={styles.error}>
-          ?{sideWeightKg.toFixed(1)}
-        </div>
-      );
+      plates.push(-sideWeightKg);
     }
 
     return plates;
+  };
+
+  // Turns the selectKgPlates() array into divs.
+  renderKgPlates = () => {
+    const plates: Array<number> = this.selectKgPlates();
+
+    let divs = [];
+    let i = 0;
+
+    // Iterate on a group of plates of the same weight at a time.
+    while (i < plates.length) {
+      const weightKg = plates[i];
+
+      // If the weight is negative, it's an error report.
+      if (weightKg < 0) {
+        divs.push(
+          <div key={"error"} className={styles.error}>
+            ?{(-1 * weightKg).toFixed(1)}
+          </div>
+        );
+        break;
+      }
+
+      // Count how many times this same plate appears consecutively.
+      let plateCount = 1;
+      for (let j = i + 1; j < plates.length && plates[j] === weightKg; j++) {
+        plateCount++;
+      }
+
+      // If that plate is large and occurs a bunch, show a counter.
+      const showCounter = plateCount >= 3;
+
+      // Push each of the plates individually.
+      for (let j = 0; j < plateCount; j++) {
+        const counter = String(j + 1);
+        divs.push(
+          <div key={weightKg + "-" + counter} className={this.weightKgToStyle(weightKg)}>
+            <div>{this.weightKgToText(weightKg)}</div>
+            {showCounter ? <div>{counter}</div> : null}
+          </div>
+        );
+      }
+
+      i += plateCount;
+    }
+
+    return divs;
   };
 
   render() {
     return (
       <div className={styles.container}>
         <div className={styles.bar} />
-        {this.selectKgPlates()}
+        {this.renderKgPlates()}
         <div className={styles.collar} />
         <div className={styles.bar} />
 
