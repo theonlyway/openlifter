@@ -43,12 +43,6 @@ const keyToCategory = (key: string): Category => {
 const sortByPlaceInCategory = (entries: Array<Entry>, category: Category): Array<Entry> => {
   const event = category.event;
 
-  // Make a map from Entry to initial index.
-  let indexMap = new Map();
-  for (let i = 0; i < entries.length; i++) {
-    indexMap.set(entries[i], i);
-  }
-
   // Clone the entries array to avoid modifying the original.
   let clonedEntries = entries.slice();
 
@@ -126,7 +120,7 @@ export const sortCategoryResults = (results: Array<CategoryResults>) => {
 // Generates objects representing every present category of competition,
 // with each entry given a Place designation.
 //
-// The returned objects are not in any particular sorted order.
+// The returned objects are sorted in intended order of presentation.
 export const getAllResults = (
   entries: Array<Entry>,
   weightClassesKgMen: Array<number>,

@@ -9,6 +9,7 @@ import { connect } from "react-redux";
 import { FormControl, Panel } from "react-bootstrap";
 
 import ByDivision from "./ByDivision";
+import ByPoints from "./ByPoints";
 
 import styles from "./ResultsView.module.scss";
 
@@ -19,7 +20,8 @@ type Props = {
 };
 
 type State = {
-  day: number | "all"
+  day: number | "all",
+  by: "Division" | "Points"
 };
 
 class ResultsView extends React.Component<Props, State> {
@@ -27,9 +29,11 @@ class ResultsView extends React.Component<Props, State> {
     super(props);
 
     this.handleDayChange = this.handleDayChange.bind(this);
+    this.handleByChange = this.handleByChange.bind(this);
 
     this.state = {
-      day: "all"
+      day: "all",
+      by: "Points"
     };
   }
 
@@ -56,7 +60,16 @@ class ResultsView extends React.Component<Props, State> {
     }
   };
 
+  handleByChange = event => {
+    const by = event.target.value;
+    if (this.state.by !== by) {
+      this.setState({ by: by });
+    }
+  };
+
   render() {
+    const results = this.state.by === "Division" ? <ByDivision /> : <ByPoints />;
+
     return (
       <div style={marginStyle}>
         <Panel bsStyle="info">
@@ -70,10 +83,20 @@ class ResultsView extends React.Component<Props, State> {
             >
               {this.makeDayOptions()}
             </FormControl>
+
+            <FormControl
+              defaultValue={this.state.by}
+              componentClass="select"
+              onChange={this.handleByChange}
+              className={styles.dropdown}
+            >
+              <option value="Division">By Division</option>
+              <option value="Points">By Points</option>
+            </FormControl>
           </Panel.Body>
         </Panel>
 
-        <ByDivision />
+        {results}
       </div>
     );
   }

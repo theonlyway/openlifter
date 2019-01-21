@@ -4,6 +4,8 @@
 // Defines the calculation of Wilks points.
 // Taken from https://gitlab.com/openpowerlifting/ipf-points-calculator.
 
+import type { Sex } from "../reducers/registrationReducer";
+
 function wilksPoly(a: number, b: number, c: number, d: number, e: number, f: number, x: number) {
   var x2 = x * x,
     x3 = x2 * x,
@@ -21,3 +23,8 @@ export function wilksWomen(bw: number): number {
   bw = Math.min(Math.max(bw, 26.51), 154.53);
   return wilksPoly(594.31747775582, -27.23842536447, 0.82112226871, -0.00930733913, 0.00004731582, -0.00000009054, bw);
 }
+
+export const wilks = (sex: Sex, bodyweightKg: number, totalKg: number): number => {
+  if (sex === "M") return wilksMen(bodyweightKg) * totalKg;
+  return wilksWomen(bodyweightKg) * totalKg;
+};
