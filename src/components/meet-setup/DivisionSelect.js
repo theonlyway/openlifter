@@ -95,7 +95,7 @@ class DivisionSelect extends React.Component {
     const { inputValue, value } = this.state;
     return (
       <FormGroup>
-        <ControlLabel>Divisions</ControlLabel>
+        <ControlLabel>Divisions (prefer short codes!)</ControlLabel>
         <CreatableSelect
           components={components}
           inputValue={inputValue}
