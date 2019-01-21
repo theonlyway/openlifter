@@ -34,13 +34,17 @@ table.liftingtable {
   border-radius: $border-rounding;
 }
 
-.liftingtable td.nameCell {
+// A cell helper to prevent text wrapping.
+.liftingtable td.textCell {
   max-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
+.liftingtable th.divisionCell {
+  width: 160px; // Enough to fit "M_OCR_AAPF" with our given font-size.
+}
 .liftingtable th.smallCell {
   width: 72px;
 }

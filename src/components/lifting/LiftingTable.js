@@ -45,6 +45,7 @@ type ColumnType =
   | "Name"
   | "Bodyweight"
   | "WeightClass"
+  | "Division"
   | "Equipment"
   | "Age"
   | "S1" | "S2" | "S3" | "S4" // eslint-disable-line
@@ -162,7 +163,7 @@ class LiftingTable extends React.Component<Props> {
     switch (columnType) {
       case "Name":
         return (
-          <td key={columnType} className={styles.nameCell}>
+          <td key={columnType} className={styles.textCell}>
             {entry.name}
           </td>
         );
@@ -173,6 +174,14 @@ class LiftingTable extends React.Component<Props> {
           entry.sex === "M" ? this.props.meet.weightClassesKgMen : this.props.meet.weightClassesKgWomen;
         const weightClass = getWeightClassStr(classesForSex, entry.bodyweightKg);
         return <td key={columnType}>{weightClass}</td>;
+      }
+      case "Division": {
+        const firstDiv = entry.divisions.length > 0 ? entry.divisions[0] : null;
+        return (
+          <td key={columnType} className={styles.textCell}>
+            {firstDiv}
+          </td>
+        );
       }
       case "Equipment": {
         // Use shorter names to actually fit in the table.
@@ -286,6 +295,8 @@ class LiftingTable extends React.Component<Props> {
         return "Bwt";
       case "WeightClass":
         return "Class";
+      case "Division":
+        return "Division";
       case "Equipment":
         return "Equip";
       case "Age":
@@ -336,7 +347,7 @@ class LiftingTable extends React.Component<Props> {
 
   render() {
     // Select the columns for display.
-    let columns: Array<ColumnType> = ["Name", "Bodyweight", "WeightClass", "Age"];
+    let columns: Array<ColumnType> = ["Name", "Division", "Bodyweight", "WeightClass"];
 
     // Select lift columns based off the current lift.
     if (this.props.lifting.lift === "S") {
@@ -369,7 +380,10 @@ class LiftingTable extends React.Component<Props> {
     let headers = [];
     for (let i = 0; i < columns.length; i++) {
       const column = columns[i];
-      const className = column === "Name" ? styles.nameCell : styles.smallCell;
+      let className = styles.smallCell;
+      if (column === "Name") className = styles.nameCell;
+      else if (column === "Division") className = styles.divisionCell;
+
       headers.push(
         <th key={column} className={className}>
           {this.getColumnHeaderString(column)}
