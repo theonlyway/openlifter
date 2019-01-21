@@ -30,6 +30,7 @@ class AttemptInput extends React.Component<Props, State> {
   constructor(props) {
     super(props);
 
+    this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
 
@@ -53,6 +54,12 @@ class AttemptInput extends React.Component<Props, State> {
     if (asNumber % 2.5 !== 0) return "warning";
     return null;
   }
+
+  handleKeyDown = event => {
+    if (event.key === "Enter") {
+      this.handleBlur(event);
+    }
+  };
 
   handleChange = event => {
     const value = event.target.value;
@@ -79,6 +86,7 @@ class AttemptInput extends React.Component<Props, State> {
           type="text"
           placeholder=""
           value={this.state.value}
+          onKeyDown={this.handleKeyDown}
           onChange={this.handleChange}
           onBlur={this.handleBlur}
           className={styles.attemptInput}
