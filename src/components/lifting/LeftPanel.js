@@ -57,8 +57,7 @@ class LeftPanel extends React.Component {
         <div className={styles.activeCard}>
           <div className={styles.loadingBar}>
             <div className={styles.attemptText}>
-              {this.props.lifting.lift}
-              {this.props.attemptOneIndexed}: {weightKgText}kg / {weightLbsText}lb
+              {weightKgText}kg / {weightLbsText}lb
             </div>
             <div className={styles.barArea}>
               <BarLoad weightKg={current.weightKg} rackInfo={current.rackInfo} />
