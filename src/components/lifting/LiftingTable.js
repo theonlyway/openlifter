@@ -319,7 +319,7 @@ class LiftingTable extends React.Component<Props> {
       case "BestBench":
         return "Bench";
       case "ProjectedTotal":
-        return "Proj.T";
+        return "Total";
       case "ProjectedPoints":
         return "Points";
       case "FinalTotal":
