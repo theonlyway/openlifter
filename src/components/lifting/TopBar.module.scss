@@ -17,9 +17,14 @@ div.topBar {
   background-color: $color-dark;
   color: $color-light;
 
+  font-size: 40px;
   line-height: 1;
   border-radius: $border-rounding;
   box-shadow: 0 0 20px 0 hsla(0, 0%, 64%, .45);
+
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 // The call-out for the lifter name.
