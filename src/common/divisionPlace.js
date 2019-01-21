@@ -73,6 +73,56 @@ const sortByPlaceInCategory = (entries: Array<Entry>, category: Category): Array
   return clonedEntries;
 };
 
+// Determines the sort order by Event.
+const getEventSortOrder = (ev: Event): number => {
+  return ["SBD", "BD", "SB", "SD", "S", "B", "D"].indexOf(ev);
+};
+
+// Determines the sort order by Equipment.
+const getEquipmentSortOrder = (eq: Equipment): number => {
+  return ["Raw", "Wraps", "Single-ply", "Multi-ply"].indexOf(eq);
+};
+
+// Determines the sort order by Sex.
+const getSexSortOrder = (sex: Sex): number => {
+  return sex === "M" ? 0 : 1;
+};
+
+// Determines the sort (and therefore presentation) order for the Category Results.
+// The input array is sorted in-place; nothing is returned.
+export const sortCategoryResults = (results: Array<CategoryResults>) => {
+  results.sort((a, b) => {
+    const catA = a.category;
+    const catB = b.category;
+
+    // First, sort by Event.
+    const aEvent = getEventSortOrder(catA.event);
+    const bEvent = getEventSortOrder(catB.event);
+    if (aEvent !== bEvent) return aEvent - bEvent;
+
+    // Next, sort by Equipment.
+    const aEquipment = getEquipmentSortOrder(catA.equipment);
+    const bEquipment = getEquipmentSortOrder(catB.equipment);
+    if (aEquipment !== bEquipment) return aEquipment - bEquipment;
+
+    // Next, sort by Sex.
+    const aSex = getSexSortOrder(catA.sex);
+    const bSex = getSexSortOrder(catB.sex);
+    if (aSex !== bSex) return aSex - bSex;
+
+    // Next, sort by WeightClass.
+    // parseInt() ignores the "+" at the end of SHW class strings.
+    const aWeightClass = parseInt(catA.weightClassStr);
+    const bWeightClass = parseInt(catB.weightClassStr);
+    if (aWeightClass !== bWeightClass) return aWeightClass - bWeightClass;
+
+    // Finally, sort by Division as string.
+    if (catA.division < catB.division) return -1;
+    if (catA.division > catB.division) return 1;
+    return 0; // Shouldn't happen!
+  });
+};
+
 // Generates objects representing every present category of competition,
 // with each entry given a Place designation.
 //
@@ -118,5 +168,6 @@ export const getAllResults = (
     results.push({ category, orderedEntries });
   }
 
+  sortCategoryResults(results);
   return results;
 };
