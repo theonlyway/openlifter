@@ -48,14 +48,20 @@ div.container {
   font-weight: bold;
 }
 
-// Rack information text.
-div.rackInfo {
+// Rack information text, but editable.
+input.rackInfo {
   color: $color-dark;
   position: absolute;
   right: 0;
   bottom: 0;
 
   font-size: 25px;
+  text-align: right;
+
+  // Undo decoration.
+  border: none;
+  background-color: inherit;
+  padding: 0px;
 }
 
 // Styling for the bar.

@@ -9,21 +9,55 @@ import { connect } from "react-redux";
 
 import { Lift } from "../../reducers/liftingReducer";
 
+import { updateRegistration } from "../../actions/registrationActions";
+
 import styles from "./BarLoad.module.scss";
 
 type Props = {
   // ownProps.
   weightKg: number,
   rackInfo: string,
+  entryId: ?number,
 
   // Redux props.
   inKg: boolean,
   barAndCollarsWeightKg: number,
   platesOnSide: Array<Object>, // TODO: Use type.
-  lift: Lift
+  lift: Lift,
+
+  // Actions.
+  updateRegistration: (entryId: number, obj: Object) => any
 };
 
+// Text that gets prepended to the Rack Info display.
+// We need to make sure that we don't accidentally commit this text
+// to the backing store if the score table edits it.
+const rackInfoStart = "Rack ";
+
 class Loading extends React.Component<Props> {
+  constructor(props) {
+    super(props);
+    this.handleRackInfoChange = this.handleRackInfoChange.bind(this);
+  }
+
+  // Unfortunately we update the Redux store on every change, because we can't
+  // guarantee a blur event.
+  handleRackInfoChange = event => {
+    const entryId = this.props.entryId;
+    if (entryId === null || entryId === undefined) return; // No current loading.
+
+    let value = event.target.value;
+    if (value.startsWith(rackInfoStart)) {
+      value = value.replace(rackInfoStart, "");
+    }
+
+    if (this.props.lift === "S") {
+      this.props.updateRegistration(entryId, { squatRackInfo: value });
+    } else if (this.props.lift === "B") {
+      this.props.updateRegistration(entryId, { benchRackInfo: value });
+    }
+  };
+
   weightKgToStyle = (weightKg: number): any => {
     switch (weightKg) {
       case 50:
@@ -159,7 +193,18 @@ class Loading extends React.Component<Props> {
     // Only show rack info for lifts that use a rack.
     let rackInfo = null;
     if (this.props.lift !== "D") {
-      rackInfo = <div className={styles.rackInfo}>Rack {this.props.rackInfo}</div>;
+      // The "key" prop is necessary for React to decide to actually update it.
+      // onChange is used instead of onBlur because clicking "Good Lift" doesn't
+      // cause a blur event.
+      rackInfo = (
+        <input
+          key={this.props.entryId}
+          type="text"
+          onChange={this.handleRackInfoChange}
+          className={styles.rackInfo}
+          defaultValue={rackInfoStart + this.props.rackInfo}
+        />
+      );
     }
 
     return (
@@ -183,7 +228,13 @@ const mapStateToProps = state => {
   };
 };
 
+const mapDispatchToProps = dispatch => {
+  return {
+    updateRegistration: (entryId, obj) => dispatch(updateRegistration(entryId, obj))
+  };
+};
+
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(Loading);
