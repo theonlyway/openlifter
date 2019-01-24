@@ -16,6 +16,10 @@ import {
   getFinalEventTotalKg
 } from "../../reducers/registrationReducer";
 
+import { glossbrenner } from "../../common/points-glossbrenner";
+import { wilks } from "../../common/points-wilks";
+import { ipfpoints } from "../../common/points-ipf";
+
 import type { Category, CategoryResults } from "../../common/divisionPlace";
 import type { Entry } from "../../reducers/registrationReducer";
 
@@ -39,6 +43,26 @@ class ByDivision extends React.Component<Props> {
     // The place proceeds in order by key, except for DQ entries.
     const place = totalKg === 0 ? "DQ" : key + 1;
 
+    // TODO: Share this code with ByPoints.
+    let points = 0;
+    switch (this.props.formula) {
+      case "Glossbrenner":
+        points = glossbrenner(entry.sex, entry.bodyweightKg, totalKg).toFixed(2);
+        break;
+      case "Wilks":
+        points = wilks(entry.sex, entry.bodyweightKg, totalKg).toFixed(2);
+        break;
+      case "IPF Points":
+        points = ipfpoints(totalKg, entry.bodyweightKg, entry.sex, category.equipment, category.event).toFixed(2);
+        break;
+      default:
+        break;
+    }
+
+    let pointsStr = "";
+    if (totalKg !== 0 && points === 0) pointsStr = "N/A";
+    if (totalKg !== 0 && points !== 0) pointsStr = points;
+
     return (
       <tr key={key}>
         <td>{place}</td>
@@ -50,7 +74,7 @@ class ByDivision extends React.Component<Props> {
         <td>{benchKg === 0 ? "" : benchKg}</td>
         <td>{deadliftKg === 0 ? "" : deadliftKg}</td>
         <td>{totalKg === 0 ? "" : totalKg}</td>
-        <td>TODO</td>
+        <td>{pointsStr}</td>
       </tr>
     );
   };
