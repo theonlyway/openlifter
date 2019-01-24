@@ -7,9 +7,9 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { Lift } from "../../reducers/liftingReducer";
-
 import { updateRegistration } from "../../actions/registrationActions";
+
+import type { Lift } from "../../reducers/liftingReducer";
 
 import styles from "./BarLoad.module.scss";
 

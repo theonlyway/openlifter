@@ -100,7 +100,7 @@ const makeNewEntry = (id: number): Entry => {
   };
 };
 
-export type Registration = {
+export type RegistrationState = {
   nextEntryId: number,
   entries: Array<Entry>,
   lookup: {
@@ -108,7 +108,7 @@ export type Registration = {
   }
 };
 
-const initialState: Registration = {
+const initialState: RegistrationState = {
   // The next unique ID to assign.
   //
   // This is stored in global state to handle the case of deleting registration
@@ -360,7 +360,7 @@ export const orderEntriesByAttempt = (
   });
 };
 
-export default (state: Registration = initialState, action: Object): Registration => {
+export default (state: RegistrationState = initialState, action: Object): RegistrationState => {
   switch (action.type) {
     case "NEW_REGISTRATION": {
       // The object provides optional properties that can overwrite the default.

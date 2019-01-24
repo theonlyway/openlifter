@@ -6,7 +6,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import type { Entry, Registration } from "../../reducers/registrationReducer";
+import type { Entry, RegistrationState } from "../../reducers/registrationReducer";
 
 import styles from "./TopBar.module.scss";
 
@@ -17,7 +17,7 @@ type Props = {
   currentEntryId: ?number,
 
   // Props from Redux state.
-  registration: Registration
+  registration: RegistrationState
 };
 
 class LiftingHeader extends React.Component<Props> {

@@ -1,4 +1,5 @@
 // vim: set ts=2 sts=2 sw=2 et:
+// @flow
 //
 // Lifting state only tracks manual overrides.
 //
@@ -10,7 +11,18 @@
 // Please do not attempt to store meet state in the Redux store!
 //
 
-const initialState = {
+export type Lift = "S" | "B" | "D";
+
+export type LiftingState = {
+  day: number,
+  platform: number,
+  flight: string,
+  lift: Lift,
+  overrideAttempt: null | number,
+  overrideEntryId: null | number
+};
+
+const initialState: LiftingState = {
   // Specifies the initial settings for the control widgets on the lifting page.
   // The intention is that the score table sets these manually.
   day: 1,
@@ -25,7 +37,7 @@ const initialState = {
   overrideEntryId: null // Allows selecting a lifter, even if they've already gone.
 };
 
-export default (state = initialState, action) => {
+export default (state: LiftingState = initialState, action: any): LiftingState => {
   switch (action.type) {
     case "MARK_LIFT": {
       // Unset any overrides, returning to normal lifting flow.

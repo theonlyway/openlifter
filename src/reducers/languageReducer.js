@@ -3,7 +3,7 @@
 
 import type { ChangeLanguageAction } from "../actions/languageActions";
 
-type State = string;
+export type LanguageState = string;
 
 type OverwriteStoreAction = {
   +type: "OVERWRITE_STORE",
@@ -14,7 +14,7 @@ type OverwriteStoreAction = {
 
 type Action = ChangeLanguageAction | OverwriteStoreAction;
 
-export default (state: State = "en", action: Action): State => {
+export default (state: LanguageState = "en", action: Action): LanguageState => {
   switch (action.type) {
     case "CHANGE_LANGUAGE":
       return action.language;

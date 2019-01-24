@@ -1,12 +1,18 @@
 // vim: set ts=2 sts=2 sw=2 et:
+// @flow
 
 const defaultPlatformsOnDay = 1;
 
 const defaultBarAndCollarsWeightKg = 25; // Assuming metal 2.5kg collars.
 const defaultBarAndCollarsWeightLbs = 45; // Assuming plastic collars.
 
+export type PlatesOnSide = {
+  weightKg: number,
+  amount: number
+};
+
 // Default kg plates, allowing for increments of 0.5kg.
-const defaultPlatesOnSideKg = [
+const defaultPlatesOnSideKg: Array<PlatesOnSide> = [
   { weightKg: 50, amount: 0 },
   { weightKg: 25, amount: 8 },
   { weightKg: 20, amount: 1 },
@@ -24,7 +30,7 @@ const defaultPlatesOnSideKg = [
 const kg = 2.20462262;
 
 // Default lbs plates, allowing for increments of 1lb.
-const defaultPlatesOnSideLbs = [
+const defaultPlatesOnSideLbs: Array<PlatesOnSide> = [
   { weightKg: 45 / kg, amount: 8 },
   { weightKg: 35 / kg, amount: 0 },
   { weightKg: 25 / kg, amount: 1 },
@@ -35,7 +41,28 @@ const defaultPlatesOnSideLbs = [
   { weightKg: 0.5 / kg, amount: 2 }
 ];
 
-const initialState = {
+export type Formula = "Glossbrenner" | "IPF Points" | "Wilks";
+
+export type MeetState = {
+  name: string,
+  formula: Formula,
+  federation: string,
+  date: string,
+  lengthDays: number,
+  platformsOnDays: Array<number>,
+  divisions: Array<string>,
+  weightClassesKgMen: Array<number>,
+  weightClassesKgWomen: Array<number>,
+  inKg: boolean,
+  areWrapsRaw: boolean,
+  country: string,
+  state: string,
+  city: string,
+  barAndCollarsWeightKg: number,
+  platesOnSide: Array<PlatesOnSide>
+};
+
+const initialState: MeetState = {
   name: "",
   formula: "Wilks",
   federation: "",
@@ -60,7 +87,7 @@ function getDateString(dateTime) {
 
 // Given a sorted list of weight classes (in kg) and a bodyweight (in kg),
 // return a string describing the weight class.
-export const getWeightClassStr = (classes, bodyweightKg) => {
+export const getWeightClassStr = (classes: Array<number>, bodyweightKg: number) => {
   if (classes.length === 0) return "0+";
 
   for (let i = 0; i < classes.length; i++) {
@@ -71,7 +98,7 @@ export const getWeightClassStr = (classes, bodyweightKg) => {
   return String(classes[classes.length - 1]) + "+";
 };
 
-export default (state = initialState, action) => {
+export default (state: MeetState = initialState, action: any): MeetState => {
   switch (action.type) {
     case "SET_MEET_NAME":
       return { ...state, name: action.name };
@@ -94,7 +121,7 @@ export default (state = initialState, action) => {
       if (numDays >= state.platformsOnDays.length) {
         const diff = numDays - state.platformsOnDays.length;
 
-        let newPlatformsOnDays = state.platformsOnDays.slice();
+        let newPlatformsOnDays: Array<number> = state.platformsOnDays.slice();
         for (let i = 0; i < diff; i++) {
           newPlatformsOnDays.push(defaultPlatformsOnDay);
         }
@@ -108,7 +135,7 @@ export default (state = initialState, action) => {
       const day = Number(action.day);
       const count = Number(action.count);
 
-      let newPlatformsOnDays = state.platformsOnDays.slice();
+      let newPlatformsOnDays: Array<number> = state.platformsOnDays.slice();
       newPlatformsOnDays[day - 1] = count;
       return { ...state, platformsOnDays: newPlatformsOnDays };
     }
@@ -153,7 +180,7 @@ export default (state = initialState, action) => {
       const index = state.platesOnSide.findIndex(p => p.weightKg === weightKg);
 
       // Clone the array.
-      let newPlates = state.platesOnSide.slice();
+      let newPlates: Array<PlatesOnSide> = state.platesOnSide.slice();
 
       // Replace with a new object in the new array.
       newPlates[index] = { weightKg: weightKg, amount: amount };

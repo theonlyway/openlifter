@@ -9,12 +9,12 @@ import { connect } from "react-redux";
 import { FormControl, FormGroup } from "react-bootstrap";
 
 import { updateRegistration } from "../../actions/registrationActions";
-import type { Registration } from "../../reducers/registrationReducer";
+import type { RegistrationState } from "../../reducers/registrationReducer";
 
 type Props = {
   id: number,
   age: number,
-  updateRegistration: (number, any) => Registration
+  updateRegistration: (number, any) => RegistrationState
 };
 
 type State = {

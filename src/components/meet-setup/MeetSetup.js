@@ -19,6 +19,8 @@ import AreWrapsRaw from "./AreWrapsRaw";
 import BarAndCollarsWeightKg from "./BarAndCollarsWeightKg";
 import Plates from "./Plates";
 
+import type { GlobalState } from "../../reducers/rootReducer";
+
 type Props = {
   inKg: boolean
 };
@@ -74,7 +76,7 @@ class MeetSetup extends React.Component<Props> {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: GlobalState): Props => ({
   inKg: state.meet.inKg
 });
 
