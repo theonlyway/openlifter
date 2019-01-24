@@ -101,10 +101,10 @@ const makeNewEntry = (id: number): Entry => {
 };
 
 export type RegistrationState = {
-  nextEntryId: number,
-  entries: Array<Entry>,
-  lookup: {
-    [id: number]: number
+  +nextEntryId: number,
+  +entries: Array<Entry>,
+  +lookup: {
+    +[id: number]: number
   }
 };
 

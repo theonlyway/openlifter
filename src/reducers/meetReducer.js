@@ -44,22 +44,22 @@ const defaultPlatesOnSideLbs: Array<PlatesOnSide> = [
 export type Formula = "Glossbrenner" | "IPF Points" | "Wilks";
 
 export type MeetState = {
-  name: string,
-  formula: Formula,
-  federation: string,
-  date: string,
-  lengthDays: number,
-  platformsOnDays: Array<number>,
-  divisions: Array<string>,
-  weightClassesKgMen: Array<number>,
-  weightClassesKgWomen: Array<number>,
-  inKg: boolean,
-  areWrapsRaw: boolean,
-  country: string,
-  state: string,
-  city: string,
-  barAndCollarsWeightKg: number,
-  platesOnSide: Array<PlatesOnSide>
+  +name: string,
+  +formula: Formula,
+  +federation: string,
+  +date: string,
+  +lengthDays: number,
+  +platformsOnDays: Array<number>,
+  +divisions: Array<string>,
+  +weightClassesKgMen: Array<number>,
+  +weightClassesKgWomen: Array<number>,
+  +inKg: boolean,
+  +areWrapsRaw: boolean,
+  +country: string,
+  +state: string,
+  +city: string,
+  +barAndCollarsWeightKg: number,
+  +platesOnSide: Array<PlatesOnSide>
 };
 
 const initialState: MeetState = {

@@ -14,12 +14,12 @@
 export type Lift = "S" | "B" | "D";
 
 export type LiftingState = {
-  day: number,
-  platform: number,
-  flight: string,
-  lift: Lift,
-  overrideAttempt: null | number,
-  overrideEntryId: null | number
+  +day: number,
+  +platform: number,
+  +flight: string,
+  +lift: Lift,
+  +overrideAttempt: null | number,
+  +overrideEntryId: null | number
 };
 
 const initialState: LiftingState = {
