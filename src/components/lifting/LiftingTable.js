@@ -8,7 +8,7 @@ import { connect } from "react-redux";
 
 import AttemptInput from "./AttemptInput";
 
-import { getWeightClassStr } from "../../reducers/meetReducer.js";
+import { getWeightClassStr } from "../../reducers/meetReducer";
 import {
   getProjectedTotalKg,
   getFinalTotalKg,
@@ -21,6 +21,9 @@ import {
   liftToAttemptFieldName,
   liftToStatusFieldName
 } from "../../reducers/registrationReducer";
+
+import { getAllResults } from "../../common/divisionPlace";
+import type { CategoryResults } from "../../common/divisionPlace";
 
 import styles from "./LiftingTable.module.scss";
 
@@ -159,7 +162,7 @@ class LiftingTable extends React.Component<Props> {
     return <td key={columnType}>{kgStr}</td>;
   }
 
-  renderCell = (entry: Object, columnType: ColumnType) => {
+  renderCell = (entry: Object, columnType: ColumnType, categoryResults: Array<CategoryResults>) => {
     switch (columnType) {
       case "Name":
         return (
@@ -176,6 +179,8 @@ class LiftingTable extends React.Component<Props> {
         return <td key={columnType}>{weightClass}</td>;
       }
       case "Division": {
+        // Just show the first division in the list, if any.
+        // Changing this requires coordination with the "Place" column code.
         const firstDiv = entry.divisions.length > 0 ? entry.divisions[0] : null;
         return (
           <td key={columnType} className={styles.textCell}>
@@ -253,7 +258,34 @@ class LiftingTable extends React.Component<Props> {
         return <td key={columnType}>{points !== 0 ? points.toFixed(2) : null}</td>;
       }
       case "Place": {
-        return <td key={columnType}>DQ</td>;
+        // If the lifter has no total, then don't report a place.
+        if (getFinalTotalKg(entry) === 0) return <td key={columnType} />;
+
+        // Just show the Place from the first division in the list.
+        // This is the same division as shown in the "Division" column.
+        if (entry.divisions.length === 0) return <td key={columnType} />;
+        const firstDiv = entry.divisions[0];
+
+        // Look at all the categories, and find the first one including this division
+        // and entry. Because the categories are in sorted order, SBD takes priority
+        // over B by default.
+        for (let i = 0; i < categoryResults.length; i++) {
+          const result = categoryResults[i];
+          if (result.category.division !== firstDiv) {
+            continue;
+          }
+
+          const catEntries = result.orderedEntries;
+          for (let j = 0; j < catEntries.length; j++) {
+            const catEntry = catEntries[j];
+
+            if (catEntry.id === entry.id) {
+              return <td key={columnType}>{j + 1}</td>;
+            }
+          }
+        }
+
+        return <td key={columnType} />; // Shouldn't happen.
       }
       default:
         (columnType: empty); // eslint-disable-line
@@ -261,7 +293,7 @@ class LiftingTable extends React.Component<Props> {
     }
   };
 
-  renderRows = (columns: Array<ColumnType>) => {
+  renderRows = (columns: Array<ColumnType>, categoryResults: Array<CategoryResults>) => {
     const orderedEntries = this.props.orderedEntries;
     const currentEntryId = this.props.currentEntryId;
 
@@ -273,7 +305,7 @@ class LiftingTable extends React.Component<Props> {
       let cells = [];
       for (let col = 0; col < columns.length; col++) {
         const columnType = columns[col];
-        cells.push(this.renderCell(entry, columnType));
+        cells.push(this.renderCell(entry, columnType, categoryResults));
       }
 
       const isCurrent = entry.id === currentEntryId;
@@ -391,12 +423,19 @@ class LiftingTable extends React.Component<Props> {
       );
     }
 
+    // Calculate the Division placings for each of the lifters.
+    const categoryResults = getAllResults(
+      this.props.orderedEntries,
+      this.props.meet.weightClassesKgMen,
+      this.props.meet.weightClassesKgWomen
+    );
+
     return (
       <table className={styles.liftingtable}>
         <thead>
           <tr>{headers}</tr>
         </thead>
-        <tbody>{this.renderRows(columns)}</tbody>
+        <tbody>{this.renderRows(columns, categoryResults)}</tbody>
       </table>
     );
   }
