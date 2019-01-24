@@ -10,6 +10,9 @@ import PropTypes from "prop-types";
 import { Button, FormControl, Panel } from "react-bootstrap";
 
 import OneFlightOrder from "./OneFlightOrder";
+import OneCategory from "./OneCategory";
+
+import { getAllResults } from "../../common/divisionPlace";
 
 const marginStyle = { margin: "0 20px 0 20px" };
 
@@ -99,6 +102,19 @@ class FlightOrderView extends React.Component {
       flightOrders.push(<OneFlightOrder key={id} flight={flight} entriesInFlight={entriesInFlight} />);
     }
 
+    // Look through the entries to discover what divisions exist.
+    const categoryResults = getAllResults(
+      shownEntries,
+      this.props.meet.weightClassesKgMen,
+      this.props.meet.weightClassesKgWomen
+    );
+
+    let categories = [];
+    for (let i = 0; i < categoryResults.length; i++) {
+      const id = "" + this.state.day + "-" + this.state.platform + "-" + i;
+      categories.push(<OneCategory key={id} platform={this.state.platform} categoryResults={categoryResults[i]} />);
+    }
+
     return (
       <div style={marginStyle}>
         <Panel bsStyle="info">
@@ -128,6 +144,7 @@ class FlightOrderView extends React.Component {
         </Panel>
 
         {flightOrders}
+        {categories}
       </div>
     );
   }

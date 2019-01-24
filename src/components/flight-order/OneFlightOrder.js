@@ -10,7 +10,7 @@ import { Panel, Table } from "react-bootstrap";
 
 import { liftToAttemptFieldName, orderEntriesByAttempt } from "../../reducers/registrationReducer.js";
 
-class FlightOrderView extends React.Component {
+class OneFlightOrder extends React.Component {
   getOrderBy(lift) {
     const fieldKg = liftToAttemptFieldName(lift);
 
@@ -99,7 +99,7 @@ class FlightOrderView extends React.Component {
 
     return (
       <Panel>
-        <Panel.Heading>Flight {this.props.flight}</Panel.Heading>
+        <Panel.Heading>Flight {this.props.flight} Lifting Order</Panel.Heading>
         <Panel.Body>
           <Table striped hover>
             <thead>
@@ -113,7 +113,7 @@ class FlightOrderView extends React.Component {
   }
 }
 
-FlightOrderView.propTypes = {
+OneFlightOrder.propTypes = {
   // ownProps.
   flight: PropTypes.string.isRequired,
   entriesInFlight: PropTypes.array.isRequired
@@ -122,4 +122,4 @@ FlightOrderView.propTypes = {
 export default connect(
   null,
   null
-)(FlightOrderView);
+)(OneFlightOrder);
