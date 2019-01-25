@@ -17,11 +17,11 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-export type ChangeLanguageAction = { +type: "CHANGE_LANGUAGE", +language: string };
+import type { ChangeLanguageAction } from "../types/actionTypes";
 
-export const changeLanguage = (lang: string): ChangeLanguageAction => {
+export const changeLanguage = (language: string): ChangeLanguageAction => {
   return {
     type: "CHANGE_LANGUAGE",
-    language: lang
+    language
   };
 };

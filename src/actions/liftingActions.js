@@ -1,4 +1,5 @@
 // vim: set ts=2 sts=2 sw=2 et:
+// @flow
 //
 // This file is part of OpenLifter, simple Powerlifting meet software.
 // Copyright (C) 2019 The OpenPowerlifting Project.
@@ -16,8 +17,22 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import type {
+  EnterAttemptAction,
+  MarkLiftAction,
+  SetLiftingGroupAction,
+  OverrideAttemptAction,
+  OverrideEntryIdAction
+} from "../types/actionTypes";
+import type { Lift } from "../types/dataTypes";
+
 // Sets a weightKg that doesn't have a good/failed value, for entering in attempts.
-export const enterAttempt = (entryId, lift, attemptOneIndexed, weightKg) => {
+export const enterAttempt = (
+  entryId: number,
+  lift: Lift,
+  attemptOneIndexed: number,
+  weightKg: number
+): EnterAttemptAction => {
   return {
     type: "ENTER_ATTEMPT",
     entryId: entryId,
@@ -33,7 +48,7 @@ export const enterAttempt = (entryId, lift, attemptOneIndexed, weightKg) => {
 // lift is "S", "B", or "D".
 // attempt is 1,2,3, etc., up to MAX_ATTEMPTS.
 // success is a bool for whether to mark the lift as a success or as a failure.
-export const markLift = (entryId, lift, attemptOneIndexed, success) => {
+export const markLift = (entryId: number, lift: Lift, attemptOneIndexed: number, success: boolean): MarkLiftAction => {
   return {
     type: "MARK_LIFT",
     entryId: entryId,
@@ -45,7 +60,7 @@ export const markLift = (entryId, lift, attemptOneIndexed, success) => {
 
 // Sets the current group of lifters.
 // This is always manually set by the score table.
-export const setLiftingGroup = (day, platform, flight, lift) => {
+export const setLiftingGroup = (day: number, platform: number, flight: string, lift: Lift): SetLiftingGroupAction => {
   return {
     type: "SET_LIFTING_GROUP",
     day: day,
@@ -57,7 +72,7 @@ export const setLiftingGroup = (day, platform, flight, lift) => {
 
 // Overrides the calculated meet progress logic by forcing display of an attempt,
 // even if it has already been marked "good lift" or "no lift".
-export const overrideAttempt = attempt => {
+export const overrideAttempt = (attempt: number): OverrideAttemptAction => {
   return {
     type: "OVERRIDE_ATTEMPT",
     attempt: attempt
@@ -66,7 +81,7 @@ export const overrideAttempt = attempt => {
 
 // Overrides the calculated meet progress logic by forcing display of a specific lifter,
 // even if they have already had their attempt entered.
-export const overrideEntryId = entryId => {
+export const overrideEntryId = (entryId: number): OverrideEntryIdAction => {
   return {
     type: "OVERRIDE_ENTRY_ID",
     entryId: entryId

@@ -1,4 +1,5 @@
 // vim: set ts=2 sts=2 sw=2 et:
+// @flow
 //
 // This file is part of OpenLifter, simple Powerlifting meet software.
 // Copyright (C) 2019 The OpenPowerlifting Project.
@@ -16,49 +17,68 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-export const setMeetName = name => {
+import type {
+  SetMeetNameAction,
+  SetFormulaAction,
+  SetFederationAction,
+  SetDivisionsAction,
+  SetMeetDateAction,
+  SetLengthDaysAction,
+  SetPlatformsOnDaysAction,
+  SetInKgAction,
+  SetWeightClassesAction,
+  SetAreWrapsRawAction,
+  SetMeetCountryAction,
+  SetMeetStateAction,
+  SetMeetCityAction,
+  SetBarAndCollarsWeightKgAction,
+  SetPlatesOnSideAction
+} from "../types/actionTypes";
+import type { Formula, Sex } from "../types/dataTypes";
+
+export const setMeetName = (name: string): SetMeetNameAction => {
   return {
     type: "SET_MEET_NAME",
     name
   };
 };
 
-export const setFormula = formula => {
+export const setFormula = (formula: Formula): SetFormulaAction => {
   return {
     type: "SET_FORMULA",
     formula
   };
 };
 
-export const setFederation = federation => {
+export const setFederation = (federation: string): SetFederationAction => {
   return {
     type: "SET_FEDERATION",
     federation
   };
 };
 
-export const setDivisions = divisions => {
+export const setDivisions = (divisions: Array<string>): SetDivisionsAction => {
   return {
     type: "SET_DIVISIONS",
     divisions
   };
 };
 
-export const setMeetDate = date => {
+export const setMeetDate = (date: Date): SetMeetDateAction => {
   return {
     type: "SET_MEET_DATE",
     date
   };
 };
 
-export const setLengthDays = length => {
+export const setLengthDays = (length: number): SetLengthDaysAction => {
   return {
     type: "SET_LENGTH_DAYS",
     length
   };
 };
 
-export const setPlatformsOnDays = (day, count) => {
+export const setPlatformsOnDays = (day: number, count: number): SetPlatformsOnDaysAction => {
   return {
     type: "SET_PLATFORM_COUNT",
     day: day,
@@ -66,14 +86,14 @@ export const setPlatformsOnDays = (day, count) => {
   };
 };
 
-export const setInKg = inKg => {
+export const setInKg = (inKg: boolean): SetInKgAction => {
   return {
     type: "SET_IN_KG",
     inKg
   };
 };
 
-export const setWeightClasses = (sex, classesKg) => {
+export const setWeightClasses = (sex: Sex, classesKg: Array<number>): SetWeightClassesAction => {
   return {
     type: "SET_WEIGHTCLASSES",
     sex: sex,
@@ -81,42 +101,42 @@ export const setWeightClasses = (sex, classesKg) => {
   };
 };
 
-export const setAreWrapsRaw = areWrapsRaw => {
+export const setAreWrapsRaw = (areWrapsRaw: boolean): SetAreWrapsRawAction => {
   return {
     type: "SET_ARE_WRAPS_RAW",
     areWrapsRaw
   };
 };
 
-export const setMeetCountry = country => {
+export const setMeetCountry = (country: string): SetMeetCountryAction => {
   return {
     type: "SET_MEET_COUNTRY",
     country
   };
 };
 
-export const setMeetState = state => {
+export const setMeetState = (state: string): SetMeetStateAction => {
   return {
     type: "SET_MEET_STATE",
     state
   };
 };
 
-export const setMeetCity = city => {
+export const setMeetCity = (city: string): SetMeetCityAction => {
   return {
     type: "SET_MEET_CITY",
     city
   };
 };
 
-export const setBarAndCollarsWeightKg = weightKg => {
+export const setBarAndCollarsWeightKg = (weightKg: number): SetBarAndCollarsWeightKgAction => {
   return {
     type: "SET_BAR_AND_COLLARS_WEIGHT_KG",
     weightKg: weightKg
   };
 };
 
-export const setPlatesOnSide = (weightKg, amount) => {
+export const setPlatesOnSide = (weightKg: number, amount: number): SetPlatesOnSideAction => {
   return {
     type: "SET_PLATES_ON_SIDE",
     weightKg,

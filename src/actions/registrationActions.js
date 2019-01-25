@@ -1,4 +1,5 @@
 // vim: set ts=2 sts=2 sw=2 et:
+// @flow
 //
 // This file is part of OpenLifter, simple Powerlifting meet software.
 // Copyright (C) 2019 The OpenPowerlifting Project.
@@ -16,8 +17,10 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import type { NewRegistrationAction, DeleteRegistrationAction, UpdateRegistrationAction } from "../types/actionTypes";
+
 // Adds a blank (or default-initalized) row to the registrations table.
-export const newRegistration = obj => {
+export const newRegistration = (obj: Object): NewRegistrationAction => {
   return {
     type: "NEW_REGISTRATION",
     overwriteDefaults: obj
@@ -32,7 +35,7 @@ export const newRegistration = obj => {
 // the data will simply stop being displayed.
 //
 // The global ID from the deleted entry is not recycled.
-export const deleteRegistration = entryId => {
+export const deleteRegistration = (entryId: number): DeleteRegistrationAction => {
   return {
     type: "DELETE_REGISTRATION",
     entryId: entryId
@@ -45,7 +48,7 @@ export const deleteRegistration = entryId => {
 // simplicity, this is a general method that knows how to update the
 // existing entry object with whatever has changed, as passed
 // through object properties.
-export const updateRegistration = (entryId, obj) => {
+export const updateRegistration = (entryId: number, obj: Object): UpdateRegistrationAction => {
   return {
     type: "UPDATE_REGISTRATION",
     entryId: entryId,

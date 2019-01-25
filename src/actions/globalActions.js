@@ -1,4 +1,5 @@
 // vim: set ts=2 sts=2 sw=2 et:
+// @flow
 //
 // This file is part of OpenLifter, simple Powerlifting meet software.
 // Copyright (C) 2019 The OpenPowerlifting Project.
@@ -16,9 +17,12 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import type { OverwriteStoreAction } from "../types/actionTypes";
+import type { GlobalState } from "../types/stateTypes";
+
 // Overwrites the entire Redux store, handled separately by each reducer.
 // This is used to implement "Load from File" functionality.
-export const overwriteStore = store => {
+export const overwriteStore = (store: GlobalState): OverwriteStoreAction => {
   return {
     type: "OVERWRITE_STORE",
     store: store
