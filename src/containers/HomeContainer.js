@@ -1,4 +1,5 @@
 // vim: set ts=2 sts=2 sw=2 et:
+// @flow
 //
 // This file is part of OpenLifter, simple Powerlifting meet software.
 // Copyright (C) 2019 The OpenPowerlifting Project.
@@ -17,7 +18,6 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import React from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Button } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
@@ -29,11 +29,27 @@ import { overwriteStore } from "../actions/globalActions";
 
 import NewMeetModal from "../components/home/NewMeetModal";
 
+import type { GlobalState } from "../types/stateTypes";
+
 // Temporary CSS, just for prototyping.
 const centerConsole = { maxWidth: 800, margin: "0 auto 10px" };
 const buttonConsole = { maxWidth: 400, margin: "20px auto 0 auto" };
 
-class HomeContainer extends React.Component {
+interface StateProps {
+  redux: GlobalState;
+}
+
+interface DispatchProps {
+  overwriteStore: (store: GlobalState) => void;
+}
+
+interface InternalState {
+  showNewMeetModal: boolean;
+}
+
+type Props = StateProps & DispatchProps;
+
+class HomeContainer extends React.Component<Props, InternalState> {
   constructor(props) {
     super(props);
     this.handleLoadClick = this.handleLoadClick.bind(this);
@@ -48,25 +64,33 @@ class HomeContainer extends React.Component {
 
   // The file input is hidden, and we want to use a button to activate it.
   // This event handler is just a proxy to call the *real* event handler.
-  handleLoadClick() {
+  handleLoadClick = () => {
     const loadhelper = document.getElementById("loadhelper");
-    loadhelper.click();
-  }
+    if (loadhelper !== null) {
+      loadhelper.click();
+    }
+  };
 
   // When we click the new meet button
   // Open the popover modal to confirm the user is willing to delete any current progress
-  handleNewClick() {
+  handleNewClick = () => {
     this.setState({ showNewMeetModal: true });
-  }
+  };
 
   // Close the new meet confirmation modal
-  closeConfirmModal() {
+  closeConfirmModal = () => {
     this.setState({ showNewMeetModal: false });
-  }
+  };
 
   // Called when a file is selected.
-  handleLoadFileInput() {
-    const selectedFile = document.getElementById("loadhelper").files[0];
+  handleLoadFileInput = () => {
+    // Load the element and make sure it's an HTMLInputElement.
+    const loadHelper = document.getElementById("loadhelper");
+    if (loadHelper === null || !(loadHelper instanceof HTMLInputElement)) {
+      return;
+    }
+
+    const selectedFile = loadHelper.files[0];
     let rememberThis = this;
 
     let reader = new FileReader();
@@ -96,9 +120,9 @@ class HomeContainer extends React.Component {
       }
     };
     reader.readAsText(selectedFile);
-  }
+  };
 
-  handleSaveClick() {
+  handleSaveClick = () => {
     let meetname = this.props.redux.meet.name;
     if (meetname === "") {
       meetname = "Unnamed-Meet";
@@ -108,9 +132,9 @@ class HomeContainer extends React.Component {
     let state = JSON.stringify(this.props.redux);
     let blob = new Blob([state], { type: "application/json;charset=utf-8" });
     saveAs(blob, meetname + ".json");
-  }
+  };
 
-  renderContinueButton() {
+  renderContinueButton = () => {
     let meetname = this.props.redux.meet.name;
     if (meetname === "") {
       // Unnamed or unstarted meet, so don't render a continue button
@@ -126,7 +150,7 @@ class HomeContainer extends React.Component {
         </LinkContainer>
       </div>
     );
-  }
+  };
 
   render() {
     return (
@@ -161,24 +185,16 @@ class HomeContainer extends React.Component {
 
 // Because we want to save the state, separate it out specifically
 // into a "redux" prop. Otherwise it gets contaminated by other props.
-const mapStateToProps = state => ({
+const mapStateToProps = (state: GlobalState): StateProps => ({
   redux: {
     ...state
   }
 });
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch): DispatchProps => {
   return {
     overwriteStore: store => dispatch(overwriteStore(store))
   };
-};
-
-HomeContainer.propTypes = {
-  redux: PropTypes.shape({
-    meet: PropTypes.shape({
-      name: PropTypes.string
-    })
-  })
 };
 
 export default connect(

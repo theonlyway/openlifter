@@ -1,4 +1,5 @@
 // vim: set ts=2 sts=2 sw=2 et:
+// @flow
 //
 // This file is part of OpenLifter, simple Powerlifting meet software.
 // Copyright (C) 2019 The OpenPowerlifting Project.
@@ -19,7 +20,6 @@
 // Container for the FlightOrder page.
 
 import React from "react";
-import { connect } from "react-redux";
 
 import FlightOrderView from "../components/flight-order/FlightOrderView";
 
@@ -33,7 +33,4 @@ class FlightOrderContainer extends React.Component<{}> {
   }
 }
 
-export default connect(
-  null,
-  null
-)(FlightOrderContainer);
+export default FlightOrderContainer;

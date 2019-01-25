@@ -1,4 +1,5 @@
 // vim: set ts=2 sts=2 sw=2 et:
+// @flow
 //
 // This file is part of OpenLifter, simple Powerlifting meet software.
 // Copyright (C) 2019 The OpenPowerlifting Project.
@@ -26,7 +27,10 @@ import "./index.css";
 import "./bootstrap-custom/bootstrap-custom.css";
 import "react-datepicker/dist/react-datepicker.css";
 
-ReactDOM.render(<App />, document.getElementById("root"));
+const rootElement = document.getElementById("root");
+if (rootElement !== null) {
+  ReactDOM.render(<App />, rootElement);
+}
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
