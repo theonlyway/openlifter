@@ -27,15 +27,17 @@ import type { GlobalState, RegistrationState } from "../../types/stateTypes";
 
 import styles from "./TopBar.module.scss";
 
-type Props = {
-  // ownProps from the LiftingView.
-  attemptOneIndexed: number,
-  orderedEntries: Array<Entry>,
-  currentEntryId: ?number,
+interface OwnProps {
+  attemptOneIndexed: number;
+  orderedEntries: Array<Entry>;
+  currentEntryId?: number;
+}
 
-  // Props from Redux state.
-  registration: RegistrationState
-};
+interface StateProps {
+  registration: RegistrationState;
+}
+
+type Props = OwnProps & StateProps;
 
 class LiftingHeader extends React.Component<Props> {
   render() {
@@ -61,7 +63,7 @@ class LiftingHeader extends React.Component<Props> {
   }
 }
 
-const mapStateToProps = (state: GlobalState) => {
+const mapStateToProps = (state: GlobalState): StateProps => {
   return {
     registration: state.registration
   };

@@ -25,25 +25,29 @@ import { connect } from "react-redux";
 
 import { updateRegistration } from "../../actions/registrationActions";
 
-import type { Lift } from "../../types/dataTypes";
+import type { Lift, PlatesOnSide } from "../../types/dataTypes";
+import type { GlobalState } from "../../types/stateTypes";
 
 import styles from "./BarLoad.module.scss";
 
-type Props = {
-  // ownProps.
-  weightKg: number,
-  rackInfo: string,
-  entryId: ?number,
+interface OwnProps {
+  weightKg: number;
+  rackInfo: string;
+  entryId: ?number;
+}
 
-  // Redux props.
-  inKg: boolean,
-  barAndCollarsWeightKg: number,
-  platesOnSide: Array<Object>, // TODO: Use type.
-  lift: Lift,
+interface StateProps {
+  inKg: boolean;
+  barAndCollarsWeightKg: number;
+  platesOnSide: Array<PlatesOnSide>;
+  lift: Lift;
+}
 
-  // Actions.
-  updateRegistration: (entryId: number, obj: Object) => any
-};
+interface DispatchProps {
+  updateRegistration: (entryId: number, obj: Object) => any; // TODO
+}
+
+type Props = OwnProps & StateProps & DispatchProps;
 
 // Text that gets prepended to the Rack Info display.
 // We need to make sure that we don't accidentally commit this text
@@ -235,7 +239,7 @@ class Loading extends React.Component<Props> {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: GlobalState): StateProps => {
   return {
     inKg: state.meet.inKg,
     barAndCollarsWeightKg: state.meet.barAndCollarsWeightKg,
@@ -244,7 +248,7 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch): DispatchProps => {
   return {
     updateRegistration: (entryId, obj) => dispatch(updateRegistration(entryId, obj))
   };

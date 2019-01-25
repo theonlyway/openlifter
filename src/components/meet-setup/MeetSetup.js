@@ -37,9 +37,11 @@ import Plates from "./Plates";
 
 import type { GlobalState } from "../../types/stateTypes";
 
-type Props = {
-  inKg: boolean
-};
+interface StateProps {
+  inKg: boolean;
+}
+
+type Props = StateProps;
 
 class MeetSetup extends React.Component<Props> {
   render() {
@@ -92,7 +94,7 @@ class MeetSetup extends React.Component<Props> {
   }
 }
 
-const mapStateToProps = (state: GlobalState): Props => ({
+const mapStateToProps = (state: GlobalState): StateProps => ({
   inKg: state.meet.inKg
 });
 
