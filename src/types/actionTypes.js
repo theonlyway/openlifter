@@ -19,7 +19,7 @@
 
 // Defines shared types produced by Redux actions.
 
-import type { Formula, Lift, Sex } from "./dataTypes";
+import type { Entry, Formula, Lift, Sex } from "./dataTypes";
 import type { GlobalState } from "./stateTypes";
 
 //////////////////////////////////////////////////////////
@@ -145,7 +145,7 @@ export type MeetSetupAction =
 
 export interface NewRegistrationAction {
   type: "NEW_REGISTRATION";
-  overwriteDefaults: Object;
+  overwriteDefaults: $Shape<Entry>;
 }
 
 export interface DeleteRegistrationAction {
@@ -156,7 +156,7 @@ export interface DeleteRegistrationAction {
 export interface UpdateRegistrationAction {
   type: "UPDATE_REGISTRATION";
   entryId: number;
-  changes: Object;
+  changes: $Shape<Entry>;
 }
 
 export type RegistrationAction = NewRegistrationAction | DeleteRegistrationAction | UpdateRegistrationAction;

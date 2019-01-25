@@ -18,9 +18,10 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import type { NewRegistrationAction, DeleteRegistrationAction, UpdateRegistrationAction } from "../types/actionTypes";
+import type { Entry } from "../types/dataTypes";
 
 // Adds a blank (or default-initalized) row to the registrations table.
-export const newRegistration = (obj: Object): NewRegistrationAction => {
+export const newRegistration = (obj: $Shape<Entry>): NewRegistrationAction => {
   return {
     type: "NEW_REGISTRATION",
     overwriteDefaults: obj
@@ -48,7 +49,7 @@ export const deleteRegistration = (entryId: number): DeleteRegistrationAction =>
 // simplicity, this is a general method that knows how to update the
 // existing entry object with whatever has changed, as passed
 // through object properties.
-export const updateRegistration = (entryId: number, obj: Object): UpdateRegistrationAction => {
+export const updateRegistration = (entryId: number, obj: $Shape<Entry>): UpdateRegistrationAction => {
   return {
     type: "UPDATE_REGISTRATION",
     entryId: entryId,
