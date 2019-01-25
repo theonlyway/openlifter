@@ -37,7 +37,7 @@ import { wilks } from "../../common/points-wilks";
 import { ipfpoints } from "../../common/points-ipf";
 
 import type { PointsCategory, PointsCategoryResults } from "../../common/pointsPlace";
-import type { Entry } from "../../reducers/registrationReducer";
+import type { Entry } from "../../types/dataTypes";
 
 type Props = {
   meetName: string,

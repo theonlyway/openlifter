@@ -17,15 +17,13 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import type { PlatesOnSide } from "../types/dataTypes";
+import type { MeetState } from "../types/stateTypes";
+
 const defaultPlatformsOnDay = 1;
 
 const defaultBarAndCollarsWeightKg = 25; // Assuming metal 2.5kg collars.
 const defaultBarAndCollarsWeightLbs = 45; // Assuming plastic collars.
-
-export type PlatesOnSide = {
-  weightKg: number,
-  amount: number
-};
 
 // Default kg plates, allowing for increments of 0.5kg.
 const defaultPlatesOnSideKg: Array<PlatesOnSide> = [
@@ -56,27 +54,6 @@ const defaultPlatesOnSideLbs: Array<PlatesOnSide> = [
   { weightKg: 1.25 / kg, amount: 1 },
   { weightKg: 0.5 / kg, amount: 2 }
 ];
-
-export type Formula = "Glossbrenner" | "IPF Points" | "Wilks";
-
-export type MeetState = {
-  +name: string,
-  +formula: Formula,
-  +federation: string,
-  +date: string,
-  +lengthDays: number,
-  +platformsOnDays: Array<number>,
-  +divisions: Array<string>,
-  +weightClassesKgMen: Array<number>,
-  +weightClassesKgWomen: Array<number>,
-  +inKg: boolean,
-  +areWrapsRaw: boolean,
-  +country: string,
-  +state: string,
-  +city: string,
-  +barAndCollarsWeightKg: number,
-  +platesOnSide: Array<PlatesOnSide>
-};
 
 const initialState: MeetState = {
   name: "",

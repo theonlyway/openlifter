@@ -23,7 +23,7 @@
 import { schwartz_coefficient, malone_coefficient } from "./points-schwartzmalone";
 import { wilksMen, wilksWomen } from "./points-wilks";
 
-import type { Sex } from "../reducers/registrationReducer";
+import type { Sex } from "../types/dataTypes";
 
 const glossbrenner_coefficient_men = (bodyweightKg: number): number => {
   // Glossbrenner is defined piecewise.

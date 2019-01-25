@@ -26,7 +26,7 @@ import { FormControl, FormGroup } from "react-bootstrap";
 
 import { enterAttempt } from "../../actions/liftingActions";
 
-import type { Lift } from "../../reducers/registrationReducer";
+import type { Lift } from "../../types/dataTypes";
 
 import styles from "./LiftingTable.module.scss";
 

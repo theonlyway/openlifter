@@ -24,7 +24,7 @@ import PropTypes from "prop-types";
 
 import { Panel, Table } from "react-bootstrap";
 
-import { liftToAttemptFieldName, orderEntriesByAttempt } from "../../reducers/registrationReducer.js";
+import { liftToAttemptFieldName, orderEntriesByAttempt } from "../../reducers/registrationReducer";
 
 class OneFlightOrder extends React.Component {
   getOrderBy(lift) {

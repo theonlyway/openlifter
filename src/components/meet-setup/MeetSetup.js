@@ -35,7 +35,7 @@ import AreWrapsRaw from "./AreWrapsRaw";
 import BarAndCollarsWeightKg from "./BarAndCollarsWeightKg";
 import Plates from "./Plates";
 
-import type { GlobalState } from "../../reducers/rootReducer";
+import type { GlobalState } from "../../types/stateTypes";
 
 type Props = {
   inKg: boolean

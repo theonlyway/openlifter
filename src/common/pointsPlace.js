@@ -30,7 +30,7 @@ import { glossbrenner } from "./points-glossbrenner";
 import { wilks } from "./points-wilks";
 import { ipfpoints } from "./points-ipf";
 
-import type { Sex, Event, Equipment, Entry } from "../reducers/registrationReducer";
+import type { Sex, Event, Equipment, Entry } from "../types/dataTypes";
 
 // Specifies a points category under which entries can be ranked together.
 export type PointsCategory = {

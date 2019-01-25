@@ -20,7 +20,7 @@
 // Defines the calculation of IPF Points.
 // Taken from https://gitlab.com/openpowerlifting/ipf-points-calculator.
 
-import type { Sex, Event, Equipment } from "../reducers/registrationReducer";
+import type { Sex, Event, Equipment } from "../types/dataTypes";
 
 type Coefficients = Array<number>;
 type ByEvent = {

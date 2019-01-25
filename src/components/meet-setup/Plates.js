@@ -27,7 +27,7 @@ import { FormControl, FormGroup, Table } from "react-bootstrap";
 
 import { setPlatesOnSide } from "../../actions/meetSetupActions";
 
-import type { PlatesOnSide } from "../../reducers/meetReducer";
+import type { PlatesOnSide } from "../../types/dataTypes";
 
 type Props = {
   inKg: boolean,

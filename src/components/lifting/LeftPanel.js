@@ -25,7 +25,7 @@ import { connect } from "react-redux";
 
 import { liftToAttemptFieldName } from "../../reducers/registrationReducer";
 
-import BarLoad from "./BarLoad.js";
+import BarLoad from "./BarLoad";
 
 import styles from "./LeftPanel.module.scss";
 

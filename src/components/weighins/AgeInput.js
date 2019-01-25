@@ -25,7 +25,7 @@ import { connect } from "react-redux";
 import { FormControl, FormGroup } from "react-bootstrap";
 
 import { updateRegistration } from "../../actions/registrationActions";
-import type { RegistrationState } from "../../reducers/registrationReducer";
+import type { RegistrationState } from "../../types/stateTypes";
 
 type Props = {
   id: number,

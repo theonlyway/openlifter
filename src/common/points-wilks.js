@@ -20,9 +20,9 @@
 // Defines the calculation of Wilks points.
 // Taken from https://gitlab.com/openpowerlifting/ipf-points-calculator.
 
-import type { Sex } from "../reducers/registrationReducer";
+import type { Sex } from "../types/dataTypes";
 
-function wilksPoly(a: number, b: number, c: number, d: number, e: number, f: number, x: number) {
+function wilksPoly(a: number, b: number, c: number, d: number, e: number, f: number, x: number): number {
   var x2 = x * x,
     x3 = x2 * x,
     x4 = x3 * x,

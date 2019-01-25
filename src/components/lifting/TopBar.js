@@ -22,8 +22,8 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import type { Entry, RegistrationState } from "../../reducers/registrationReducer";
-import type { GlobalState } from "../../reducers/rootReducer";
+import type { Entry } from "../../types/dataTypes";
+import type { GlobalState, RegistrationState } from "../../types/stateTypes";
 
 import styles from "./TopBar.module.scss";
 

@@ -18,8 +18,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import type { ChangeLanguageAction } from "../actions/languageActions";
-
-export type LanguageState = string;
+import type { LanguageState } from "../types/stateTypes";
 
 type OverwriteStoreAction = {
   +type: "OVERWRITE_STORE",

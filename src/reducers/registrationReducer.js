@@ -21,46 +21,14 @@ import { glossbrenner } from "../common/points-glossbrenner";
 import { ipfpoints } from "../common/points-ipf";
 import { wilksMen, wilksWomen } from "../common/points-wilks";
 
+import type { Entry, Event, Lift } from "../types/dataTypes";
+import type { RegistrationState } from "../types/stateTypes";
+
 // Length of {squat,bench,deadlift}{Kg,status} in each entry.
 export const MAX_ATTEMPTS = 5;
 
-export type Sex = "M" | "F";
-export type Lift = "S" | "B" | "D";
 export type FieldKg = "squatKg" | "benchKg" | "deadliftKg";
 export type FieldStatus = "squatStatus" | "benchStatus" | "deadliftStatus";
-export type Equipment = "Raw" | "Wraps" | "Single-ply" | "Multi-ply";
-export type Event = "S" | "B" | "D" | "SB" | "SD" | "BD" | "SBD";
-
-export type LiftStatus =
-  | -1 // Failure.
-  | 0 // Not yet taken.
-  | 1; // Success.
-
-export type Entry = {
-  id: number,
-  day: number,
-  platform: number,
-  flight: string,
-  name: string,
-  sex: Sex,
-  birthDate: string,
-  age: number,
-  intendedWeightClassKg: string,
-  equipment: Equipment,
-  divisions: Array<string>,
-  events: Array<Event>,
-  lot: number,
-  paid: boolean,
-  bodyweightKg: number,
-  squatRackInfo: string,
-  benchRackInfo: string,
-  squatKg: Array<number>,
-  benchKg: Array<number>,
-  deadliftKg: Array<number>,
-  squatStatus: Array<LiftStatus>,
-  benchStatus: Array<LiftStatus>,
-  deadliftStatus: Array<LiftStatus>
-};
 
 export const getDateString = (dateTime: Date) => {
   if (dateTime) {
@@ -114,14 +82,6 @@ const makeNewEntry = (id: number): Entry => {
     benchStatus: [0, 0, 0, 0, 0],
     deadliftStatus: [0, 0, 0, 0, 0]
   };
-};
-
-export type RegistrationState = {
-  +nextEntryId: number,
-  +entries: Array<Entry>,
-  +lookup: {
-    +[id: number]: number
-  }
 };
 
 const initialState: RegistrationState = {

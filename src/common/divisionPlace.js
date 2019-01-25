@@ -27,7 +27,7 @@
 import { getWeightClassStr } from "../reducers/meetReducer";
 import { getFinalEventTotalKg } from "../reducers/registrationReducer";
 
-import type { Sex, Event, Equipment, Entry } from "../reducers/registrationReducer";
+import type { Sex, Event, Equipment, Entry } from "../types/dataTypes";
 
 export type Place = number | "DQ";
 

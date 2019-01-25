@@ -25,7 +25,7 @@ import { connect } from "react-redux";
 
 import { updateRegistration } from "../../actions/registrationActions";
 
-import type { Lift } from "../../reducers/liftingReducer";
+import type { Lift } from "../../types/dataTypes";
 
 import styles from "./BarLoad.module.scss";
 

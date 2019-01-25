@@ -26,16 +26,7 @@
 //
 // Please do not attempt to store meet state in the Redux store!
 
-export type Lift = "S" | "B" | "D";
-
-export type LiftingState = {
-  +day: number,
-  +platform: number,
-  +flight: string,
-  +lift: Lift,
-  +overrideAttempt: null | number,
-  +overrideEntryId: null | number
-};
+import type { LiftingState } from "../types/stateTypes";
 
 const initialState: LiftingState = {
   // Specifies the initial settings for the control widgets on the lifting page.
