@@ -1,4 +1,5 @@
 // vim: set ts=2 sts=2 sw=2 et:
+// @flow
 //
 // This file is part of OpenLifter, simple Powerlifting meet software.
 // Copyright (C) 2019 The OpenPowerlifting Project.
@@ -23,6 +24,8 @@ import storage from "redux-persist/lib/storage";
 import thunk from "redux-thunk";
 import rootReducer from "./reducers/rootReducer";
 
+import type { GlobalState } from "./types/stateTypes";
+
 const persistConfig = {
   key: "root",
   storage
@@ -30,8 +33,8 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-export default function configureStore(initialState = {}) {
-  let store = createStore(persistedReducer, applyMiddleware(thunk));
+export default function configureStore(initialState: GlobalState = {}) {
+  let store: GlobalState = createStore(persistedReducer, applyMiddleware(thunk));
   let persistor = persistStore(store);
   return { store, persistor };
 }
