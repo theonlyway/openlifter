@@ -17,15 +17,8 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import type { ChangeLanguageAction } from "../types/actionTypes";
+import type { ChangeLanguageAction, OverwriteStoreAction } from "../types/actionTypes";
 import type { LanguageState } from "../types/stateTypes";
-
-type OverwriteStoreAction = {
-  +type: "OVERWRITE_STORE",
-  +store: {
-    +language: string
-  }
-};
 
 type Action = ChangeLanguageAction | OverwriteStoreAction;
 

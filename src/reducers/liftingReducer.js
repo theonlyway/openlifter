@@ -26,6 +26,13 @@
 //
 // Please do not attempt to store meet state in the Redux store!
 
+import type {
+  MarkLiftAction,
+  SetLiftingGroupAction,
+  OverrideAttemptAction,
+  OverrideEntryIdAction,
+  OverwriteStoreAction
+} from "../types/actionTypes";
 import type { LiftingState } from "../types/stateTypes";
 
 const initialState: LiftingState = {
@@ -43,7 +50,14 @@ const initialState: LiftingState = {
   overrideEntryId: null // Allows selecting a lifter, even if they've already gone.
 };
 
-export default (state: LiftingState = initialState, action: any): LiftingState => {
+type Action =
+  | MarkLiftAction
+  | SetLiftingGroupAction
+  | OverrideAttemptAction
+  | OverrideEntryIdAction
+  | OverwriteStoreAction;
+
+export default (state: LiftingState = initialState, action: Action): LiftingState => {
   switch (action.type) {
     case "MARK_LIFT": {
       // Unset any overrides, returning to normal lifting flow.
@@ -72,6 +86,7 @@ export default (state: LiftingState = initialState, action: any): LiftingState =
       return action.store.lifting;
 
     default:
+      (action.type: empty); // eslint-disable-line
       return state;
   }
 };

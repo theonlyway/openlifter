@@ -122,6 +122,23 @@ export interface SetPlatesOnSideAction {
   amount: number;
 }
 
+export type MeetSetupAction =
+  | SetMeetNameAction
+  | SetFormulaAction
+  | SetFederationAction
+  | SetDivisionsAction
+  | SetMeetDateAction
+  | SetLengthDaysAction
+  | SetPlatformsOnDaysAction
+  | SetInKgAction
+  | SetWeightClassesAction
+  | SetAreWrapsRawAction
+  | SetMeetCountryAction
+  | SetMeetStateAction
+  | SetMeetCityAction
+  | SetBarAndCollarsWeightKgAction
+  | SetPlatesOnSideAction;
+
 //////////////////////////////////////////////////////////
 // Registration Actions.
 //////////////////////////////////////////////////////////
@@ -141,6 +158,8 @@ export interface UpdateRegistrationAction {
   entryId: number;
   changes: Object;
 }
+
+export type RegistrationAction = NewRegistrationAction | DeleteRegistrationAction | UpdateRegistrationAction;
 
 //////////////////////////////////////////////////////////
 // Lifting Actions.

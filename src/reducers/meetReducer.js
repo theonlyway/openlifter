@@ -17,6 +17,7 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import type { MeetSetupAction, OverwriteStoreAction } from "../types/actionTypes";
 import type { PlatesOnSide } from "../types/dataTypes";
 import type { MeetState } from "../types/stateTypes";
 
@@ -91,7 +92,9 @@ export const getWeightClassStr = (classes: Array<number>, bodyweightKg: number) 
   return String(classes[classes.length - 1]) + "+";
 };
 
-export default (state: MeetState = initialState, action: any): MeetState => {
+type Action = MeetSetupAction | OverwriteStoreAction;
+
+export default (state: MeetState = initialState, action: Action): MeetState => {
   switch (action.type) {
     case "SET_MEET_NAME":
       return { ...state, name: action.name };
@@ -190,6 +193,7 @@ export default (state: MeetState = initialState, action: any): MeetState => {
     }
 
     default:
+      (action.type: empty); // eslint-disable-line
       return state;
   }
 };

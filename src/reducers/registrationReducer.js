@@ -21,6 +21,12 @@ import { glossbrenner } from "../common/points-glossbrenner";
 import { ipfpoints } from "../common/points-ipf";
 import { wilksMen, wilksWomen } from "../common/points-wilks";
 
+import type {
+  RegistrationAction,
+  OverwriteStoreAction,
+  EnterAttemptAction,
+  MarkLiftAction
+} from "../types/actionTypes";
 import type { Entry, Event, Lift } from "../types/dataTypes";
 import type { RegistrationState } from "../types/stateTypes";
 
@@ -336,7 +342,9 @@ export const orderEntriesByAttempt = (
   });
 };
 
-export default (state: RegistrationState = initialState, action: Object): RegistrationState => {
+type Action = RegistrationAction | EnterAttemptAction | MarkLiftAction | OverwriteStoreAction;
+
+export default (state: RegistrationState = initialState, action: Action): RegistrationState => {
   switch (action.type) {
     case "NEW_REGISTRATION": {
       // The object provides optional properties that can overwrite the default.
@@ -484,6 +492,7 @@ export default (state: RegistrationState = initialState, action: Object): Regist
     }
 
     default:
+      (action.type: empty); // eslint-disable-line
       return state;
   }
 };
