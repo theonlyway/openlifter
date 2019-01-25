@@ -20,21 +20,12 @@
 // Container for the Registration page.
 
 import React from "react";
-import { connect } from "react-redux";
-
 import RegistrationView from "../components/registration/RegistrationView";
 
 class RegistrationContainer extends React.Component<{}> {
   render() {
-    return (
-      <div>
-        <RegistrationView />
-      </div>
-    );
+    return <RegistrationView />;
   }
 }
 
-export default connect(
-  null,
-  null
-)(RegistrationContainer);
+export default RegistrationContainer;

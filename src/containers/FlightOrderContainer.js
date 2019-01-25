@@ -20,16 +20,11 @@
 // Container for the FlightOrder page.
 
 import React from "react";
-
 import FlightOrderView from "../components/flight-order/FlightOrderView";
 
 class FlightOrderContainer extends React.Component<{}> {
   render() {
-    return (
-      <div>
-        <FlightOrderView />
-      </div>
-    );
+    return <FlightOrderView />;
   }
 }
 

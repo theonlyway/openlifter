@@ -20,21 +20,12 @@
 // Container for the Weighins page.
 
 import React from "react";
-import { connect } from "react-redux";
-
 import WeighinsView from "../components/weighins/WeighinsView";
 
 class WeighinsContainer extends React.Component<{}> {
   render() {
-    return (
-      <div>
-        <WeighinsView />
-      </div>
-    );
+    return <WeighinsView />;
   }
 }
 
-export default connect(
-  null,
-  null
-)(WeighinsContainer);
+export default WeighinsContainer;

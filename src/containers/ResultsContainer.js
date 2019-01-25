@@ -19,21 +19,12 @@
 // Container for the Results page.
 
 import React from "react";
-import { connect } from "react-redux";
-
 import ResultsView from "../components/results/ResultsView";
 
 class ResultsContainer extends React.Component<{}> {
   render() {
-    return (
-      <div>
-        <ResultsView />
-      </div>
-    );
+    return <ResultsView />;
   }
 }
 
-export default connect(
-  null,
-  null
-)(ResultsContainer);
+export default ResultsContainer;

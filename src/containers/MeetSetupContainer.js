@@ -18,21 +18,12 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import React from "react";
-import { connect } from "react-redux";
-
 import MeetSetup from "../components/meet-setup/MeetSetup";
 
 class MeetSetupContainer extends React.Component<{}> {
   render() {
-    return (
-      <div>
-        <MeetSetup />
-      </div>
-    );
+    return <MeetSetup />;
   }
 }
 
-export default connect(
-  null,
-  null
-)(MeetSetupContainer);
+export default MeetSetupContainer;

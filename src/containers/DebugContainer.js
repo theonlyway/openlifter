@@ -20,7 +20,6 @@
 // A page dedicated to debugging tools.
 
 import React from "react";
-
 import StateTools from "../components/debug/StateTools";
 
 const DebugContainer = () => {

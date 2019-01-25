@@ -20,8 +20,6 @@
 // Container for the Lifting page.
 
 import React from "react";
-import { connect } from "react-redux";
-
 import LiftingView from "../components/lifting/LiftingView";
 
 class LiftingContainer extends React.Component<{}> {
@@ -30,7 +28,4 @@ class LiftingContainer extends React.Component<{}> {
   }
 }
 
-export default connect(
-  null,
-  null
-)(LiftingContainer);
+export default LiftingContainer;
