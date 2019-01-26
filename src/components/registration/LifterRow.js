@@ -258,6 +258,7 @@ class LifterRow extends React.Component {
 
         <td>
           <Select
+            menuPlacement="auto"
             options={divisionOptions}
             isClearable={false}
             isMulti={true}
@@ -268,6 +269,7 @@ class LifterRow extends React.Component {
 
         <td>
           <Select
+            menuPlacement="auto"
             options={eventOptions}
             isClearable={false}
             isMulti={true}
