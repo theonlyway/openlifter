@@ -112,6 +112,14 @@ class LifterRow extends React.Component {
     }
   }
 
+  updateRegistrationLot = event => {
+    const lot = event.target.value;
+    const asNumber = Number(lot);
+    if (asNumber >= 0 && asNumber !== this.props.entry.lot) {
+      this.props.updateRegistration(this.props.id, { lot: asNumber });
+    }
+  };
+
   updateRegistrationBirthDate(date) {
     const birthDate = getDateString(date);
     if (this.props.entry.birthDate !== birthDate) {
@@ -230,6 +238,10 @@ class LifterRow extends React.Component {
             <option value="M">M</option>
             <option value="F">F</option>
           </FormControl>
+        </td>
+
+        <td>
+          <FormControl type="text" defaultValue={entry.lot} onBlur={this.updateRegistrationLot} />
         </td>
 
         <td>
