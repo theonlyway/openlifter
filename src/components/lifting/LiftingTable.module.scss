@@ -88,12 +88,6 @@ table.liftingtable {
 .liftingtable tr:nth-child(even) {
   background-color: $color-alternating-stripe;
 }
-.liftingtable tr:nth-child(even) td.nolift {
-  background-color: $color-light-red-tint-stripe;
-}
-.liftingtable tr:nth-child(even) td.goodlift {
-  background-color: $color-light-green-tint-stripe;
-}
 
 // Rounded corners.
 .liftingtable th:first-child {
