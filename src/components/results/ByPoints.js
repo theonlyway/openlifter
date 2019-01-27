@@ -23,7 +23,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Panel, Table } from "react-bootstrap";
 
-import { getAllRankings } from "../../common/pointsPlace";
+import { getAllRankings } from "../../logic/pointsPlace";
 import { getWeightClassStr } from "../../reducers/meetReducer";
 import {
   getBest5SquatKg,
@@ -32,11 +32,11 @@ import {
   getFinalEventTotalKg
 } from "../../reducers/registrationReducer";
 
-import { glossbrenner } from "../../common/points-glossbrenner";
-import { wilks } from "../../common/points-wilks";
-import { ipfpoints } from "../../common/points-ipf";
+import { glossbrenner } from "../../logic/coefficients/glossbrenner";
+import { wilks } from "../../logic/coefficients/wilks";
+import { ipfpoints } from "../../logic/coefficients/ipf";
 
-import type { PointsCategory, PointsCategoryResults } from "../../common/pointsPlace";
+import type { PointsCategory, PointsCategoryResults } from "../../logic/pointsPlace";
 import type { Entry } from "../../types/dataTypes";
 
 type Props = {

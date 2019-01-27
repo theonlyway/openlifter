@@ -20,7 +20,7 @@
 // Defines the calculation of Schwartz-Malone points.
 // Taken from https://gitlab.com/openpowerlifting/opl-data.
 
-import type { Sex } from "../types/dataTypes";
+import type { Sex } from "../../types/dataTypes";
 
 // Calculated the Schwartz coefficient, used for men.
 export const schwartz_coefficient = (bodyweightKg: number): number => {

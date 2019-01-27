@@ -17,9 +17,9 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { glossbrenner } from "../common/points-glossbrenner";
-import { ipfpoints } from "../common/points-ipf";
-import { wilksMen, wilksWomen } from "../common/points-wilks";
+import { glossbrenner } from "../logic/coefficients/glossbrenner";
+import { ipfpoints } from "../logic/coefficients/ipf";
+import { wilksMen, wilksWomen } from "../logic/coefficients/wilks";
 
 import type {
   RegistrationAction,

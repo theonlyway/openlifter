@@ -24,7 +24,7 @@ import { connect } from "react-redux";
 
 import { Panel } from "react-bootstrap";
 
-import type { CategoryResults } from "../../common/divisionPlace";
+import type { CategoryResults } from "../../logic/divisionPlace";
 
 type Props = {
   platform: number,

@@ -26,9 +26,9 @@
 
 import { getFinalEventTotalKg } from "../reducers/registrationReducer";
 
-import { glossbrenner } from "./points-glossbrenner";
-import { wilks } from "./points-wilks";
-import { ipfpoints } from "./points-ipf";
+import { glossbrenner } from "./coefficients/glossbrenner";
+import { wilks } from "./coefficients/wilks";
+import { ipfpoints } from "./coefficients/ipf";
 
 import type { Sex, Event, Equipment, Entry } from "../types/dataTypes";
 

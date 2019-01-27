@@ -27,7 +27,7 @@ import { Button, FormControl, Panel } from "react-bootstrap";
 import OneFlightOrder from "./OneFlightOrder";
 import OneCategory from "./OneCategory";
 
-import { getAllResults } from "../../common/divisionPlace";
+import { getAllResults } from "../../logic/divisionPlace";
 
 const marginStyle = { margin: "0 20px 0 20px" };
 

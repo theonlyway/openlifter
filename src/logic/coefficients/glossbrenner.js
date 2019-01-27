@@ -20,10 +20,10 @@
 // Defines the calculation of Glossbrenner points.
 // Taken from https://gitlab.com/openpowerlifting/opl-data.
 
-import { schwartz_coefficient, malone_coefficient } from "./points-schwartzmalone";
-import { wilksMen, wilksWomen } from "./points-wilks";
+import { schwartz_coefficient, malone_coefficient } from "./schwartzmalone";
+import { wilksMen, wilksWomen } from "./wilks";
 
-import type { Sex } from "../types/dataTypes";
+import type { Sex } from "../../types/dataTypes";
 
 const glossbrenner_coefficient_men = (bodyweightKg: number): number => {
   // Glossbrenner is defined piecewise.

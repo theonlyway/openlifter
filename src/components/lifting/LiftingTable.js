@@ -38,8 +38,8 @@ import {
   liftToStatusFieldName
 } from "../../reducers/registrationReducer";
 
-import { getAllResults } from "../../common/divisionPlace";
-import type { CategoryResults } from "../../common/divisionPlace";
+import { getAllResults } from "../../logic/divisionPlace";
+import type { CategoryResults } from "../../logic/divisionPlace";
 
 import styles from "./LiftingTable.module.scss";
 
