@@ -66,3 +66,11 @@ export type PlatesOnSide = {
   weightKg: number,
   amount: number
 };
+
+export type LiftingOrder = {
+  orderedEntries: Array<Entry>,
+  attemptOneIndexed: number,
+  currentEntryId: number | null,
+  nextAttemptOneIndexed: number | null,
+  nextEntryId: number | null
+};
