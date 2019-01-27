@@ -35,10 +35,19 @@ div.footer {
   border-top: 1px solid #e7e7e7;
 }
 
+div.leftControls {
+  display: flex;
+  align-items: center;
+  padding-left: 4px;
+}
+
 div.rightControls {
   display: flex;
   align-items: center;
-  padding-right: 4px;
+}
+
+button.fullscreen {
+  margin-right: 7px;
 }
 
 button.goodLift {

@@ -23,7 +23,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-import { Button, FormControl } from "react-bootstrap";
+import { FormControl } from "react-bootstrap";
 
 import { markLift, overrideAttempt, overrideEntryId, setLiftingGroup } from "../../actions/liftingActions";
 
@@ -227,19 +227,7 @@ class LiftingFooter extends React.Component {
 
     return (
       <div className={styles.footer}>
-        <div>
-          <button type="button" onMouseDown={this.handleGoodLift} className={styles.goodLift}>
-            Good Lift
-          </button>
-          <button type="button" onMouseDown={this.handleNoLift} className={styles.noLift}>
-            No Lift
-          </button>
-          <Button onClick={this.handleFullscreen} style={{ marginLeft: "7px" }} bsStyle="info">
-            Toggle Fullscreen
-          </Button>
-        </div>
-
-        <div className={styles.rightControls}>
+        <div className={styles.leftControls}>
           <FormControl
             componentClass="select"
             defaultValue={this.props.lifting.day}
@@ -288,6 +276,18 @@ class LiftingFooter extends React.Component {
           >
             {this.makeLifterOptions()}
           </FormControl>
+        </div>
+
+        <div className={styles.rightControls}>
+          <button type="button" onClick={this.handleFullscreen} className={styles.fullscreen}>
+            Toggle Fullscreen
+          </button>
+          <button type="button" onMouseDown={this.handleNoLift} className={styles.noLift}>
+            No Lift
+          </button>
+          <button type="button" onMouseDown={this.handleGoodLift} className={styles.goodLift}>
+            Good Lift
+          </button>
         </div>
       </div>
     );
