@@ -1,5 +1,5 @@
 // vim: set ts=2 sts=2 sw=2 et:
-// @flow
+// @flow strict
 //
 // This file is part of OpenLifter, simple Powerlifting meet software.
 // Copyright (C) 2019 The OpenPowerlifting Project.
@@ -69,13 +69,20 @@ export const ipfpoints = (
   if (totalKg === 0) return 0;
 
   // Restrict inputs to only the defined subset.
-  if (equipment === "Wraps") equipment = "Raw";
-  if (equipment === "Multi-ply") equipment = "Single-ply";
-  if (equipment !== "Raw" && equipment !== "Single-ply") return 0;
+  let normalizedEquipment = equipment;
+  if (equipment === "Wraps") {
+    normalizedEquipment = "Raw";
+  } else if (equipment === "Multi-ply") {
+    normalizedEquipment = "Single-ply";
+  }
+  if (normalizedEquipment !== "Raw" && normalizedEquipment !== "Single-ply") {
+    return 0;
+  }
+
   if (event !== "SBD" && event !== "B") return 0;
   if (sex !== "M" && sex !== "F") return 0;
 
-  const params = PARAMETERS[sex][equipment][event];
+  const params = PARAMETERS[sex][normalizedEquipment][event];
   const bw_log = Math.log(bodyweightKg);
 
   const mean = params[0] * bw_log - params[1];

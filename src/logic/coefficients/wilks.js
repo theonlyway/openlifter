@@ -1,5 +1,5 @@
 // vim: set ts=2 sts=2 sw=2 et:
-// @flow
+// @flow strict
 //
 // This file is part of OpenLifter, simple Powerlifting meet software.
 // Copyright (C) 2019 The OpenPowerlifting Project.
@@ -30,14 +30,22 @@ function wilksPoly(a: number, b: number, c: number, d: number, e: number, f: num
   return 500.0 / (a + b * x + c * x2 + d * x3 + e * x4 + f * x5);
 }
 
-export function wilksMen(bw: number): number {
-  bw = Math.min(Math.max(bw, 40.0), 201.9);
-  return wilksPoly(-216.0475144, 16.2606339, -0.002388645, -0.00113732, 7.01863e-6, -1.291e-8, bw);
+export function wilksMen(bodyweightKg: number): number {
+  const normalized = Math.min(Math.max(bodyweightKg, 40.0), 201.9);
+  return wilksPoly(-216.0475144, 16.2606339, -0.002388645, -0.00113732, 7.01863e-6, -1.291e-8, normalized);
 }
 
-export function wilksWomen(bw: number): number {
-  bw = Math.min(Math.max(bw, 26.51), 154.53);
-  return wilksPoly(594.31747775582, -27.23842536447, 0.82112226871, -0.00930733913, 0.00004731582, -0.00000009054, bw);
+export function wilksWomen(bodyweightKg: number): number {
+  const normalized = Math.min(Math.max(bodyweightKg, 26.51), 154.53);
+  return wilksPoly(
+    594.31747775582,
+    -27.23842536447,
+    0.82112226871,
+    -0.00930733913,
+    0.00004731582,
+    -0.00000009054,
+    normalized
+  );
 }
 
 export const wilks = (sex: Sex, bodyweightKg: number, totalKg: number): number => {
