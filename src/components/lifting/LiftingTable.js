@@ -36,7 +36,7 @@ import {
   getFinalGlossbrenner,
   liftToAttemptFieldName,
   liftToStatusFieldName
-} from "../../reducers/registrationReducer";
+} from "../../logic/entry";
 
 import { getAllResults } from "../../logic/divisionPlace";
 import type { CategoryResults } from "../../logic/divisionPlace";

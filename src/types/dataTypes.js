@@ -30,6 +30,12 @@ export type LiftStatus =
   | 0 // Not yet taken.
   | 1; // Success.
 
+// Used for mapping Lift -> entry[fieldKg].
+export type FieldKg = "squatKg" | "benchKg" | "deadliftKg";
+
+// Used for mapping Lift -> entry[fieldStatus].
+export type FieldStatus = "squatStatus" | "benchStatus" | "deadliftStatus";
+
 export type Entry = {
   id: number,
   day: number,

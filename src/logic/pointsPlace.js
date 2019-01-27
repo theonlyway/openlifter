@@ -24,7 +24,7 @@
 // that allowed for maximum code reuse between the Rankings and Lifting pages,
 // which have slightly different needs.
 
-import { getFinalEventTotalKg } from "../reducers/registrationReducer";
+import { getFinalEventTotalKg } from "./entry";
 
 import { glossbrenner } from "./coefficients/glossbrenner";
 import { wilks } from "./coefficients/wilks";

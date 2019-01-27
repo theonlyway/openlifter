@@ -33,12 +33,7 @@ import LiftingFooter from "./LiftingFooter";
 
 import styles from "./LiftingView.module.scss";
 
-import {
-  liftToAttemptFieldName,
-  liftToStatusFieldName,
-  MAX_ATTEMPTS,
-  orderEntriesByAttempt
-} from "../../reducers/registrationReducer";
+import { liftToAttemptFieldName, liftToStatusFieldName, MAX_ATTEMPTS, orderEntriesByAttempt } from "../../logic/entry";
 
 class LiftingView extends React.Component {
   constructor(props) {

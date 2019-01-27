@@ -23,7 +23,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { liftToAttemptFieldName } from "../../reducers/registrationReducer";
+import { liftToAttemptFieldName } from "../../logic/entry";
 
 import BarLoad from "./BarLoad";
 

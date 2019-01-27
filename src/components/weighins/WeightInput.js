@@ -29,7 +29,7 @@ import { FormControl, FormGroup } from "react-bootstrap";
 import { updateRegistration } from "../../actions/registrationActions";
 import { enterAttempt } from "../../actions/liftingActions";
 
-import { liftToAttemptFieldName } from "../../reducers/registrationReducer";
+import { liftToAttemptFieldName } from "../../logic/entry";
 
 class WeightInput extends React.Component {
   constructor(props) {

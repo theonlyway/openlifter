@@ -25,12 +25,7 @@ import { Panel, Table } from "react-bootstrap";
 
 import { getAllResults } from "../../logic/divisionPlace";
 import { getWeightClassStr } from "../../reducers/meetReducer";
-import {
-  getBest5SquatKg,
-  getBest5BenchKg,
-  getBest5DeadliftKg,
-  getFinalEventTotalKg
-} from "../../reducers/registrationReducer";
+import { getBest5SquatKg, getBest5BenchKg, getBest5DeadliftKg, getFinalEventTotalKg } from "../../logic/entry";
 
 import { glossbrenner } from "../../logic/coefficients/glossbrenner";
 import { wilks } from "../../logic/coefficients/wilks";

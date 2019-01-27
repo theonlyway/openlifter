@@ -24,8 +24,8 @@
 // that allowed for maximum code reuse between the Rankings and Lifting pages,
 // which have slightly different needs.
 
+import { getFinalEventTotalKg } from "./entry";
 import { getWeightClassStr } from "../reducers/meetReducer";
-import { getFinalEventTotalKg } from "../reducers/registrationReducer";
 
 import type { Sex, Event, Equipment, Entry } from "../types/dataTypes";
 
