@@ -18,6 +18,8 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import { combineReducers } from "redux";
+
+import versionsReducer from "./versionsReducer";
 import languageReducer from "./languageReducer";
 import meetReducer from "./meetReducer";
 import registrationReducer from "./registrationReducer";
@@ -32,6 +34,7 @@ import liftingReducer from "./liftingReducer";
 // the root state object from a child state object, the meetReducer() is
 // fully-encapsulated, allowing for sane reasoning about effects on global state.
 export default combineReducers({
+  versions: versionsReducer,
   language: languageReducer,
   meet: meetReducer,
   registration: registrationReducer,

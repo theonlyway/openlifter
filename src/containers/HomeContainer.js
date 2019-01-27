@@ -29,6 +29,8 @@ import { overwriteStore } from "../actions/globalActions";
 
 import NewMeetModal from "../components/home/NewMeetModal";
 
+import { releaseVersion, releaseDate } from "../versions";
+
 import type { GlobalState } from "../types/stateTypes";
 
 // Temporary CSS, just for prototyping.
@@ -157,7 +159,10 @@ class HomeContainer extends React.Component<Props, InternalState> {
       <div style={centerConsole}>
         <NewMeetModal show={this.state.showNewMeetModal} close={this.closeConfirmModal} />
         <LanguageSelector />
-        <h1>Welcome to OpenLifter Beta!! (ﾉ◕ヮ◕)ﾉ*:・ﾟ✧</h1>
+        <h1>
+          Welcome to OpenLifter v{releaseVersion}!<br />
+          Released: {releaseDate}
+        </h1>
         <div style={buttonConsole}>
           {this.renderContinueButton()}
           <Button bsStyle="primary" bsSize="large" block onClick={this.handleNewClick}>

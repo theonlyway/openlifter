@@ -24,6 +24,11 @@
 
 import type { Entry, Formula, Lift, PlatesOnSide } from "./dataTypes";
 
+export type VersionsState = {
+  +stateVersion: string,
+  +releaseVersion: string
+};
+
 export type LanguageState = string;
 
 export type MeetState = {
