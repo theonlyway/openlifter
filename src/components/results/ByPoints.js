@@ -107,7 +107,7 @@ class ByPoints extends React.Component<Props> {
           {sex} {category.equipment} {category.event}
         </Panel.Heading>
         <Panel.Body>
-          <Table>
+          <Table striped hover condensed>
             <thead>
               <tr>
                 <th>Rank</th>

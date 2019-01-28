@@ -63,7 +63,7 @@ class LifterTable extends React.Component {
 
   render() {
     return (
-      <Table>
+      <Table hover condensed>
         <thead>{this.renderHeader()}</thead>
         <tbody>{this.renderRows()}</tbody>
       </Table>

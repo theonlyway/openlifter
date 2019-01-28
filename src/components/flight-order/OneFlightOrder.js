@@ -117,7 +117,7 @@ class OneFlightOrder extends React.Component {
       <Panel>
         <Panel.Heading>Flight {this.props.flight} Lifting Order</Panel.Heading>
         <Panel.Body>
-          <Table striped hover>
+          <Table striped hover condensed>
             <thead>
               <tr>{header}</tr>
             </thead>

@@ -106,7 +106,7 @@ class ByDivision extends React.Component<Props> {
           {sex} {category.weightClassStr}kg {category.equipment} {category.division} {category.event}
         </Panel.Heading>
         <Panel.Body>
-          <Table>
+          <Table hover condensed>
             <thead>
               <tr>
                 <th>Place</th>
