@@ -25,7 +25,7 @@ import type {
   EnterAttemptAction,
   MarkLiftAction
 } from "../types/actionTypes";
-import type { Entry, Lift, FieldKg, FieldStatus } from "../types/dataTypes";
+import type { Entry, Lift, FieldKg } from "../types/dataTypes";
 import type { RegistrationState } from "../types/stateTypes";
 
 export const getDateString = (dateTime: Date) => {

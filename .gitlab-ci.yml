@@ -17,6 +17,9 @@ tests:
 flow:
   stage: test
   script:
+    - make less
+    - rm -f src/bootstrap-custom/bootstrap-custom.css
+    - cp -f build/bootstrap-custom.css src/bootstrap-custom/bootstrap-custom.css
     - yarn run flow check
 
 lint:
