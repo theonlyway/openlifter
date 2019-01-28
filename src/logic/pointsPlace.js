@@ -30,7 +30,7 @@ import { glossbrenner } from "./coefficients/glossbrenner";
 import { wilks } from "./coefficients/wilks";
 import { ipfpoints } from "./coefficients/ipf";
 
-import type { Sex, Event, Equipment, Entry } from "../types/dataTypes";
+import type { Sex, Event, Equipment, Entry, Formula } from "../types/dataTypes";
 
 // Specifies a points category under which entries can be ranked together.
 export type PointsCategory = {
@@ -58,7 +58,7 @@ const keyToCategory = (key: string): PointsCategory => {
 const sortByFormulaPlaceInCategory = (
   entries: Array<Entry>,
   category: PointsCategory,
-  formula: string
+  formula: Formula
 ): Array<Entry> => {
   // Make a map from Entry to initial index.
   let indexMap = new Map();
@@ -84,6 +84,7 @@ const sortByFormulaPlaceInCategory = (
         memoizedPoints[i] = ipfpoints(totalKg, entry.bodyweightKg, category.sex, category.equipment, category.event);
         break;
       default:
+        (formula: empty) // eslint-disable-line
         memoizedPoints[i] = 0;
     }
   }
@@ -158,7 +159,7 @@ export const sortPointsCategoryResults = (results: Array<PointsCategoryResults>)
 
 // Generates objects representing the various ByPoints categories.
 // The returned objects are sorted in intended order of presentation.
-export const getAllRankings = (entries: Array<Entry>, formula: string): Array<PointsCategoryResults> => {
+export const getAllRankings = (entries: Array<Entry>, formula: Formula): Array<PointsCategoryResults> => {
   // Generate a map from category to the entries within that category.
   // The map is populated by iterating over each entry and having the entry
   // append itself to per-category lists.

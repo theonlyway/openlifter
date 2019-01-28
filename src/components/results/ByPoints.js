@@ -32,11 +32,11 @@ import { wilks } from "../../logic/coefficients/wilks";
 import { ipfpoints } from "../../logic/coefficients/ipf";
 
 import type { PointsCategory, PointsCategoryResults } from "../../logic/pointsPlace";
-import type { Entry } from "../../types/dataTypes";
+import type { Entry, Formula } from "../../types/dataTypes";
 
 type Props = {
   meetName: string,
-  formula: string,
+  formula: Formula,
   lengthDays: number,
   weightClassesKgMen: Array<number>,
   weightClassesKgWomen: Array<number>,
@@ -66,6 +66,7 @@ class ByPoints extends React.Component<Props> {
         points = ipfpoints(totalKg, entry.bodyweightKg, entry.sex, category.equipment, category.event).toFixed(2);
         break;
       default:
+        (this.props.formula: empty) // eslint-disable-line
         break;
     }
 
@@ -132,7 +133,7 @@ class ByPoints extends React.Component<Props> {
   };
 
   render() {
-    const results = getAllRankings(this.props.entries, "Wilks");
+    const results = getAllRankings(this.props.entries, this.props.formula);
 
     let categoryPanels = [];
     for (let i = 0; i < results.length; i++) {
