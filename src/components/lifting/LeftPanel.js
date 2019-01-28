@@ -53,7 +53,7 @@ class LeftPanel extends React.Component<Props> {
     const fieldKg = liftToAttemptFieldName(lift);
 
     // Defaults, in case of no lifter.
-    if (entryId === null || entryId === undefined || !attemptOneIndexed) {
+    if (entryId === null || entryId === undefined || attemptOneIndexed === null || attemptOneIndexed === undefined) {
       return {
         weightKg: 0,
         weightLbs: 0,

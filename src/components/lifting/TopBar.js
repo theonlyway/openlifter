@@ -46,7 +46,7 @@ class LiftingHeader extends React.Component<Props> {
     let divisionsStr = null;
 
     // In the case of a lifter, set fields.
-    if (this.props.currentEntryId) {
+    if (this.props.currentEntryId !== null && this.props.currentEntryId !== undefined) {
       const idx = this.props.registration.lookup[this.props.currentEntryId];
       const entry = this.props.registration.entries[idx];
       lifterName = entry.name;

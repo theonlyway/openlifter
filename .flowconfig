@@ -7,6 +7,13 @@ module.file_ext=.scss
 module.name_mapper.extension='css' -> 'empty/object'
 module.name_mapper.extension='scss' -> 'empty/object'
 
+[lints]
+sketchy-null=error
+sketchy-number=error
+unsafe-getters-setters=error
+unnecessary-optional-chain=error
+unnecessary-invariant=error
+
 [strict]
 nonstrict-import
 unclear-type
