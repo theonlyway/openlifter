@@ -1,4 +1,5 @@
 // vim: set ts=2 sts=2 sw=2 et:
+// @flow
 //
 // This file is part of OpenLifter, simple Powerlifting meet software.
 // Copyright (C) 2019 The OpenPowerlifting Project.
@@ -19,15 +20,22 @@
 // Shows the first attempt ordering of lifters for a single flight.
 
 import React from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
 
 import { Panel, Table } from "react-bootstrap";
 
 import { liftToAttemptFieldName, orderEntriesByAttempt } from "../../logic/entry";
 
-class OneFlightOrder extends React.Component {
-  getOrderBy(lift) {
+import type { Entry, Flight, Lift } from "../../types/dataTypes";
+
+type OwnProps = {
+  flight: Flight,
+  entriesInFlight: Array<Entry>
+};
+
+type Props = OwnProps;
+
+class OneFlightOrder extends React.Component<Props> {
+  getOrderBy = (lift: Lift): Array<Entry> => {
     const fieldKg = liftToAttemptFieldName(lift);
 
     // Only consider entries that registered a first attempt.
@@ -37,7 +45,7 @@ class OneFlightOrder extends React.Component {
 
     // Sort them in-place on the basis of that first attempt.
     return orderEntriesByAttempt(entriesForLift, fieldKg, 1);
-  }
+  };
 
   render() {
     const bySquat = this.getOrderBy("S");
@@ -117,7 +125,7 @@ class OneFlightOrder extends React.Component {
       <Panel>
         <Panel.Heading>Flight {this.props.flight} Lifting Order</Panel.Heading>
         <Panel.Body>
-          <Table striped hover condensed>
+          <Table striped hover condensed style={{ margin: "0px" }}>
             <thead>
               <tr>{header}</tr>
             </thead>
@@ -129,13 +137,4 @@ class OneFlightOrder extends React.Component {
   }
 }
 
-OneFlightOrder.propTypes = {
-  // ownProps.
-  flight: PropTypes.string.isRequired,
-  entriesInFlight: PropTypes.array.isRequired
-};
-
-export default connect(
-  null,
-  null
-)(OneFlightOrder);
+export default OneFlightOrder;
