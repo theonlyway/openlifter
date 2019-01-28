@@ -1,4 +1,5 @@
 // vim: set ts=2 sts=2 sw=2 et:
+// @flow
 //
 // This file is part of OpenLifter, simple Powerlifting meet software.
 // Copyright (C) 2019 The OpenPowerlifting Project.
@@ -24,7 +25,6 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
 
 import TopBar from "./TopBar";
 import LeftPanel from "./LeftPanel";
@@ -35,7 +35,19 @@ import styles from "./LiftingView.module.scss";
 
 import { getLiftingOrder } from "../../logic/liftingOrder";
 
-class LiftingView extends React.Component {
+import type { Entry, Flight } from "../../types/dataTypes";
+import type { GlobalState, MeetState, LiftingState } from "../../types/stateTypes";
+
+type StateProps = {
+  meet: MeetState,
+  lifting: LiftingState,
+  flightsOnPlatform: Array<Flight>,
+  entriesInFlight: Array<Entry>
+};
+
+type Props = StateProps;
+
+class LiftingView extends React.Component<Props> {
   render() {
     const now = getLiftingOrder(this.props.entriesInFlight, this.props.lifting);
 
@@ -71,37 +83,41 @@ class LiftingView extends React.Component {
           attemptOneIndexed={now.attemptOneIndexed}
           orderedEntries={now.orderedEntries}
           currentEntryId={now.currentEntryId}
+          flightsOnPlatform={this.props.flightsOnPlatform}
         />
       </div>
     );
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: GlobalState): StateProps => {
   const day = state.lifting.day;
   const platform = state.lifting.platform;
   const flight = state.lifting.flight;
 
-  // Only receive entries that are in the currently-lifting group.
-  const entriesInFlight = state.registration.entries.filter(
-    entry => entry.day === day && entry.platform === platform && entry.flight === flight
+  const entriesOnPlatform = state.registration.entries.filter(
+    entry => entry.day === day && entry.platform === platform
   );
+
+  // Determine available flights from the entries themselves.
+  let flights: Array<Flight> = [];
+  for (let i = 0; i < entriesOnPlatform.length; i++) {
+    const entry = entriesOnPlatform[i];
+    if (flights.indexOf(entry.flight) === -1) {
+      flights.push(entry.flight);
+    }
+  }
+  flights.sort();
+
+  // Only receive entries that are in the currently-lifting group.
+  const entriesInFlight = entriesOnPlatform.filter(entry => entry.flight === flight);
 
   return {
     meet: state.meet,
-    entriesInFlight: entriesInFlight,
-    lifting: state.lifting
+    lifting: state.lifting,
+    flightsOnPlatform: flights,
+    entriesInFlight: entriesInFlight
   };
-};
-
-LiftingView.propTypes = {
-  meet: PropTypes.object.isRequired,
-  entriesInFlight: PropTypes.array.isRequired,
-  lifting: PropTypes.shape({
-    lift: PropTypes.string.isRequired,
-    overrideAttempt: PropTypes.number,
-    overrideEntryId: PropTypes.number
-  }).isRequired
 };
 
 export default connect(

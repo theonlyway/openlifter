@@ -21,6 +21,7 @@
 
 export type Equipment = "Raw" | "Wraps" | "Single-ply" | "Multi-ply";
 export type Event = "S" | "B" | "D" | "SB" | "SD" | "BD" | "SBD";
+export type Flight = "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K";
 export type Formula = "Glossbrenner" | "IPF Points" | "Wilks";
 export type Lift = "S" | "B" | "D";
 export type Sex = "M" | "F";
@@ -40,7 +41,7 @@ export type Entry = {
   id: number,
   day: number,
   platform: number,
-  flight: string,
+  flight: Flight,
   name: string,
   sex: Sex,
   birthDate: string,
