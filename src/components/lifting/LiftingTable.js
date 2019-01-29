@@ -168,7 +168,7 @@ class LiftingTable extends React.Component<Props> {
     if (kg !== 0 || currentAndHasPrevious || nextAndTookLast) {
       return (
         <td key={columnType} className={styles.attemptInputCell}>
-          <AttemptInput entryId={entry.id} lift={lift} attemptOneIndexed={attemptOneIndexed} weightKg={kg} />
+          <AttemptInput entry={entry} lift={lift} attemptOneIndexed={attemptOneIndexed} />
         </td>
       );
     }
