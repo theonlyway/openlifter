@@ -112,7 +112,7 @@ class Plates extends React.Component<Props> {
           <thead>
             <tr>
               <th>Weight ({units})</th>
-              <th># Plates on One Side</th>
+              <th>Pairs of Plates</th>
             </tr>
           </thead>
           <tbody>{plateRows}</tbody>
