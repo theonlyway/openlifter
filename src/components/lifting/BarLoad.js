@@ -27,7 +27,7 @@ import { selectPlatesKg } from "../../logic/barLoad";
 
 import { updateRegistration } from "../../actions/registrationActions";
 
-import type { Lift, PlatePairCount } from "../../types/dataTypes";
+import type { Lift, PlatePairCount, LoadedPlate } from "../../types/dataTypes";
 import type { GlobalState } from "../../types/stateTypes";
 
 import styles from "./BarLoad.module.scss";
@@ -128,7 +128,7 @@ class Loading extends React.Component<Props> {
 
   // Turns the selectPlatesKg() array into divs.
   renderKgPlates = () => {
-    const plates: Array<number> = selectPlatesKg(
+    const plates: Array<LoadedPlate> = selectPlatesKg(
       this.props.weightKg,
       this.props.barAndCollarsWeightKg,
       this.props.platePairCounts
@@ -139,7 +139,7 @@ class Loading extends React.Component<Props> {
 
     // Iterate on a group of plates of the same weight at a time.
     while (i < plates.length) {
-      const weightKg = plates[i];
+      const weightKg = plates[i].weightAny;
 
       // If the weight is negative, it's an error report.
       if (weightKg < 0) {
@@ -153,7 +153,7 @@ class Loading extends React.Component<Props> {
 
       // Count how many times this same plate appears consecutively.
       let plateCount = 1;
-      for (let j = i + 1; j < plates.length && plates[j] === weightKg; j++) {
+      for (let j = i + 1; j < plates.length && plates[j].weightAny === weightKg; j++) {
         plateCount++;
       }
 

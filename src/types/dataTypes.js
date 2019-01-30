@@ -68,6 +68,12 @@ export type PlatePairCount = {
   pairCount: number
 };
 
+// Represents a single plate loaded on the bar, for the BarLoad component.
+export type LoadedPlate = {
+  weightAny: number, // The weight used for display, kg or pounds.
+  isAlreadyLoaded: boolean // Used for diffs: if true, it's rendered faintly.
+};
+
 export type LiftingOrder = {
   orderedEntries: Array<Entry>,
   attemptOneIndexed: number,
