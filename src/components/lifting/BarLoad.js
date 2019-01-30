@@ -23,6 +23,8 @@
 import React from "react";
 import { connect } from "react-redux";
 
+import { selectPlatesKg } from "../../logic/barLoad";
+
 import { updateRegistration } from "../../actions/registrationActions";
 
 import type { Lift, PlatesOnSide } from "../../types/dataTypes";
@@ -124,47 +126,13 @@ class Loading extends React.Component<Props> {
     }
   };
 
-  // Selects kilo plates using the simple greedy algorithm.
-  // Weight that cannot be loaded is returned at the end as a negative number.
-  selectKgPlates = (): Array<number> => {
-    // Handle the default case of a complete flight.
-    if (this.props.weightKg === 0) {
-      return [];
-    }
-
-    // Sort a copy of the plates array by descending weight.
-    let sortedPlates = this.props.platesOnSide.slice().sort((a, b) => {
-      return b.weightKg - a.weightKg;
-    });
-
-    let sideWeightKg = (this.props.weightKg - this.props.barAndCollarsWeightKg) / 2;
-    if (sideWeightKg < 0) {
-      return [sideWeightKg];
-    }
-
-    // Run through each plate, applying as many as will fit, in order.
-    let plates = [];
-    for (let i = 0; i < sortedPlates.length; i++) {
-      let { weightKg, amount } = sortedPlates[i];
-
-      while (amount > 0 && weightKg <= sideWeightKg) {
-        amount--;
-        sideWeightKg -= weightKg;
-        plates.push(weightKg);
-      }
-    }
-
-    // If there was an error, report it as a negative number.
-    if (sideWeightKg > 0) {
-      plates.push(-sideWeightKg);
-    }
-
-    return plates;
-  };
-
-  // Turns the selectKgPlates() array into divs.
+  // Turns the selectPlatesKg() array into divs.
   renderKgPlates = () => {
-    const plates: Array<number> = this.selectKgPlates();
+    const plates: Array<number> = selectPlatesKg(
+      this.props.weightKg,
+      this.props.barAndCollarsWeightKg,
+      this.props.platesOnSide
+    );
 
     let divs = [];
     let i = 0;
