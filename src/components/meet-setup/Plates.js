@@ -25,15 +25,21 @@ import { connect } from "react-redux";
 
 import { FormControl, FormGroup, Table } from "react-bootstrap";
 
-import { setPlatesOnSide } from "../../actions/meetSetupActions";
+import { setPlatePairCount } from "../../actions/meetSetupActions";
 
-import type { PlatesOnSide } from "../../types/dataTypes";
+import type { PlatePairCount } from "../../types/dataTypes";
+import type { GlobalState } from "../../types/stateTypes";
 
-type Props = {
+type StateProps = {
   inKg: boolean,
-  platesOnSide: Array<PlatesOnSide>,
-  setPlatesOnSide: (number, number) => any
+  platePairCounts: Array<PlatePairCount>
 };
+
+type DispatchProps = {
+  setPlatePairCount: (number, number) => any
+};
+
+type Props = StateProps & DispatchProps;
 
 class Plates extends React.Component<Props> {
   constructor(props, context) {
@@ -69,7 +75,7 @@ class Plates extends React.Component<Props> {
     }
 
     const widget: any = document.getElementById(id);
-    this.props.setPlatesOnSide(weightKg, Number(widget.value));
+    this.props.setPlatePairCount(weightKg, Number(widget.value));
   };
 
   renderWeightRow = (weightKg, amount) => {
@@ -99,9 +105,9 @@ class Plates extends React.Component<Props> {
 
   render() {
     let plateRows = [];
-    for (let i = 0; i < this.props.platesOnSide.length; i++) {
-      const obj = this.props.platesOnSide[i];
-      plateRows.push(this.renderWeightRow(obj.weightKg, obj.amount));
+    for (let i = 0; i < this.props.platePairCounts.length; i++) {
+      const obj: PlatePairCount = this.props.platePairCounts[i];
+      plateRows.push(this.renderWeightRow(obj.weightKg, obj.pairCount));
     }
 
     const units = this.props.inKg ? "kg" : "lbs";
@@ -122,14 +128,14 @@ class Plates extends React.Component<Props> {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: GlobalState): StateProps => ({
   inKg: state.meet.inKg,
-  platesOnSide: state.meet.platesOnSide
+  platePairCounts: state.meet.platePairCounts
 });
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch): DispatchProps => {
   return {
-    setPlatesOnSide: (weightKg, amount) => dispatch(setPlatesOnSide(weightKg, amount))
+    setPlatePairCount: (weightKg, amount) => dispatch(setPlatePairCount(weightKg, amount))
   };
 };
 

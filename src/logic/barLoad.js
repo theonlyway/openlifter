@@ -17,14 +17,14 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import type { PlatesOnSide } from "../types/dataTypes";
+import type { PlatePairCount } from "../types/dataTypes";
 
 // Returns a list of plate weights in loading order.
 // Any unloadable remainder is reported as a final number with a negative value.
 export const selectPlatesKg = (
   loadingKg: number,
   barAndCollarsWeightKg: number,
-  plates: $ReadOnlyArray<PlatesOnSide>
+  plates: $ReadOnlyArray<PlatePairCount>
 ): Array<number> => {
   // Sort a copy of the plates array by descending weight.
   const sortedPlates = plates.slice().sort((a, b) => {
@@ -36,9 +36,9 @@ export const selectPlatesKg = (
 
   // Run through each plate in order, applying as many of that plate as will fit.
   for (let i = 0; i < sortedPlates.length; i++) {
-    let { weightKg, amount } = sortedPlates[i];
-    while (amount > 0 && weightKg <= sideWeightKg) {
-      amount--;
+    let { weightKg, pairCount } = sortedPlates[i];
+    while (pairCount > 0 && weightKg <= sideWeightKg) {
+      pairCount--;
       sideWeightKg -= weightKg;
       loading.push(weightKg);
     }

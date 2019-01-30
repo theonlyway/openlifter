@@ -116,10 +116,10 @@ export interface SetBarAndCollarsWeightKgAction {
   weightKg: number;
 }
 
-export interface SetPlatesOnSideAction {
-  type: "SET_PLATES_ON_SIDE";
+export interface SetPlatePairCountAction {
+  type: "SET_PLATE_PAIR_COUNT";
   weightKg: number;
-  amount: number;
+  pairCount: number;
 }
 
 export type MeetSetupAction =
@@ -137,7 +137,7 @@ export type MeetSetupAction =
   | SetMeetStateAction
   | SetMeetCityAction
   | SetBarAndCollarsWeightKgAction
-  | SetPlatesOnSideAction;
+  | SetPlatePairCountAction;
 
 //////////////////////////////////////////////////////////
 // Registration Actions.

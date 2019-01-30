@@ -27,7 +27,7 @@ import { selectPlatesKg } from "../../logic/barLoad";
 
 import { updateRegistration } from "../../actions/registrationActions";
 
-import type { Lift, PlatesOnSide } from "../../types/dataTypes";
+import type { Lift, PlatePairCount } from "../../types/dataTypes";
 import type { GlobalState } from "../../types/stateTypes";
 
 import styles from "./BarLoad.module.scss";
@@ -41,7 +41,7 @@ interface OwnProps {
 interface StateProps {
   inKg: boolean;
   barAndCollarsWeightKg: number;
-  platesOnSide: Array<PlatesOnSide>;
+  platePairCounts: Array<PlatePairCount>;
   lift: Lift;
 }
 
@@ -131,7 +131,7 @@ class Loading extends React.Component<Props> {
     const plates: Array<number> = selectPlatesKg(
       this.props.weightKg,
       this.props.barAndCollarsWeightKg,
-      this.props.platesOnSide
+      this.props.platePairCounts
     );
 
     let divs = [];
@@ -211,7 +211,7 @@ const mapStateToProps = (state: GlobalState): StateProps => {
   return {
     inKg: state.meet.inKg,
     barAndCollarsWeightKg: state.meet.barAndCollarsWeightKg,
-    platesOnSide: state.meet.platesOnSide,
+    platePairCounts: state.meet.platePairCounts,
     lift: state.lifting.lift
   };
 };

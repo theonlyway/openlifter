@@ -63,9 +63,9 @@ export type Entry = {
   deadliftStatus: Array<LiftStatus>
 };
 
-export type PlatesOnSide = {
+export type PlatePairCount = {
   weightKg: number,
-  amount: number
+  pairCount: number
 };
 
 export type LiftingOrder = {

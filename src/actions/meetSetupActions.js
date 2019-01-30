@@ -32,7 +32,7 @@ import type {
   SetMeetStateAction,
   SetMeetCityAction,
   SetBarAndCollarsWeightKgAction,
-  SetPlatesOnSideAction
+  SetPlatePairCountAction
 } from "../types/actionTypes";
 import type { Formula, Sex } from "../types/dataTypes";
 
@@ -136,10 +136,10 @@ export const setBarAndCollarsWeightKg = (weightKg: number): SetBarAndCollarsWeig
   };
 };
 
-export const setPlatesOnSide = (weightKg: number, amount: number): SetPlatesOnSideAction => {
+export const setPlatePairCount = (weightKg: number, pairCount: number): SetPlatePairCountAction => {
   return {
-    type: "SET_PLATES_ON_SIDE",
+    type: "SET_PLATE_PAIR_COUNT",
     weightKg,
-    amount
+    pairCount
   };
 };

@@ -18,7 +18,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import type { MeetSetupAction, OverwriteStoreAction } from "../types/actionTypes";
-import type { PlatesOnSide } from "../types/dataTypes";
+import type { PlatePairCount } from "../types/dataTypes";
 import type { MeetState } from "../types/stateTypes";
 
 const defaultPlatformsOnDay = 1;
@@ -27,33 +27,33 @@ const defaultBarAndCollarsWeightKg = 25; // Assuming metal 2.5kg collars.
 const defaultBarAndCollarsWeightLbs = 45; // Assuming plastic collars.
 
 // Default kg plates, allowing for increments of 0.5kg.
-const defaultPlatesOnSideKg: Array<PlatesOnSide> = [
-  { weightKg: 50, amount: 0 },
-  { weightKg: 25, amount: 8 },
-  { weightKg: 20, amount: 1 },
-  { weightKg: 15, amount: 1 },
-  { weightKg: 10, amount: 1 },
-  { weightKg: 5, amount: 1 },
-  { weightKg: 2.5, amount: 1 },
-  { weightKg: 1.25, amount: 1 },
-  { weightKg: 1, amount: 1 },
-  { weightKg: 0.75, amount: 1 },
-  { weightKg: 0.5, amount: 1 },
-  { weightKg: 0.25, amount: 1 }
+const defaultPlatePairCountsKg: Array<PlatePairCount> = [
+  { weightKg: 50, pairCount: 0 },
+  { weightKg: 25, pairCount: 8 },
+  { weightKg: 20, pairCount: 1 },
+  { weightKg: 15, pairCount: 1 },
+  { weightKg: 10, pairCount: 1 },
+  { weightKg: 5, pairCount: 1 },
+  { weightKg: 2.5, pairCount: 1 },
+  { weightKg: 1.25, pairCount: 1 },
+  { weightKg: 1, pairCount: 1 },
+  { weightKg: 0.75, pairCount: 1 },
+  { weightKg: 0.5, pairCount: 1 },
+  { weightKg: 0.25, pairCount: 1 }
 ];
 
 const kg = 2.20462262;
 
 // Default lbs plates, allowing for increments of 1lb.
-const defaultPlatesOnSideLbs: Array<PlatesOnSide> = [
-  { weightKg: 45 / kg, amount: 8 },
-  { weightKg: 35 / kg, amount: 0 },
-  { weightKg: 25 / kg, amount: 1 },
-  { weightKg: 10 / kg, amount: 2 },
-  { weightKg: 5 / kg, amount: 1 },
-  { weightKg: 2.5 / kg, amount: 1 },
-  { weightKg: 1.25 / kg, amount: 1 },
-  { weightKg: 0.5 / kg, amount: 2 }
+const defaultPlatePairCountsLbs: Array<PlatePairCount> = [
+  { weightKg: 45 / kg, pairCount: 8 },
+  { weightKg: 35 / kg, pairCount: 0 },
+  { weightKg: 25 / kg, pairCount: 1 },
+  { weightKg: 10 / kg, pairCount: 2 },
+  { weightKg: 5 / kg, pairCount: 1 },
+  { weightKg: 2.5 / kg, pairCount: 1 },
+  { weightKg: 1.25 / kg, pairCount: 1 },
+  { weightKg: 0.5 / kg, pairCount: 2 }
 ];
 
 const initialState: MeetState = {
@@ -72,7 +72,7 @@ const initialState: MeetState = {
   state: "",
   city: "",
   barAndCollarsWeightKg: defaultBarAndCollarsWeightKg,
-  platesOnSide: defaultPlatesOnSideKg
+  platePairCounts: defaultPlatePairCountsKg
 };
 
 function getDateString(dateTime) {
@@ -138,7 +138,7 @@ export default (state: MeetState = initialState, action: Action): MeetState => {
 
     case "SET_IN_KG": {
       // Changing the units also changes the loading, so re-initialize from defaults.
-      const defaultPlates = action.inKg ? defaultPlatesOnSideKg : defaultPlatesOnSideLbs;
+      const defaultPlates = action.inKg ? defaultPlatePairCountsKg : defaultPlatePairCountsLbs;
       const defaultBar = action.inKg ? defaultBarAndCollarsWeightKg : defaultBarAndCollarsWeightLbs / kg;
       return { ...state, inKg: action.inKg, platesOnSide: defaultPlates, barAndCollarsWeightKg: defaultBar };
     }
@@ -168,20 +168,19 @@ export default (state: MeetState = initialState, action: Action): MeetState => {
       return { ...state, barAndCollarsWeightKg: action.weightKg };
     }
 
-    case "SET_PLATES_ON_SIDE": {
-      const weightKg = action.weightKg;
-      const amount = action.amount;
+    case "SET_PLATE_PAIR_COUNT": {
+      const { weightKg, pairCount } = action;
 
       // Find the index of the object in the platesOnSide array by comparing weights.
-      const index = state.platesOnSide.findIndex(p => p.weightKg === weightKg);
+      const index = state.platePairCounts.findIndex(p => p.weightKg === weightKg);
 
       // Clone the array.
-      let newPlates: Array<PlatesOnSide> = state.platesOnSide.slice();
+      let newPlates: Array<PlatePairCount> = state.platePairCounts.slice();
 
       // Replace with a new object in the new array.
-      newPlates[index] = { weightKg: weightKg, amount: amount };
+      newPlates[index] = { weightKg, pairCount };
 
-      return { ...state, platesOnSide: newPlates };
+      return { ...state, platePairCounts: newPlates };
     }
 
     case "OVERWRITE_STORE": {
