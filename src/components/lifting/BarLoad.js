@@ -23,25 +23,20 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { selectPlatesKg } from "../../logic/barLoad";
-
 import { updateRegistration } from "../../actions/registrationActions";
 
-import type { Lift, PlatePairCount, LoadedPlate } from "../../types/dataTypes";
+import type { Lift, LoadedPlate } from "../../types/dataTypes";
 import type { GlobalState } from "../../types/stateTypes";
 
 import styles from "./BarLoad.module.scss";
 
 interface OwnProps {
-  weightKg: number;
+  loading: Array<LoadedPlate>;
   rackInfo: string;
   entryId: ?number;
 }
 
 interface StateProps {
-  inKg: boolean;
-  barAndCollarsWeightKg: number;
-  platePairCounts: Array<PlatePairCount>;
   lift: Lift;
 }
 
@@ -128,11 +123,7 @@ class Loading extends React.Component<Props> {
 
   // Turns the selectPlatesKg() array into divs.
   renderKgPlates = () => {
-    const plates: Array<LoadedPlate> = selectPlatesKg(
-      this.props.weightKg,
-      this.props.barAndCollarsWeightKg,
-      this.props.platePairCounts
-    );
+    const plates: Array<LoadedPlate> = this.props.loading;
 
     let divs = [];
     let i = 0;
@@ -151,7 +142,7 @@ class Loading extends React.Component<Props> {
         break;
       }
 
-      // Count how many times this same plate appears consecutively.
+      // Count how many times this same plate kind appears consecutively.
       let plateCount = 1;
       for (let j = i + 1; j < plates.length && plates[j].weightAny === weightKg; j++) {
         plateCount++;
@@ -162,9 +153,14 @@ class Loading extends React.Component<Props> {
 
       // Push each of the plates individually.
       for (let j = 0; j < plateCount; j++) {
+        const plate = plates[i + j];
         const counter = String(j + 1);
         divs.push(
-          <div key={weightKg + "-" + counter} className={this.weightKgToStyle(weightKg)}>
+          <div
+            key={weightKg + "-" + counter}
+            className={this.weightKgToStyle(weightKg)}
+            style={plate.isAlreadyLoaded ? { opacity: 0.25 } : {}}
+          >
             <div>{this.weightKgToText(weightKg)}</div>
             {showCounter ? <div>{counter}</div> : null}
           </div>
@@ -209,9 +205,6 @@ class Loading extends React.Component<Props> {
 
 const mapStateToProps = (state: GlobalState): StateProps => {
   return {
-    inKg: state.meet.inKg,
-    barAndCollarsWeightKg: state.meet.barAndCollarsWeightKg,
-    platePairCounts: state.meet.platePairCounts,
     lift: state.lifting.lift
   };
 };

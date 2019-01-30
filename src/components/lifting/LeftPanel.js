@@ -23,13 +23,14 @@
 import React from "react";
 import { connect } from "react-redux";
 
+import { selectPlatesKg, makeLoadingRelative } from "../../logic/barLoad";
 import { liftToAttemptFieldName } from "../../logic/entry";
 
 import BarLoad from "./BarLoad";
 
 import styles from "./LeftPanel.module.scss";
 
-import type { Entry } from "../../types/dataTypes";
+import type { Entry, LoadedPlate, PlatePairCount } from "../../types/dataTypes";
 import type { GlobalState, LiftingState, RegistrationState } from "../../types/stateTypes";
 
 interface OwnProps {
@@ -41,24 +42,29 @@ interface OwnProps {
 }
 
 interface StateProps {
+  inKg: boolean;
+  barAndCollarsWeightKg: number;
+  platePairCounts: Array<PlatePairCount>;
   registration: RegistrationState;
   lifting: LiftingState;
 }
 
 type Props = OwnProps & StateProps;
 
+interface BarLoadOptions {
+  weightKg: number;
+  weightLbs: number;
+  rackInfo: string;
+}
+
 class LeftPanel extends React.Component<Props> {
-  getBarLoadProps(entryId, attemptOneIndexed) {
+  getBarLoadProps = (entryId?: number, attemptOneIndexed?: number): BarLoadOptions => {
     const lift = this.props.lifting.lift;
     const fieldKg = liftToAttemptFieldName(lift);
 
     // Defaults, in case of no lifter.
     if (entryId === null || entryId === undefined || attemptOneIndexed === null || attemptOneIndexed === undefined) {
-      return {
-        weightKg: 0,
-        weightLbs: 0,
-        rackInfo: ""
-      };
+      return { weightKg: 0, weightLbs: 0, rackInfo: "" };
     }
 
     const idx = this.props.registration.lookup[entryId];
@@ -71,12 +77,8 @@ class LeftPanel extends React.Component<Props> {
     if (lift === "S") rackInfo = entry.squatRackInfo;
     if (lift === "B") rackInfo = entry.benchRackInfo;
 
-    return {
-      weightKg: weightKg,
-      weightLbs: weightLbs,
-      rackInfo: rackInfo
-    };
-  }
+    return { weightKg, weightLbs, rackInfo };
+  };
 
   render() {
     const current = this.getBarLoadProps(this.props.currentEntryId, this.props.attemptOneIndexed);
@@ -86,6 +88,21 @@ class LeftPanel extends React.Component<Props> {
     const weightKgText = current.weightKg.toFixed(1).replace(".0", "");
     const weightLbsText = current.weightLbs.toFixed(1).replace(".0", "");
 
+    // Calculate both loadings.
+    const currentLoading: Array<LoadedPlate> = selectPlatesKg(
+      current.weightKg,
+      this.props.barAndCollarsWeightKg,
+      this.props.platePairCounts
+    );
+    const nextLoading: Array<LoadedPlate> = selectPlatesKg(
+      next.weightKg,
+      this.props.barAndCollarsWeightKg,
+      this.props.platePairCounts
+    );
+
+    // Set the next loading relative to the current loading.
+    makeLoadingRelative(nextLoading, currentLoading);
+
     return (
       <div className={styles.container}>
         <div className={styles.activeCard}>
@@ -94,7 +111,7 @@ class LeftPanel extends React.Component<Props> {
               {weightKgText}kg / {weightLbsText}lb
             </div>
             <div className={styles.barArea}>
-              <BarLoad entryId={this.props.currentEntryId} weightKg={current.weightKg} rackInfo={current.rackInfo} />
+              <BarLoad entryId={this.props.currentEntryId} loading={currentLoading} rackInfo={current.rackInfo} />
             </div>
           </div>
         </div>
@@ -102,7 +119,7 @@ class LeftPanel extends React.Component<Props> {
         <div className={styles.loadingBar}>
           <div className={styles.nextText}>NEXT UP</div>
           <div className={styles.barArea}>
-            <BarLoad entryId={this.props.nextEntryId} weightKg={next.weightKg} rackInfo={next.rackInfo} />
+            <BarLoad entryId={this.props.nextEntryId} loading={nextLoading} rackInfo={next.rackInfo} />
           </div>
         </div>
       </div>
@@ -112,6 +129,9 @@ class LeftPanel extends React.Component<Props> {
 
 const mapStateToProps = (state: GlobalState): StateProps => {
   return {
+    inKg: state.meet.inKg,
+    barAndCollarsWeightKg: state.meet.barAndCollarsWeightKg,
+    platePairCounts: state.meet.platePairCounts,
     registration: state.registration,
     lifting: state.lifting
   };
