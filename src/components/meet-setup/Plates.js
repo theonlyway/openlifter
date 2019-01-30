@@ -114,7 +114,7 @@ class Plates extends React.Component<Props> {
 
     return (
       <div>
-        <Table striped>
+        <Table striped condensed hover style={{ margin: "0px" }}>
           <thead>
             <tr>
               <th>Weight ({units})</th>
