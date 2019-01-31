@@ -95,8 +95,8 @@ class ByPoints extends React.Component<Props> {
         <td>{entry.name}</td>
         <td>{entry.sex}</td>
         <td>{entry.equipment}</td>
-        <td>{getWeightClassStr(classes, entry.bodyweightKg)}</td>
-        <td>{entry.bodyweightKg}</td>
+        <td>{entry.bodyweightKg === 0 ? null : getWeightClassStr(classes, entry.bodyweightKg)}</td>
+        <td>{entry.bodyweightKg === 0 ? null : entry.bodyweightKg}</td>
         <td>{entry.age}</td>
         <td>{squatKg === 0 ? "" : squatKg}</td>
         <td>{benchKg === 0 ? "" : benchKg}</td>

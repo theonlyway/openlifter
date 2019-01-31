@@ -197,12 +197,15 @@ class LiftingTable extends React.Component<Props> {
             {entry.name}
           </td>
         );
-      case "Bodyweight":
-        return <td key={columnType}>{entry.bodyweightKg}</td>;
+      case "Bodyweight": {
+        const bw = entry.bodyweightKg;
+        return <td key={columnType}>{bw === 0 ? null : bw}</td>;
+      }
       case "WeightClass": {
+        const bw = entry.bodyweightKg;
         const classesForSex = this.mapSexToClasses(entry.sex, this.props.meet);
-        const weightClass = getWeightClassStr(classesForSex, entry.bodyweightKg);
-        return <td key={columnType}>{weightClass}</td>;
+        const weightClass = getWeightClassStr(classesForSex, bw);
+        return <td key={columnType}>{bw === 0 ? null : weightClass}</td>;
       }
       case "Division": {
         // Just show the first division in the list, if any.
