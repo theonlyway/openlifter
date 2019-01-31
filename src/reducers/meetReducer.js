@@ -66,6 +66,7 @@ const initialState: MeetState = {
   divisions: [],
   weightClassesKgMen: [],
   weightClassesKgWomen: [],
+  weightClassesKgMx: [],
   inKg: true,
   areWrapsRaw: false,
   country: "",
@@ -146,10 +147,17 @@ export default (state: MeetState = initialState, action: Action): MeetState => {
     case "SET_WEIGHTCLASSES": {
       const sex = action.sex;
       const classesKg = action.classesKg;
-      if (sex === "M") {
-        return { ...state, weightClassesKgMen: classesKg };
+      switch (sex) {
+        case "M":
+          return { ...state, weightClassesKgMen: classesKg };
+        case "F":
+          return { ...state, weightClassesKgWomen: classesKg };
+        case "Mx":
+          return { ...state, weightClassesKgMx: classesKg };
+        default:
+          (sex: empty) // eslint-disable-line
+          return state;
       }
-      return { ...state, weightClassesKgWomen: classesKg };
     }
 
     case "SET_ARE_WRAPS_RAW":

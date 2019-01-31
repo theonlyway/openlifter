@@ -205,7 +205,7 @@ class RandomizeRegistrationButton extends React.Component {
 
       // Set a random Sex.
       // ==========================================
-      const sex = "MF"[randomInt(0, 1)];
+      const sex = ["M", "F", "Mx"][randomInt(0, 2)];
 
       // Generate random events, making most lifters SBD.
       // ==========================================

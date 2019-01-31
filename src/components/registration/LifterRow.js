@@ -237,6 +237,7 @@ class LifterRow extends React.Component {
           <FormControl defaultValue={entry.sex} componentClass="select" onChange={this.updateRegistrationSex}>
             <option value="M">M</option>
             <option value="F">F</option>
+            <option value="Mx">Mx</option>
           </FormControl>
         </td>
 

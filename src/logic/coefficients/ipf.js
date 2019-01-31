@@ -79,10 +79,14 @@ export const ipfpoints = (
     return 0;
   }
 
-  if (event !== "SBD" && event !== "B") return 0;
-  if (sex !== "M" && sex !== "F") return 0;
+  // Consider Mx athletes as M, since that's the harsher formula.
+  let normalizedSex = sex;
+  if (sex === "Mx") normalizedSex = "M";
 
-  const params = PARAMETERS[sex][normalizedEquipment][event];
+  if (event !== "SBD" && event !== "B") return 0;
+  if (normalizedSex !== "M" && normalizedSex !== "F") return 0;
+
+  const params = PARAMETERS[normalizedSex][normalizedEquipment][event];
   const bw_log = Math.log(bodyweightKg);
 
   const mean = params[0] * bw_log - params[1];

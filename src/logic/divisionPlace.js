@@ -95,7 +95,17 @@ const getEquipmentSortOrder = (eq: Equipment): number => {
 
 // Determines the sort order by Sex.
 const getSexSortOrder = (sex: Sex): number => {
-  return sex === "F" ? 0 : 1;
+  switch (sex) {
+    case "F":
+      return 0;
+    case "M":
+      return 1;
+    case "Mx":
+      return 2;
+    default:
+      (sex: empty) // eslint-disable-line
+      return 3;
+  }
 };
 
 // Determines the sort (and therefore presentation) order for the Category Results.
@@ -133,6 +143,20 @@ export const sortCategoryResults = (results: Array<CategoryResults>) => {
   });
 };
 
+const mapSexToClasses = (sex: Sex, men: Array<number>, women: Array<number>, mx: Array<number>): Array<number> => {
+  switch (sex) {
+    case "M":
+      return men;
+    case "F":
+      return women;
+    case "Mx":
+      return mx;
+    default:
+      (sex: empty) // eslint-disable-line
+      return men;
+  }
+};
+
 // Generates objects representing every present category of competition,
 // with each entry given a Place designation.
 //
@@ -140,7 +164,8 @@ export const sortCategoryResults = (results: Array<CategoryResults>) => {
 export const getAllResults = (
   entries: Array<Entry>,
   weightClassesKgMen: Array<number>,
-  weightClassesKgWomen: Array<number>
+  weightClassesKgWomen: Array<number>,
+  weightClassesKgMx: Array<number>
 ): Array<CategoryResults> => {
   // Generate a map from category to the entries within that category.
   // The map is populated by iterating over each entry and having the entry
@@ -152,7 +177,7 @@ export const getAllResults = (
     // Remember consistent properties.
     const sex = e.sex;
     const equipment = e.equipment;
-    const classesForSex = sex === "M" ? weightClassesKgMen : weightClassesKgWomen;
+    const classesForSex = mapSexToClasses(sex, weightClassesKgMen, weightClassesKgWomen, weightClassesKgMx);
     const weightClassStr = getWeightClassStr(classesForSex, e.bodyweightKg);
 
     // Iterate over every combination of division and event, adding to the map.

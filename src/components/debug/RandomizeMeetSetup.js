@@ -81,8 +81,15 @@ class RandomizeMeetSetupButton extends React.Component {
     }
     classesWomen = classesWomen.sort((a, b) => Number(a) - Number(b));
 
+    let classesMx = [];
+    for (let i = 0; i < numClassesWomen; i++) {
+      classesMx.push(randomFixedPoint(40, 120, 1));
+    }
+    classesMx = classesMx.sort((a, b) => Number(a) - Number(b));
+
     this.props.setWeightClasses("M", classesMen);
     this.props.setWeightClasses("F", classesWomen);
+    this.props.setWeightClasses("Mx", classesMx);
 
     // Generate nonsense days and platforms.
     // ==========================================

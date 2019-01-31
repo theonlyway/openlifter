@@ -32,7 +32,7 @@ import { wilks } from "../../logic/coefficients/wilks";
 import { ipfpoints } from "../../logic/coefficients/ipf";
 
 import type { Category, CategoryResults } from "../../logic/divisionPlace";
-import type { Entry } from "../../types/dataTypes";
+import type { Entry, Sex } from "../../types/dataTypes";
 
 type Props = {
   meetName: string,
@@ -40,12 +40,27 @@ type Props = {
   lengthDays: number,
   weightClassesKgMen: Array<number>,
   weightClassesKgWomen: Array<number>,
+  weightClassesKgMx: Array<number>,
   entries: Array<Entry>
+};
+
+const mapSexToClasses = (sex: Sex, props: Props): Array<number> => {
+  switch (sex) {
+    case "M":
+      return props.weightClassesKgMen;
+    case "F":
+      return props.weightClassesKgWomen;
+    case "Mx":
+      return props.weightClassesKgMx;
+    default:
+      (sex: empty) // eslint-disable-line
+      return props.weightClassesKgMen;
+  }
 };
 
 class ByDivision extends React.Component<Props> {
   renderEntryRow = (entry: Entry, category: Category, key: number): any => {
-    const classes = entry.sex === "M" ? this.props.weightClassesKgMen : this.props.weightClassesKgWomen;
+    const classes = mapSexToClasses(entry.sex, this.props);
     const totalKg = getFinalEventTotalKg(entry, category.event);
     const squatKg = getBest5SquatKg(entry);
     const benchKg = getBest5BenchKg(entry);
@@ -90,9 +105,23 @@ class ByDivision extends React.Component<Props> {
     );
   };
 
+  mapSexToLabel = (sex: Sex): string => {
+    switch (sex) {
+      case "M":
+        return "Men's";
+      case "F":
+        return "Women's";
+      case "Mx":
+        return "Mx";
+      default:
+        (sex: empty) // eslint-disable-line
+        return "";
+    }
+  };
+
   renderCategoryResults = (results: CategoryResults, key: number): any => {
     const { category, orderedEntries } = results;
-    const sex = category.sex === "M" ? "Men's" : "Women's";
+    const sex = this.mapSexToLabel(category.sex);
 
     // Gather rows.
     let rows = [];
@@ -129,7 +158,12 @@ class ByDivision extends React.Component<Props> {
   };
 
   render() {
-    const results = getAllResults(this.props.entries, this.props.weightClassesKgMen, this.props.weightClassesKgWomen);
+    const results = getAllResults(
+      this.props.entries,
+      this.props.weightClassesKgMen,
+      this.props.weightClassesKgWomen,
+      this.props.weightClassesKgMx
+    );
 
     let categoryPanels = [];
     for (let i = 0; i < results.length; i++) {
@@ -147,6 +181,7 @@ const mapStateToProps = state => {
     lengthDays: state.meet.lengthDays,
     weightClassesKgMen: state.meet.weightClassesKgMen,
     weightClassesKgWomen: state.meet.weightClassesKgWomen,
+    weightClassesKgMx: state.meet.weightClassesKgMx,
     entries: state.registration.entries
   };
 };

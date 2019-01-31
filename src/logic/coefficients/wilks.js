@@ -49,6 +49,14 @@ export function wilksWomen(bodyweightKg: number): number {
 }
 
 export const wilks = (sex: Sex, bodyweightKg: number, totalKg: number): number => {
-  if (sex === "M") return wilksMen(bodyweightKg) * totalKg;
-  return wilksWomen(bodyweightKg) * totalKg;
+  switch (sex) {
+    case "M":
+    case "Mx":
+      return wilksMen(bodyweightKg) * totalKg;
+    case "F":
+      return wilksWomen(bodyweightKg) * totalKg;
+    default:
+      (sex: empty) // eslint-disable-line
+      return 0;
+  }
 };

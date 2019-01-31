@@ -25,6 +25,21 @@ import { connect } from "react-redux";
 import { Panel } from "react-bootstrap";
 
 import type { CategoryResults } from "../../logic/divisionPlace";
+import type { Sex } from "../../types/dataTypes";
+
+const sexToLabel = (sex: Sex): string => {
+  switch (sex) {
+    case "M":
+      return "Men's";
+    case "F":
+      return "Women's";
+    case "Mx":
+      return "Mx";
+    default:
+      (sex: empty) // eslint-disable-line
+      return "";
+  }
+};
 
 type Props = {
   platform: number,
@@ -36,7 +51,7 @@ class OneCategory extends React.Component<Props> {
     const category = this.props.categoryResults.category;
     const entries = this.props.categoryResults.orderedEntries;
 
-    const sex = category.sex === "M" ? "Men's" : "Women's";
+    const sex = sexToLabel(category.sex);
 
     let namelist = [];
     for (let i = 0; i < entries.length; i++) {

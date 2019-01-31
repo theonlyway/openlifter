@@ -1,4 +1,5 @@
 // vim: set ts=2 sts=2 sw=2 et:
+// @flow
 //
 // This file is part of OpenLifter, simple Powerlifting meet software.
 // Copyright (C) 2019 The OpenPowerlifting Project.
@@ -18,27 +19,54 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
 
 import { ControlLabel, FormGroup } from "react-bootstrap";
 import CreatableSelect from "react-select/lib/Creatable";
 
 import { setWeightClasses } from "../../actions/meetSetupActions";
 
+import type { Sex } from "../../types/dataTypes";
+import type { GlobalState } from "../../types/stateTypes";
+
 const components = {
   DropdownIndicator: null
 };
 
-const createOption = label => ({
+type OptionType = {
+  label: string,
+  value: string
+};
+
+const createOption = (label: string): OptionType => ({
   label,
   value: label
 });
 
-class WeightClassesSelect extends React.Component {
+interface OwnProps {
+  label: string;
+  sex: Sex;
+}
+
+interface StateProps {
+  classes: Array<number>;
+}
+
+interface DispatchProps {
+  setWeightClasses: (sex: Sex, classesKg: Array<number>) => any;
+}
+
+type Props = OwnProps & StateProps & DispatchProps;
+
+interface InternalState {
+  inputValue: string;
+  value: Array<OptionType>;
+}
+
+class WeightClassesSelect extends React.Component<Props, InternalState> {
   constructor(props, context) {
     super(props, context);
 
-    let objarray = [];
+    let objarray: Array<OptionType> = [];
     for (let i = 0; i < props.classes.length; i++) {
       const c = String(props.classes[i]);
       objarray.push({ value: c, label: c });
@@ -57,8 +85,7 @@ class WeightClassesSelect extends React.Component {
 
   // Updates the Redux store if a weightclass was added or removed.
   // Since updates are synchronous, we can simply check length.
-  maybeUpdateRedux(objarray) {
-    // objarray is a list of {value: "foo", label: "foo"} objects.
+  maybeUpdateRedux = (objarray: Array<OptionType>): void => {
     if (objarray.length === this.props.classes.length) {
       return;
     }
@@ -69,21 +96,21 @@ class WeightClassesSelect extends React.Component {
       classes.push(Number(objarray[i].label));
     }
     this.props.setWeightClasses(this.props.sex, classes);
-  }
+  };
 
   // Handles the case of deleting an existing weightclass.
-  handleChange(value, actionMeta) {
+  handleChange = (value: Array<OptionType>, actionMeta): void => {
     this.setState({ value });
     this.maybeUpdateRedux(value);
-  }
+  };
 
   // Reflects the current typing status in the state.
-  handleInputChange(inputValue) {
+  handleInputChange = (inputValue: string): void => {
     this.setState({ inputValue });
-  }
+  };
 
   // Handles the case of creating a new weightclass.
-  handleKeyDown(event) {
+  handleKeyDown = event => {
     const { inputValue, value } = this.state;
     if (!inputValue) return;
     if (event.key === "Enter" || event.key === "Tab") {
@@ -115,7 +142,7 @@ class WeightClassesSelect extends React.Component {
       this.maybeUpdateRedux(newValue);
       event.preventDefault();
     }
-  }
+  };
 
   render() {
     const { inputValue, value } = this.state;
@@ -138,27 +165,30 @@ class WeightClassesSelect extends React.Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
-  const menClasses = state.meet.weightClassesKgMen;
-  const womenClasses = state.meet.weightClassesKgWomen;
-  const classes = ownProps.sex === "M" ? menClasses : womenClasses;
+const selectClassesBySex = (sex: Sex, state: GlobalState): Array<number> => {
+  switch (sex) {
+    case "M":
+      return state.meet.weightClassesKgMen;
+    case "F":
+      return state.meet.weightClassesKgWomen;
+    case "Mx":
+      return state.meet.weightClassesKgMx;
+    default:
+      (sex: empty) // eslint-disable-line
+      return state.meet.weightClassesKgMen;
+  }
+};
 
+const mapStateToProps = (state: GlobalState, ownProps: OwnProps): StateProps => {
   return {
-    classes: classes
+    classes: selectClassesBySex(ownProps.sex, state)
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch): DispatchProps => {
   return {
     setWeightClasses: (sex, classesKg) => dispatch(setWeightClasses(sex, classesKg))
   };
-};
-
-WeightClassesSelect.propTypes = {
-  label: PropTypes.string.isRequired,
-  sex: PropTypes.string.isRequired,
-  classes: PropTypes.array.isRequired,
-  setWeightClasses: PropTypes.func.isRequired
 };
 
 export default connect(

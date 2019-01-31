@@ -41,17 +41,14 @@ import {
 import { getAllResults } from "../../logic/divisionPlace";
 import type { CategoryResults } from "../../logic/divisionPlace";
 
+import type { Sex } from "../../types/dataTypes";
+import type { MeetState, LiftingState } from "../../types/stateTypes";
+
 import styles from "./LiftingTable.module.scss";
 
 type Props = {
-  meet: {
-    formula: string, // TODO: Use type.
-    weightClassesKgMen: Array<number>,
-    weightClassesKgWomen: Array<number>
-  },
-  lifting: {
-    lift: string
-  },
+  meet: MeetState,
+  lifting: LiftingState,
   attemptOneIndexed: number,
   orderedEntries: Array<Object>,
   currentEntryId?: number
@@ -178,6 +175,20 @@ class LiftingTable extends React.Component<Props> {
     return <td key={columnType}>{kgStr}</td>;
   }
 
+  mapSexToClasses = (sex: Sex, meetState: MeetState): Array<number> => {
+    switch (sex) {
+      case "M":
+        return meetState.weightClassesKgMen;
+      case "F":
+        return meetState.weightClassesKgWomen;
+      case "Mx":
+        return meetState.weightClassesKgMx;
+      default:
+        (sex: empty) // eslint-disable-line
+        return meetState.weightClassesKgMen;
+    }
+  };
+
   renderCell = (entry: Object, columnType: ColumnType, categoryResults: Array<CategoryResults>) => {
     switch (columnType) {
       case "Name":
@@ -189,8 +200,7 @@ class LiftingTable extends React.Component<Props> {
       case "Bodyweight":
         return <td key={columnType}>{entry.bodyweightKg}</td>;
       case "WeightClass": {
-        const classesForSex =
-          entry.sex === "M" ? this.props.meet.weightClassesKgMen : this.props.meet.weightClassesKgWomen;
+        const classesForSex = this.mapSexToClasses(entry.sex, this.props.meet);
         const weightClass = getWeightClassStr(classesForSex, entry.bodyweightKg);
         return <td key={columnType}>{weightClass}</td>;
       }
@@ -443,7 +453,8 @@ class LiftingTable extends React.Component<Props> {
     const categoryResults = getAllResults(
       this.props.orderedEntries,
       this.props.meet.weightClassesKgMen,
-      this.props.meet.weightClassesKgWomen
+      this.props.meet.weightClassesKgWomen,
+      this.props.meet.weightClassesKgMx
     );
 
     return (

@@ -24,7 +24,12 @@ export type Event = "S" | "B" | "D" | "SB" | "SD" | "BD" | "SBD";
 export type Flight = "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K";
 export type Formula = "Glossbrenner" | "IPF Points" | "Wilks";
 export type Lift = "S" | "B" | "D";
-export type Sex = "M" | "F";
+
+// Mx (pronounced "Muks" or "Miks") is an honorific that does not indicate gender.
+//
+// Powerlifting federations use Mx for lifters who do not neatly fall into M or F
+// categories. It is typically used as a category for transgender athletes.
+export type Sex = "M" | "F" | "Mx";
 
 export type LiftStatus =
   | -1 // Failure.

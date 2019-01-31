@@ -41,6 +41,7 @@ export type MeetState = {
   +divisions: Array<string>,
   +weightClassesKgMen: Array<number>,
   +weightClassesKgWomen: Array<number>,
+  +weightClassesKgMx: Array<number>,
   +inKg: boolean,
   +areWrapsRaw: boolean,
   +country: string,

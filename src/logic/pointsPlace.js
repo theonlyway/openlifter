@@ -128,7 +128,17 @@ const getEquipmentSortOrder = (eq: Equipment): number => {
 
 // Determines the sort order by Sex.
 const getSexSortOrder = (sex: Sex): number => {
-  return sex === "F" ? 0 : 1;
+  switch (sex) {
+    case "F":
+      return 0;
+    case "M":
+      return 1;
+    case "Mx":
+      return 2;
+    default:
+      (sex: empty) // eslint-disable-line
+      return 3;
+  }
 };
 
 // Determines the sort (and therefore presentation) order for the Category Results.

@@ -72,6 +72,7 @@ class MeetSetup extends React.Component<Props> {
                 <DivisionSelect />
                 <WeightClassesSelect sex="M" label="Men's Weight Classes (kg), omit SHW" />
                 <WeightClassesSelect sex="F" label="Women's Weight Classes (kg), omit SHW" />
+                <WeightClassesSelect sex="Mx" label="Mx Weight Classes (kg), omit SHW" />
                 <FormulaSelect />
                 <AreWrapsRaw />
               </Panel.Body>

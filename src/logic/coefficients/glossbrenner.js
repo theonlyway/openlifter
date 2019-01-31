@@ -58,10 +58,12 @@ const glossbrenner_coefficient_women = (bodyweightKg: number): number => {
 export const glossbrenner = (sex: Sex, bodyweightKg: number, totalKg: number): number => {
   switch (sex) {
     case "M":
+    case "Mx":
       return glossbrenner_coefficient_men(bodyweightKg) * totalKg;
     case "F":
       return glossbrenner_coefficient_women(bodyweightKg) * totalKg;
     default:
+      (sex: empty) // eslint-disable-line
       return 0;
   }
 };
