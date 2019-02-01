@@ -1,4 +1,5 @@
 // vim: set ts=2 sts=2 sw=2 et:
+// @flow
 //
 // This file is part of OpenLifter, simple Powerlifting meet software.
 // Copyright (C) 2019 The OpenPowerlifting Project.
@@ -20,7 +21,6 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
 
 import { Button, FormControl, Panel } from "react-bootstrap";
 
@@ -29,9 +29,24 @@ import OneCategory from "./OneCategory";
 
 import { getAllResults } from "../../logic/divisionPlace";
 
+import type { Entry } from "../../types/dataTypes";
+import type { GlobalState, MeetState } from "../../types/stateTypes";
+
+interface StateProps {
+  meet: MeetState;
+  entries: Array<Entry>;
+}
+
+type Props = StateProps;
+
+interface InternalState {
+  day: number;
+  platform: number;
+}
+
 const marginStyle = { margin: "0 20px 0 20px" };
 
-class FlightOrderView extends React.Component {
+class FlightOrderView extends React.Component<Props, InternalState> {
   constructor(props) {
     super(props);
 
@@ -39,24 +54,13 @@ class FlightOrderView extends React.Component {
     this.updatePlatform = this.updatePlatform.bind(this);
     this.handlePrint = this.handlePrint.bind(this);
 
-    // Make options for all of the available days.
-    let dayOptions = [];
-    for (let i = 1; i <= props.meet.lengthDays; i++) {
-      dayOptions.push(
-        <option value={i} key={i}>
-          Day {i}
-        </option>
-      );
-    }
-    this.dayOptions = dayOptions;
-
     this.state = {
       day: 1,
       platform: 1
     };
   }
 
-  updateDay(event) {
+  updateDay = event => {
     const day = Number(event.target.value);
     if (this.state.day !== day) {
       // If the currently-selected platform number becomes invalid, reset it.
@@ -66,21 +70,31 @@ class FlightOrderView extends React.Component {
         this.setState({ day: day });
       }
     }
-  }
+  };
 
-  updatePlatform(event) {
+  updatePlatform = event => {
     const platform = Number(event.target.value);
     if (this.state.platform !== platform) {
       this.setState({ platform: platform });
     }
-  }
+  };
 
-  handlePrint() {
+  handlePrint = () => {
     window.print();
-  }
+  };
 
   render() {
     const selectorStyle = { width: "120px" };
+
+    // Make options for all of the days.
+    let dayOptions = [];
+    for (let i = 1; i <= this.props.meet.lengthDays; i++) {
+      dayOptions.push(
+        <option value={i} key={i}>
+          Day {i}
+        </option>
+      );
+    }
 
     // Make options for all of the available platforms on the current day.
     let platformOptions = [];
@@ -121,7 +135,8 @@ class FlightOrderView extends React.Component {
     const categoryResults = getAllResults(
       shownEntries,
       this.props.meet.weightClassesKgMen,
-      this.props.meet.weightClassesKgWomen
+      this.props.meet.weightClassesKgWomen,
+      this.props.meet.weightClassesKgMx
     );
 
     let categories = [];
@@ -140,7 +155,7 @@ class FlightOrderView extends React.Component {
               onChange={this.updateDay}
               style={selectorStyle}
             >
-              {this.dayOptions}
+              {dayOptions}
             </FormControl>
 
             <FormControl
@@ -165,16 +180,11 @@ class FlightOrderView extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: GlobalState): StateProps => {
   return {
     meet: state.meet,
     entries: state.registration.entries
   };
-};
-
-FlightOrderView.propTypes = {
-  meet: PropTypes.object.isRequired,
-  entries: PropTypes.array.isRequired
 };
 
 export default connect(
