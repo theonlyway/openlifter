@@ -1,4 +1,5 @@
 // vim: set ts=2 sts=2 sw=2 et:
+// @flow
 //
 // This file is part of OpenLifter, simple Powerlifting meet software.
 // Copyright (C) 2019 The OpenPowerlifting Project.
@@ -20,16 +21,24 @@
 // The Weigh-ins page updates more information in the Registration state.
 
 import React from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Panel } from "react-bootstrap";
 import { getLiftersOnDay } from "../../logic/entry";
 import LifterTable from "./LifterTable";
 import LifterRow from "./LifterRow";
 
+import type { Entry } from "../../types/dataTypes";
+import type { GlobalState } from "../../types/stateTypes";
+
 const marginStyle = { margin: "0 20px 0 20px" };
 
-class WeighinsView extends React.Component {
+interface StateProps {
+  entries: Array<Entry>;
+}
+
+type Props = StateProps;
+
+class WeighinsView extends React.Component<Props> {
   constructor(props) {
     super(props);
     this.getNumDaysFromEntries = this.getNumDaysFromEntries.bind(this);
@@ -42,9 +51,9 @@ class WeighinsView extends React.Component {
   // yet updating that lifter.
   //
   // This is an attempt to make that error more obvious, so it can be corrected.
-  getNumDaysFromEntries() {
+  getNumDaysFromEntries = () => {
     let max_day = 0;
-    const entries = this.props.registration.entries;
+    const entries = this.props.entries;
     for (let i = 0; i < entries.length; i++) {
       const entry = entries[i];
       if (entry.day > max_day) {
@@ -52,14 +61,14 @@ class WeighinsView extends React.Component {
       }
     }
     return max_day;
-  }
+  };
 
   render() {
     // Make a separate panel for each day.
     const numDays = this.getNumDaysFromEntries();
     let dayPanels = [];
     for (let i = 1; i <= numDays; i++) {
-      const lifters = getLiftersOnDay(this.props.registration.entries, i);
+      const lifters = getLiftersOnDay(this.props.entries, i);
 
       // Present the lifters in sorted order.
       lifters.sort((a, b) => {
@@ -94,15 +103,9 @@ class WeighinsView extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  ...state
+const mapStateToProps = (state: GlobalState): StateProps => ({
+  entries: state.registration.entries
 });
-
-WeighinsView.propTypes = {
-  registration: PropTypes.shape({
-    entries: PropTypes.array
-  })
-};
 
 export default connect(
   mapStateToProps,

@@ -1,4 +1,5 @@
 // vim: set ts=2 sts=2 sw=2 et:
+// @flow
 //
 // This file is part of OpenLifter, simple Powerlifting meet software.
 // Copyright (C) 2019 The OpenPowerlifting Project.
@@ -19,21 +20,28 @@
 // Defines the button that adds a new entry to the registrations table.
 
 import React from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Button } from "react-bootstrap";
 
 import { newRegistration } from "../../actions/registrationActions";
 
-class NewButton extends React.Component {
+import type { Entry } from "../../types/dataTypes";
+
+interface DispatchProps {
+  newRegistration: (obj: $Shape<Entry>) => any;
+}
+
+type Props = DispatchProps;
+
+class NewButton extends React.Component<Props> {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick(event) {
+  handleClick = event => {
     this.props.newRegistration({});
-  }
+  };
 
   render() {
     return (
@@ -44,21 +52,13 @@ class NewButton extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  ...state
-});
-
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch): DispatchProps => {
   return {
-    newRegistration: obj => dispatch(newRegistration(obj))
+    newRegistration: (obj: $Shape<Entry>) => dispatch(newRegistration(obj))
   };
 };
 
-NewButton.propTypes = {
-  newRegistration: PropTypes.func
-};
-
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(NewButton);

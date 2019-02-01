@@ -1,4 +1,5 @@
 // vim: set ts=2 sts=2 sw=2 et:
+// @flow
 //
 // This file is part of OpenLifter, simple Powerlifting meet software.
 // Copyright (C) 2019 The OpenPowerlifting Project.
@@ -22,7 +23,6 @@
 // For consistency purposes, weights are always stored in kg.
 
 import React from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { FormControl, FormGroup } from "react-bootstrap";
 
@@ -31,7 +31,36 @@ import { enterAttempt } from "../../actions/liftingActions";
 
 import { liftToAttemptFieldName } from "../../logic/entry";
 
-class WeightInput extends React.Component {
+import type { Entry, Lift } from "../../types/dataTypes";
+import type { GlobalState } from "../../types/stateTypes";
+
+interface OwnProps {
+  id: number; // The EntryID.
+  field: string;
+  disabled: boolean;
+
+  // Optional attributes used only for lifts (as opposed to for bodyweights).
+  lift?: Lift;
+  attemptOneIndexed?: number;
+}
+
+interface StateProps {
+  inKg: boolean;
+  weightKg: number;
+}
+
+interface DispatchProps {
+  updateRegistration: (entryId: number, obj: $Shape<Entry>) => any;
+  enterAttempt: (entryId: number, lift: Lift, attemptOneIndexed: number, weightKg: number) => any;
+}
+
+type Props = OwnProps & StateProps & DispatchProps;
+
+interface InternalState {
+  weightStr: string;
+}
+
+class WeightInput extends React.Component<Props, InternalState> {
   constructor(props) {
     super(props);
     this.getValidationState = this.getValidationState.bind(this);
@@ -55,7 +84,7 @@ class WeightInput extends React.Component {
     };
   }
 
-  getValidationState() {
+  getValidationState = () => {
     const weightNum = Number(this.state.weightStr);
     if (isNaN(weightNum) || weightNum < 0) {
       return "error";
@@ -63,16 +92,16 @@ class WeightInput extends React.Component {
       return "success";
     }
     return null;
-  }
+  };
 
   // Update the internal state, used for validation.
-  handleChange(event) {
+  handleChange = event => {
     const weightStr = event.target.value;
     this.setState({ weightStr: weightStr });
-  }
+  };
 
   // Update the Redux store.
-  handleBlur(event) {
+  handleBlur = event => {
     const weightStr = event.target.value;
     const weightNum = Number(weightStr);
 
@@ -86,7 +115,7 @@ class WeightInput extends React.Component {
     }
 
     // If "attempt" is set, a specific attempt is selected.
-    if (this.props.attemptOneIndexed !== undefined) {
+    if (this.props.attemptOneIndexed !== undefined && this.props.lift !== undefined) {
       const attemptOneIndexed = this.props.attemptOneIndexed;
       const lift = this.props.lift;
       this.props.enterAttempt(this.props.id, lift, attemptOneIndexed, weightKg);
@@ -96,7 +125,7 @@ class WeightInput extends React.Component {
       newfields[this.props.field] = weightKg;
       this.props.updateRegistration(this.props.id, newfields);
     }
-  }
+  };
 
   render() {
     // FormGroup provides a default padding of 15, but FormGroup is only being
@@ -117,7 +146,7 @@ class WeightInput extends React.Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state: GlobalState, ownProps: OwnProps): StateProps => {
   // Only have props for the entry corresponding to this one row.
   const lookup = state.registration.lookup;
   const entry = state.registration.entries[lookup[ownProps.id]];
@@ -140,30 +169,12 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch): DispatchProps => {
   return {
     updateRegistration: (entryId, obj) => dispatch(updateRegistration(entryId, obj)),
     enterAttempt: (entryId, lift, attemptOneIndexed, weightKg) =>
       dispatch(enterAttempt(entryId, lift, attemptOneIndexed, weightKg))
   };
-};
-
-WeightInput.propTypes = {
-  // The EntryID.
-  id: PropTypes.number.isRequired,
-  disabled: PropTypes.bool.isRequired,
-  inKg: PropTypes.bool.isRequired,
-  weightKg: PropTypes.number.isRequired,
-
-  // The name of the field on the entry, like "bodyweightKg".
-  field: PropTypes.string,
-
-  // If field isn't used, say what lift and attempt this corresponds to.
-  lift: PropTypes.string,
-  attemptOneIndexed: PropTypes.number,
-
-  updateRegistration: PropTypes.func.isRequired,
-  enterAttempt: PropTypes.func.isRequired
 };
 
 export default connect(
