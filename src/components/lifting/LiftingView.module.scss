@@ -43,4 +43,8 @@ div.leftPanelContainer {
 div.rightPanelContainer {
   display: block;
   width: $right-panel-width;
+
+  max-height: 82vh;
+  overflow-y: auto;
+  overflow-x: hidden;
 }

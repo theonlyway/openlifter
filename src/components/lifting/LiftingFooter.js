@@ -37,6 +37,7 @@ interface OwnProps {
   orderedEntries: Array<Entry>;
   currentEntryId: number | null;
   flightsOnPlatform: Array<Flight>;
+  toggleReplaceTableWithWeighins: () => void;
 }
 
 interface StateProps {
@@ -296,6 +297,9 @@ class LiftingFooter extends React.Component<Props> {
         </div>
 
         <div className={styles.rightControls}>
+          <button type="button" onClick={this.props.toggleReplaceTableWithWeighins}>
+            Toggle Weigh-ins
+          </button>
           <button type="button" onClick={this.handleFullscreen} className={styles.fullscreen}>
             Toggle Fullscreen
           </button>

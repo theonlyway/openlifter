@@ -30,6 +30,7 @@ import TopBar from "./TopBar";
 import LeftPanel from "./LeftPanel";
 import LiftingTable from "./LiftingTable";
 import LiftingFooter from "./LiftingFooter";
+import WeighinsView from "../weighins/WeighinsView";
 
 import styles from "./LiftingView.module.scss";
 
@@ -47,9 +48,43 @@ interface StateProps {
 
 type Props = StateProps;
 
-class LiftingView extends React.Component<Props> {
+interface InternalState {
+  // If true, the LiftingTable is replaced with the Weighins page.
+  // This lets the score table change arbitrary rack height and attempt information
+  // without removing the current lifter or bar load displays.
+  replaceTableWithWeighins: boolean;
+}
+
+class LiftingView extends React.Component<Props, InternalState> {
+  constructor(props) {
+    super(props);
+    this.toggleReplaceTableWithWeighins = this.toggleReplaceTableWithWeighins.bind(this);
+    this.state = {
+      replaceTableWithWeighins: false
+    };
+  }
+
+  toggleReplaceTableWithWeighins = (): void => {
+    this.setState({
+      replaceTableWithWeighins: !this.state.replaceTableWithWeighins
+    });
+  };
+
   render() {
     const now = getLiftingOrder(this.props.entriesInFlight, this.props.lifting);
+
+    let rightElement = null;
+    if (this.state.replaceTableWithWeighins === false) {
+      rightElement = (
+        <LiftingTable
+          attemptOneIndexed={now.attemptOneIndexed}
+          orderedEntries={now.orderedEntries}
+          currentEntryId={now.currentEntryId}
+        />
+      );
+    } else {
+      rightElement = <WeighinsView />;
+    }
 
     return (
       <div id="liftingView" className={styles.liftingView}>
@@ -70,13 +105,7 @@ class LiftingView extends React.Component<Props> {
             />
           </div>
 
-          <div className={styles.rightPanelContainer}>
-            <LiftingTable
-              attemptOneIndexed={now.attemptOneIndexed}
-              orderedEntries={now.orderedEntries}
-              currentEntryId={now.currentEntryId}
-            />
-          </div>
+          <div className={styles.rightPanelContainer}>{rightElement}</div>
         </div>
 
         <LiftingFooter
@@ -84,6 +113,7 @@ class LiftingView extends React.Component<Props> {
           orderedEntries={now.orderedEntries}
           currentEntryId={now.currentEntryId}
           flightsOnPlatform={this.props.flightsOnPlatform}
+          toggleReplaceTableWithWeighins={this.toggleReplaceTableWithWeighins}
         />
       </div>
     );
