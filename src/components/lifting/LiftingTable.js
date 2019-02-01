@@ -41,18 +41,23 @@ import {
 import { getAllResults } from "../../logic/divisionPlace";
 import type { CategoryResults } from "../../logic/divisionPlace";
 
-import type { Sex } from "../../types/dataTypes";
-import type { MeetState, LiftingState } from "../../types/stateTypes";
+import type { Entry, Sex } from "../../types/dataTypes";
+import type { GlobalState, MeetState, LiftingState } from "../../types/stateTypes";
 
 import styles from "./LiftingTable.module.scss";
 
-type Props = {
-  meet: MeetState,
-  lifting: LiftingState,
-  attemptOneIndexed: number,
-  orderedEntries: Array<Object>,
-  currentEntryId?: number
-};
+interface OwnProps {
+  attemptOneIndexed: number;
+  orderedEntries: Array<Entry>;
+  currentEntryId?: number;
+}
+
+interface StateProps {
+  meet: MeetState;
+  lifting: LiftingState;
+}
+
+type Props = OwnProps & StateProps;
 
 // List of possible columns that can be rendered.
 // The main render() function decides what columns to render,
@@ -471,9 +476,10 @@ class LiftingTable extends React.Component<Props> {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: GlobalState): StateProps => {
   return {
-    ...state
+    meet: state.meet,
+    lifting: state.lifting
   };
 };
 

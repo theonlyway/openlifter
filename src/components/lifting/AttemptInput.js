@@ -31,23 +31,23 @@ import type { Entry, Lift } from "../../types/dataTypes";
 
 import styles from "./LiftingTable.module.scss";
 
-type OwnProps = {
-  entry: Entry,
-  lift: Lift,
-  attemptOneIndexed: number
-};
+interface OwnProps {
+  entry: Entry;
+  lift: Lift;
+  attemptOneIndexed: number;
+}
 
-type DispatchProps = {
-  enterAttempt: (entryId: number, lift: Lift, attemptOneIndexed: number, weightKg: number) => any
-};
-
-type State = {
-  value: string
-};
+interface DispatchProps {
+  enterAttempt: (entryId: number, lift: Lift, attemptOneIndexed: number, weightKg: number) => any;
+}
 
 type Props = OwnProps & DispatchProps;
 
-class AttemptInput extends React.Component<Props, State> {
+interface InternalState {
+  value: string;
+}
+
+class AttemptInput extends React.Component<Props, InternalState> {
   constructor(props) {
     super(props);
 

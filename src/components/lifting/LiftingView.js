@@ -38,12 +38,12 @@ import { getLiftingOrder } from "../../logic/liftingOrder";
 import type { Entry, Flight } from "../../types/dataTypes";
 import type { GlobalState, MeetState, LiftingState } from "../../types/stateTypes";
 
-type StateProps = {
-  meet: MeetState,
-  lifting: LiftingState,
-  flightsOnPlatform: Array<Flight>,
-  entriesInFlight: Array<Entry>
-};
+interface StateProps {
+  meet: MeetState;
+  lifting: LiftingState;
+  flightsOnPlatform: Array<Flight>;
+  entriesInFlight: Array<Entry>;
+}
 
 type Props = StateProps;
 

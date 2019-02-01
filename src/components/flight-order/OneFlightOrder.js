@@ -27,10 +27,10 @@ import { liftToAttemptFieldName, orderEntriesByAttempt } from "../../logic/entry
 
 import type { Entry, Flight, Lift } from "../../types/dataTypes";
 
-type OwnProps = {
-  flight: Flight,
-  entriesInFlight: Array<Entry>
-};
+interface OwnProps {
+  flight: Flight;
+  entriesInFlight: Array<Entry>;
+}
 
 type Props = OwnProps;
 

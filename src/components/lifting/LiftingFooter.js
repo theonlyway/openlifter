@@ -32,25 +32,25 @@ import type { GlobalState, LiftingState } from "../../types/stateTypes";
 
 import styles from "./LiftingFooter.module.scss";
 
-type OwnProps = {
-  attemptOneIndexed: number,
-  orderedEntries: Array<Entry>,
-  currentEntryId: number | null,
-  flightsOnPlatform: Array<Flight>
-};
+interface OwnProps {
+  attemptOneIndexed: number;
+  orderedEntries: Array<Entry>;
+  currentEntryId: number | null;
+  flightsOnPlatform: Array<Flight>;
+}
 
-type StateProps = {
-  lifting: LiftingState,
-  lengthDays: number,
-  platformsOnDays: Array<number>
-};
+interface StateProps {
+  lifting: LiftingState;
+  lengthDays: number;
+  platformsOnDays: Array<number>;
+}
 
-type DispatchProps = {
-  setLiftingGroup: any,
-  overrideAttempt: any,
-  overrideEntryId: any,
-  markLift: any
-};
+interface DispatchProps {
+  setLiftingGroup: any;
+  overrideAttempt: any;
+  overrideEntryId: any;
+  markLift: any;
+}
 
 type Props = OwnProps & StateProps & DispatchProps;
 

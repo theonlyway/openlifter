@@ -30,14 +30,14 @@ import { setPlatePairCount } from "../../actions/meetSetupActions";
 import type { PlatePairCount } from "../../types/dataTypes";
 import type { GlobalState } from "../../types/stateTypes";
 
-type StateProps = {
-  inKg: boolean,
-  platePairCounts: Array<PlatePairCount>
-};
+interface StateProps {
+  inKg: boolean;
+  platePairCounts: Array<PlatePairCount>;
+}
 
-type DispatchProps = {
-  setPlatePairCount: (number, number) => any
-};
+interface DispatchProps {
+  setPlatePairCount: (number, number) => any;
+}
 
 type Props = StateProps & DispatchProps;
 
