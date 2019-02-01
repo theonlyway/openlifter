@@ -1,4 +1,5 @@
 // vim: set ts=2 sts=2 sw=2 et:
+// @flow
 //
 // This file is part of OpenLifter, simple Powerlifting meet software.
 // Copyright (C) 2019 The OpenPowerlifting Project.
@@ -21,7 +22,6 @@
 // the state of a single entry.
 
 import React from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { FormControl } from "react-bootstrap";
 
@@ -30,7 +30,25 @@ import AgeInput from "./AgeInput";
 
 import { updateRegistration } from "../../actions/registrationActions";
 
-class LifterRow extends React.Component {
+import type { Entry } from "../../types/dataTypes";
+import type { GlobalState, MeetState } from "../../types/stateTypes";
+
+interface OwnProps {
+  id: number;
+}
+
+interface StateProps {
+  meet: MeetState;
+  entry: Entry;
+}
+
+interface DispatchProps {
+  updateRegistration: (entryId: number, obj: $Shape<Entry>) => any;
+}
+
+type Props = OwnProps & StateProps & DispatchProps;
+
+class LifterRow extends React.Component<Props> {
   constructor(props) {
     super(props);
     this.updateRegistrationSquatRackInfo = this.updateRegistrationSquatRackInfo.bind(this);
@@ -40,21 +58,21 @@ class LifterRow extends React.Component {
     this.renderBenchRackInfo = this.renderBenchRackInfo.bind(this);
   }
 
-  updateRegistrationSquatRackInfo(event) {
+  updateRegistrationSquatRackInfo = event => {
     const info = event.target.value;
     if (this.props.entry.squatRackInfo !== info) {
       this.props.updateRegistration(this.props.id, { squatRackInfo: info });
     }
-  }
+  };
 
-  updateRegistrationBenchRackInfo(event) {
+  updateRegistrationBenchRackInfo = event => {
     const info = event.target.value;
     if (this.props.entry.benchRackInfo !== info) {
       this.props.updateRegistration(this.props.id, { benchRackInfo: info });
     }
-  }
+  };
 
-  renderSquatRackInfo(lifter, hasSquat) {
+  renderSquatRackInfo = (lifter: Entry, hasSquat: boolean) => {
     if (hasSquat) {
       return (
         <FormControl type="text" defaultValue={lifter.squatRackInfo} onBlur={this.updateRegistrationSquatRackInfo} />
@@ -62,9 +80,9 @@ class LifterRow extends React.Component {
     } else {
       return <FormControl type="text" disabled />;
     }
-  }
+  };
 
-  renderBenchRackInfo(lifter, hasBench) {
+  renderBenchRackInfo = (lifter: Entry, hasBench: boolean) => {
     if (hasBench) {
       return (
         <FormControl type="text" defaultValue={lifter.benchRackInfo} onBlur={this.updateRegistrationBenchRackInfo} />
@@ -72,7 +90,7 @@ class LifterRow extends React.Component {
     } else {
       return <FormControl type="text" disabled />;
     }
-  }
+  };
 
   render() {
     const entry = this.props.entry;
@@ -133,7 +151,7 @@ class LifterRow extends React.Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state: GlobalState, ownProps: OwnProps): StateProps => {
   // Only have props for the entry corresponding to this one row.
   const lookup = state.registration.lookup;
   const entry = state.registration.entries[lookup[ownProps.id]];
@@ -144,21 +162,10 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch): DispatchProps => {
   return {
-    updateRegistration: (entryId, obj) => dispatch(updateRegistration(entryId, obj))
+    updateRegistration: (entryId: number, obj: $Shape<Entry>) => dispatch(updateRegistration(entryId, obj))
   };
-};
-
-LifterRow.propTypes = {
-  meet: PropTypes.shape({
-    platformsOnDays: PropTypes.array,
-    lengthDays: PropTypes.number,
-    divisions: PropTypes.array
-  }),
-  entry: PropTypes.object,
-  id: PropTypes.number,
-  updateRegistration: PropTypes.func
 };
 
 export default connect(

@@ -1,4 +1,5 @@
 // vim: set ts=2 sts=2 sw=2 et:
+// @flow
 //
 // This file is part of OpenLifter, simple Powerlifting meet software.
 // Copyright (C) 2019 The OpenPowerlifting Project.
@@ -18,45 +19,56 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
+import { FormControl } from "react-bootstrap";
+
 import { changeLanguage } from "../../actions/languageActions";
-import Select from "react-select";
+import type { GlobalState, LanguageState } from "../../types/stateTypes";
+
 import styles from "./LanguageSelector.module.scss";
 
-// Can we get these from the i18n lib somehow?
-const languages = [{ value: "en", label: "English" }, { value: "eo", label: "Esperanto" }];
+interface StateProps {
+  language: LanguageState;
+}
 
-class LanguageSelector extends React.Component {
-  selectedLanguage = languages.find(lang => {
-    return lang.value === this.props.language;
-  });
+interface DispatchProps {
+  changeLanguage: (event: Object) => any;
+}
+
+type Props = StateProps & DispatchProps;
+
+// TODO: Can we get these from the i18n lib somehow?
+const languageOptions = [
+  <option key="en" value="en">
+    English
+  </option>,
+  <option key="eo" value="eo">
+    Esperanto
+  </option>
+];
+
+class LanguageSelector extends React.Component<Props> {
   render() {
     return (
-      <span>
-        <Select
-          className={styles.languageSelector}
-          value={this.selectedLanguage}
-          onChange={this.props.changeLanguage}
-          options={languages}
-        />
-      </span>
+      <FormControl
+        componentClass="select"
+        className={styles.languageSelector}
+        defaultValue={this.props.language}
+        onChange={this.props.changeLanguage}
+      >
+        {languageOptions}
+      </FormControl>
     );
   }
 }
 
-LanguageSelector.propTypes = {
-  changeLanguage: PropTypes.func.isRequired,
-  language: PropTypes.string.isRequired
-};
-
 // Allows react component to subscribe to redux state updates
-const mapStateToProps = state => ({
-  ...state
+const mapStateToProps = (state: GlobalState): StateProps => ({
+  language: state.language
 });
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch): DispatchProps => {
   return {
-    changeLanguage: item => dispatch(changeLanguage(item.value))
+    changeLanguage: event => dispatch(changeLanguage(event.target.value))
   };
 };
 

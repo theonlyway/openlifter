@@ -1,4 +1,5 @@
 // vim: set ts=2 sts=2 sw=2 et:
+// @flow
 //
 // This file is part of OpenLifter, simple Powerlifting meet software.
 // Copyright (C) 2019 The OpenPowerlifting Project.
@@ -19,10 +20,22 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { IntlProvider } from "react-intl";
-import PropTypes from "prop-types";
 import translations from "../../translations/locales";
 
-class OpenLifterIntlProvider extends React.Component {
+import type { GlobalState, LanguageState } from "../../types/stateTypes";
+
+interface StateProps {
+  language: LanguageState;
+}
+
+// TODO: Can get rid of this if we can get Flow typedefs for React.Component.
+interface ImplicitProps {
+  children: Array<Object>;
+}
+
+type Props = StateProps & ImplicitProps;
+
+class OpenLifterIntlProvider extends React.Component<Props> {
   render() {
     const language = this.props.language;
 
@@ -39,13 +52,8 @@ class OpenLifterIntlProvider extends React.Component {
   }
 }
 
-OpenLifterIntlProvider.propTypes = {
-  children: PropTypes.object.isRequired,
-  language: PropTypes.string.isRequired
-};
-
-const mapStateToProps = state => ({
-  ...state
+const mapStateToProps = (state: GlobalState): StateProps => ({
+  language: state.language
 });
 
 export default connect(

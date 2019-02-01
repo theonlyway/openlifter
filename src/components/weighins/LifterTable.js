@@ -1,4 +1,5 @@
 // vim: set ts=2 sts=2 sw=2 et:
+// @flow
 //
 // This file is part of OpenLifter, simple Powerlifting meet software.
 // Copyright (C) 2019 The OpenPowerlifting Project.
@@ -17,25 +18,38 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import React from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 import { Table } from "react-bootstrap";
 
-class LifterTable extends React.Component {
+import type { Entry } from "../../types/dataTypes";
+import type { GlobalState } from "../../types/stateTypes";
+
+interface OwnProps {
+  entries: Array<Entry>;
+  rowRenderer: any;
+}
+
+interface StateProps {
+  inKg: boolean;
+}
+
+type Props = OwnProps & StateProps;
+
+class LifterTable extends React.Component<Props> {
   constructor(props) {
     super(props);
     this.renderRows = this.renderRows.bind(this);
     this.renderHeader = this.renderHeader.bind(this);
   }
 
-  renderRows() {
+  renderRows = () => {
     const LifterRow = this.props.rowRenderer;
     const { entries } = this.props;
     return entries.map(entry => <LifterRow key={entry.id} id={entry.id} />);
-  }
+  };
 
-  renderHeader() {
+  renderHeader = () => {
     // Styling for small, single-character selector columns.
     const shortStyle = { width: "80px" };
 
@@ -56,7 +70,7 @@ class LifterTable extends React.Component {
         <th style={shortStyle}>Deadlift Opener {units}</th>
       </tr>
     );
-  }
+  };
 
   render() {
     return (
@@ -68,15 +82,9 @@ class LifterTable extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: GlobalState): StateProps => ({
   inKg: state.meet.inKg
 });
-
-LifterTable.propTypes = {
-  inKg: PropTypes.bool.isRequired,
-  entries: PropTypes.array.isRequired,
-  rowRenderer: PropTypes.any.isRequired
-};
 
 export default connect(
   mapStateToProps,
