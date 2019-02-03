@@ -115,7 +115,12 @@ export const sortCategoryResults = (results: Array<CategoryResults>) => {
     const catA = a.category;
     const catB = b.category;
 
-    // First, sort by Event.
+    // First, sort by Sex.
+    const aSex = getSexSortOrder(catA.sex);
+    const bSex = getSexSortOrder(catB.sex);
+    if (aSex !== bSex) return aSex - bSex;
+
+    // Next, sort by Event.
     const aEvent = getEventSortOrder(catA.event);
     const bEvent = getEventSortOrder(catB.event);
     if (aEvent !== bEvent) return aEvent - bEvent;
@@ -124,11 +129,6 @@ export const sortCategoryResults = (results: Array<CategoryResults>) => {
     const aEquipment = getEquipmentSortOrder(catA.equipment);
     const bEquipment = getEquipmentSortOrder(catB.equipment);
     if (aEquipment !== bEquipment) return aEquipment - bEquipment;
-
-    // Next, sort by Sex.
-    const aSex = getSexSortOrder(catA.sex);
-    const bSex = getSexSortOrder(catB.sex);
-    if (aSex !== bSex) return aSex - bSex;
 
     // Next, sort by WeightClass.
     // parseInt() ignores the "+" at the end of SHW class strings.
