@@ -125,14 +125,15 @@ class HomeContainer extends React.Component<Props, InternalState> {
   };
 
   handleSaveClick = () => {
+    // TODO: Share this logic with ResultsView.
     let meetname = this.props.redux.meet.name;
     if (meetname === "") {
       meetname = "Unnamed-Meet";
     }
     meetname = meetname.replace(/ /g, "-");
 
-    let state = JSON.stringify(this.props.redux);
-    let blob = new Blob([state], { type: "application/json;charset=utf-8" });
+    const state = JSON.stringify(this.props.redux);
+    const blob = new Blob([state], { type: "application/json;charset=utf-8" });
     saveAs(blob, meetname + ".json");
   };
 

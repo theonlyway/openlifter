@@ -19,9 +19,9 @@
 
 // Defines logic for creating and working with Entry objects.
 
-import { glossbrenner } from "../logic/coefficients/glossbrenner";
-import { ipfpoints } from "../logic/coefficients/ipf";
-import { wilks } from "../logic/coefficients/wilks";
+import { glossbrenner } from "./coefficients/glossbrenner";
+import { ipfpoints } from "./coefficients/ipf";
+import { wilks } from "./coefficients/wilks";
 
 import type { Entry, Lift, Event, FieldKg, FieldStatus } from "../types/dataTypes";
 
@@ -139,22 +139,35 @@ export const getProjectedTotalKg = (entry: Entry): number => {
   return best3Squat + best3Bench + best3Dead;
 };
 
-// The Total is the sum of best of the first 3 attempts of each lift.
-export const getFinalTotalKg = (entry: Entry): number => {
+export const getBest3SquatKg = (entry: Entry): number => {
   let best3Squat = 0.0;
   if (entry.squatStatus[0] > 0) best3Squat = Math.max(best3Squat, entry.squatKg[0]);
   if (entry.squatStatus[1] > 0) best3Squat = Math.max(best3Squat, entry.squatKg[1]);
   if (entry.squatStatus[2] > 0) best3Squat = Math.max(best3Squat, entry.squatKg[2]);
+  return best3Squat;
+};
 
+export const getBest3BenchKg = (entry: Entry): number => {
   let best3Bench = 0.0;
   if (entry.benchStatus[0] > 0) best3Bench = Math.max(best3Bench, entry.benchKg[0]);
   if (entry.benchStatus[1] > 0) best3Bench = Math.max(best3Bench, entry.benchKg[1]);
   if (entry.benchStatus[2] > 0) best3Bench = Math.max(best3Bench, entry.benchKg[2]);
+  return best3Bench;
+};
 
+export const getBest3DeadliftKg = (entry: Entry): number => {
   let best3Dead = 0.0;
   if (entry.deadliftStatus[0] > 0) best3Dead = Math.max(best3Dead, entry.deadliftKg[0]);
   if (entry.deadliftStatus[1] > 0) best3Dead = Math.max(best3Dead, entry.deadliftKg[1]);
   if (entry.deadliftStatus[2] > 0) best3Dead = Math.max(best3Dead, entry.deadliftKg[2]);
+  return best3Dead;
+};
+
+// The Total is the sum of best of the first 3 attempts of each lift.
+export const getFinalTotalKg = (entry: Entry): number => {
+  const best3Squat = getBest3SquatKg(entry);
+  const best3Bench = getBest3BenchKg(entry);
+  const best3Dead = getBest3DeadliftKg(entry);
 
   // If there was no attempted success for a single lift, return zero.
   if (best3Squat === 0 && entry.squatStatus[0] === -1) return 0.0;
@@ -168,25 +181,19 @@ export const getFinalTotalKg = (entry: Entry): number => {
 export const getFinalEventTotalKg = (entry: Entry, event: Event): number => {
   let best3Squat = 0.0;
   if (event.includes("S")) {
-    if (entry.squatStatus[0] > 0) best3Squat = Math.max(best3Squat, entry.squatKg[0]);
-    if (entry.squatStatus[1] > 0) best3Squat = Math.max(best3Squat, entry.squatKg[1]);
-    if (entry.squatStatus[2] > 0) best3Squat = Math.max(best3Squat, entry.squatKg[2]);
+    best3Squat = getBest3SquatKg(entry);
     if (best3Squat === 0) return 0.0;
   }
 
   let best3Bench = 0.0;
   if (event.includes("B")) {
-    if (entry.benchStatus[0] > 0) best3Bench = Math.max(best3Bench, entry.benchKg[0]);
-    if (entry.benchStatus[1] > 0) best3Bench = Math.max(best3Bench, entry.benchKg[1]);
-    if (entry.benchStatus[2] > 0) best3Bench = Math.max(best3Bench, entry.benchKg[2]);
+    best3Bench = getBest3BenchKg(entry);
     if (best3Bench === 0) return 0.0;
   }
 
   let best3Dead = 0.0;
   if (event.includes("D")) {
-    if (entry.deadliftStatus[0] > 0) best3Dead = Math.max(best3Dead, entry.deadliftKg[0]);
-    if (entry.deadliftStatus[1] > 0) best3Dead = Math.max(best3Dead, entry.deadliftKg[1]);
-    if (entry.deadliftStatus[2] > 0) best3Dead = Math.max(best3Dead, entry.deadliftKg[2]);
+    best3Dead = getBest3DeadliftKg(entry);
     if (best3Dead === 0) return 0.0;
   }
 

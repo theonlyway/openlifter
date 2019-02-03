@@ -21,44 +21,53 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import { FormControl, Panel } from "react-bootstrap";
+import { Button, FormControl, Panel } from "react-bootstrap";
 
 import ByDivision from "./ByDivision";
 import ByPoints from "./ByPoints";
 
+import { exportAsOplCsv } from "../../logic/export/oplcsv";
+
+import saveAs from "file-saver";
+
 import styles from "./ResultsView.module.scss";
+
+import type { GlobalState } from "../../types/stateTypes";
 
 const marginStyle = { margin: "0 20px 0 20px" };
 
-type Props = {
-  lengthDays: number
-};
+interface StateProps {
+  global: GlobalState;
+}
 
-type State = {
-  day: number | "all",
-  by: "Division" | "Points"
-};
+type Props = StateProps;
 
-class ResultsView extends React.Component<Props, State> {
+interface InternalState {
+  day: number;
+  by: "Division" | "Points";
+}
+
+class ResultsView extends React.Component<Props, InternalState> {
   constructor(props) {
     super(props);
 
     this.handleDayChange = this.handleDayChange.bind(this);
     this.handleByChange = this.handleByChange.bind(this);
+    this.handleExportAsOplCsvClick = this.handleExportAsOplCsvClick.bind(this);
 
     this.state = {
-      day: "all",
+      day: 0, // Meaning "all". Flow complained about mixing numbers and strings.
       by: "Points"
     };
   }
 
   makeDayOptions = () => {
     let options = [
-      <option key={"all"} value={"all"}>
+      <option key={"all"} value={0}>
         All Days Together
       </option>
     ];
-    for (let day = 1; day < this.props.lengthDays; day++) {
+    for (let day = 1; day < this.props.global.meet.lengthDays; day++) {
       options.push(
         <option key={day} value={day}>
           Just Day {day}
@@ -82,11 +91,33 @@ class ResultsView extends React.Component<Props, State> {
     }
   };
 
+  handleExportAsOplCsvClick = event => {
+    // TODO: Share this logic with HomeContainer.
+    let meetname = this.props.global.meet.name;
+    if (meetname === "") {
+      meetname = "Unnamed-Meet";
+    }
+    meetname = meetname.replace(/ /g, "-");
+
+    const csv: string = exportAsOplCsv(this.props.global);
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+    saveAs(blob, meetname + ".opl.csv");
+  };
+
   render() {
     const results = this.state.by === "Division" ? <ByDivision /> : <ByPoints />;
 
     return (
       <div style={marginStyle}>
+        <Panel bsStyle="primary">
+          <Panel.Heading>Export Results</Panel.Heading>
+          <Panel.Body>
+            <Button bsStyle="primary" onClick={this.handleExportAsOplCsvClick}>
+              Export for OpenPowerlifting
+            </Button>
+          </Panel.Body>
+        </Panel>
+
         <Panel bsStyle="info">
           <Panel.Heading>Results For...</Panel.Heading>
           <Panel.Body className={styles.controlPanel}>
@@ -117,9 +148,9 @@ class ResultsView extends React.Component<Props, State> {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: GlobalState): StateProps => {
   return {
-    lengthDays: state.meet.lengthDays
+    global: state
   };
 };
 
