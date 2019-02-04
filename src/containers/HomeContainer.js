@@ -164,6 +164,18 @@ class HomeContainer extends React.Component<Props, InternalState> {
           Welcome to OpenLifter v{releaseVersion}!<br />
           Released: {releaseDate}
         </h1>
+        <h2>
+          <p>
+            This is the <b>development build</b> of OpenLifter.
+          </p>
+          <p>
+            Please <b>do not</b> use this to run a meet unless you have confirmed with us in advance, and we have
+            committed to not making breaking changes during your meet.
+          </p>
+          <p>
+            This version <b>changes unexpectedly</b> and <b>does not guarantee stability</b> for your meet.
+          </p>
+        </h2>
         <div style={buttonConsole}>
           {this.renderContinueButton()}
           <Button bsStyle="primary" bsSize="large" block onClick={this.handleNewClick}>
