@@ -22,18 +22,17 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Button, FormControl, Panel } from "react-bootstrap";
+import saveAs from "file-saver";
 
 import ByDivision from "./ByDivision";
 import ByPoints from "./ByPoints";
 
 import { exportAsOplCsv } from "../../logic/export/oplcsv";
-
-import saveAs from "file-saver";
-
-import styles from "./ResultsView.module.scss";
+import { exportAsUSAPLCsv } from "../../logic/export/usapl";
 
 import type { GlobalState } from "../../types/stateTypes";
 
+import styles from "./ResultsView.module.scss";
 const marginStyle = { margin: "0 20px 0 20px" };
 
 interface StateProps {
@@ -54,6 +53,7 @@ class ResultsView extends React.Component<Props, InternalState> {
     this.handleDayChange = this.handleDayChange.bind(this);
     this.handleByChange = this.handleByChange.bind(this);
     this.handleExportAsOplCsvClick = this.handleExportAsOplCsvClick.bind(this);
+    this.handleExportAsUSAPLCsvClick = this.handleExportAsUSAPLCsvClick.bind(this);
 
     this.state = {
       day: 0, // Meaning "all". Flow complained about mixing numbers and strings.
@@ -104,6 +104,19 @@ class ResultsView extends React.Component<Props, InternalState> {
     saveAs(blob, meetname + ".opl.csv");
   };
 
+  handleExportAsUSAPLCsvClick = event => {
+    // TODO: Share this logic with handleExportAsOplCsvClick.
+    let meetname = this.props.global.meet.name;
+    if (meetname === "") {
+      meetname = "Unnamed-Meet";
+    }
+    meetname = meetname.replace(/ /g, "-");
+
+    const csv: string = exportAsUSAPLCsv(this.props.global);
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+    saveAs(blob, meetname + ".USAPL.csv");
+  };
+
   render() {
     const results = this.state.by === "Division" ? <ByDivision /> : <ByPoints />;
 
@@ -114,6 +127,10 @@ class ResultsView extends React.Component<Props, InternalState> {
           <Panel.Body>
             <Button bsStyle="primary" onClick={this.handleExportAsOplCsvClick}>
               Export for OpenPowerlifting
+            </Button>
+
+            <Button onClick={this.handleExportAsUSAPLCsvClick} style={{ marginLeft: "14px" }}>
+              Export for USAPL
             </Button>
           </Panel.Body>
         </Panel>
@@ -135,6 +152,7 @@ class ResultsView extends React.Component<Props, InternalState> {
               componentClass="select"
               onChange={this.handleByChange}
               className={styles.dropdown}
+              style={{ marginLeft: "14px" }}
             >
               <option value="Division">By Division</option>
               <option value="Points">By Points</option>
