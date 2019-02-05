@@ -139,6 +139,36 @@ export const getProjectedTotalKg = (entry: Entry): number => {
   return best3Squat + best3Bench + best3Dead;
 };
 
+export const getProjectedEventTotalKg = (entry: Entry, event: Event): number => {
+  let best3Squat = 0.0;
+  if (event.includes("S")) {
+    if (entry.squatStatus[0] >= 0) best3Squat = Math.max(best3Squat, entry.squatKg[0]);
+    if (entry.squatStatus[1] > 0) best3Squat = Math.max(best3Squat, entry.squatKg[1]);
+    if (entry.squatStatus[2] > 0) best3Squat = Math.max(best3Squat, entry.squatKg[2]);
+  }
+
+  let best3Bench = 0.0;
+  if (event.includes("B")) {
+    if (entry.benchStatus[0] >= 0) best3Bench = Math.max(best3Bench, entry.benchKg[0]);
+    if (entry.benchStatus[1] > 0) best3Bench = Math.max(best3Bench, entry.benchKg[1]);
+    if (entry.benchStatus[2] > 0) best3Bench = Math.max(best3Bench, entry.benchKg[2]);
+  }
+
+  let best3Dead = 0.0;
+  if (event.includes("D")) {
+    if (entry.deadliftStatus[0] >= 0) best3Dead = Math.max(best3Dead, entry.deadliftKg[0]);
+    if (entry.deadliftStatus[1] > 0) best3Dead = Math.max(best3Dead, entry.deadliftKg[1]);
+    if (entry.deadliftStatus[2] > 0) best3Dead = Math.max(best3Dead, entry.deadliftKg[2]);
+  }
+
+  // If there was no attempted success for a single lift, return zero.
+  if (best3Squat === 0 && entry.squatStatus[0] === -1) return 0.0;
+  if (best3Bench === 0 && entry.benchStatus[0] === -1) return 0.0;
+  if (best3Dead === 0 && entry.deadliftStatus[0] === -1) return 0.0;
+
+  return best3Squat + best3Bench + best3Dead;
+};
+
 export const getBest3SquatKg = (entry: Entry): number => {
   let best3Squat = 0.0;
   if (entry.squatStatus[0] > 0) best3Squat = Math.max(best3Squat, entry.squatKg[0]);

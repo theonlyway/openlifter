@@ -24,12 +24,15 @@
 // that allowed for maximum code reuse between the Rankings and Lifting pages,
 // which have slightly different needs.
 
-import { getFinalEventTotalKg } from "./entry";
+import { getProjectedEventTotalKg, getFinalEventTotalKg } from "./entry";
 import { getWeightClassStr } from "../reducers/meetReducer";
 
 import type { Sex, Event, Equipment, Entry } from "../types/dataTypes";
 
 export type Place = number | "DQ";
+
+// Determines how the total is calculated.
+type ResultsType = "Projected" | "Final";
 
 // Specifies a competition category under which entries can be ranked together.
 export type Category = {
@@ -56,7 +59,7 @@ const keyToCategory = (key: string): Category => {
 
 // Returns a copy of the entries array sorted by Place.
 // All entries are assumed to be part of the same category.
-const sortByPlaceInCategory = (entries: Array<Entry>, category: Category): Array<Entry> => {
+const sortByPlaceInCategory = (entries: Array<Entry>, category: Category, type: ResultsType): Array<Entry> => {
   const event = category.event;
 
   // Clone the entries array to avoid modifying the original.
@@ -65,9 +68,15 @@ const sortByPlaceInCategory = (entries: Array<Entry>, category: Category): Array
   // Sort in the given category, first place having the lowest index.
   clonedEntries.sort((a, b) => {
     // First sort by Total, higher sorting lower.
-    const aTotal = getFinalEventTotalKg(a, event);
-    const bTotal = getFinalEventTotalKg(b, event);
-    if (aTotal !== bTotal) return bTotal - aTotal;
+    if (type === "Projected") {
+      const aTotal = getProjectedEventTotalKg(a, event);
+      const bTotal = getProjectedEventTotalKg(b, event);
+      if (aTotal !== bTotal) return bTotal - aTotal;
+    } else if (type === "Final") {
+      const aTotal = getFinalEventTotalKg(a, event);
+      const bTotal = getFinalEventTotalKg(b, event);
+      if (aTotal !== bTotal) return bTotal - aTotal;
+    }
 
     // If totals are equal, sort by Bodyweight, lower sorting lower.
     if (a.bodyweightKg !== b.bodyweightKg) return a.bodyweightKg - b.bodyweightKg;
@@ -161,11 +170,12 @@ const mapSexToClasses = (sex: Sex, men: Array<number>, women: Array<number>, mx:
 // with each entry given a Place designation.
 //
 // The returned objects are sorted in intended order of presentation.
-export const getAllResults = (
+const getAllResults = (
   entries: Array<Entry>,
   weightClassesKgMen: Array<number>,
   weightClassesKgWomen: Array<number>,
-  weightClassesKgMx: Array<number>
+  weightClassesKgMx: Array<number>,
+  type: ResultsType
 ): Array<CategoryResults> => {
   // Generate a map from category to the entries within that category.
   // The map is populated by iterating over each entry and having the entry
@@ -199,10 +209,28 @@ export const getAllResults = (
   let results = [];
   for (let [key, catEntries] of categoryMap) {
     const category = keyToCategory(key);
-    const orderedEntries = sortByPlaceInCategory(catEntries, category);
+    const orderedEntries = sortByPlaceInCategory(catEntries, category, type);
     results.push({ category, orderedEntries });
   }
 
   sortCategoryResults(results);
   return results;
+};
+
+export const getProjectedResults = (
+  entries: Array<Entry>,
+  weightClassesKgMen: Array<number>,
+  weightClassesKgWomen: Array<number>,
+  weightClassesKgMx: Array<number>
+): Array<CategoryResults> => {
+  return getAllResults(entries, weightClassesKgMen, weightClassesKgWomen, weightClassesKgMx, "Projected");
+};
+
+export const getFinalResults = (
+  entries: Array<Entry>,
+  weightClassesKgMen: Array<number>,
+  weightClassesKgWomen: Array<number>,
+  weightClassesKgMx: Array<number>
+): Array<CategoryResults> => {
+  return getAllResults(entries, weightClassesKgMen, weightClassesKgWomen, weightClassesKgMx, "Final");
 };

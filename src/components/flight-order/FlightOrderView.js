@@ -27,7 +27,7 @@ import { Button, FormControl, Panel } from "react-bootstrap";
 import OneFlightOrder from "./OneFlightOrder";
 import OneCategory from "./OneCategory";
 
-import { getAllResults } from "../../logic/divisionPlace";
+import { getProjectedResults } from "../../logic/divisionPlace";
 
 import type { Entry } from "../../types/dataTypes";
 import type { GlobalState, MeetState } from "../../types/stateTypes";
@@ -132,7 +132,7 @@ class FlightOrderView extends React.Component<Props, InternalState> {
     }
 
     // Look through the entries to discover what divisions exist.
-    const categoryResults = getAllResults(
+    const categoryResults = getProjectedResults(
       shownEntries,
       this.props.meet.weightClassesKgMen,
       this.props.meet.weightClassesKgWomen,

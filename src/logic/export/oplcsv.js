@@ -19,7 +19,7 @@
 
 // Exports data to a CSV format easily importable by OpenPowerlifting.
 
-import { getAllResults } from "../divisionPlace";
+import { getFinalResults } from "../divisionPlace";
 
 import { getBest3SquatKg, getBest3BenchKg, getBest3DeadliftKg, getFinalEventTotalKg, MAX_ATTEMPTS } from "../entry";
 
@@ -158,7 +158,7 @@ const makeEntriesRow = (category: Category, entry: Entry, index: number): string
 };
 
 export const exportAsOplCsv = (state: GlobalState): string => {
-  const results: Array<CategoryResults> = getAllResults(
+  const results: Array<CategoryResults> = getFinalResults(
     state.registration.entries,
     state.meet.weightClassesKgMen,
     state.meet.weightClassesKgWomen,

@@ -19,7 +19,7 @@
 
 // Exports data to a spreadsheet format used by the USAPL.
 
-import { getAllResults } from "../divisionPlace";
+import { getFinalResults } from "../divisionPlace";
 
 import type { Category, CategoryResults } from "../divisionPlace";
 import type { Entry, Event } from "../../types/dataTypes";
@@ -121,7 +121,7 @@ const makeDataRow = (category: Category, entry: Entry): string => {
 };
 
 export const exportAsUSAPLCsv = (state: GlobalState): string => {
-  const results: Array<CategoryResults> = getAllResults(
+  const results: Array<CategoryResults> = getFinalResults(
     state.registration.entries,
     state.meet.weightClassesKgMen,
     state.meet.weightClassesKgWomen,

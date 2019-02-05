@@ -23,7 +23,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Panel, Table } from "react-bootstrap";
 
-import { getAllResults } from "../../logic/divisionPlace";
+import { getFinalResults } from "../../logic/divisionPlace";
 import { getWeightClassStr } from "../../reducers/meetReducer";
 import { getBest5SquatKg, getBest5BenchKg, getBest5DeadliftKg, getFinalEventTotalKg } from "../../logic/entry";
 
@@ -158,7 +158,7 @@ class ByDivision extends React.Component<Props> {
   };
 
   render() {
-    const results = getAllResults(
+    const results = getFinalResults(
       this.props.entries,
       this.props.weightClassesKgMen,
       this.props.weightClassesKgWomen,

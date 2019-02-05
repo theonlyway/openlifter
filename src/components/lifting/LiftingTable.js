@@ -38,7 +38,7 @@ import {
   liftToStatusFieldName
 } from "../../logic/entry";
 
-import { getAllResults } from "../../logic/divisionPlace";
+import { getProjectedResults, getFinalResults } from "../../logic/divisionPlace";
 import type { CategoryResults } from "../../logic/divisionPlace";
 
 import type { Entry, Sex } from "../../types/dataTypes";
@@ -436,9 +436,11 @@ class LiftingTable extends React.Component<Props> {
     }
 
     // Use projected totals for everything before 2nd attempt deadlifts.
+    let useProjected = true;
     if (this.props.lifting.lift !== "D" || this.props.attemptOneIndexed < 2) {
       columns.push("ProjectedTotal", "ProjectedPoints", "Place");
     } else {
+      useProjected = false;
       columns.push("FinalTotal", "FinalPoints", "Place");
     }
 
@@ -458,12 +460,19 @@ class LiftingTable extends React.Component<Props> {
     }
 
     // Calculate the Division placings for each of the lifters.
-    const categoryResults = getAllResults(
-      this.props.orderedEntries,
-      this.props.meet.weightClassesKgMen,
-      this.props.meet.weightClassesKgWomen,
-      this.props.meet.weightClassesKgMx
-    );
+    const categoryResults = useProjected
+      ? getProjectedResults(
+          this.props.orderedEntries,
+          this.props.meet.weightClassesKgMen,
+          this.props.meet.weightClassesKgWomen,
+          this.props.meet.weightClassesKgMx
+        )
+      : getFinalResults(
+          this.props.orderedEntries,
+          this.props.meet.weightClassesKgMen,
+          this.props.meet.weightClassesKgWomen,
+          this.props.meet.weightClassesKgMx
+        );
 
     return (
       <table className={styles.liftingtable}>
