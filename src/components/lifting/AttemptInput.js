@@ -75,6 +75,7 @@ class AttemptInput extends React.Component<Props, InternalState> {
     // Check that the input is a number.
     const asNumber = Number(value);
     if (isNaN(asNumber)) return "error";
+    if (asNumber < 0) return "error";
     if (asNumber % 2.5 !== 0) return "warning";
 
     // The bar weight must be monotonically increasing between attempts.
@@ -105,7 +106,8 @@ class AttemptInput extends React.Component<Props, InternalState> {
 
   handleChange = event => {
     const value = event.target.value;
-    this.setState({ value: value });
+    let fixups = value.replace(",", ".").replace(" ", "");
+    this.setState({ value: fixups });
   };
 
   handleBlur = event => {
