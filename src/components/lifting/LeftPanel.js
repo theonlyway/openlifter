@@ -111,7 +111,12 @@ class LeftPanel extends React.Component<Props> {
               {weightKgText}kg / {weightLbsText}lb
             </div>
             <div className={styles.barArea}>
-              <BarLoad entryId={this.props.currentEntryId} loading={currentLoading} rackInfo={current.rackInfo} />
+              <BarLoad
+                key={String(current.weightKg) + current.rackInfo}
+                entryId={this.props.currentEntryId}
+                loading={currentLoading}
+                rackInfo={current.rackInfo}
+              />
             </div>
           </div>
         </div>
@@ -119,7 +124,12 @@ class LeftPanel extends React.Component<Props> {
         <div className={styles.loadingBar}>
           <div className={styles.nextText}>NEXT UP</div>
           <div className={styles.barArea}>
-            <BarLoad entryId={this.props.nextEntryId} loading={nextLoading} rackInfo={next.rackInfo} />
+            <BarLoad
+              key={String(next.weightKg) + next.rackInfo}
+              entryId={this.props.nextEntryId}
+              loading={nextLoading}
+              rackInfo={next.rackInfo}
+            />
           </div>
         </div>
       </div>
