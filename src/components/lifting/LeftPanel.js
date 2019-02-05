@@ -101,7 +101,9 @@ class LeftPanel extends React.Component<Props> {
     );
 
     // Set the next loading relative to the current loading.
-    makeLoadingRelative(nextLoading, currentLoading);
+    if (nextLoading >= currentLoading) {
+      makeLoadingRelative(nextLoading, currentLoading);
+    }
 
     return (
       <div className={styles.container}>
