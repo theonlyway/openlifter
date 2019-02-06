@@ -52,13 +52,23 @@ interface DispatchProps {
 type Props = StateProps & DispatchProps;
 
 const yesNoBooleanOptions = [
-  <option key="Yes" value={true}>
+  <option key="Yes" value="Yes">
     Yes
   </option>,
-  <option key="No" value={false}>
+  <option key="No" value="No">
     No
   </option>
 ];
+
+// The widgets speak strings, but the state speaks boolean.
+const yesNoToBoolean = (yesno: string): boolean => {
+  if (yesno === "Yes") return true;
+  return false;
+};
+const yesNoFromBoolean = (bool: boolean): string => {
+  if (bool === true) return "Yes";
+  return "No";
+};
 
 class MeetSetup extends React.Component<Props> {
   render() {
@@ -96,7 +106,7 @@ class MeetSetup extends React.Component<Props> {
                   <ControlLabel>Should Raw and Wraps be combined for placing?</ControlLabel>
                   <FormControl
                     componentClass="select"
-                    defaultValue={this.props.areWrapsRaw}
+                    defaultValue={yesNoFromBoolean(this.props.areWrapsRaw)}
                     onChange={this.props.setAreWrapsRaw}
                   >
                     {yesNoBooleanOptions}
@@ -107,7 +117,7 @@ class MeetSetup extends React.Component<Props> {
                   <ControlLabel>Can lifters take 4th attempts?</ControlLabel>
                   <FormControl
                     componentClass="select"
-                    defaultValue={this.props.allow4thAttempts}
+                    defaultValue={yesNoFromBoolean(this.props.allow4thAttempts)}
                     onChange={this.props.setAllow4thAttempts}
                   >
                     {yesNoBooleanOptions}
@@ -140,8 +150,8 @@ const mapStateToProps = (state: GlobalState): StateProps => ({
 });
 
 const mapDispatchToProps = (dispatch): DispatchProps => ({
-  setAreWrapsRaw: event => dispatch(updateMeet({ areWrapsRaw: event.target.value })),
-  setAllow4thAttempts: event => dispatch(updateMeet({ allow4thAttempts: event.target.value }))
+  setAreWrapsRaw: event => dispatch(updateMeet({ areWrapsRaw: yesNoToBoolean(event.target.value) })),
+  setAllow4thAttempts: event => dispatch(updateMeet({ allow4thAttempts: yesNoToBoolean(event.target.value) }))
 });
 
 export default connect(

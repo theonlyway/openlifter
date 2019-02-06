@@ -44,6 +44,7 @@ interface StateProps {
   lifting: LiftingState;
   lengthDays: number;
   platformsOnDays: Array<number>;
+  allow4thAttempts: boolean;
 }
 
 interface DispatchProps {
@@ -64,21 +65,6 @@ const liftOptions = [
   </option>,
   <option key={"D"} value={"D"}>
     Deadlift
-  </option>
-];
-
-const attemptOptions = [
-  <option key={1} value={"1"}>
-    Attempt 1
-  </option>,
-  <option key={2} value={"2"}>
-    Attempt 2
-  </option>,
-  <option key={3} value={"3"}>
-    Attempt 3
-  </option>,
-  <option key={4} value={"4"}>
-    Attempt 4
   </option>
 ];
 
@@ -241,6 +227,22 @@ class LiftingFooter extends React.Component<Props> {
       );
     }
 
+    let attemptOptions = [];
+    for (let i = 1; i <= 3; i++) {
+      attemptOptions.push(
+        <option key={i} value={i}>
+          Attempt {i}
+        </option>
+      );
+    }
+    if (this.props.allow4thAttempts === true) {
+      attemptOptions.push(
+        <option key={4} value={4}>
+          Attempt 4
+        </option>
+      );
+    }
+
     const currentEntryId = this.props.currentEntryId === null ? undefined : this.props.currentEntryId;
 
     return (
@@ -319,6 +321,7 @@ const mapStateToProps = (state: GlobalState): StateProps => {
   return {
     lengthDays: state.meet.lengthDays,
     platformsOnDays: state.meet.platformsOnDays,
+    allow4thAttempts: state.meet.allow4thAttempts,
     lifting: state.lifting
   };
 };
