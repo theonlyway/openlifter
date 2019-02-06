@@ -112,7 +112,6 @@ class LeftPanel extends React.Component<Props> {
           <div className={styles.barArea}>
             <BarLoad
               key={String(next.weightKg) + next.rackInfo}
-              entryId={this.props.nextEntryId}
               loading={nextLoading}
               rackInfo={next.rackInfo}
             />
@@ -130,7 +129,6 @@ class LeftPanel extends React.Component<Props> {
             <div className={styles.barArea}>
               <BarLoad
                 key={String(current.weightKg) + current.rackInfo}
-                entryId={this.props.currentEntryId}
                 loading={currentLoading}
                 rackInfo={current.rackInfo}
               />
