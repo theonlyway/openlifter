@@ -114,7 +114,7 @@ class MeetSetup extends React.Component<Props> {
                 </FormGroup>
 
                 <FormGroup>
-                  <ControlLabel>Can lifters take 4th attempts?</ControlLabel>
+                  <ControlLabel>Can lifters take 4th attempts for records?</ControlLabel>
                   <FormControl
                     componentClass="select"
                     defaultValue={yesNoFromBoolean(this.props.allow4thAttempts)}
