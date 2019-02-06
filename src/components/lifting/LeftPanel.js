@@ -101,9 +101,24 @@ class LeftPanel extends React.Component<Props> {
     );
 
     // Set the next loading relative to the current loading.
-    if (nextLoading >= currentLoading) {
+    if (next.weightKg >= current.weightKg) {
       makeLoadingRelative(nextLoading, currentLoading);
     }
+
+    const nextBarLoad =
+      next.weightKg === 0 ? null : (
+        <div className={styles.loadingBar}>
+          <div className={styles.nextText}>NEXT UP</div>
+          <div className={styles.barArea}>
+            <BarLoad
+              key={String(next.weightKg) + next.rackInfo}
+              entryId={this.props.nextEntryId}
+              loading={nextLoading}
+              rackInfo={next.rackInfo}
+            />
+          </div>
+        </div>
+      );
 
     return (
       <div className={styles.container}>
@@ -122,18 +137,7 @@ class LeftPanel extends React.Component<Props> {
             </div>
           </div>
         </div>
-
-        <div className={styles.loadingBar}>
-          <div className={styles.nextText}>NEXT UP</div>
-          <div className={styles.barArea}>
-            <BarLoad
-              key={String(next.weightKg) + next.rackInfo}
-              entryId={this.props.nextEntryId}
-              loading={nextLoading}
-              rackInfo={next.rackInfo}
-            />
-          </div>
-        </div>
+        {nextBarLoad}
       </div>
     );
   }
