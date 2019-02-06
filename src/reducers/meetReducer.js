@@ -69,6 +69,7 @@ const initialState: MeetState = {
   weightClassesKgMx: [],
   inKg: true,
   areWrapsRaw: false,
+  allow4thAttempts: true,
   country: "",
   state: "",
   city: "",

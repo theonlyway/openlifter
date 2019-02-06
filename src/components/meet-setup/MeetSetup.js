@@ -41,10 +41,12 @@ import type { GlobalState } from "../../types/stateTypes";
 interface StateProps {
   inKg: boolean;
   areWrapsRaw: boolean;
+  allow4thAttempts: boolean;
 }
 
 interface DispatchProps {
   setAreWrapsRaw: (event: Object) => void;
+  setAllow4thAttempts: (event: Object) => void;
 }
 
 type Props = StateProps & DispatchProps;
@@ -100,6 +102,17 @@ class MeetSetup extends React.Component<Props> {
                     {yesNoBooleanOptions}
                   </FormControl>
                 </FormGroup>
+
+                <FormGroup>
+                  <ControlLabel>Can lifters take 4th attempts?</ControlLabel>
+                  <FormControl
+                    componentClass="select"
+                    defaultValue={this.props.allow4thAttempts}
+                    onChange={this.props.setAllow4thAttempts}
+                  >
+                    {yesNoBooleanOptions}
+                  </FormControl>
+                </FormGroup>
               </Panel.Body>
             </Panel>
           </Col>
@@ -122,11 +135,13 @@ class MeetSetup extends React.Component<Props> {
 
 const mapStateToProps = (state: GlobalState): StateProps => ({
   inKg: state.meet.inKg,
-  areWrapsRaw: state.meet.areWrapsRaw
+  areWrapsRaw: state.meet.areWrapsRaw,
+  allow4thAttempts: state.meet.allow4thAttempts
 });
 
 const mapDispatchToProps = (dispatch): DispatchProps => ({
-  setAreWrapsRaw: event => dispatch(updateMeet({ areWrapsRaw: event.target.value }))
+  setAreWrapsRaw: event => dispatch(updateMeet({ areWrapsRaw: event.target.value })),
+  setAllow4thAttempts: event => dispatch(updateMeet({ allow4thAttempts: event.target.value }))
 });
 
 export default connect(

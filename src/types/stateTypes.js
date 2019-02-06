@@ -49,6 +49,7 @@ export type MeetState = {
   +weightClassesKgMx: Array<number>,
   +formula: Formula,
   +areWrapsRaw: boolean,
+  +allow4thAttempts: boolean,
 
   // Weights and Loading Setup.
   +inKg: boolean,
