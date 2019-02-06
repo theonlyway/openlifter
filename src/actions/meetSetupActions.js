@@ -28,9 +28,6 @@ import type {
   SetInKgAction,
   SetWeightClassesAction,
   SetAreWrapsRawAction,
-  SetMeetCountryAction,
-  SetMeetStateAction,
-  SetMeetCityAction,
   SetBarAndCollarsWeightKgAction,
   SetPlatePairCountAction,
   UpdateMeetAction
@@ -107,27 +104,6 @@ export const setAreWrapsRaw = (areWrapsRaw: boolean): SetAreWrapsRawAction => {
   return {
     type: "SET_ARE_WRAPS_RAW",
     areWrapsRaw
-  };
-};
-
-export const setMeetCountry = (country: string): SetMeetCountryAction => {
-  return {
-    type: "SET_MEET_COUNTRY",
-    country
-  };
-};
-
-export const setMeetState = (state: string): SetMeetStateAction => {
-  return {
-    type: "SET_MEET_STATE",
-    state
-  };
-};
-
-export const setMeetCity = (city: string): SetMeetCityAction => {
-  return {
-    type: "SET_MEET_CITY",
-    city
   };
 };
 

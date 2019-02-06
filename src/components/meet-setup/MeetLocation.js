@@ -1,4 +1,5 @@
 // vim: set ts=2 sts=2 sw=2 et:
+// @flow
 //
 // This file is part of OpenLifter, simple Powerlifting meet software.
 // Copyright (C) 2019 The OpenPowerlifting Project.
@@ -21,13 +22,32 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
 
 import { ControlLabel, FormControl, FormGroup } from "react-bootstrap";
 
-import { setMeetCountry, setMeetState, setMeetCity } from "../../actions/meetSetupActions";
+import { updateMeet } from "../../actions/meetSetupActions";
 
-class MeetLocation extends React.Component {
+import type { GlobalState, MeetState } from "../../types/stateTypes";
+
+interface StateProps {
+  country: string;
+  state: string;
+  city: string;
+}
+
+interface DispatchProps {
+  updateMeet: (changes: $Shape<MeetState>) => void;
+}
+
+type Props = StateProps & DispatchProps;
+
+interface InternalState {
+  country: string;
+  state: string;
+  city: string;
+}
+
+class MeetLocation extends React.Component<Props, InternalState> {
   constructor(props, context) {
     super(props, context);
 
@@ -41,39 +61,39 @@ class MeetLocation extends React.Component {
     };
   }
 
-  getValidationState(value) {
+  getValidationState = (value: string): string | null => {
     if (!value) return "warning";
     if (value.includes('"')) return "error";
     return "success";
-  }
+  };
 
-  handleChange(key, event) {
+  handleChange = (key, event) => {
     const value = event.target.value;
     let obj = {};
     obj[key] = value;
     this.setState(obj);
-  }
+  };
 
   // When the control loses focus, possibly update the Redux store.
-  handleBlur(key, event) {
+  handleBlur = (key, event) => {
     if (this.getValidationState(event.target.value) !== "success") {
       return;
     }
 
     switch (key) {
       case "country":
-        this.props.setMeetCountry(event.target.value);
+        this.props.updateMeet({ country: event.target.value });
         break;
       case "state":
-        this.props.setMeetState(event.target.value);
+        this.props.updateMeet({ state: event.target.value });
         break;
       case "city":
-        this.props.setMeetCity(event.target.value);
+        this.props.updateMeet({ city: event.target.value });
         break;
       default:
         return;
     }
-  }
+  };
 
   render() {
     return (
@@ -113,27 +133,16 @@ class MeetLocation extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: GlobalState): StateProps => ({
   country: state.meet.country,
   state: state.meet.state,
   city: state.meet.city
 });
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch): DispatchProps => {
   return {
-    setMeetCountry: country => dispatch(setMeetCountry(country)),
-    setMeetState: state => dispatch(setMeetState(state)),
-    setMeetCity: city => dispatch(setMeetCity(city))
+    updateMeet: changes => dispatch(updateMeet(changes))
   };
-};
-
-MeetLocation.propTypes = {
-  country: PropTypes.string.isRequired,
-  state: PropTypes.string.isRequired,
-  city: PropTypes.string.isRequired,
-  setMeetCountry: PropTypes.func.isRequired,
-  setMeetState: PropTypes.func.isRequired,
-  setMeetCity: PropTypes.func.isRequired
 };
 
 export default connect(

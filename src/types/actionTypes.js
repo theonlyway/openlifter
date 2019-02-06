@@ -96,21 +96,6 @@ export interface SetAreWrapsRawAction {
   areWrapsRaw: boolean;
 }
 
-export interface SetMeetCountryAction {
-  type: "SET_MEET_COUNTRY";
-  country: string;
-}
-
-export interface SetMeetStateAction {
-  type: "SET_MEET_STATE";
-  state: string;
-}
-
-export interface SetMeetCityAction {
-  type: "SET_MEET_CITY";
-  city: string;
-}
-
 export interface SetBarAndCollarsWeightKgAction {
   type: "SET_BAR_AND_COLLARS_WEIGHT_KG";
   weightKg: number;
@@ -138,9 +123,6 @@ export type MeetSetupAction =
   | SetInKgAction
   | SetWeightClassesAction
   | SetAreWrapsRawAction
-  | SetMeetCountryAction
-  | SetMeetStateAction
-  | SetMeetCityAction
   | SetBarAndCollarsWeightKgAction
   | SetPlatePairCountAction
   | UpdateMeetAction;
