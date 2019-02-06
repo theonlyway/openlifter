@@ -191,6 +191,14 @@ export default (state: MeetState = initialState, action: Action): MeetState => {
       return { ...state, platePairCounts: newPlates };
     }
 
+    case "UPDATE_MEET": {
+      const changes = action.changes;
+
+      // Make a new MeetState with just the changes overwritten.
+      let newState = Object.assign({}, state);
+      return Object.assign(newState, changes);
+    }
+
     case "OVERWRITE_STORE": {
       // Copy all the state objects into an empty object.
       let obj = Object.assign({}, state);

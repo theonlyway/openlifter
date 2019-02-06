@@ -32,21 +32,26 @@ export type VersionsState = {
 export type LanguageState = string;
 
 export type MeetState = {
+  // Sanction Information.
   +name: string,
-  +formula: Formula,
+  +country: string,
+  +state: string,
+  +city: string,
   +federation: string,
   +date: string,
   +lengthDays: number,
   +platformsOnDays: Array<number>,
+
+  // Competition Rules.
   +divisions: Array<string>,
   +weightClassesKgMen: Array<number>,
   +weightClassesKgWomen: Array<number>,
   +weightClassesKgMx: Array<number>,
-  +inKg: boolean,
+  +formula: Formula,
   +areWrapsRaw: boolean,
-  +country: string,
-  +state: string,
-  +city: string,
+
+  // Weights and Loading Setup.
+  +inKg: boolean,
   +barAndCollarsWeightKg: number,
   +platePairCounts: Array<PlatePairCount>
 };

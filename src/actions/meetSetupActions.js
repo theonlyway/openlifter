@@ -32,9 +32,11 @@ import type {
   SetMeetStateAction,
   SetMeetCityAction,
   SetBarAndCollarsWeightKgAction,
-  SetPlatePairCountAction
+  SetPlatePairCountAction,
+  UpdateMeetAction
 } from "../types/actionTypes";
 import type { Formula, Sex } from "../types/dataTypes";
+import type { MeetState } from "../types/stateTypes";
 
 export const setMeetName = (name: string): SetMeetNameAction => {
   return {
@@ -141,5 +143,12 @@ export const setPlatePairCount = (weightKg: number, pairCount: number): SetPlate
     type: "SET_PLATE_PAIR_COUNT",
     weightKg,
     pairCount
+  };
+};
+
+export const updateMeet = (obj: $Shape<MeetState>): UpdateMeetAction => {
+  return {
+    type: "UPDATE_MEET",
+    changes: obj
   };
 };

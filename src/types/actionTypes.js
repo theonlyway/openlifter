@@ -20,7 +20,7 @@
 // Defines shared types produced by Redux actions.
 
 import type { Entry, Formula, Lift, Sex } from "./dataTypes";
-import type { GlobalState } from "./stateTypes";
+import type { GlobalState, MeetState } from "./stateTypes";
 
 //////////////////////////////////////////////////////////
 // Global Actions.
@@ -122,6 +122,11 @@ export interface SetPlatePairCountAction {
   pairCount: number;
 }
 
+export interface UpdateMeetAction {
+  type: "UPDATE_MEET";
+  changes: $Shape<MeetState>;
+}
+
 export type MeetSetupAction =
   | SetMeetNameAction
   | SetFormulaAction
@@ -137,7 +142,8 @@ export type MeetSetupAction =
   | SetMeetStateAction
   | SetMeetCityAction
   | SetBarAndCollarsWeightKgAction
-  | SetPlatePairCountAction;
+  | SetPlatePairCountAction
+  | UpdateMeetAction;
 
 //////////////////////////////////////////////////////////
 // Registration Actions.

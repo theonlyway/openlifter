@@ -129,7 +129,8 @@ export default (state: RegistrationState = initialState, action: Action): Regist
       // Make a new object with just the changes overwritten,
       // and reference that object from the new array.
       const index = entries.findIndex(obj => obj.id === entryId);
-      entries[index] = Object.assign(entries[index], changes);
+      let newEntry = Object.assign({}, entries[index]);
+      entries[index] = Object.assign(newEntry, changes);
 
       return {
         ...state,
@@ -193,7 +194,8 @@ export default (state: RegistrationState = initialState, action: Action): Regist
       newfields[fieldStatus] = newarray;
 
       // Make a new entry from the old entry, with the status field overwritten.
-      newEntries[index] = Object.assign(oldEntry, newfields);
+      let newEntry = Object.assign({}, oldEntry);
+      newEntries[index] = Object.assign(newEntry, newfields);
 
       return {
         ...state,

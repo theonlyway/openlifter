@@ -142,7 +142,11 @@ class BarLoad extends React.Component<Props> {
     // Only show rack info for lifts that use a rack.
     let rackInfo = null;
     if (this.props.lift !== "D") {
-      rackInfo = <div key={this.props.rackInfo} className={styles.rackInfo}>Rack {this.props.rackInfo}</div>;
+      rackInfo = (
+        <div key={this.props.rackInfo} className={styles.rackInfo}>
+          Rack {this.props.rackInfo}
+        </div>
+      );
     }
 
     return (
