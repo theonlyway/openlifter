@@ -27,7 +27,6 @@ import type {
   SetPlatformsOnDaysAction,
   SetInKgAction,
   SetWeightClassesAction,
-  SetAreWrapsRawAction,
   SetBarAndCollarsWeightKgAction,
   SetPlatePairCountAction,
   UpdateMeetAction
@@ -97,13 +96,6 @@ export const setWeightClasses = (sex: Sex, classesKg: Array<number>): SetWeightC
     type: "SET_WEIGHTCLASSES",
     sex: sex,
     classesKg: classesKg
-  };
-};
-
-export const setAreWrapsRaw = (areWrapsRaw: boolean): SetAreWrapsRawAction => {
-  return {
-    type: "SET_ARE_WRAPS_RAW",
-    areWrapsRaw
   };
 };
 

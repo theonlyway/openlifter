@@ -1,4 +1,5 @@
 // vim: set ts=2 sts=2 sw=2 et:
+// @flow
 //
 // This file is part of OpenLifter, simple Powerlifting meet software.
 // Copyright (C) 2019 The OpenPowerlifting Project.
@@ -18,48 +19,45 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
 
-import { ControlLabel, FormGroup } from "react-bootstrap";
-import Select from "react-select";
+import { ControlLabel, FormControl, FormGroup } from "react-bootstrap";
 
-import { setAreWrapsRaw } from "../../actions/meetSetupActions";
+import { updateMeet } from "../../actions/meetSetupActions";
 
-const options = [{ value: true, label: "Yes" }, { value: false, label: "No" }];
+import type { GlobalState } from "../../types/stateTypes";
 
-class AreWrapsRaw extends React.Component {
-  constructor(props, context) {
-    super(props, context);
+interface StateProps {
+  areWrapsRaw: boolean;
+}
 
-    // The "value" property expects an object instead of a string.
-    this.valueObject = options.find(option => {
-      return option.value === this.props.value;
-    });
-  }
+interface DispatchProps {
+  setAreWrapsRaw: (item: Object) => void;
+}
 
+type Props = StateProps & DispatchProps;
+
+class AreWrapsRaw extends React.Component<Props> {
   render() {
     return (
       <FormGroup>
         <ControlLabel>Should Raw and Wraps be combined for placing?</ControlLabel>
-        <Select defaultValue={this.valueObject} onChange={this.props.setAreWrapsRaw} options={options} />
+        <FormControl componentClass="select" defaultValue={this.props.areWrapsRaw} onChange={this.props.setAreWrapsRaw}>
+          <option value={true}>Yes</option>
+          <option value={false}>No</option>
+        </FormControl>
       </FormGroup>
     );
   }
 }
 
-const mapStateToProps = state => ({
-  value: state.meet.areWrapsRaw
+const mapStateToProps = (state: GlobalState): StateProps => ({
+  areWrapsRaw: state.meet.areWrapsRaw
 });
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch): DispatchProps => {
   return {
-    setAreWrapsRaw: item => dispatch(setAreWrapsRaw(item.value))
+    setAreWrapsRaw: event => dispatch(updateMeet({ areWrapsRaw: event.target.value }))
   };
-};
-
-AreWrapsRaw.propTypes = {
-  value: PropTypes.bool.isRequired,
-  setAreWrapsRaw: PropTypes.func.isRequired
 };
 
 export default connect(

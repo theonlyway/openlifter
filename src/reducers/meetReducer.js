@@ -160,9 +160,6 @@ export default (state: MeetState = initialState, action: Action): MeetState => {
       }
     }
 
-    case "SET_ARE_WRAPS_RAW":
-      return { ...state, areWrapsRaw: action.areWrapsRaw };
-
     case "SET_BAR_AND_COLLARS_WEIGHT_KG": {
       return { ...state, barAndCollarsWeightKg: action.weightKg };
     }

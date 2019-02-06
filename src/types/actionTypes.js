@@ -91,11 +91,6 @@ export interface SetWeightClassesAction {
   classesKg: Array<number>;
 }
 
-export interface SetAreWrapsRawAction {
-  type: "SET_ARE_WRAPS_RAW";
-  areWrapsRaw: boolean;
-}
-
 export interface SetBarAndCollarsWeightKgAction {
   type: "SET_BAR_AND_COLLARS_WEIGHT_KG";
   weightKg: number;
@@ -122,7 +117,6 @@ export type MeetSetupAction =
   | SetPlatformsOnDaysAction
   | SetInKgAction
   | SetWeightClassesAction
-  | SetAreWrapsRawAction
   | SetBarAndCollarsWeightKgAction
   | SetPlatePairCountAction
   | UpdateMeetAction;
