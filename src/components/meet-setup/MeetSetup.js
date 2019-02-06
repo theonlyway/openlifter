@@ -19,7 +19,7 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import { Grid, Col, Row, Panel } from "react-bootstrap";
+import { Grid, Col, Row, Panel, FormGroup, ControlLabel, FormControl } from "react-bootstrap";
 
 import MeetName from "./MeetName";
 import MeetDate from "./MeetDate";
@@ -31,17 +31,32 @@ import FormulaSelect from "./FormulaSelect";
 import FederationSelect from "./FederationSelect";
 import DivisionSelect from "./DivisionSelect";
 import WeightClassesSelect from "./WeightClassesSelect";
-import AreWrapsRaw from "./AreWrapsRaw";
 import BarAndCollarsWeightKg from "./BarAndCollarsWeightKg";
 import Plates from "./Plates";
+
+import { updateMeet } from "../../actions/meetSetupActions";
 
 import type { GlobalState } from "../../types/stateTypes";
 
 interface StateProps {
   inKg: boolean;
+  areWrapsRaw: boolean;
 }
 
-type Props = StateProps;
+interface DispatchProps {
+  setAreWrapsRaw: (event: Object) => void;
+}
+
+type Props = StateProps & DispatchProps;
+
+const yesNoBooleanOptions = [
+  <option key="Yes" value={true}>
+    Yes
+  </option>,
+  <option key="No" value={false}>
+    No
+  </option>
+];
 
 class MeetSetup extends React.Component<Props> {
   render() {
@@ -74,7 +89,17 @@ class MeetSetup extends React.Component<Props> {
                 <WeightClassesSelect sex="F" label="Women's Weight Classes (kg), omit SHW" />
                 <WeightClassesSelect sex="Mx" label="Mx Weight Classes (kg), omit SHW" />
                 <FormulaSelect />
-                <AreWrapsRaw />
+
+                <FormGroup>
+                  <ControlLabel>Should Raw and Wraps be combined for placing?</ControlLabel>
+                  <FormControl
+                    componentClass="select"
+                    defaultValue={this.props.areWrapsRaw}
+                    onChange={this.props.setAreWrapsRaw}
+                  >
+                    {yesNoBooleanOptions}
+                  </FormControl>
+                </FormGroup>
               </Panel.Body>
             </Panel>
           </Col>
@@ -96,10 +121,15 @@ class MeetSetup extends React.Component<Props> {
 }
 
 const mapStateToProps = (state: GlobalState): StateProps => ({
-  inKg: state.meet.inKg
+  inKg: state.meet.inKg,
+  areWrapsRaw: state.meet.areWrapsRaw
+});
+
+const mapDispatchToProps = (dispatch): DispatchProps => ({
+  setAreWrapsRaw: event => dispatch(updateMeet({ areWrapsRaw: event.target.value }))
 });
 
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(MeetSetup);
