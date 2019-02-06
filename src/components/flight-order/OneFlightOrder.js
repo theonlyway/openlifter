@@ -23,7 +23,8 @@ import React from "react";
 
 import { Panel, Table } from "react-bootstrap";
 
-import { liftToAttemptFieldName, orderEntriesByAttempt } from "../../logic/entry";
+import { liftToAttemptFieldName } from "../../logic/entry";
+import { orderEntriesByAttempt } from "../../logic/liftingOrder";
 
 import type { Entry, Flight, Lift } from "../../types/dataTypes";
 

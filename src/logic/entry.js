@@ -297,30 +297,3 @@ export const liftToStatusFieldName = (lift: Lift): FieldStatus => {
       return "squatStatus";
   }
 };
-
-// Helper function: performs an in-place sort on an array of entries.
-// Assumes that zero entries are not mixed in with non-zero entries.
-export const orderEntriesByAttempt = (
-  entries: Array<Entry>,
-  fieldKg: FieldKg,
-  attemptOneIndexed: number
-): Array<Entry> => {
-  return entries.sort((a, b) => {
-    const aKg = a[fieldKg][attemptOneIndexed - 1];
-    const bKg = b[fieldKg][attemptOneIndexed - 1];
-
-    // If non-equal, sort by weight, ascending.
-    if (aKg !== bKg) return aKg - bKg;
-
-    // If the federation uses lot numbers, break ties using lot.
-    if (a.lot !== 0 && b.lot !== 0) return a.lot - b.lot;
-
-    // Try to break ties using bodyweight, with the lighter lifter going first.
-    if (a.bodyweightKg !== b.bodyweightKg) return a.bodyweightKg - b.bodyweightKg;
-
-    // If we've run out of properties by which to compare them, resort to Name.
-    if (a.name < b.name) return -1;
-    if (a.name > b.name) return 1;
-    return 0;
-  });
-};
