@@ -44,6 +44,7 @@ interface DispatchProps {
 type Props = OwnProps & DispatchProps;
 
 interface InternalState {
+  initialValue: string;
   value: string;
 }
 
@@ -64,6 +65,7 @@ class AttemptInput extends React.Component<Props, InternalState> {
     }
 
     this.state = {
+      initialValue: weightStr,
       value: weightStr
     };
   }
@@ -102,7 +104,7 @@ class AttemptInput extends React.Component<Props, InternalState> {
 
   handleKeyDown = event => {
     if (event.key === "Enter") {
-      this.handleBlur(event);
+      event.target.blur();
     }
   };
 
@@ -119,6 +121,7 @@ class AttemptInput extends React.Component<Props, InternalState> {
 
   handleBlur = event => {
     if (this.getValidationState() === "error") {
+      this.setState({ value: this.state.initialValue });
       return;
     }
 
