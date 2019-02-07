@@ -50,7 +50,7 @@
   "devDependencies": {
     "bootstrap": "3.3",
     "concurrently": "^4.1.0",
-    "electron": "^3.0.10",
+    "electron": "^4.0",
     "electron-builder": "^20.36.2",
     "eslint-config-prettier": "^3.3.0",
     "eslint-config-react-app": "^3.0.5",
