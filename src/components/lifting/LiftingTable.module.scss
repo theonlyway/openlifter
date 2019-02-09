@@ -65,6 +65,11 @@ table.liftingtable {
   width: 72px;
 }
 
+// Render borders on the "Best3" cells to visually separate them.
+.liftingtable td.best3Attempt {
+  border-right: 1.5px solid black;
+}
+
 // The header bar gets inverse colors.
 // th is styled instead of thead to allow rounded corners.
 .liftingtable th {

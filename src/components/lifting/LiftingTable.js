@@ -106,14 +106,14 @@ class LiftingTable extends React.Component<Props> {
     // Render cells using attempt coloring.
     if (best3 !== 0) {
       return (
-        <td key={columnType} className={styles.goodlift}>
+        <td key={columnType} className={`${styles.best3Attempt} ${styles.goodlift}`}>
           {best3}
         </td>
       );
     }
     if (lightestFailed !== 0) {
       return (
-        <td key={columnType} className={styles.nolift}>
+        <td key={columnType} className={`${styles.best3Attempt} ${styles.nolift}`}>
           {lightestFailed}
         </td>
       );
