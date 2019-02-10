@@ -297,3 +297,41 @@ export const liftToStatusFieldName = (lift: Lift): FieldStatus => {
       return "squatStatus";
   }
 };
+
+// Whether the Entry has taken any attempts.
+const entryHasLifted = (entry: Entry): boolean => {
+  if (entry.squatStatus[0] !== 0) return true;
+  if (entry.benchStatus[0] !== 0) return true;
+  if (entry.deadliftStatus[0] !== 0) return true;
+  return false;
+};
+
+// Whether any Entry has taken any attempts on the given (day, platform). O(n).
+const liftingPresentOnPlatform = (entries: Array<Entry>, day: number, platform: number): boolean => {
+  for (let i = 0; i < entries.length; i++) {
+    const entry = entries[i];
+    if (entry.day !== day || entry.platform !== platform) continue;
+    if (entryHasLifted(entry)) return true;
+  }
+  return false;
+};
+
+// Given an array of how many platforms are on each day and the Entries,
+// returns an array of arrays of booleans, such that array[day-1][platform-1] is
+// true iff at least one Entry corresponding to that (day, platform) has
+// taken an attempt.
+export const getWhetherPlatformsHaveLifted = (
+  platformsOnDays: Array<number>,
+  entries: Array<Entry>
+): Array<Array<boolean>> => {
+  let ret = [];
+  for (let day = 1; day <= platformsOnDays.length; day++) {
+    const platformsOnDay = platformsOnDays[day - 1];
+    let acc = [];
+    for (let platform = 1; platform <= platformsOnDay; platform++) {
+      acc.push(liftingPresentOnPlatform(entries, day, platform));
+    }
+    ret.push(acc);
+  }
+  return ret;
+};

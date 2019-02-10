@@ -21,12 +21,13 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import { Button, FormControl, Panel } from "react-bootstrap";
+import { Button, FormGroup, ControlLabel, FormControl, Panel } from "react-bootstrap";
 import saveAs from "file-saver";
 
 import ByDivision from "./ByDivision";
 import ByPoints from "./ByPoints";
 
+import { getWhetherPlatformsHaveLifted } from "../../logic/entry";
 import { exportAsOplCsv } from "../../logic/export/oplcsv";
 import { exportAsUSAPLCsv } from "../../logic/export/usapl";
 
@@ -117,17 +118,54 @@ class ResultsView extends React.Component<Props, InternalState> {
     saveAs(blob, meetname + ".USAPL.csv");
   };
 
+  makePlatformMergeButtons = () => {
+    // Array accessed by platformsHaveLifted[day-1][platform-1].
+    const platformsHaveLifted: Array<Array<boolean>> = getWhetherPlatformsHaveLifted(
+      this.props.global.meet.platformsOnDays,
+      this.props.global.registration.entries
+    );
+
+    let forms = [];
+
+    for (let i = 0; i < platformsHaveLifted.length; i++) {
+      const liftedOnDay = platformsHaveLifted[i];
+
+      let buttons = [];
+      for (let j = 0; j < liftedOnDay.length; j++) {
+        const actionText = liftedOnDay[j] === true ? "Export" : "Merge";
+        const bsStyle = liftedOnDay[j] === true ? "success" : "warning";
+        buttons.push(
+          <Button key={i + "-" + j} bsStyle={bsStyle}>
+            {actionText} Day {i + 1} Platform {j + 1}
+          </Button>
+        );
+      }
+
+      forms.push(
+        <div key={i}>
+          <div>Combine Platforms for Day {i + 1}</div>
+          <div>{buttons}</div>
+        </div>
+      );
+    }
+
+    return forms;
+  };
+
   render() {
     const results = this.state.by === "Division" ? <ByDivision /> : <ByPoints />;
 
     return (
       <div style={marginStyle}>
         <Panel bsStyle="primary">
-          <Panel.Heading>Export Results</Panel.Heading>
+          <Panel.Heading>Merge Platforms</Panel.Heading>
+          <Panel.Body>{this.makePlatformMergeButtons()}</Panel.Body>
+        </Panel>
+
+        <Panel>
+          <Panel.Heading>Export Official Results</Panel.Heading>
           <Panel.Body>
-            <Button bsStyle="primary" onClick={this.handleExportAsOplCsvClick}>
-              Export for OpenPowerlifting
-            </Button>
+            <Button onClick={this.handleExportAsOplCsvClick}>Export for OpenPowerlifting</Button>
 
             <Button onClick={this.handleExportAsUSAPLCsvClick} style={{ marginLeft: "14px" }}>
               Export for USAPL
