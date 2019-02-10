@@ -21,7 +21,7 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import { Button, FormGroup, ControlLabel, FormControl, Panel } from "react-bootstrap";
+import { Button, FormControl, Panel } from "react-bootstrap";
 import saveAs from "file-saver";
 
 import ByDivision from "./ByDivision";
