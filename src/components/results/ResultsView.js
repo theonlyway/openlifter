@@ -27,10 +27,13 @@ import saveAs from "file-saver";
 import ByDivision from "./ByDivision";
 import ByPoints from "./ByPoints";
 
-import { getWhetherPlatformsHaveLifted } from "../../logic/entry";
+import { mergePlatform } from "../../actions/registrationActions";
+
+import { liftingPresentOnPlatform, getWhetherPlatformsHaveLifted } from "../../logic/entry";
 import { exportAsOplCsv } from "../../logic/export/oplcsv";
 import { exportAsUSAPLCsv } from "../../logic/export/usapl";
 
+import type { Entry } from "../../types/dataTypes";
 import type { GlobalState } from "../../types/stateTypes";
 
 import styles from "./ResultsView.module.scss";
@@ -40,12 +43,22 @@ interface StateProps {
   global: GlobalState;
 }
 
-type Props = StateProps;
+interface DispatchProps {
+  mergePlatform: (day: number, platform: number, platformEntries: Array<Entry>) => void;
+}
+
+type Props = StateProps & DispatchProps;
 
 interface InternalState {
   day: number;
   by: "Division" | "Points";
 }
+
+// FIXME: Unfortunate use of globals :/ I don't have a better idea.
+// This is to pass information from the merge button click handler to the
+// file loader click handler.
+let globalMergeDay: number = 0;
+let globalMergePlatform: number = 0;
 
 class ResultsView extends React.Component<Props, InternalState> {
   constructor(props) {
@@ -56,6 +69,8 @@ class ResultsView extends React.Component<Props, InternalState> {
     this.handleExportAsOplCsvClick = this.handleExportAsOplCsvClick.bind(this);
     this.handleExportAsUSAPLCsvClick = this.handleExportAsUSAPLCsvClick.bind(this);
     this.handleExportPlatformClick = this.handleExportPlatformClick.bind(this);
+    this.handleMergePlatformClick = this.handleMergePlatformClick.bind(this);
+    this.handleLoadFileInput = this.handleLoadFileInput.bind(this);
 
     this.state = {
       day: 0, // Meaning "all". Flow complained about mixing numbers and strings.
@@ -133,6 +148,74 @@ class ResultsView extends React.Component<Props, InternalState> {
     saveAs(blob, exportname + ".export.openlifter");
   };
 
+  // The file input is hidden, and we want to use a button to activate it.
+  // This event handler makes a proxy call to the *real* event handler.
+  handleMergePlatformClick = (day: number, platform: number, event: Object) => {
+    const loadHelper = document.getElementById("loadhelper");
+    if (loadHelper !== null) {
+      globalMergeDay = day;
+      globalMergePlatform = platform;
+      loadHelper.click();
+    }
+  };
+
+  // Called when a file is selected for merging platform data.
+  handleLoadFileInput = () => {
+    const loadHelper = document.getElementById("loadhelper");
+    if (loadHelper === null || !(loadHelper instanceof HTMLInputElement)) {
+      return;
+    }
+
+    // Get the (day, platform) from global state.
+    const day: number = globalMergeDay;
+    const platform: number = globalMergePlatform;
+
+    // Remember the props in the onload() closure.
+    let props = this.props;
+
+    const selectedFile = loadHelper.files[0];
+    let reader = new FileReader();
+    reader.onload = function(event) {
+      let error: string | null = null;
+      try {
+        let obj: GlobalState = JSON.parse(event.target.result);
+
+        // stateVersion must match.
+        if (obj.versions.stateVersion !== props.global.versions.stateVersion) {
+          error =
+            "This meet uses data version " +
+            props.global.versions.stateVersion +
+            ", but the selected file uses data version " +
+            obj.versions.stateVersion;
+        } else if (obj.meet.name !== props.global.meet.name) {
+          // The meet name must match, for sanity checking.
+          error =
+            "This meet is named '" +
+            props.global.meet.name +
+            "', but the selected file is for the meet '" +
+            obj.meet.name +
+            "'.";
+        } else if (!liftingPresentOnPlatform(obj.registration.entries, day, platform)) {
+          // The meet must actually contain data from the given (day, platform).
+          error = "The selected file doesn't have any lifting data for Day " + day + " Platform " + platform + ".";
+        } else {
+          // Sanity checks passed: fire off a mergePlatform action!
+          const platformEntries = obj.registration.entries.filter(e => {
+            return e.day === day && e.platform === platform;
+          });
+          props.mergePlatform(day, platform, platformEntries);
+        }
+      } catch (err) {
+        error = "Couldn't parse JSON.";
+      }
+
+      if (error !== null) {
+        window.alert(error);
+      }
+    };
+    reader.readAsText(selectedFile);
+  };
+
   makePlatformMergeButtons = () => {
     // Array accessed by platformsHaveLifted[day-1][platform-1].
     const platformsHaveLifted: Array<Array<boolean>> = getWhetherPlatformsHaveLifted(
@@ -147,14 +230,17 @@ class ResultsView extends React.Component<Props, InternalState> {
 
       let buttons = [];
       for (let j = 0; j < liftedOnDay.length; j++) {
-        const actionText = liftedOnDay[j] === true ? "Export" : "Merge";
-        const bsStyle = liftedOnDay[j] === true ? "success" : "warning";
+        const lifted = liftedOnDay[j];
+        const actionText = lifted === true ? "Export" : "Merge";
+        const bsStyle = lifted === true ? "success" : "warning";
         buttons.push(
           <Button
             key={i + "-" + j}
             bsStyle={bsStyle}
             onClick={e => {
-              this.handleExportPlatformClick(i + 1, j + 1, e);
+              lifted === true
+                ? this.handleExportPlatformClick(i + 1, j + 1, e)
+                : this.handleMergePlatformClick(i + 1, j + 1, e);
             }}
           >
             {actionText} Day {i + 1} Platform {j + 1}
@@ -224,6 +310,14 @@ class ResultsView extends React.Component<Props, InternalState> {
         </Panel>
 
         {results}
+
+        <input
+          id="loadhelper"
+          type="file"
+          accept=".openlifter"
+          style={{ display: "none" }}
+          onChange={this.handleLoadFileInput}
+        />
       </div>
     );
   }
@@ -235,7 +329,13 @@ const mapStateToProps = (state: GlobalState): StateProps => {
   };
 };
 
+const mapDispatchToProps = (dispatch): DispatchProps => {
+  return {
+    mergePlatform: (day, platform, platformEntries) => dispatch(mergePlatform(day, platform, platformEntries))
+  };
+};
+
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(ResultsView);

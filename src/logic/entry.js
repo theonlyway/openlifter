@@ -307,7 +307,7 @@ const entryHasLifted = (entry: Entry): boolean => {
 };
 
 // Whether any Entry has taken any attempts on the given (day, platform). O(n).
-const liftingPresentOnPlatform = (entries: Array<Entry>, day: number, platform: number): boolean => {
+export const liftingPresentOnPlatform = (entries: Array<Entry>, day: number, platform: number): boolean => {
   for (let i = 0; i < entries.length; i++) {
     const entry = entries[i];
     if (entry.day !== day || entry.platform !== platform) continue;

@@ -75,6 +75,7 @@ export type LiftingState = {
 };
 
 export type GlobalState = {
+  +versions: VersionsState,
   +language: LanguageState,
   +meet: MeetState,
   +registration: RegistrationState,
