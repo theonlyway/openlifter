@@ -17,7 +17,12 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import type { NewRegistrationAction, DeleteRegistrationAction, UpdateRegistrationAction } from "../types/actionTypes";
+import type {
+  NewRegistrationAction,
+  DeleteRegistrationAction,
+  UpdateRegistrationAction,
+  MergePlatformAction
+} from "../types/actionTypes";
 import type { Entry } from "../types/dataTypes";
 
 // Adds a blank (or default-initalized) row to the registrations table.
@@ -54,5 +59,16 @@ export const updateRegistration = (entryId: number, obj: $Shape<Entry>): UpdateR
     type: "UPDATE_REGISTRATION",
     entryId: entryId,
     changes: obj
+  };
+};
+
+// Deletes all entries assigned to a given (day, platform), and then adds entries
+// assigned to that (day, platform) from a foreign save state.
+export const mergePlatform = (day: number, platform: number, platformEntries: Array<Entry>): MergePlatformAction => {
+  return {
+    type: "MERGE_PLATFORM",
+    day: day,
+    platform: platform,
+    platformEntries: platformEntries
   };
 };

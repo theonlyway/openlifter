@@ -141,7 +141,18 @@ export interface UpdateRegistrationAction {
   changes: $Shape<Entry>;
 }
 
-export type RegistrationAction = NewRegistrationAction | DeleteRegistrationAction | UpdateRegistrationAction;
+export interface MergePlatformAction {
+  type: "MERGE_PLATFORM";
+  day: number;
+  platform: number;
+  platformEntries: Array<Entry>;
+}
+
+export type RegistrationAction =
+  | NewRegistrationAction
+  | DeleteRegistrationAction
+  | UpdateRegistrationAction
+  | MergePlatformAction;
 
 //////////////////////////////////////////////////////////
 // Lifting Actions.

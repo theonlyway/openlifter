@@ -203,6 +203,43 @@ export default (state: RegistrationState = initialState, action: Action): Regist
       };
     }
 
+    // Caused by clicking a "Merge" button on the Results page.
+    case "MERGE_PLATFORM": {
+      const day: number = action.day;
+      const platform: number = action.platform;
+      const platformEntries: Array<Entry> = action.platformEntries;
+
+      // Filter out state entries assigned to the merged (day, platform).
+      let newEntries = state.entries.filter(e => {
+        return !(e.day === day && e.platform === platform);
+      });
+
+      // Get the nextEntryId: the merged entries will be reassigned IDs.
+      let nextEntryId: number = state.nextEntryId;
+
+      // For each incoming Entry, copy the object, assign a new ID,
+      // and place it in the newEntries array.
+      for (let i = 0; i < platformEntries.length; i++) {
+        let entry: Entry = Object.assign({}, platformEntries[i]);
+        entry.id = nextEntryId++;
+        newEntries.push(entry);
+      }
+
+      // Generate an entirely new lookup table.
+      let lookup = {};
+      for (let i = 0; i < newEntries.length; i++) {
+        lookup[newEntries[i].id] = i;
+      }
+
+      // Return a new object with the new components replaced.
+      return {
+        ...state,
+        nextEntryId: nextEntryId,
+        entries: newEntries,
+        lookup: lookup
+      };
+    }
+
     case "OVERWRITE_STORE": {
       // Copy all the state objects into an empty object.
       const obj = Object.assign({}, state);
