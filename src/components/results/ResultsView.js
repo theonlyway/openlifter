@@ -55,6 +55,7 @@ class ResultsView extends React.Component<Props, InternalState> {
     this.handleByChange = this.handleByChange.bind(this);
     this.handleExportAsOplCsvClick = this.handleExportAsOplCsvClick.bind(this);
     this.handleExportAsUSAPLCsvClick = this.handleExportAsUSAPLCsvClick.bind(this);
+    this.handleExportPlatformClick = this.handleExportPlatformClick.bind(this);
 
     this.state = {
       day: 0, // Meaning "all". Flow complained about mixing numbers and strings.
@@ -118,6 +119,20 @@ class ResultsView extends React.Component<Props, InternalState> {
     saveAs(blob, meetname + ".USAPL.csv");
   };
 
+  handleExportPlatformClick = (day: number, platform: number, event: Object) => {
+    // TODO: Share this logic with handleExportAsOplCsvClick.
+    let meetname = this.props.global.meet.name;
+    if (meetname === "") {
+      meetname = "Unnamed-Meet";
+    }
+    meetname = meetname.replace(/ /g, "-");
+    const exportname = meetname + "-Day-" + day + "-Platform-" + platform;
+
+    const state = JSON.stringify(this.props.global);
+    const blob = new Blob([state], { type: "application/json;charset=utf-8" });
+    saveAs(blob, exportname + ".export.openlifter");
+  };
+
   makePlatformMergeButtons = () => {
     // Array accessed by platformsHaveLifted[day-1][platform-1].
     const platformsHaveLifted: Array<Array<boolean>> = getWhetherPlatformsHaveLifted(
@@ -135,7 +150,13 @@ class ResultsView extends React.Component<Props, InternalState> {
         const actionText = liftedOnDay[j] === true ? "Export" : "Merge";
         const bsStyle = liftedOnDay[j] === true ? "success" : "warning";
         buttons.push(
-          <Button key={i + "-" + j} bsStyle={bsStyle}>
+          <Button
+            key={i + "-" + j}
+            bsStyle={bsStyle}
+            onClick={e => {
+              this.handleExportPlatformClick(i + 1, j + 1, e);
+            }}
+          >
             {actionText} Day {i + 1} Platform {j + 1}
           </Button>
         );
@@ -159,7 +180,11 @@ class ResultsView extends React.Component<Props, InternalState> {
       <div style={marginStyle}>
         <Panel bsStyle="primary">
           <Panel.Heading>Merge Platforms</Panel.Heading>
-          <Panel.Body>{this.makePlatformMergeButtons()}</Panel.Body>
+          <Panel.Body>
+            <div style={{ fontWeight: "bold" }}>Merging platforms will overwrite data. Please save before merging.</div>
+            <br />
+            {this.makePlatformMergeButtons()}
+          </Panel.Body>
         </Panel>
 
         <Panel>
