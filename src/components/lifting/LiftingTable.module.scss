@@ -59,15 +59,13 @@ table.liftingtable {
 }
 
 .liftingtable th.divisionCell {
-  width: 0px; // Enough to fit "M_OCR_AAPF" with our given font-size.
+  width: 72px; // 120px fits "M_OCR_AAPF" with our given font-size.
 }
 .liftingtable th.smallCell {
   width: 72px;
 }
-
-// Render borders on the "Best3" cells to visually separate them.
-.liftingtable td.best3Attempt {
-  // border-right: 1.5px solid black;
+.liftingtable th.spacerCell {
+  width: 16px; // Values below 16 are ignored.
 }
 
 // The header bar gets inverse colors.

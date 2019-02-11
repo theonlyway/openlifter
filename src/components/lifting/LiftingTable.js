@@ -73,6 +73,7 @@ type ColumnType =
   | "B1" | "B2" | "B3" | "B4" // eslint-disable-line
   | "D1" | "D2" | "D3" | "D4" // eslint-disable-line
   | "BestSquat" | "BestBench" // eslint-disable-line
+  | "Spacer"
   | "ProjectedTotal"
   | "ProjectedPoints"
   | "FinalTotal"
@@ -106,14 +107,14 @@ class LiftingTable extends React.Component<Props> {
     // Render cells using attempt coloring.
     if (best3 !== 0) {
       return (
-        <td key={columnType} className={`${styles.best3Attempt} ${styles.goodlift}`}>
+        <td key={columnType} className={styles.goodlift}>
           {best3}
         </td>
       );
     }
     if (lightestFailed !== 0) {
       return (
-        <td key={columnType} className={`${styles.best3Attempt} ${styles.nolift}`}>
+        <td key={columnType} className={styles.nolift}>
           {lightestFailed}
         </td>
       );
@@ -259,6 +260,8 @@ class LiftingTable extends React.Component<Props> {
         return this.renderBest3AttemptField(entry, "S", columnType);
       case "BestBench":
         return this.renderBest3AttemptField(entry, "B", columnType);
+      case "Spacer":
+        return <td key={columnType} className={styles.spacerCell} />;
       case "ProjectedTotal": {
         const totalKg = getProjectedTotalKg(entry);
         return <td key={columnType}>{totalKg !== 0 ? totalKg : null}</td>;
@@ -395,6 +398,8 @@ class LiftingTable extends React.Component<Props> {
         return "Squat";
       case "BestBench":
         return "Bench";
+      case "Spacer":
+        return "";
       case "ProjectedTotal":
         return "Total";
       case "ProjectedPoints":
@@ -423,13 +428,13 @@ class LiftingTable extends React.Component<Props> {
       }
       columns.push("B1", "D1");
     } else if (this.props.lifting.lift === "B") {
-      columns.push("BestSquat", "B1", "B2", "B3");
+      columns.push("BestSquat", "Spacer", "B1", "B2", "B3");
       if (this.props.attemptOneIndexed === 4) {
         columns.push("B4");
       }
       columns.push("D1");
     } else if (this.props.lifting.lift === "D") {
-      columns.push("BestSquat", "BestBench", "D1", "D2", "D3");
+      columns.push("BestSquat", "BestBench", "Spacer", "D1", "D2", "D3");
       if (this.props.attemptOneIndexed === 4) {
         columns.push("D4");
       }
@@ -451,6 +456,7 @@ class LiftingTable extends React.Component<Props> {
       let className = styles.smallCell;
       if (column === "Name") className = styles.nameCell;
       else if (column === "Division") className = styles.divisionCell;
+      else if (column === "Spacer") className = styles.spacerCell;
 
       headers.push(
         <th key={column} className={className}>
