@@ -233,10 +233,12 @@ class ResultsView extends React.Component<Props, InternalState> {
         const lifted = liftedOnDay[j];
         const actionText = lifted === true ? "Export" : "Merge";
         const bsStyle = lifted === true ? "success" : "warning";
+        const marginStyle = j > 0 ? { marginLeft: "14px" } : null;
         buttons.push(
           <Button
             key={i + "-" + j}
             bsStyle={bsStyle}
+            style={marginStyle}
             onClick={e => {
               lifted === true
                 ? this.handleExportPlatformClick(i + 1, j + 1, e)
@@ -252,6 +254,7 @@ class ResultsView extends React.Component<Props, InternalState> {
         <div key={i}>
           <div>Combine Platforms for Day {i + 1}</div>
           <div>{buttons}</div>
+          {i < platformsHaveLifted.length - 1 ? <br /> : null}
         </div>
       );
     }
