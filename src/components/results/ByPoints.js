@@ -33,16 +33,23 @@ import { ipfpoints } from "../../logic/coefficients/ipf";
 
 import type { PointsCategory, PointsCategoryResults } from "../../logic/pointsPlace";
 import type { Entry, Formula, Sex } from "../../types/dataTypes";
+import type { GlobalState } from "../../types/stateTypes";
 
-type Props = {
-  meetName: string,
-  formula: Formula,
-  lengthDays: number,
-  weightClassesKgMen: Array<number>,
-  weightClassesKgWomen: Array<number>,
-  weightClassesKgMx: Array<number>,
-  entries: Array<Entry>
-};
+interface StateProps {
+  meetName: string;
+  formula: Formula;
+  lengthDays: number;
+  weightClassesKgMen: Array<number>;
+  weightClassesKgWomen: Array<number>;
+  weightClassesKgMx: Array<number>;
+  entries: Array<Entry>;
+}
+
+interface OwnProps {
+  day: string; // Really a number, 0 meaning "all".
+}
+
+type Props = StateProps & OwnProps;
 
 const mapSexToClasses = (sex: Sex, props: Props): Array<number> => {
   switch (sex) {
@@ -173,7 +180,13 @@ class ByPoints extends React.Component<Props> {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: GlobalState, ownProps: OwnProps): StateProps => {
+  const day = Number(ownProps.day);
+  let entries = state.registration.entries;
+  if (day > 0) {
+    entries = entries.filter(e => e.day === day);
+  }
+
   return {
     meetName: state.meet.name,
     formula: state.meet.formula,
@@ -181,7 +194,7 @@ const mapStateToProps = state => {
     weightClassesKgMen: state.meet.weightClassesKgMen,
     weightClassesKgWomen: state.meet.weightClassesKgWomen,
     weightClassesKgMx: state.meet.weightClassesKgMx,
-    entries: state.registration.entries
+    entries: entries
   };
 };
 

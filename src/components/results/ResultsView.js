@@ -263,7 +263,12 @@ class ResultsView extends React.Component<Props, InternalState> {
   };
 
   render() {
-    const results = this.state.by === "Division" ? <ByDivision /> : <ByPoints />;
+    const results =
+      this.state.by === "Division" ? (
+        <ByDivision key={this.state.day} day={this.state.day} />
+      ) : (
+        <ByPoints key={this.state.day} day={this.state.day} />
+      );
 
     return (
       <div style={marginStyle}>
