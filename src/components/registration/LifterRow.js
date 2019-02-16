@@ -28,7 +28,7 @@ import Select from "react-select";
 import DatePicker from "react-datepicker";
 
 import { deleteRegistration, updateRegistration } from "../../actions/registrationActions";
-import { getDateString } from "../../reducers/registrationReducer";
+import { iso8601ToLocalDate, localDateToIso8601 } from "../../logic/date";
 
 const eventOptions = [
   { value: "SBD", label: "SBD" },
@@ -44,12 +44,14 @@ class LifterRow extends React.Component {
   constructor(props) {
     super(props);
 
+    const birthDate: string = props.entry.birthDate;
+
     // Store the Day in state to update the Platform options when the Day changes.
     // Store the Birth Date in state to re-render when a new date is selected
     this.state = {
       selectedDay: props.entry.day,
       // Default to null to adhere to the react-datepicker api. Null is blank
-      selectedBirthDate: props.entry.birthDate ? new Date(props.entry.birthDate) : null
+      selectedBirthDate: birthDate ? iso8601ToLocalDate(birthDate) : null
     };
 
     this.deleteRegistrationClick = this.deleteRegistrationClick.bind(this);
@@ -129,13 +131,13 @@ class LifterRow extends React.Component {
     }
   };
 
-  updateRegistrationBirthDate(date) {
-    const birthDate = getDateString(date);
+  updateRegistrationBirthDate = date => {
+    const birthDate = localDateToIso8601(date)
     if (this.props.entry.birthDate !== birthDate) {
       this.setState({ selectedBirthDate: date });
       this.props.updateRegistration(this.props.id, { birthDate: birthDate });
     }
-  }
+  };
 
   updateRegistrationDivisions(value, actionMeta) {
     // Value is an array of { value, label } objects.
@@ -265,6 +267,7 @@ class LifterRow extends React.Component {
 
         <td>
           <DatePicker
+            dateFormat="yyyy-MM-dd"
             selected={this.state.selectedBirthDate}
             onChange={this.updateRegistrationBirthDate}
             showMonthDropdown

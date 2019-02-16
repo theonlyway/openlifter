@@ -28,12 +28,6 @@ import type {
 import type { Entry, Lift, FieldKg } from "../types/dataTypes";
 import type { RegistrationState } from "../types/stateTypes";
 
-export const getDateString = (dateTime: Date) => {
-  if (dateTime) {
-    return [dateTime.getFullYear(), dateTime.getMonth() + 1, dateTime.getDate()].join("/");
-  }
-};
-
 const initialState: RegistrationState = {
   // The next unique ID to assign.
   //
