@@ -1,4 +1,5 @@
 // vim: set ts=2 sts=2 sw=2 et:
+// @flow
 //
 // This file is part of OpenLifter, simple Powerlifting meet software.
 // Copyright (C) 2019 The OpenPowerlifting Project.
@@ -20,44 +21,51 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
 import DatePicker from "react-datepicker";
 
 import { ControlLabel, FormGroup } from "react-bootstrap";
 
 import { setMeetDate } from "../../actions/meetSetupActions";
+import { iso8601ToLocalDate, localDateToIso8601 } from "../../logic/date";
 
-class MeetDate extends React.Component {
+import type { GlobalState } from "../../types/stateTypes";
+
+interface StateProps {
+  date: string;
+}
+
+interface DispatchProps {
+  setMeetDate: (date: Date) => void;
+}
+
+type Props = StateProps & DispatchProps;
+
+class MeetDate extends React.Component<Props> {
   render() {
-    const { date } = this.props.meet;
-    // Create the initial Date object for the DatePicker from the string date in the redux store
-    const initialDateForPicker = new Date(date);
+    // The DatePicker manipulates a Date object in local time.
+    const initialDate: Date = iso8601ToLocalDate(this.props.date);
+
     return (
       <FormGroup>
         <ControlLabel>Start Date</ControlLabel>
         <div>
-          <DatePicker selected={initialDateForPicker} onChange={this.props.setMeetDate} />
+          <DatePicker dateFormat="yyyy-MM-dd" selected={initialDate} onChange={this.props.setMeetDate} />
         </div>
       </FormGroup>
     );
   }
 }
 
-const mapStateToProps = state => ({
-  ...state
+const mapStateToProps = (state: GlobalState): StateProps => ({
+  date: state.meet.date
 });
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch): DispatchProps => {
   return {
-    setMeetDate: date => dispatch(setMeetDate(date))
+    setMeetDate: date => {
+      dispatch(setMeetDate(localDateToIso8601(date)));
+    }
   };
-};
-
-MeetDate.propTypes = {
-  meet: PropTypes.shape({
-    date: PropTypes.string.isRequired
-  }).isRequired,
-  setMeetDate: PropTypes.func.isRequired
 };
 
 export default connect(

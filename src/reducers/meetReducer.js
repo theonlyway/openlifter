@@ -17,6 +17,8 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import { localDateToIso8601 } from "../logic/date";
+
 import type { MeetSetupAction, OverwriteStoreAction } from "../types/actionTypes";
 import type { PlatePairCount } from "../types/dataTypes";
 import type { MeetState } from "../types/stateTypes";
@@ -60,7 +62,7 @@ const initialState: MeetState = {
   name: "",
   formula: "Wilks",
   federation: "",
-  date: getDateString(new Date()),
+  date: localDateToIso8601(new Date()),
   lengthDays: 1,
   platformsOnDays: [defaultPlatformsOnDay],
   divisions: [],
@@ -76,10 +78,6 @@ const initialState: MeetState = {
   barAndCollarsWeightKg: defaultBarAndCollarsWeightKg,
   platePairCounts: defaultPlatePairCountsKg
 };
-
-function getDateString(dateTime) {
-  return [dateTime.getFullYear(), dateTime.getMonth() + 1, dateTime.getDate()].join("/");
-}
 
 // Given a sorted list of weight classes (in kg) and a bodyweight (in kg),
 // return a string describing the weight class.
@@ -111,7 +109,7 @@ export default (state: MeetState = initialState, action: Action): MeetState => {
       return { ...state, divisions: action.divisions };
 
     case "SET_MEET_DATE":
-      return { ...state, date: getDateString(action.date) };
+      return { ...state, date: action.date };
 
     case "SET_LENGTH_DAYS": {
       const numDays = Number(action.length);

@@ -62,7 +62,7 @@ export const setDivisions = (divisions: Array<string>): SetDivisionsAction => {
   };
 };
 
-export const setMeetDate = (date: Date): SetMeetDateAction => {
+export const setMeetDate = (date: string): SetMeetDateAction => {
   return {
     type: "SET_MEET_DATE",
     date

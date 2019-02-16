@@ -66,7 +66,7 @@ export interface SetDivisionsAction {
 
 export interface SetMeetDateAction {
   type: "SET_MEET_DATE";
-  date: Date;
+  date: string;
 }
 
 export interface SetLengthDaysAction {
