@@ -30,6 +30,7 @@ import type { GlobalState, MeetState } from "../../types/stateTypes";
 // Makes a string suitable for inclusion in a simple CSV file,
 // by deleting all commas and double quotes.
 const csvString = (x: number | string): string => {
+  if (x === undefined) return "";
   let s = String(x);
 
   // The OpenPowerlifting format uses commas and disallow double-quotes.

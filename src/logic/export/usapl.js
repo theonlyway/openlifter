@@ -28,6 +28,7 @@ import type { GlobalState } from "../../types/stateTypes";
 // Makes a string suitable for inclusion in a simple CSV file,
 // by deleting all commas and double quotes.
 const csvString = (x: number | string): string => {
+  if (x === undefined) return "";
   let s = String(x);
 
   // Since we're rendering to CSV, disallow commas and double-quotes.
@@ -114,7 +115,7 @@ const makeDataRow = (category: Category, entry: Entry): string => {
     csvString(entry.deadliftKg[2] * entry.deadliftStatus[2]), // Deadlift 3.
     csvString(translateEvent(category.event)), // Event.
     "", // TODO: State.
-    "", // TODO: MemberID.
+    csvString(entry.memberId), // MemberID.
     "" // TODO: Drug Test.
   ];
   return columns.join(",");

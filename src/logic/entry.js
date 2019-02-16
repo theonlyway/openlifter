@@ -50,6 +50,7 @@ export const newDefaultEntry = (id: number): Entry => {
 
     // Metadata about the lifter, assigned by the meet director.
     lot: 0, // The lifter's lot number, for breaking ties in lifting order.
+    memberId: "", // Optional federation MemberID, for reporting in results.
     paid: false, // Used by the meet director for tracking whether the lifter paid.
 
     // Information added on the "Weigh-ins" page.

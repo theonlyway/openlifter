@@ -56,6 +56,7 @@ export type Entry = {
   divisions: Array<string>,
   events: Array<Event>,
   lot: number,
+  memberId: string,
   paid: boolean,
   bodyweightKg: number,
   squatRackInfo: string,

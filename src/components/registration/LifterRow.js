@@ -58,10 +58,12 @@ class LifterRow extends React.Component {
     this.updateRegistrationFlight = this.updateRegistrationFlight.bind(this);
     this.updateRegistrationName = this.updateRegistrationName.bind(this);
     this.updateRegistrationSex = this.updateRegistrationSex.bind(this);
+    this.updateRegistrationLot = this.updateRegistrationLot.bind(this);
+    this.updateRegistrationMemberId = this.updateRegistrationMemberId.bind(this);
+    this.updateRegistrationBirthDate = this.updateRegistrationBirthDate.bind(this);
     this.updateRegistrationDivisions = this.updateRegistrationDivisions.bind(this);
     this.updateRegistrationEvents = this.updateRegistrationEvents.bind(this);
     this.updateRegistrationEquipment = this.updateRegistrationEquipment.bind(this);
-    this.updateRegistrationBirthDate = this.updateRegistrationBirthDate.bind(this);
   }
 
   deleteRegistrationClick(event) {
@@ -117,6 +119,13 @@ class LifterRow extends React.Component {
     const asNumber = Number(lot);
     if (asNumber >= 0 && asNumber !== this.props.entry.lot) {
       this.props.updateRegistration(this.props.id, { lot: asNumber });
+    }
+  };
+
+  updateRegistrationMemberId = event => {
+    const memberId = event.target.value;
+    if (this.props.entry.memberId !== memberId) {
+      this.props.updateRegistration(this.props.id, { memberId: memberId });
     }
   };
 
@@ -242,7 +251,16 @@ class LifterRow extends React.Component {
         </td>
 
         <td>
-          <FormControl type="text" defaultValue={entry.lot} onBlur={this.updateRegistrationLot} />
+          <FormControl
+            type="text"
+            placeholder="ID"
+            defaultValue={entry.memberId}
+            onBlur={this.updateRegistrationMemberId}
+          />
+        </td>
+
+        <td>
+          <FormControl type="text" placeholder="Lot #" defaultValue={entry.lot} onBlur={this.updateRegistrationLot} />
         </td>
 
         <td>

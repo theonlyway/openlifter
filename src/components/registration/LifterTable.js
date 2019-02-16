@@ -51,6 +51,7 @@ class LifterTable extends React.Component {
         <th style={shortStyle}>Flight</th>
         <th>Name</th>
         <th style={shortStyle}>Sex</th>
+        <th style={shortStyle}>MemberID</th>
         <th style={shortStyle}>Lot</th>
         <th style={shortStyle}>Birth Date</th>
         <th style={{ width: "120px" }}>Equipment</th>
