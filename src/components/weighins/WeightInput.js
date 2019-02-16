@@ -86,11 +86,9 @@ class WeightInput extends React.Component<Props, InternalState> {
 
   getValidationState = () => {
     const weightNum = Number(this.state.weightStr);
-    if (isNaN(weightNum) || weightNum < 0) {
-      return "error";
-    } else if (this.state.weightStr.length > 0) {
-      return "success";
-    }
+    if (isNaN(weightNum) || weightNum < 0) return "error";
+    if (weightNum % 2.5 !== 0.0) return "warning";
+    if (this.state.weightStr.length > 0) return "success";
     return null;
   };
 
