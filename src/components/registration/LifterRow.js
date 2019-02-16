@@ -44,7 +44,7 @@ class LifterRow extends React.Component {
   constructor(props) {
     super(props);
 
-    const birthDate: string = props.entry.birthDate;
+    const birthDate = props.entry.birthDate;
 
     // Store the Day in state to update the Platform options when the Day changes.
     // Store the Birth Date in state to re-render when a new date is selected
@@ -132,7 +132,7 @@ class LifterRow extends React.Component {
   };
 
   updateRegistrationBirthDate = date => {
-    const birthDate = localDateToIso8601(date)
+    const birthDate = localDateToIso8601(date);
     if (this.props.entry.birthDate !== birthDate) {
       this.setState({ selectedBirthDate: date });
       this.props.updateRegistration(this.props.id, { birthDate: birthDate });

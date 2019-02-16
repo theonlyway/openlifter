@@ -94,6 +94,15 @@ const translateEvent = (ev: Event): string => {
   }
 };
 
+// Converts the ISO8601 entry.birthDate to USAPL MM/DD/YYYY format.
+const makeBirthDate = (entry: Entry): string => {
+  if (entry.birthDate === undefined || entry.birthDate === "") {
+    return "";
+  }
+  let [year, month, day]: Array<string> = entry.birthDate.split("-");
+  return month + "/" + day + "/" + year;
+};
+
 // Given an Entry and its index in the CategoryResults.orderedEntries,
 // render all that information as a one-liner CSV string.
 const makeDataRow = (category: Category, entry: Entry): string => {
@@ -103,7 +112,7 @@ const makeDataRow = (category: Category, entry: Entry): string => {
     csvString(category.division), // Division.
     csvString(entry.bodyweightKg), // BodyweightKg.
     csvString(category.weightClassStr), // WeightClassKg.
-    csvString(entry.birthDate), // BirthDate. TODO: Should be MM/DD/YYYY.
+    csvString(makeBirthDate(entry)), // BirthDate.
     csvString(entry.squatKg[0] * entry.squatStatus[0]), // Squat 1.
     csvString(entry.squatKg[1] * entry.squatStatus[1]), // Squat 2.
     csvString(entry.squatKg[2] * entry.squatStatus[2]), // Squat 3.
