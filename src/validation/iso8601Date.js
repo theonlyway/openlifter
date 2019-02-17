@@ -36,8 +36,8 @@ export const validateIso8601Date = (s: ?string): Validation => {
   if (isNaN(year) || isNaN(month) || isNaN(day)) return "error";
   if (year <= 0 || month <= 0 || month > 12 || day <= 0 || day > 31) return "error";
 
-  // Warn on dates that are out of plausible range for powerlifting.
-  if (year < 1880 || year >= new Date().getFullYear() + 1) return "warning";
+  // Disallow dates that are out of the plausible range for powerlifting.
+  if (year < 1880 || year >= new Date().getFullYear() + 2) return "error";
 
   return "success";
 };
