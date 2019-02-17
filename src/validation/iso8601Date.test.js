@@ -46,6 +46,11 @@ describe("validateIso8601Date", () => {
     expect(validateIso8601Date("0000-00-00")).toEqual("error");
     expect(validateIso8601Date("2019-00-01")).toEqual("error");
     expect(validateIso8601Date("2019-01-00")).toEqual("error");
+    expect(validateIso8601Date(" 999-10-03")).toEqual("error");
+    expect(validateIso8601Date("2019- 2-03")).toEqual("error");
+    expect(validateIso8601Date("2019-02- 3")).toEqual("error");
+    expect(validateIso8601Date(" 2019-02-03")).toEqual("error");
+    expect(validateIso8601Date("2019-02-03 ")).toEqual("error");
   });
 
   it("allows well-formed dates", () => {

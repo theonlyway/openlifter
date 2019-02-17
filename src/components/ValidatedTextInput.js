@@ -28,7 +28,7 @@ import type { Validation } from "../types/dataTypes";
 
 interface OwnProps {
   initialValue: string;
-  placeholder: ?string;
+  placeholder: string;
   getValidationState: (value: ?string) => Validation;
   onSuccess: (value: string) => any;
 }

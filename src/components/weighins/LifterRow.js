@@ -25,12 +25,14 @@ import React from "react";
 import { connect } from "react-redux";
 import { FormControl } from "react-bootstrap";
 
+import ValidatedTextInput from "../ValidatedTextInput";
 import WeightInput from "./WeightInput";
-import AgeInput from "./AgeInput";
+
+import { validatePositiveInteger } from "../../validation/positiveInteger";
 
 import { updateRegistration } from "../../actions/registrationActions";
 
-import type { Entry } from "../../types/dataTypes";
+import type { Entry, Validation } from "../../types/dataTypes";
 import type { GlobalState, MeetState } from "../../types/stateTypes";
 
 interface OwnProps {
@@ -53,6 +55,7 @@ class LifterRow extends React.Component<Props> {
     super(props);
     this.updateRegistrationSquatRackInfo = this.updateRegistrationSquatRackInfo.bind(this);
     this.updateRegistrationBenchRackInfo = this.updateRegistrationBenchRackInfo.bind(this);
+    this.updateRegistrationAge = this.updateRegistrationAge.bind(this);
 
     this.renderSquatRackInfo = this.renderSquatRackInfo.bind(this);
     this.renderBenchRackInfo = this.renderBenchRackInfo.bind(this);
@@ -70,6 +73,25 @@ class LifterRow extends React.Component<Props> {
     if (this.props.entry.benchRackInfo !== info) {
       this.props.updateRegistration(this.props.id, { benchRackInfo: info });
     }
+  };
+
+  updateRegistrationAge = (value: string) => {
+    const age: number = value === "" ? 0 : Number(value);
+    if (this.props.entry.age !== age) {
+      this.props.updateRegistration(this.props.id, { age: age });
+    }
+  };
+
+  validateAge = (value: ?string): Validation => {
+    if (value === "") return null;
+
+    const pos: Validation = validatePositiveInteger(value);
+    if (pos === "success") {
+      // Complain a little if the age is implausible.
+      const n = Number(value);
+      if (n <= 4 || n > 100) return "warning";
+    }
+    return pos;
   };
 
   renderSquatRackInfo = (lifter: Entry, hasSquat: boolean) => {
@@ -124,7 +146,12 @@ class LifterRow extends React.Component<Props> {
         <td>{entry.name}</td>
 
         <td>
-          <AgeInput id={this.props.id} age={entry.age} field="age" />
+          <ValidatedTextInput
+            initialValue={entry.age === 0 ? "" : String(entry.age)}
+            placeholder="Age"
+            getValidationState={this.validateAge}
+            onSuccess={this.updateRegistrationAge}
+          />
         </td>
 
         <td>
