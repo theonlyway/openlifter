@@ -153,7 +153,7 @@ class LifterRow extends React.Component<Props> {
 
         <td>
           <ValidatedTextInput
-            initialValue={entry.squatRackInfo}
+            initialValue={entry.benchRackInfo}
             placeholder={hasBench ? "B.Rack" : undefined}
             disabled={!hasBench}
             getValidationState={this.validateRack}
