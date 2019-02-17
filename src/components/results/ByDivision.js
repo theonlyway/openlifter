@@ -139,7 +139,7 @@ class ByDivision extends React.Component<Props> {
     return (
       <Panel key={key}>
         <Panel.Heading>
-          {sex} {category.weightClassStr}kg {category.equipment} {category.division} {category.event}
+          {sex} {category.weightClassStr} kilo {category.equipment} {category.division} {category.event}
         </Panel.Heading>
         <Panel.Body>
           <Table hover condensed>
