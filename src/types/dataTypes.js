@@ -87,3 +87,6 @@ export type LiftingOrder = {
   nextAttemptOneIndexed: number | null,
   nextEntryId: number | null
 };
+
+// Type used for FormGroup validation.
+export type Validation = null | "success" | "warning" | "error";

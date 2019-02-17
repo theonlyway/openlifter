@@ -25,10 +25,12 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Button, FormControl } from "react-bootstrap";
 import Select from "react-select";
-import DatePicker from "react-datepicker";
+
+import ValidatedTextInput from "../ValidatedTextInput";
+
+import { validateIso8601Date } from "../../validation/iso8601Date";
 
 import { deleteRegistration, updateRegistration } from "../../actions/registrationActions";
-import { iso8601ToLocalDate, localDateToIso8601 } from "../../logic/date";
 
 const eventOptions = [
   { value: "SBD", label: "SBD" },
@@ -44,14 +46,10 @@ class LifterRow extends React.Component {
   constructor(props) {
     super(props);
 
-    const birthDate = props.entry.birthDate;
-
     // Store the Day in state to update the Platform options when the Day changes.
     // Store the Birth Date in state to re-render when a new date is selected
     this.state = {
-      selectedDay: props.entry.day,
-      // Default to null to adhere to the react-datepicker api. Null is blank
-      selectedBirthDate: birthDate ? iso8601ToLocalDate(birthDate) : null
+      selectedDay: props.entry.day
     };
 
     this.deleteRegistrationClick = this.deleteRegistrationClick.bind(this);
@@ -131,10 +129,8 @@ class LifterRow extends React.Component {
     }
   };
 
-  updateRegistrationBirthDate = date => {
-    const birthDate = localDateToIso8601(date);
+  updateRegistrationBirthDate = birthDate => {
     if (this.props.entry.birthDate !== birthDate) {
-      this.setState({ selectedBirthDate: date });
       this.props.updateRegistration(this.props.id, { birthDate: birthDate });
     }
   };
@@ -266,14 +262,11 @@ class LifterRow extends React.Component {
         </td>
 
         <td>
-          <DatePicker
-            dateFormat="yyyy-MM-dd"
-            selected={this.state.selectedBirthDate}
-            onChange={this.updateRegistrationBirthDate}
-            showMonthDropdown
-            showYearDropdown
-            scrollableYearDropdown
-            maxDate={new Date()}
+          <ValidatedTextInput
+            initialValue={entry.birthDate}
+            placeholder="YYYY-MM-DD"
+            getValidationState={validateIso8601Date}
+            onSuccess={this.updateRegistrationBirthDate}
           />
         </td>
 
