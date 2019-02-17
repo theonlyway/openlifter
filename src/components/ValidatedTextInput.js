@@ -28,12 +28,13 @@ import type { Validation } from "../types/dataTypes";
 
 interface OwnProps {
   initialValue: string;
-  placeholder: string;
+  placeholder?: ?string;
+  disabled?: boolean;
   getValidationState: (value: ?string) => Validation;
   onSuccess: (value: string) => any;
 }
 
-type Props = OwnProps;
+type Props = $ReadOnly<OwnProps>;
 
 interface InternalState {
   value: string;
@@ -83,6 +84,7 @@ class BirthDateInput extends React.Component<Props, InternalState> {
         <FormControl
           type="text"
           placeholder={this.props.placeholder}
+          disabled={this.props.disabled === true ? true : undefined}
           value={this.state.value}
           onKeyDown={this.handleKeyDown}
           onChange={this.handleChange}

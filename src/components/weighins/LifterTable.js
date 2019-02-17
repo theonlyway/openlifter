@@ -51,7 +51,7 @@ class LifterTable extends React.Component<Props> {
 
   renderHeader = () => {
     // Styling for small, single-character selector columns.
-    const shortStyle = { width: "80px" };
+    const shortStyle = { width: "85px" };
 
     const units = this.props.inKg ? "Kg" : "Lbs";
 

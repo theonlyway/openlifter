@@ -23,7 +23,6 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import { FormControl } from "react-bootstrap";
 
 import ValidatedTextInput from "../ValidatedTextInput";
 import WeightInput from "./WeightInput";
@@ -56,22 +55,17 @@ class LifterRow extends React.Component<Props> {
     this.updateRegistrationSquatRackInfo = this.updateRegistrationSquatRackInfo.bind(this);
     this.updateRegistrationBenchRackInfo = this.updateRegistrationBenchRackInfo.bind(this);
     this.updateRegistrationAge = this.updateRegistrationAge.bind(this);
-
-    this.renderSquatRackInfo = this.renderSquatRackInfo.bind(this);
-    this.renderBenchRackInfo = this.renderBenchRackInfo.bind(this);
   }
 
-  updateRegistrationSquatRackInfo = event => {
-    const info = event.target.value;
-    if (this.props.entry.squatRackInfo !== info) {
-      this.props.updateRegistration(this.props.id, { squatRackInfo: info });
+  updateRegistrationSquatRackInfo = (value: string) => {
+    if (this.props.entry.squatRackInfo !== value) {
+      this.props.updateRegistration(this.props.id, { squatRackInfo: value });
     }
   };
 
-  updateRegistrationBenchRackInfo = event => {
-    const info = event.target.value;
-    if (this.props.entry.benchRackInfo !== info) {
-      this.props.updateRegistration(this.props.id, { benchRackInfo: info });
+  updateRegistrationBenchRackInfo = (value: string) => {
+    if (this.props.entry.benchRackInfo !== value) {
+      this.props.updateRegistration(this.props.id, { benchRackInfo: value });
     }
   };
 
@@ -94,24 +88,9 @@ class LifterRow extends React.Component<Props> {
     return pos;
   };
 
-  renderSquatRackInfo = (lifter: Entry, hasSquat: boolean) => {
-    if (hasSquat) {
-      return (
-        <FormControl type="text" defaultValue={lifter.squatRackInfo} onBlur={this.updateRegistrationSquatRackInfo} />
-      );
-    } else {
-      return <FormControl type="text" disabled />;
-    }
-  };
-
-  renderBenchRackInfo = (lifter: Entry, hasBench: boolean) => {
-    if (hasBench) {
-      return (
-        <FormControl type="text" defaultValue={lifter.benchRackInfo} onBlur={this.updateRegistrationBenchRackInfo} />
-      );
-    } else {
-      return <FormControl type="text" disabled />;
-    }
+  validateRack = (value: ?string): Validation => {
+    if (value === "") return null;
+    return "success";
   };
 
   render() {
@@ -158,13 +137,29 @@ class LifterRow extends React.Component<Props> {
           <WeightInput id={this.props.id} field="bodyweightKg" disabled={false} />
         </td>
 
-        <td>{this.renderSquatRackInfo(entry, hasSquat)}</td>
+        <td>
+          <ValidatedTextInput
+            initialValue={entry.squatRackInfo}
+            placeholder={hasSquat ? "S.Rack" : undefined}
+            disabled={!hasSquat}
+            getValidationState={this.validateRack}
+            onSuccess={this.updateRegistrationSquatRackInfo}
+          />
+        </td>
 
         <td>
           <WeightInput id={this.props.id} lift="S" attemptOneIndexed={1} disabled={disableSquatWeight} />
         </td>
 
-        <td>{this.renderBenchRackInfo(entry, hasBench)}</td>
+        <td>
+          <ValidatedTextInput
+            initialValue={entry.squatRackInfo}
+            placeholder={hasBench ? "B.Rack" : undefined}
+            disabled={!hasBench}
+            getValidationState={this.validateRack}
+            onSuccess={this.updateRegistrationBenchRackInfo}
+          />
+        </td>
 
         <td>
           <WeightInput id={this.props.id} lift="B" attemptOneIndexed={1} disabled={disableBenchWeight} />
