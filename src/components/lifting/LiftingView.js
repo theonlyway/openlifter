@@ -46,7 +46,7 @@ interface StateProps {
   entriesInFlight: Array<Entry>;
 }
 
-type Props = StateProps;
+type Props = $ReadOnly<StateProps>;
 
 interface InternalState {
   // If true, the LiftingTable is replaced with the Weighins page.
@@ -83,7 +83,7 @@ class LiftingView extends React.Component<Props, InternalState> {
         />
       );
     } else {
-      rightElement = <WeighinsView />;
+      rightElement = <WeighinsView day={this.props.lifting.day} platform={this.props.lifting.platform} />;
     }
 
     return (

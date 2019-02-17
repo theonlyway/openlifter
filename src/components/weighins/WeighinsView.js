@@ -32,11 +32,17 @@ import type { GlobalState } from "../../types/stateTypes";
 
 const marginStyle = { margin: "0 20px 0 20px" };
 
+// For use when embedded inside the Lifting page.
+interface OwnProps {
+  day?: number;
+  platform?: number;
+}
+
 interface StateProps {
   entries: Array<Entry>;
 }
 
-type Props = StateProps;
+type Props = $ReadOnly<OwnProps> & $ReadOnly<StateProps>;
 
 class WeighinsView extends React.Component<Props> {
   constructor(props) {
@@ -69,6 +75,11 @@ class WeighinsView extends React.Component<Props> {
     let dayPanels = [];
     for (let i = 1; i <= numDays; i++) {
       const lifters = getLiftersOnDay(this.props.entries, i);
+
+      // Skip if the OwnProps excluded this selection.
+      if (lifters.length === 0) {
+        continue;
+      }
 
       // Present the lifters in sorted order.
       lifters.sort((a, b) => {
@@ -103,9 +114,17 @@ class WeighinsView extends React.Component<Props> {
   }
 }
 
-const mapStateToProps = (state: GlobalState): StateProps => ({
-  entries: state.registration.entries
-});
+const mapStateToProps = (state: GlobalState, ownProps: OwnProps): StateProps => {
+  const { day, platform } = ownProps;
+  let entries = state.registration.entries;
+
+  // Filter if requested by the OwnProps.
+  if (typeof day === "number" && typeof platform === "number") {
+    entries = entries.filter(e => e.day === day && e.platform === platform);
+  }
+
+  return { entries };
+};
 
 export default connect(
   mapStateToProps,
