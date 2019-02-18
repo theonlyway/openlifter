@@ -51,6 +51,8 @@ export type Entry = {
   sex: Sex,
   birthDate: string,
   age: number,
+  country: string,
+  state: string,
   intendedWeightClassKg: string,
   equipment: Equipment,
   divisions: Array<string>,

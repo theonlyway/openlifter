@@ -123,7 +123,7 @@ const makeDataRow = (category: Category, entry: Entry): string => {
     csvString(entry.deadliftKg[1] * entry.deadliftStatus[1]), // Deadlift 2.
     csvString(entry.deadliftKg[2] * entry.deadliftStatus[2]), // Deadlift 3.
     csvString(translateEvent(category.event)), // Event.
-    "", // TODO: State.
+    csvString(entry.state), // State.
     csvString(entry.memberId), // MemberID.
     "" // TODO: Drug Test.
   ];

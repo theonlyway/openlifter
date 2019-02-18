@@ -43,6 +43,8 @@ export const newDefaultEntry = (id: number): Entry => {
     sex: "M", // The lifter's sex.
     birthDate: "", // The lifter's birthdate (YYYY-MM-DD).
     age: 0, // The lifter's age in years
+    country: "", // Lifter's home country, or blank.
+    state: "", // Lifter's home state, or blank.
     intendedWeightClassKg: "", // The weightclass for which the lifter registered.
     equipment: "Raw", // The equipment category for which the lifter registered.
     divisions: [], // A list of divisions the lifter entered.

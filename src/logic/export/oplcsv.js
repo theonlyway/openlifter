@@ -59,7 +59,19 @@ const makeMeetCsv = (meet: MeetState): string => {
 };
 
 const makeEntriesHeaderRow = (): string => {
-  let headers = ["Place", "Name", "Sex", "BirthDate", "Age", "Equipment", "Division", "BodyweightKg", "WeightClassKg"];
+  let headers = [
+    "Place",
+    "Name",
+    "Sex",
+    "BirthDate",
+    "Age",
+    "Country",
+    "State",
+    "Equipment",
+    "Division",
+    "BodyweightKg",
+    "WeightClassKg"
+  ];
 
   for (let i = 0; i < MAX_ATTEMPTS; i++) {
     headers.push("Squat" + (i + 1) + "Kg");
@@ -92,6 +104,8 @@ const makeEntriesRow = (category: Category, entry: Entry, index: number): string
     csvString(entry.sex), // Sex.
     csvString(entry.birthDate), // BirthDate.
     csvString(entry.age), // Age.
+    csvString(entry.country), // Country.
+    csvString(entry.state), // State.
     csvString(entry.equipment), // Equipment.
     csvString(category.division), // Division.
     csvString(entry.bodyweightKg), // BodyweightKg.

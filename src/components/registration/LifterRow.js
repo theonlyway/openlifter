@@ -61,6 +61,8 @@ class LifterRow extends React.Component {
     this.updateRegistrationLot = this.updateRegistrationLot.bind(this);
     this.updateRegistrationMemberId = this.updateRegistrationMemberId.bind(this);
     this.updateRegistrationBirthDate = this.updateRegistrationBirthDate.bind(this);
+    this.updateRegistrationCountry = this.updateRegistrationCountry.bind(this);
+    this.updateRegistrationState = this.updateRegistrationState.bind(this);
     this.updateRegistrationDivisions = this.updateRegistrationDivisions.bind(this);
     this.updateRegistrationEvents = this.updateRegistrationEvents.bind(this);
     this.updateRegistrationEquipment = this.updateRegistrationEquipment.bind(this);
@@ -132,6 +134,18 @@ class LifterRow extends React.Component {
   updateRegistrationBirthDate = birthDate => {
     if (this.props.entry.birthDate !== birthDate) {
       this.props.updateRegistration(this.props.id, { birthDate: birthDate });
+    }
+  };
+
+  updateRegistrationCountry = country => {
+    if (this.props.entry.country !== country) {
+      this.props.updateRegistration(this.props.id, { country: country });
+    }
+  };
+
+  updateRegistrationState = state => {
+    if (this.props.entry.state !== state) {
+      this.props.updateRegistration(this.props.id, { state: state });
     }
   };
 
@@ -267,6 +281,24 @@ class LifterRow extends React.Component {
             placeholder="YYYY-MM-DD"
             getValidationState={validateIso8601Date}
             onSuccess={this.updateRegistrationBirthDate}
+          />
+        </td>
+
+        <td>
+          <ValidatedTextInput
+            initialValue={entry.country}
+            placeholder="Country"
+            getValidationState={s => (s === "" ? null : "success")}
+            onSuccess={this.updateRegistrationCountry}
+          />
+        </td>
+
+        <td>
+          <ValidatedTextInput
+            initialValue={entry.state}
+            placeholder="State"
+            getValidationState={s => (s === "" ? null : "success")}
+            onSuccess={this.updateRegistrationState}
           />
         </td>
 
