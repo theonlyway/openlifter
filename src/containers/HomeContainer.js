@@ -134,7 +134,7 @@ class HomeContainer extends React.Component<Props, InternalState> {
 
     const state = JSON.stringify(this.props.redux);
     const blob = new Blob([state], { type: "application/json;charset=utf-8" });
-    saveAs(blob, meetname + ".json");
+    saveAs(blob, meetname + ".openlifter");
   };
 
   renderContinueButton = () => {
@@ -192,7 +192,7 @@ class HomeContainer extends React.Component<Props, InternalState> {
         <input
           id="loadhelper"
           type="file"
-          accept=".json"
+          accept=".openlifter"
           style={{ display: "none" }}
           onChange={this.handleLoadFileInput}
         />
