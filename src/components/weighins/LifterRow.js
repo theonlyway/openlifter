@@ -134,7 +134,7 @@ class LifterRow extends React.Component<Props> {
         </td>
 
         <td>
-          <WeightInput id={this.props.id} field="bodyweightKg" disabled={false} />
+          <WeightInput id={this.props.id} field="bodyweightKg" placeholder="Bwt" disabled={false} />
         </td>
 
         <td>
@@ -148,7 +148,13 @@ class LifterRow extends React.Component<Props> {
         </td>
 
         <td>
-          <WeightInput id={this.props.id} lift="S" attemptOneIndexed={1} disabled={disableSquatWeight} />
+          <WeightInput
+            id={this.props.id}
+            lift="S"
+            attemptOneIndexed={1}
+            placeholder={hasSquat ? "Squat" : undefined}
+            disabled={disableSquatWeight}
+          />
         </td>
 
         <td>
@@ -162,11 +168,23 @@ class LifterRow extends React.Component<Props> {
         </td>
 
         <td>
-          <WeightInput id={this.props.id} lift="B" attemptOneIndexed={1} disabled={disableBenchWeight} />
+          <WeightInput
+            id={this.props.id}
+            lift="B"
+            attemptOneIndexed={1}
+            placeholder={hasBench ? "Bench" : undefined}
+            disabled={disableBenchWeight}
+          />
         </td>
 
         <td>
-          <WeightInput id={this.props.id} lift="D" attemptOneIndexed={1} disabled={disableDeadliftWeight} />
+          <WeightInput
+            id={this.props.id}
+            lift="D"
+            attemptOneIndexed={1}
+            placeholder={hasDeadlift ? "Dead" : undefined}
+            disabled={disableDeadliftWeight}
+          />
         </td>
       </tr>
     );

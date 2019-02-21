@@ -40,6 +40,7 @@ interface OwnProps {
   disabled: boolean;
 
   // Optional attributes used only for lifts (as opposed to for bodyweights).
+  placeholder?: ?string;
   lift?: Lift;
   attemptOneIndexed?: number;
 }
@@ -134,6 +135,7 @@ class WeightInput extends React.Component<Props, InternalState> {
       <FormGroup style={undoDefaultPadding} validationState={this.getValidationState()}>
         <FormControl
           disabled={this.props.disabled}
+          placeholder={this.props.placeholder}
           type="text"
           value={this.state.weightStr}
           onChange={this.handleChange}
