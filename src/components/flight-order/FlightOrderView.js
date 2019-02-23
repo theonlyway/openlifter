@@ -44,7 +44,7 @@ interface InternalState {
   platform: number;
 }
 
-const marginStyle = { margin: "0 20px 0 20px" };
+const marginStyle = { margin: "0" };
 
 class FlightOrderView extends React.Component<Props, InternalState> {
   constructor(props) {

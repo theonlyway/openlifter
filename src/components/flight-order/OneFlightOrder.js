@@ -25,8 +25,11 @@ import { Panel, Table } from "react-bootstrap";
 
 import { liftToAttemptFieldName } from "../../logic/entry";
 import { orderEntriesByAttempt } from "../../logic/liftingOrder";
+import { kg2lbs, displayWeight } from "../../logic/units";
 
 import type { Entry, Flight, Lift } from "../../types/dataTypes";
+
+import styles from "./OneFlightOrder.module.scss";
 
 interface OwnProps {
   flight: Flight;
@@ -68,13 +71,18 @@ class OneFlightOrder extends React.Component<Props> {
       if (hasSquat) {
         if (i < bySquat.length) {
           const entry = bySquat[i];
-          const weight = entry.squatKg[0];
+          const kg: string = displayWeight(entry.squatKg[0]);
+          const lbs: string = displayWeight(kg2lbs(entry.squatKg[0]));
           builder.push(
             <td key={"S-" + entry.id}>
-              {i + 1}. {entry.name} ({weight})
+              {i + 1}. {entry.name}
             </td>
           );
+          builder.push(<td key={"S-kg-" + entry.id}>{kg}</td>);
+          builder.push(<td key={"S-lbs-" + entry.id}>{lbs}</td>);
         } else {
+          builder.push(<td key={key++} />);
+          builder.push(<td key={key++} />);
           builder.push(<td key={key++} />);
         }
       }
@@ -82,13 +90,18 @@ class OneFlightOrder extends React.Component<Props> {
       if (hasBench) {
         if (i < byBench.length) {
           const entry = byBench[i];
-          const weight = entry.benchKg[0];
+          const kg: string = displayWeight(entry.benchKg[0]);
+          const lbs: string = displayWeight(kg2lbs(entry.benchKg[0]));
           builder.push(
-            <td key={"B-" + entry.id}>
-              {i + 1}. {entry.name} ({weight})
+            <td key={"B-" + entry.id} className={styles.leftDivider}>
+              {i + 1}. {entry.name}
             </td>
           );
+          builder.push(<td key={"B-kg-" + entry.id}>{kg}</td>);
+          builder.push(<td key={"B-lbs-" + entry.id}>{lbs}</td>);
         } else {
+          builder.push(<td key={key++} className={styles.leftDivider} />);
+          builder.push(<td key={key++} />);
           builder.push(<td key={key++} />);
         }
       }
@@ -96,13 +109,18 @@ class OneFlightOrder extends React.Component<Props> {
       if (hasDeadlift) {
         if (i < byDeadlift.length) {
           const entry = byDeadlift[i];
-          const weight = entry.deadliftKg[0];
+          const kg: string = displayWeight(entry.deadliftKg[0]);
+          const lbs: string = displayWeight(kg2lbs(entry.deadliftKg[0]));
           builder.push(
-            <td key={"D-" + entry.id}>
-              {i + 1}. {entry.name} ({weight})
+            <td key={"D-" + entry.id} className={styles.leftDivider}>
+              {i + 1}. {entry.name}
             </td>
           );
+          builder.push(<td key={"D-kg-" + entry.id}>{kg}</td>);
+          builder.push(<td key={"D-lbs-" + entry.id}>{lbs}</td>);
         } else {
+          builder.push(<td key={key++} className={styles.leftDivider} />);
+          builder.push(<td key={key++} />);
           builder.push(<td key={key++} />);
         }
       }
@@ -114,12 +132,26 @@ class OneFlightOrder extends React.Component<Props> {
     let header = [];
     if (hasSquat) {
       header.push(<th key={"S"}>Squat</th>);
+      header.push(<th key={"S-kg"}>Kg</th>);
+      header.push(<th key={"S-lbs"}>Lbs</th>);
     }
     if (hasBench) {
-      header.push(<th key={"B"}>Bench</th>);
+      header.push(
+        <th key={"B"} className={styles.leftDivider}>
+          Bench
+        </th>
+      );
+      header.push(<th key={"B-kg"}>Kg</th>);
+      header.push(<th key={"B-lbs"}>Lbs</th>);
     }
     if (hasDeadlift) {
-      header.push(<th key={"D"}>Deadlift</th>);
+      header.push(
+        <th key={"D"} className={styles.leftDivider}>
+          Deadlift
+        </th>
+      );
+      header.push(<th key={"D-kg"}>Kg</th>);
+      header.push(<th key={"D-lbs"}>Lbs</th>);
     }
 
     return (
