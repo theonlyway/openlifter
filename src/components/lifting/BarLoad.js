@@ -23,6 +23,8 @@
 import React from "react";
 import { connect } from "react-redux";
 
+import { displayWeight } from "../../logic/units";
+
 import type { Lift, LoadedPlate } from "../../types/dataTypes";
 import type { GlobalState } from "../../types/stateTypes";
 
@@ -101,7 +103,7 @@ class BarLoad extends React.Component<Props> {
       if (weightKg < 0) {
         divs.push(
           <div key={"error"} className={styles.error}>
-            ?{(-1 * weightKg).toFixed(1)}
+            ?{displayWeight(-1 * weightKg)}
           </div>
         );
         break;

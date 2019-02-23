@@ -25,6 +25,7 @@ import { connect } from "react-redux";
 
 import { selectPlatesKg, makeLoadingRelative } from "../../logic/barLoad";
 import { liftToAttemptFieldName } from "../../logic/entry";
+import { kg2lbs, displayWeight } from "../../logic/units";
 
 import BarLoad from "./BarLoad";
 
@@ -71,7 +72,7 @@ class LeftPanel extends React.Component<Props> {
     const entry = this.props.registration.entries[idx];
 
     const weightKg = entry[fieldKg][attemptOneIndexed - 1];
-    const weightLbs = weightKg * 2.20462262;
+    const weightLbs = kg2lbs(weightKg);
 
     let rackInfo = "";
     if (lift === "S") rackInfo = entry.squatRackInfo;
@@ -85,8 +86,8 @@ class LeftPanel extends React.Component<Props> {
     const next = this.getBarLoadProps(this.props.nextEntryId, this.props.nextAttemptOneIndexed);
 
     // Show one decimal point, and omit it if possible.
-    const weightKgText = current.weightKg.toFixed(1).replace(".0", "");
-    const weightLbsText = current.weightLbs.toFixed(1).replace(".0", "");
+    const weightKgText = displayWeight(current.weightKg);
+    const weightLbsText = displayWeight(current.weightLbs);
 
     // Calculate both loadings.
     const currentLoading: Array<LoadedPlate> = selectPlatesKg(
