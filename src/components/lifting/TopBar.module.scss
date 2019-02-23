@@ -28,13 +28,15 @@ $border-rounding: 8px;
 div.topBar {
   margin-bottom: 10px;
   width: 100%;
-  padding: 20px 20px 3px 20px;
+  height: 84px;
+
+  padding: 10px 20px 10px 20px;
 
   background-color: $color-dark;
   color: $color-light;
 
   font-size: 40px;
-  line-height: 1;
+  line-height: normal;
   border-radius: $border-rounding;
   box-shadow: 0 0 20px 0 hsla(0, 0%, 64%, .45);
 
