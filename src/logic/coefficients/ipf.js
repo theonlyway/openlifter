@@ -25,7 +25,9 @@ import type { Sex, Event, Equipment } from "../../types/dataTypes";
 type Coefficients = Array<number>;
 type ByEvent = {
   SBD: Coefficients,
-  B: Coefficients
+  S: Coefficients,
+  B: Coefficients,
+  D: Coefficients
 };
 type ByEquipment = {
   Raw: ByEvent,
@@ -40,21 +42,29 @@ const PARAMETERS: BySex = {
   M: {
     Raw: {
       SBD: [310.67, 857.785, 53.216, 147.0835],
-      B: [86.4745, 259.155, 17.57845, 53.122]
+      S: [123.1, 363.085, 25.1667, 75.4311],
+      B: [86.4745, 259.155, 17.57845, 53.122],
+      D: [103.5355, 244.765, 15.3714, 31.5022]
     },
     "Single-ply": {
       SBD: [387.265, 1121.28, 80.6324, 222.4896],
-      B: [133.94, 441.465, 35.3938, 113.0057]
+      S: [150.485, 446.445, 36.5155, 103.7061],
+      B: [133.94, 441.465, 35.3938, 113.0057],
+      D: [110.135, 263.66, 14.996, 23.011]
     }
   },
   F: {
     Raw: {
       SBD: [125.1435, 228.03, 34.5246, 86.8301],
-      B: [25.0485, 43.848, 6.7172, 13.952]
+      S: [50.479, 105.632, 19.1846, 56.2215],
+      B: [25.0485, 43.848, 6.7172, 13.952],
+      D: [47.136, 67.349, 9.1555, 13.67]
     },
     "Single-ply": {
       SBD: [176.58, 373.315, 48.4534, 110.0103],
-      B: [49.106, 124.209, 23.199, 67.4926]
+      S: [74.6855, 171.585, 21.9475, 52.2948],
+      B: [49.106, 124.209, 23.199, 67.4926],
+      D: [51.002, 69.8265, 8.5802, 5.7258]
     }
   }
 };
@@ -67,6 +77,7 @@ export const ipfpoints = (
   event: Event
 ): number => {
   if (totalKg === 0) return 0;
+  if (bodyweightKg < 40) return 0;
 
   // Restrict inputs to only the defined subset.
   let normalizedEquipment = equipment;
@@ -83,7 +94,7 @@ export const ipfpoints = (
   let normalizedSex = sex;
   if (sex === "Mx") normalizedSex = "M";
 
-  if (event !== "SBD" && event !== "B") return 0;
+  if (event !== "SBD" && event !== "S" && event !== "B" && event !== "D") return 0;
   if (normalizedSex !== "M" && normalizedSex !== "F") return 0;
 
   const params = PARAMETERS[normalizedSex][normalizedEquipment][event];
