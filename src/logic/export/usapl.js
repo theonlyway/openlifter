@@ -106,6 +106,10 @@ const makeBirthDate = (entry: Entry): string => {
 // Given an Entry and its index in the CategoryResults.orderedEntries,
 // render all that information as a one-liner CSV string.
 const makeDataRow = (category: Category, entry: Entry): string => {
+  const hasSquat: boolean = category.event.includes("S");
+  const hasBench: boolean = category.event.includes("B");
+  const hasDL: boolean = category.event.includes("D");
+
   const columns: Array<string> = [
     csvString(entry.name), // Name.
     "", // TODO: Team.
@@ -113,15 +117,15 @@ const makeDataRow = (category: Category, entry: Entry): string => {
     csvString(entry.bodyweightKg), // BodyweightKg.
     csvString(category.weightClassStr), // WeightClassKg.
     csvString(makeBirthDate(entry)), // BirthDate.
-    csvString(entry.squatKg[0] * entry.squatStatus[0]), // Squat 1.
-    csvString(entry.squatKg[1] * entry.squatStatus[1]), // Squat 2.
-    csvString(entry.squatKg[2] * entry.squatStatus[2]), // Squat 3.
-    csvString(entry.benchKg[0] * entry.benchStatus[0]), // Bench 1.
-    csvString(entry.benchKg[1] * entry.benchStatus[1]), // Bench 2.
-    csvString(entry.benchKg[2] * entry.benchStatus[2]), // Bench 3.
-    csvString(entry.deadliftKg[0] * entry.deadliftStatus[0]), // Deadlift 1.
-    csvString(entry.deadliftKg[1] * entry.deadliftStatus[1]), // Deadlift 2.
-    csvString(entry.deadliftKg[2] * entry.deadliftStatus[2]), // Deadlift 3.
+    csvString(hasSquat ? entry.squatKg[0] * entry.squatStatus[0] : 0), // Squat 1.
+    csvString(hasSquat ? entry.squatKg[1] * entry.squatStatus[1] : 0), // Squat 2.
+    csvString(hasSquat ? entry.squatKg[2] * entry.squatStatus[2] : 0), // Squat 3.
+    csvString(hasBench ? entry.benchKg[0] * entry.benchStatus[0] : 0), // Bench 1.
+    csvString(hasBench ? entry.benchKg[1] * entry.benchStatus[1] : 0), // Bench 2.
+    csvString(hasBench ? entry.benchKg[2] * entry.benchStatus[2] : 0), // Bench 3.
+    csvString(hasDL ? entry.deadliftKg[0] * entry.deadliftStatus[0] : 0), // Deadlift 1.
+    csvString(hasDL ? entry.deadliftKg[1] * entry.deadliftStatus[1] : 0), // Deadlift 2.
+    csvString(hasDL ? entry.deadliftKg[2] * entry.deadliftStatus[2] : 0), // Deadlift 3.
     csvString(translateEvent(category.event)), // Event.
     csvString(entry.state), // State.
     csvString(entry.memberId), // MemberID.

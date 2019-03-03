@@ -148,7 +148,7 @@ const makeEntriesRow = (category: Category, entry: Entry, index: number): string
 
   // Deadlift(1-5)Kg
   for (let i = 0; i < MAX_ATTEMPTS; i++) {
-    if (category.event.includes("B")) {
+    if (category.event.includes("D")) {
       columns.push(csvString(entry.deadliftKg[i] * entry.deadliftStatus[i]));
     } else {
       columns.push("");
