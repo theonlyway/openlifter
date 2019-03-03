@@ -19,54 +19,12 @@
 
 // Exports data to a spreadsheet format used by the USAPL.
 
+import { csvString, Csv } from "./csv";
 import { getFinalResults } from "../divisionPlace";
 
 import type { Category, CategoryResults } from "../divisionPlace";
 import type { Entry, Event } from "../../types/dataTypes";
 import type { GlobalState } from "../../types/stateTypes";
-
-// Makes a string suitable for inclusion in a simple CSV file,
-// by deleting all commas and double quotes.
-const csvString = (x: number | string): string => {
-  if (x === undefined) return "";
-  let s = String(x);
-
-  // Since we're rendering to CSV, disallow commas and double-quotes.
-  s = s.replace(/,/g, " ");
-  s = s.replace(/"/g, " ");
-
-  // The number "0" is never written out explicitly; the empty string is preferred.
-  if (s === "0") return "";
-
-  // Clean up some formatting.
-  s = s.replace(/ {2}/g, " ").trim();
-  return s;
-};
-
-const makeHeaderRow = (): string => {
-  let headers = [
-    "Name",
-    "Team",
-    "Div", // Division.
-    "Bwt - kg", // Bodyweight, kg.
-    "IPF Wt Cls", // IPF Weight Class (SHW as "120+", same format).
-    "DOB", // Date of Birth, in MM/DD/YYYY format.
-    "Squat 1", // Units unspecified, but seem to be kg.
-    "Squat 2",
-    "Squat 3",
-    "Bench 1",
-    "Bench 2",
-    "Bench 3",
-    "Deadlift 1",
-    "Deadlift 2",
-    "Deadlift 3",
-    "Event", // In NextLifter format (PL, BO, etc.).
-    "State", // USA state of residence of the lifter, as abbreviation.
-    "MemberID",
-    "Drug Test" // "Y" if a test was performed, blank otherwise.
-  ];
-  return headers.join(",");
-};
 
 // Translates the event from our format to the NextLifter format.
 const translateEvent = (ev: Event): string => {
@@ -105,36 +63,61 @@ const makeBirthDate = (entry: Entry): string => {
 
 // Given an Entry and its index in the CategoryResults.orderedEntries,
 // render all that information as a one-liner CSV string.
-const makeDataRow = (category: Category, entry: Entry): string => {
+const addDataRow = (csv: Csv, category: Category, entry: Entry) => {
   const hasSquat: boolean = category.event.includes("S");
   const hasBench: boolean = category.event.includes("B");
   const hasDL: boolean = category.event.includes("D");
 
-  const columns: Array<string> = [
-    csvString(entry.name), // Name.
-    "", // TODO: Team.
-    csvString(category.division), // Division.
-    csvString(entry.bodyweightKg), // BodyweightKg.
-    csvString(category.weightClassStr), // WeightClassKg.
-    csvString(makeBirthDate(entry)), // BirthDate.
-    csvString(hasSquat ? entry.squatKg[0] * entry.squatStatus[0] : 0), // Squat 1.
-    csvString(hasSquat ? entry.squatKg[1] * entry.squatStatus[1] : 0), // Squat 2.
-    csvString(hasSquat ? entry.squatKg[2] * entry.squatStatus[2] : 0), // Squat 3.
-    csvString(hasBench ? entry.benchKg[0] * entry.benchStatus[0] : 0), // Bench 1.
-    csvString(hasBench ? entry.benchKg[1] * entry.benchStatus[1] : 0), // Bench 2.
-    csvString(hasBench ? entry.benchKg[2] * entry.benchStatus[2] : 0), // Bench 3.
-    csvString(hasDL ? entry.deadliftKg[0] * entry.deadliftStatus[0] : 0), // Deadlift 1.
-    csvString(hasDL ? entry.deadliftKg[1] * entry.deadliftStatus[1] : 0), // Deadlift 2.
-    csvString(hasDL ? entry.deadliftKg[2] * entry.deadliftStatus[2] : 0), // Deadlift 3.
-    csvString(translateEvent(category.event)), // Event.
-    csvString(entry.state), // State.
-    csvString(entry.memberId), // MemberID.
-    "" // TODO: Drug Test.
-  ];
-  return columns.join(",");
+  // Initialize an empty row with all columns available.
+  let row: Array<string> = Array(csv.fieldnames.length).fill("");
+
+  row[csv.index("Name")] = csvString(entry.name);
+  // TODO: Team.
+  row[csv.index("Div")] = csvString(category.division);
+  row[csv.index("Bwt - kg")] = csvString(entry.bodyweightKg);
+  row[csv.index("IPF Wt Cls")] = csvString(category.weightClassStr);
+  row[csv.index("DOB")] = csvString(makeBirthDate(entry));
+  row[csv.index("Squat 1")] = csvString(hasSquat ? entry.squatKg[0] * entry.squatStatus[0] : 0);
+  row[csv.index("Squat 2")] = csvString(hasSquat ? entry.squatKg[1] * entry.squatStatus[1] : 0);
+  row[csv.index("Squat 3")] = csvString(hasSquat ? entry.squatKg[2] * entry.squatStatus[2] : 0);
+  row[csv.index("Bench 1")] = csvString(hasBench ? entry.benchKg[0] * entry.benchStatus[0] : 0);
+  row[csv.index("Bench 2")] = csvString(hasBench ? entry.benchKg[1] * entry.benchStatus[1] : 0);
+  row[csv.index("Bench 3")] = csvString(hasBench ? entry.benchKg[2] * entry.benchStatus[2] : 0);
+  row[csv.index("Deadlift 1")] = csvString(hasDL ? entry.deadliftKg[0] * entry.deadliftStatus[0] : 0);
+  row[csv.index("Deadlift 2")] = csvString(hasDL ? entry.deadliftKg[1] * entry.deadliftStatus[1] : 0);
+  row[csv.index("Deadlift 3")] = csvString(hasDL ? entry.deadliftKg[2] * entry.deadliftStatus[2] : 0);
+  row[csv.index("Event")] = csvString(translateEvent(category.event));
+  row[csv.index("State")] = csvString(entry.state);
+  row[csv.index("MemberID")] = csvString(entry.memberId);
+  // TODO: Drug Test.
+
+  csv.rows.push(row);
 };
 
 export const exportAsUSAPLCsv = (state: GlobalState): string => {
+  let csv = new Csv();
+  csv.fieldnames = [
+    "Name",
+    "Team",
+    "Div", // Division.
+    "Bwt - kg", // Bodyweight, kg.
+    "IPF Wt Cls", // IPF Weight Class (SHW as "120+", same format).
+    "DOB", // Date of Birth, in MM/DD/YYYY format.
+    "Squat 1", // Units unspecified, but seem to be kg.
+    "Squat 2",
+    "Squat 3",
+    "Bench 1",
+    "Bench 2",
+    "Bench 3",
+    "Deadlift 1",
+    "Deadlift 2",
+    "Deadlift 3",
+    "Event", // In NextLifter format (PL, BO, etc.).
+    "State", // USA state of residence of the lifter, as abbreviation.
+    "MemberID",
+    "Drug Test" // "Y" if a test was performed, blank otherwise.
+  ];
+
   const results: Array<CategoryResults> = getFinalResults(
     state.registration.entries,
     state.meet.weightClassesKgMen,
@@ -142,15 +125,13 @@ export const exportAsUSAPLCsv = (state: GlobalState): string => {
     state.meet.weightClassesKgMx
   );
 
-  let csv: Array<string> = [makeHeaderRow()];
   for (let i = 0; i < results.length; i++) {
     const { category, orderedEntries } = results[i];
 
     for (let j = 0; j < orderedEntries.length; j++) {
-      const row = makeDataRow(category, orderedEntries[j]);
-      csv.push(row);
+      addDataRow(csv, category, orderedEntries[j]);
     }
   }
 
-  return csv.join("\n");
+  return csv.toString();
 };
