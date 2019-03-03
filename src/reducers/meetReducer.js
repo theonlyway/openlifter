@@ -81,8 +81,9 @@ const initialState: MeetState = {
 
 // Given a sorted list of weight classes (in kg) and a bodyweight (in kg),
 // return a string describing the weight class.
-export const getWeightClassStr = (classes: Array<number>, bodyweightKg: number) => {
-  if (classes.length === 0) return "0+";
+export const getWeightClassStr = (classes: Array<number>, bodyweightKg: number): string => {
+  if (bodyweightKg === 0) return "";
+  if (classes.length === 0) return "";
 
   for (let i = 0; i < classes.length; i++) {
     if (bodyweightKg <= classes[i]) {
