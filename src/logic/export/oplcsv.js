@@ -19,7 +19,7 @@
 
 // Exports data to a CSV format easily importable by OpenPowerlifting.
 
-import { csvString } from "./csv";
+import { csvString, Csv } from "./csv";
 import { getFinalResults } from "../divisionPlace";
 import { getBest3SquatKg, getBest3BenchKg, getBest3DeadliftKg, getFinalEventTotalKg, MAX_ATTEMPTS } from "../entry";
 
@@ -27,9 +27,11 @@ import type { Category, CategoryResults } from "../divisionPlace";
 import type { Entry } from "../../types/dataTypes";
 import type { GlobalState, MeetState } from "../../types/stateTypes";
 
-const makeMeetCsv = (meet: MeetState): string => {
-  const headers: Array<string> = ["Federation", "Date", "MeetCountry", "MeetState", "MeetTown", "MeetName"];
-  const cells: Array<string> = [
+const makeMeetCsv = (meet: MeetState): Csv => {
+  let csv = new Csv();
+  csv.fieldnames = ["Federation", "Date", "MeetCountry", "MeetState", "MeetTown", "MeetName"];
+
+  const row: Array<string> = [
     csvString(meet.federation),
     csvString(meet.date),
     csvString(meet.country),
@@ -37,124 +39,40 @@ const makeMeetCsv = (meet: MeetState): string => {
     csvString(meet.city),
     csvString(meet.name)
   ];
-  return headers.join(",") + "\n" + cells.join(",");
+  csv.rows = [row];
+  return csv;
 };
 
-const makeEntriesHeaderRow = (): string => {
-  let headers = [
-    "Place",
-    "Name",
-    "Sex",
-    "BirthDate",
-    "Age",
-    "Country",
-    "State",
-    "Equipment",
-    "Division",
-    "BodyweightKg",
-    "WeightClassKg"
-  ];
+const makeEntriesCsv = (state: GlobalState): Csv => {
+  let csv = new Csv();
 
+  let squatFieldnames = [];
   for (let i = 0; i < MAX_ATTEMPTS; i++) {
-    headers.push("Squat" + (i + 1) + "Kg");
+    squatFieldnames.push("Squat" + (i + 1) + "Kg");
   }
-  headers.push("Best3SquatKg");
+  squatFieldnames.push("Best3SquatKg");
 
+  let benchFieldnames = [];
   for (let i = 0; i < MAX_ATTEMPTS; i++) {
-    headers.push("Bench" + (i + 1) + "Kg");
+    benchFieldnames.push("Bench" + (i + 1) + "Kg");
   }
-  headers.push("Best3BenchKg");
+  benchFieldnames.push("Best3BenchKg");
 
+  let deadliftFieldnames = [];
   for (let i = 0; i < MAX_ATTEMPTS; i++) {
-    headers.push("Deadlift" + (i + 1) + "Kg");
+    deadliftFieldnames.push("Deadlift" + (i + 1) + "Kg");
   }
-  headers.push("Best3DeadliftKg");
+  deadliftFieldnames.push("Best3DeadliftKg");
 
-  headers.push("TotalKg");
-  headers.push("Event");
-  return headers.join(",");
-};
+  csv.fieldnames = Array.prototype.concat(
+    ["Place", "Name", "Sex", "BirthDate", "Age", "Country", "State"],
+    ["Equipment", "Division", "BodyweightKg", "WeightClassKg"],
+    squatFieldnames,
+    benchFieldnames,
+    deadliftFieldnames,
+    ["TotalKg", "Event"]
+  );
 
-// Given an Entry and its index in the CategoryResults.orderedEntries,
-// render all that information as a one-liner CSV string.
-const makeEntriesRow = (category: Category, entry: Entry, index: number): string => {
-  const finalEventTotalKg = getFinalEventTotalKg(entry, category.event);
-
-  let columns: Array<string> = [
-    finalEventTotalKg === 0 ? "DQ" : csvString(index + 1), // Place.
-    csvString(entry.name), // Name.
-    csvString(entry.sex), // Sex.
-    csvString(entry.birthDate), // BirthDate.
-    csvString(entry.age), // Age.
-    csvString(entry.country), // Country.
-    csvString(entry.state), // State.
-    csvString(entry.equipment), // Equipment.
-    csvString(category.division), // Division.
-    csvString(entry.bodyweightKg), // BodyweightKg.
-    csvString(category.weightClassStr) // WeightClassKg.
-  ];
-
-  // Squat(1-5)Kg.
-  for (let i = 0; i < MAX_ATTEMPTS; i++) {
-    if (category.event.includes("S")) {
-      columns.push(csvString(entry.squatKg[i] * entry.squatStatus[i]));
-    } else {
-      columns.push("");
-    }
-  }
-
-  // Best3SquatKg.
-  if (category.event.includes("S")) {
-    const best3SquatKg = getBest3SquatKg(entry);
-    columns.push(best3SquatKg === 0 ? "" : csvString(best3SquatKg));
-  } else {
-    columns.push("");
-  }
-
-  // Bench(1-5)Kg.
-  for (let i = 0; i < MAX_ATTEMPTS; i++) {
-    if (category.event.includes("B")) {
-      columns.push(csvString(entry.benchKg[i] * entry.benchStatus[i]));
-    } else {
-      columns.push("");
-    }
-  }
-
-  // Best3BenchKg.
-  if (category.event.includes("B")) {
-    const best3BenchKg = getBest3BenchKg(entry);
-    columns.push(best3BenchKg === 0 ? "" : csvString(best3BenchKg));
-  } else {
-    columns.push("");
-  }
-
-  // Deadlift(1-5)Kg
-  for (let i = 0; i < MAX_ATTEMPTS; i++) {
-    if (category.event.includes("D")) {
-      columns.push(csvString(entry.deadliftKg[i] * entry.deadliftStatus[i]));
-    } else {
-      columns.push("");
-    }
-  }
-
-  // Best3DeadliftKg.
-  if (category.event.includes("D")) {
-    const best3DeadliftKg = getBest3DeadliftKg(entry);
-    columns.push(best3DeadliftKg === 0 ? "" : csvString(best3DeadliftKg));
-  } else {
-    columns.push("");
-  }
-
-  // Event Total.
-  columns.push(finalEventTotalKg !== 0 ? csvString(finalEventTotalKg) : "");
-
-  // Event.
-  columns.push(csvString(category.event));
-
-  return columns.join(",");
-};
-
-export const exportAsOplCsv = (state: GlobalState): string => {
   const results: Array<CategoryResults> = getFinalResults(
     state.registration.entries,
     state.meet.weightClassesKgMen,
@@ -162,19 +80,74 @@ export const exportAsOplCsv = (state: GlobalState): string => {
     state.meet.weightClassesKgMx
   );
 
-  const meetCsv: string = makeMeetCsv(state.meet);
-
-  let entriesCsv: Array<string> = [makeEntriesHeaderRow()];
   for (let i = 0; i < results.length; i++) {
     const { category, orderedEntries } = results[i];
 
     for (let j = 0; j < orderedEntries.length; j++) {
-      const row = makeEntriesRow(category, orderedEntries[j], j);
-      entriesCsv.push(row);
+      addEntriesRow(csv, category, orderedEntries[j], j);
     }
   }
 
+  return csv;
+};
+
+const addEntriesRow = (csv: Csv, category: Category, entry: Entry, index: number) => {
+  const finalEventTotalKg = getFinalEventTotalKg(entry, category.event);
+
+  // Initialize an empty row with all columns available.
+  let row: Array<string> = Array(csv.fieldnames.length).fill("");
+
+  row[csv.index("Place")] = finalEventTotalKg === 0 ? "DQ" : csvString(index + 1);
+  row[csv.index("Name")] = csvString(entry.name);
+  row[csv.index("Sex")] = csvString(entry.sex);
+  row[csv.index("BirthDate")] = csvString(entry.birthDate);
+  row[csv.index("Age")] = csvString(entry.age);
+  row[csv.index("Country")] = csvString(entry.country);
+  row[csv.index("State")] = csvString(entry.state);
+  row[csv.index("Equipment")] = csvString(entry.equipment);
+  row[csv.index("Division")] = csvString(category.division);
+  row[csv.index("BodyweightKg")] = csvString(entry.bodyweightKg);
+  row[csv.index("WeightClassKg")] = csvString(category.weightClassStr);
+  row[csv.index("TotalKg")] = csvString(finalEventTotalKg);
+  row[csv.index("Event")] = csvString(category.event);
+
+  // Squat.
+  if (category.event.includes("S")) {
+    row[csv.index("Best3SquatKg")] = csvString(getBest3SquatKg(entry));
+    for (let i = 0; i < MAX_ATTEMPTS; i++) {
+      const field = "Squat" + (i + 1) + "Kg";
+      row[csv.index(field)] = csvString(entry.squatKg[i] * entry.squatStatus[i]);
+    }
+  }
+
+  // Bench.
+  if (category.event.includes("B")) {
+    row[csv.index("Best3BenchKg")] = csvString(getBest3BenchKg(entry));
+    for (let i = 0; i < MAX_ATTEMPTS; i++) {
+      const field = "Bench" + (i + 1) + "Kg";
+      row[csv.index(field)] = csvString(entry.benchKg[i] * entry.benchStatus[i]);
+    }
+  }
+
+  // Deadlift.
+  if (category.event.includes("D")) {
+    row[csv.index("Best3DeadliftKg")] = csvString(getBest3DeadliftKg(entry));
+    for (let i = 0; i < MAX_ATTEMPTS; i++) {
+      const field = "Deadlift" + (i + 1) + "Kg";
+      row[csv.index(field)] = csvString(entry.deadliftKg[i] * entry.deadliftStatus[i]);
+    }
+  }
+
+  csv.rows.push(row);
+};
+
+export const exportAsOplCsv = (state: GlobalState): string => {
+  const meetCsv: Csv = makeMeetCsv(state.meet);
+
+  let entriesCsv: Csv = makeEntriesCsv(state);
+  entriesCsv.removeEmptyColumns();
+
   const versionStr = "OPL Format v1";
 
-  return versionStr + "\n\n" + meetCsv + "\n\n" + entriesCsv.join("\n");
+  return versionStr + "\n\n" + meetCsv.toString() + "\n" + entriesCsv.toString();
 };
