@@ -19,31 +19,13 @@
 
 // Exports data to a CSV format easily importable by OpenPowerlifting.
 
+import { csvString } from "./csv";
 import { getFinalResults } from "../divisionPlace";
-
 import { getBest3SquatKg, getBest3BenchKg, getBest3DeadliftKg, getFinalEventTotalKg, MAX_ATTEMPTS } from "../entry";
 
 import type { Category, CategoryResults } from "../divisionPlace";
 import type { Entry } from "../../types/dataTypes";
 import type { GlobalState, MeetState } from "../../types/stateTypes";
-
-// Makes a string suitable for inclusion in a simple CSV file,
-// by deleting all commas and double quotes.
-const csvString = (x: number | string): string => {
-  if (x === undefined) return "";
-  let s = String(x);
-
-  // The OpenPowerlifting format uses commas and disallow double-quotes.
-  s = s.replace(/,/g, " ");
-  s = s.replace(/"/g, " ");
-
-  // The number "0" is also never written out explicitly; the empty string is preferred.
-  if (s === "0") return "";
-
-  // Clean up some formatting.
-  s = s.replace(/ {2}/g, " ").trim();
-  return s;
-};
 
 const makeMeetCsv = (meet: MeetState): string => {
   const headers: Array<string> = ["Federation", "Date", "MeetCountry", "MeetState", "MeetTown", "MeetName"];
