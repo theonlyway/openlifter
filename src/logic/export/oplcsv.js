@@ -21,7 +21,14 @@
 
 import { csvString, Csv } from "./csv";
 import { getFinalResults } from "../divisionPlace";
-import { getBest3SquatKg, getBest3BenchKg, getBest3DeadliftKg, getFinalEventTotalKg, MAX_ATTEMPTS } from "../entry";
+import {
+  getBest3SquatKg,
+  getBest3BenchKg,
+  getBest3DeadliftKg,
+  getFinalEventTotalKg,
+  entryHasLifted,
+  MAX_ATTEMPTS
+} from "../entry";
 
 import type { Category, CategoryResults } from "../divisionPlace";
 import type { Entry } from "../../types/dataTypes";
@@ -97,7 +104,12 @@ const addEntriesRow = (csv: Csv, category: Category, entry: Entry, index: number
   // Initialize an empty row with all columns available.
   let row: Array<string> = Array(csv.fieldnames.length).fill("");
 
-  row[csv.index("Place")] = finalEventTotalKg === 0 ? "DQ" : csvString(index + 1);
+  if (!entryHasLifted(entry)) {
+    row[csv.index("Place")] = "NS"; // No-Show.
+  } else {
+    row[csv.index("Place")] = finalEventTotalKg === 0 ? "DQ" : csvString(index + 1);
+  }
+
   row[csv.index("Name")] = csvString(entry.name);
   row[csv.index("Sex")] = csvString(entry.sex);
   row[csv.index("BirthDate")] = csvString(entry.birthDate);
