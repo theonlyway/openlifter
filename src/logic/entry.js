@@ -302,7 +302,7 @@ export const liftToStatusFieldName = (lift: Lift): FieldStatus => {
 };
 
 // Whether the Entry has taken any attempts.
-const entryHasLifted = (entry: Entry): boolean => {
+export const entryHasLifted = (entry: Entry): boolean => {
   if (entry.squatStatus[0] !== 0) return true;
   if (entry.benchStatus[0] !== 0) return true;
   if (entry.deadliftStatus[0] !== 0) return true;

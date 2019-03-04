@@ -25,7 +25,13 @@ import { Panel, Table } from "react-bootstrap";
 
 import { getFinalResults } from "../../logic/divisionPlace";
 import { getWeightClassStr } from "../../reducers/meetReducer";
-import { getBest5SquatKg, getBest5BenchKg, getBest5DeadliftKg, getFinalEventTotalKg } from "../../logic/entry";
+import {
+  getBest5SquatKg,
+  getBest5BenchKg,
+  getBest5DeadliftKg,
+  getFinalEventTotalKg,
+  entryHasLifted
+} from "../../logic/entry";
 
 import { glossbrenner } from "../../logic/coefficients/glossbrenner";
 import { wilks } from "../../logic/coefficients/wilks";
@@ -67,6 +73,9 @@ const mapSexToClasses = (sex: Sex, props: Props): Array<number> => {
 
 class ByDivision extends React.Component<Props> {
   renderEntryRow = (entry: Entry, category: Category, key: number): any => {
+    // Skip no-show entries.
+    if (!entryHasLifted(entry)) return null;
+
     const classes = mapSexToClasses(entry.sex, this.props);
     const totalKg = getFinalEventTotalKg(entry, category.event);
     const squatKg = getBest5SquatKg(entry);
@@ -133,13 +142,22 @@ class ByDivision extends React.Component<Props> {
     // Gather rows.
     let rows = [];
     for (let i = 0; i < orderedEntries.length; i++) {
-      rows.push(this.renderEntryRow(orderedEntries[i], category, i));
+      const row = this.renderEntryRow(orderedEntries[i], category, i);
+      if (row !== null) {
+        rows.push(row);
+      }
+    }
+
+    // If all entries were no-show, don't show this panel.
+    if (rows.length === 0) {
+      return null;
     }
 
     return (
       <Panel key={key}>
         <Panel.Heading>
-          {sex} {category.weightClassStr} kilo {category.equipment} {category.division} {category.event}
+          {sex} {category.weightClassStr} {category.weightClassStr !== "" ? "kilo" : null} {category.equipment}{" "}
+          {category.division} {category.event}
         </Panel.Heading>
         <Panel.Body>
           <Table hover condensed>
@@ -174,7 +192,10 @@ class ByDivision extends React.Component<Props> {
 
     let categoryPanels = [];
     for (let i = 0; i < results.length; i++) {
-      categoryPanels.push(this.renderCategoryResults(results[i], i));
+      const panel = this.renderCategoryResults(results[i], i);
+      if (panel !== null) {
+        categoryPanels.push(panel);
+      }
     }
 
     return <div>{categoryPanels}</div>;
