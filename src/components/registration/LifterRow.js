@@ -33,11 +33,11 @@ import { validateIso8601Date } from "../../validation/iso8601Date";
 import { deleteRegistration, updateRegistration } from "../../actions/registrationActions";
 
 const eventOptions = [
-  { value: "SBD", label: "SBD" },
-  { value: "BD", label: "BD" },
   { value: "S", label: "S" },
   { value: "B", label: "B" },
   { value: "D", label: "D" },
+  { value: "BD", label: "BD" },
+  { value: "SBD", label: "SBD" },
   { value: "SB", label: "SB" },
   { value: "SD", label: "SD" }
 ];
