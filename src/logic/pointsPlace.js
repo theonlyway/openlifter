@@ -123,7 +123,7 @@ const getEventSortOrder = (ev: Event): number => {
 // Determines the sort order by Equipment.
 const getEquipmentSortOrder = (eq: Equipment): number => {
   // Combine classic and equipped lifting.
-  return ["Raw", "Wraps", "Single-ply", "Multi-ply"].indexOf(eq);
+  return ["Bare", "Sleeves", "Wraps", "Single-ply", "Multi-ply"].indexOf(eq);
 };
 
 // Determines the sort order by Sex.
@@ -179,11 +179,12 @@ export const getAllRankings = (entries: Array<Entry>, formula: Formula): Array<P
 
     // Remember consistent properties.
     const sex = e.sex;
-    let equipment = e.equipment;
+    let equipment: Equipment = e.equipment;
 
-    // Group Raw+Wraps and Single-ply+Multi-ply.
-    if (equipment === "Wraps") equipment = "Raw";
-    else if (equipment === "Multi-ply") equipment = "Single-ply";
+    // Group Bare+Sleeves+Wraps and Single-ply+Multi-ply.
+    if (equipment === "Bare") equipment = "Wraps";
+    else if (equipment === "Sleeves") equipment = "Wraps";
+    else if (equipment === "Single-ply") equipment = "Multi-ply";
 
     // Iterate over each event, adding to the map.
     for (let evidx = 0; evidx < e.events.length; evidx++) {

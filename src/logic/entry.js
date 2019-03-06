@@ -46,7 +46,7 @@ export const newDefaultEntry = (id: number): Entry => {
     country: "", // Lifter's home country, or blank.
     state: "", // Lifter's home state, or blank.
     intendedWeightClassKg: "", // The weightclass for which the lifter registered.
-    equipment: "Raw", // The equipment category for which the lifter registered.
+    equipment: "Sleeves", // The equipment category for which the lifter registered.
     divisions: [], // A list of divisions the lifter entered.
     events: [], // A list of events the lifter entered.
 

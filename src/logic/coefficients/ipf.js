@@ -30,7 +30,7 @@ type ByEvent = {
   D: Coefficients
 };
 type ByEquipment = {
-  Raw: ByEvent,
+  Sleeves: ByEvent,
   "Single-ply": ByEvent
 };
 type BySex = {
@@ -40,7 +40,7 @@ type BySex = {
 
 const PARAMETERS: BySex = {
   M: {
-    Raw: {
+    Sleeves: {
       SBD: [310.67, 857.785, 53.216, 147.0835],
       S: [123.1, 363.085, 25.1667, 75.4311],
       B: [86.4745, 259.155, 17.57845, 53.122],
@@ -54,7 +54,7 @@ const PARAMETERS: BySex = {
     }
   },
   F: {
-    Raw: {
+    Sleeves: {
       SBD: [125.1435, 228.03, 34.5246, 86.8301],
       S: [50.479, 105.632, 19.1846, 56.2215],
       B: [25.0485, 43.848, 6.7172, 13.952],
@@ -81,12 +81,12 @@ export const ipfpoints = (
 
   // Restrict inputs to only the defined subset.
   let normalizedEquipment = equipment;
-  if (equipment === "Wraps") {
-    normalizedEquipment = "Raw";
+  if (equipment === "Bare" || equipment === "Wraps") {
+    normalizedEquipment = "Sleeves";
   } else if (equipment === "Multi-ply") {
     normalizedEquipment = "Single-ply";
   }
-  if (normalizedEquipment !== "Raw" && normalizedEquipment !== "Single-ply") {
+  if (normalizedEquipment !== "Sleeves" && normalizedEquipment !== "Single-ply") {
     return 0;
   }
 

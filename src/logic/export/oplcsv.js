@@ -31,7 +31,7 @@ import {
 } from "../entry";
 
 import type { Category, CategoryResults } from "../divisionPlace";
-import type { Entry } from "../../types/dataTypes";
+import type { Entry, Equipment } from "../../types/dataTypes";
 import type { GlobalState, MeetState } from "../../types/stateTypes";
 
 const makeMeetCsv = (meet: MeetState): Csv => {
@@ -98,6 +98,24 @@ const makeEntriesCsv = (state: GlobalState): Csv => {
   return csv;
 };
 
+const standardizeEquipment = (eq: Equipment): string => {
+  switch (eq) {
+    case "Bare":
+      return "Raw";
+    case "Sleeves":
+      return "Raw";
+    case "Wraps":
+      return "Wraps";
+    case "Single-ply":
+      return "Single-ply";
+    case "Multi-ply":
+      return "Multi-ply";
+    default:
+      (eq: empty); // eslint-disable-line
+      return "Raw";
+  }
+};
+
 const addEntriesRow = (csv: Csv, category: Category, entry: Entry, index: number) => {
   const finalEventTotalKg = getFinalEventTotalKg(entry, category.event);
 
@@ -116,7 +134,7 @@ const addEntriesRow = (csv: Csv, category: Category, entry: Entry, index: number
   row[csv.index("Age")] = csvString(entry.age);
   row[csv.index("Country")] = csvString(entry.country);
   row[csv.index("State")] = csvString(entry.state);
-  row[csv.index("Equipment")] = csvString(entry.equipment);
+  row[csv.index("Equipment")] = csvString(standardizeEquipment(entry.equipment));
   row[csv.index("Division")] = csvString(category.division);
   row[csv.index("BodyweightKg")] = csvString(entry.bodyweightKg);
   row[csv.index("WeightClassKg")] = csvString(category.weightClassStr);

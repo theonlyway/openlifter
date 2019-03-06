@@ -19,7 +19,7 @@
 
 // Defines all the project-wide data types in a single place.
 
-export type Equipment = "Raw" | "Wraps" | "Single-ply" | "Multi-ply";
+export type Equipment = "Bare" | "Sleeves" | "Wraps" | "Single-ply" | "Multi-ply";
 export type Event = "S" | "B" | "D" | "SB" | "SD" | "BD" | "SBD";
 export type Flight = "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K";
 export type Formula = "Glossbrenner" | "IPF Points" | "Wilks";

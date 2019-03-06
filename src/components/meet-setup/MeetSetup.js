@@ -103,7 +103,7 @@ class MeetSetup extends React.Component<Props> {
                 <FormulaSelect />
 
                 <FormGroup>
-                  <ControlLabel>Should Raw and Wraps be combined for placing?</ControlLabel>
+                  <ControlLabel>Should Sleeves and Wraps be combined for placing?</ControlLabel>
                   <FormControl
                     componentClass="select"
                     defaultValue={yesNoFromBoolean(this.props.areWrapsRaw)}
