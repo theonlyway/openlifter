@@ -28,6 +28,7 @@ import { setFormula } from "../../actions/meetSetupActions";
 const options = [
   { value: "Glossbrenner", label: "Glossbrenner" },
   { value: "IPF Points", label: "IPF Points" },
+  { value: "SchwartzMalone", label: "SchwartzMalone" },
   { value: "Wilks", label: "Wilks" }
 ];
 

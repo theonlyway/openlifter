@@ -21,6 +21,7 @@
 
 import { glossbrenner } from "./coefficients/glossbrenner";
 import { ipfpoints } from "./coefficients/ipf";
+import { schwartzmalone } from "./coefficients/schwartzmalone";
 import { wilks } from "./coefficients/wilks";
 
 import type { Entry, Lift, Event, FieldKg, FieldStatus } from "../types/dataTypes";
@@ -259,6 +260,15 @@ export const getProjectedGlossbrenner = (entry: Entry): number => {
 export const getFinalGlossbrenner = (entry: Entry): number => {
   const totalKg = getFinalTotalKg(entry);
   return glossbrenner(entry.sex, entry.bodyweightKg, totalKg);
+};
+
+export const getProjectedSchwartzMalone = (entry: Entry): number => {
+  const totalKg = getProjectedTotalKg(entry);
+  return schwartzmalone(entry.sex, entry.bodyweightKg, totalKg);
+};
+export const getFinalSchwartzMalone = (entry: Entry): number => {
+  const totalKg = getFinalTotalKg(entry);
+  return schwartzmalone(entry.sex, entry.bodyweightKg, totalKg);
 };
 
 // Filter entries to only get lifters that are lifting on a given day

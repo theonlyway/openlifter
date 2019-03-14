@@ -27,8 +27,9 @@
 import { getFinalEventTotalKg } from "./entry";
 
 import { glossbrenner } from "./coefficients/glossbrenner";
-import { wilks } from "./coefficients/wilks";
 import { ipfpoints } from "./coefficients/ipf";
+import { schwartzmalone } from "./coefficients/schwartzmalone";
+import { wilks } from "./coefficients/wilks";
 
 import type { Sex, Event, Equipment, Entry, Formula } from "../types/dataTypes";
 
@@ -82,6 +83,9 @@ const sortByFormulaPlaceInCategory = (
         break;
       case "IPF Points":
         memoizedPoints[i] = ipfpoints(totalKg, entry.bodyweightKg, category.sex, category.equipment, category.event);
+        break;
+      case "SchwartzMalone":
+        memoizedPoints[i] = schwartzmalone(category.sex, entry.bodyweightKg, totalKg);
         break;
       default:
         (formula: empty) // eslint-disable-line

@@ -34,8 +34,9 @@ import {
 } from "../../logic/entry";
 
 import { glossbrenner } from "../../logic/coefficients/glossbrenner";
-import { wilks } from "../../logic/coefficients/wilks";
 import { ipfpoints } from "../../logic/coefficients/ipf";
+import { schwartzmalone } from "../../logic/coefficients/schwartzmalone";
+import { wilks } from "../../logic/coefficients/wilks";
 
 import type { Category, CategoryResults } from "../../logic/divisionPlace";
 import type { Entry, Sex } from "../../types/dataTypes";
@@ -96,6 +97,9 @@ class ByDivision extends React.Component<Props> {
         break;
       case "IPF Points":
         points = ipfpoints(totalKg, entry.bodyweightKg, entry.sex, category.equipment, category.event).toFixed(2);
+        break;
+      case "SchwartzMalone":
+        points = schwartzmalone(entry.sex, entry.bodyweightKg, totalKg).toFixed(2);
         break;
       default:
         break;

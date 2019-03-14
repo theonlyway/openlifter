@@ -34,8 +34,9 @@ import {
 } from "../../logic/entry";
 
 import { glossbrenner } from "../../logic/coefficients/glossbrenner";
-import { wilks } from "../../logic/coefficients/wilks";
 import { ipfpoints } from "../../logic/coefficients/ipf";
+import { schwartzmalone } from "../../logic/coefficients/schwartzmalone";
+import { wilks } from "../../logic/coefficients/wilks";
 
 import type { PointsCategory, PointsCategoryResults } from "../../logic/pointsPlace";
 import type { Entry, Formula, Sex } from "../../types/dataTypes";
@@ -95,6 +96,9 @@ class ByPoints extends React.Component<Props> {
         break;
       case "IPF Points":
         points = ipfpoints(totalKg, entry.bodyweightKg, entry.sex, category.equipment, category.event).toFixed(2);
+        break;
+      case "SchwartzMalone":
+        points = schwartzmalone(entry.sex, entry.bodyweightKg, totalKg).toFixed(2);
         break;
       default:
         (this.props.formula: empty) // eslint-disable-line
