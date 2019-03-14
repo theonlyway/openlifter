@@ -98,7 +98,7 @@ class ByDivision extends React.Component<Props> {
       case "IPF Points":
         points = ipfpoints(totalKg, entry.bodyweightKg, entry.sex, category.equipment, category.event).toFixed(2);
         break;
-      case "SchwartzMalone":
+      case "Schwartz/Malone":
         points = schwartzmalone(entry.sex, entry.bodyweightKg, totalKg).toFixed(2);
         break;
       default:

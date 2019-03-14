@@ -84,7 +84,7 @@ const sortByFormulaPlaceInCategory = (
       case "IPF Points":
         memoizedPoints[i] = ipfpoints(totalKg, entry.bodyweightKg, category.sex, category.equipment, category.event);
         break;
-      case "SchwartzMalone":
+      case "Schwartz/Malone":
         memoizedPoints[i] = schwartzmalone(category.sex, entry.bodyweightKg, totalKg);
         break;
       default:

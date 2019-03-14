@@ -277,7 +277,7 @@ class LiftingTable extends React.Component<Props> {
           points = getProjectedIPFPoints(entry, event);
         } else if (this.props.meet.formula === "Wilks") {
           points = getProjectedWilks(entry);
-        } else if (this.props.meet.formula === "SchwartzMalone") {
+        } else if (this.props.meet.formula === "Schwartz/Malone") {
           points = getProjectedSchwartzMalone(entry);
         }
         return <td key={columnType}>{points !== 0 ? points.toFixed(2) : null}</td>;
@@ -295,7 +295,7 @@ class LiftingTable extends React.Component<Props> {
           points = getFinalIPFPoints(entry, event);
         } else if (this.props.meet.formula === "Wilks") {
           points = getFinalWilks(entry);
-        } else if (this.props.meet.formula === "SchwartzMalone") {
+        } else if (this.props.meet.formula === "Schwartz/Malone") {
           points = getFinalSchwartzMalone(entry);
         }
         return <td key={columnType}>{points !== 0 ? points.toFixed(2) : null}</td>;

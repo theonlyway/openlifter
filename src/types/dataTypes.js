@@ -22,7 +22,7 @@
 export type Equipment = "Bare" | "Sleeves" | "Wraps" | "Single-ply" | "Multi-ply";
 export type Event = "S" | "B" | "D" | "SB" | "SD" | "BD" | "SBD";
 export type Flight = "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K";
-export type Formula = "Glossbrenner" | "IPF Points" | "SchwartzMalone" | "Wilks";
+export type Formula = "Glossbrenner" | "IPF Points" | "Schwartz/Malone" | "Wilks";
 export type Lift = "S" | "B" | "D";
 
 // Mx (pronounced "Muks" or "Miks") is an honorific that does not indicate gender.
