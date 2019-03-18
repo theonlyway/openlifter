@@ -25,7 +25,8 @@ import Select from "react-select";
 
 import { setInKg } from "../../actions/meetSetupActions";
 
-const options = [{ value: true, label: "Kilograms" }, { value: false, label: "Pounds" }];
+const options = [{ value: true, label: "Kilograms" }];
+// const options = [{ value: true, label: "Kilograms" }, { value: false, label: "Pounds" }];
 
 class InKg extends React.Component {
   constructor(props, context) {
