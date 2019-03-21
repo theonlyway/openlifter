@@ -26,7 +26,6 @@ import MeetDate from "./MeetDate";
 import MeetLength from "./MeetLength";
 import MeetLocation from "./MeetLocation";
 import PlatformCounts from "./PlatformCounts";
-import InKg from "./InKg";
 import FormulaSelect from "./FormulaSelect";
 import FederationSelect from "./FederationSelect";
 import DivisionSelect from "./DivisionSelect";
@@ -39,14 +38,15 @@ import { updateMeet } from "../../actions/meetSetupActions";
 import type { GlobalState } from "../../types/stateTypes";
 
 interface StateProps {
-  inKg: boolean;
-  areWrapsRaw: boolean;
   allow4thAttempts: boolean;
+  areWrapsRaw: boolean;
+  inKg: boolean;
 }
 
 interface DispatchProps {
   setAreWrapsRaw: (event: Object) => void;
   setAllow4thAttempts: (event: Object) => void;
+  setInKg: (event: Object) => void;
 }
 
 type Props = StateProps & DispatchProps;
@@ -131,7 +131,18 @@ class MeetSetup extends React.Component<Props> {
             <Panel bsStyle="info">
               <Panel.Heading>Weights and Loading Setup</Panel.Heading>
               <Panel.Body>
-                <InKg />
+                <FormGroup>
+                  <ControlLabel>In what units are attempts and bodyweights?</ControlLabel>
+                  <FormControl
+                    componentClass="select"
+                    defaultValue={yesNoFromBoolean(this.props.inKg)}
+                    onChange={this.props.setInKg}
+                  >
+                    <option key="Yes" value="Yes">
+                      Kilograms
+                    </option>
+                  </FormControl>
+                </FormGroup>
                 <BarAndCollarsWeightKg key={inKg} />
                 <Plates />
               </Panel.Body>
@@ -151,7 +162,8 @@ const mapStateToProps = (state: GlobalState): StateProps => ({
 
 const mapDispatchToProps = (dispatch): DispatchProps => ({
   setAreWrapsRaw: event => dispatch(updateMeet({ areWrapsRaw: yesNoToBoolean(event.target.value) })),
-  setAllow4thAttempts: event => dispatch(updateMeet({ allow4thAttempts: yesNoToBoolean(event.target.value) }))
+  setAllow4thAttempts: event => dispatch(updateMeet({ allow4thAttempts: yesNoToBoolean(event.target.value) })),
+  setInKg: event => dispatch(updateMeet({ inKg: yesNoToBoolean(event.target.value) }))
 });
 
 export default connect(
