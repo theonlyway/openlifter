@@ -45,6 +45,7 @@ import type { GlobalState } from "../../types/stateTypes";
 interface StateProps {
   meetName: string;
   formula: Formula;
+  areWrapsRaw: boolean;
   lengthDays: number;
   weightClassesKgMen: Array<number>;
   weightClassesKgWomen: Array<number>;
@@ -159,10 +160,15 @@ class ByPoints extends React.Component<Props> {
       return null;
     }
 
+    let eqpstr: string = category.equipment;
+    if (this.props.areWrapsRaw) {
+      eqpstr = "Sleeves + Wraps";
+    }
+
     return (
       <Panel key={key}>
         <Panel.Heading>
-          {sex} {category.equipment} {category.event}
+          {sex} {eqpstr} {category.event}
         </Panel.Heading>
         <Panel.Body>
           <Table striped hover condensed>
@@ -190,7 +196,7 @@ class ByPoints extends React.Component<Props> {
   };
 
   render() {
-    const results = getAllRankings(this.props.entries, this.props.formula);
+    const results = getAllRankings(this.props.entries, this.props.formula, this.props.areWrapsRaw);
 
     let categoryPanels = [];
     for (let i = 0; i < results.length; i++) {
@@ -214,6 +220,7 @@ const mapStateToProps = (state: GlobalState, ownProps: OwnProps): StateProps => 
   return {
     meetName: state.meet.name,
     formula: state.meet.formula,
+    areWrapsRaw: state.meet.areWrapsRaw,
     lengthDays: state.meet.lengthDays,
     weightClassesKgMen: state.meet.weightClassesKgMen,
     weightClassesKgWomen: state.meet.weightClassesKgWomen,

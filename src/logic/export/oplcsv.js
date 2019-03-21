@@ -84,7 +84,8 @@ const makeEntriesCsv = (state: GlobalState): Csv => {
     state.registration.entries,
     state.meet.weightClassesKgMen,
     state.meet.weightClassesKgWomen,
-    state.meet.weightClassesKgMx
+    state.meet.weightClassesKgMx,
+    state.meet.areWrapsRaw
   );
 
   for (let i = 0; i < results.length; i++) {

@@ -45,6 +45,7 @@ import type { GlobalState } from "../../types/stateTypes";
 interface StateProps {
   meetName: string;
   formula: string;
+  areWrapsRaw: boolean;
   lengthDays: number;
   weightClassesKgMen: Array<number>;
   weightClassesKgWomen: Array<number>;
@@ -157,11 +158,16 @@ class ByDivision extends React.Component<Props> {
       return null;
     }
 
+    let eqpstr: string = category.equipment;
+    if (this.props.areWrapsRaw) {
+      eqpstr = "Sleeves + Wraps";
+    }
+
     return (
       <Panel key={key}>
         <Panel.Heading>
-          {sex} {category.weightClassStr} {category.weightClassStr !== "" ? "kilo" : null} {category.equipment}{" "}
-          {category.division} {category.event}
+          {sex} {category.weightClassStr} {category.weightClassStr !== "" ? "kilo" : null} {eqpstr} {category.division}{" "}
+          {category.event}
         </Panel.Heading>
         <Panel.Body>
           <Table hover condensed>
@@ -191,7 +197,8 @@ class ByDivision extends React.Component<Props> {
       this.props.entries,
       this.props.weightClassesKgMen,
       this.props.weightClassesKgWomen,
-      this.props.weightClassesKgMx
+      this.props.weightClassesKgMx,
+      this.props.areWrapsRaw
     );
 
     let categoryPanels = [];
@@ -216,6 +223,7 @@ const mapStateToProps = (state: GlobalState, ownProps: OwnProps): StateProps => 
   return {
     meetName: state.meet.name,
     formula: state.meet.formula,
+    areWrapsRaw: state.meet.areWrapsRaw,
     lengthDays: state.meet.lengthDays,
     weightClassesKgMen: state.meet.weightClassesKgMen,
     weightClassesKgWomen: state.meet.weightClassesKgWomen,

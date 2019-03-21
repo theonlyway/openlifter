@@ -175,6 +175,7 @@ const getAllResults = (
   weightClassesKgMen: Array<number>,
   weightClassesKgWomen: Array<number>,
   weightClassesKgMx: Array<number>,
+  areWrapsRaw: boolean,
   type: ResultsType
 ): Array<CategoryResults> => {
   // Generate a map from category to the entries within that category.
@@ -186,9 +187,14 @@ const getAllResults = (
 
     // Remember consistent properties.
     const sex = e.sex;
-    const equipment = e.equipment;
     const classesForSex = mapSexToClasses(sex, weightClassesKgMen, weightClassesKgWomen, weightClassesKgMx);
     const weightClassStr = getWeightClassStr(classesForSex, e.bodyweightKg);
+
+    // If the results combine Sleeves and Wraps, promote Sleeves to Wraps.
+    let equipment = e.equipment;
+    if (areWrapsRaw && equipment === "Sleeves") {
+      equipment = "Wraps";
+    }
 
     // Iterate over every combination of division and event, adding to the map.
     for (let dividx = 0; dividx < e.divisions.length; dividx++) {
@@ -221,16 +227,18 @@ export const getProjectedResults = (
   entries: Array<Entry>,
   weightClassesKgMen: Array<number>,
   weightClassesKgWomen: Array<number>,
-  weightClassesKgMx: Array<number>
+  weightClassesKgMx: Array<number>,
+  areWrapsRaw: boolean
 ): Array<CategoryResults> => {
-  return getAllResults(entries, weightClassesKgMen, weightClassesKgWomen, weightClassesKgMx, "Projected");
+  return getAllResults(entries, weightClassesKgMen, weightClassesKgWomen, weightClassesKgMx, areWrapsRaw, "Projected");
 };
 
 export const getFinalResults = (
   entries: Array<Entry>,
   weightClassesKgMen: Array<number>,
   weightClassesKgWomen: Array<number>,
-  weightClassesKgMx: Array<number>
+  weightClassesKgMx: Array<number>,
+  areWrapsRaw: boolean
 ): Array<CategoryResults> => {
-  return getAllResults(entries, weightClassesKgMen, weightClassesKgWomen, weightClassesKgMx, "Final");
+  return getAllResults(entries, weightClassesKgMen, weightClassesKgWomen, weightClassesKgMx, areWrapsRaw, "Final");
 };

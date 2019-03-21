@@ -136,7 +136,8 @@ class FlightOrderView extends React.Component<Props, InternalState> {
       shownEntries,
       this.props.meet.weightClassesKgMen,
       this.props.meet.weightClassesKgWomen,
-      this.props.meet.weightClassesKgMx
+      this.props.meet.weightClassesKgMx,
+      this.props.meet.areWrapsRaw
     );
 
     let categories = [];

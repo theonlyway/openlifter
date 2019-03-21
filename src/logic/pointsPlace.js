@@ -173,7 +173,11 @@ export const sortPointsCategoryResults = (results: Array<PointsCategoryResults>)
 
 // Generates objects representing the various ByPoints categories.
 // The returned objects are sorted in intended order of presentation.
-export const getAllRankings = (entries: Array<Entry>, formula: Formula): Array<PointsCategoryResults> => {
+export const getAllRankings = (
+  entries: Array<Entry>,
+  formula: Formula,
+  areWrapsRaw: boolean
+): Array<PointsCategoryResults> => {
   // Generate a map from category to the entries within that category.
   // The map is populated by iterating over each entry and having the entry
   // append itself to per-category lists.
@@ -185,10 +189,10 @@ export const getAllRankings = (entries: Array<Entry>, formula: Formula): Array<P
     const sex = e.sex;
     let equipment: Equipment = e.equipment;
 
-    // Group Bare+Sleeves+Wraps and Single-ply+Multi-ply.
-    if (equipment === "Bare") equipment = "Wraps";
-    else if (equipment === "Sleeves") equipment = "Wraps";
-    else if (equipment === "Single-ply") equipment = "Multi-ply";
+    // If the results combine Sleeves and Wraps, promote Sleeves to Wraps.
+    if (areWrapsRaw && equipment === "Sleeves") {
+      equipment = "Wraps";
+    }
 
     // Iterate over each event, adding to the map.
     for (let evidx = 0; evidx < e.events.length; evidx++) {
