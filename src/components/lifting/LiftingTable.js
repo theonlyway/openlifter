@@ -133,6 +133,17 @@ class LiftingTable extends React.Component<Props> {
     const kg = entry[fieldKg][attemptOneIndexed - 1];
     const status = entry[fieldStatus][attemptOneIndexed - 1];
 
+    // If the lifter was manually selected, always show an AttemptInput.
+    // This allows manual correction of weights when a misload occurs,
+    // even though the lift has already been marked good lift / no lift.
+    if (this.props.lifting.overrideEntryId === entry.id && attemptOneIndexed === this.props.attemptOneIndexed) {
+      return (
+        <td key={columnType} className={styles.attemptInputCell}>
+          <AttemptInput entry={entry} lift={lift} attemptOneIndexed={attemptOneIndexed} />
+        </td>
+      );
+    }
+
     // If the attempt was already made, render a colored text field.
     // The weight cannot be changed after the fact.
     if (status !== 0) {
