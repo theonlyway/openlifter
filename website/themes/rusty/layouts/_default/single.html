@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language }}">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="/css/rusty.css">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="{{ .Description }}">
+  {{ partial "alternates.html" . }}
+  <title>{{ .Title }}</title>
+</head>
+<body class="container">
+  {{ partial "header.html" . }}
+  {{ .Content }}
+  {{ partial "footer.html" . }}
+</body>
+</html>

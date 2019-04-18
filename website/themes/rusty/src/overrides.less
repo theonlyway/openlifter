@@ -1,0 +1,142 @@
+// Global style stuff.
+@font-family-sans-serif: "Fira Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+body {
+  max-width: 820px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+ul {
+  padding-left: 30px;
+}
+li {
+  margin-bottom: .5em;
+}
+
+// Styles for the menu at the top of the index page.
+ul.menu {
+  font-size: 1em;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+ul.menu li {
+  list-style-type: none;
+  margin-top: 0em;
+  margin-bottom: 0em;
+}
+ul.menu li.icon {
+  display: flex;
+  justify-content: right;
+}
+ul.menu li.menu {
+  height: 72px;
+  display: flex;
+  align-items: center;
+}
+ul.menu h2 {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0.9em;
+  display: inline;
+  line-height: 1.5em;
+}
+@media only screen and (min-width: 992px) {
+  ul.menu {
+    text-align: left;
+  }
+}
+.row-spacer {
+  margin-top: 2em;
+}
+
+// "Pitch" row.
+p.pitch {
+  font-size: 25px;
+  font-weight: 300;
+  text-align: center;
+}
+@media only screen and (min-width: 992px) {
+  p.pitch {
+    margin-top: 1.5em;
+    margin-bottom: 1em;
+    margin-right: 1em;
+    text-align: left;
+  }
+}
+.pitch-row .release-version > span {
+  font-weight: bold;
+}
+
+.release-button {
+  display: block;
+  color: white;
+  background-color: #428BCA;
+  border-radius: 3px;
+  padding: 2rem;
+  margin-top: 4rem;
+  font-size: 1.5em;
+  text-align: center;
+}
+a.release-button:hover, a.release-button:focus {
+  color: white;
+}
+.release-date {
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+// "Code" row.
+.code-row h2 {
+  font-weight: bold;
+  font-size: 18.5px;
+}
+.laundry-list {
+  font-size: 16px;
+  list-style-type: square;
+}
+ul.laundry-list {
+  column-count: 2;
+  margin-bottom: 20px;
+}
+@media only screen and (min-width: 992px) {
+  ul.laundry-list {
+    column-count: auto;
+  }
+}
+#example-image {
+  position: relative;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #CCC;
+  max-width: 520px;
+  background-color: #E0E0E0;
+}
+
+// Standard elements.
+footer {
+  border-top: 2px solid #dedede;
+  margin: 1.2em auto 0 auto;
+  padding-top: 0.6em;
+}
+footer p {
+  margin-top: 1.2em;
+  margin-bottom: 1.2em;
+}
+footer a {
+  display: inline-block;
+  font-weight: bold;
+}
+
+// Cards on the Support page.
+div.support-card {
+  padding: 10px;
+  border-radius: 20px;
+  background-color: #cdcdcd;
+  text-align: center;
+  box-shadow: 0 0 43px 0 hsla(0, 0%, 64%, .45);
+}
+
+.support-card h3 {
+  font-weight: bold;
+}

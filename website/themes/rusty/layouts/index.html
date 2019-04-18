@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language }}">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="/css/rusty.css">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="{{ .Site.Params.description }}">
+  <meta name="keywords" content="{{ .Site.Params.keywords }}">
+  {{ partial "alternates.html" . }}
+  <title>{{ .Title }}</title>
+</head>
+<body class="container">
+  {{ partial "header.html" . }}
+
+  <div class="row pitch-row">
+    <div class="col-md-8">
+      <p class="pitch">{{ .Site.Params.pitch | safeHTML }}</p>
+    </div>
+    <div class="col-md-4">
+      <a class="release-button" href="http://beta.openlifter.com">
+        <div class="release-version">
+          {{ .Site.Params.RunText }}
+          <span>0.1</span>
+        </div>
+      </a>
+      <div class="release-date">{{ .Site.Params.ReleaseDate }}</div>
+    </div>
+  </div>
+
+  <div class="row code-row">
+    <div class="col-md-4">
+      <h2>{{ .Site.Params.featuring }}</h2>
+      <ul class="laundry-list">
+        {{ range .Site.Params.featuresList -}}
+          <li>{{ . }}</li>
+        {{- end }}
+      </ul>
+    </div>
+    <div class="col-md-8">
+      <a href="/images/example-yury.png">
+        <img alt="Example" id="example-image" src="/images/example-yury.png">
+      </a>
+    </div>
+  </div>
+
+  {{ partial "footer.html" . }}
+</body>
+</html>

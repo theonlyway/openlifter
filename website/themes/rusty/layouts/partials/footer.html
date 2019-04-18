@@ -1,0 +1,11 @@
+<footer>
+  <p>
+    {{ .Site.Params.otherLanguagesIntro }}
+    {{ range first 1 $.Site.Home.AllTranslations -}}
+      <a href="{{ .Permalink }}">{{ .Language.LanguageName }}</a>
+    {{- end -}}
+    {{- range after 1 $.Site.Home.AllTranslations -}}
+      , <a href="{{ .Permalink }}">{{ .Language.LanguageName }}</a>
+    {{- end }}
+  </p>
+</footer>
