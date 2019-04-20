@@ -70,7 +70,7 @@ const initialState: MeetState = {
   weightClassesKgWomen: [],
   weightClassesKgMx: [],
   inKg: true,
-  areWrapsRaw: false,
+  combineSleevesAndWraps: false,
   allow4thAttempts: true,
   country: "",
   state: "",

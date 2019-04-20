@@ -48,7 +48,7 @@ export type MeetState = {
   +weightClassesKgWomen: Array<number>,
   +weightClassesKgMx: Array<number>,
   +formula: Formula,
-  +areWrapsRaw: boolean,
+  +combineSleevesAndWraps: boolean,
   +allow4thAttempts: boolean,
 
   // Weights and Loading Setup.

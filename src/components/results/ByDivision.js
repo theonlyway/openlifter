@@ -45,7 +45,7 @@ import type { GlobalState } from "../../types/stateTypes";
 interface StateProps {
   meetName: string;
   formula: string;
-  areWrapsRaw: boolean;
+  combineSleevesAndWraps: boolean;
   lengthDays: number;
   weightClassesKgMen: Array<number>;
   weightClassesKgWomen: Array<number>;
@@ -159,7 +159,7 @@ class ByDivision extends React.Component<Props> {
     }
 
     let eqpstr: string = category.equipment;
-    if (this.props.areWrapsRaw) {
+    if (this.props.combineSleevesAndWraps) {
       eqpstr = "Sleeves + Wraps";
     }
 
@@ -198,7 +198,7 @@ class ByDivision extends React.Component<Props> {
       this.props.weightClassesKgMen,
       this.props.weightClassesKgWomen,
       this.props.weightClassesKgMx,
-      this.props.areWrapsRaw
+      this.props.combineSleevesAndWraps
     );
 
     let categoryPanels = [];
@@ -223,7 +223,7 @@ const mapStateToProps = (state: GlobalState, ownProps: OwnProps): StateProps => 
   return {
     meetName: state.meet.name,
     formula: state.meet.formula,
-    areWrapsRaw: state.meet.areWrapsRaw,
+    combineSleevesAndWraps: state.meet.combineSleevesAndWraps,
     lengthDays: state.meet.lengthDays,
     weightClassesKgMen: state.meet.weightClassesKgMen,
     weightClassesKgWomen: state.meet.weightClassesKgWomen,

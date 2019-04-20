@@ -176,7 +176,7 @@ export const sortPointsCategoryResults = (results: Array<PointsCategoryResults>)
 export const getAllRankings = (
   entries: Array<Entry>,
   formula: Formula,
-  areWrapsRaw: boolean
+  combineSleevesAndWraps: boolean
 ): Array<PointsCategoryResults> => {
   // Generate a map from category to the entries within that category.
   // The map is populated by iterating over each entry and having the entry
@@ -190,7 +190,7 @@ export const getAllRankings = (
     let equipment: Equipment = e.equipment;
 
     // If the results combine Sleeves and Wraps, promote Sleeves to Wraps.
-    if (areWrapsRaw && equipment === "Sleeves") {
+    if (combineSleevesAndWraps && equipment === "Sleeves") {
       equipment = "Wraps";
     }
 

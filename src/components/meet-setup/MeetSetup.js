@@ -39,12 +39,12 @@ import type { GlobalState } from "../../types/stateTypes";
 
 interface StateProps {
   allow4thAttempts: boolean;
-  areWrapsRaw: boolean;
+  combineSleevesAndWraps: boolean;
   inKg: boolean;
 }
 
 interface DispatchProps {
-  setAreWrapsRaw: (event: Object) => void;
+  setCombineSleevesAndWraps: (event: Object) => void;
   setAllow4thAttempts: (event: Object) => void;
   setInKg: (event: Object) => void;
 }
@@ -106,8 +106,8 @@ class MeetSetup extends React.Component<Props> {
                   <ControlLabel>Should Sleeves and Wraps be combined for placing?</ControlLabel>
                   <FormControl
                     componentClass="select"
-                    defaultValue={yesNoFromBoolean(this.props.areWrapsRaw)}
-                    onChange={this.props.setAreWrapsRaw}
+                    defaultValue={yesNoFromBoolean(this.props.combineSleevesAndWraps)}
+                    onChange={this.props.setCombineSleevesAndWraps}
                   >
                     {yesNoBooleanOptions}
                   </FormControl>
@@ -156,12 +156,13 @@ class MeetSetup extends React.Component<Props> {
 
 const mapStateToProps = (state: GlobalState): StateProps => ({
   inKg: state.meet.inKg,
-  areWrapsRaw: state.meet.areWrapsRaw,
+  combineSleevesAndWraps: state.meet.combineSleevesAndWraps,
   allow4thAttempts: state.meet.allow4thAttempts
 });
 
 const mapDispatchToProps = (dispatch): DispatchProps => ({
-  setAreWrapsRaw: event => dispatch(updateMeet({ areWrapsRaw: yesNoToBoolean(event.target.value) })),
+  setCombineSleevesAndWraps: event =>
+    dispatch(updateMeet({ combineSleevesAndWraps: yesNoToBoolean(event.target.value) })),
   setAllow4thAttempts: event => dispatch(updateMeet({ allow4thAttempts: yesNoToBoolean(event.target.value) })),
   setInKg: event => dispatch(updateMeet({ inKg: yesNoToBoolean(event.target.value) }))
 });

@@ -123,7 +123,7 @@ export const exportAsUSAPLCsv = (state: GlobalState): string => {
     state.meet.weightClassesKgMen,
     state.meet.weightClassesKgWomen,
     state.meet.weightClassesKgMx,
-    state.meet.areWrapsRaw
+    state.meet.combineSleevesAndWraps
   );
 
   for (let i = 0; i < results.length; i++) {
