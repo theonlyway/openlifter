@@ -24,7 +24,7 @@ import { LinkContainer } from "react-router-bootstrap";
 
 import saveAs from "file-saver";
 
-import LanguageSelector from "../components/translations/LanguageSelector";
+// import LanguageSelector from "../components/translations/LanguageSelector";
 import { overwriteStore } from "../actions/globalActions";
 
 import NewMeetModal from "../components/home/NewMeetModal";
@@ -34,7 +34,7 @@ import { releaseVersion, releaseDate } from "../versions";
 import type { GlobalState } from "../types/stateTypes";
 
 // Temporary CSS, just for prototyping.
-const centerConsole = { maxWidth: 800, margin: "0 auto 10px" };
+const centerConsole = { maxWidth: 700, margin: "0 auto 10px" };
 const buttonConsole = { maxWidth: 400, margin: "20px auto 0 auto" };
 
 interface StateProps {
@@ -157,36 +157,36 @@ class HomeContainer extends React.Component<Props, InternalState> {
 
   render() {
     return (
-      <div style={centerConsole}>
+      <div class="container" style={centerConsole}>
         <NewMeetModal show={this.state.showNewMeetModal} close={this.closeConfirmModal} />
-        <LanguageSelector />
-        <h1>
-          Welcome to OpenLifter v{releaseVersion}!<br />
-          Released: {releaseDate}
-        </h1>
-        <h2>
-          <p>
-            This is the <b>development build</b> of OpenLifter.
-          </p>
-          <p>
-            Please <b>do not</b> use this to run a meet unless you have confirmed with us in advance, and we have
-            committed to not making breaking changes during your meet.
-          </p>
-          <p>
-            This version <b>changes unexpectedly</b> and <b>does not guarantee stability</b> for your meet.
-          </p>
-        </h2>
-        <div style={buttonConsole}>
-          {this.renderContinueButton()}
-          <Button bsStyle="primary" bsSize="large" block onClick={this.handleNewClick}>
-            New Meet
-          </Button>
-          <Button bsStyle="warning" bsSize="large" block onClick={this.handleLoadClick}>
-            Load from File
-          </Button>
-          <Button bsStyle="success" bsSize="large" block onClick={this.handleSaveClick}>
-            Save to File
-          </Button>
+
+        <div class="row">
+          <div class="col-md-12">
+            <img src="openlifter.svg"/>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div style={buttonConsole}>
+              {this.renderContinueButton()}
+              <Button bsStyle="primary" bsSize="large" block onClick={this.handleNewClick}>
+                New Meet
+              </Button>
+              <Button bsStyle="warning" bsSize="large" block onClick={this.handleLoadClick}>
+                Load from File
+              </Button>
+              <Button bsStyle="success" bsSize="large" block onClick={this.handleSaveClick}>
+                Save to File
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12" style={{textAlign: "center", marginTop: "2em"}}>
+            <h3>Version {releaseVersion}, {releaseDate}.</h3>
+          </div>
         </div>
 
         <input
