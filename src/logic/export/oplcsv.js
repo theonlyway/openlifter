@@ -38,7 +38,7 @@ const makeMeetCsv = (meet: MeetState): Csv => {
   let csv = new Csv();
   csv.fieldnames = ["Federation", "Date", "MeetCountry", "MeetState", "MeetTown", "MeetName"];
 
-  const row: Array<string> = [
+  let row: Array<string> = [
     csvString(meet.federation),
     csvString(meet.date),
     csvString(meet.country),
@@ -47,6 +47,13 @@ const makeMeetCsv = (meet: MeetState): Csv => {
     csvString(meet.name)
   ];
   csv.rows = [row];
+
+  // An optional RuleSet column may be provided.
+  if (meet.combineSleevesAndWraps === true) {
+    csv.fieldnames.push("RuleSet");
+    csv.rows[0].push("CombineRawAndWraps");
+  }
+
   return csv;
 };
 
