@@ -157,17 +157,17 @@ class HomeContainer extends React.Component<Props, InternalState> {
 
   render() {
     return (
-      <div class="container" style={centerConsole}>
+      <div className="container" style={centerConsole}>
         <NewMeetModal show={this.state.showNewMeetModal} close={this.closeConfirmModal} />
 
-        <div class="row">
-          <div class="col-md-12">
-            <img src="openlifter.svg"/>
+        <div className="row">
+          <div className="col-md-12">
+            <img alt="OpenLifter" src="openlifter.svg" />
           </div>
         </div>
 
-        <div class="row">
-          <div class="col-md-12">
+        <div className="row">
+          <div className="col-md-12">
             <div style={buttonConsole}>
               {this.renderContinueButton()}
               <Button bsStyle="primary" bsSize="large" block onClick={this.handleNewClick}>
@@ -183,9 +183,11 @@ class HomeContainer extends React.Component<Props, InternalState> {
           </div>
         </div>
 
-        <div class="row">
-          <div class="col-md-12" style={{textAlign: "center", marginTop: "2em"}}>
-            <h3>Version {releaseVersion}, {releaseDate}.</h3>
+        <div className="row">
+          <div className="col-md-12" style={{ textAlign: "center", marginTop: "2em" }}>
+            <h3>
+              Version {releaseVersion}, {releaseDate}.
+            </h3>
           </div>
         </div>
 
