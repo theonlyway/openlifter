@@ -151,6 +151,7 @@ class LifterRow extends React.Component<Props> {
           <WeightInput
             id={this.props.id}
             lift="S"
+            multipleOf={2.5}
             attemptOneIndexed={1}
             placeholder={hasSquat ? "Squat" : undefined}
             disabled={disableSquatWeight}
@@ -171,6 +172,7 @@ class LifterRow extends React.Component<Props> {
           <WeightInput
             id={this.props.id}
             lift="B"
+            multipleOf={2.5}
             attemptOneIndexed={1}
             placeholder={hasBench ? "Bench" : undefined}
             disabled={disableBenchWeight}
@@ -181,6 +183,7 @@ class LifterRow extends React.Component<Props> {
           <WeightInput
             id={this.props.id}
             lift="D"
+            multipleOf={2.5}
             attemptOneIndexed={1}
             placeholder={hasDeadlift ? "Dead" : undefined}
             disabled={disableDeadliftWeight}

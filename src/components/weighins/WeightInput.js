@@ -43,6 +43,7 @@ interface OwnProps {
   placeholder?: ?string;
   lift?: Lift;
   attemptOneIndexed?: number;
+  multipleOf?: number;
 }
 
 interface StateProps {
@@ -88,7 +89,9 @@ class WeightInput extends React.Component<Props, InternalState> {
   getValidationState = () => {
     const weightNum = Number(this.state.weightStr);
     if (isNaN(weightNum) || weightNum < 0) return "error";
-    if (weightNum % 2.5 !== 0.0) return "warning";
+    if (this.props.multipleOf !== undefined && weightNum % this.props.multipleOf !== 0.0) {
+      return "warning";
+    }
     if (this.state.weightStr.length > 0) return "success";
     return null;
   };
