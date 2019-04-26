@@ -30,7 +30,7 @@ const Navigation = () => {
   return (
     <Navbar>
       <Navbar.Brand>
-        <img alt="OpenLifter" src="openlifter-white.svg"/>
+        <img alt="OpenLifter" src="openlifter-white.svg" />
       </Navbar.Brand>
 
       {/* Navbar uses Toggle and Collapse to automatically create a hamburger menu
