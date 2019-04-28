@@ -84,7 +84,7 @@ class ResultsView extends React.Component<Props, InternalState> {
         All Days Together
       </option>
     ];
-    for (let day = 1; day < this.props.global.meet.lengthDays; day++) {
+    for (let day = 1; day <= this.props.global.meet.lengthDays; day++) {
       options.push(
         <option key={day} value={day}>
           Just Day {day}
