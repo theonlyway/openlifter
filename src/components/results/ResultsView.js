@@ -74,7 +74,7 @@ class ResultsView extends React.Component<Props, InternalState> {
 
     this.state = {
       day: 0, // Meaning "all". Flow complained about mixing numbers and strings.
-      by: "Points"
+      by: "Division"
     };
   }
 
