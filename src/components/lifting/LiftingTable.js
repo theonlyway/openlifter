@@ -34,6 +34,8 @@ import {
   getFinalIPFPoints,
   getProjectedGlossbrenner,
   getFinalGlossbrenner,
+  getProjectedNASAPoints,
+  getFinalNASAPoints,
   getProjectedSchwartzMalone,
   getFinalSchwartzMalone,
   liftToAttemptFieldName,
@@ -290,6 +292,8 @@ class LiftingTable extends React.Component<Props> {
           points = getProjectedWilks(entry);
         } else if (this.props.meet.formula === "Schwartz/Malone") {
           points = getProjectedSchwartzMalone(entry);
+        } else if (this.props.meet.formula === "NASA Points") {
+          points = getProjectedNASAPoints(entry);
         }
         return <td key={columnType}>{points !== 0 ? points.toFixed(2) : null}</td>;
       }
@@ -308,6 +312,8 @@ class LiftingTable extends React.Component<Props> {
           points = getFinalWilks(entry);
         } else if (this.props.meet.formula === "Schwartz/Malone") {
           points = getFinalSchwartzMalone(entry);
+        } else if (this.props.meet.formula === "NASA Points") {
+          points = getFinalNASAPoints(entry);
         }
         return <td key={columnType}>{points !== 0 ? points.toFixed(2) : null}</td>;
       }

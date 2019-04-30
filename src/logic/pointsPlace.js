@@ -28,6 +28,7 @@ import { getFinalEventTotalKg } from "./entry";
 
 import { glossbrenner } from "./coefficients/glossbrenner";
 import { ipfpoints } from "./coefficients/ipf";
+import { nasapoints } from "./coefficients/nasa";
 import { schwartzmalone } from "./coefficients/schwartzmalone";
 import { wilks } from "./coefficients/wilks";
 
@@ -86,6 +87,9 @@ const sortByFormulaPlaceInCategory = (
         break;
       case "Schwartz/Malone":
         memoizedPoints[i] = schwartzmalone(category.sex, entry.bodyweightKg, totalKg);
+        break;
+      case "NASA Points":
+        memoizedPoints[i] = nasapoints(entry.bodyweightKg, totalKg);
         break;
       default:
         (formula: empty) // eslint-disable-line
