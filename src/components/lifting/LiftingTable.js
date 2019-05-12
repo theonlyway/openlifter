@@ -32,6 +32,8 @@ import {
   getFinalWilks,
   getProjectedIPFPoints,
   getFinalIPFPoints,
+  getProjectedBodyweightMultiple,
+  getFinalBodyweightMultiple,
   getProjectedGlossbrenner,
   getFinalGlossbrenner,
   getProjectedNASAPoints,
@@ -294,6 +296,8 @@ class LiftingTable extends React.Component<Props> {
           points = getProjectedSchwartzMalone(entry);
         } else if (this.props.meet.formula === "NASA Points") {
           points = getProjectedNASAPoints(entry);
+        } else if (this.props.meet.formula === "Bodyweight Multiple") {
+          points = getProjectedBodyweightMultiple(entry);
         }
         return <td key={columnType}>{points !== 0 ? points.toFixed(2) : null}</td>;
       }
@@ -314,6 +318,8 @@ class LiftingTable extends React.Component<Props> {
           points = getFinalSchwartzMalone(entry);
         } else if (this.props.meet.formula === "NASA Points") {
           points = getFinalNASAPoints(entry);
+        } else if (this.props.meet.formula === "Bodyweight Multiple") {
+          points = getFinalBodyweightMultiple(entry);
         }
         return <td key={columnType}>{points !== 0 ? points.toFixed(2) : null}</td>;
       }

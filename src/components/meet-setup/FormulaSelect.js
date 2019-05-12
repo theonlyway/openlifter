@@ -26,6 +26,7 @@ import Select from "react-select";
 import { setFormula } from "../../actions/meetSetupActions";
 
 const options = [
+  { value: "Bodyweight Multiple", label: "Bodyweight Multiple" },
   { value: "Glossbrenner", label: "Glossbrenner" },
   { value: "IPF Points", label: "IPF Points" },
   { value: "NASA Points", label: "NASA Points" },

@@ -33,6 +33,7 @@ import {
   entryHasLifted
 } from "../../logic/entry";
 
+import { bodyweight_multiple } from "../../logic/coefficients/bodyweight-multiple";
 import { glossbrenner } from "../../logic/coefficients/glossbrenner";
 import { ipfpoints } from "../../logic/coefficients/ipf";
 import { nasapoints } from "../../logic/coefficients/nasa";
@@ -90,6 +91,9 @@ class ByPoints extends React.Component<Props> {
 
     let points = 0;
     switch (this.props.formula) {
+      case "Bodyweight Multiple":
+        points = bodyweight_multiple(entry.bodyweightKg, totalKg).toFixed(2);
+        break;
       case "Glossbrenner":
         points = glossbrenner(entry.sex, entry.bodyweightKg, totalKg).toFixed(2);
         break;

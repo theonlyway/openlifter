@@ -19,6 +19,7 @@
 
 // Defines logic for creating and working with Entry objects.
 
+import { bodyweight_multiple } from "./coefficients/bodyweight-multiple";
 import { glossbrenner } from "./coefficients/glossbrenner";
 import { ipfpoints } from "./coefficients/ipf";
 import { nasapoints } from "./coefficients/nasa";
@@ -252,6 +253,15 @@ export const getProjectedIPFPoints = (entry: Entry, event: Event): number => {
 export const getFinalIPFPoints = (entry: Entry, event: Event): number => {
   const totalKg = getFinalTotalKg(entry);
   return ipfpoints(totalKg, entry.bodyweightKg, entry.sex, entry.equipment, event);
+};
+
+export const getProjectedBodyweightMultiple = (entry: Entry): number => {
+  const totalKg = getProjectedTotalKg(entry);
+  return bodyweight_multiple(entry.bodyweightKg, totalKg);
+};
+export const getFinalBodyweightMultiple = (entry: Entry): number => {
+  const totalKg = getFinalTotalKg(entry);
+  return bodyweight_multiple(entry.bodyweightKg, totalKg);
 };
 
 export const getProjectedGlossbrenner = (entry: Entry): number => {

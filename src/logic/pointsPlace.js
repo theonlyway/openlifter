@@ -26,6 +26,7 @@
 
 import { getFinalEventTotalKg } from "./entry";
 
+import { bodyweight_multiple } from "./coefficients/bodyweight-multiple";
 import { glossbrenner } from "./coefficients/glossbrenner";
 import { ipfpoints } from "./coefficients/ipf";
 import { nasapoints } from "./coefficients/nasa";
@@ -76,6 +77,9 @@ const sortByFormulaPlaceInCategory = (
     const totalKg = getFinalEventTotalKg(entry, category.event);
 
     switch (formula) {
+      case "Bodyweight Multiple":
+        memoizedPoints[i] = bodyweight_multiple(entry.bodyweightKg, totalKg);
+        break;
       case "Glossbrenner":
         memoizedPoints[i] = glossbrenner(category.sex, entry.bodyweightKg, totalKg);
         break;
