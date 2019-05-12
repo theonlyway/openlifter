@@ -1,4 +1,4 @@
-.PHONY: build-deps dev-electron dev-web package test check less
+.PHONY: build-deps dev-electron dev-web package test check less gitlab-pages
 
 all: dev-web
 
@@ -32,6 +32,15 @@ test: build-deps
 
 less:
 	yarn run lessc src/bootstrap-custom/bootstrap.less build/bootstrap-custom.css
+
+# Builds the project into public/. Overwrites git files -- need to reset after.
+gitlab-pages:
+	make less
+	rm -f src/bootstrap-custom/bootstrap-custom.css
+	cp -f build/bootstrap-custom.css src/bootstrap-custom/bootstrap-custom.css
+	yarn run build
+	rm -rf public/
+	cp --dereference -r build/ public
 
 # A simple target to run all the CI server tests.
 # TODO: Doesn't detect compile warnings yet.

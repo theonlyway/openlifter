@@ -30,12 +30,7 @@ lint:
 pages:
   stage: deploy
   script:
-    - make less
-    - rm -f src/bootstrap-custom/bootstrap-custom.css
-    - cp -f build/bootstrap-custom.css src/bootstrap-custom/bootstrap-custom.css
-    - yarn run build
-    - rm -rf public/
-    - cp --dereference -r build/ public/
+    - make gitlab-pages
   artifacts:
     paths:
       - public
