@@ -156,6 +156,25 @@ class HomeContainer extends React.Component<Props, InternalState> {
   };
 
   render() {
+    let newMeetButton = undefined;
+    if (this.props.redux.meet.name) {
+      // A meet is active: use the modal.
+      newMeetButton = (
+        <Button bsStyle="primary" bsSize="large" block onClick={this.handleNewClick}>
+          New Meet
+        </Button>
+      );
+    } else {
+      // No meet is active: just use a LinkContainer.
+      newMeetButton = (
+        <LinkContainer to="/meet-setup">
+          <Button bsStyle="primary" bsSize="large" block onClick={this.handleNewClick}>
+            New Meet
+          </Button>
+        </LinkContainer>
+      );
+    }
+
     return (
       <div className="container" style={centerConsole}>
         <NewMeetModal show={this.state.showNewMeetModal} close={this.closeConfirmModal} />
@@ -170,9 +189,9 @@ class HomeContainer extends React.Component<Props, InternalState> {
           <div className="col-md-12">
             <div style={buttonConsole}>
               {this.renderContinueButton()}
-              <Button bsStyle="primary" bsSize="large" block onClick={this.handleNewClick}>
-                New Meet
-              </Button>
+
+              {newMeetButton}
+
               <Button bsStyle="warning" bsSize="large" block onClick={this.handleLoadClick}>
                 Load from File
               </Button>
