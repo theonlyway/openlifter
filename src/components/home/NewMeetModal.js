@@ -1,4 +1,5 @@
 // vim: set ts=2 sts=2 sw=2 et:
+// @flow
 //
 // This file is part of OpenLifter, simple Powerlifting meet software.
 // Copyright (C) 2019 The OpenPowerlifting Project.
@@ -16,15 +17,30 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-// The confirmation modal that will popup when the user goes to click New Meet on the home page
-// TODO: The Continue button should actually wipe out the current meet information
+// The confirmation modal that pops up when the "New Meet" button is clicked.
 
 import React from "react";
+import { connect } from "react-redux";
 import { Modal, Button } from "react-bootstrap";
-import PropTypes from "prop-types";
 import { LinkContainer } from "react-router-bootstrap";
 
-class NewMeetModal extends React.Component {
+import { overwriteStore } from "../../actions/globalActions.js";
+import rootReducer from "../../reducers/rootReducer.js";
+
+import type { GlobalState } from "../../types/stateTypes.js";
+
+interface OwnProps {
+  show: boolean;
+  close: () => void;
+}
+
+interface DispatchProps {
+  overwriteStore: () => any;
+}
+
+type Props = OwnProps & DispatchProps;
+
+class NewMeetModal extends React.Component<Props> {
   render() {
     return (
       <Modal show={this.props.show} onHide={this.props.close}>
@@ -32,11 +48,14 @@ class NewMeetModal extends React.Component {
           <Modal.Title>Are you sure?</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>Are you sure you want to create a New Meet? This will delete any existing progress!</p>
+          <p>Starting a new meet will remove all data from the current meet.</p>
+          <p>Are you sure you want to continue?</p>
         </Modal.Body>
         <Modal.Footer>
           <LinkContainer to="/meet-setup">
-            <Button bsStyle="primary">Continue</Button>
+            <Button onClick={this.props.overwriteStore} bsStyle="primary">
+              Continue
+            </Button>
           </LinkContainer>
           <Button onClick={this.props.close}>Close</Button>
         </Modal.Footer>
@@ -45,13 +64,15 @@ class NewMeetModal extends React.Component {
   }
 }
 
-NewMeetModal.defaultProps = {
-  show: false
+const mapDispatchToProps = (dispatch): DispatchProps => {
+  const newGlobal: GlobalState = rootReducer({}, "OVERWRITE_STORE");
+
+  return {
+    overwriteStore: () => dispatch(overwriteStore(newGlobal))
+  };
 };
 
-NewMeetModal.propTypes = {
-  show: PropTypes.bool,
-  close: PropTypes.func.isRequired
-};
-
-export default NewMeetModal;
+export default connect(
+  null,
+  mapDispatchToProps
+)(NewMeetModal);
