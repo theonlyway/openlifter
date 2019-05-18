@@ -224,6 +224,8 @@ class LifterRow extends React.Component {
       selectedEvents.push({ value: events, label: events });
     }
 
+    const gridStyle = { padding: "0px", margin: "0px" };
+
     return (
       <Panel>
         <Panel.Heading style={{ display: "flex" }}>
@@ -233,7 +235,7 @@ class LifterRow extends React.Component {
           </Button>
         </Panel.Heading>
         <Panel.Body>
-          <Grid>
+          <Grid style={gridStyle}>
             {/* Day */}
             <Col md={1}>
               <FormGroup>
@@ -344,7 +346,7 @@ class LifterRow extends React.Component {
             </Col>
           </Grid>
 
-          <Grid>
+          <Grid style={gridStyle}>
             {/* Date of Birth */}
             <Col md={2}>
               <FormGroup>
@@ -404,7 +406,6 @@ class LifterRow extends React.Component {
                 <FormControl
                   type="number"
                   min="0"
-                  placeholder="Lot #"
                   defaultValue={entry.lot === 0 ? "" : entry.lot}
                   onBlur={this.updateRegistrationLot}
                 />
