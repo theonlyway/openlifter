@@ -402,9 +402,10 @@ class LifterRow extends React.Component {
               <FormGroup>
                 <ControlLabel>Lot #</ControlLabel>
                 <FormControl
-                  type="text"
+                  type="number"
+                  min="0"
                   placeholder="Lot #"
-                  defaultValue={entry.lot}
+                  defaultValue={entry.lot === 0 ? "" : entry.lot}
                   onBlur={this.updateRegistrationLot}
                 />
               </FormGroup>
