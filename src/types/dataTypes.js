@@ -66,6 +66,7 @@ export type Entry = {
   lot: number,
   memberId: string,
   paid: boolean,
+  notes: string,
   bodyweightKg: number,
   squatRackInfo: string,
   benchRackInfo: string,

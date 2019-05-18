@@ -26,13 +26,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { Table } from "react-bootstrap";
-
 class LifterTable extends React.Component {
   constructor(props) {
     super(props);
     this.renderRows = this.renderRows.bind(this);
-    this.renderHeader = this.renderHeader.bind(this);
   }
 
   renderRows() {
@@ -41,36 +38,8 @@ class LifterTable extends React.Component {
     return entries.map(entry => <LifterRow key={entry.id} id={entry.id} />);
   }
 
-  renderHeader() {
-    // Styling for small, single-character selector columns.
-    const shortStyle = { width: "75px" };
-    return (
-      <tr>
-        <th style={shortStyle}>Day</th>
-        <th style={shortStyle}>Platform</th>
-        <th style={shortStyle}>Flight</th>
-        <th>Name</th>
-        <th style={shortStyle}>Sex</th>
-        <th style={shortStyle}>MemberID</th>
-        <th style={shortStyle}>Lot</th>
-        <th style={{ width: "125px" }}>BirthDate</th>
-        <th style={{ width: "100px" }}>Country</th>
-        <th style={shortStyle}>State</th>
-        <th style={{ width: "120px" }}>Equipment</th>
-        <th style={{ width: "200px" }}>Division(s)</th>
-        <th style={{ width: "150px" }}>Event(s)</th>
-        <th style={{ width: "80px" }} />
-      </tr>
-    );
-  }
-
   render() {
-    return (
-      <Table hover condensed>
-        <thead>{this.renderHeader()}</thead>
-        <tbody>{this.renderRows()}</tbody>
-      </Table>
-    );
+    return <div>{this.renderRows()}</div>;
   }
 }
 

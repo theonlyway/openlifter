@@ -19,7 +19,6 @@
 // The parent component of the Registration page, contained by the RegistrationContainer.
 
 import React from "react";
-import { Panel } from "react-bootstrap";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
@@ -27,19 +26,14 @@ import LifterTable from "./LifterTable";
 import LifterRow from "./LifterRow";
 import NewButton from "./NewButton";
 
-const marginStyle = { margin: "0 20px 0 20px" };
+const marginStyle = { margin: "0 20px 20px 20px" };
 
 class RegistrationView extends React.Component {
   render() {
     return (
       <div style={marginStyle}>
-        <Panel>
-          <Panel.Heading>Lifter Registration</Panel.Heading>
-          <Panel.Body>
-            <LifterTable entries={this.props.registration.entries} rowRenderer={LifterRow} />
-            <NewButton />
-          </Panel.Body>
-        </Panel>
+        <LifterTable entries={this.props.registration.entries} rowRenderer={LifterRow} />
+        <NewButton />
       </div>
     );
   }
