@@ -87,34 +87,39 @@ class LiftingView extends React.Component<Props, InternalState> {
     }
 
     return (
-      <div id="liftingView" className={styles.liftingView}>
-        <TopBar
-          attemptOneIndexed={now.attemptOneIndexed}
-          orderedEntries={now.orderedEntries}
-          currentEntryId={now.currentEntryId}
-        />
+      <div>
+        <h3 style={{ marginLeft: "12px" }}>
+          To get things to fit, zoom the browser in or out, and then press Toggle Fullscreen.
+        </h3>
+        <div id="liftingView" className={styles.liftingView}>
+          <TopBar
+            attemptOneIndexed={now.attemptOneIndexed}
+            orderedEntries={now.orderedEntries}
+            currentEntryId={now.currentEntryId}
+          />
 
-        <div className={styles.middleParentContainer}>
-          <div className={styles.leftPanelContainer}>
-            <LeftPanel
-              attemptOneIndexed={now.attemptOneIndexed}
-              orderedEntries={now.orderedEntries}
-              currentEntryId={now.currentEntryId}
-              nextEntryId={now.nextEntryId}
-              nextAttemptOneIndexed={now.nextAttemptOneIndexed}
-            />
+          <div className={styles.middleParentContainer}>
+            <div className={styles.leftPanelContainer}>
+              <LeftPanel
+                attemptOneIndexed={now.attemptOneIndexed}
+                orderedEntries={now.orderedEntries}
+                currentEntryId={now.currentEntryId}
+                nextEntryId={now.nextEntryId}
+                nextAttemptOneIndexed={now.nextAttemptOneIndexed}
+              />
+            </div>
+
+            <div className={styles.rightPanelContainer}>{rightElement}</div>
           </div>
 
-          <div className={styles.rightPanelContainer}>{rightElement}</div>
+          <LiftingFooter
+            attemptOneIndexed={now.attemptOneIndexed}
+            orderedEntries={now.orderedEntries}
+            currentEntryId={now.currentEntryId}
+            flightsOnPlatform={this.props.flightsOnPlatform}
+            toggleReplaceTableWithWeighins={this.toggleReplaceTableWithWeighins}
+          />
         </div>
-
-        <LiftingFooter
-          attemptOneIndexed={now.attemptOneIndexed}
-          orderedEntries={now.orderedEntries}
-          currentEntryId={now.currentEntryId}
-          flightsOnPlatform={this.props.flightsOnPlatform}
-          toggleReplaceTableWithWeighins={this.toggleReplaceTableWithWeighins}
-        />
       </div>
     );
   }
