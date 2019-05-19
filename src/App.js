@@ -35,6 +35,7 @@ import LiftingContainer from "./containers/LiftingContainer";
 import FlightOrderContainer from "./containers/FlightOrderContainer";
 import ResultsContainer from "./containers/ResultsContainer";
 import DebugContainer from "./containers/DebugContainer";
+import AboutContainer from "./containers/AboutContainer";
 import Navigation from "./components/Navigation";
 
 addLocaleData([...es, ...eo]);
@@ -66,6 +67,7 @@ class App extends React.Component {
                   <Route path="/lifting" component={LiftingContainer} />
                   <Route path="/results" component={ResultsContainer} />
                   <Route path="/debug" component={DebugContainer} />
+                  <Route path="/about" component={AboutContainer} />
                 </Switch>
               </div>
             </Router>

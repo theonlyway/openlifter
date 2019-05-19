@@ -19,7 +19,7 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import { Button } from "react-bootstrap";
+import { Button, Col, Grid, Row } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
 import saveAs from "file-saver";
@@ -35,7 +35,7 @@ import type { GlobalState } from "../types/stateTypes";
 
 // Temporary CSS, just for prototyping.
 const centerConsole = { maxWidth: 700, margin: "0 auto 10px" };
-const buttonConsole = { maxWidth: 400, margin: "20px auto 0 auto" };
+const buttonConsole = { maxWidth: 400, margin: "auto 0 auto" };
 
 interface StateProps {
   redux: GlobalState;
@@ -144,14 +144,11 @@ class HomeContainer extends React.Component<Props, InternalState> {
       return;
     }
     return (
-      <div style={{ marginBottom: "2rem" }}>
-        <h3>In Progress: {meetname}</h3>
-        <LinkContainer to="/meet-setup">
-          <Button bsStyle="success" bsSize="large" block>
-            Continue Current Meet
-          </Button>
-        </LinkContainer>
-      </div>
+      <LinkContainer to="/meet-setup">
+        <Button bsStyle="primary" bsSize="large" block>
+          Continue {meetname}
+        </Button>
+      </LinkContainer>
     );
   };
 
@@ -175,18 +172,20 @@ class HomeContainer extends React.Component<Props, InternalState> {
       );
     }
 
+    const buttonMargin = { marginBottom: "5px" };
+
     return (
-      <div className="container" style={centerConsole}>
+      <Grid style={centerConsole}>
         <NewMeetModal show={this.state.showNewMeetModal} close={this.closeConfirmModal} />
 
-        <div className="row">
-          <div className="col-md-12">
+        <Row>
+          <Col md={12}>
             <img alt="OpenLifter" src="openlifter.svg" />
-          </div>
-        </div>
+          </Col>
+        </Row>
 
-        <div className="row">
-          <div className="col-md-12">
+        <Row>
+          <Col md={8}>
             <div style={buttonConsole}>
               {this.renderContinueButton()}
 
@@ -199,16 +198,42 @@ class HomeContainer extends React.Component<Props, InternalState> {
                 Save to File
               </Button>
             </div>
-          </div>
-        </div>
+          </Col>
+          <Col md={4}>
+            <a
+              href="https://gitlab.com/openpowerlifting/openlifter/issues/new"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <Button bsSize="large" block style={buttonMargin}>
+                Report an Issue
+              </Button>
+            </a>
+            <a href="https://www.openlifter.com/support" rel="noopener noreferrer" target="_blank">
+              <Button bsSize="large" block style={buttonMargin}>
+                Official Support
+              </Button>
+            </a>
+            <a href="https://gitlab.com/openpowerlifting/openlifter" rel="noopener noreferrer" target="_blank">
+              <Button bsSize="large" block style={buttonMargin}>
+                Full Source Code
+              </Button>
+            </a>
+            <LinkContainer to="/about">
+              <Button bsSize="large" block style={buttonMargin}>
+                Credits and License
+              </Button>
+            </LinkContainer>
+          </Col>
+        </Row>
 
-        <div className="row">
-          <div className="col-md-12" style={{ textAlign: "center", marginTop: "2em" }}>
+        <Row>
+          <Col md={12} style={{ textAlign: "center", marginTop: "2em" }}>
             <h3>
               Version {releaseVersion}, {releaseDate}.
             </h3>
-          </div>
-        </div>
+          </Col>
+        </Row>
 
         <input
           id="loadhelper"
@@ -217,7 +242,7 @@ class HomeContainer extends React.Component<Props, InternalState> {
           style={{ display: "none" }}
           onChange={this.handleLoadFileInput}
         />
-      </div>
+      </Grid>
     );
   }
 }
