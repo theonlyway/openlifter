@@ -20,6 +20,7 @@
 // See comments in src/versions.js.
 
 import { stateVersion, releaseVersion } from "../versions";
+import type { OverwriteStoreAction } from "../types/actionTypes";
 import type { VersionsState } from "../types/stateTypes";
 
 const initialState: VersionsState = {
@@ -27,8 +28,15 @@ const initialState: VersionsState = {
   releaseVersion
 };
 
-type Action = {};
+type Action = OverwriteStoreAction;
 
 export default (state: VersionsState = initialState, action: Action): VersionsState => {
-  return state;
+  switch (action.type) {
+    case "OVERWRITE_STORE":
+      return action.store.versions;
+
+    default:
+      (action.type: empty); // eslint-disable-line
+      return state;
+  }
 };

@@ -234,13 +234,8 @@ export default (state: RegistrationState = initialState, action: Action): Regist
       };
     }
 
-    case "OVERWRITE_STORE": {
-      // Copy all the state objects into an empty object.
-      const obj = Object.assign({}, state);
-
-      // Copy in the action's objects, overwriting the state's objects.
-      return Object.assign(obj, action.store.registration);
-    }
+    case "OVERWRITE_STORE":
+      return action.store.registration;
 
     default:
       (action.type: empty); // eslint-disable-line
