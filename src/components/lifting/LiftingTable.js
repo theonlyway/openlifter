@@ -222,7 +222,7 @@ class LiftingTable extends React.Component<Props> {
         );
       case "Bodyweight": {
         const bw = entry.bodyweightKg;
-        return <td key={columnType}>{bw === 0 ? null : bw}</td>;
+        return <td key={columnType}>{bw === 0 ? null : bw.toFixed(1)}</td>;
       }
       case "WeightClass": {
         const bw = entry.bodyweightKg;
