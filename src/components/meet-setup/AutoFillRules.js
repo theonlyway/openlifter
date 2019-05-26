@@ -52,6 +52,7 @@ const traditionalDefaults: $Shape<MeetState> = {
     "T16-17",
     "T18-19",
     "J20-23",
+    "S35-39",
     "M40-44",
     "M45-49",
     "M50-54",
