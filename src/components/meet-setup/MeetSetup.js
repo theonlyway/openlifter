@@ -28,6 +28,7 @@ import MeetLocation from "./MeetLocation";
 import PlatformCounts from "./PlatformCounts";
 import FormulaSelect from "./FormulaSelect";
 import FederationSelect from "./FederationSelect";
+import AutoFillRules from "./AutoFillRules";
 import DivisionSelect from "./DivisionSelect";
 import WeightClassesSelect from "./WeightClassesSelect";
 import BarAndCollarsWeightKg from "./BarAndCollarsWeightKg";
@@ -41,6 +42,8 @@ interface StateProps {
   allow4thAttempts: boolean;
   combineSleevesAndWraps: boolean;
   inKg: boolean;
+
+  masterKey: string; // Used to force-update rules components on Auto-Fill.
 }
 
 interface DispatchProps {
@@ -96,13 +99,26 @@ class MeetSetup extends React.Component<Props> {
             <Panel>
               <Panel.Heading>Competition Rules</Panel.Heading>
               <Panel.Body>
-                <DivisionSelect />
-                <WeightClassesSelect sex="M" label="Men's Weight Classes (kg), omit SHW" />
-                <WeightClassesSelect sex="F" label="Women's Weight Classes (kg), omit SHW" />
-                <WeightClassesSelect sex="Mx" label="Mx Weight Classes (kg), omit SHW" />
-                <FormulaSelect />
+                <AutoFillRules />
+                <DivisionSelect key={this.props.masterKey} />
+                <WeightClassesSelect
+                  sex="M"
+                  label="Men's Weight Classes (kg), omit SHW"
+                  key={this.props.masterKey + "-M"}
+                />
+                <WeightClassesSelect
+                  sex="F"
+                  label="Women's Weight Classes (kg), omit SHW"
+                  key={this.props.masterKey + "-F"}
+                />
+                <WeightClassesSelect
+                  sex="Mx"
+                  label="Mx Weight Classes (kg), omit SHW"
+                  key={this.props.masterKey + "-Mx"}
+                />
+                <FormulaSelect key={this.props.masterKey + "-formula"} />
 
-                <FormGroup>
+                <FormGroup key={this.props.masterKey + "-sleeves-wraps"}>
                   <ControlLabel>Should Sleeves and Wraps be combined for placing?</ControlLabel>
                   <FormControl
                     componentClass="select"
@@ -113,7 +129,7 @@ class MeetSetup extends React.Component<Props> {
                   </FormControl>
                 </FormGroup>
 
-                <FormGroup>
+                <FormGroup key={this.props.masterKey + "-4th-attempts"}>
                   <ControlLabel>Can lifters take 4th attempts for records?</ControlLabel>
                   <FormControl
                     componentClass="select"
@@ -157,7 +173,8 @@ class MeetSetup extends React.Component<Props> {
 const mapStateToProps = (state: GlobalState): StateProps => ({
   inKg: state.meet.inKg,
   combineSleevesAndWraps: state.meet.combineSleevesAndWraps,
-  allow4thAttempts: state.meet.allow4thAttempts
+  allow4thAttempts: state.meet.allow4thAttempts,
+  masterKey: state.meet.divisions.join()
 });
 
 const mapDispatchToProps = (dispatch): DispatchProps => ({
