@@ -44,3 +44,9 @@ export const displayWeight = (weight: number): string => {
   // Otherwise all the digits are necessary.
   return s;
 };
+
+// Renders a weight (kg or lbs) for display, rounding to one decimal place.
+// hiding unnecessary zeros on the right.
+export const displayWeightOnePlace = (weight: number): string => {
+  return weight.toFixed(1).replace(".0", "");
+};

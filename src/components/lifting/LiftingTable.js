@@ -234,7 +234,9 @@ class LiftingTable extends React.Component<Props> {
       case "WeightClass": {
         const bw = entry.bodyweightKg;
         const classesForSex = this.mapSexToClasses(entry.sex, this.props.meet);
-        const weightClass = this.props.meet.inKg ? getWeightClassStr(classesForSex, bw) : getWeightClassLbsStr(classesForSex, bw);
+        const weightClass = this.props.meet.inKg
+          ? getWeightClassStr(classesForSex, bw)
+          : getWeightClassLbsStr(classesForSex, bw);
         return <td key={columnType}>{bw === 0 ? null : weightClass}</td>;
       }
       case "Division": {

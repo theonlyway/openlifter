@@ -25,7 +25,7 @@ import { connect } from "react-redux";
 
 import { selectPlatesKg, makeLoadingRelative } from "../../logic/barLoad";
 import { liftToAttemptFieldName } from "../../logic/entry";
-import { kg2lbs, displayWeight } from "../../logic/units";
+import { kg2lbs, displayWeightOnePlace } from "../../logic/units";
 
 import BarLoad from "./BarLoad";
 
@@ -86,8 +86,8 @@ class LeftPanel extends React.Component<Props> {
     const next = this.getBarLoadProps(this.props.nextEntryId, this.props.nextAttemptOneIndexed);
 
     // Show one decimal point, and omit it if possible.
-    const weightKgText = displayWeight(current.weightKg);
-    const weightLbsText = displayWeight(current.weightLbs);
+    const weightKgText = displayWeightOnePlace(current.weightKg);
+    const weightLbsText = displayWeightOnePlace(current.weightLbs);
 
     // Calculate both loadings.
     const currentLoading: Array<LoadedPlate> = selectPlatesKg(
@@ -116,13 +116,14 @@ class LeftPanel extends React.Component<Props> {
         </div>
       );
 
+    const textIfKg = weightKgText + "kg / " + weightLbsText + "lb";
+    const textIfLbs = weightLbsText + "lb / " + weightKgText + "kg";
+
     return (
       <div className={styles.container}>
         <div className={styles.activeCard}>
           <div className={styles.loadingBar}>
-            <div className={styles.attemptText}>
-              {weightKgText}kg / {weightLbsText}lb
-            </div>
+            <div className={styles.attemptText}>{this.props.inKg ? textIfKg : textIfLbs}</div>
             <div className={styles.barArea}>
               <BarLoad
                 key={String(current.weightKg) + current.rackInfo}

@@ -17,7 +17,7 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { displayWeight } from "./units";
+import { displayWeight, displayWeightOnePlace } from "./units";
 
 describe("displayWeight", () => {
   it("rounds to two decimal places", () => {
@@ -30,5 +30,18 @@ describe("displayWeight", () => {
     expect(displayWeight(127.5)).toEqual("127.5");
     expect(displayWeight(127.5)).toEqual("127.5");
     expect(displayWeight(127.05)).toEqual("127.05");
+  });
+});
+
+describe("displayWeightOnePlace", () => {
+  it("rounds to one decimal places", () => {
+    expect(displayWeightOnePlace(5.77777)).toEqual("5.8");
+  });
+
+  it("truncates extraneous zeros", () => {
+    expect(displayWeightOnePlace(0.0)).toEqual("0");
+    expect(displayWeightOnePlace(125.0)).toEqual("125");
+    expect(displayWeightOnePlace(127.5)).toEqual("127.5");
+    expect(displayWeightOnePlace(127.08)).toEqual("127.1");
   });
 });
