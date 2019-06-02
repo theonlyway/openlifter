@@ -18,6 +18,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import { localDateToIso8601 } from "../logic/date";
+import { lbs2kg } from "../logic/units";
 
 import type { MeetSetupAction, OverwriteStoreAction } from "../types/actionTypes";
 import type { PlatePairCount } from "../types/dataTypes";
@@ -44,18 +45,17 @@ const defaultPlatePairCountsKg: Array<PlatePairCount> = [
   { weightKg: 0.25, pairCount: 1 }
 ];
 
-const kg = 2.20462262;
-
 // Default lbs plates, allowing for increments of 1lb.
 const defaultPlatePairCountsLbs: Array<PlatePairCount> = [
-  { weightKg: 45 / kg, pairCount: 8 },
-  { weightKg: 35 / kg, pairCount: 0 },
-  { weightKg: 25 / kg, pairCount: 1 },
-  { weightKg: 10 / kg, pairCount: 2 },
-  { weightKg: 5 / kg, pairCount: 1 },
-  { weightKg: 2.5 / kg, pairCount: 1 },
-  { weightKg: 1.25 / kg, pairCount: 1 },
-  { weightKg: 0.5 / kg, pairCount: 2 }
+  { weightKg: lbs2kg(100), pairCount: 0 },
+  { weightKg: lbs2kg(45), pairCount: 8 },
+  { weightKg: lbs2kg(35), pairCount: 0 },
+  { weightKg: lbs2kg(25), pairCount: 1 },
+  { weightKg: lbs2kg(10), pairCount: 2 },
+  { weightKg: lbs2kg(5), pairCount: 1 },
+  { weightKg: lbs2kg(2.5), pairCount: 1 },
+  { weightKg: lbs2kg(1.25), pairCount: 1 },
+  { weightKg: lbs2kg(0.5), pairCount: 2 }
 ];
 
 const initialState: MeetState = {
@@ -140,8 +140,8 @@ export default (state: MeetState = initialState, action: Action): MeetState => {
     case "SET_IN_KG": {
       // Changing the units also changes the loading, so re-initialize from defaults.
       const defaultPlates = action.inKg ? defaultPlatePairCountsKg : defaultPlatePairCountsLbs;
-      const defaultBar = action.inKg ? defaultBarAndCollarsWeightKg : defaultBarAndCollarsWeightLbs / kg;
-      return { ...state, inKg: action.inKg, platesOnSide: defaultPlates, barAndCollarsWeightKg: defaultBar };
+      const defaultBar = action.inKg ? defaultBarAndCollarsWeightKg : lbs2kg(defaultBarAndCollarsWeightLbs);
+      return { ...state, inKg: action.inKg, platePairCounts: defaultPlates, barAndCollarsWeightKg: defaultBar };
     }
 
     case "SET_WEIGHTCLASSES": {

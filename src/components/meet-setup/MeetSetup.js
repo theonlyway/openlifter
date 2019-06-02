@@ -34,7 +34,7 @@ import WeightClassesSelect from "./WeightClassesSelect";
 import BarAndCollarsWeightKg from "./BarAndCollarsWeightKg";
 import Plates from "./Plates";
 
-import { updateMeet } from "../../actions/meetSetupActions";
+import { updateMeet, setInKg } from "../../actions/meetSetupActions";
 
 import type { GlobalState } from "../../types/stateTypes";
 
@@ -157,6 +157,9 @@ class MeetSetup extends React.Component<Props> {
                     <option key="Yes" value="Yes">
                       Kilograms
                     </option>
+                    <option key="No" value="No">
+                      Pounds
+                    </option>
                   </FormControl>
                 </FormGroup>
                 <BarAndCollarsWeightKg key={inKg} />
@@ -181,7 +184,7 @@ const mapDispatchToProps = (dispatch): DispatchProps => ({
   setCombineSleevesAndWraps: event =>
     dispatch(updateMeet({ combineSleevesAndWraps: yesNoToBoolean(event.target.value) })),
   setAllow4thAttempts: event => dispatch(updateMeet({ allow4thAttempts: yesNoToBoolean(event.target.value) })),
-  setInKg: event => dispatch(updateMeet({ inKg: yesNoToBoolean(event.target.value) }))
+  setInKg: event => dispatch(setInKg(yesNoToBoolean(event.target.value)))
 });
 
 export default connect(
