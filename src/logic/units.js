@@ -28,7 +28,19 @@ export const lbs2kg = (lbs: number): number => {
   return lbs / 2.20462262;
 };
 
-// Renders a weight (kg or lbs) for display, rounding to one decimal place.
+// Renders a weight (kg or lbs) for display, rounding to two decimal places,
+// hiding unnecessary zeros on the right.
+//
+// This rounding behavior eliminates all the visual inconsistencies of lbs->kg
+// conversion -- for example, how 112.5lbs isn't representable exactly in kg.
 export const displayWeight = (weight: number): string => {
-  return weight.toFixed(1).replace(".0", "");
+  const s = weight.toFixed(2).replace(".00", "");
+
+  // If the string isn't ".00" but has a decimal, try to chop off a zero.
+  if (s.indexOf(".") >= 0 && s.endsWith("0")) {
+    return s.slice(0, -1);
+  }
+
+  // Otherwise all the digits are necessary.
+  return s;
 };

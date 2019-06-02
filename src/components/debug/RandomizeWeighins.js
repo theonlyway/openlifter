@@ -27,6 +27,7 @@ import { randomInt, randomFixedPoint } from "./RandomizeHelpers";
 
 import { updateRegistration } from "../../actions/registrationActions";
 import { enterAttempt } from "../../actions/liftingActions";
+import { lbs2kg } from "../../logic/units";
 
 import type { GlobalState, MeetState, RegistrationState } from "../../types/stateTypes";
 import type { Lift } from "../../types/dataTypes";
@@ -51,18 +52,23 @@ class RandomizeWeighinsButton extends React.Component<Props> {
 
   randomAttempt = () => {
     const multiple = 2.5;
-    return Math.floor(randomFixedPoint(25, 360, 1) / multiple) * multiple;
+    if (this.props.meet.inKg) {
+      return Math.floor(randomFixedPoint(25, 360, 1) / multiple) * multiple;
+    } else {
+      return lbs2kg(Math.floor(randomFixedPoint(55, 800, 1) / multiple) * multiple);
+    }
   };
 
   randomizeWeighins = () => {
     const entries = this.props.registration.entries;
+    const inKg: boolean = this.props.meet.inKg;
 
     for (let i = 0; i < entries.length; i++) {
       const entry = entries[i];
 
       // Get a random bodyweight.
       // ==========================================
-      const bodyweightKg = randomFixedPoint(20, 150, 1);
+      const bodyweightKg = inKg ? randomFixedPoint(20, 150, 1) : lbs2kg(randomFixedPoint(40, 320, 1));
       this.props.updateRegistration(entry.id, {
         bodyweightKg: bodyweightKg
       });

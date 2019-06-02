@@ -30,7 +30,7 @@ import { updateRegistration } from "../../actions/registrationActions";
 import { enterAttempt } from "../../actions/liftingActions";
 
 import { liftToAttemptFieldName } from "../../logic/entry";
-import { kg2lbs, lbs2kg } from "../../logic/units";
+import { kg2lbs, lbs2kg, displayWeight } from "../../logic/units";
 
 import type { Entry, Lift } from "../../types/dataTypes";
 import type { GlobalState } from "../../types/stateTypes";
@@ -75,15 +75,11 @@ class WeightInput extends React.Component<Props, InternalState> {
       weight = kg2lbs(weight);
     }
 
-    // Prefer displaying an empty string to 0.0.
-    if (weight === 0.0) {
-      weight = "";
-    }
-
     // Internal state, for purposes of validation.
     // To avoid confusion (auto-rounding) when typing, just store a String.
     this.state = {
-      weightStr: String(weight)
+      // Prefer displaying an empty string to 0.0.
+      weightStr: weight === 0.0 ? "" : displayWeight(weight)
     };
   }
 
