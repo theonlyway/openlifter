@@ -1,4 +1,5 @@
 // vim: set ts=2 sts=2 sw=2 et:
+// @flow
 //
 // This file is part of OpenLifter, simple Powerlifting meet software.
 // Copyright (C) 2019 The OpenPowerlifting Project.
@@ -19,7 +20,6 @@
 // Randomizes the Registration page, for debugging.
 
 import React from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Button } from "react-bootstrap";
 
@@ -28,18 +28,33 @@ import { randomInt, randomFixedPoint } from "./RandomizeHelpers";
 import { updateRegistration } from "../../actions/registrationActions";
 import { enterAttempt } from "../../actions/liftingActions";
 
-class RandomizeWeighinsButton extends React.Component {
+import type { GlobalState, MeetState, RegistrationState } from "../../types/stateTypes";
+import type { Lift } from "../../types/dataTypes";
+
+interface StateProps {
+  meet: MeetState;
+  registration: RegistrationState;
+}
+
+interface DispatchProps {
+  updateRegistration: (entryId: number, obj: Object) => void;
+  enterAttempt: (entryId: number, lift: Lift, attemptOneIndexed: number, weightKg: number) => void;
+}
+
+type Props = StateProps & DispatchProps;
+
+class RandomizeWeighinsButton extends React.Component<Props> {
   constructor(props) {
     super(props);
     this.randomizeWeighins = this.randomizeWeighins.bind(this);
   }
 
-  randomAttempt() {
+  randomAttempt = () => {
     const multiple = 2.5;
     return Math.floor(randomFixedPoint(25, 360, 1) / multiple) * multiple;
-  }
+  };
 
-  randomizeWeighins() {
+  randomizeWeighins = () => {
     const entries = this.props.registration.entries;
 
     for (let i = 0; i < entries.length; i++) {
@@ -106,33 +121,23 @@ class RandomizeWeighinsButton extends React.Component {
         });
       }
     }
-  }
+  };
 
   render() {
     return <Button onClick={this.randomizeWeighins}>Weigh-ins</Button>;
   }
 }
 
-const mapStateToProps = state => ({
-  ...state
+const mapStateToProps = (state: GlobalState): StateProps => ({
+  meet: state.meet,
+  registration: state.registration
 });
 
-const mapDispatchToProps = dispatch => {
-  return {
-    updateRegistration: (entryId, obj) => dispatch(updateRegistration(entryId, obj)),
-    enterAttempt: (entryId, lift, attemptOneIndexed, weightKg) =>
-      dispatch(enterAttempt(entryId, lift, attemptOneIndexed, weightKg))
-  };
-};
-
-RandomizeWeighinsButton.propTypes = {
-  meet: PropTypes.shape({}),
-  registration: PropTypes.shape({
-    entries: PropTypes.array.isRequired
-  }),
-  updateRegistration: PropTypes.func.isRequired,
-  enterAttempt: PropTypes.func.isRequired
-};
+const mapDispatchToProps = (dispatch): DispatchProps => ({
+  updateRegistration: (entryId, obj) => dispatch(updateRegistration(entryId, obj)),
+  enterAttempt: (entryId, lift, attemptOneIndexed, weightKg) =>
+    dispatch(enterAttempt(entryId, lift, attemptOneIndexed, weightKg))
+});
 
 export default connect(
   mapStateToProps,
