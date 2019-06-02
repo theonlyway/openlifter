@@ -23,6 +23,7 @@ import { connect } from "react-redux";
 import { ControlLabel, FormGroup, FormControl } from "react-bootstrap";
 
 import { setBarAndCollarsWeightKg } from "../../actions/meetSetupActions";
+import { kg2lbs, lbs2kg } from "../../logic/units";
 
 type Props = {
   inKg: boolean,
@@ -42,7 +43,7 @@ class BarAndCollarsWeightKg extends React.Component<Props, State> {
     this.handleChange = this.handleChange.bind(this);
 
     const weight = this.props.barAndCollarsWeightKg;
-    const value = this.props.inKg ? weight : weight * 2.20462262;
+    const value = this.props.inKg ? weight : kg2lbs(weight);
 
     this.state = {
       value: value
@@ -64,7 +65,7 @@ class BarAndCollarsWeightKg extends React.Component<Props, State> {
     this.setState({ value: value }, () => {
       if (this.getValidationState() === "success") {
         const asNum = Number(value);
-        const weight = this.props.inKg ? asNum : asNum / 2.20462262;
+        const weight = this.props.inKg ? asNum : lbs2kg(asNum);
         this.props.setBarAndCollarsWeightKg(weight);
       }
     });

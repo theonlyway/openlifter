@@ -27,6 +27,8 @@ import { FormControl, FormGroup, Table } from "react-bootstrap";
 
 import { setPlatePairCount } from "../../actions/meetSetupActions";
 
+import { kg2lbs } from "../../logic/units";
+
 import type { PlatePairCount } from "../../types/dataTypes";
 import type { GlobalState } from "../../types/stateTypes";
 
@@ -83,7 +85,8 @@ class Plates extends React.Component<Props> {
     // and then just search the whole document for it.
     const id = "weight" + String(weightKg);
 
-    const weight = this.props.inKg ? weightKg : weightKg * 2.20462262;
+    // Don't use displayWeight(): the 1.25lb plates need two decimal places.
+    const weight = this.props.inKg ? weightKg : kg2lbs(weightKg);
 
     return (
       <tr key={weightKg}>

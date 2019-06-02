@@ -30,6 +30,7 @@ import { updateRegistration } from "../../actions/registrationActions";
 import { enterAttempt } from "../../actions/liftingActions";
 
 import { liftToAttemptFieldName } from "../../logic/entry";
+import { kg2lbs, lbs2kg } from "../../logic/units";
 
 import type { Entry, Lift } from "../../types/dataTypes";
 import type { GlobalState } from "../../types/stateTypes";
@@ -71,7 +72,7 @@ class WeightInput extends React.Component<Props, InternalState> {
 
     let weight = this.props.weightKg;
     if (!this.props.inKg) {
-      weight = weight * 2.20462262;
+      weight = kg2lbs(weight);
     }
 
     // Prefer displaying an empty string to 0.0.
@@ -111,7 +112,7 @@ class WeightInput extends React.Component<Props, InternalState> {
       return;
     }
 
-    const weightKg = this.props.inKg ? weightNum : weightNum / 2.20462262;
+    const weightKg = this.props.inKg ? weightNum : lbs2kg(weightNum);
     if (this.props.weightKg === weightKg) {
       return;
     }
