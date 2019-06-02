@@ -24,7 +24,7 @@ import { connect } from "react-redux";
 
 import AttemptInput from "./AttemptInput";
 
-import { getWeightClassStr } from "../../reducers/meetReducer";
+import { getWeightClassStr, getWeightClassLbsStr } from "../../reducers/meetReducer";
 import {
   getProjectedTotalKg,
   getFinalTotalKg,
@@ -45,9 +45,10 @@ import {
 } from "../../logic/entry";
 
 import { getProjectedResults, getFinalResults } from "../../logic/divisionPlace";
-import type { CategoryResults } from "../../logic/divisionPlace";
+import { kg2lbs, displayWeight } from "../../logic/units";
 
-import type { Entry, Sex } from "../../types/dataTypes";
+import type { CategoryResults } from "../../logic/divisionPlace";
+import type { Entry, Lift, Sex } from "../../types/dataTypes";
 import type { GlobalState, MeetState, LiftingState } from "../../types/stateTypes";
 
 import styles from "./LiftingTable.module.scss";
@@ -90,9 +91,12 @@ class LiftingTable extends React.Component<Props> {
   constructor(props) {
     super(props);
     this.renderRows = this.renderRows.bind(this);
+    this.renderBest3AttemptField = this.renderBest3AttemptField.bind(this);
+    this.renderAttemptField = this.renderAttemptField.bind(this);
+    this.renderCell = this.renderCell.bind(this);
   }
 
-  renderBest3AttemptField(entry, lift, columnType: ColumnType) {
+  renderBest3AttemptField = (entry, lift: Lift, columnType: ColumnType) => {
     const fieldKg = liftToAttemptFieldName(lift);
     const fieldStatus = liftToStatusFieldName(lift);
 
@@ -112,30 +116,34 @@ class LiftingTable extends React.Component<Props> {
 
     // Render cells using attempt coloring.
     if (best3 !== 0) {
+      const asNumber = this.props.meet.inKg ? best3 : kg2lbs(best3);
       return (
         <td key={columnType} className={styles.goodlift}>
-          {best3}
+          {displayWeight(asNumber)}
         </td>
       );
     }
     if (lightestFailed !== 0) {
+      const asNumber = this.props.meet.inKg ? lightestFailed : kg2lbs(lightestFailed);
       return (
         <td key={columnType} className={styles.nolift}>
-          {lightestFailed}
+          {displayWeight(asNumber)}
         </td>
       );
     }
 
     // Show an empty cell by default.
     return <td key={columnType} />;
-  }
+  };
 
-  renderAttemptField(entry, lift, attemptOneIndexed: number, columnType: ColumnType) {
+  renderAttemptField = (entry, lift: Lift, attemptOneIndexed: number, columnType: ColumnType) => {
     const fieldKg = liftToAttemptFieldName(lift);
     const fieldStatus = liftToStatusFieldName(lift);
 
     const kg = entry[fieldKg][attemptOneIndexed - 1];
     const status = entry[fieldStatus][attemptOneIndexed - 1];
+    const wStr = displayWeight(this.props.meet.inKg ? kg : kg2lbs(kg));
+    const displayStr = kg === 0 ? "" : wStr;
 
     // If the lifter was manually selected, always show an AttemptInput.
     // This allows manual correction of weights when a misload occurs,
@@ -156,15 +164,14 @@ class LiftingTable extends React.Component<Props> {
       return (
         <td key={columnType} className={className}>
           {maybeNegative}
-          {kg}
+          {displayStr}
         </td>
       );
     }
 
     // If the attempt isn't for the current lift, just show the number.
     if (lift !== this.props.lifting.lift) {
-      const kgStr = kg === 0 ? "" : String(kg);
-      return <td key={columnType}>{kgStr}</td>;
+      return <td key={columnType}>{displayStr}</td>;
     }
 
     // Was any previous attempt taken?
@@ -194,9 +201,8 @@ class LiftingTable extends React.Component<Props> {
     }
 
     // Default handler.
-    const kgStr = kg === 0 ? "" : String(kg);
-    return <td key={columnType}>{kgStr}</td>;
-  }
+    return <td key={columnType}>{displayStr}</td>;
+  };
 
   mapSexToClasses = (sex: Sex, meetState: MeetState): Array<number> => {
     switch (sex) {
@@ -222,12 +228,13 @@ class LiftingTable extends React.Component<Props> {
         );
       case "Bodyweight": {
         const bw = entry.bodyweightKg;
-        return <td key={columnType}>{bw === 0 ? null : bw.toFixed(1)}</td>;
+        const bwStr = displayWeight(this.props.meet.inKg ? bw : kg2lbs(bw));
+        return <td key={columnType}>{bw === 0 ? null : bwStr}</td>;
       }
       case "WeightClass": {
         const bw = entry.bodyweightKg;
         const classesForSex = this.mapSexToClasses(entry.sex, this.props.meet);
-        const weightClass = getWeightClassStr(classesForSex, bw);
+        const weightClass = this.props.meet.inKg ? getWeightClassStr(classesForSex, bw) : getWeightClassLbsStr(classesForSex, bw);
         return <td key={columnType}>{bw === 0 ? null : weightClass}</td>;
       }
       case "Division": {
@@ -281,7 +288,8 @@ class LiftingTable extends React.Component<Props> {
         return <td key={columnType} className={styles.spacerCell} />;
       case "ProjectedTotal": {
         const totalKg = getProjectedTotalKg(entry);
-        return <td key={columnType}>{totalKg !== 0 ? totalKg : null}</td>;
+        const asNumber = this.props.meet.inKg ? totalKg : kg2lbs(totalKg);
+        return <td key={columnType}>{totalKg === 0 ? null : displayWeight(asNumber)}</td>;
       }
       case "ProjectedPoints": {
         let points = 0;
@@ -303,7 +311,8 @@ class LiftingTable extends React.Component<Props> {
       }
       case "FinalTotal": {
         const totalKg = getFinalTotalKg(entry);
-        return <td key={columnType}>{totalKg !== 0 ? totalKg : null}</td>;
+        const asNumber = this.props.meet.inKg ? totalKg : kg2lbs(totalKg);
+        return <td key={columnType}>{totalKg === 0 ? null : displayWeight(asNumber)}</td>;
       }
       case "FinalPoints": {
         let points = 0;

@@ -26,10 +26,16 @@ import { FormControl, FormGroup } from "react-bootstrap";
 
 import { liftToAttemptFieldName, liftToStatusFieldName } from "../../logic/entry";
 import { enterAttempt } from "../../actions/liftingActions";
+import { kg2lbs, lbs2kg, displayWeight } from "../../logic/units";
 
 import type { Entry, Lift } from "../../types/dataTypes";
+import type { GlobalState } from "../../types/stateTypes";
 
 import styles from "./LiftingTable.module.scss";
+
+interface StateProps {
+  inKg: boolean;
+}
 
 interface OwnProps {
   entry: Entry;
@@ -41,7 +47,7 @@ interface DispatchProps {
   enterAttempt: (entryId: number, lift: Lift, attemptOneIndexed: number, weightKg: number) => any;
 }
 
-type Props = OwnProps & DispatchProps;
+type Props = StateProps & OwnProps & DispatchProps;
 
 interface InternalState {
   initialValue: string;
@@ -52,6 +58,7 @@ class AttemptInput extends React.Component<Props, InternalState> {
   constructor(props) {
     super(props);
 
+    this.getValidationState = this.getValidationState.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
@@ -61,7 +68,7 @@ class AttemptInput extends React.Component<Props, InternalState> {
 
     let weightStr = "";
     if (weightKg !== 0) {
-      weightStr = String(weightKg);
+      weightStr = displayWeight(this.props.inKg ? weightKg : kg2lbs(weightKg));
     }
 
     this.state = {
@@ -70,7 +77,7 @@ class AttemptInput extends React.Component<Props, InternalState> {
     };
   }
 
-  getValidationState() {
+  getValidationState = () => {
     const { value } = this.state;
     if (value === "") return null;
 
@@ -84,6 +91,8 @@ class AttemptInput extends React.Component<Props, InternalState> {
 
     // The bar weight must be monotonically increasing between attempts.
     if (this.props.attemptOneIndexed > 1) {
+      const asKg = this.props.inKg ? asNumber : lbs2kg(asNumber);
+
       const entry = this.props.entry;
       const fieldKg = liftToAttemptFieldName(this.props.lift);
       const fieldStatus = liftToStatusFieldName(this.props.lift);
@@ -93,14 +102,14 @@ class AttemptInput extends React.Component<Props, InternalState> {
       const prevStatus = entry[fieldStatus][prevAttemptOneIndexed - 1];
 
       // The previous weight cannot be greater than the current weight.
-      if (prevKg > asNumber) return "warning";
+      if (prevKg > asKg) return "warning";
 
       // However, they can be equal if the previous attempt was failed.
-      if (prevKg === asNumber && prevStatus !== -1) return "warning";
+      if (prevKg === asKg && prevStatus !== -1) return "warning";
     }
 
     return null;
-  }
+  };
 
   handleKeyDown = event => {
     if (event.key === "Enter") {
@@ -128,7 +137,8 @@ class AttemptInput extends React.Component<Props, InternalState> {
     const entryId = this.props.entry.id;
     const lift = this.props.lift;
     const attemptOneIndexed = this.props.attemptOneIndexed;
-    const weightKg = Number(this.state.value);
+    const asNumber = Number(this.state.value);
+    const weightKg = this.props.inKg ? asNumber : lbs2kg(asNumber);
 
     this.props.enterAttempt(entryId, lift, attemptOneIndexed, weightKg);
   };
@@ -150,14 +160,16 @@ class AttemptInput extends React.Component<Props, InternalState> {
   }
 }
 
-const mapDispatchToProps = (dispatch): DispatchProps => {
-  return {
-    enterAttempt: (entryId, lift, attemptOneIndexed, weightKg) =>
-      dispatch(enterAttempt(entryId, lift, attemptOneIndexed, weightKg))
-  };
-};
+const mapStateToProps = (state: GlobalState): StateProps => ({
+  inKg: state.meet.inKg
+});
+
+const mapDispatchToProps = (dispatch): DispatchProps => ({
+  enterAttempt: (entryId, lift, attemptOneIndexed, weightKg) =>
+    dispatch(enterAttempt(entryId, lift, attemptOneIndexed, weightKg))
+});
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(AttemptInput);

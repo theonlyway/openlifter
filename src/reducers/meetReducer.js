@@ -18,7 +18,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import { localDateToIso8601 } from "../logic/date";
-import { lbs2kg } from "../logic/units";
+import { kg2lbs, lbs2kg, displayWeight } from "../logic/units";
 
 import type { MeetSetupAction, OverwriteStoreAction } from "../types/actionTypes";
 import type { PlatePairCount } from "../types/dataTypes";
@@ -87,10 +87,28 @@ export const getWeightClassStr = (classes: Array<number>, bodyweightKg: number):
 
   for (let i = 0; i < classes.length; i++) {
     if (bodyweightKg <= classes[i]) {
-      return String(classes[i]);
+      return displayWeight(classes[i]);
     }
   }
-  return String(classes[classes.length - 1]) + "+";
+  return displayWeight(classes[classes.length - 1]) + "+";
+};
+
+// Given a sorted list of weight classes (in kg) and a bodyweight (in kg),
+// return a string describing the weight class.
+//
+// This is a separate method because it turns out that many exact translations
+// of kilo values are not what the audience expects for traditionally-reported
+// pounds classes. So a bunch of rounding must occur.
+export const getWeightClassLbsStr = (classes: Array<number>, bodyweightKg: number): string => {
+  if (bodyweightKg === 0) return "";
+  if (classes.length === 0) return "";
+
+  for (let i = 0; i < classes.length; i++) {
+    if (bodyweightKg <= classes[i]) {
+      return displayWeight(kg2lbs(classes[i]));
+    }
+  }
+  return displayWeight(kg2lbs(classes[classes.length - 1])) + "+";
 };
 
 type Action = MeetSetupAction | OverwriteStoreAction;
