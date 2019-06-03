@@ -23,7 +23,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { selectPlatesKg, makeLoadingRelative } from "../../logic/barLoad";
+import { selectPlates, makeLoadingRelative } from "../../logic/barLoad";
 import { liftToAttemptFieldName } from "../../logic/entry";
 import { kg2lbs, displayWeightOnePlace } from "../../logic/units";
 
@@ -90,15 +90,17 @@ class LeftPanel extends React.Component<Props> {
     const weightLbsText = displayWeightOnePlace(current.weightLbs);
 
     // Calculate both loadings.
-    const currentLoading: Array<LoadedPlate> = selectPlatesKg(
+    const currentLoading: Array<LoadedPlate> = selectPlates(
       current.weightKg,
       this.props.barAndCollarsWeightKg,
-      this.props.platePairCounts
+      this.props.platePairCounts,
+      this.props.inKg
     );
-    const nextLoading: Array<LoadedPlate> = selectPlatesKg(
+    const nextLoading: Array<LoadedPlate> = selectPlates(
       next.weightKg,
       this.props.barAndCollarsWeightKg,
-      this.props.platePairCounts
+      this.props.platePairCounts,
+      this.props.inKg
     );
 
     // Set the next loading relative to the current loading.

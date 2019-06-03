@@ -17,7 +17,7 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { selectPlatesKg, makeLoadingRelative } from "./barLoad";
+import { selectPlates, makeLoadingRelative } from "./barLoad";
 
 import type { LoadedPlate, PlatePairCount } from "../types/dataTypes";
 
@@ -43,26 +43,28 @@ const asIsAlreadyLoaded = (plates: Array<LoadedPlate>): Array<boolean> => {
   return plates.map(x => x.isAlreadyLoaded);
 };
 
-// Tests for selectPlatesKg().
-describe("selectPlatesKg", () => {
+const IS_KG = true;
+
+// Tests for selectPlates().
+describe("selectPlates", () => {
   it("returns error as a negative LoadedPlate", () => {
-    const plates = selectPlatesKg(500, 0, []);
+    const plates = selectPlates(500, 0, [], IS_KG);
     expect(plates).toHaveLength(1);
     expect(plates[0].weightAny).toBeLessThan(0);
   });
 
   it("loads the empty bar (plus collars) correctly", () => {
-    const plates = selectPlatesKg(25, 25, typicalPlatesKg);
+    const plates = selectPlates(25, 25, typicalPlatesKg, IS_KG);
     expect(plates).toHaveLength(0);
   });
 
   it("loads 172.5kg correctly", () => {
-    const plates = selectPlatesKg(172.5, 25, typicalPlatesKg);
+    const plates = selectPlates(172.5, 25, typicalPlatesKg, IS_KG);
     expect(asWeights(plates)).toEqual([25, 25, 20, 2.5, 1.25]);
   });
 
   it("loads 205kg correctly", () => {
-    const plates = selectPlatesKg(205, 25, typicalPlatesKg);
+    const plates = selectPlates(205, 25, typicalPlatesKg, IS_KG);
     expect(asWeights(plates)).toEqual([25, 25, 25, 15]);
   });
 });
@@ -70,11 +72,11 @@ describe("selectPlatesKg", () => {
 // Tests for makeLoadingRelative().
 describe("makeLoadingRelative", () => {
   it("marks already-loaded 25s correctly", () => {
-    const current = selectPlatesKg(175, 25, typicalPlatesKg);
+    const current = selectPlates(175, 25, typicalPlatesKg, IS_KG);
     expect(asWeights(current)).toEqual([25, 25, 25]);
     expect(asIsAlreadyLoaded(current)).toEqual([false, false, false]);
 
-    const next = selectPlatesKg(225, 25, typicalPlatesKg);
+    const next = selectPlates(225, 25, typicalPlatesKg, IS_KG);
     expect(asWeights(next)).toEqual([25, 25, 25, 25]);
     expect(asIsAlreadyLoaded(next)).toEqual([false, false, false, false]);
 

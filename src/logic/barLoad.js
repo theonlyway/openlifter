@@ -17,21 +17,42 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import { kg2lbs, displayWeight } from "../logic/units";
+
 import type { PlatePairCount, LoadedPlate } from "../types/dataTypes";
+
+// Convert from kg to lbs with rounding to 2 decimal places.
+// It's OK that this is slow, since it rarely executes.
+const safeKg2Lbs = (kg: number): number => {
+  return Number(displayWeight(kg2lbs(kg)));
+};
 
 // Returns a list of plate weights in loading order.
 // Any unloadable remainder is reported as a final number with a negative value.
-export const selectPlatesKg = (
+export const selectPlates = (
   loadingKg: number,
   barAndCollarsWeightKg: number,
-  plates: $ReadOnlyArray<PlatePairCount>
+  plates: $ReadOnlyArray<PlatePairCount>,
+  inKg: boolean
 ): Array<LoadedPlate> => {
-  // Sort a copy of the plates array by descending weight.
-  const sortedPlates = plates.slice().sort((a, b) => {
+  // Flow doesn't like it when arguments get redefined.
+  let loadingAny = loadingKg;
+  let barAndCollarsWeightAny = barAndCollarsWeightKg;
+  let platesAny = plates;
+
+  // Convert to pounds, avoiding floating point errors.
+  if (inKg === false) {
+    loadingAny = safeKg2Lbs(loadingKg);
+    barAndCollarsWeightAny = safeKg2Lbs(barAndCollarsWeightKg);
+    platesAny = plates.map(x => ({ ...x, weightKg: safeKg2Lbs(x.weightKg) }));
+  }
+
+  // Sort a copy of the platesAny array by descending weight.
+  const sortedPlates = platesAny.slice().sort((a, b) => {
     return b.weightKg - a.weightKg;
   });
 
-  let sideWeightKg = (loadingKg - barAndCollarsWeightKg) / 2;
+  let sideWeightKg = (loadingAny - barAndCollarsWeightAny) / 2;
   let loading: Array<LoadedPlate> = [];
 
   // Run through each plate in order, applying as many of that plate as will fit.
