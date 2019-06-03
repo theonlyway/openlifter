@@ -21,6 +21,7 @@
 
 import { csvString, Csv } from "./csv";
 import { getFinalResults } from "../divisionPlace";
+import { displayWeight } from "../units";
 
 import type { Category, CategoryResults } from "../divisionPlace";
 import type { Entry, Event } from "../../types/dataTypes";
@@ -74,18 +75,18 @@ const addDataRow = (csv: Csv, category: Category, entry: Entry) => {
   row[csv.index("Name")] = csvString(entry.name);
   // TODO: Team.
   row[csv.index("Div")] = csvString(category.division);
-  row[csv.index("Bwt - kg")] = csvString(entry.bodyweightKg);
+  row[csv.index("Bwt - kg")] = csvString(displayWeight(entry.bodyweightKg));
   row[csv.index("IPF Wt Cls")] = csvString(category.weightClassStr);
   row[csv.index("DOB")] = csvString(makeBirthDate(entry));
-  row[csv.index("Squat 1")] = csvString(hasSquat ? entry.squatKg[0] * entry.squatStatus[0] : 0);
-  row[csv.index("Squat 2")] = csvString(hasSquat ? entry.squatKg[1] * entry.squatStatus[1] : 0);
-  row[csv.index("Squat 3")] = csvString(hasSquat ? entry.squatKg[2] * entry.squatStatus[2] : 0);
-  row[csv.index("Bench 1")] = csvString(hasBench ? entry.benchKg[0] * entry.benchStatus[0] : 0);
-  row[csv.index("Bench 2")] = csvString(hasBench ? entry.benchKg[1] * entry.benchStatus[1] : 0);
-  row[csv.index("Bench 3")] = csvString(hasBench ? entry.benchKg[2] * entry.benchStatus[2] : 0);
-  row[csv.index("Deadlift 1")] = csvString(hasDL ? entry.deadliftKg[0] * entry.deadliftStatus[0] : 0);
-  row[csv.index("Deadlift 2")] = csvString(hasDL ? entry.deadliftKg[1] * entry.deadliftStatus[1] : 0);
-  row[csv.index("Deadlift 3")] = csvString(hasDL ? entry.deadliftKg[2] * entry.deadliftStatus[2] : 0);
+  row[csv.index("Squat 1")] = csvString(displayWeight(hasSquat ? entry.squatKg[0] * entry.squatStatus[0] : 0));
+  row[csv.index("Squat 2")] = csvString(displayWeight(hasSquat ? entry.squatKg[1] * entry.squatStatus[1] : 0));
+  row[csv.index("Squat 3")] = csvString(displayWeight(hasSquat ? entry.squatKg[2] * entry.squatStatus[2] : 0));
+  row[csv.index("Bench 1")] = csvString(displayWeight(hasBench ? entry.benchKg[0] * entry.benchStatus[0] : 0));
+  row[csv.index("Bench 2")] = csvString(displayWeight(hasBench ? entry.benchKg[1] * entry.benchStatus[1] : 0));
+  row[csv.index("Bench 3")] = csvString(displayWeight(hasBench ? entry.benchKg[2] * entry.benchStatus[2] : 0));
+  row[csv.index("Deadlift 1")] = csvString(displayWeight(hasDL ? entry.deadliftKg[0] * entry.deadliftStatus[0] : 0));
+  row[csv.index("Deadlift 2")] = csvString(displayWeight(hasDL ? entry.deadliftKg[1] * entry.deadliftStatus[1] : 0));
+  row[csv.index("Deadlift 3")] = csvString(displayWeight(hasDL ? entry.deadliftKg[2] * entry.deadliftStatus[2] : 0));
   row[csv.index("Event")] = csvString(translateEvent(category.event));
   row[csv.index("State")] = csvString(entry.state);
   row[csv.index("MemberID")] = csvString(entry.memberId);
