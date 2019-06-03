@@ -24,7 +24,7 @@ import { connect } from "react-redux";
 import { Panel, Table } from "react-bootstrap";
 
 import { getAllRankings } from "../../logic/pointsPlace";
-import { getWeightClassStr } from "../../reducers/meetReducer";
+import { getWeightClassStr, getWeightClassLbsStr } from "../../reducers/meetReducer";
 import {
   getBest5SquatKg,
   getBest5BenchKg,
@@ -32,6 +32,7 @@ import {
   getFinalEventTotalKg,
   entryHasLifted
 } from "../../logic/entry";
+import { kg2lbs, displayWeight } from "../../logic/units";
 
 import { bodyweight_multiple } from "../../logic/coefficients/bodyweight-multiple";
 import { glossbrenner } from "../../logic/coefficients/glossbrenner";
@@ -45,6 +46,7 @@ import type { Entry, Formula, Sex } from "../../types/dataTypes";
 import type { GlobalState } from "../../types/stateTypes";
 
 interface StateProps {
+  inKg: boolean;
   meetName: string;
   formula: Formula;
   combineSleevesAndWraps: boolean;
@@ -118,19 +120,30 @@ class ByPoints extends React.Component<Props> {
     if (totalKg !== 0 && points === 0) pointsStr = "N/A";
     if (totalKg !== 0 && points !== 0) pointsStr = points;
 
+    const inKg = this.props.inKg;
+
+    let wtcls = inKg
+      ? getWeightClassStr(classes, entry.bodyweightKg)
+      : getWeightClassLbsStr(classes, entry.bodyweightKg);
+    let bw = inKg ? entry.bodyweightKg : kg2lbs(entry.bodyweightKg);
+    let squat = inKg ? squatKg : kg2lbs(squatKg);
+    let bench = inKg ? benchKg : kg2lbs(benchKg);
+    let deadlift = inKg ? deadliftKg : kg2lbs(deadliftKg);
+    let total = inKg ? totalKg : kg2lbs(totalKg);
+
     return (
       <tr key={key}>
         <td>{rank}</td>
         <td>{entry.name}</td>
         <td>{entry.sex}</td>
         <td>{entry.equipment}</td>
-        <td>{entry.bodyweightKg === 0 ? null : getWeightClassStr(classes, entry.bodyweightKg)}</td>
-        <td>{entry.bodyweightKg === 0 ? null : entry.bodyweightKg}</td>
+        <td>{entry.bodyweightKg === 0 ? null : wtcls}</td>
+        <td>{entry.bodyweightKg === 0 ? null : displayWeight(bw)}</td>
         <td>{entry.age === 0 ? null : entry.age}</td>
-        <td>{squatKg === 0 ? "" : squatKg}</td>
-        <td>{benchKg === 0 ? "" : benchKg}</td>
-        <td>{deadliftKg === 0 ? "" : deadliftKg}</td>
-        <td>{totalKg === 0 ? "" : totalKg}</td>
+        <td>{squatKg === 0 ? "" : displayWeight(squat)}</td>
+        <td>{benchKg === 0 ? "" : displayWeight(bench)}</td>
+        <td>{deadliftKg === 0 ? "" : displayWeight(deadlift)}</td>
+        <td>{totalKg === 0 ? "" : displayWeight(total)}</td>
         <td>{pointsStr}</td>
       </tr>
     );
@@ -226,6 +239,7 @@ const mapStateToProps = (state: GlobalState, ownProps: OwnProps): StateProps => 
   }
 
   return {
+    inKg: state.meet.inKg,
     meetName: state.meet.name,
     formula: state.meet.formula,
     combineSleevesAndWraps: state.meet.combineSleevesAndWraps,

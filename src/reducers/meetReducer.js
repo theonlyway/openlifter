@@ -93,6 +93,26 @@ export const getWeightClassStr = (classes: Array<number>, bodyweightKg: number):
   return displayWeight(classes[classes.length - 1]) + "+";
 };
 
+// Converts a kg weightclass to pounds.
+//
+// For example, the 90kg class is technically 198.41lbs,
+// but this will return "198".
+export const wtclsStrKg2Lbs = (kgcls: string): string => {
+  const shw: boolean = kgcls.endsWith("+");
+  const asNumber = Number(kgcls.replace("+", ""));
+
+  // Convert to pounds and round down.
+  let truncated = Math.floor(kg2lbs(asNumber));
+
+  // This works for everything but the 183 class, which
+  // rounds down to 182.
+  if (truncated === 182) {
+    truncated = 183;
+  }
+
+  return shw ? String(truncated) + "+" : String(truncated);
+};
+
 // Given a sorted list of weight classes (in kg) and a bodyweight (in kg),
 // return a string describing the weight class.
 //
@@ -105,10 +125,10 @@ export const getWeightClassLbsStr = (classes: Array<number>, bodyweightKg: numbe
 
   for (let i = 0; i < classes.length; i++) {
     if (bodyweightKg <= classes[i]) {
-      return displayWeight(kg2lbs(classes[i]));
+      return wtclsStrKg2Lbs(String(classes[i]));
     }
   }
-  return displayWeight(kg2lbs(classes[classes.length - 1])) + "+";
+  return wtclsStrKg2Lbs(String(classes[classes.length - 1])) + "+";
 };
 
 type Action = MeetSetupAction | OverwriteStoreAction;
