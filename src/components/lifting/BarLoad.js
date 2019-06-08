@@ -33,6 +33,7 @@ import styles from "./BarLoad.module.scss";
 interface OwnProps {
   loading: Array<LoadedPlate>;
   rackInfo: string;
+  inKg: boolean;
 }
 
 interface StateProps {
@@ -73,8 +74,33 @@ class BarLoad extends React.Component<Props> {
     }
   };
 
-  weightKgToText = (weightKg: number): string => {
-    switch (weightKg) {
+  weightLbsToStyle = (weightLbs: number): any => {
+    switch (weightLbs) {
+      case 100:
+        return styles.lbs100;
+      case 45:
+        return styles.lbs45;
+      case 35:
+        return styles.lbs35;
+      case 25:
+        return styles.lbs25;
+      case 10:
+        return styles.lbs10;
+      case 5:
+        return styles.lbs5;
+      case 2.5:
+        return styles.lbs2p5;
+      case 1.25:
+        return styles.lbs1p25;
+      case 0.5:
+        return styles.lbs0p5;
+      default:
+        return styles.error;
+    }
+  };
+
+  weightAnyToText = (weightAny: number): string => {
+    switch (weightAny) {
       case 1.25:
         return "1¼";
       case 0.75:
@@ -84,26 +110,27 @@ class BarLoad extends React.Component<Props> {
       case 0.25:
         return "¼";
       default:
-        return String(weightKg);
+        return String(weightAny);
     }
   };
 
-  // Turns the selectPlatesKg() array into divs.
-  renderKgPlates = () => {
+  // Turns the selectPlates() array into divs.
+  renderPlates = () => {
     const plates: Array<LoadedPlate> = this.props.loading;
+    const inKg: boolean = this.props.inKg;
 
     let divs = [];
     let i = 0;
 
     // Iterate on a group of plates of the same weight at a time.
     while (i < plates.length) {
-      const weightKg = plates[i].weightAny;
+      const weightAny = plates[i].weightAny;
 
       // If the weight is negative, it's an error report.
-      if (weightKg < 0) {
+      if (weightAny < 0) {
         divs.push(
           <div key={"error"} className={styles.error}>
-            ?{displayWeight(-1 * weightKg)}
+            ?{displayWeight(-1 * weightAny)}
           </div>
         );
         break;
@@ -111,7 +138,7 @@ class BarLoad extends React.Component<Props> {
 
       // Count how many times this same plate kind appears consecutively.
       let plateCount = 1;
-      for (let j = i + 1; j < plates.length && plates[j].weightAny === weightKg; j++) {
+      for (let j = i + 1; j < plates.length && plates[j].weightAny === weightAny; j++) {
         plateCount++;
       }
 
@@ -124,11 +151,11 @@ class BarLoad extends React.Component<Props> {
         const counter = String(j + 1);
         divs.push(
           <div
-            key={weightKg + "-" + counter}
-            className={this.weightKgToStyle(weightKg)}
+            key={weightAny + "-" + counter}
+            className={inKg ? this.weightKgToStyle(weightAny) : this.weightLbsToStyle(weightAny)}
             style={plate.isAlreadyLoaded ? { opacity: 0.25 } : {}}
           >
-            <div>{this.weightKgToText(weightKg)}</div>
+            <div>{this.weightAnyToText(weightAny)}</div>
             {showCounter ? <div>{counter}</div> : null}
           </div>
         );
@@ -154,7 +181,7 @@ class BarLoad extends React.Component<Props> {
     return (
       <div className={styles.container}>
         <div className={styles.bar} />
-        {this.renderKgPlates()}
+        {this.renderPlates()}
         <div className={styles.collar} />
         <div className={styles.bar} />
         {rackInfo}
