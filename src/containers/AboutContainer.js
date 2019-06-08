@@ -66,7 +66,7 @@ class AboutContainer extends React.Component<{}> {
             <Panel>
               <Panel.Heading>License</Panel.Heading>
               <Panel.Body>
-                <p>OpenLifter is Copyright (C) 2019 The OpenPowerlifting Project.</p>
+                <p>OpenLifter is Copyright (C) 2018-2019 The OpenPowerlifting Project.</p>
                 <p>OpenLifter is Free Software. Free Software grants you the following freedoms:</p>
                 <ol>
                   <li>The freedom to run the program as you wish, for any purpose.</li>
