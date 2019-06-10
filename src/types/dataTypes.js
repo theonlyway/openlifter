@@ -24,6 +24,7 @@ export type Event = "S" | "B" | "D" | "SB" | "SD" | "BD" | "SBD";
 export type Flight = "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K";
 export type Formula =
   | "Bodyweight Multiple"
+  | "Dots"
   | "Glossbrenner"
   | "IPF Points"
   | "NASA Points"

@@ -20,6 +20,7 @@
 // Defines logic for creating and working with Entry objects.
 
 import { bodyweight_multiple } from "./coefficients/bodyweight-multiple";
+import { dots } from "./coefficients/dots";
 import { glossbrenner } from "./coefficients/glossbrenner";
 import { ipfpoints } from "./coefficients/ipf";
 import { nasapoints } from "./coefficients/nasa";
@@ -263,6 +264,15 @@ export const getProjectedBodyweightMultiple = (entry: Entry): number => {
 export const getFinalBodyweightMultiple = (entry: Entry): number => {
   const totalKg = getFinalTotalKg(entry);
   return bodyweight_multiple(entry.bodyweightKg, totalKg);
+};
+
+export const getProjectedDots = (entry: Entry): number => {
+  const totalKg = getProjectedTotalKg(entry);
+  return dots(entry.sex, entry.bodyweightKg, totalKg);
+};
+export const getFinalDots = (entry: Entry): number => {
+  const totalKg = getFinalTotalKg(entry);
+  return dots(entry.sex, entry.bodyweightKg, totalKg);
 };
 
 export const getProjectedGlossbrenner = (entry: Entry): number => {

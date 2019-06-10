@@ -35,6 +35,7 @@ import {
 import { kg2lbs, displayWeight } from "../../logic/units";
 
 import { bodyweight_multiple } from "../../logic/coefficients/bodyweight-multiple";
+import { dots } from "../../logic/coefficients/dots";
 import { glossbrenner } from "../../logic/coefficients/glossbrenner";
 import { ipfpoints } from "../../logic/coefficients/ipf";
 import { nasapoints } from "../../logic/coefficients/nasa";
@@ -96,6 +97,9 @@ class ByDivision extends React.Component<Props> {
     switch (this.props.formula) {
       case "Bodyweight Multiple":
         points = bodyweight_multiple(entry.bodyweightKg, totalKg).toFixed(2);
+        break;
+      case "Dots":
+        points = dots(entry.sex, entry.bodyweightKg, totalKg).toFixed(2);
         break;
       case "Glossbrenner":
         points = glossbrenner(entry.sex, entry.bodyweightKg, totalKg).toFixed(2);

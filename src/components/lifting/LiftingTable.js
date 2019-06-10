@@ -34,6 +34,8 @@ import {
   getFinalIPFPoints,
   getProjectedBodyweightMultiple,
   getFinalBodyweightMultiple,
+  getProjectedDots,
+  getFinalDots,
   getProjectedGlossbrenner,
   getFinalGlossbrenner,
   getProjectedNASAPoints,
@@ -297,6 +299,8 @@ class LiftingTable extends React.Component<Props> {
         let points = 0;
         if (this.props.meet.formula === "Glossbrenner") {
           points = getProjectedGlossbrenner(entry);
+        } else if (this.props.meet.formula === "Dots") {
+          points = getProjectedDots(entry);
         } else if (this.props.meet.formula === "IPF Points") {
           const event = entry.events.length > 0 ? entry.events[0] : "SBD";
           points = getProjectedIPFPoints(entry, event);
@@ -320,6 +324,8 @@ class LiftingTable extends React.Component<Props> {
         let points = 0;
         if (this.props.meet.formula === "Glossbrenner") {
           points = getFinalGlossbrenner(entry);
+        } else if (this.props.meet.formula === "Dots") {
+          points = getFinalDots(entry);
         } else if (this.props.meet.formula === "IPF Points") {
           const event = entry.events.length > 0 ? entry.events[0] : "SBD";
           points = getFinalIPFPoints(entry, event);

@@ -27,6 +27,7 @@ import { setFormula } from "../../actions/meetSetupActions";
 
 const options = [
   { value: "Bodyweight Multiple", label: "Bodyweight Multiple" },
+  { value: "Dots", label: "Dots" },
   { value: "Glossbrenner", label: "Glossbrenner" },
   { value: "IPF Points", label: "IPF Points" },
   { value: "NASA Points", label: "NASA Points" },

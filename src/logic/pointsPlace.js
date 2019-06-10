@@ -27,6 +27,7 @@
 import { getFinalEventTotalKg } from "./entry";
 
 import { bodyweight_multiple } from "./coefficients/bodyweight-multiple";
+import { dots } from "./coefficients/dots";
 import { glossbrenner } from "./coefficients/glossbrenner";
 import { ipfpoints } from "./coefficients/ipf";
 import { nasapoints } from "./coefficients/nasa";
@@ -94,6 +95,9 @@ const sortByFormulaPlaceInCategory = (
         break;
       case "NASA Points":
         memoizedPoints[i] = nasapoints(entry.bodyweightKg, totalKg);
+        break;
+      case "Dots":
+        memoizedPoints[i] = dots(category.sex, entry.bodyweightKg, totalKg);
         break;
       default:
         (formula: empty) // eslint-disable-line
