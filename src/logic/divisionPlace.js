@@ -139,7 +139,11 @@ export const sortCategoryResults = (results: Array<CategoryResults>) => {
     const bEquipment = getEquipmentSortOrder(catB.equipment);
     if (aEquipment !== bEquipment) return aEquipment - bEquipment;
 
-    // Next, sort by WeightClass.
+    // Next, sort by Division as string.
+    if (catA.division < catB.division) return -1;
+    if (catA.division > catB.division) return 1;
+
+    // Finally, sort by WeightClass.
     // Any SHW class should be placed at the end.
     const aIsSHW: boolean = catA.weightClassStr.includes("+");
     const bIsSHW: boolean = catB.weightClassStr.includes("+");
@@ -148,12 +152,7 @@ export const sortCategoryResults = (results: Array<CategoryResults>) => {
     // parseInt() ignores the "+" at the end of SHW class strings.
     const aWeightClass = catA.weightClassStr === "" ? 0 : parseInt(catA.weightClassStr);
     const bWeightClass = catB.weightClassStr === "" ? 0 : parseInt(catB.weightClassStr);
-    if (aWeightClass !== bWeightClass) return aWeightClass - bWeightClass;
-
-    // Finally, sort by Division as string.
-    if (catA.division < catB.division) return -1;
-    if (catA.division > catB.division) return 1;
-    return 0; // Shouldn't happen!
+    return aWeightClass - bWeightClass;
   });
 };
 
