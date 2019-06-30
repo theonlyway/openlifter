@@ -66,6 +66,7 @@ class LifterRow extends React.Component {
     this.updateRegistrationDivisions = this.updateRegistrationDivisions.bind(this);
     this.updateRegistrationEvents = this.updateRegistrationEvents.bind(this);
     this.updateRegistrationEquipment = this.updateRegistrationEquipment.bind(this);
+    this.updateRegistrationTeam = this.updateRegistrationTeam.bind(this);
     this.updateRegistrationNotes = this.updateRegistrationNotes.bind(this);
   }
 
@@ -180,6 +181,10 @@ class LifterRow extends React.Component {
       this.props.updateRegistration(this.props.id, { equipment: equipment });
     }
   }
+
+  updateRegistrationTeam = event => {
+    this.props.updateRegistration(this.props.id, { team: event.target.value });
+  };
 
   updateRegistrationNotes = event => {
     this.props.updateRegistration(this.props.id, { notes: event.target.value });
@@ -414,6 +419,21 @@ class LifterRow extends React.Component {
 
             {/* Notes */}
             <Col md={4}>
+              <FormGroup>
+                <ControlLabel>Team</ControlLabel>
+                <FormControl
+                  type="text"
+                  placeholder=""
+                  defaultValue={entry.team}
+                  onBlur={this.updateRegistrationTeam}
+                />
+              </FormGroup>
+            </Col>
+          </Grid>
+
+          <Grid style={gridStyle}>
+            {/* Notes */}
+            <Col md={12}>
               <FormGroup>
                 <ControlLabel>Notes (for your personal use)</ControlLabel>
                 <FormControl

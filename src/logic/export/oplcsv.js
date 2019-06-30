@@ -85,7 +85,7 @@ const makeEntriesCsv = (state: GlobalState): Csv => {
     squatFieldnames,
     benchFieldnames,
     deadliftFieldnames,
-    ["TotalKg", "Event"]
+    ["TotalKg", "Event", "Team"]
   );
 
   const results: Array<CategoryResults> = getFinalResults(
@@ -149,6 +149,7 @@ const addEntriesRow = (csv: Csv, category: Category, entry: Entry, index: number
   row[csv.index("WeightClassKg")] = csvString(category.weightClassStr);
   row[csv.index("TotalKg")] = csvString(displayWeight(finalEventTotalKg));
   row[csv.index("Event")] = csvString(category.event);
+  row[csv.index("Team")] = csvString(entry.team);
 
   // Squat.
   if (category.event.includes("S")) {

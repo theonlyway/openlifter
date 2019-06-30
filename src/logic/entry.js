@@ -58,6 +58,7 @@ export const newDefaultEntry = (id: number): Entry => {
     lot: 0, // The lifter's lot number, for breaking ties in lifting order.
     memberId: "", // Optional federation MemberID, for reporting in results.
     paid: false, // Used by the meet director for tracking whether the lifter paid.
+    team: "", // Optional. Only used in the final results export.
     notes: "", // Free-form text for the meet director to use as a scratchpad.
 
     // Information added on the "Weigh-ins" page.
