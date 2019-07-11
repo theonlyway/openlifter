@@ -1,4 +1,4 @@
-.PHONY: build-deps dev-electron dev-web package test check less gitlab-pages
+.PHONY: build-deps dev-electron dev-web package test check less gitlab-pages clean reallyclean
 
 all: dev-web
 
@@ -48,3 +48,10 @@ check:
 	yarn run flow check
 	yarn run lint
 	CI="yes" yarn run test
+
+clean:
+	rm -rf build
+	$(MAKE) -C website clean
+
+reallyclean: clean
+	rm -rf node_modules
