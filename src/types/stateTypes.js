@@ -22,7 +22,7 @@
 // Because the Redux store is immutable, all types are internally prefixed
 // with the "+" covariant type, which makes them immutable.
 
-import type { Entry, Formula, Lift, PlatePairCount } from "./dataTypes";
+import type { Entry, Formula, Lift, Plate } from "./dataTypes";
 
 export type VersionsState = {
   +stateVersion: string,
@@ -54,7 +54,7 @@ export type MeetState = {
   // Weights and Loading Setup.
   +inKg: boolean,
   +barAndCollarsWeightKg: number,
-  +platePairCounts: Array<PlatePairCount>
+  +plates: Array<Plate>
 };
 
 export type RegistrationState = {

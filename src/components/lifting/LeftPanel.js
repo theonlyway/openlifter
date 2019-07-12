@@ -31,7 +31,7 @@ import BarLoad from "./BarLoad";
 
 import styles from "./LeftPanel.module.scss";
 
-import type { Entry, LoadedPlate, PlatePairCount } from "../../types/dataTypes";
+import type { Entry, LoadedPlate, Plate } from "../../types/dataTypes";
 import type { GlobalState, LiftingState, RegistrationState } from "../../types/stateTypes";
 
 interface OwnProps {
@@ -45,7 +45,7 @@ interface OwnProps {
 interface StateProps {
   inKg: boolean;
   barAndCollarsWeightKg: number;
-  platePairCounts: Array<PlatePairCount>;
+  plates: Array<Plate>;
   registration: RegistrationState;
   lifting: LiftingState;
 }
@@ -93,13 +93,13 @@ class LeftPanel extends React.Component<Props> {
     const currentLoading: Array<LoadedPlate> = selectPlates(
       current.weightKg,
       this.props.barAndCollarsWeightKg,
-      this.props.platePairCounts,
+      this.props.plates,
       this.props.inKg
     );
     const nextLoading: Array<LoadedPlate> = selectPlates(
       next.weightKg,
       this.props.barAndCollarsWeightKg,
-      this.props.platePairCounts,
+      this.props.plates,
       this.props.inKg
     );
 
@@ -151,7 +151,7 @@ const mapStateToProps = (state: GlobalState): StateProps => {
   return {
     inKg: state.meet.inKg,
     barAndCollarsWeightKg: state.meet.barAndCollarsWeightKg,
-    platePairCounts: state.meet.platePairCounts,
+    plates: state.meet.plates,
     registration: state.registration,
     lifting: state.lifting
   };

@@ -28,7 +28,7 @@ import type {
   SetInKgAction,
   SetWeightClassesAction,
   SetBarAndCollarsWeightKgAction,
-  SetPlatePairCountAction,
+  SetPlateConfigAction,
   UpdateMeetAction
 } from "../types/actionTypes";
 import type { Formula, Sex } from "../types/dataTypes";
@@ -106,11 +106,12 @@ export const setBarAndCollarsWeightKg = (weightKg: number): SetBarAndCollarsWeig
   };
 };
 
-export const setPlatePairCount = (weightKg: number, pairCount: number): SetPlatePairCountAction => {
+export const setPlateConfig = (weightKg: number, pairCount: number, color: string): SetPlateConfigAction => {
   return {
-    type: "SET_PLATE_PAIR_COUNT",
+    type: "SET_PLATE_CONFIG",
     weightKg,
-    pairCount
+    pairCount,
+    color
   };
 };
 

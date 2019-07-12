@@ -24,6 +24,7 @@ import React from "react";
 import { connect } from "react-redux";
 
 import { displayWeight } from "../../logic/units";
+import { PlateColors } from "../../constants/plateColors";
 
 import type { Lift, LoadedPlate } from "../../types/dataTypes";
 import type { GlobalState } from "../../types/stateTypes";
@@ -149,11 +150,23 @@ class BarLoad extends React.Component<Props> {
       for (let j = 0; j < plateCount; j++) {
         const plate = plates[i + j];
         const counter = String(j + 1);
+
+        // Light backgrounds need dark text.
+        const is_light =
+          plate.color === PlateColors.PLATE_DEFAULT_WHITE || plate.color === PlateColors.PLATE_DEFAULT_YELLOW;
+
+        const style = {
+          backgroundColor: plate.color,
+          opacity: plate.isAlreadyLoaded ? 0.25 : undefined,
+          color: is_light ? "#232323" : "#FFFFFF",
+          // White plates need a border.
+          border: plate.color === PlateColors.PLATE_DEFAULT_WHITE ? "1.5px solid #232323" : undefined
+        };
         divs.push(
           <div
             key={weightAny + "-" + counter}
             className={inKg ? this.weightKgToStyle(weightAny) : this.weightLbsToStyle(weightAny)}
-            style={plate.isAlreadyLoaded ? { opacity: 0.25 } : {}}
+            style={style}
           >
             <div>{this.weightAnyToText(weightAny)}</div>
             {showCounter ? <div>{counter}</div> : null}

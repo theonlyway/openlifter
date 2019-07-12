@@ -96,10 +96,11 @@ export interface SetBarAndCollarsWeightKgAction {
   weightKg: number;
 }
 
-export interface SetPlatePairCountAction {
-  type: "SET_PLATE_PAIR_COUNT";
+export interface SetPlateConfigAction {
+  type: "SET_PLATE_CONFIG";
   weightKg: number;
   pairCount: number;
+  color: string;
 }
 
 export interface UpdateMeetAction {
@@ -118,7 +119,7 @@ export type MeetSetupAction =
   | SetInKgAction
   | SetWeightClassesAction
   | SetBarAndCollarsWeightKgAction
-  | SetPlatePairCountAction
+  | SetPlateConfigAction
   | UpdateMeetAction;
 
 //////////////////////////////////////////////////////////

@@ -25,20 +25,22 @@ import { connect } from "react-redux";
 
 import { FormControl, FormGroup, Table } from "react-bootstrap";
 
-import { setPlatePairCount } from "../../actions/meetSetupActions";
+import ColorPicker from "./ColorPicker";
+
+import { setPlateConfig } from "../../actions/meetSetupActions";
 
 import { kg2lbs } from "../../logic/units";
 
-import type { PlatePairCount } from "../../types/dataTypes";
+import type { Plate } from "../../types/dataTypes";
 import type { GlobalState } from "../../types/stateTypes";
 
 interface StateProps {
   inKg: boolean;
-  platePairCounts: Array<PlatePairCount>;
+  plates: Array<Plate>;
 }
 
 interface DispatchProps {
-  setPlatePairCount: (number, number) => any;
+  setPlateConfig: (number, number, string) => any;
 }
 
 type Props = StateProps & DispatchProps;
@@ -48,7 +50,7 @@ class Plates extends React.Component<Props> {
     super(props, context);
 
     this.validateAmountInput = this.validateAmountInput.bind(this);
-    this.updateAmountHandler = this.updateAmountHandler.bind(this);
+    this.updateHandler = this.updateHandler.bind(this);
   }
 
   validateAmountInput = id => {
@@ -69,18 +71,17 @@ class Plates extends React.Component<Props> {
     return null;
   };
 
-  updateAmountHandler = (weightKg, id) => {
+  updateHandler = (weightKg, id, amount, color) => {
     if (this.validateAmountInput(id) === "error") {
       // Although no state is set, this is used to trigger the FormGroup
       // to re-query the validationState on change.
       return this.setState({});
     }
 
-    const widget: any = document.getElementById(id);
-    this.props.setPlatePairCount(weightKg, Number(widget.value));
+    this.props.setPlateConfig(weightKg, Number(amount), color);
   };
 
-  renderWeightRow = (weightKg, amount) => {
+  renderWeightRow = (weightKg, amount, color) => {
     // The input event value isn't passed by the event, so we assign a unique ID
     // and then just search the whole document for it.
     const id = "weight" + String(weightKg);
@@ -89,18 +90,21 @@ class Plates extends React.Component<Props> {
     const weight = this.props.inKg ? weightKg : kg2lbs(weightKg);
 
     return (
-      <tr key={weightKg}>
+      <tr key={String(weightKg) + "_" + color}>
         <td>{weight}</td>
         <td>
           <FormGroup validationState={this.validateAmountInput(id)} style={{ marginBottom: 0 }}>
             <FormControl
               id={id}
-              onChange={e => this.updateAmountHandler(weightKg, id)}
+              onChange={e => this.updateHandler(weightKg, id, e.target.value, color)}
               type="number"
               defaultValue={amount}
               min={0}
             />
           </FormGroup>
+        </td>
+        <td>
+          <ColorPicker color={color} onChange={color => this.updateHandler(weightKg, id, amount, color)} />
         </td>
       </tr>
     );
@@ -108,9 +112,9 @@ class Plates extends React.Component<Props> {
 
   render() {
     let plateRows = [];
-    for (let i = 0; i < this.props.platePairCounts.length; i++) {
-      const obj: PlatePairCount = this.props.platePairCounts[i];
-      plateRows.push(this.renderWeightRow(obj.weightKg, obj.pairCount));
+    for (let i = 0; i < this.props.plates.length; i++) {
+      const obj: Plate = this.props.plates[i];
+      plateRows.push(this.renderWeightRow(obj.weightKg, obj.pairCount, obj.color));
     }
 
     const units = this.props.inKg ? "kg" : "lbs";
@@ -122,6 +126,7 @@ class Plates extends React.Component<Props> {
             <tr>
               <th>Weight ({units})</th>
               <th>Pairs of Plates</th>
+              <th>Color</th>
             </tr>
           </thead>
           <tbody>{plateRows}</tbody>
@@ -133,12 +138,12 @@ class Plates extends React.Component<Props> {
 
 const mapStateToProps = (state: GlobalState): StateProps => ({
   inKg: state.meet.inKg,
-  platePairCounts: state.meet.platePairCounts
+  plates: state.meet.plates
 });
 
 const mapDispatchToProps = (dispatch): DispatchProps => {
   return {
-    setPlatePairCount: (weightKg, amount) => dispatch(setPlatePairCount(weightKg, amount))
+    setPlateConfig: (weightKg, amount, color) => dispatch(setPlateConfig(weightKg, amount, color))
   };
 };
 

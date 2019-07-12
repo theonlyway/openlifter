@@ -19,7 +19,9 @@
 
 import { kg2lbs, displayWeight } from "../logic/units";
 
-import type { PlatePairCount, LoadedPlate } from "../types/dataTypes";
+import { PlateColors } from "../constants/plateColors";
+
+import type { Plate, LoadedPlate } from "../types/dataTypes";
 
 // Convert from kg to lbs with rounding to 2 decimal places.
 // It's OK that this is slow, since it rarely executes.
@@ -32,7 +34,7 @@ const safeKg2Lbs = (kg: number): number => {
 export const selectPlates = (
   loadingKg: number,
   barAndCollarsWeightKg: number,
-  plates: $ReadOnlyArray<PlatePairCount>,
+  plates: $ReadOnlyArray<Plate>,
   inKg: boolean
 ): Array<LoadedPlate> => {
   // Flow doesn't like it when arguments get redefined.
@@ -57,17 +59,17 @@ export const selectPlates = (
 
   // Run through each plate in order, applying as many of that plate as will fit.
   for (let i = 0; i < sortedPlates.length; i++) {
-    let { weightKg, pairCount } = sortedPlates[i];
+    let { weightKg, pairCount, color } = sortedPlates[i];
     while (pairCount > 0 && weightKg <= sideWeightKg) {
       pairCount--;
       sideWeightKg -= weightKg;
-      loading.push({ weightAny: weightKg, isAlreadyLoaded: false });
+      loading.push({ weightAny: weightKg, isAlreadyLoaded: false, color: color });
     }
   }
 
   // Report any remainder as a negative number.
   if (sideWeightKg > 0) {
-    loading.push({ weightAny: -sideWeightKg, isAlreadyLoaded: false });
+    loading.push({ weightAny: -sideWeightKg, isAlreadyLoaded: false, color: PlateColors.PLATE_DEFAULT_RED });
   }
   return loading;
 };

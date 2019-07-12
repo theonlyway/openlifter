@@ -19,9 +19,10 @@
 
 import { localDateToIso8601 } from "../logic/date";
 import { kg2lbs, lbs2kg, displayWeight } from "../logic/units";
+import { PlateColors } from "../constants/plateColors";
 
 import type { MeetSetupAction, OverwriteStoreAction } from "../types/actionTypes";
-import type { PlatePairCount } from "../types/dataTypes";
+import type { Plate } from "../types/dataTypes";
 import type { MeetState } from "../types/stateTypes";
 
 const defaultPlatformsOnDay = 1;
@@ -30,32 +31,32 @@ const defaultBarAndCollarsWeightKg = 25; // Assuming metal 2.5kg collars.
 const defaultBarAndCollarsWeightLbs = 45; // Assuming plastic collars.
 
 // Default kg plates, allowing for increments of 0.5kg.
-const defaultPlatePairCountsKg: Array<PlatePairCount> = [
-  { weightKg: 50, pairCount: 0 },
-  { weightKg: 25, pairCount: 8 },
-  { weightKg: 20, pairCount: 1 },
-  { weightKg: 15, pairCount: 1 },
-  { weightKg: 10, pairCount: 1 },
-  { weightKg: 5, pairCount: 1 },
-  { weightKg: 2.5, pairCount: 1 },
-  { weightKg: 1.25, pairCount: 1 },
-  { weightKg: 1, pairCount: 1 },
-  { weightKg: 0.75, pairCount: 1 },
-  { weightKg: 0.5, pairCount: 1 },
-  { weightKg: 0.25, pairCount: 1 }
+const defaultPlatesKg: Array<Plate> = [
+  { weightKg: 50, pairCount: 0, color: PlateColors.PLATE_DEFAULT_GREEN },
+  { weightKg: 25, pairCount: 8, color: PlateColors.PLATE_DEFAULT_RED },
+  { weightKg: 20, pairCount: 1, color: PlateColors.PLATE_DEFAULT_BLUE },
+  { weightKg: 15, pairCount: 1, color: PlateColors.PLATE_DEFAULT_YELLOW },
+  { weightKg: 10, pairCount: 1, color: PlateColors.PLATE_DEFAULT_GREEN },
+  { weightKg: 5, pairCount: 1, color: PlateColors.PLATE_DEFAULT_BLACK },
+  { weightKg: 2.5, pairCount: 1, color: PlateColors.PLATE_DEFAULT_BLACK },
+  { weightKg: 1.25, pairCount: 1, color: PlateColors.PLATE_DEFAULT_BLACK },
+  { weightKg: 1, pairCount: 1, color: PlateColors.PLATE_DEFAULT_BLUE },
+  { weightKg: 0.75, pairCount: 1, color: PlateColors.PLATE_DEFAULT_RED },
+  { weightKg: 0.5, pairCount: 1, color: PlateColors.PLATE_DEFAULT_GREEN },
+  { weightKg: 0.25, pairCount: 1, color: PlateColors.PLATE_DEFAULT_BLUE }
 ];
 
 // Default lbs plates, allowing for increments of 1lb.
-const defaultPlatePairCountsLbs: Array<PlatePairCount> = [
-  { weightKg: lbs2kg(100), pairCount: 0 },
-  { weightKg: lbs2kg(45), pairCount: 8 },
-  { weightKg: lbs2kg(35), pairCount: 0 },
-  { weightKg: lbs2kg(25), pairCount: 1 },
-  { weightKg: lbs2kg(10), pairCount: 2 },
-  { weightKg: lbs2kg(5), pairCount: 1 },
-  { weightKg: lbs2kg(2.5), pairCount: 1 },
-  { weightKg: lbs2kg(1.25), pairCount: 1 },
-  { weightKg: lbs2kg(0.5), pairCount: 2 }
+const defaultPlatesLbs: Array<Plate> = [
+  { weightKg: lbs2kg(100), pairCount: 0, color: PlateColors.PLATE_DEFAULT_GREEN },
+  { weightKg: lbs2kg(45), pairCount: 8, color: PlateColors.PLATE_DEFAULT_GRAY },
+  { weightKg: lbs2kg(35), pairCount: 0, color: PlateColors.PLATE_DEFAULT_GRAY },
+  { weightKg: lbs2kg(25), pairCount: 1, color: PlateColors.PLATE_DEFAULT_GRAY },
+  { weightKg: lbs2kg(10), pairCount: 2, color: PlateColors.PLATE_DEFAULT_GRAY },
+  { weightKg: lbs2kg(5), pairCount: 1, color: PlateColors.PLATE_DEFAULT_GRAY },
+  { weightKg: lbs2kg(2.5), pairCount: 1, color: PlateColors.PLATE_DEFAULT_GRAY },
+  { weightKg: lbs2kg(1.25), pairCount: 1, color: PlateColors.PLATE_DEFAULT_GRAY },
+  { weightKg: lbs2kg(0.5), pairCount: 2, color: PlateColors.PLATE_DEFAULT_GRAY }
 ];
 
 const initialState: MeetState = {
@@ -76,7 +77,7 @@ const initialState: MeetState = {
   state: "",
   city: "",
   barAndCollarsWeightKg: defaultBarAndCollarsWeightKg,
-  platePairCounts: defaultPlatePairCountsKg
+  plates: defaultPlatesKg
 };
 
 // Given a sorted list of weight classes (in kg) and a bodyweight (in kg),
@@ -177,9 +178,9 @@ export default (state: MeetState = initialState, action: Action): MeetState => {
 
     case "SET_IN_KG": {
       // Changing the units also changes the loading, so re-initialize from defaults.
-      const defaultPlates = action.inKg ? defaultPlatePairCountsKg : defaultPlatePairCountsLbs;
+      const defaultPlates = action.inKg ? defaultPlatesKg : defaultPlatesLbs;
       const defaultBar = action.inKg ? defaultBarAndCollarsWeightKg : lbs2kg(defaultBarAndCollarsWeightLbs);
-      return { ...state, inKg: action.inKg, platePairCounts: defaultPlates, barAndCollarsWeightKg: defaultBar };
+      return { ...state, inKg: action.inKg, plates: defaultPlates, barAndCollarsWeightKg: defaultBar };
     }
 
     case "SET_WEIGHTCLASSES": {
@@ -202,19 +203,19 @@ export default (state: MeetState = initialState, action: Action): MeetState => {
       return { ...state, barAndCollarsWeightKg: action.weightKg };
     }
 
-    case "SET_PLATE_PAIR_COUNT": {
-      const { weightKg, pairCount } = action;
+    case "SET_PLATE_CONFIG": {
+      const { weightKg, pairCount, color } = action;
 
       // Find the index of the object in the platesOnSide array by comparing weights.
-      const index = state.platePairCounts.findIndex(p => p.weightKg === weightKg);
+      const index = state.plates.findIndex(p => p.weightKg === weightKg);
 
       // Clone the array.
-      let newPlates: Array<PlatePairCount> = state.platePairCounts.slice();
+      let newPlates: Array<Plate> = state.plates.slice();
 
       // Replace with a new object in the new array.
-      newPlates[index] = { weightKg, pairCount };
+      newPlates[index] = { weightKg, pairCount, color };
 
-      return { ...state, platePairCounts: newPlates };
+      return { ...state, plates: newPlates };
     }
 
     case "UPDATE_MEET": {

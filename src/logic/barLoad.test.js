@@ -18,19 +18,20 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import { selectPlates, makeLoadingRelative } from "./barLoad";
+import { PlateColors } from "../constants/plateColors";
 
-import type { LoadedPlate, PlatePairCount } from "../types/dataTypes";
+import type { LoadedPlate, Plate } from "../types/dataTypes";
 
-const typicalPlatesKg: Array<PlatePairCount> = [
-  { weightKg: 25, pairCount: 8 },
-  { weightKg: 20, pairCount: 1 },
-  { weightKg: 15, pairCount: 1 },
-  { weightKg: 10, pairCount: 1 },
-  { weightKg: 5, pairCount: 1 },
-  { weightKg: 2.5, pairCount: 1 },
-  { weightKg: 1.25, pairCount: 1 },
-  { weightKg: 0.5, pairCount: 2 },
-  { weightKg: 0.25, pairCount: 1 }
+const typicalPlatesKg: Array<Plate> = [
+  { weightKg: 25, pairCount: 8, color: PlateColors.PLATE_DEFAULT_RED },
+  { weightKg: 20, pairCount: 1, color: PlateColors.PLATE_DEFAULT_BLUE },
+  { weightKg: 15, pairCount: 1, color: PlateColors.PLATE_DEFAULT_YELLOW },
+  { weightKg: 10, pairCount: 1, color: PlateColors.PLATE_DEFAULT_GREEN },
+  { weightKg: 5, pairCount: 1, color: PlateColors.PLATE_DEFAULT_BLACK },
+  { weightKg: 2.5, pairCount: 1, color: PlateColors.PLATE_DEFAULT_BLACK },
+  { weightKg: 1.25, pairCount: 1, color: PlateColors.PLATE_DEFAULT_BLACK },
+  { weightKg: 0.5, pairCount: 1, color: PlateColors.PLATE_DEFAULT_GREEN },
+  { weightKg: 0.25, pairCount: 1, color: PlateColors.PLATE_DEFAULT_BLUE }
 ];
 
 // Helper function: Converts Array<LoadedPlate> to Array<LoadedPlate.weightAny>.

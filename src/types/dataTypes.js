@@ -80,15 +80,18 @@ export type Entry = {
   deadliftStatus: Array<LiftStatus>
 };
 
-export type PlatePairCount = {
+// Represents a plate in the configuration.
+export type Plate = {
   weightKg: number,
-  pairCount: number
+  pairCount: number,
+  color: string // Hexadecimal color code.
 };
 
 // Represents a single plate loaded on the bar, for the BarLoad component.
 export type LoadedPlate = {
   weightAny: number, // The weight used for display, kg or pounds.
-  isAlreadyLoaded: boolean // Used for diffs: if true, it's rendered faintly.
+  isAlreadyLoaded: boolean, // Used for diffs: if true, it's rendered faintly.
+  color: string // Hexadecimal color code.
 };
 
 export type LiftingOrder = {
