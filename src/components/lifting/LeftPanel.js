@@ -44,7 +44,9 @@ interface OwnProps {
 
 interface StateProps {
   inKg: boolean;
-  barAndCollarsWeightKg: number;
+  squatBarAndCollarsWeightKg: number;
+  benchBarAndCollarsWeightKg: number;
+  deadliftBarAndCollarsWeightKg: number;
   plates: Array<Plate>;
   registration: RegistrationState;
   lifting: LiftingState;
@@ -81,6 +83,20 @@ class LeftPanel extends React.Component<Props> {
     return { weightKg, weightLbs, rackInfo };
   };
 
+  getBarAndCollarsWeightKg = (): number => {
+    console.log(this.props.lifting.lift);
+    switch (this.props.lifting.lift) {
+      case "S":
+        return this.props.squatBarAndCollarsWeightKg;
+      case "B":
+        return this.props.benchBarAndCollarsWeightKg;
+      case "D":
+        return this.props.deadliftBarAndCollarsWeightKg;
+      default:
+        return 0;
+    }
+  };
+
   render() {
     const current = this.getBarLoadProps(this.props.currentEntryId, this.props.attemptOneIndexed);
     const next = this.getBarLoadProps(this.props.nextEntryId, this.props.nextAttemptOneIndexed);
@@ -89,16 +105,19 @@ class LeftPanel extends React.Component<Props> {
     const weightKgText = displayWeightOnePlace(current.weightKg);
     const weightLbsText = displayWeightOnePlace(current.weightLbs);
 
+    const barAndCollarsWeightKg = this.getBarAndCollarsWeightKg();
+    console.log(barAndCollarsWeightKg);
+
     // Calculate both loadings.
     const currentLoading: Array<LoadedPlate> = selectPlates(
       current.weightKg,
-      this.props.barAndCollarsWeightKg,
+      barAndCollarsWeightKg,
       this.props.plates,
       this.props.inKg
     );
     const nextLoading: Array<LoadedPlate> = selectPlates(
       next.weightKg,
-      this.props.barAndCollarsWeightKg,
+      barAndCollarsWeightKg,
       this.props.plates,
       this.props.inKg
     );
@@ -150,7 +169,9 @@ class LeftPanel extends React.Component<Props> {
 const mapStateToProps = (state: GlobalState): StateProps => {
   return {
     inKg: state.meet.inKg,
-    barAndCollarsWeightKg: state.meet.barAndCollarsWeightKg,
+    squatBarAndCollarsWeightKg: state.meet.squatBarAndCollarsWeightKg,
+    benchBarAndCollarsWeightKg: state.meet.benchBarAndCollarsWeightKg,
+    deadliftBarAndCollarsWeightKg: state.meet.deadliftBarAndCollarsWeightKg,
     plates: state.meet.plates,
     registration: state.registration,
     lifting: state.lifting

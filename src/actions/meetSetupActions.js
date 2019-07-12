@@ -31,7 +31,7 @@ import type {
   SetPlateConfigAction,
   UpdateMeetAction
 } from "../types/actionTypes";
-import type { Formula, Sex } from "../types/dataTypes";
+import type { Formula, Lift, Sex } from "../types/dataTypes";
 import type { MeetState } from "../types/stateTypes";
 
 export const setMeetName = (name: string): SetMeetNameAction => {
@@ -99,9 +99,10 @@ export const setWeightClasses = (sex: Sex, classesKg: Array<number>): SetWeightC
   };
 };
 
-export const setBarAndCollarsWeightKg = (weightKg: number): SetBarAndCollarsWeightKgAction => {
+export const setBarAndCollarsWeightKg = (lift: Lift, weightKg: number): SetBarAndCollarsWeightKgAction => {
   return {
     type: "SET_BAR_AND_COLLARS_WEIGHT_KG",
+    lift: lift,
     weightKg: weightKg
   };
 };

@@ -162,7 +162,9 @@ class MeetSetup extends React.Component<Props> {
                     </option>
                   </FormControl>
                 </FormGroup>
-                <BarAndCollarsWeightKg key={inKg} />
+                <BarAndCollarsWeightKg key={"S" + inKg} lift="S" />
+                <BarAndCollarsWeightKg key={"B" + inKg} lift="B" />
+                <BarAndCollarsWeightKg key={"D" + inKg} lift="D" />
                 <Plates />
               </Panel.Body>
             </Panel>

@@ -25,30 +25,58 @@ import { ControlLabel, FormGroup, FormControl } from "react-bootstrap";
 import { setBarAndCollarsWeightKg } from "../../actions/meetSetupActions";
 import { kg2lbs, lbs2kg } from "../../logic/units";
 
-type Props = {
-  inKg: boolean,
-  barAndCollarsWeightKg: number,
-  setBarAndCollarsWeightKg: number => any
-};
+import type { Lift } from "../../types/dataTypes";
+import type { GlobalState } from "../../types/stateTypes";
 
-type State = {
-  value: number
-};
+interface OwnProps {
+  lift: Lift;
+}
 
-class BarAndCollarsWeightKg extends React.Component<Props, State> {
+interface StateProps {
+  inKg: boolean;
+  squatBarAndCollarsWeightKg: number;
+  benchBarAndCollarsWeightKg: number;
+  deadliftBarAndCollarsWeightKg: number;
+}
+
+interface DispatchProps {
+  setBarAndCollarsWeightKg: (Lift, number) => any;
+}
+
+type Props = OwnProps & StateProps & DispatchProps;
+
+interface InternalState {
+  value: number;
+}
+
+class BarAndCollarsWeightKg extends React.Component<Props, InternalState> {
   constructor(props) {
     super(props);
 
     this.getValidationState = this.getValidationState.bind(this);
     this.handleChange = this.handleChange.bind(this);
 
-    const weight = this.props.barAndCollarsWeightKg;
+    const weight = this.getInitialBarAndCollarsWeightKg(this.props.lift);
     const value = this.props.inKg ? weight : kg2lbs(weight);
 
     this.state = {
       value: value
     };
   }
+
+  getInitialBarAndCollarsWeightKg = (lift: Lift): number => {
+    switch (lift) {
+      case "S":
+        return this.props.squatBarAndCollarsWeightKg;
+      case "B":
+        return this.props.benchBarAndCollarsWeightKg;
+      case "D":
+        return this.props.deadliftBarAndCollarsWeightKg;
+      default:
+        (lift: empty) // eslint-disable-line
+        return 0;
+    }
+  };
 
   getValidationState = () => {
     const { value } = this.state;
@@ -66,31 +94,48 @@ class BarAndCollarsWeightKg extends React.Component<Props, State> {
       if (this.getValidationState() === "success") {
         const asNum = Number(value);
         const weight = this.props.inKg ? asNum : lbs2kg(asNum);
-        this.props.setBarAndCollarsWeightKg(weight);
+        this.props.setBarAndCollarsWeightKg(this.props.lift, weight);
       }
     });
   };
 
+  getLiftLabel = (lift: Lift): string => {
+    switch (lift) {
+      case "S":
+        return "Squat";
+      case "B":
+        return "Bench";
+      case "D":
+        return "Deadlift";
+      default:
+        (lift: empty) // eslint-disable-line
+        return "";
+    }
+  };
+
   render() {
-    const label = "Bar + Collars weight (" + (this.props.inKg ? "kg" : "lbs") + ")";
+    const label =
+      this.getLiftLabel(this.props.lift) + " Bar + Collars weight (" + (this.props.inKg ? "kg" : "lbs") + ")";
 
     return (
       <FormGroup validationState={this.getValidationState()}>
         <ControlLabel>{label}</ControlLabel>
-        <FormControl type="number" value={this.state.value} onChange={this.handleChange} />
+        <FormControl type="number" value={this.state.value} onChange={this.handleChange} step={2.5} />
       </FormGroup>
     );
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: GlobalState): StateProps => ({
   inKg: state.meet.inKg,
-  barAndCollarsWeightKg: state.meet.barAndCollarsWeightKg
+  squatBarAndCollarsWeightKg: state.meet.squatBarAndCollarsWeightKg,
+  benchBarAndCollarsWeightKg: state.meet.benchBarAndCollarsWeightKg,
+  deadliftBarAndCollarsWeightKg: state.meet.deadliftBarAndCollarsWeightKg
 });
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch): DispatchProps => {
   return {
-    setBarAndCollarsWeightKg: weightKg => dispatch(setBarAndCollarsWeightKg(weightKg))
+    setBarAndCollarsWeightKg: (lift, weightKg) => dispatch(setBarAndCollarsWeightKg(lift, weightKg))
   };
 };
 

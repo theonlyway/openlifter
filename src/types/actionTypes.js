@@ -93,6 +93,7 @@ export interface SetWeightClassesAction {
 
 export interface SetBarAndCollarsWeightKgAction {
   type: "SET_BAR_AND_COLLARS_WEIGHT_KG";
+  lift: Lift;
   weightKg: number;
 }
 

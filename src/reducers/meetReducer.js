@@ -76,7 +76,9 @@ const initialState: MeetState = {
   country: "",
   state: "",
   city: "",
-  barAndCollarsWeightKg: defaultBarAndCollarsWeightKg,
+  squatBarAndCollarsWeightKg: defaultBarAndCollarsWeightKg,
+  benchBarAndCollarsWeightKg: defaultBarAndCollarsWeightKg,
+  deadliftBarAndCollarsWeightKg: defaultBarAndCollarsWeightKg,
   plates: defaultPlatesKg
 };
 
@@ -180,7 +182,14 @@ export default (state: MeetState = initialState, action: Action): MeetState => {
       // Changing the units also changes the loading, so re-initialize from defaults.
       const defaultPlates = action.inKg ? defaultPlatesKg : defaultPlatesLbs;
       const defaultBar = action.inKg ? defaultBarAndCollarsWeightKg : lbs2kg(defaultBarAndCollarsWeightLbs);
-      return { ...state, inKg: action.inKg, plates: defaultPlates, barAndCollarsWeightKg: defaultBar };
+      return {
+        ...state,
+        inKg: action.inKg,
+        plates: defaultPlates,
+        squatBarAndCollarsWeightKg: defaultBar,
+        benchBarAndCollarsWeightKg: defaultBar,
+        deadliftBarAndCollarsWeightKg: defaultBar
+      };
     }
 
     case "SET_WEIGHTCLASSES": {
@@ -200,7 +209,17 @@ export default (state: MeetState = initialState, action: Action): MeetState => {
     }
 
     case "SET_BAR_AND_COLLARS_WEIGHT_KG": {
-      return { ...state, barAndCollarsWeightKg: action.weightKg };
+      switch (action.lift) {
+        case "S":
+          return { ...state, squatBarAndCollarsWeightKg: action.weightKg };
+        case "B":
+          return { ...state, benchBarAndCollarsWeightKg: action.weightKg };
+        case "D":
+          return { ...state, deadliftBarAndCollarsWeightKg: action.weightKg };
+        default:
+          (action.lift: empty) // eslint-disable-line
+          return state;
+      }
     }
 
     case "SET_PLATE_CONFIG": {
