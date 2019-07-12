@@ -170,6 +170,33 @@ const usaplDefaults: $Shape<MeetState> = {
   allow4thAttempts: false
 };
 
+const wabdlDefaults: $Shape<MeetState> = {
+  divisions: [
+    "Open",
+    "T12-13",
+    "T14-15",
+    "T16-17",
+    "T18-19",
+    "J20-25",
+    "S33-39",
+    "M40-46",
+    "M47-53",
+    "M54-60",
+    "M61-67",
+    "M68-74",
+    "M75-79",
+    "M80-84",
+    "M85-89",
+    "M90+"
+  ],
+  weightClassesKgMen: [44, 48, 52, 56, 60, 67.5, 75, 82.5, 90, 100, 110, 117.5, 125, 140],
+  weightClassesKgWomen: [44, 48, 52, 56, 60, 67.5, 75, 82.5, 90, 100],
+  weightClassesKgMx: [44, 48, 52, 56, 60, 67.5, 75, 82.5, 90, 100, 110, 117.5, 125, 140],
+  formula: "Schwartz/Malone",
+  combineSleevesAndWraps: false,
+  allow4thAttempts: true
+};
+
 class AutoFillRules extends React.Component<Props, InternalState> {
   constructor(props, context) {
     super(props, context);
@@ -194,6 +221,9 @@ class AutoFillRules extends React.Component<Props, InternalState> {
       case "USAPL":
         this.props.updateMeet(usaplDefaults);
         return;
+      case "WABDL":
+        this.props.updateMeet(wabdlDefaults);
+        return;
       default:
         (this.state.selectedOption: empty); // eslint-disable-line
         return;
@@ -217,6 +247,9 @@ class AutoFillRules extends React.Component<Props, InternalState> {
               </option>
               <option key="USAPL" value="USAPL">
                 USAPL Rules
+              </option>
+              <option key="WABDL" value="WABDL">
+                WABDL Rules
               </option>
             </FormControl>
 
