@@ -29,7 +29,7 @@ import { overwriteStore } from "../actions/globalActions";
 
 import NewMeetModal from "../components/home/NewMeetModal";
 
-import { releaseVersion, releaseDate } from "../versions";
+import { stateVersion, releaseVersion, releaseDate } from "../versions";
 
 import type { GlobalState } from "../types/stateTypes";
 
@@ -172,7 +172,27 @@ class HomeContainer extends React.Component<Props, InternalState> {
       );
     }
 
+    const wrongVersion: boolean = this.props.redux.versions.stateVersion !== stateVersion;
+    const dataReleaseVersion = this.props.redux.versions.releaseVersion;
+
     const buttonMargin = { marginBottom: "5px" };
+
+    let warning = null;
+    if (wrongVersion === true) {
+      warning = (
+        <h2>
+          <p>
+            <b>DANGER!!!</b>
+          </p>
+          <p>
+            The loaded meet was made in OpenLifter <b>{dataReleaseVersion}</b>.
+          </p>
+          <p>
+            That format is incompatible with OpenLifter <b>{releaseVersion}</b>.
+          </p>
+        </h2>
+      );
+    }
 
     return (
       <Grid style={centerConsole}>
@@ -185,9 +205,21 @@ class HomeContainer extends React.Component<Props, InternalState> {
         </Row>
 
         <Row>
+          <Col md={12}>{warning}</Col>
+        </Row>
+
+        <Row>
           <Col md={8}>
             <div style={buttonConsole}>
-              {this.renderContinueButton()}
+              {wrongVersion === false ? (
+                this.renderContinueButton()
+              ) : (
+                <a href={"https://www.openlifter.com/releases/" + dataReleaseVersion}>
+                  <Button bsStyle="success" bsSize="large" block style={{ marginBottom: "5px" }}>
+                    Switch to OpenLifter {dataReleaseVersion}
+                  </Button>
+                </a>
+              )}
 
               {newMeetButton}
 
