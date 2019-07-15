@@ -43,7 +43,7 @@ class LiftingHeader extends React.Component<Props> {
   render() {
     // Defaults, in case of no lifter.
     let lifterName = "Flight Complete";
-    let divisionsStr = null;
+    let divisionsStr = "";
 
     // In the case of a lifter, set fields.
     if (this.props.currentEntryId !== null && this.props.currentEntryId !== undefined) {
@@ -51,7 +51,12 @@ class LiftingHeader extends React.Component<Props> {
       const entry = this.props.registration.entries[idx];
       lifterName = entry.name;
 
-      divisionsStr = " / " + entry.divisions.join(", ");
+      if (entry.age > 0) {
+        divisionsStr += " / " + entry.age;
+      }
+      if (entry.divisions.length > 0) {
+        divisionsStr += " / " + entry.divisions.join(", ");
+      }
     }
 
     return (
