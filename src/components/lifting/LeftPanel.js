@@ -84,7 +84,6 @@ class LeftPanel extends React.Component<Props> {
   };
 
   getBarAndCollarsWeightKg = (): number => {
-    console.log(this.props.lifting.lift);
     switch (this.props.lifting.lift) {
       case "S":
         return this.props.squatBarAndCollarsWeightKg;
@@ -106,7 +105,6 @@ class LeftPanel extends React.Component<Props> {
     const weightLbsText = displayWeightOnePlace(current.weightLbs);
 
     const barAndCollarsWeightKg = this.getBarAndCollarsWeightKg();
-    console.log(barAndCollarsWeightKg);
 
     // Calculate both loadings.
     const currentLoading: Array<LoadedPlate> = selectPlates(
