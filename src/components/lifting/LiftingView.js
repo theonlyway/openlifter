@@ -89,7 +89,7 @@ class LiftingView extends React.Component<Props, InternalState> {
     return (
       <div>
         <h3 style={{ marginLeft: "12px" }}>
-          To get things to fit, zoom the browser in or out, and then press Toggle Fullscreen.
+          To fit to the screen, zoom the browser in or out and then press Toggle Fullscreen.
         </h3>
         <div id="liftingView" className={styles.liftingView}>
           <TopBar
