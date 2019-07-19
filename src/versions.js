@@ -38,7 +38,10 @@ export const stateVersion: string = "0";
 // please use the "stateVersion".
 //
 // This string is stored on the GlobalState as the property "versions.releaseVersion".
-export const releaseVersion: string = "0.1-beta";
+//
+// It's defined by the '.env' file in the project root, which references
+// the package.json variable 'version'.
+export const releaseVersion: string = process.env.REACT_APP_VERSION;
 
 // Strictly-presentational representation of when the releaseVersion was changed.
 // Update this concurrently with modifying the releaseVersion.

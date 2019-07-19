@@ -33,6 +33,9 @@ test: build-deps
 less:
 	yarn run lessc src/bootstrap-custom/bootstrap.less build/bootstrap-custom.css
 
+release: gitlab-pages
+	echo "Built into public/. Don't forget to set a git tag!"
+
 # Builds the project into public/. Overwrites git files -- need to reset after.
 gitlab-pages:
 	make less

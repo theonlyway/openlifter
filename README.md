@@ -74,3 +74,18 @@ If found, it will extract the message into `messages.json`
 Then, run `yarn manage:translations`.  This script will (if needed) create a json file for each language that is configured, e.g. `es.json`
 
 In each of the language specific json files will be all of the messages from `messages.json`, with the defaultMessage if they were not previously translated.  Find your message id and add the appropriate translation to these language specific files.
+
+## Release instructions
+
+Preparing an official release involves a few temporary modifications.
+
+Official builds are permanently stored at https://www.openlifter.com/releases/ in a subdirectory with the same name as the version number. In the examples below, the version being released is `x.y`.
+
+1. Tag the release in git.
+2. Edit `package.json` to set the `version`, `homepage`, and `router_basename` variables. These are used by the `.env` file to create JS environment variables. In our example, set `"version": "x.y"`, `"homepage": "https://www.openlifter.com/releases/x.y/"`, and `"router_basename": "/releases/x.y/"`.
+3. Edit `src/versions.js` to fix the `releaseDate` using ISO-8601 notation (YYYY-MM-DD). Hopefully in the future we can just automate this, but I couldn't think of a platform-independent way at this hour.
+4. Run `make release`. This will build into `public/`, but mess up the state of the repo.
+5. Move the `public/` folder into `releases/` for permanent archival, using the version. For example, `mv public releases/x.y`.
+6. Fully reset the repo: `make clean && rm -rf public &&  git reset --hard HEAD`
+7. `git add releases/x.y && git commit`
+8. Done! Now you can build `website/` and it should include that release. You'll probably have to update the website text and include the changelog on the releases/ page.

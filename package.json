@@ -1,6 +1,8 @@
 {
   "name": "openlifter",
-  "version": "0.1.0",
+  "version": "beta-dev",
+  "homepage": "./",
+  "router_basename": "./",
   "author": "Sean Stangl <sean.stangl@gmail.com>",
   "description": "Simple software for running a local powerlifting competition",
   "license": "AGPL-3.0-or-later",
@@ -25,7 +27,6 @@
     "redux-thunk": "^2.3.0"
   },
   "main": "public/electron.js",
-  "homepage": "./",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

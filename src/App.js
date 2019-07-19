@@ -55,7 +55,7 @@ class App extends React.Component {
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <OpenLifterIntlProvider>
-            <Router>
+            <Router basename={process.env.REACT_APP_ROUTER_BASENAME}>
               <div>
                 <Navigation />
                 <Switch>
