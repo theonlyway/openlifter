@@ -30,6 +30,7 @@ export type Formula =
   | "NASA Points"
   | "Schwartz/Malone"
   | "Wilks";
+export type AgeCoefficients = "None" | "FosterMcCulloch";
 export type Lift = "S" | "B" | "D";
 
 // Mx (pronounced "Muks" or "Miks") is an honorific that does not indicate gender.

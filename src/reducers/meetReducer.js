@@ -60,22 +60,28 @@ const defaultPlatesLbs: Array<Plate> = [
 ];
 
 const initialState: MeetState = {
+  // Sanction information.
   name: "",
-  formula: "Wilks",
+  country: "",
+  state: "",
+  city: "",
   federation: "",
   date: localDateToIso8601(new Date()),
   lengthDays: 1,
   platformsOnDays: [defaultPlatformsOnDay],
+
+  // Competition Rules.
   divisions: [],
   weightClassesKgMen: [],
   weightClassesKgWomen: [],
   weightClassesKgMx: [],
-  inKg: true,
+  formula: "Wilks",
+  ageCoefficients: "FosterMcCulloch",
   combineSleevesAndWraps: false,
   allow4thAttempts: true,
-  country: "",
-  state: "",
-  city: "",
+
+  // Weights and Loading Setup.
+  inKg: true,
   squatBarAndCollarsWeightKg: defaultBarAndCollarsWeightKg,
   benchBarAndCollarsWeightKg: defaultBarAndCollarsWeightKg,
   deadliftBarAndCollarsWeightKg: defaultBarAndCollarsWeightKg,

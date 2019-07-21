@@ -42,8 +42,10 @@ import { nasapoints } from "../../logic/coefficients/nasa";
 import { schwartzmalone } from "../../logic/coefficients/schwartzmalone";
 import { wilks } from "../../logic/coefficients/wilks";
 
+import { fosterMcCulloch } from "../../logic/coefficients/foster-mcculloch";
+
 import type { PointsCategory, PointsCategoryResults } from "../../logic/pointsPlace";
-import type { Entry, Formula, Sex } from "../../types/dataTypes";
+import type { AgeCoefficients, Entry, Formula, Sex } from "../../types/dataTypes";
 import type { GlobalState } from "../../types/stateTypes";
 
 interface StateProps {
@@ -58,8 +60,13 @@ interface StateProps {
   entries: Array<Entry>;
 }
 
+// Overloads this component so it can render different types of "Best Lifter" categories.
+export type AgePointsCategory = "BestLifter" | "BestMastersLifter" | "BestJuniorsLifter";
+
 interface OwnProps {
   day: string; // Really a number, 0 meaning "all".
+  ageCoefficients: AgeCoefficients; // In OwnProps so that caller can disable it.
+  agePointsCategory: AgePointsCategory;
 }
 
 type Props = StateProps & OwnProps;
@@ -92,28 +99,40 @@ class ByPoints extends React.Component<Props> {
     // The place proceeds in order by key, except for DQ entries.
     const rank = totalKg === 0 ? "DQ" : key + 1;
 
+    // Determine age coefficients. The parent component determines their use.
+    let c = 1.0;
+    switch (this.props.ageCoefficients) {
+      case "None":
+        break;
+      case "FosterMcCulloch":
+        c = fosterMcCulloch(entry.age);
+        break;
+      default:
+        break;
+    }
+
     let points = 0;
     switch (this.props.formula) {
       case "Bodyweight Multiple":
-        points = bodyweight_multiple(entry.bodyweightKg, totalKg).toFixed(2);
+        points = (c * bodyweight_multiple(entry.bodyweightKg, totalKg)).toFixed(2);
         break;
       case "Dots":
-        points = dots(entry.sex, entry.bodyweightKg, totalKg).toFixed(2);
+        points = (c * dots(entry.sex, entry.bodyweightKg, totalKg)).toFixed(2);
         break;
       case "Glossbrenner":
-        points = glossbrenner(entry.sex, entry.bodyweightKg, totalKg).toFixed(2);
+        points = (c * glossbrenner(entry.sex, entry.bodyweightKg, totalKg)).toFixed(2);
         break;
       case "Wilks":
-        points = wilks(entry.sex, entry.bodyweightKg, totalKg).toFixed(2);
+        points = (c * wilks(entry.sex, entry.bodyweightKg, totalKg)).toFixed(2);
         break;
       case "IPF Points":
-        points = ipfpoints(totalKg, entry.bodyweightKg, entry.sex, category.equipment, category.event).toFixed(2);
+        points = (c * ipfpoints(totalKg, entry.bodyweightKg, entry.sex, category.equipment, category.event)).toFixed(2);
         break;
       case "Schwartz/Malone":
-        points = schwartzmalone(entry.sex, entry.bodyweightKg, totalKg).toFixed(2);
+        points = (c * schwartzmalone(entry.sex, entry.bodyweightKg, totalKg)).toFixed(2);
         break;
       case "NASA Points":
-        points = nasapoints(entry.bodyweightKg, totalKg).toFixed(2);
+        points = (c * nasapoints(entry.bodyweightKg, totalKg)).toFixed(2);
         break;
       default:
         (this.props.formula: empty) // eslint-disable-line
@@ -210,7 +229,7 @@ class ByPoints extends React.Component<Props> {
                 <th>Bench</th>
                 <th>Deadlift</th>
                 <th>Total</th>
-                <th>Points</th>
+                <th>{this.props.ageCoefficients === "None" ? "Points" : "Age-Points"}</th>
               </tr>
             </thead>
             <tbody>{rows}</tbody>
@@ -221,7 +240,53 @@ class ByPoints extends React.Component<Props> {
   };
 
   render() {
-    const results = getAllRankings(this.props.entries, this.props.formula, this.props.combineSleevesAndWraps);
+    let entries = this.props.entries;
+
+    // If this is for Best Masters lifter, just include non-standard-aged lifters.
+    if (this.props.agePointsCategory !== "BestLifter") {
+      entries = entries.filter(e => {
+        // Filter out based on age.
+        switch (this.props.agePointsCategory) {
+          case "BestLifter":
+            break;
+          case "BestMastersLifter":
+            // The coefficients logic below will handle older lifters
+            // according to the chosen age coefficient system.
+            if (e.age <= 27) {
+              return false;
+            }
+            break;
+          case "BestJuniorsLifter":
+            // The coefficients logic below will handle older lifters
+            // according to the chosen age coefficient system.
+            if (e.age >= 27) {
+              return false;
+            }
+            break;
+          default:
+            (this.props.agePointsCategory: empty) // eslint-disable-line
+            break;
+        }
+
+        // Only include lifters who get an age bump.
+        switch (this.props.ageCoefficients) {
+          case "None":
+            return true;
+          case "FosterMcCulloch":
+            return fosterMcCulloch(e.age) !== 1.0;
+          default:
+            (this.props.ageCoefficients: empty) // eslint-disable-line
+            return true;
+        }
+      });
+    }
+
+    const results = getAllRankings(
+      entries,
+      this.props.formula,
+      this.props.ageCoefficients,
+      this.props.combineSleevesAndWraps
+    );
 
     let categoryPanels = [];
     for (let i = 0; i < results.length; i++) {

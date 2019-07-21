@@ -67,6 +67,7 @@ const traditionalDefaults: $Shape<MeetState> = {
   weightClassesKgWomen: [44, 48, 52, 56, 60, 67.5, 75, 82.5, 90],
   weightClassesKgMx: [52, 56, 60, 67.5, 75, 82.5, 90, 100, 110, 125, 140],
   formula: "Wilks",
+  ageCoefficients: "FosterMcCulloch",
   combineSleevesAndWraps: false,
   allow4thAttempts: true
 };
@@ -166,6 +167,7 @@ const usaplDefaults: $Shape<MeetState> = {
   weightClassesKgWomen: [43, 47, 52, 57, 63, 72, 84],
   weightClassesKgMx: [53, 59, 66, 74, 83, 93, 105, 120],
   formula: "IPF Points",
+  ageCoefficients: "FosterMcCulloch",
   combineSleevesAndWraps: false,
   allow4thAttempts: false
 };
@@ -193,6 +195,7 @@ const uspaDefaults: $Shape<MeetState> = {
   weightClassesKgWomen: [44, 48, 52, 56, 60, 67.5, 75, 82.5, 90],
   weightClassesKgMx: [52, 56, 60, 67.5, 75, 82.5, 90, 100, 110, 125, 140],
   formula: "Wilks",
+  ageCoefficients: "FosterMcCulloch",
   combineSleevesAndWraps: false,
   allow4thAttempts: true
 };
@@ -220,6 +223,7 @@ const wabdlDefaults: $Shape<MeetState> = {
   weightClassesKgWomen: [44, 48, 52, 56, 60, 67.5, 75, 82.5, 90, 100],
   weightClassesKgMx: [44, 48, 52, 56, 60, 67.5, 75, 82.5, 90, 100, 110, 117.5, 125, 140],
   formula: "Schwartz/Malone",
+  ageCoefficients: "FosterMcCulloch",
   combineSleevesAndWraps: false,
   allow4thAttempts: true
 };
@@ -245,6 +249,7 @@ const wrpfDefaults: $Shape<MeetState> = {
   weightClassesKgWomen: [44, 48, 52, 56, 60, 67.5, 75, 82.5, 90],
   weightClassesKgMx: [52, 56, 60, 67.5, 75, 82.5, 90, 100, 110, 125, 140],
   formula: "Wilks",
+  ageCoefficients: "FosterMcCulloch",
   combineSleevesAndWraps: false,
   allow4thAttempts: true
 };

@@ -26,6 +26,7 @@
 
 import { getFinalEventTotalKg } from "./entry";
 
+// Import points formulas.
 import { bodyweight_multiple } from "./coefficients/bodyweight-multiple";
 import { dots } from "./coefficients/dots";
 import { glossbrenner } from "./coefficients/glossbrenner";
@@ -34,7 +35,10 @@ import { nasapoints } from "./coefficients/nasa";
 import { schwartzmalone } from "./coefficients/schwartzmalone";
 import { wilks } from "./coefficients/wilks";
 
-import type { Sex, Event, Equipment, Entry, Formula } from "../types/dataTypes";
+// Import age coefficients.
+import { fosterMcCulloch } from "./coefficients/foster-mcculloch";
+
+import type { AgeCoefficients, Sex, Event, Equipment, Entry, Formula } from "../types/dataTypes";
 
 // Specifies a points category under which entries can be ranked together.
 export type PointsCategory = {
@@ -62,7 +66,8 @@ const keyToCategory = (key: string): PointsCategory => {
 const sortByFormulaPlaceInCategory = (
   entries: Array<Entry>,
   category: PointsCategory,
-  formula: Formula
+  formula: Formula,
+  ageCoefficients: AgeCoefficients
 ): Array<Entry> => {
   // Make a map from Entry to initial index.
   let indexMap = new Map();
@@ -102,6 +107,18 @@ const sortByFormulaPlaceInCategory = (
       default:
         (formula: empty) // eslint-disable-line
         memoizedPoints[i] = 0;
+    }
+
+    // Apply age coefficients now, if requested.
+    switch (ageCoefficients) {
+      case "None":
+        break;
+      case "FosterMcCulloch":
+        memoizedPoints[i] = memoizedPoints[i] * fosterMcCulloch(entry.age);
+        break;
+      default:
+        (ageCoefficients: empty) // eslint-disable-line
+        break;
     }
   }
 
@@ -188,6 +205,7 @@ export const sortPointsCategoryResults = (results: Array<PointsCategoryResults>)
 export const getAllRankings = (
   entries: Array<Entry>,
   formula: Formula,
+  ageCoefficients: AgeCoefficients,
   combineSleevesAndWraps: boolean
 ): Array<PointsCategoryResults> => {
   // Generate a map from category to the entries within that category.
@@ -221,7 +239,7 @@ export const getAllRankings = (
   let results = [];
   for (let [key, catEntries] of categoryMap) {
     const category = keyToCategory(key);
-    const orderedEntries = sortByFormulaPlaceInCategory(catEntries, category, formula);
+    const orderedEntries = sortByFormulaPlaceInCategory(catEntries, category, formula, ageCoefficients);
     results.push({ category, orderedEntries });
   }
 

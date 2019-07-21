@@ -37,11 +37,13 @@ import Plates from "./Plates";
 import { updateMeet, setInKg } from "../../actions/meetSetupActions";
 
 import type { GlobalState } from "../../types/stateTypes";
+import type { AgeCoefficients } from "../../types/dataTypes";
 
 interface StateProps {
   allow4thAttempts: boolean;
   combineSleevesAndWraps: boolean;
   inKg: boolean;
+  ageCoefficients: AgeCoefficients;
 
   masterKey: string; // Used to force-update rules components on Auto-Fill.
 }
@@ -50,6 +52,7 @@ interface DispatchProps {
   setCombineSleevesAndWraps: (event: Object) => void;
   setAllow4thAttempts: (event: Object) => void;
   setInKg: (event: Object) => void;
+  setAgeCoefficients: (event: Object) => void;
 }
 
 type Props = StateProps & DispatchProps;
@@ -118,6 +121,22 @@ class MeetSetup extends React.Component<Props> {
                 />
                 <FormulaSelect key={this.props.masterKey + "-formula"} />
 
+                <FormGroup key={this.props.masterKey + "-ageCoefficients"}>
+                  <ControlLabel>Age Coefficients for Best Juniors/Masters Lifter</ControlLabel>
+                  <FormControl
+                    componentClass="select"
+                    defaultValue={this.props.ageCoefficients}
+                    onChange={this.props.setAgeCoefficients}
+                  >
+                    <option key="None" value="None">
+                      None
+                    </option>
+                    <option key="FosterMcCulloch" value="FosterMcCulloch">
+                      Foster-McCulloch
+                    </option>
+                  </FormControl>
+                </FormGroup>
+
                 <FormGroup key={this.props.masterKey + "-sleeves-wraps"}>
                   <ControlLabel>Should Sleeves and Wraps be combined for placing?</ControlLabel>
                   <FormControl
@@ -179,6 +198,7 @@ const mapStateToProps = (state: GlobalState): StateProps => ({
   inKg: state.meet.inKg,
   combineSleevesAndWraps: state.meet.combineSleevesAndWraps,
   allow4thAttempts: state.meet.allow4thAttempts,
+  ageCoefficients: state.meet.ageCoefficients,
   masterKey: state.meet.divisions.join()
 });
 
@@ -186,7 +206,8 @@ const mapDispatchToProps = (dispatch): DispatchProps => ({
   setCombineSleevesAndWraps: event =>
     dispatch(updateMeet({ combineSleevesAndWraps: yesNoToBoolean(event.target.value) })),
   setAllow4thAttempts: event => dispatch(updateMeet({ allow4thAttempts: yesNoToBoolean(event.target.value) })),
-  setInKg: event => dispatch(setInKg(yesNoToBoolean(event.target.value)))
+  setInKg: event => dispatch(setInKg(yesNoToBoolean(event.target.value))),
+  setAgeCoefficients: event => dispatch(updateMeet({ ageCoefficients: event.target.value }))
 });
 
 export default connect(

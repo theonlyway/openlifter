@@ -263,12 +263,39 @@ class ResultsView extends React.Component<Props, InternalState> {
   };
 
   render() {
-    const results =
-      this.state.by === "Division" ? (
-        <ByDivision key={this.state.day} day={this.state.day} />
-      ) : (
-        <ByPoints key={this.state.day} day={this.state.day} />
-      );
+    let results = null;
+    switch (this.state.by) {
+      case "Division":
+        results = <ByDivision key={this.state.day} day={this.state.day} />;
+        break;
+      case "Points":
+        results = (
+          <ByPoints key={this.state.day} day={this.state.day} ageCoefficients="None" agePointsCategory="BestLifter" />
+        );
+        break;
+      case "BestMastersLifter":
+        results = (
+          <ByPoints
+            key={this.state.day}
+            day={this.state.day}
+            ageCoefficients={this.props.global.meet.ageCoefficients}
+            agePointsCategory="BestMastersLifter"
+          />
+        );
+        break;
+      case "BestJuniorsLifter":
+        results = (
+          <ByPoints
+            key={this.state.day}
+            day={this.state.day}
+            ageCoefficients={this.props.global.meet.ageCoefficients}
+            agePointsCategory="BestJuniorsLifter"
+          />
+        );
+        break;
+      default:
+        break;
+    }
 
     return (
       <div style={marginStyle}>
@@ -312,7 +339,13 @@ class ResultsView extends React.Component<Props, InternalState> {
               style={{ marginLeft: "14px" }}
             >
               <option value="Division">By Division</option>
-              <option value="Points">By Points</option>
+              {this.props.global.meet.ageCoefficients !== "None" ? (
+                <option value="BestJuniorsLifter">Best Juniors Lifter</option>
+              ) : null}
+              {this.props.global.meet.ageCoefficients !== "None" ? (
+                <option value="BestMastersLifter">Best Masters Lifter</option>
+              ) : null}
+              <option value="Points">Best Lifter</option>
             </FormControl>
           </Panel.Body>
         </Panel>
