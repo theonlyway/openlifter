@@ -73,7 +73,7 @@ const addDataRow = (csv: Csv, category: Category, entry: Entry) => {
   let row: Array<string> = Array(csv.fieldnames.length).fill("");
 
   row[csv.index("Name")] = csvString(entry.name);
-  // TODO: Team.
+  row[csv.index("Team")] = csvString(entry.team);
   row[csv.index("Div")] = csvString(category.division);
   row[csv.index("Bwt - kg")] = csvString(displayWeight(entry.bodyweightKg));
   row[csv.index("IPF Wt Cls")] = csvString(category.weightClassStr);
