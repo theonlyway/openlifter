@@ -78,7 +78,7 @@ const getActiveAttemptNumber = (entriesInFlight: Array<Entry>, lifting: LiftingS
 };
 
 // Helper function for recursive comparison.
-const compareEntriesByAttempt = (a: Entry, b: Entry, fieldKg: FieldKg, attemptOneIndexed: number): number => {
+export const compareEntriesByAttempt = (a: Entry, b: Entry, fieldKg: FieldKg, attemptOneIndexed: number): number => {
   const aKg = a[fieldKg][attemptOneIndexed - 1];
   const bKg = b[fieldKg][attemptOneIndexed - 1];
 

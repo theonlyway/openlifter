@@ -24,10 +24,11 @@
 // that allowed for maximum code reuse between the Rankings and Lifting pages,
 // which have slightly different needs.
 
-import { getProjectedEventTotalKg, getFinalEventTotalKg } from "./entry";
+import { getProjectedEventTotalKg, getFinalEventTotalKg, liftToAttemptFieldName } from "./entry";
+import { compareEntriesByAttempt } from "./liftingOrder";
 import { getWeightClassStr } from "../reducers/meetReducer";
 
-import type { Sex, Event, Equipment, Entry } from "../types/dataTypes";
+import type { Sex, Event, Equipment, Entry, Lift } from "../types/dataTypes";
 
 export type Place = number | "DQ";
 
@@ -57,6 +58,70 @@ const keyToCategory = (key: string): Category => {
   return JSON.parse(key);
 };
 
+// Helper function for sortByPlaceInCategory().
+//
+// Determines the last successful Lift (for example, "B") for the Entry in
+// the given Event category.
+//
+// Lifters have already been checked to have a non-zero total.
+const getLastSuccessfulLift = (event: Event, entry: Entry): Lift => {
+  // Iterate backwards over the Event types.
+  for (let i = event.length - 1; i >= 0; --i) {
+    const lift = event[i];
+    switch (lift) {
+      case "S":
+        if (entry.squatStatus.includes(1)) {
+          return "S";
+        }
+        break;
+      case "B":
+        if (entry.benchStatus.includes(1)) {
+          return "B";
+        }
+        break;
+      case "D":
+        if (entry.deadliftStatus.includes(1)) {
+          return "D";
+        }
+        break;
+      default:
+        return "S";
+    }
+  }
+  return "S";
+};
+
+// Helper function for sortByPlaceInCategory().
+//
+// Determines the last successful attempt (only counting the first three) for
+// the Entry for the given Lift.
+//
+// The caller already knows that a successful attempt was made, since it
+// passed getLastSuccessfulLift().
+const getLastSuccessfulAttempt = (lift: Lift, entry: Entry): number => {
+  let statuses = null;
+  switch (lift) {
+    case "S":
+      statuses = entry.squatStatus;
+      break;
+    case "B":
+      statuses = entry.benchStatus;
+      break;
+    case "D":
+      statuses = entry.deadliftStatus;
+      break;
+    default:
+      (lift: empty) // eslint-disable-line
+      return 0;
+  }
+
+  // Consider only the first three attempts, in reverse.
+  for (let i = 2; i >= 0; --i) {
+    if (statuses[i] === 1) return i;
+  }
+  return 0;
+};
+
 // Returns a copy of the entries array sorted by Place.
 // All entries are assumed to be part of the same category.
 const sortByPlaceInCategory = (entries: Array<Entry>, category: Category, type: ResultsType): Array<Entry> => {
@@ -67,13 +132,15 @@ const sortByPlaceInCategory = (entries: Array<Entry>, category: Category, type: 
 
   // Sort in the given category, first place having the lowest index.
   clonedEntries.sort((a, b) => {
+    let aTotal = 0;
+
     // First sort by Total, higher sorting lower.
     if (type === "Projected") {
-      const aTotal = getProjectedEventTotalKg(a, event);
+      aTotal = getProjectedEventTotalKg(a, event);
       const bTotal = getProjectedEventTotalKg(b, event);
       if (aTotal !== bTotal) return bTotal - aTotal;
     } else if (type === "Final") {
-      const aTotal = getFinalEventTotalKg(a, event);
+      aTotal = getFinalEventTotalKg(a, event);
       const bTotal = getFinalEventTotalKg(b, event);
       if (aTotal !== bTotal) return bTotal - aTotal;
     }
@@ -81,12 +148,47 @@ const sortByPlaceInCategory = (entries: Array<Entry>, category: Category, type: 
     // If totals are equal, sort by Bodyweight, lower sorting lower.
     if (a.bodyweightKg !== b.bodyweightKg) return a.bodyweightKg - b.bodyweightKg;
 
-    // TODO: Breaking totals after this point is based on which lifter achieved
-    // that total first... but that requires reusing the comparison code that
-    // determines the lifting order. See Issue #65.
-    if (a.name < b.name) return -1;
-    if (a.name > b.name) return 1;
-    return 0;
+    // If totals are zero, neither lifter took a successful attempt,
+    // so just sort arbitrarily by name.
+    if (aTotal === 0) {
+      if (a.name < b.name) return -1;
+      if (a.name > b.name) return 1;
+      return 0;
+    }
+
+    // If totals are equal and bodyweights are equal, the winner is the
+    // lifter who reached the total first. Because our implementation is
+    // stateless and doesn't remember lifting order, this gets complicated.
+    //
+    // For purposes of simplicity, this is broken into cases.
+    //
+    // At this point, the logic requires that each lifter have taken at least
+    // one successful attempt -- this is validated by checking the total
+    // against zero above.
+    //
+    // Case 1: If the lifters' last successful lifts were for different Lifts,
+    //         then the lifter with the earlier lift in SBD order wins.
+    const aLastSuccessfulLift = getLastSuccessfulLift(event, a);
+    const bLastSuccessfulLift = getLastSuccessfulLift(event, b);
+    const aLastSuccessfulLiftIndex = ["S", "B", "D"].indexOf(aLastSuccessfulLift);
+    const bLastSuccessfulLiftIndex = ["S", "B", "D"].indexOf(bLastSuccessfulLift);
+    if (aLastSuccessfulLiftIndex !== bLastSuccessfulLiftIndex) {
+      return aLastSuccessfulLiftIndex - bLastSuccessfulLiftIndex;
+    }
+
+    // Case 2: If the lifters reached the total on the same lift but on different
+    //         attempts, the lifter with the earlier attempt wins.
+    const lift: Lift = aLastSuccessfulLift;
+    const aLastSuccessfulAttempt: number = getLastSuccessfulAttempt(lift, a);
+    const bLastSuccessfulAttempt: number = getLastSuccessfulAttempt(lift, b);
+    if (aLastSuccessfulAttempt !== bLastSuccessfulAttempt) {
+      return aLastSuccessfulAttempt - bLastSuccessfulAttempt;
+    }
+
+    // Case 3: If the lifters reached the total on the same lift and on the same
+    //         attempt, defer to the lifting order to determine who lifted first.
+    const attempt = aLastSuccessfulAttempt;
+    return compareEntriesByAttempt(a, b, liftToAttemptFieldName(lift), attempt);
   });
 
   return clonedEntries;
