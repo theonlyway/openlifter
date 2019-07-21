@@ -170,6 +170,33 @@ const usaplDefaults: $Shape<MeetState> = {
   allow4thAttempts: false
 };
 
+const uspaDefaults: $Shape<MeetState> = {
+  divisions: [
+    "Open",
+    "Y4-12",
+    "J13-15",
+    "J16-17",
+    "J18-19",
+    "J20-23",
+    "S35-39",
+    "M40-44",
+    "M45-49",
+    "M50-54",
+    "M55-59",
+    "M60-64",
+    "M65-69",
+    "M70-74",
+    "M75-79",
+    "M80+"
+  ],
+  weightClassesKgMen: [52, 56, 60, 67.5, 75, 82.5, 90, 100, 110, 125, 140],
+  weightClassesKgWomen: [44, 48, 52, 56, 60, 67.5, 75, 82.5, 90],
+  weightClassesKgMx: [52, 56, 60, 67.5, 75, 82.5, 90, 100, 110, 125, 140],
+  formula: "Wilks",
+  combineSleevesAndWraps: false,
+  allow4thAttempts: true
+};
+
 const wabdlDefaults: $Shape<MeetState> = {
   divisions: [
     "Open",
@@ -193,6 +220,31 @@ const wabdlDefaults: $Shape<MeetState> = {
   weightClassesKgWomen: [44, 48, 52, 56, 60, 67.5, 75, 82.5, 90, 100],
   weightClassesKgMx: [44, 48, 52, 56, 60, 67.5, 75, 82.5, 90, 100, 110, 117.5, 125, 140],
   formula: "Schwartz/Malone",
+  combineSleevesAndWraps: false,
+  allow4thAttempts: true
+};
+
+const wrpfDefaults: $Shape<MeetState> = {
+  divisions: [
+    "Open",
+    "Y5-13",
+    "T14-16",
+    "S17-19",
+    "J20-23",
+    "M40-44",
+    "M45-49",
+    "M50-54",
+    "M55-59",
+    "M60-64",
+    "M65-69",
+    "M70-74",
+    "M75-79",
+    "M80+"
+  ],
+  weightClassesKgMen: [52, 56, 60, 67.5, 75, 82.5, 90, 100, 110, 125, 140],
+  weightClassesKgWomen: [44, 48, 52, 56, 60, 67.5, 75, 82.5, 90],
+  weightClassesKgMx: [52, 56, 60, 67.5, 75, 82.5, 90, 100, 110, 125, 140],
+  formula: "Wilks",
   combineSleevesAndWraps: false,
   allow4thAttempts: true
 };
@@ -221,8 +273,14 @@ class AutoFillRules extends React.Component<Props, InternalState> {
       case "USAPL":
         this.props.updateMeet(usaplDefaults);
         return;
+      case "USPA":
+        this.props.updateMeet(uspaDefaults);
+        return;
       case "WABDL":
         this.props.updateMeet(wabdlDefaults);
+        return;
+      case "WRPF":
+        this.props.updateMeet(wrpfDefaults);
         return;
       default:
         (this.state.selectedOption: empty); // eslint-disable-line
@@ -248,8 +306,14 @@ class AutoFillRules extends React.Component<Props, InternalState> {
               <option key="USAPL" value="USAPL">
                 USAPL Rules
               </option>
+              <option key="USPA" value="USPA">
+                USPA Rules
+              </option>
               <option key="WABDL" value="WABDL">
                 WABDL Rules
+              </option>
+              <option key="WRPF" value="WRPF">
+                WRPF Rules
               </option>
             </FormControl>
 
