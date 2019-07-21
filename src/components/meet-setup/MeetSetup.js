@@ -26,7 +26,6 @@ import MeetDate from "./MeetDate";
 import MeetLength from "./MeetLength";
 import MeetLocation from "./MeetLocation";
 import PlatformCounts from "./PlatformCounts";
-import FormulaSelect from "./FormulaSelect";
 import FederationSelect from "./FederationSelect";
 import AutoFillRules from "./AutoFillRules";
 import DivisionSelect from "./DivisionSelect";
@@ -37,12 +36,13 @@ import Plates from "./Plates";
 import { updateMeet, setInKg } from "../../actions/meetSetupActions";
 
 import type { GlobalState } from "../../types/stateTypes";
-import type { AgeCoefficients } from "../../types/dataTypes";
+import type { AgeCoefficients, Formula } from "../../types/dataTypes";
 
 interface StateProps {
   allow4thAttempts: boolean;
   combineSleevesAndWraps: boolean;
   inKg: boolean;
+  formula: Formula;
   ageCoefficients: AgeCoefficients;
 
   masterKey: string; // Used to force-update rules components on Auto-Fill.
@@ -52,6 +52,7 @@ interface DispatchProps {
   setCombineSleevesAndWraps: (event: Object) => void;
   setAllow4thAttempts: (event: Object) => void;
   setInKg: (event: Object) => void;
+  setFormula: (event: Object) => void;
   setAgeCoefficients: (event: Object) => void;
 }
 
@@ -119,7 +120,23 @@ class MeetSetup extends React.Component<Props> {
                   label="Mx Weight Classes (kg), omit SHW"
                   key={this.props.masterKey + "-Mx"}
                 />
-                <FormulaSelect key={this.props.masterKey + "-formula"} />
+
+                <FormGroup key={this.props.masterKey + "-formula"}>
+                  <ControlLabel>Best Lifter Formula</ControlLabel>
+                  <FormControl
+                    componentClass="select"
+                    defaultValue={this.props.formula}
+                    onChange={this.props.setFormula}
+                  >
+                    <option value="Bodyweight Multiple">Bodyweight Multiple</option>
+                    <option value="Dots">Dots</option>
+                    <option value="Glossbrenner">Glossbrenner</option>
+                    <option value="IPF Points">IPF Points</option>
+                    <option value="NASA Points">NASA Points</option>
+                    <option value="Schwartz/Malone">Schwartz/Malone</option>
+                    <option value="Wilks">Wilks</option>
+                  </FormControl>
+                </FormGroup>
 
                 <FormGroup key={this.props.masterKey + "-ageCoefficients"}>
                   <ControlLabel>Age Coefficients for Best Juniors/Masters Lifter</ControlLabel>
@@ -198,6 +215,7 @@ const mapStateToProps = (state: GlobalState): StateProps => ({
   inKg: state.meet.inKg,
   combineSleevesAndWraps: state.meet.combineSleevesAndWraps,
   allow4thAttempts: state.meet.allow4thAttempts,
+  formula: state.meet.formula,
   ageCoefficients: state.meet.ageCoefficients,
   masterKey: state.meet.divisions.join()
 });
@@ -207,6 +225,7 @@ const mapDispatchToProps = (dispatch): DispatchProps => ({
     dispatch(updateMeet({ combineSleevesAndWraps: yesNoToBoolean(event.target.value) })),
   setAllow4thAttempts: event => dispatch(updateMeet({ allow4thAttempts: yesNoToBoolean(event.target.value) })),
   setInKg: event => dispatch(setInKg(yesNoToBoolean(event.target.value))),
+  setFormula: event => dispatch(updateMeet({ formula: event.target.value })),
   setAgeCoefficients: event => dispatch(updateMeet({ ageCoefficients: event.target.value }))
 });
 
