@@ -2,7 +2,7 @@
   "name": "openlifter",
   "version": "beta-dev",
   "homepage": "./",
-  "router_basename": "./",
+  "router_basename": "/",
   "author": "Sean Stangl <sean.stangl@gmail.com>",
   "description": "Simple software for running a local powerlifting competition",
   "license": "AGPL-3.0-or-later",
