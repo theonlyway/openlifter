@@ -270,7 +270,7 @@ class HomeContainer extends React.Component<Props, InternalState> {
         <input
           id="loadhelper"
           type="file"
-          accept=".openlifter"
+          accept=".openlifter,.openlifter.txt"
           style={{ display: "none" }}
           onChange={this.handleLoadFileInput}
         />
