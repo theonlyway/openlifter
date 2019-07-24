@@ -162,7 +162,7 @@ class LiftingFooter extends React.Component<Props> {
   hasFullscreenElement = (): boolean => {
     let doc = (document: any);
     if (doc.fullscreenElement) return true;
-    if (doc.webkitFullscreenElementnull) return true;
+    if (doc.webkitFullscreenElement) return true;
     if (doc.mozFullscreenElement) return true;
     if (doc.msFullscreenElement) return true;
     return false;
