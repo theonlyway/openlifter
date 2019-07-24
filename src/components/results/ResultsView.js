@@ -297,6 +297,20 @@ class ResultsView extends React.Component<Props, InternalState> {
         break;
     }
 
+    let daySelector = null;
+    if (this.props.global.meet.lengthDays > 1) {
+      daySelector = (
+        <FormControl
+          defaultValue={this.state.day}
+          componentClass="select"
+          onChange={this.handleDayChange}
+          className={styles.dropdown}
+        >
+          {this.makeDayOptions()}
+        </FormControl>
+      );
+    }
+
     return (
       <div style={marginStyle}>
         <Panel bsStyle="primary">
@@ -322,14 +336,7 @@ class ResultsView extends React.Component<Props, InternalState> {
         <Panel bsStyle="info">
           <Panel.Heading>Results For...</Panel.Heading>
           <Panel.Body className={styles.controlPanel}>
-            <FormControl
-              defaultValue={this.state.day}
-              componentClass="select"
-              onChange={this.handleDayChange}
-              className={styles.dropdown}
-            >
-              {this.makeDayOptions()}
-            </FormControl>
+            {daySelector}
 
             <FormControl
               defaultValue={this.state.by}
