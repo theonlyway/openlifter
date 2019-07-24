@@ -72,6 +72,74 @@ const traditionalDefaults: $Shape<MeetState> = {
   allow4thAttempts: true
 };
 
+const gpcausDefaults: $Shape<MeetState> = {
+  divisions: [
+    "F-JE",
+    "F-JR",
+    "F-M1E",
+    "F-M1R",
+    "F-M2E",
+    "F-M2R",
+    "F-M3E",
+    "F-M3R",
+    "F-M4E",
+    "F-M4R",
+    "F-M5E",
+    "F-M5R",
+    "F-M6E",
+    "F-M6R",
+    "F-M7E",
+    "F-M7R",
+    "F-M8E",
+    "F-M8R",
+    "F-M9E",
+    "F-M9R",
+    "F-OE",
+    "F-OR",
+    "F-T1E",
+    "F-T1R",
+    "F-T2E",
+    "F-T2R",
+    "F-T3E",
+    "F-T3R",
+    "M-JE",
+    "M-JR",
+    "M-M1E",
+    "M-M1R",
+    "M-M2E",
+    "M-M2R",
+    "M-M3E",
+    "M-M3R",
+    "M-M4E",
+    "M-M4R",
+    "M-M5E",
+    "M-M5R",
+    "M-M6E",
+    "M-M6R",
+    "M-M7E",
+    "M-M7R",
+    "M-M8E",
+    "M-M8R",
+    "M-M9E",
+    "M-M9R",
+    "M-OE",
+    "M-OR",
+    "M-T1E",
+    "M-T1R",
+    "M-T2E",
+    "M-T2R",
+    "M-T3E",
+    "M-T3R"
+  ],
+  weightClassesKgMen: [56, 60, 67.5, 75, 82.5, 90, 100, 110, 125, 140],
+  weightClassesKgWomen: [44, 48, 52, 56, 60, 67.5, 75, 82.5, 90, 110],
+  weightClassesKgMx: [56, 60, 67.5, 75, 82.5, 90, 100, 110, 125, 140],
+  formula: "Glossbrenner",
+  ageCoefficients: "FosterMcCulloch",
+  combineSleevesAndWraps: true,
+  allow4thAttempts: true
+};
+
 const upaDefaults: $Shape<MeetState> = {
   divisions: [
     "FG",
@@ -503,6 +571,9 @@ class AutoFillRules extends React.Component<Props, InternalState> {
       case "Traditional":
         this.props.updateMeet(traditionalDefaults);
         return;
+      case "GPC-AUS":
+        this.props.updateMeet(gpcausDefaults);
+        return;
       case "UPA":
         this.props.updateMeet(upaDefaults);
         return;
@@ -538,6 +609,9 @@ class AutoFillRules extends React.Component<Props, InternalState> {
             >
               <option key="Traditional" value="Traditional">
                 Traditional Rules
+              </option>
+              <option key="GPC-AUS" value="GPC-AUS">
+                GPC-AUS Rules
               </option>
               <option key="UPA" value="UPA">
                 UPA Rules
