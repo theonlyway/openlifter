@@ -158,15 +158,43 @@ class LiftingFooter extends React.Component<Props> {
     this.props.markLift(entryId, lift, attempt, false);
   };
 
+  // Check whether "document.fullscreenElement" exists, including prefixes.
+  hasFullscreenElement = (): boolean => {
+    let doc = (document: any);
+    if (doc.fullscreenElement) return true;
+    if (doc.webkitFullscreenElementnull) return true;
+    if (doc.mozFullscreenElement) return true;
+    if (doc.msFullscreenElement) return true;
+    return false;
+  };
+
+  // Calls exitFullscreen(), but with prefixes.
+  exitFullscreen = () => {
+    let doc = (document: any);
+    if (typeof doc.exitFullscreen === "function") doc.exitFullscreen();
+    else if (typeof doc.webkitExitFullscreen === "function") doc.webkitExitFullscreen();
+    else if (typeof doc.mozExitFullscreen === "function") doc.mozExitFullscreen();
+    else if (typeof doc.msExitFullscreen === "function") doc.msExitFullscreen();
+  };
+
+  // Calls requestFullscreen(), but with prefixes.
+  requestFullscreen = (e: any) => {
+    if (typeof e.requestFullscreen === "function") e.requestFullscreen();
+    else if (typeof e.webkitRequestFullscreen === "function") e.webkitRequestFullscreen();
+    else if (typeof e.mozRequestFullscreen === "function") e.mozRequestFullscreen();
+    else if (typeof e.msRequestFullscreen === "function") e.msRequestFullscreen();
+  };
+
+  // Called when the "Toggle Fullscreen" button is clicked.
   handleFullscreen = () => {
     // Document must be typecast to "any" because the fullscreen properties
     // used here aren't defined in the Flow Document type definition.
-    if ((document: any).fullscreenElement !== null) {
-      (document: any).exitFullscreen();
+    if (this.hasFullscreenElement() === true) {
+      this.exitFullscreen();
     } else {
       const liftingView = document.getElementById("liftingView");
       if (liftingView !== null) {
-        liftingView.requestFullscreen();
+        this.requestFullscreen(liftingView);
       }
     }
   };
