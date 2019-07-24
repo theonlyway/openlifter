@@ -23,6 +23,7 @@
 
 import React from "react";
 import { connect } from "react-redux";
+import { FormControl } from "react-bootstrap";
 
 import ValidatedTextInput from "../ValidatedTextInput";
 import WeightInput from "./WeightInput";
@@ -52,10 +53,18 @@ type Props = OwnProps & StateProps & DispatchProps;
 class LifterRow extends React.Component<Props> {
   constructor(props) {
     super(props);
+    this.updateRegistrationFlight = this.updateRegistrationFlight.bind(this);
     this.updateRegistrationSquatRackInfo = this.updateRegistrationSquatRackInfo.bind(this);
     this.updateRegistrationBenchRackInfo = this.updateRegistrationBenchRackInfo.bind(this);
     this.updateRegistrationAge = this.updateRegistrationAge.bind(this);
   }
+
+  updateRegistrationFlight = event => {
+    const flight = event.target.value;
+    if (this.props.entry.flight !== flight) {
+      this.props.updateRegistration(this.props.id, { flight: flight });
+    }
+  };
 
   updateRegistrationSquatRackInfo = (value: string) => {
     if (this.props.entry.squatRackInfo !== value) {
@@ -121,7 +130,20 @@ class LifterRow extends React.Component<Props> {
     return (
       <tr>
         <td>{entry.platform}</td>
-        <td>{entry.flight}</td>
+
+        <td>
+          <FormControl defaultValue={entry.flight} componentClass="select" onChange={this.updateRegistrationFlight}>
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="D">D</option>
+            <option value="E">E</option>
+            <option value="F">F</option>
+            <option value="G">G</option>
+            <option value="H">H</option>
+          </FormControl>
+        </td>
+
         <td>{entry.name}</td>
 
         <td>
