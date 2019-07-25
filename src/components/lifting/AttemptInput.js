@@ -50,7 +50,7 @@ interface DispatchProps {
 type Props = StateProps & OwnProps & DispatchProps;
 
 interface InternalState {
-  initialValue: string;
+  lastGoodValue: string;
   value: string;
 }
 
@@ -72,7 +72,7 @@ class AttemptInput extends React.Component<Props, InternalState> {
     }
 
     this.state = {
-      initialValue: weightStr,
+      lastGoodValue: weightStr,
       value: weightStr
     };
   }
@@ -81,13 +81,12 @@ class AttemptInput extends React.Component<Props, InternalState> {
     const { value } = this.state;
     if (value === "") return null;
 
+    // Handle all errors before all warnings.
     // Check that the input is a number.
     const asNumber = Number(value);
     if (isNaN(asNumber)) return "error";
     if (!isFinite(asNumber)) return "error";
     if (asNumber < 0) return "error";
-
-    if (asNumber % 2.5 !== 0) return "warning";
 
     // The bar weight must be monotonically increasing between attempts.
     if (this.props.attemptOneIndexed > 1) {
@@ -102,12 +101,16 @@ class AttemptInput extends React.Component<Props, InternalState> {
       const prevStatus = entry[fieldStatus][prevAttemptOneIndexed - 1];
 
       // The previous weight cannot be greater than the current weight.
-      if (prevKg > asKg) return "warning";
+      if (prevKg > asKg) return "error";
+
+      // The current weight cannot repeat a successful attempt.
+      if (prevKg === asKg && prevStatus === 1) return "error";
 
       // However, they can be equal if the previous attempt was failed.
       if (prevKg === asKg && prevStatus !== -1) return "warning";
     }
 
+    if (asNumber % 2.5 !== 0) return "warning";
     return null;
   };
 
@@ -130,7 +133,7 @@ class AttemptInput extends React.Component<Props, InternalState> {
 
   handleBlur = event => {
     if (this.getValidationState() === "error") {
-      this.setState({ value: this.state.initialValue });
+      this.setState({ value: this.state.lastGoodValue });
       return;
     }
 
@@ -141,6 +144,7 @@ class AttemptInput extends React.Component<Props, InternalState> {
     const weightKg = this.props.inKg ? asNumber : lbs2kg(asNumber);
 
     this.props.enterAttempt(entryId, lift, attemptOneIndexed, weightKg);
+    this.setState({ lastGoodValue: this.state.value });
   };
 
   render() {
