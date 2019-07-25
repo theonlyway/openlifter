@@ -119,7 +119,7 @@ class LiftingFooter extends React.Component<Props> {
   handleLiftChange = event => {
     const day = this.props.lifting.day;
     const platform = this.props.lifting.platform;
-    const flight = this.props.lifting.flight;
+    const flight = "A"; // Always reset to Flight A.
     const lift = event.target.value;
     this.props.setLiftingGroup(day, platform, flight, lift);
   };
@@ -301,6 +301,7 @@ class LiftingFooter extends React.Component<Props> {
             {liftOptions}
           </FormControl>
           <FormControl
+            key={"flight-" + this.props.lifting.flight}
             componentClass="select"
             defaultValue={this.props.lifting.flight}
             onChange={this.handleFlightChange}
