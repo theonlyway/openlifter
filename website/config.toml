@@ -27,7 +27,7 @@ theme = "rusty"
       aboutLink = "About"
       releasesLink = "Releases"
       guideLink = "Guide"
-      sourceCodeLink = "Code"
+      sourceCodeLink = "Source"
       supportLink = "Support"
       otherLanguagesIntro = "Our site in other languages:"
 
