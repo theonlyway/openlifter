@@ -35,7 +35,6 @@ import type { GlobalState } from "../types/stateTypes";
 
 // Temporary CSS, just for prototyping.
 const centerConsole = { maxWidth: 700, margin: "0 auto 10px" };
-const buttonConsole = { maxWidth: 400, margin: "auto 0 auto" };
 
 interface StateProps {
   redux: GlobalState;
@@ -210,7 +209,8 @@ class HomeContainer extends React.Component<Props, InternalState> {
 
         <Row>
           <Col md={8}>
-            <div style={buttonConsole}>
+            <br />
+            <div>
               {wrongVersion === false ? (
                 this.renderContinueButton()
               ) : (
@@ -231,7 +231,9 @@ class HomeContainer extends React.Component<Props, InternalState> {
               </Button>
             </div>
           </Col>
+
           <Col md={4}>
+            <br />
             <a
               href="https://gitlab.com/openpowerlifting/openlifter/issues/new"
               rel="noopener noreferrer"
