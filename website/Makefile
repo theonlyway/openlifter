@@ -1,10 +1,14 @@
-.PHONY: all build clean
+.PHONY: all rusty build clean
 
-all:
+all: rusty
 	hugo server --disableFastRender
 
-build:
+build: rusty
 	hugo --cleanDestinationDir
+
+rusty:
+	make -C themes/rusty
 
 clean:
 	rm -rf public
+	make -C themes/rusty clean

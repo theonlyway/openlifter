@@ -9,6 +9,9 @@ npm-debug.log.*
 thumbs.db
 !.gitkeep
 
+# Build artifacts.
+website/themes/rusty/static/css/rusty.css
+
 # Build directories.
 website/public/
 
