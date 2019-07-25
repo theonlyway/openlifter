@@ -36,6 +36,7 @@ const marginStyle = { margin: "0 20px 0 20px" };
 interface OwnProps {
   day?: number;
   platform?: number;
+  inLiftingPage?: boolean; // The weigh-ins page can be embedded.
 }
 
 interface StateProps {
@@ -70,6 +71,9 @@ class WeighinsView extends React.Component<Props> {
   };
 
   render() {
+    // Determine whether this is being shown embedded in the Lifting page.
+    const inLiftingPage = this.props.inLiftingPage === true;
+
     // Make a separate panel for each day.
     const numDays = this.getNumDaysFromEntries();
     let dayPanels = [];
@@ -94,7 +98,7 @@ class WeighinsView extends React.Component<Props> {
         <Panel key={i}>
           <Panel.Heading>Day {i} Weigh-ins</Panel.Heading>
           <Panel.Body>
-            <LifterTable entries={lifters} rowRenderer={LifterRow} />
+            <LifterTable entries={lifters} rowRenderer={LifterRow} inLiftingPage={inLiftingPage} />
           </Panel.Body>
         </Panel>
       );

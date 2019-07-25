@@ -83,7 +83,9 @@ class LiftingView extends React.Component<Props, InternalState> {
         />
       );
     } else {
-      rightElement = <WeighinsView day={this.props.lifting.day} platform={this.props.lifting.platform} />;
+      rightElement = (
+        <WeighinsView day={this.props.lifting.day} platform={this.props.lifting.platform} inLiftingPage={true} />
+      );
     }
 
     return (

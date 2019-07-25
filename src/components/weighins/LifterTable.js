@@ -28,6 +28,7 @@ import type { GlobalState } from "../../types/stateTypes";
 interface OwnProps {
   entries: Array<Entry>;
   rowRenderer: any;
+  inLiftingPage?: boolean;
 }
 
 interface StateProps {
@@ -46,7 +47,9 @@ class LifterTable extends React.Component<Props> {
   renderRows = () => {
     const LifterRow = this.props.rowRenderer;
     const { entries } = this.props;
-    return entries.map(entry => <LifterRow key={entry.id} id={entry.id} />);
+    const inLiftingPage = this.props.inLiftingPage === true;
+
+    return entries.map(entry => <LifterRow key={entry.id} id={entry.id} inLiftingPage={inLiftingPage} />);
   };
 
   renderHeader = () => {

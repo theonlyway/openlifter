@@ -37,6 +37,7 @@ import type { GlobalState, MeetState } from "../../types/stateTypes";
 
 interface OwnProps {
   id: number;
+  inLiftingPage?: boolean;
 }
 
 interface StateProps {
@@ -127,23 +128,28 @@ class LifterRow extends React.Component<Props> {
     const disableBenchWeight = !hasBench || entry.benchStatus[0] !== 0;
     const disableDeadliftWeight = !hasDeadlift || entry.deadliftStatus[0] !== 0;
 
+    // Only show the Flight selector if the Weigh-ins page is non-embedded.
+    let flight = entry.flight;
+    if (this.props.inLiftingPage !== true) {
+      // Can be undefined.
+      flight = (
+        <FormControl defaultValue={entry.flight} componentClass="select" onChange={this.updateRegistrationFlight}>
+          <option value="A">A</option>
+          <option value="B">B</option>
+          <option value="C">C</option>
+          <option value="D">D</option>
+          <option value="E">E</option>
+          <option value="F">F</option>
+          <option value="G">G</option>
+          <option value="H">H</option>
+        </FormControl>
+      );
+    }
+
     return (
       <tr>
         <td>{entry.platform}</td>
-
-        <td>
-          <FormControl defaultValue={entry.flight} componentClass="select" onChange={this.updateRegistrationFlight}>
-            <option value="A">A</option>
-            <option value="B">B</option>
-            <option value="C">C</option>
-            <option value="D">D</option>
-            <option value="E">E</option>
-            <option value="F">F</option>
-            <option value="G">G</option>
-            <option value="H">H</option>
-          </FormControl>
-        </td>
-
+        <td>{flight}</td>
         <td>{entry.name}</td>
 
         <td>
