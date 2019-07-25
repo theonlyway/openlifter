@@ -96,6 +96,9 @@ class ByPoints extends React.Component<Props> {
     const benchKg = getBest5BenchKg(entry);
     const deadliftKg = getBest5DeadliftKg(entry);
 
+    const inKg = this.props.inKg;
+    const total = inKg ? totalKg : kg2lbs(totalKg);
+
     // The place proceeds in order by key, except for DQ entries.
     const rank = totalKg === 0 ? "DQ" : key + 1;
 
@@ -134,6 +137,9 @@ class ByPoints extends React.Component<Props> {
       case "NASA Points":
         points = (c * nasapoints(entry.bodyweightKg, totalKg)).toFixed(2);
         break;
+      case "Total":
+        points = (c * total).toFixed(2);
+        break;
       default:
         (this.props.formula: empty) // eslint-disable-line
         break;
@@ -141,18 +147,15 @@ class ByPoints extends React.Component<Props> {
 
     let pointsStr = "";
     if (totalKg !== 0 && points === 0) pointsStr = "N/A";
-    if (totalKg !== 0 && points !== 0) pointsStr = points;
+    else if (totalKg !== 0 && points !== 0) pointsStr = points;
 
-    const inKg = this.props.inKg;
-
-    let wtcls = inKg
+    const wtcls = inKg
       ? getWeightClassStr(classes, entry.bodyweightKg)
       : getWeightClassLbsStr(classes, entry.bodyweightKg);
-    let bw = inKg ? entry.bodyweightKg : kg2lbs(entry.bodyweightKg);
-    let squat = inKg ? squatKg : kg2lbs(squatKg);
-    let bench = inKg ? benchKg : kg2lbs(benchKg);
-    let deadlift = inKg ? deadliftKg : kg2lbs(deadliftKg);
-    let total = inKg ? totalKg : kg2lbs(totalKg);
+    const bw = inKg ? entry.bodyweightKg : kg2lbs(entry.bodyweightKg);
+    const squat = inKg ? squatKg : kg2lbs(squatKg);
+    const bench = inKg ? benchKg : kg2lbs(benchKg);
+    const deadlift = inKg ? deadliftKg : kg2lbs(deadliftKg);
 
     return (
       <tr key={key}>

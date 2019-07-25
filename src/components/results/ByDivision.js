@@ -43,13 +43,13 @@ import { schwartzmalone } from "../../logic/coefficients/schwartzmalone";
 import { wilks } from "../../logic/coefficients/wilks";
 
 import type { Category, CategoryResults } from "../../logic/divisionPlace";
-import type { Entry, Sex } from "../../types/dataTypes";
+import type { Entry, Formula, Sex } from "../../types/dataTypes";
 import type { GlobalState } from "../../types/stateTypes";
 
 interface StateProps {
   inKg: boolean;
   meetName: string;
-  formula: string;
+  formula: Formula;
   combineSleevesAndWraps: boolean;
   lengthDays: number;
   weightClassesKgMen: Array<number>;
@@ -89,6 +89,9 @@ class ByDivision extends React.Component<Props> {
     const benchKg = getBest5BenchKg(entry);
     const deadliftKg = getBest5DeadliftKg(entry);
 
+    const inKg = this.props.inKg;
+    const total = inKg ? totalKg : kg2lbs(totalKg); // For display.
+
     // The place proceeds in order by key, except for DQ entries.
     const place = totalKg === 0 ? "DQ" : key + 1;
 
@@ -116,24 +119,25 @@ class ByDivision extends React.Component<Props> {
       case "NASA Points":
         points = nasapoints(entry.bodyweightKg, totalKg).toFixed(2);
         break;
+      case "Total":
+        points = total.toFixed(2);
+        break;
       default:
+        (this.props.formula: empty) // eslint-disable-line
         break;
     }
 
     let pointsStr = "";
     if (totalKg !== 0 && points === 0) pointsStr = "N/A";
-    if (totalKg !== 0 && points !== 0) pointsStr = points;
+    else if (totalKg !== 0 && points !== 0) pointsStr = points;
 
-    const inKg = this.props.inKg;
-
-    let wtcls = inKg
+    const wtcls = inKg
       ? getWeightClassStr(classes, entry.bodyweightKg)
       : getWeightClassLbsStr(classes, entry.bodyweightKg);
-    let bw = inKg ? entry.bodyweightKg : kg2lbs(entry.bodyweightKg);
-    let squat = inKg ? squatKg : kg2lbs(squatKg);
-    let bench = inKg ? benchKg : kg2lbs(benchKg);
-    let deadlift = inKg ? deadliftKg : kg2lbs(deadliftKg);
-    let total = inKg ? totalKg : kg2lbs(totalKg);
+    const bw = inKg ? entry.bodyweightKg : kg2lbs(entry.bodyweightKg);
+    const squat = inKg ? squatKg : kg2lbs(squatKg);
+    const bench = inKg ? benchKg : kg2lbs(benchKg);
+    const deadlift = inKg ? deadliftKg : kg2lbs(deadliftKg);
 
     return (
       <tr key={key}>

@@ -104,6 +104,9 @@ const sortByFormulaPlaceInCategory = (
       case "Dots":
         memoizedPoints[i] = dots(category.sex, entry.bodyweightKg, totalKg);
         break;
+      case "Total":
+        memoizedPoints[i] = totalKg;
+        break;
       default:
         (formula: empty) // eslint-disable-line
         memoizedPoints[i] = 0;

@@ -136,6 +136,7 @@ class MeetSetup extends React.Component<Props> {
                     <option value="IPF Points">IPF Points</option>
                     <option value="NASA Points">NASA Points</option>
                     <option value="Schwartz/Malone">Schwartz/Malone</option>
+                    <option value="Total">Total</option>
                     <option value="Wilks">Wilks</option>
                   </FormControl>
                 </FormGroup>

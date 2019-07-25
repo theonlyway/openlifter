@@ -310,6 +310,8 @@ class LiftingTable extends React.Component<Props> {
           points = getProjectedSchwartzMalone(entry);
         } else if (this.props.meet.formula === "NASA Points") {
           points = getProjectedNASAPoints(entry);
+        } else if (this.props.meet.formula === "Total") {
+          return this.renderCell(entry, "ProjectedTotal", categoryResults);
         } else if (this.props.meet.formula === "Bodyweight Multiple") {
           points = getProjectedBodyweightMultiple(entry);
         }
@@ -335,6 +337,8 @@ class LiftingTable extends React.Component<Props> {
           points = getFinalSchwartzMalone(entry);
         } else if (this.props.meet.formula === "NASA Points") {
           points = getFinalNASAPoints(entry);
+        } else if (this.props.meet.formula === "Total") {
+          return this.renderCell(entry, "FinalTotal", categoryResults);
         } else if (this.props.meet.formula === "Bodyweight Multiple") {
           points = getFinalBodyweightMultiple(entry);
         }

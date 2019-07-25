@@ -29,6 +29,7 @@ export type Formula =
   | "IPF Points"
   | "NASA Points"
   | "Schwartz/Malone"
+  | "Total"
   | "Wilks";
 export type AgeCoefficients = "None" | "FosterMcCulloch";
 export type Lift = "S" | "B" | "D";
