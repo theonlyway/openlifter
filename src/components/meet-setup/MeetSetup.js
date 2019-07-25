@@ -42,6 +42,7 @@ interface StateProps {
   allow4thAttempts: boolean;
   combineSleevesAndWraps: boolean;
   inKg: boolean;
+  showAlternateUnits: boolean;
   formula: Formula;
   ageCoefficients: AgeCoefficients;
 
@@ -52,6 +53,7 @@ interface DispatchProps {
   setCombineSleevesAndWraps: (event: Object) => void;
   setAllow4thAttempts: (event: Object) => void;
   setInKg: (event: Object) => void;
+  setShowAlternateUnits: (event: Object) => void;
   setFormula: (event: Object) => void;
   setAgeCoefficients: (event: Object) => void;
 }
@@ -198,6 +200,18 @@ class MeetSetup extends React.Component<Props> {
                     </option>
                   </FormControl>
                 </FormGroup>
+
+                <FormGroup>
+                  <ControlLabel>Also show attempts in {this.props.inKg ? "pounds" : "kilograms"}?</ControlLabel>
+                  <FormControl
+                    componentClass="select"
+                    defaultValue={yesNoFromBoolean(this.props.showAlternateUnits)}
+                    onChange={this.props.setShowAlternateUnits}
+                  >
+                    {yesNoBooleanOptions}
+                  </FormControl>
+                </FormGroup>
+
                 <BarAndCollarsWeightKg key={"S" + inKg} lift="S" />
                 <BarAndCollarsWeightKg key={"B" + inKg} lift="B" />
                 <BarAndCollarsWeightKg key={"D" + inKg} lift="D" />
@@ -213,6 +227,7 @@ class MeetSetup extends React.Component<Props> {
 
 const mapStateToProps = (state: GlobalState): StateProps => ({
   inKg: state.meet.inKg,
+  showAlternateUnits: state.meet.showAlternateUnits,
   combineSleevesAndWraps: state.meet.combineSleevesAndWraps,
   allow4thAttempts: state.meet.allow4thAttempts,
   formula: state.meet.formula,
@@ -225,6 +240,7 @@ const mapDispatchToProps = (dispatch): DispatchProps => ({
     dispatch(updateMeet({ combineSleevesAndWraps: yesNoToBoolean(event.target.value) })),
   setAllow4thAttempts: event => dispatch(updateMeet({ allow4thAttempts: yesNoToBoolean(event.target.value) })),
   setInKg: event => dispatch(setInKg(yesNoToBoolean(event.target.value))),
+  setShowAlternateUnits: event => dispatch(updateMeet({ showAlternateUnits: yesNoToBoolean(event.target.value) })),
   setFormula: event => dispatch(updateMeet({ formula: event.target.value })),
   setAgeCoefficients: event => dispatch(updateMeet({ ageCoefficients: event.target.value }))
 });

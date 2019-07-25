@@ -82,6 +82,7 @@ const initialState: MeetState = {
 
   // Weights and Loading Setup.
   inKg: true,
+  showAlternateUnits: true,
   squatBarAndCollarsWeightKg: defaultBarAndCollarsWeightKg,
   benchBarAndCollarsWeightKg: defaultBarAndCollarsWeightKg,
   deadliftBarAndCollarsWeightKg: defaultBarAndCollarsWeightKg,

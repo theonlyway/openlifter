@@ -44,6 +44,7 @@ interface OwnProps {
 
 interface StateProps {
   inKg: boolean;
+  showAlternateUnits: boolean;
   squatBarAndCollarsWeightKg: number;
   benchBarAndCollarsWeightKg: number;
   deadliftBarAndCollarsWeightKg: number;
@@ -140,14 +141,17 @@ class LeftPanel extends React.Component<Props> {
         </div>
       );
 
-    const textIfKg = weightKgText + "kg / " + weightLbsText + "lb";
-    const textIfLbs = weightLbsText + "lb / " + weightKgText + "kg";
+    let attemptText = this.props.inKg ? weightKgText + "kg" : weightLbsText + "lb";
+    if (this.props.showAlternateUnits) {
+      attemptText += " / ";
+      attemptText += this.props.inKg ? weightLbsText + "lb" : weightKgText + "kg";
+    }
 
     return (
       <div className={styles.container}>
         <div className={styles.activeCard}>
           <div className={styles.loadingBar}>
-            <div className={styles.attemptText}>{this.props.inKg ? textIfKg : textIfLbs}</div>
+            <div className={styles.attemptText}>{attemptText}</div>
             <div className={styles.barArea}>
               <BarLoad
                 key={String(current.weightKg) + current.rackInfo}
@@ -167,6 +171,7 @@ class LeftPanel extends React.Component<Props> {
 const mapStateToProps = (state: GlobalState): StateProps => {
   return {
     inKg: state.meet.inKg,
+    showAlternateUnits: state.meet.showAlternateUnits,
     squatBarAndCollarsWeightKg: state.meet.squatBarAndCollarsWeightKg,
     benchBarAndCollarsWeightKg: state.meet.benchBarAndCollarsWeightKg,
     deadliftBarAndCollarsWeightKg: state.meet.deadliftBarAndCollarsWeightKg,

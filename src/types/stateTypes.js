@@ -54,6 +54,7 @@ export type MeetState = {
 
   // Weights and Loading Setup.
   +inKg: boolean,
+  +showAlternateUnits: boolean,
   +squatBarAndCollarsWeightKg: number,
   +benchBarAndCollarsWeightKg: number,
   +deadliftBarAndCollarsWeightKg: number,
