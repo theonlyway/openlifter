@@ -58,6 +58,12 @@ p.pitch {
     margin-right: 1em;
     text-align: left;
   }
+
+  // On the "Support" page for large screens, set the height of the <ul>
+  // element so that the "Contact Us" buttons below are vertically aligned.
+  div.support-card ul.laundry-list {
+    height: 160px;
+  }
 }
 .pitch-row .release-version > span {
   font-weight: bold;
@@ -125,6 +131,7 @@ footer a {
 
 // Cards on the Support page.
 div.support-card {
+  margin-bottom: 60px; // Separates the cards on small screens.
 }
 
 .support-card h3 {
