@@ -37,7 +37,7 @@ import type { GlobalState, MeetState } from "../../types/stateTypes";
 
 const makeMeetCsv = (meet: MeetState): Csv => {
   let csv = new Csv();
-  csv.fieldnames = ["Federation", "Date", "MeetCountry", "MeetState", "MeetTown", "MeetName"];
+  csv.fieldnames = ["Federation", "Date", "MeetCountry", "MeetState", "MeetTown", "MeetName", "Formula"];
 
   let row: Array<string> = [
     csvString(meet.federation),
@@ -45,7 +45,8 @@ const makeMeetCsv = (meet: MeetState): Csv => {
     csvString(meet.country),
     csvString(meet.state),
     csvString(meet.city),
-    csvString(meet.name)
+    csvString(meet.name),
+    csvString(meet.formula)
   ];
   csv.rows = [row];
 
