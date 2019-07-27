@@ -140,6 +140,34 @@ const gpcausDefaults: $Shape<MeetState> = {
   allow4thAttempts: true
 };
 
+const spfDefaults: $Shape<MeetState> = {
+  divisions: [
+    "Open",
+    "Pre-Teen",
+    "T13-15",
+    "T16-17",
+    "T18-19",
+    "J20-23",
+    "S33-39",
+    "M40-44",
+    "M45-49",
+    "M50-54",
+    "M55-59",
+    "M60-64",
+    "M65-69",
+    "M70-74",
+    "M75-79",
+    "G80+"
+  ],
+  weightClassesKgMen: [44, 48, 52, 56, 60, 67.5, 75, 82.5, 90, 100, 110, 118, 125, 140],
+  weightClassesKgWomen: [44, 48, 52, 56, 60, 67.5, 75, 82.5, 90, 100, 110],
+  weightClassesKgMx: [44, 48, 52, 56, 60, 67.5, 75, 82.5, 90, 100, 110, 118, 125, 140],
+  formula: "Schwartz/Malone",
+  ageCoefficients: "FosterMcCulloch",
+  combineSleevesAndWraps: true,
+  allow4thAttempts: true
+};
+
 const upaDefaults: $Shape<MeetState> = {
   divisions: [
     "FG",
@@ -574,6 +602,9 @@ class AutoFillRules extends React.Component<Props, InternalState> {
       case "GPC-AUS":
         this.props.updateMeet(gpcausDefaults);
         return;
+      case "SPF":
+        this.props.updateMeet(spfDefaults);
+        return;
       case "UPA":
         this.props.updateMeet(upaDefaults);
         return;
@@ -612,6 +643,9 @@ class AutoFillRules extends React.Component<Props, InternalState> {
               </option>
               <option key="GPC-AUS" value="GPC-AUS">
                 GPC-AUS Rules
+              </option>
+              <option key="SPF" value="SPF">
+                SPF Rules
               </option>
               <option key="UPA" value="UPA">
                 UPA Rules
