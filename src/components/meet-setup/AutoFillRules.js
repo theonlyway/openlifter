@@ -164,7 +164,7 @@ const spfDefaults: $Shape<MeetState> = {
   weightClassesKgMx: [44, 48, 52, 56, 60, 67.5, 75, 82.5, 90, 100, 110, 118, 125, 140],
   formula: "Schwartz/Malone",
   ageCoefficients: "FosterMcCulloch",
-  combineSleevesAndWraps: true,
+  combineSleevesAndWraps: false,
   allow4thAttempts: true
 };
 
