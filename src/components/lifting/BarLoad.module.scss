@@ -159,6 +159,13 @@ div.lbs100 {
   width: $plate-width * 1.5;
 }
 
+// Styling for a single 55lb plate.
+div.lbs55 {
+  @include plate-defaults();
+  height: $maximum-plate-height;
+  width: $plate-width * 1.2;
+}
+
 // Styling for a single 45lb plate.
 div.lbs45 {
   @include plate-defaults();

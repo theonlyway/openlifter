@@ -79,6 +79,8 @@ class BarLoad extends React.Component<Props> {
     switch (weightLbs) {
       case 100:
         return styles.lbs100;
+      case 55:
+        return styles.lbs55;
       case 45:
         return styles.lbs45;
       case 35:

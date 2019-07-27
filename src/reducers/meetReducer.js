@@ -49,6 +49,7 @@ const defaultPlatesKg: Array<Plate> = [
 // Default lbs plates, allowing for increments of 1lb.
 const defaultPlatesLbs: Array<Plate> = [
   { weightKg: lbs2kg(100), pairCount: 0, color: PlateColors.PLATE_DEFAULT_GREEN },
+  { weightKg: lbs2kg(55), pairCount: 0, color: PlateColors.PLATE_DEFAULT_RED },
   { weightKg: lbs2kg(45), pairCount: 8, color: PlateColors.PLATE_DEFAULT_GRAY },
   { weightKg: lbs2kg(35), pairCount: 0, color: PlateColors.PLATE_DEFAULT_GRAY },
   { weightKg: lbs2kg(25), pairCount: 1, color: PlateColors.PLATE_DEFAULT_GRAY },
