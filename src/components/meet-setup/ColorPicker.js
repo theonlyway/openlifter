@@ -36,6 +36,10 @@ type Props = OwnProps;
 interface InternalState {
   displayColorPicker: boolean;
   color: string;
+
+  // Handle returned by setTimeout() for the timeout that closes the color
+  // selector popup after the mouse leaves and time has elapsed.
+  timeoutId: any;
 }
 
 class ColorPicker extends React.Component<Props, InternalState> {
@@ -44,20 +48,45 @@ class ColorPicker extends React.Component<Props, InternalState> {
 
     this.state = {
       displayColorPicker: false,
-      color: props.color
+      color: props.color,
+      timeoutId: null
     };
 
     this.handleClick = this.handleClick.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.handleMouseLeave = this.handleMouseLeave.bind(this);
+    this.handleMouseEnter = this.handleMouseEnter.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleClick = () => {
-    this.setState({ displayColorPicker: !this.state.displayColorPicker });
+    clearTimeout(this.state.timeoutId);
+    this.setState({ displayColorPicker: !this.state.displayColorPicker, timeoutId: null });
   };
 
   handleClose = () => {
-    this.setState({ displayColorPicker: false });
+    clearTimeout(this.state.timeoutId);
+    this.setState({ displayColorPicker: false, timeoutId: null });
+  };
+
+  handleMouseLeave = () => {
+    // Close the popup after a second has elapsed.
+    // This gives the user a chance to bring the mouse back into the popup.
+    let timeoutId = setTimeout(
+      function() {
+        this.setState({ displayColorPicker: false, timeoutId: null });
+      }.bind(this),
+      1000
+    );
+    this.setState({ timeoutId: timeoutId });
+  };
+
+  handleMouseEnter = () => {
+    // Prevent any close-popup timeout from executing.
+    if (this.state.timeoutId !== null) {
+      clearTimeout(this.state.timeoutId);
+      this.setState({ timeoutId: null });
+    }
   };
 
   handleChange = (color: Object) => {
@@ -79,7 +108,7 @@ class ColorPicker extends React.Component<Props, InternalState> {
     }
 
     return (
-      <div>
+      <div onMouseLeave={this.handleMouseLeave} onMouseEnter={this.handleMouseEnter}>
         <div className={styles.swatch} onClick={this.handleClick}>
           <div className={styles.color} style={{ background: this.state.color }} />
         </div>
