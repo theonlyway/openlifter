@@ -84,8 +84,12 @@ class ByDivision extends React.Component<Props> {
     // Skip no-show entries.
     if (!entryHasLifted(entry)) return null;
 
-    const classes = mapSexToClasses(entry.sex, this.props);
+    // Skip DQ'd lifters. Meet directors have reported that it's embarrassing
+    // to the DQ'd lifter to have that projected.
     const totalKg = getFinalEventTotalKg(entry, category.event);
+    if (totalKg === 0) return null;
+
+    const classes = mapSexToClasses(entry.sex, this.props);
     const squatKg = getBest5SquatKg(entry);
     const benchKg = getBest5BenchKg(entry);
     const deadliftKg = getBest5DeadliftKg(entry);
