@@ -20,7 +20,7 @@
 // Defines shared types produced by Redux actions.
 
 import type { Entry, Formula, Lift, Sex } from "./dataTypes";
-import type { GlobalState, MeetState } from "./stateTypes";
+import type { GlobalState, MeetState, LiftingState } from "./stateTypes";
 
 //////////////////////////////////////////////////////////
 // Global Actions.
@@ -192,4 +192,9 @@ export interface OverrideAttemptAction {
 export interface OverrideEntryIdAction {
   type: "OVERRIDE_ENTRY_ID";
   entryId: number;
+}
+
+export interface SetTableInfoAction {
+  type: "SET_TABLE_INFO";
+  changes: $Shape<LiftingState>;
 }

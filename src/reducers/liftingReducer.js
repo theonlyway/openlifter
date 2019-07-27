@@ -31,7 +31,8 @@ import type {
   SetLiftingGroupAction,
   OverrideAttemptAction,
   OverrideEntryIdAction,
-  OverwriteStoreAction
+  OverwriteStoreAction,
+  SetTableInfoAction
 } from "../types/actionTypes";
 import type { LiftingState } from "../types/stateTypes";
 
@@ -47,7 +48,10 @@ const initialState: LiftingState = {
   // for a one-shot override of the normal logic. After being handled,
   // they are unset.
   overrideAttempt: null, // Allows selecting an attempt, even if it's completed.
-  overrideEntryId: null // Allows selecting a lifter, even if they've already gone.
+  overrideEntryId: null, // Allows selecting a lifter, even if they've already gone.
+
+  // Presentational configuration.
+  columnDivisionWidthPx: 90
 };
 
 type Action =
@@ -55,7 +59,8 @@ type Action =
   | SetLiftingGroupAction
   | OverrideAttemptAction
   | OverrideEntryIdAction
-  | OverwriteStoreAction;
+  | OverwriteStoreAction
+  | SetTableInfoAction;
 
 export default (state: LiftingState = initialState, action: Action): LiftingState => {
   switch (action.type) {
@@ -66,6 +71,10 @@ export default (state: LiftingState = initialState, action: Action): LiftingStat
 
     case "SET_LIFTING_GROUP":
       return {
+        // Keep all the UI customization stuff.
+        ...state,
+
+        // Change all the real state stuff.
         day: action.day,
         platform: action.platform,
         flight: action.flight,
@@ -84,6 +93,36 @@ export default (state: LiftingState = initialState, action: Action): LiftingStat
 
     case "OVERWRITE_STORE":
       return action.store.lifting;
+
+    case "SET_TABLE_INFO": {
+      const changes = action.changes;
+
+      // As a safeguard, ensure that fields unrelated to customization
+      // are not overwritten by this action.
+
+      // Make a new object that's state + changes, with changes taking priority.
+      let combined = Object.assign({}, state);
+      Object.assign(combined, changes);
+
+      // Source from this new combined object, with fields unrelated to customization
+      // deferring to the original state.
+      //
+      // So that means:
+      //  - Fields unrelated to customization will be the same as in 'state'.
+      //  - Customization fields will be from 'combined', which includes all fields
+      //    and allowed the 'changes' object to overwrite any of them.
+      return {
+        ...combined,
+
+        day: state.day,
+        platform: state.platform,
+        flight: state.flight,
+        lift: state.lift,
+
+        overrideAttempt: state.overrideAttempt,
+        overrideEntryId: state.overrideEntryId
+      };
+    }
 
     default:
       (action.type: empty); // eslint-disable-line

@@ -468,7 +468,12 @@ class LiftingTable extends React.Component<Props> {
 
   render() {
     // Select the columns for display.
-    let columns: Array<ColumnType> = ["Name", "Division", "Bodyweight", "WeightClass"];
+    let columns: Array<ColumnType> = ["Name"];
+    // If the score table set the division column with to zero, hide it.
+    if (this.props.lifting.columnDivisionWidthPx !== 0) {
+      columns.push("Division");
+    }
+    columns.push("Bodyweight", "WeightClass");
 
     // Select lift columns based off the current lift.
     if (this.props.lifting.lift === "S") {
@@ -504,12 +509,21 @@ class LiftingTable extends React.Component<Props> {
     for (let i = 0; i < columns.length; i++) {
       const column = columns[i];
       let className = styles.smallCell;
-      if (column === "Name") className = styles.nameCell;
-      else if (column === "Division") className = styles.divisionCell;
-      else if (column === "Spacer") className = styles.spacerCell;
+      let style = null;
+
+      if (column === "Name") {
+        className = styles.nameCell;
+      } else if (column === "Division") {
+        className = styles.divisionCell;
+        if (this.props.lifting.columnDivisionWidthPx) {
+          style = { width: this.props.lifting.columnDivisionWidthPx + "px" };
+        }
+      } else if (column === "Spacer") {
+        className = styles.spacerCell;
+      }
 
       headers.push(
-        <th key={column} className={className}>
+        <th key={column} className={className} style={style}>
           {this.getColumnHeaderString(column)}
         </th>
       );

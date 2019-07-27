@@ -22,9 +22,11 @@ import type {
   MarkLiftAction,
   SetLiftingGroupAction,
   OverrideAttemptAction,
-  OverrideEntryIdAction
+  OverrideEntryIdAction,
+  SetTableInfoAction
 } from "../types/actionTypes";
 import type { Lift } from "../types/dataTypes";
+import type { LiftingState } from "../types/stateTypes";
 
 // Sets a weightKg that doesn't have a good/failed value, for entering in attempts.
 export const enterAttempt = (
@@ -85,5 +87,19 @@ export const overrideEntryId = (entryId: number): OverrideEntryIdAction => {
   return {
     type: "OVERRIDE_ENTRY_ID",
     entryId: entryId
+  };
+};
+
+// Updates arbitrary fields in the LiftingState.
+//
+// The intention is to use action just for table customization: things like
+// column widths, column visibility, and other such options.
+//
+// Having this interface lets us keep the number of actions low: separate
+// actions for each kind of modification is not really useful.
+export const setTableInfo = (obj: $Shape<LiftingState>): SetTableInfoAction => {
+  return {
+    type: "SET_TABLE_INFO",
+    changes: obj
   };
 };

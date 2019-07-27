@@ -25,12 +25,15 @@
 
 import React from "react";
 import { connect } from "react-redux";
+import { Panel } from "react-bootstrap";
 
 import TopBar from "./TopBar";
 import LeftPanel from "./LeftPanel";
 import LiftingTable from "./LiftingTable";
 import LiftingFooter from "./LiftingFooter";
 import WeighinsView from "../weighins/WeighinsView";
+
+import ColumnWidth from "./ColumnWidth";
 
 import styles from "./LiftingView.module.scss";
 
@@ -90,9 +93,14 @@ class LiftingView extends React.Component<Props, InternalState> {
 
     return (
       <div>
-        <h3 style={{ marginLeft: "12px" }}>
-          To fit to the screen, zoom the browser in or out and then press Toggle Fullscreen.
-        </h3>
+        <Panel bsStyle="primary" style={{ marginLeft: "12px", marginRight: "12px" }}>
+          <Panel.Body>
+            <div style={{ width: "160px" }}>
+              <ColumnWidth label="Division Column Width" fieldName="columnDivisionWidthPx" />
+            </div>
+            <h3>To fit to the screen, zoom the browser in or out and then press Toggle Fullscreen.</h3>
+          </Panel.Body>
+        </Panel>
         <div id="liftingView" className={styles.liftingView}>
           <TopBar
             attemptOneIndexed={now.attemptOneIndexed}

@@ -70,12 +70,16 @@ export type RegistrationState = {
 };
 
 export type LiftingState = {
+  // Lifting context.
   +day: number,
   +platform: number,
   +flight: string,
   +lift: Lift,
   +overrideAttempt: number | null,
-  +overrideEntryId: number | null
+  +overrideEntryId: number | null,
+
+  // Presentational configuration.
+  columnDivisionWidthPx: number
 };
 
 export type GlobalState = {
