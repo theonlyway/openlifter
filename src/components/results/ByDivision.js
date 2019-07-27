@@ -48,6 +48,7 @@ import type { GlobalState } from "../../types/stateTypes";
 
 interface StateProps {
   inKg: boolean;
+  showAlternateUnits: boolean;
   meetName: string;
   formula: Formula;
   combineSleevesAndWraps: boolean;
@@ -139,6 +140,16 @@ class ByDivision extends React.Component<Props> {
     const bench = inKg ? benchKg : kg2lbs(benchKg);
     const deadlift = inKg ? deadliftKg : kg2lbs(deadliftKg);
 
+    const unit = inKg ? "kg" : "lb";
+    const otherUnit = inKg ? "lb" : "kg";
+
+    // Calculate the total in the alternate units, if requested.
+    let alternateTotal: string | null = null;
+    if (this.props.showAlternateUnits === true && totalKg !== 0) {
+      const amount = inKg ? kg2lbs(totalKg) : totalKg;
+      alternateTotal = unit + " / " + displayWeight(amount) + otherUnit;
+    }
+
     return (
       <tr key={key}>
         <td>{place}</td>
@@ -149,7 +160,10 @@ class ByDivision extends React.Component<Props> {
         <td>{squatKg === 0 ? "" : displayWeight(squat)}</td>
         <td>{benchKg === 0 ? "" : displayWeight(bench)}</td>
         <td>{deadliftKg === 0 ? "" : displayWeight(deadlift)}</td>
-        <td>{totalKg === 0 ? "" : displayWeight(total)}</td>
+        <td>
+          {totalKg === 0 ? "" : displayWeight(total)}
+          {alternateTotal}
+        </td>
         <td>{pointsStr}</td>
       </tr>
     );
@@ -258,6 +272,7 @@ const mapStateToProps = (state: GlobalState, ownProps: OwnProps): StateProps => 
 
   return {
     inKg: state.meet.inKg,
+    showAlternateUnits: state.meet.showAlternateUnits,
     meetName: state.meet.name,
     formula: state.meet.formula,
     combineSleevesAndWraps: state.meet.combineSleevesAndWraps,
