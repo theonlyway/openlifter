@@ -1,4 +1,5 @@
 // vim: set ts=2 sts=2 sw=2 et:
+// @flow
 //
 // This file is part of OpenLifter, simple Powerlifting meet software.
 // Copyright (C) 2019 The OpenPowerlifting Project.
@@ -18,13 +19,28 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
 
 import { ControlLabel, FormGroup, FormControl } from "react-bootstrap";
 
 import { setLengthDays } from "../../actions/meetSetupActions";
 
-class MeetLength extends React.Component {
+import type { GlobalState } from "../../types/stateTypes";
+
+interface StateProps {
+  lengthDays: number;
+}
+
+interface DispatchProps {
+  setLengthDays: (days: number) => any;
+}
+
+type Props = StateProps & DispatchProps;
+
+interface InternalState {
+  value: number | string;
+}
+
+class MeetLength extends React.Component<Props, InternalState> {
   constructor(props) {
     super(props);
 
@@ -36,7 +52,7 @@ class MeetLength extends React.Component {
     };
   }
 
-  getValidationState() {
+  getValidationState = () => {
     const { value } = this.state;
     const asNumber = Number(value);
 
@@ -44,18 +60,18 @@ class MeetLength extends React.Component {
       return "error";
     }
     return "success";
-  }
+  };
 
-  handleChange(event) {
+  handleChange = event => {
     const value = event.target.value;
 
     this.setState({ value: value }, () => {
       // As callback, save successful value into Redux store.
       if (this.getValidationState() !== "error") {
-        this.props.setLengthDays(value);
+        this.props.setLengthDays(Number(value));
       }
     });
-  }
+  };
 
   render() {
     return (
@@ -74,19 +90,14 @@ class MeetLength extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: GlobalState): StateProps => ({
   lengthDays: state.meet.lengthDays
 });
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch): DispatchProps => {
   return {
     setLengthDays: days => dispatch(setLengthDays(days))
   };
-};
-
-MeetLength.propTypes = {
-  lengthDays: PropTypes.number.isRequired,
-  setLengthDays: PropTypes.func.isRequired
 };
 
 export default connect(
