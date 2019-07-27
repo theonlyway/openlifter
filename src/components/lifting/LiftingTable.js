@@ -222,12 +222,20 @@ class LiftingTable extends React.Component<Props> {
 
   renderCell = (entry: Object, columnType: ColumnType, categoryResults: Array<CategoryResults>) => {
     switch (columnType) {
-      case "Name":
+      case "Name": {
+        let cell = entry.name;
+
+        // Bold the name of the current lifter.
+        if (this.props.currentEntryId === entry.id) {
+          cell = <b>{entry.name}</b>;
+        }
+
         return (
           <td key={columnType} className={styles.textCell}>
-            {entry.name}
+            {cell}
           </td>
         );
+      }
       case "Bodyweight": {
         const bw = entry.bodyweightKg;
         const bwStr = displayWeight(this.props.meet.inKg ? bw : kg2lbs(bw));
