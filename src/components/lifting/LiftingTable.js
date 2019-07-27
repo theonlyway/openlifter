@@ -89,6 +89,18 @@ type ColumnType =
   | "FinalPoints"
   | "Place";
 
+// This is a global for remembering the last AttemptInput that was rendered.
+// After the "No Lift" or "Good Lift" buttons are clicked, the last-rendered
+// AttemptInput is given focus by an event handler.
+//
+// This works because the LiftingTable is always re-rendered when one of
+// those buttons is clicked, and because there's only one LiftingTable.
+export var globalFocusAttemptInputId: string | null = null;
+
+// The logic for globalFocusAttemptInputId is looking for the AttemptInput
+// that's all the way on the right, and as far down the table as possible.
+var globalHighestAttemptInputAttempt: number = 0;
+
 class LiftingTable extends React.Component<Props> {
   constructor(props) {
     super(props);
@@ -147,13 +159,24 @@ class LiftingTable extends React.Component<Props> {
     const wStr = displayWeight(this.props.meet.inKg ? kg : kg2lbs(kg));
     const displayStr = kg === 0 ? "" : wStr;
 
+    // Get a unique ID for each AttemptInput.
+    // This is used in combination with the globalFocusAttemptInputId to give
+    // focus to the last-rendered AttemptInput after a button is clicked.
+    const id = "AttemptInput-" + entry.id + "-" + lift + attemptOneIndexed;
+
     // If the lifter was manually selected, always show an AttemptInput.
     // This allows manual correction of weights when a misload occurs,
     // even though the lift has already been marked good lift / no lift.
     if (this.props.lifting.overrideEntryId === entry.id && attemptOneIndexed === this.props.attemptOneIndexed) {
+      // Is this a better match for giving focus?
+      if (attemptOneIndexed >= globalHighestAttemptInputAttempt) {
+        globalHighestAttemptInputAttempt = attemptOneIndexed;
+        globalFocusAttemptInputId = id;
+      }
+
       return (
         <td key={columnType} className={styles.attemptInputCell}>
-          <AttemptInput entry={entry} lift={lift} attemptOneIndexed={attemptOneIndexed} />
+          <AttemptInput id={id} entry={entry} lift={lift} attemptOneIndexed={attemptOneIndexed} />
         </td>
       );
     }
@@ -195,9 +218,15 @@ class LiftingTable extends React.Component<Props> {
       entry[fieldStatus][this.props.attemptOneIndexed - 1] !== 0;
 
     if (kg !== 0 || currentAndHasPrevious || nextAndTookLast) {
+      // Is this a better match for giving focus?
+      if (attemptOneIndexed >= globalHighestAttemptInputAttempt) {
+        globalHighestAttemptInputAttempt = attemptOneIndexed;
+        globalFocusAttemptInputId = id;
+      }
+
       return (
         <td key={columnType} className={styles.attemptInputCell}>
-          <AttemptInput entry={entry} lift={lift} attemptOneIndexed={attemptOneIndexed} />
+          <AttemptInput id={id} entry={entry} lift={lift} attemptOneIndexed={attemptOneIndexed} />
         </td>
       );
     }
@@ -475,6 +504,9 @@ class LiftingTable extends React.Component<Props> {
   };
 
   render() {
+    // Reset this: hunting for a new AttemptIndex.
+    globalHighestAttemptInputAttempt = 0;
+
     // Select the columns for display.
     let columns: Array<ColumnType> = ["Name"];
     // If the score table set the division column with to zero, hide it.

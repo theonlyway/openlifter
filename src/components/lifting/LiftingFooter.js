@@ -24,6 +24,7 @@ import React from "react";
 import { connect } from "react-redux";
 
 import { FormControl } from "react-bootstrap";
+import { globalFocusAttemptInputId } from "./LiftingTable";
 
 import { markLift, overrideAttempt, overrideEntryId, setLiftingGroup } from "../../actions/liftingActions";
 
@@ -134,6 +135,21 @@ class LiftingFooter extends React.Component<Props> {
     this.props.overrideEntryId(entryId);
   };
 
+  // After a "No Lift" or "Good Lift" button is clicked, try to change focus
+  // to the AttemptInput that the score table is likely to want to type into.
+  setFocusAttemptInputTimeout = () => {
+    if (globalFocusAttemptInputId === null) {
+      return;
+    }
+
+    setTimeout(function() {
+      const elem = document.getElementById(globalFocusAttemptInputId);
+      if (elem) {
+        elem.focus();
+      }
+    }, 100);
+  };
+
   handleGoodLift = () => {
     // If there's no active entry, there's nothing to set.
     if (this.props.currentEntryId === null) {
@@ -144,6 +160,7 @@ class LiftingFooter extends React.Component<Props> {
     const lift = this.props.lifting.lift;
     const attempt = this.props.attemptOneIndexed;
     this.props.markLift(entryId, lift, attempt, true);
+    this.setFocusAttemptInputTimeout();
   };
 
   handleNoLift = () => {
@@ -156,6 +173,7 @@ class LiftingFooter extends React.Component<Props> {
     const lift = this.props.lifting.lift;
     const attempt = this.props.attemptOneIndexed;
     this.props.markLift(entryId, lift, attempt, false);
+    this.setFocusAttemptInputTimeout();
   };
 
   // Check whether "document.fullscreenElement" exists, including prefixes.

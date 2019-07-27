@@ -41,6 +41,7 @@ interface OwnProps {
   entry: Entry;
   lift: Lift;
   attemptOneIndexed: number;
+  id: ?string; // Optional global id for the FormControl.
 }
 
 interface DispatchProps {
@@ -148,9 +149,13 @@ class AttemptInput extends React.Component<Props, InternalState> {
   };
 
   render() {
+    // Only use the "id" prop if it's a string. It's an optional prop.
+    const id: string | null = typeof this.props.id === "string" ? this.props.id : null;
+
     return (
       <FormGroup validationState={this.getValidationState()} style={{ marginBottom: 0 }}>
         <FormControl
+          id={id}
           type="text"
           placeholder=""
           value={this.state.value}
