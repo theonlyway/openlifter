@@ -142,7 +142,7 @@ export class Csv {
     }
   }
 
-  // Attempts to create a CSV object from a string.
+  // Attempts to fill in this CSV object from a string.
   // On success, returns the `this` Csv object.
   // On failure, returns an error string with a user-presentable message.
   fromString(s: string): Csv | string {
