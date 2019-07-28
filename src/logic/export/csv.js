@@ -39,6 +39,35 @@ export const csvString = (x: number | string): string => {
   return s;
 };
 
+// Returns the in-spreadsheet name of a column. In standard spreadsheet software,
+// rows are numeric (1, 2, 3, ...) and columns are alphabetic (A, B, C, ...).
+// For errors, we'd like to report the column that's wrong.
+//
+// The 'index' input is zero-indexed.
+export const getSpreadsheetColumnName = (index: number): string => {
+  const alphabet: string = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+  // Column name accumulator.
+  // It's built by taking repeated mods in base 26: therefore new characters
+  // are appended to the left of the accumulator.
+  let acc: string = "";
+  let n: number = index;
+
+  while (n >= alphabet.length) {
+    const mod = n % alphabet.length;
+    const remainder = Math.floor(n / alphabet.length);
+
+    acc = alphabet[mod] + acc;
+
+    // The subtraction is because this isn't a pure modulus operator:
+    // by analogy to base-10, "AA" is equivalent to "00", and we want to render
+    // that.
+    n = remainder - 1;
+  }
+
+  return alphabet[n] + acc;
+};
+
 // A class for managing simple CSV files. Double-quotes and commas are disallowed.
 export class Csv {
   fieldnames: Array<string>; // Column names.
@@ -111,6 +140,58 @@ export class Csv {
         return;
       }
     }
+  }
+
+  // Attempts to create a CSV object from a string.
+  // On success, returns the `this` Csv object.
+  // On failure, returns an error string with a user-presentable message.
+  fromString(s: string): Csv | string {
+    // The string cannot contain double-quotes: programs use those to allow
+    // in-field commas, which we disallow.
+    if (s.includes('"')) {
+      let e = 'Double-quotes (") are disallowed.';
+      e += " Double-quotes can be automatically inserted by spreadsheet software";
+      e += " when a field contains a comma. Make sure to delete all in-field commas.";
+      return e;
+    }
+
+    // Split by newline. It's OK for \r to remain: we'll strip each field later.
+    // This always produces an array of length at least 1.
+    //
+    // Trim the string first: it's OK if files end with "\n".
+    const lines = s.trim().split("\n");
+
+    // The first row contains fieldnames.
+    const fieldnames = lines[0].split(",").map(x => x.trim());
+
+    // Any rows after the first contain data.
+    let rows = [];
+    for (let i = 1; i < lines.length; ++i) {
+      const row = lines[i].split(",").map(x => x.trim());
+      rows.push(row);
+    }
+
+    // Sanity checking time!
+    // Every column must be named.
+    for (let i = 0; i < fieldnames.length; ++i) {
+      if (fieldnames[i] === "") {
+        const colname = getSpreadsheetColumnName(i);
+        return "Column " + colname + " is missing a column name.";
+      }
+    }
+
+    // Every row must have the same length as the fieldnames row.
+    for (let i = 0; i < rows.length; ++i) {
+      if (rows[i].length !== fieldnames.length) {
+        let e = "Row " + (i + 1) + " has " + rows[i].length + " columns,";
+        e += " but the first row has " + fieldnames.length + " columns.";
+        return e;
+      }
+    }
+
+    this.fieldnames = fieldnames;
+    this.rows = rows;
+    return this;
   }
 
   toString(): string {
