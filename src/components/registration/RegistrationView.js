@@ -1,4 +1,5 @@
 // vim: set ts=2 sts=2 sw=2 et:
+// @flow
 //
 // This file is part of OpenLifter, simple Powerlifting meet software.
 // Copyright (C) 2019 The OpenPowerlifting Project.
@@ -20,34 +21,35 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
 
 import LifterTable from "./LifterTable";
 import LifterRow from "./LifterRow";
 import NewButton from "./NewButton";
 
+import type { GlobalState } from "../../types/stateTypes";
+
+interface StateProps {
+  global: GlobalState;
+}
+
+type Props = StateProps;
+
 const marginStyle = { margin: "0 20px 20px 20px" };
 
-class RegistrationView extends React.Component {
+class RegistrationView extends React.Component<Props> {
   render() {
     return (
       <div style={marginStyle}>
-        <LifterTable entries={this.props.registration.entries} rowRenderer={LifterRow} />
+        <LifterTable entries={this.props.global.registration.entries} rowRenderer={LifterRow} />
         <NewButton />
       </div>
     );
   }
 }
 
-const mapStateToProps = state => ({
-  ...state
+const mapStateToProps = (state: GlobalState): StateProps => ({
+  global: state
 });
-
-RegistrationView.propTypes = {
-  registration: PropTypes.shape({
-    entries: PropTypes.array
-  })
-};
 
 export default connect(
   mapStateToProps,
