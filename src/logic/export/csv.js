@@ -183,7 +183,8 @@ export class Csv {
     // Every row must have the same length as the fieldnames row.
     for (let i = 0; i < rows.length; ++i) {
       if (rows[i].length !== fieldnames.length) {
-        let e = "Row " + (i + 1) + " has " + rows[i].length + " columns,";
+        const rownum = i + 2; // 1-indexed, and the first row is fieldnames.
+        let e = "Row " + rownum + " has " + rows[i].length + " columns,";
         e += " but the first row has " + fieldnames.length + " columns.";
         return e;
       }
