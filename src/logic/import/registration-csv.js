@@ -224,9 +224,16 @@ export const loadRegistrations = (state: GlobalState, csv: Csv): Array<Entry> | 
           break;
         }
 
-        case "Name":
+        case "Name": {
+          if (val === "") {
+            return errprefix + "every lifter needs a Name";
+          }
+          if (val.toUpperCase() === val) {
+            return errprefix + "the Name should not be all-uppercase";
+          }
           entry.name = val;
           break;
+        }
 
         case "Sex": {
           const sex = parseSex(val);
