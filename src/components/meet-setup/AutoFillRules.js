@@ -72,7 +72,7 @@ const traditionalDefaults: $Shape<MeetState> = {
   allow4thAttempts: true
 };
 
-const gpcausDefaults: $Shape<MeetState> = {
+const gpcDefaults: $Shape<MeetState> = {
   divisions: [
     "F-JE",
     "F-JR",
@@ -96,6 +96,8 @@ const gpcausDefaults: $Shape<MeetState> = {
     "F-M9R",
     "F-OE",
     "F-OR",
+    "F-SME",
+    "F-SMR",
     "F-T1E",
     "F-T1R",
     "F-T2E",
@@ -124,6 +126,8 @@ const gpcausDefaults: $Shape<MeetState> = {
     "M-M9R",
     "M-OE",
     "M-OR",
+    "M-SME",
+    "M-SMR",
     "M-T1E",
     "M-T1R",
     "M-T2E",
@@ -599,8 +603,8 @@ class AutoFillRules extends React.Component<Props, InternalState> {
       case "Traditional":
         this.props.updateMeet(traditionalDefaults);
         return;
-      case "GPC-AUS":
-        this.props.updateMeet(gpcausDefaults);
+      case "GPC":
+        this.props.updateMeet(gpcDefaults);
         return;
       case "SPF":
         this.props.updateMeet(spfDefaults);
@@ -641,8 +645,8 @@ class AutoFillRules extends React.Component<Props, InternalState> {
               <option key="Traditional" value="Traditional">
                 Traditional Rules
               </option>
-              <option key="GPC-AUS" value="GPC-AUS">
-                GPC-AUS Rules
+              <option key="GPC" value="GPC">
+                GPC Rules
               </option>
               <option key="SPF" value="SPF">
                 SPF Rules
