@@ -49,34 +49,40 @@ export const parseInteger = (s: string): ?number => {
   return parseInt(s, 10);
 };
 
-// Strictly parse a string to a Sex.
+// Loosely parse a string to a Sex.
 export const parseSex = (s: string): ?Sex => {
-  if (s === "M") return "M";
-  if (s === "F") return "F";
-  if (s === "Mx") return "Mx";
+  const lower = s.toLowerCase();
+  if (lower === "m") return "M";
+  if (lower === "f") return "F";
+  if (lower === "mx") return "Mx";
   return;
 };
 
-// Strictly parse a string to an Equipment.
+// Loosely parse a string to an Equipment.
 export const parseEquipment = (s: string): ?Equipment => {
-  if (s === "Bare") return "Bare";
-  if (s === "Sleeves") return "Sleeves";
-  if (s === "Wraps") return "Wraps";
-  if (s === "Single-ply") return "Single-ply";
-  if (s === "Multi-ply") return "Multi-ply";
+  const lower = s.toLowerCase();
+  if (lower === "bare") return "Bare";
+  if (lower === "sleeves") return "Sleeves";
+  if (lower === "wraps") return "Wraps";
+
+  // Be more forgiving on these ones: nobody remembers the dash.
+  if (lower.startsWith("single")) return "Single-ply";
+  if (lower.startsWith("multi")) return "Multi-ply";
   return;
 };
 
-// Strictly parse a string to an Event.
+// Parse a string to an Event.
 // Valid characters are "SBD", which must occur in that order.
 export const parseEvent = (s: string): ?Event => {
   if (s === "") {
     return;
   }
 
-  const has_squat = s.includes("S");
-  const has_bench = s.includes("B");
-  const has_deadlift = s.includes("D");
+  // Allow lowercase variants like "sbd".
+  const lower = s.toLowerCase();
+  const has_squat = lower.includes("s");
+  const has_bench = lower.includes("b");
+  const has_deadlift = lower.includes("d");
 
   let acc = "";
   if (has_squat) acc += "S";
