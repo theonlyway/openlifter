@@ -28,6 +28,7 @@ import saveAs from "file-saver";
 import { overwriteStore } from "../actions/globalActions";
 
 import NewMeetModal from "../components/home/NewMeetModal";
+import ErrorModal from "../components/ErrorModal";
 
 import { stateVersion, releaseVersion, releaseDate } from "../versions";
 
@@ -46,6 +47,8 @@ interface DispatchProps {
 
 interface InternalState {
   showNewMeetModal: boolean;
+  // Controls the ErrorModal popup. Shown when error !== "".
+  error: string;
 }
 
 type Props = StateProps & DispatchProps;
@@ -56,11 +59,12 @@ class HomeContainer extends React.Component<Props, InternalState> {
     this.handleLoadClick = this.handleLoadClick.bind(this);
     this.handleNewClick = this.handleNewClick.bind(this);
     this.closeConfirmModal = this.closeConfirmModal.bind(this);
+    this.closeErrorModal = this.closeErrorModal.bind(this);
     this.handleLoadFileInput = this.handleLoadFileInput.bind(this);
     this.handleSaveClick = this.handleSaveClick.bind(this);
     this.renderContinueButton = this.renderContinueButton.bind(this);
 
-    this.state = { showNewMeetModal: false };
+    this.state = { showNewMeetModal: false, error: "" };
   }
 
   // The file input is hidden, and we want to use a button to activate it.
@@ -81,6 +85,10 @@ class HomeContainer extends React.Component<Props, InternalState> {
   // Close the new meet confirmation modal
   closeConfirmModal = () => {
     this.setState({ showNewMeetModal: false });
+  };
+
+  closeErrorModal = () => {
+    this.setState({ error: "" });
   };
 
   // Called when a file is selected.
@@ -116,8 +124,8 @@ class HomeContainer extends React.Component<Props, InternalState> {
       }
 
       if (errored) {
-        // TODO: Be a little more helpful.
-        window.alert("That didn't look like an OpenLifter file!");
+        const error = "That didn't look like an OpenLifter file!";
+        rememberThis.setState({ error: error });
       }
     };
     reader.readAsText(selectedFile);
@@ -196,6 +204,12 @@ class HomeContainer extends React.Component<Props, InternalState> {
     return (
       <Grid style={centerConsole}>
         <NewMeetModal show={this.state.showNewMeetModal} close={this.closeConfirmModal} />
+        <ErrorModal
+          error={this.state.error}
+          title="Load from File Error"
+          show={this.state.error !== ""}
+          close={this.closeErrorModal}
+        />
 
         <Row>
           <Col md={12}>

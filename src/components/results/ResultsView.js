@@ -26,6 +26,7 @@ import saveAs from "file-saver";
 
 import ByDivision from "./ByDivision";
 import ByPoints from "./ByPoints";
+import ErrorModal from "../ErrorModal";
 
 import { mergePlatform } from "../../actions/registrationActions";
 
@@ -52,6 +53,8 @@ type Props = StateProps & DispatchProps;
 interface InternalState {
   day: number;
   by: "Division" | "Points";
+  // Controls the ErrorModal popup. Shown when error !== "".
+  error: string;
 }
 
 // FIXME: Unfortunate use of globals :/ I don't have a better idea.
@@ -71,10 +74,12 @@ class ResultsView extends React.Component<Props, InternalState> {
     this.handleExportPlatformClick = this.handleExportPlatformClick.bind(this);
     this.handleMergePlatformClick = this.handleMergePlatformClick.bind(this);
     this.handleLoadFileInput = this.handleLoadFileInput.bind(this);
+    this.closeErrorModal = this.closeErrorModal.bind(this);
 
     this.state = {
       day: 0, // Meaning "all". Flow complained about mixing numbers and strings.
-      by: "Division"
+      by: "Division",
+      error: ""
     };
   }
 
@@ -173,6 +178,7 @@ class ResultsView extends React.Component<Props, InternalState> {
     // Remember the props in the onload() closure.
     let props = this.props;
 
+    let rememberThis = this;
     const selectedFile = loadHelper.files[0];
     let reader = new FileReader();
     reader.onload = function(event) {
@@ -190,11 +196,11 @@ class ResultsView extends React.Component<Props, InternalState> {
         } else if (obj.meet.name !== props.global.meet.name) {
           // The meet name must match, for sanity checking.
           error =
-            "This meet is named '" +
+            'This meet is named "' +
             props.global.meet.name +
-            "', but the selected file is for the meet '" +
+            '", but the selected file is for the meet "' +
             obj.meet.name +
-            "'.";
+            '". Might be the wrong competition?';
         } else if (!liftingPresentOnPlatform(obj.registration.entries, day, platform)) {
           // The meet must actually contain data from the given (day, platform).
           error = "The selected file doesn't have any lifting data for Day " + day + " Platform " + platform + ".";
@@ -209,11 +215,15 @@ class ResultsView extends React.Component<Props, InternalState> {
         error = "Couldn't parse JSON.";
       }
 
-      if (error !== null) {
-        window.alert(error);
+      if (typeof error === "string") {
+        rememberThis.setState({ error: error });
       }
     };
     reader.readAsText(selectedFile);
+  };
+
+  closeErrorModal = () => {
+    this.setState({ error: "" });
   };
 
   makePlatformMergeButtons = () => {
@@ -313,6 +323,13 @@ class ResultsView extends React.Component<Props, InternalState> {
 
     return (
       <div style={marginStyle}>
+        <ErrorModal
+          error={this.state.error}
+          title="Merge Error"
+          show={this.state.error !== ""}
+          close={this.closeErrorModal}
+        />
+
         <Panel bsStyle="primary">
           <Panel.Heading>Merge Platforms</Panel.Heading>
           <Panel.Body>

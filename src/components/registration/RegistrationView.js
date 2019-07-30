@@ -27,6 +27,7 @@ import { Button, ButtonGroup, Panel } from "react-bootstrap";
 import LifterTable from "./LifterTable";
 import LifterRow from "./LifterRow";
 import NewButton from "./NewButton";
+import ErrorModal from "../ErrorModal";
 
 import { Csv } from "../../logic/export/csv";
 import { makeExampleRegistrationsCsv, loadRegistrations } from "../../logic/import/registration-csv";
@@ -49,18 +50,26 @@ interface DispatchProps {
 
 type Props = StateProps & DispatchProps;
 
+interface InternalState {
+  // Controls the ErrorModal popup. Shown when error !== "".
+  error: string;
+}
+
 const marginStyle = { margin: "0 20px 20px 20px" };
 
 // Used to distinguish between the Overwrite and Append modes.
 var globalImportKind: string = "Overwrite";
 
-class RegistrationView extends React.Component<Props> {
+class RegistrationView extends React.Component<Props, InternalState> {
   constructor(props) {
     super(props);
     this.handleDownloadCsvTemplateClick = this.handleDownloadCsvTemplateClick.bind(this);
     this.handleOverwriteClick = this.handleOverwriteClick.bind(this);
     this.handleAppendClick = this.handleAppendClick.bind(this);
     this.handleLoadFileInput = this.handleLoadFileInput.bind(this);
+    this.closeErrorModal = this.closeErrorModal.bind(this);
+
+    this.state = { error: "" };
   }
 
   handleDownloadCsvTemplateClick = () => {
@@ -101,13 +110,15 @@ class RegistrationView extends React.Component<Props> {
 
       // Check if an error message occurred.
       if (typeof maybeError === "string") {
-        return window.alert("Error: " + maybeError);
+        rememberThis.setState({ error: maybeError });
+        return;
       }
 
       // Convert the Csv to an Array<Entry>.
       const maybeEntries = loadRegistrations(rememberThis.props.global, csv);
       if (typeof maybeEntries === "string") {
-        return window.alert("Error: " + maybeEntries);
+        rememberThis.setState({ error: maybeEntries });
+        return;
       }
 
       // Successfully parsed and loaded!
@@ -131,9 +142,20 @@ class RegistrationView extends React.Component<Props> {
     reader.readAsText(selectedFile);
   };
 
+  closeErrorModal = () => {
+    this.setState({ error: "" });
+  };
+
   render() {
     return (
       <div style={marginStyle}>
+        <ErrorModal
+          error={this.state.error}
+          title="Importation Error"
+          show={this.state.error !== ""}
+          close={this.closeErrorModal}
+        />
+
         <Panel bsStyle="info">
           <Panel.Heading>Auto-Import Registrations</Panel.Heading>
           <Panel.Body>
