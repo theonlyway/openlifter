@@ -76,6 +76,7 @@ type ColumnType =
   | "Bodyweight"
   | "WeightClass"
   | "Division"
+  | "Lot"
   | "Equipment"
   | "Age"
   | "S1" | "S2" | "S3" | "S4" // eslint-disable-line
@@ -288,6 +289,13 @@ class LiftingTable extends React.Component<Props> {
           </td>
         );
       }
+      case "Lot": {
+        return (
+          <td key={columnType} className={styles.textCell}>
+            {entry.lot === 0 ? "" : entry.lot}
+          </td>
+        );
+      }
       case "Equipment": {
         // Use shorter names to actually fit in the table.
         let equipment = entry.equipment;
@@ -453,6 +461,8 @@ class LiftingTable extends React.Component<Props> {
         return "Class";
       case "Division":
         return "Division";
+      case "Lot":
+        return "Lot";
       case "Equipment":
         return "Equip";
       case "Age":
@@ -514,6 +524,14 @@ class LiftingTable extends React.Component<Props> {
       columns.push("Division");
     }
     columns.push("Bodyweight", "WeightClass");
+
+    // The "Lot" column is only shown if lot numbers are used.
+    for (let i = 0; i < this.props.orderedEntries.length; ++i) {
+      if (this.props.orderedEntries[i].lot !== 0) {
+        columns.push("Lot");
+        break;
+      }
+    }
 
     // Select lift columns based off the current lift.
     if (this.props.lifting.lift === "S") {
