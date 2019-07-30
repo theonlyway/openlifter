@@ -272,6 +272,9 @@ class LiftingFooter extends React.Component<Props> {
         </option>
       );
     }
+    if (flightOptions.length === 0) {
+      flightOptions.push(<option key="none">No Flights</option>);
+    }
 
     let attemptOptions = [];
     for (let i = 1; i <= 3; i++) {
