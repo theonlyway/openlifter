@@ -1,13 +1,25 @@
-.PHONY: all rusty build clean
+.PHONY: all rusty build clean releases
 
-all: rusty
+# Start the development server.
+all: rusty releases
 	hugo server --disableFastRender
 
-build: rusty
+# Build for deployment to a website.
+build: rusty releases
 	hugo --cleanDestinationDir
 
+# Builds the "Rusty" theme.
 rusty:
 	make -C themes/rusty
+
+# Puts the /releases directory into /website/static/releases.
+# Normally we could just use a symlink, but Go (which Hugo is written in)
+# does not support symlink traversal.
+#
+# The .gitignore knows to ignore /website/static/releases.
+releases:
+	rm -rf static/releases
+	cp -r ../releases static/releases
 
 clean:
 	rm -rf public

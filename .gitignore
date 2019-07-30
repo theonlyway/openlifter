@@ -11,6 +11,7 @@ thumbs.db
 
 # Build artifacts.
 website/themes/rusty/static/css/rusty.css
+website/static/releases
 
 # Build directories.
 website/public/
