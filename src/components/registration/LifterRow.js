@@ -413,6 +413,7 @@ class LifterRow extends React.Component {
                   min="0"
                   defaultValue={entry.lot === 0 ? "" : entry.lot}
                   onBlur={this.updateRegistrationLot}
+                  onChange={this.updateRegistrationLot}
                 />
               </FormGroup>
             </Col>
