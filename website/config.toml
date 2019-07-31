@@ -8,7 +8,6 @@ theme = "rusty"
     languageName = "English"
     weight = 10
     [languages.en.params]
-      releaseDate = "April 18, 2019"
       description = "Powerful meet software by OpenPowerlifting"
       keywords = "openlifter,powerlifting,meet,competition,nextlifter,scoreboard"
       runtext = "Run OpenLifter"
