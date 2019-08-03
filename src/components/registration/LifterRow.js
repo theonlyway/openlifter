@@ -31,6 +31,7 @@ import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import FormControl from "react-bootstrap/FormControl";
 import FormGroup from "react-bootstrap/FormGroup";
+import Row from "react-bootstrap/Row";
 
 import Select from "react-select";
 
@@ -249,219 +250,225 @@ class LifterRow extends React.Component {
         </Card.Header>
         <Card.Body>
           <Container style={gridStyle}>
-            {/* Day */}
-            <Col md={1}>
-              <FormGroup>
-                <Form.Label>Day</Form.Label>
-                <FormControl
-                  defaultValue={this.state.selectedDay}
-                  as="select"
-                  onChange={this.updateRegistrationDay}
-                  className="custom-select"
-                >
-                  {dayOptions}
-                </FormControl>
-              </FormGroup>
-            </Col>
+            <Row>
+              {/* Day */}
+              <Col md={1}>
+                <FormGroup>
+                  <Form.Label>Day</Form.Label>
+                  <FormControl
+                    defaultValue={this.state.selectedDay}
+                    as="select"
+                    onChange={this.updateRegistrationDay}
+                    className="custom-select"
+                  >
+                    {dayOptions}
+                  </FormControl>
+                </FormGroup>
+              </Col>
 
-            {/* Platform */}
-            <Col md={1}>
-              <FormGroup>
-                <Form.Label>Platform</Form.Label>
-                <FormControl
-                  defaultValue={entry.platform}
-                  as="select"
-                  onChange={this.updateRegistrationPlatform}
-                  className="custom-select"
-                >
-                  {platformOptions}
-                </FormControl>
-              </FormGroup>
-            </Col>
+              {/* Platform */}
+              <Col md={1}>
+                <FormGroup>
+                  <Form.Label>Platform</Form.Label>
+                  <FormControl
+                    defaultValue={entry.platform}
+                    as="select"
+                    onChange={this.updateRegistrationPlatform}
+                    className="custom-select"
+                  >
+                    {platformOptions}
+                  </FormControl>
+                </FormGroup>
+              </Col>
 
-            {/* Flight */}
-            <Col md={1}>
-              <FormGroup>
-                <Form.Label>Flight</Form.Label>
-                <FormControl
-                  defaultValue={entry.flight}
-                  as="select"
-                  onChange={this.updateRegistrationFlight}
-                  className="custom-select"
-                >
-                  <option value="A">A</option>
-                  <option value="B">B</option>
-                  <option value="C">C</option>
-                  <option value="D">D</option>
-                  <option value="E">E</option>
-                  <option value="F">F</option>
-                  <option value="G">G</option>
-                  <option value="H">H</option>
-                </FormControl>
-              </FormGroup>
-            </Col>
+              {/* Flight */}
+              <Col md={1}>
+                <FormGroup>
+                  <Form.Label>Flight</Form.Label>
+                  <FormControl
+                    defaultValue={entry.flight}
+                    as="select"
+                    onChange={this.updateRegistrationFlight}
+                    className="custom-select"
+                  >
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                    <option value="F">F</option>
+                    <option value="G">G</option>
+                    <option value="H">H</option>
+                  </FormControl>
+                </FormGroup>
+              </Col>
 
-            {/* Sex */}
-            <Col md={1}>
-              <FormGroup>
-                <Form.Label>Sex</Form.Label>
-                <FormControl
-                  defaultValue={entry.sex}
-                  as="select"
-                  onChange={this.updateRegistrationSex}
-                  className="custom-select"
-                >
-                  <option value="M">M</option>
-                  <option value="F">F</option>
-                  <option value="Mx">Mx</option>
-                </FormControl>
-              </FormGroup>
-            </Col>
+              {/* Sex */}
+              <Col md={1}>
+                <FormGroup>
+                  <Form.Label>Sex</Form.Label>
+                  <FormControl
+                    defaultValue={entry.sex}
+                    as="select"
+                    onChange={this.updateRegistrationSex}
+                    className="custom-select"
+                  >
+                    <option value="M">M</option>
+                    <option value="F">F</option>
+                    <option value="Mx">Mx</option>
+                  </FormControl>
+                </FormGroup>
+              </Col>
 
-            {/* Equipment */}
-            <Col md={2}>
-              <FormGroup>
-                <Form.Label>Equipment</Form.Label>
-                <FormControl
-                  defaultValue={entry.equipment}
-                  as="select"
-                  onChange={this.updateRegistrationEquipment}
-                  className="custom-select"
-                >
-                  <option value="Bare">Bare</option>
-                  <option value="Sleeves">Sleeves</option>
-                  <option value="Wraps">Wraps</option>
-                  <option value="Single-ply">Single-ply</option>
-                  <option value="Multi-ply">Multi-ply</option>
-                </FormControl>
-              </FormGroup>
-            </Col>
+              {/* Equipment */}
+              <Col md={2}>
+                <FormGroup>
+                  <Form.Label>Equipment</Form.Label>
+                  <FormControl
+                    defaultValue={entry.equipment}
+                    as="select"
+                    onChange={this.updateRegistrationEquipment}
+                    className="custom-select"
+                  >
+                    <option value="Bare">Bare</option>
+                    <option value="Sleeves">Sleeves</option>
+                    <option value="Wraps">Wraps</option>
+                    <option value="Single-ply">Single-ply</option>
+                    <option value="Multi-ply">Multi-ply</option>
+                  </FormControl>
+                </FormGroup>
+              </Col>
 
-            {/* Divisions */}
-            <Col md={4}>
-              <FormGroup>
-                <Form.Label>Divisions</Form.Label>
-                <Select
-                  menuPlacement="auto"
-                  options={divisionOptions}
-                  isClearable={false}
-                  isMulti={true}
-                  onChange={this.updateRegistrationDivisions}
-                  defaultValue={selectedDivisions}
-                />
-              </FormGroup>
-            </Col>
+              {/* Divisions */}
+              <Col md={4}>
+                <FormGroup>
+                  <Form.Label>Divisions</Form.Label>
+                  <Select
+                    menuPlacement="auto"
+                    options={divisionOptions}
+                    isClearable={false}
+                    isMulti={true}
+                    onChange={this.updateRegistrationDivisions}
+                    defaultValue={selectedDivisions}
+                  />
+                </FormGroup>
+              </Col>
 
-            {/* Events */}
-            <Col md={2}>
-              <FormGroup>
-                <Form.Label>Events</Form.Label>
-                <Select
-                  menuPlacement="auto"
-                  options={eventOptions}
-                  isClearable={false}
-                  isMulti={true}
-                  onChange={this.updateRegistrationEvents}
-                  defaultValue={selectedEvents}
-                />
-              </FormGroup>
-            </Col>
+              {/* Events */}
+              <Col md={2}>
+                <FormGroup>
+                  <Form.Label>Events</Form.Label>
+                  <Select
+                    menuPlacement="auto"
+                    options={eventOptions}
+                    isClearable={false}
+                    isMulti={true}
+                    onChange={this.updateRegistrationEvents}
+                    defaultValue={selectedEvents}
+                  />
+                </FormGroup>
+              </Col>
+            </Row>
           </Container>
 
           <Container style={gridStyle}>
-            {/* Date of Birth */}
-            <Col md={2}>
-              <FormGroup>
-                <Form.Label>Date of Birth</Form.Label>
-                <ValidatedTextInput
-                  initialValue={entry.birthDate}
-                  placeholder="YYYY-MM-DD"
-                  getValidationState={validateIso8601Date}
-                  onSuccess={this.updateRegistrationBirthDate}
-                />
-              </FormGroup>
-            </Col>
+            <Row>
+              {/* Date of Birth */}
+              <Col md={2}>
+                <FormGroup>
+                  <Form.Label>Date of Birth</Form.Label>
+                  <ValidatedTextInput
+                    initialValue={entry.birthDate}
+                    placeholder="YYYY-MM-DD"
+                    getValidationState={validateIso8601Date}
+                    onSuccess={this.updateRegistrationBirthDate}
+                  />
+                </FormGroup>
+              </Col>
 
-            {/* Member ID */}
-            <Col md={2}>
-              <FormGroup>
-                <Form.Label>Member ID</Form.Label>
-                <FormControl
-                  type="text"
-                  placeholder="ID"
-                  defaultValue={entry.memberId}
-                  onBlur={this.updateRegistrationMemberId}
-                />
-              </FormGroup>
-            </Col>
+              {/* Member ID */}
+              <Col md={2}>
+                <FormGroup>
+                  <Form.Label>Member ID</Form.Label>
+                  <FormControl
+                    type="text"
+                    placeholder="ID"
+                    defaultValue={entry.memberId}
+                    onBlur={this.updateRegistrationMemberId}
+                  />
+                </FormGroup>
+              </Col>
 
-            {/* Country */}
-            <Col md={2}>
-              <FormGroup>
-                <Form.Label>Country</Form.Label>
-                <ValidatedTextInput
-                  initialValue={entry.country}
-                  placeholder="Country"
-                  getValidationState={s => (s === "" ? null : "success")}
-                  onSuccess={this.updateRegistrationCountry}
-                />
-              </FormGroup>
-            </Col>
+              {/* Country */}
+              <Col md={2}>
+                <FormGroup>
+                  <Form.Label>Country</Form.Label>
+                  <ValidatedTextInput
+                    initialValue={entry.country}
+                    placeholder="Country"
+                    getValidationState={s => (s === "" ? null : "success")}
+                    onSuccess={this.updateRegistrationCountry}
+                  />
+                </FormGroup>
+              </Col>
 
-            {/* State */}
-            <Col md={1}>
-              <FormGroup>
-                <Form.Label>State</Form.Label>
-                <ValidatedTextInput
-                  initialValue={entry.state}
-                  placeholder="State"
-                  getValidationState={s => (s === "" ? null : "success")}
-                  onSuccess={this.updateRegistrationState}
-                />
-              </FormGroup>
-            </Col>
+              {/* State */}
+              <Col md={1}>
+                <FormGroup>
+                  <Form.Label>State</Form.Label>
+                  <ValidatedTextInput
+                    initialValue={entry.state}
+                    placeholder="State"
+                    getValidationState={s => (s === "" ? null : "success")}
+                    onSuccess={this.updateRegistrationState}
+                  />
+                </FormGroup>
+              </Col>
 
-            {/* Lot Number */}
-            <Col md={1}>
-              <FormGroup>
-                <Form.Label>Lot #</Form.Label>
-                <FormControl
-                  type="number"
-                  min="0"
-                  defaultValue={entry.lot === 0 ? "" : entry.lot}
-                  onBlur={this.updateRegistrationLot}
-                  onChange={this.updateRegistrationLot}
-                />
-              </FormGroup>
-            </Col>
+              {/* Lot Number */}
+              <Col md={1}>
+                <FormGroup>
+                  <Form.Label>Lot #</Form.Label>
+                  <FormControl
+                    type="number"
+                    min="0"
+                    defaultValue={entry.lot === 0 ? "" : entry.lot}
+                    onBlur={this.updateRegistrationLot}
+                    onChange={this.updateRegistrationLot}
+                  />
+                </FormGroup>
+              </Col>
 
-            {/* Notes */}
-            <Col md={4}>
-              <FormGroup>
-                <Form.Label>Team</Form.Label>
-                <FormControl
-                  type="text"
-                  placeholder=""
-                  defaultValue={entry.team}
-                  onBlur={this.updateRegistrationTeam}
-                />
-              </FormGroup>
-            </Col>
+              {/* Notes */}
+              <Col md={4}>
+                <FormGroup>
+                  <Form.Label>Team</Form.Label>
+                  <FormControl
+                    type="text"
+                    placeholder=""
+                    defaultValue={entry.team}
+                    onBlur={this.updateRegistrationTeam}
+                  />
+                </FormGroup>
+              </Col>
+            </Row>
           </Container>
 
           <Container style={gridStyle}>
-            {/* Notes */}
-            <Col md={12}>
-              <FormGroup>
-                <Form.Label>Notes (for your personal use)</Form.Label>
-                <FormControl
-                  type="text"
-                  placeholder=""
-                  defaultValue={entry.notes}
-                  onBlur={this.updateRegistrationNotes}
-                />
-              </FormGroup>
-            </Col>
+            <Row>
+              {/* Notes */}
+              <Col md={12}>
+                <FormGroup>
+                  <Form.Label>Notes (for your personal use)</Form.Label>
+                  <FormControl
+                    type="text"
+                    placeholder=""
+                    defaultValue={entry.notes}
+                    onBlur={this.updateRegistrationNotes}
+                  />
+                </FormGroup>
+              </Col>
+            </Row>
           </Container>
         </Card.Body>
       </Card>

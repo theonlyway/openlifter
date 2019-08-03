@@ -46,7 +46,7 @@ class NewButton extends React.Component<Props> {
 
   render() {
     return (
-      <Button onClick={this.handleClick} variant="primary" bsSize="large" block>
+      <Button onClick={this.handleClick} variant="primary" size="lg" block>
         New Lifter
       </Button>
     );
