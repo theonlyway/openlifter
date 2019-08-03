@@ -21,7 +21,9 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import { Panel, Table } from "react-bootstrap";
+
+import Card from "react-bootstrap/Card";
+import Table from "react-bootstrap/Table";
 
 import { getAllRankings } from "../../logic/pointsPlace";
 import { getWeightClassStr, getWeightClassLbsStr } from "../../reducers/meetReducer";
@@ -217,12 +219,12 @@ class ByPoints extends React.Component<Props> {
     }
 
     return (
-      <Panel key={key}>
-        <Panel.Heading>
+      <Card key={key}>
+        <Card.Header>
           {sex} {eqpstr} {category.event}
-        </Panel.Heading>
-        <Panel.Body>
-          <Table striped hover condensed>
+        </Card.Header>
+        <Card.Body>
+          <Table striped hover size="sm">
             <thead>
               <tr>
                 <th>Rank</th>
@@ -241,8 +243,8 @@ class ByPoints extends React.Component<Props> {
             </thead>
             <tbody>{rows}</tbody>
           </Table>
-        </Panel.Body>
-      </Panel>
+        </Card.Body>
+      </Card>
     );
   };
 
@@ -295,15 +297,15 @@ class ByPoints extends React.Component<Props> {
       this.props.combineSleevesAndWraps
     );
 
-    let categoryPanels = [];
+    let categoryCards = [];
     for (let i = 0; i < results.length; i++) {
       const panel = this.renderCategoryResults(results[i], i);
       if (panel !== null) {
-        categoryPanels.push(panel);
+        categoryCards.push(panel);
       }
     }
 
-    return <div>{categoryPanels}</div>;
+    return <div>{categoryCards}</div>;
   }
 }
 

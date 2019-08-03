@@ -22,7 +22,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { Panel } from "react-bootstrap";
+import Card from "react-bootstrap/Card";
 
 import type { CategoryResults } from "../../logic/divisionPlace";
 import type { Sex } from "../../types/dataTypes";
@@ -59,13 +59,13 @@ class OneCategory extends React.Component<Props> {
     }
 
     return (
-      <Panel bsStyle="info">
-        <Panel.Heading>
+      <Card variant="info">
+        <Card.Header>
           Platform {this.props.platform} Lifters in {sex} {category.weightClassStr}kg {category.equipment}{" "}
           {category.division} {category.event}
-        </Panel.Heading>
-        <Panel.Body>{namelist.join(", ")}</Panel.Body>
-      </Panel>
+        </Card.Header>
+        <Card.Body>{namelist.join(", ")}</Card.Body>
+      </Card>
     );
   }
 }

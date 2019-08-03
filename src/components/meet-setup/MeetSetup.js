@@ -19,7 +19,14 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import { Grid, Col, Row, Panel, FormGroup, ControlLabel, FormControl } from "react-bootstrap";
+
+import Card from "react-bootstrap/Card";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import Form from "react-bootstrap/Form";
+import FormControl from "react-bootstrap/FormControl";
+import FormGroup from "react-bootstrap/FormGroup";
+import Row from "react-bootstrap/Row";
 
 import MeetName from "./MeetName";
 import MeetDate from "./MeetDate";
@@ -85,26 +92,26 @@ class MeetSetup extends React.Component<Props> {
     const inKg = String(this.props.inKg);
 
     return (
-      <Grid>
+      <Container>
         <Row>
           <Col md={4}>
-            <Panel bsStyle="info">
-              <Panel.Heading>Sanction Information</Panel.Heading>
-              <Panel.Body>
+            <Card variant="info">
+              <Card.Header>Sanction Information</Card.Header>
+              <Card.Body>
                 <MeetName />
                 <MeetLocation />
                 <FederationSelect />
                 <MeetDate />
                 <MeetLength />
                 <PlatformCounts />
-              </Panel.Body>
-            </Panel>
+              </Card.Body>
+            </Card>
           </Col>
 
           <Col md={4}>
-            <Panel>
-              <Panel.Heading>Competition Rules</Panel.Heading>
-              <Panel.Body>
+            <Card>
+              <Card.Header>Competition Rules</Card.Header>
+              <Card.Body>
                 <AutoFillRules />
                 <DivisionSelect key={this.props.masterKey} />
                 <WeightClassesSelect
@@ -124,12 +131,8 @@ class MeetSetup extends React.Component<Props> {
                 />
 
                 <FormGroup key={this.props.masterKey + "-formula"}>
-                  <ControlLabel>Best Lifter Formula</ControlLabel>
-                  <FormControl
-                    componentClass="select"
-                    defaultValue={this.props.formula}
-                    onChange={this.props.setFormula}
-                  >
+                  <Form.Label>Best Lifter Formula</Form.Label>
+                  <FormControl as="select" defaultValue={this.props.formula} onChange={this.props.setFormula}>
                     <option value="Bodyweight Multiple">Bodyweight Multiple</option>
                     <option value="Dots">Dots</option>
                     <option value="Glossbrenner">Glossbrenner</option>
@@ -142,9 +145,9 @@ class MeetSetup extends React.Component<Props> {
                 </FormGroup>
 
                 <FormGroup key={this.props.masterKey + "-ageCoefficients"}>
-                  <ControlLabel>Age Coefficients for Best Juniors/Masters Lifter</ControlLabel>
+                  <Form.Label>Age Coefficients for Best Juniors/Masters Lifter</Form.Label>
                   <FormControl
-                    componentClass="select"
+                    as="select"
                     defaultValue={this.props.ageCoefficients}
                     onChange={this.props.setAgeCoefficients}
                   >
@@ -158,9 +161,9 @@ class MeetSetup extends React.Component<Props> {
                 </FormGroup>
 
                 <FormGroup key={this.props.masterKey + "-sleeves-wraps"}>
-                  <ControlLabel>Should Sleeves and Wraps be combined for placing?</ControlLabel>
+                  <Form.Label>Should Sleeves and Wraps be combined for placing?</Form.Label>
                   <FormControl
-                    componentClass="select"
+                    as="select"
                     defaultValue={yesNoFromBoolean(this.props.combineSleevesAndWraps)}
                     onChange={this.props.setCombineSleevesAndWraps}
                   >
@@ -169,27 +172,27 @@ class MeetSetup extends React.Component<Props> {
                 </FormGroup>
 
                 <FormGroup key={this.props.masterKey + "-4th-attempts"}>
-                  <ControlLabel>Can lifters take 4th attempts for records?</ControlLabel>
+                  <Form.Label>Can lifters take 4th attempts for records?</Form.Label>
                   <FormControl
-                    componentClass="select"
+                    as="select"
                     defaultValue={yesNoFromBoolean(this.props.allow4thAttempts)}
                     onChange={this.props.setAllow4thAttempts}
                   >
                     {yesNoBooleanOptions}
                   </FormControl>
                 </FormGroup>
-              </Panel.Body>
-            </Panel>
+              </Card.Body>
+            </Card>
           </Col>
 
           <Col md={4}>
-            <Panel bsStyle="info">
-              <Panel.Heading>Weights and Loading Setup</Panel.Heading>
-              <Panel.Body>
+            <Card variant="info">
+              <Card.Header>Weights and Loading Setup</Card.Header>
+              <Card.Body>
                 <FormGroup>
-                  <ControlLabel>In what units are attempts and bodyweights?</ControlLabel>
+                  <Form.Label>In what units are attempts and bodyweights?</Form.Label>
                   <FormControl
-                    componentClass="select"
+                    as="select"
                     defaultValue={yesNoFromBoolean(this.props.inKg)}
                     onChange={this.props.setInKg}
                   >
@@ -203,9 +206,9 @@ class MeetSetup extends React.Component<Props> {
                 </FormGroup>
 
                 <FormGroup>
-                  <ControlLabel>Also show attempts in {this.props.inKg ? "pounds" : "kilograms"}?</ControlLabel>
+                  <Form.Label>Also show attempts in {this.props.inKg ? "pounds" : "kilograms"}?</Form.Label>
                   <FormControl
-                    componentClass="select"
+                    as="select"
                     defaultValue={yesNoFromBoolean(this.props.showAlternateUnits)}
                     onChange={this.props.setShowAlternateUnits}
                   >
@@ -217,11 +220,11 @@ class MeetSetup extends React.Component<Props> {
                 <BarAndCollarsWeightKg key={"B" + inKg} lift="B" />
                 <BarAndCollarsWeightKg key={"D" + inKg} lift="D" />
                 <Plates />
-              </Panel.Body>
-            </Panel>
+              </Card.Body>
+            </Card>
           </Col>
         </Row>
-      </Grid>
+      </Container>
     );
   }
 }

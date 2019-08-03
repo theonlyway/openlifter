@@ -22,7 +22,9 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import { Panel } from "react-bootstrap";
+
+import Card from "react-bootstrap/Card";
+
 import { getLiftersOnDay } from "../../logic/entry";
 import LifterTable from "./LifterTable";
 import LifterRow from "./LifterRow";
@@ -76,7 +78,7 @@ class WeighinsView extends React.Component<Props> {
 
     // Make a separate panel for each day.
     const numDays = this.getNumDaysFromEntries();
-    let dayPanels = [];
+    let dayCards = [];
     for (let i = 1; i <= numDays; i++) {
       const lifters = getLiftersOnDay(this.props.entries, i);
 
@@ -94,27 +96,27 @@ class WeighinsView extends React.Component<Props> {
         return 0;
       });
 
-      dayPanels.push(
-        <Panel key={i}>
-          <Panel.Heading>Day {i} Weigh-ins</Panel.Heading>
-          <Panel.Body>
+      dayCards.push(
+        <Card key={i}>
+          <Card.Header>Day {i} Weigh-ins</Card.Header>
+          <Card.Body>
             <LifterTable entries={lifters} rowRenderer={LifterRow} inLiftingPage={inLiftingPage} />
-          </Panel.Body>
-        </Panel>
+          </Card.Body>
+        </Card>
       );
     }
 
     // If there are no days thus far, show a default warning panel.
-    if (dayPanels.length === 0) {
-      dayPanels.push(
-        <Panel key={0} bsStyle="info">
-          <Panel.Heading>Waiting for Registration</Panel.Heading>
-          <Panel.Body>Add lifters on the Registration page before weighing them in.</Panel.Body>
-        </Panel>
+    if (dayCards.length === 0) {
+      dayCards.push(
+        <Card key={0} variant="info">
+          <Card.Header>Waiting for Registration</Card.Header>
+          <Card.Body>Add lifters on the Registration page before weighing them in.</Card.Body>
+        </Card>
       );
     }
 
-    return <div style={marginStyle}>{dayPanels}</div>;
+    return <div style={marginStyle}>{dayCards}</div>;
   }
 }
 

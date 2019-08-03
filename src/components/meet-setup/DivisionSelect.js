@@ -20,7 +20,9 @@ import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import { ControlLabel, FormGroup } from "react-bootstrap";
+import Form from "react-bootstrap/Form";
+import FormGroup from "react-bootstrap/FormGroup";
+
 import CreatableSelect from "react-select/lib/Creatable";
 
 import { setDivisions } from "../../actions/meetSetupActions";
@@ -111,7 +113,7 @@ class DivisionSelect extends React.Component {
     const { inputValue, value } = this.state;
     return (
       <FormGroup>
-        <ControlLabel>Divisions (prefer short codes!)</ControlLabel>
+        <Form.Label>Divisions (prefer short codes!)</Form.Label>
         <CreatableSelect
           components={components}
           inputValue={inputValue}

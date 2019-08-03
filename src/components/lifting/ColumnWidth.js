@@ -27,7 +27,9 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { ControlLabel, FormGroup, FormControl } from "react-bootstrap";
+import Form from "react-bootstrap/Form";
+import FormGroup from "react-bootstrap/FormGroup";
+import FormControl from "react-bootstrap/FormControl";
 
 import { setTableInfo } from "../../actions/liftingActions";
 
@@ -93,7 +95,7 @@ class ColumnWidth extends React.Component<Props, InternalState> {
   render() {
     return (
       <FormGroup validationState={this.getValidationState()}>
-        <ControlLabel>{this.props.label}</ControlLabel>
+        <Form.Label>{this.props.label}</Form.Label>
         <FormControl
           type="number"
           pattern="[0-9]+"

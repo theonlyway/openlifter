@@ -19,7 +19,11 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import { Button, Col, Grid, Row } from "react-bootstrap";
+
+import Button from "react-bootstrap/Button";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
 import { LinkContainer } from "react-router-bootstrap";
 
 import saveAs from "file-saver";
@@ -152,7 +156,7 @@ class HomeContainer extends React.Component<Props, InternalState> {
     }
     return (
       <LinkContainer to="/meet-setup">
-        <Button bsStyle="primary" bsSize="large" block>
+        <Button variant="primary" block>
           Continue {meetname}
         </Button>
       </LinkContainer>
@@ -164,7 +168,7 @@ class HomeContainer extends React.Component<Props, InternalState> {
     if (this.props.redux.meet.name) {
       // A meet is active: use the modal.
       newMeetButton = (
-        <Button bsStyle="primary" bsSize="large" block onClick={this.handleNewClick}>
+        <Button variant="primary" block onClick={this.handleNewClick}>
           New Meet
         </Button>
       );
@@ -172,7 +176,7 @@ class HomeContainer extends React.Component<Props, InternalState> {
       // No meet is active: just use a LinkContainer.
       newMeetButton = (
         <LinkContainer to="/meet-setup">
-          <Button bsStyle="primary" bsSize="large" block onClick={this.handleNewClick}>
+          <Button variant="primary" block onClick={this.handleNewClick}>
             New Meet
           </Button>
         </LinkContainer>
@@ -202,7 +206,7 @@ class HomeContainer extends React.Component<Props, InternalState> {
     }
 
     return (
-      <Grid style={centerConsole}>
+      <Container style={centerConsole}>
         <NewMeetModal show={this.state.showNewMeetModal} close={this.closeConfirmModal} />
         <ErrorModal
           error={this.state.error}
@@ -229,7 +233,7 @@ class HomeContainer extends React.Component<Props, InternalState> {
                 this.renderContinueButton()
               ) : (
                 <a href={"https://www.openlifter.com/releases/" + dataReleaseVersion}>
-                  <Button bsStyle="success" bsSize="large" block style={{ marginBottom: "5px" }}>
+                  <Button variant="success" block style={{ marginBottom: "5px" }}>
                     Switch to OpenLifter {dataReleaseVersion}
                   </Button>
                 </a>
@@ -237,10 +241,10 @@ class HomeContainer extends React.Component<Props, InternalState> {
 
               {newMeetButton}
 
-              <Button bsStyle="warning" bsSize="large" block onClick={this.handleLoadClick}>
+              <Button variant="warning" block onClick={this.handleLoadClick}>
                 Load from File
               </Button>
-              <Button bsStyle="success" bsSize="large" block onClick={this.handleSaveClick}>
+              <Button variant="success" block onClick={this.handleSaveClick}>
                 Save to File
               </Button>
             </div>
@@ -253,22 +257,22 @@ class HomeContainer extends React.Component<Props, InternalState> {
               rel="noopener noreferrer"
               target="_blank"
             >
-              <Button bsSize="large" block style={buttonMargin}>
+              <Button variant="secondary" block style={buttonMargin}>
                 Report an Issue
               </Button>
             </a>
             <a href="https://www.openlifter.com/support" rel="noopener noreferrer" target="_blank">
-              <Button bsSize="large" block style={buttonMargin}>
+              <Button variant="secondary" block style={buttonMargin}>
                 Official Support
               </Button>
             </a>
             <a href="https://gitlab.com/openpowerlifting/openlifter" rel="noopener noreferrer" target="_blank">
-              <Button bsSize="large" block style={buttonMargin}>
+              <Button variant="secondary" block style={buttonMargin}>
                 Full Source Code
               </Button>
             </a>
             <LinkContainer to="/about">
-              <Button bsSize="large" block style={buttonMargin}>
+              <Button variant="secondary" block style={buttonMargin}>
                 Credits and License
               </Button>
             </LinkContainer>
@@ -290,7 +294,7 @@ class HomeContainer extends React.Component<Props, InternalState> {
           style={{ display: "none" }}
           onChange={this.handleLoadFileInput}
         />
-      </Grid>
+      </Container>
     );
   }
 }

@@ -9,14 +9,11 @@ all: dev-web
 node_modules:
 	yarn
 
-src/bootstrap-custom/bootstrap-custom.css: node_modules src/bootstrap-custom/bootstrap.less
-	yarn run lessc src/bootstrap-custom/bootstrap.less src/bootstrap-custom/bootstrap-custom.css
-
 ############################################
 # Helpers.
 ############################################
 
-build-deps: node_modules src/bootstrap-custom/bootstrap-custom.css
+build-deps: node_modules
 
 dev-electron: build-deps
 	yarn run electron-dev
@@ -29,9 +26,6 @@ package: build-deps
 
 test: build-deps
 	CI="yes" yarn run test
-
-less:
-	yarn run lessc src/bootstrap-custom/bootstrap.less src/bootstrap-custom/bootstrap-custom.css
 
 release: gitlab-pages
 	echo "Built into public/. Don't forget to set a git tag!"

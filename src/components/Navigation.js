@@ -20,7 +20,9 @@
 // Defines the Navigation component for navigating between pages using react-router.
 
 import React from "react";
-import { Navbar, Nav, NavItem } from "react-bootstrap";
+
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
 
 // The LinkContainer is used to wrap Components that change the URL,
 // hooking them up with the Router.
@@ -28,39 +30,39 @@ import { LinkContainer } from "react-router-bootstrap";
 
 const Navigation = () => {
   return (
-    <Navbar>
+    <Navbar bg="dark" variant="dark" expand="lg">
       <Navbar.Brand>
-        <img alt="OpenLifter" src="openlifter-white.svg" />
+        <img alt="OpenLifter" src="openlifter-white.svg" height="20" />
       </Navbar.Brand>
 
       {/* Navbar uses Toggle and Collapse to automatically create a hamburger menu
           in case of overflow on small screens.*/}
-      <Navbar.Toggle />
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse>
         <Nav>
           <LinkContainer exact to="/">
-            <NavItem eventKey={1}>Home</NavItem>
+            <Nav.Link>Home</Nav.Link>
           </LinkContainer>
           <LinkContainer to="/meet-setup">
-            <NavItem eventKey={2}>Meet Setup</NavItem>
+            <Nav.Link>Meet Setup</Nav.Link>
           </LinkContainer>
           <LinkContainer to="/registration">
-            <NavItem eventKey={3}>Registration</NavItem>
+            <Nav.Link>Registration</Nav.Link>
           </LinkContainer>
           <LinkContainer to="/weigh-ins">
-            <NavItem eventKey={4}>Weigh-ins</NavItem>
+            <Nav.Link>Weigh-ins</Nav.Link>
           </LinkContainer>
           <LinkContainer to="/flight-order">
-            <NavItem eventKey={5}>Flight Order</NavItem>
+            <Nav.Link>Flight Order</Nav.Link>
           </LinkContainer>
           <LinkContainer to="/lifting">
-            <NavItem eventKey={6}>Lifting</NavItem>
+            <Nav.Link>Lifting</Nav.Link>
           </LinkContainer>
           <LinkContainer to="/results">
-            <NavItem eventKey={7}>Results</NavItem>
+            <Nav.Link>Results</Nav.Link>
           </LinkContainer>
           <LinkContainer to="/debug">
-            <NavItem eventKey={8}>Debug</NavItem>
+            <Nav.Link>Debug</Nav.Link>
           </LinkContainer>
         </Nav>
       </Navbar.Collapse>

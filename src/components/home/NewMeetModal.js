@@ -21,7 +21,10 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import { Modal, Button } from "react-bootstrap";
+
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
+
 import { LinkContainer } from "react-router-bootstrap";
 
 import { overwriteStore } from "../../actions/globalActions.js";
@@ -53,7 +56,7 @@ class NewMeetModal extends React.Component<Props> {
         </Modal.Body>
         <Modal.Footer>
           <LinkContainer to="/meet-setup">
-            <Button onClick={this.props.overwriteStore} bsStyle="primary">
+            <Button onClick={this.props.overwriteStore} variant="primary">
               Continue
             </Button>
           </LinkContainer>

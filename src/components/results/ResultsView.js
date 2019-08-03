@@ -21,7 +21,11 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import { Button, FormControl, Panel } from "react-bootstrap";
+
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
+import FormControl from "react-bootstrap/FormControl";
+
 import saveAs from "file-saver";
 
 import ByDivision from "./ByDivision";
@@ -242,12 +246,12 @@ class ResultsView extends React.Component<Props, InternalState> {
       for (let j = 0; j < liftedOnDay.length; j++) {
         const lifted = liftedOnDay[j];
         const actionText = lifted === true ? "Export" : "Merge";
-        const bsStyle = lifted === true ? "success" : "warning";
+        const variant = lifted === true ? "success" : "warning";
         const marginStyle = j > 0 ? { marginLeft: "14px" } : null;
         buttons.push(
           <Button
             key={i + "-" + j}
-            bsStyle={bsStyle}
+            variant={variant}
             style={marginStyle}
             onClick={e => {
               lifted === true
@@ -312,7 +316,7 @@ class ResultsView extends React.Component<Props, InternalState> {
       daySelector = (
         <FormControl
           defaultValue={this.state.day}
-          componentClass="select"
+          as="select"
           onChange={this.handleDayChange}
           className={styles.dropdown}
         >
@@ -330,34 +334,34 @@ class ResultsView extends React.Component<Props, InternalState> {
           close={this.closeErrorModal}
         />
 
-        <Panel bsStyle="primary">
-          <Panel.Heading>Merge Platforms</Panel.Heading>
-          <Panel.Body>
+        <Card variant="primary">
+          <Card.Header>Merge Platforms</Card.Header>
+          <Card.Body>
             <div style={{ fontWeight: "bold" }}>Merging platforms will overwrite data. Please save before merging.</div>
             <br />
             {this.makePlatformMergeButtons()}
-          </Panel.Body>
-        </Panel>
+          </Card.Body>
+        </Card>
 
-        <Panel>
-          <Panel.Heading>Export Official Results</Panel.Heading>
-          <Panel.Body>
+        <Card>
+          <Card.Header>Export Official Results</Card.Header>
+          <Card.Body>
             <Button onClick={this.handleExportAsOplCsvClick}>Export for OpenPowerlifting</Button>
 
             <Button onClick={this.handleExportAsUSAPLCsvClick} style={{ marginLeft: "14px" }}>
               Export for USAPL
             </Button>
-          </Panel.Body>
-        </Panel>
+          </Card.Body>
+        </Card>
 
-        <Panel bsStyle="info">
-          <Panel.Heading>Results For...</Panel.Heading>
-          <Panel.Body className={styles.controlPanel}>
+        <Card variant="info">
+          <Card.Header>Results For...</Card.Header>
+          <Card.Body className={styles.controlCard}>
             {daySelector}
 
             <FormControl
               defaultValue={this.state.by}
-              componentClass="select"
+              as="select"
               onChange={this.handleByChange}
               className={styles.dropdown}
               style={{ marginLeft: "14px" }}
@@ -371,8 +375,8 @@ class ResultsView extends React.Component<Props, InternalState> {
               ) : null}
               <option value="Points">Best Lifter</option>
             </FormControl>
-          </Panel.Body>
-        </Panel>
+          </Card.Body>
+        </Card>
 
         {results}
 

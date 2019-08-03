@@ -23,7 +23,9 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { ControlLabel, FormControl, FormGroup } from "react-bootstrap";
+import Form from "react-bootstrap/Form";
+import FormControl from "react-bootstrap/FormControl";
+import FormGroup from "react-bootstrap/FormGroup";
 
 import { updateMeet } from "../../actions/meetSetupActions";
 
@@ -99,7 +101,7 @@ class MeetLocation extends React.Component<Props, InternalState> {
     return (
       <div>
         <FormGroup validationState={this.getValidationState(this.state.country)}>
-          <ControlLabel>Country</ControlLabel>
+          <Form.Label>Country</Form.Label>
           <FormControl
             type="text"
             placeholder="Country"
@@ -109,7 +111,7 @@ class MeetLocation extends React.Component<Props, InternalState> {
           />
         </FormGroup>
         <FormGroup validationState={this.getValidationState(this.state.state)}>
-          <ControlLabel>State/Province</ControlLabel>
+          <Form.Label>State/Province</Form.Label>
           <FormControl
             type="text"
             placeholder="State/Province"
@@ -119,7 +121,7 @@ class MeetLocation extends React.Component<Props, InternalState> {
           />
         </FormGroup>
         <FormGroup validationState={this.getValidationState(this.state.city)}>
-          <ControlLabel>City/Town</ControlLabel>
+          <Form.Label>City/Town</Form.Label>
           <FormControl
             type="text"
             placeholder="City/Town"

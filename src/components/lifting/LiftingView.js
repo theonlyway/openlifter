@@ -25,10 +25,11 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import { Panel } from "react-bootstrap";
+
+import Card from "react-bootstrap/Card";
 
 import TopBar from "./TopBar";
-import LeftPanel from "./LeftPanel";
+import LeftCard from "./LeftCard";
 import LiftingTable from "./LiftingTable";
 import LiftingFooter from "./LiftingFooter";
 import WeighinsView from "../weighins/WeighinsView";
@@ -93,14 +94,14 @@ class LiftingView extends React.Component<Props, InternalState> {
 
     return (
       <div>
-        <Panel bsStyle="primary" style={{ marginLeft: "12px", marginRight: "12px" }}>
-          <Panel.Body>
+        <Card variant="primary" style={{ marginLeft: "12px", marginRight: "12px" }}>
+          <Card.Body>
             <div style={{ width: "160px" }}>
               <ColumnWidth label="Division Column Width" fieldName="columnDivisionWidthPx" />
             </div>
             <h3>To fit to the screen, zoom the browser in or out and then press Toggle Fullscreen.</h3>
-          </Panel.Body>
-        </Panel>
+          </Card.Body>
+        </Card>
         <div id="liftingView" className={styles.liftingView}>
           <TopBar
             attemptOneIndexed={now.attemptOneIndexed}
@@ -109,8 +110,8 @@ class LiftingView extends React.Component<Props, InternalState> {
           />
 
           <div className={styles.middleParentContainer}>
-            <div className={styles.leftPanelContainer}>
-              <LeftPanel
+            <div className={styles.leftCardContainer}>
+              <LeftCard
                 attemptOneIndexed={now.attemptOneIndexed}
                 orderedEntries={now.orderedEntries}
                 currentEntryId={now.currentEntryId}
@@ -119,7 +120,7 @@ class LiftingView extends React.Component<Props, InternalState> {
               />
             </div>
 
-            <div className={styles.rightPanelContainer}>{rightElement}</div>
+            <div className={styles.rightCardContainer}>{rightElement}</div>
           </div>
 
           <LiftingFooter

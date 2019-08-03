@@ -24,7 +24,7 @@ import * as serviceWorker from "./serviceWorker";
 import App from "./App";
 
 import "./index.css";
-import "./bootstrap-custom/bootstrap-custom.css";
+import "./bootstrap-custom/bootstrap.scss";
 import "react-datepicker/dist/react-datepicker.css";
 
 const rootElement = document.getElementById("root");

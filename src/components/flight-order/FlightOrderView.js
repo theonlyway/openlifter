@@ -22,7 +22,9 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { Button, FormControl, Panel } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
+import FormControl from "react-bootstrap/FormControl";
 
 import OneFlightOrder from "./OneFlightOrder";
 import OneCategory from "./OneCategory";
@@ -148,31 +150,26 @@ class FlightOrderView extends React.Component<Props, InternalState> {
 
     return (
       <div style={marginStyle}>
-        <Panel bsStyle="info">
-          <Panel.Body style={{ display: "flex" }}>
-            <FormControl
-              defaultValue={this.state.day}
-              componentClass="select"
-              onChange={this.updateDay}
-              style={selectorStyle}
-            >
+        <Card variant="info">
+          <Card.Body style={{ display: "flex" }}>
+            <FormControl defaultValue={this.state.day} as="select" onChange={this.updateDay} style={selectorStyle}>
               {dayOptions}
             </FormControl>
 
             <FormControl
               defaultValue={this.state.platform}
-              componentClass="select"
+              as="select"
               onChange={this.updatePlatform}
               style={selectorStyle}
             >
               {platformOptions}
             </FormControl>
 
-            <Button bsStyle="info" onClick={this.handlePrint}>
+            <Button variant="info" onClick={this.handlePrint}>
               Print Page
             </Button>
-          </Panel.Body>
-        </Panel>
+          </Card.Body>
+        </Card>
 
         {flightOrders}
         {categories}

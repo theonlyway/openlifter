@@ -20,7 +20,9 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { ControlLabel, FormGroup, FormControl } from "react-bootstrap";
+import Form from "react-bootstrap/Form";
+import FormGroup from "react-bootstrap/FormGroup";
+import FormControl from "react-bootstrap/FormControl";
 
 import { setBarAndCollarsWeightKg } from "../../actions/meetSetupActions";
 import { kg2lbs, lbs2kg } from "../../logic/units";
@@ -119,7 +121,7 @@ class BarAndCollarsWeightKg extends React.Component<Props, InternalState> {
 
     return (
       <FormGroup validationState={this.getValidationState()}>
-        <ControlLabel>{label}</ControlLabel>
+        <Form.Label>{label}</Form.Label>
         <FormControl type="number" value={this.state.value} onChange={this.handleChange} step={2.5} />
       </FormGroup>
     );

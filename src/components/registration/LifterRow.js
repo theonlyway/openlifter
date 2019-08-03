@@ -23,7 +23,15 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Button, Col, ControlLabel, FormControl, FormGroup, Grid, Panel } from "react-bootstrap";
+
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import Form from "react-bootstrap/Form";
+import FormControl from "react-bootstrap/FormControl";
+import FormGroup from "react-bootstrap/FormGroup";
+
 import Select from "react-select";
 
 import ValidatedTextInput from "../ValidatedTextInput";
@@ -232,24 +240,20 @@ class LifterRow extends React.Component {
     const gridStyle = { padding: "0px", margin: "0px" };
 
     return (
-      <Panel>
-        <Panel.Heading style={{ display: "flex" }}>
+      <Card>
+        <Card.Header style={{ display: "flex" }}>
           <FormControl type="text" placeholder="Name" defaultValue={entry.name} onBlur={this.updateRegistrationName} />
-          <Button onClick={this.deleteRegistrationClick} bsStyle="danger" style={{ marginLeft: "15px" }}>
+          <Button onClick={this.deleteRegistrationClick} variant="danger" style={{ marginLeft: "15px" }}>
             Delete
           </Button>
-        </Panel.Heading>
-        <Panel.Body>
-          <Grid style={gridStyle}>
+        </Card.Header>
+        <Card.Body>
+          <Container style={gridStyle}>
             {/* Day */}
             <Col md={1}>
               <FormGroup>
-                <ControlLabel>Day</ControlLabel>
-                <FormControl
-                  defaultValue={this.state.selectedDay}
-                  componentClass="select"
-                  onChange={this.updateRegistrationDay}
-                >
+                <Form.Label>Day</Form.Label>
+                <FormControl defaultValue={this.state.selectedDay} as="select" onChange={this.updateRegistrationDay}>
                   {dayOptions}
                 </FormControl>
               </FormGroup>
@@ -258,12 +262,8 @@ class LifterRow extends React.Component {
             {/* Platform */}
             <Col md={1}>
               <FormGroup>
-                <ControlLabel>Platform</ControlLabel>
-                <FormControl
-                  defaultValue={entry.platform}
-                  componentClass="select"
-                  onChange={this.updateRegistrationPlatform}
-                >
+                <Form.Label>Platform</Form.Label>
+                <FormControl defaultValue={entry.platform} as="select" onChange={this.updateRegistrationPlatform}>
                   {platformOptions}
                 </FormControl>
               </FormGroup>
@@ -272,12 +272,8 @@ class LifterRow extends React.Component {
             {/* Flight */}
             <Col md={1}>
               <FormGroup>
-                <ControlLabel>Flight</ControlLabel>
-                <FormControl
-                  defaultValue={entry.flight}
-                  componentClass="select"
-                  onChange={this.updateRegistrationFlight}
-                >
+                <Form.Label>Flight</Form.Label>
+                <FormControl defaultValue={entry.flight} as="select" onChange={this.updateRegistrationFlight}>
                   <option value="A">A</option>
                   <option value="B">B</option>
                   <option value="C">C</option>
@@ -293,8 +289,8 @@ class LifterRow extends React.Component {
             {/* Sex */}
             <Col md={1}>
               <FormGroup>
-                <ControlLabel>Sex</ControlLabel>
-                <FormControl defaultValue={entry.sex} componentClass="select" onChange={this.updateRegistrationSex}>
+                <Form.Label>Sex</Form.Label>
+                <FormControl defaultValue={entry.sex} as="select" onChange={this.updateRegistrationSex}>
                   <option value="M">M</option>
                   <option value="F">F</option>
                   <option value="Mx">Mx</option>
@@ -305,12 +301,8 @@ class LifterRow extends React.Component {
             {/* Equipment */}
             <Col md={2}>
               <FormGroup>
-                <ControlLabel>Equipment</ControlLabel>
-                <FormControl
-                  defaultValue={entry.equipment}
-                  componentClass="select"
-                  onChange={this.updateRegistrationEquipment}
-                >
+                <Form.Label>Equipment</Form.Label>
+                <FormControl defaultValue={entry.equipment} as="select" onChange={this.updateRegistrationEquipment}>
                   <option value="Bare">Bare</option>
                   <option value="Sleeves">Sleeves</option>
                   <option value="Wraps">Wraps</option>
@@ -323,7 +315,7 @@ class LifterRow extends React.Component {
             {/* Divisions */}
             <Col md={4}>
               <FormGroup>
-                <ControlLabel>Divisions</ControlLabel>
+                <Form.Label>Divisions</Form.Label>
                 <Select
                   menuPlacement="auto"
                   options={divisionOptions}
@@ -338,7 +330,7 @@ class LifterRow extends React.Component {
             {/* Events */}
             <Col md={2}>
               <FormGroup>
-                <ControlLabel>Events</ControlLabel>
+                <Form.Label>Events</Form.Label>
                 <Select
                   menuPlacement="auto"
                   options={eventOptions}
@@ -349,13 +341,13 @@ class LifterRow extends React.Component {
                 />
               </FormGroup>
             </Col>
-          </Grid>
+          </Container>
 
-          <Grid style={gridStyle}>
+          <Container style={gridStyle}>
             {/* Date of Birth */}
             <Col md={2}>
               <FormGroup>
-                <ControlLabel>Date of Birth</ControlLabel>
+                <Form.Label>Date of Birth</Form.Label>
                 <ValidatedTextInput
                   initialValue={entry.birthDate}
                   placeholder="YYYY-MM-DD"
@@ -368,7 +360,7 @@ class LifterRow extends React.Component {
             {/* Member ID */}
             <Col md={2}>
               <FormGroup>
-                <ControlLabel>Member ID</ControlLabel>
+                <Form.Label>Member ID</Form.Label>
                 <FormControl
                   type="text"
                   placeholder="ID"
@@ -381,7 +373,7 @@ class LifterRow extends React.Component {
             {/* Country */}
             <Col md={2}>
               <FormGroup>
-                <ControlLabel>Country</ControlLabel>
+                <Form.Label>Country</Form.Label>
                 <ValidatedTextInput
                   initialValue={entry.country}
                   placeholder="Country"
@@ -394,7 +386,7 @@ class LifterRow extends React.Component {
             {/* State */}
             <Col md={1}>
               <FormGroup>
-                <ControlLabel>State</ControlLabel>
+                <Form.Label>State</Form.Label>
                 <ValidatedTextInput
                   initialValue={entry.state}
                   placeholder="State"
@@ -407,7 +399,7 @@ class LifterRow extends React.Component {
             {/* Lot Number */}
             <Col md={1}>
               <FormGroup>
-                <ControlLabel>Lot #</ControlLabel>
+                <Form.Label>Lot #</Form.Label>
                 <FormControl
                   type="number"
                   min="0"
@@ -421,7 +413,7 @@ class LifterRow extends React.Component {
             {/* Notes */}
             <Col md={4}>
               <FormGroup>
-                <ControlLabel>Team</ControlLabel>
+                <Form.Label>Team</Form.Label>
                 <FormControl
                   type="text"
                   placeholder=""
@@ -430,13 +422,13 @@ class LifterRow extends React.Component {
                 />
               </FormGroup>
             </Col>
-          </Grid>
+          </Container>
 
-          <Grid style={gridStyle}>
+          <Container style={gridStyle}>
             {/* Notes */}
             <Col md={12}>
               <FormGroup>
-                <ControlLabel>Notes (for your personal use)</ControlLabel>
+                <Form.Label>Notes (for your personal use)</Form.Label>
                 <FormControl
                   type="text"
                   placeholder=""
@@ -445,9 +437,9 @@ class LifterRow extends React.Component {
                 />
               </FormGroup>
             </Col>
-          </Grid>
-        </Panel.Body>
-      </Panel>
+          </Container>
+        </Card.Body>
+      </Card>
     );
   }
 }

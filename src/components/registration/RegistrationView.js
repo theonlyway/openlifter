@@ -22,7 +22,9 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { Button, ButtonGroup, Panel } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
+import Card from "react-bootstrap/Card";
 
 import LifterTable from "./LifterTable";
 import LifterRow from "./LifterRow";
@@ -156,23 +158,23 @@ class RegistrationView extends React.Component<Props, InternalState> {
           close={this.closeErrorModal}
         />
 
-        <Panel bsStyle="info">
-          <Panel.Heading>Auto-Import Registrations</Panel.Heading>
-          <Panel.Body>
-            <Button bsStyle="info" onClick={this.handleDownloadCsvTemplateClick}>
+        <Card variant="info">
+          <Card.Header>Auto-Import Registrations</Card.Header>
+          <Card.Body>
+            <Button variant="info" onClick={this.handleDownloadCsvTemplateClick}>
               Download Template
             </Button>
 
             <ButtonGroup style={{ marginLeft: "14px" }}>
-              <Button bsStyle="danger" onClick={this.handleOverwriteClick}>
+              <Button variant="danger" onClick={this.handleOverwriteClick}>
                 Overwrite Registrations from CSV
               </Button>
-              <Button bsStyle="warning" onClick={this.handleAppendClick}>
+              <Button variant="warning" onClick={this.handleAppendClick}>
                 Append Registrations from CSV
               </Button>
             </ButtonGroup>
-          </Panel.Body>
-        </Panel>
+          </Card.Body>
+        </Card>
 
         <LifterTable entries={this.props.global.registration.entries} rowRenderer={LifterRow} />
         <NewButton />

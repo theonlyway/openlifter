@@ -18,7 +18,11 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import React from "react";
-import { Col, Grid, Row, Panel } from "react-bootstrap";
+
+import Card from "react-bootstrap/Card";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
 
 // Extracted out so that <pre> renders linebreaks properly.
 const licenseText =
@@ -35,12 +39,12 @@ const licenseText =
 class AboutContainer extends React.Component<{}> {
   render() {
     return (
-      <Grid>
+      <Container>
         <Row>
           <Col md={6}>
-            <Panel>
-              <Panel.Heading>Credits</Panel.Heading>
-              <Panel.Body>
+            <Card>
+              <Card.Header>Credits</Card.Header>
+              <Card.Body>
                 <p>
                   OpenLifter is made by the{" "}
                   <a href="https://www.openpowerlifting.org" rel="noopener noreferrer" target="_blank">
@@ -58,14 +62,14 @@ class AboutContainer extends React.Component<{}> {
                     <li>Sarah Wellberg &mdash; UX design and testing</li>
                   </ul>
                 </p>
-              </Panel.Body>
-            </Panel>
+              </Card.Body>
+            </Card>
           </Col>
 
           <Col md={6}>
-            <Panel>
-              <Panel.Heading>License</Panel.Heading>
-              <Panel.Body>
+            <Card>
+              <Card.Header>License</Card.Header>
+              <Card.Body>
                 <p>OpenLifter is Copyright (C) 2018-2019 The OpenPowerlifting Project.</p>
                 <p>OpenLifter is Free Software. Free Software grants you the following freedoms:</p>
                 <ol>
@@ -89,11 +93,11 @@ class AboutContainer extends React.Component<{}> {
                 <a href="https://www.gnu.org/licenses/gpl-faq.html" rel="noopener noreferrer" target="_blank">
                   FAQ about GNU Licenses
                 </a>
-              </Panel.Body>
-            </Panel>
+              </Card.Body>
+            </Card>
           </Col>
         </Row>
-      </Grid>
+      </Container>
     );
   }
 }

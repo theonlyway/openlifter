@@ -23,7 +23,8 @@ import React from "react";
 import { connect } from "react-redux";
 import DatePicker from "react-datepicker";
 
-import { ControlLabel, FormGroup } from "react-bootstrap";
+import Form from "react-bootstrap/Form";
+import FormGroup from "react-bootstrap/FormGroup";
 
 import { setMeetDate } from "../../actions/meetSetupActions";
 import { iso8601ToLocalDate, localDateToIso8601 } from "../../logic/date";
@@ -47,7 +48,7 @@ class MeetDate extends React.Component<Props> {
 
     return (
       <FormGroup>
-        <ControlLabel>Start Date</ControlLabel>
+        <Form.Label>Start Date</Form.Label>
         <div>
           <DatePicker dateFormat="yyyy-MM-dd" selected={initialDate} onChange={this.props.setMeetDate} />
         </div>

@@ -19,7 +19,8 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import { FormControl } from "react-bootstrap";
+
+import FormControl from "react-bootstrap/FormControl";
 
 import { changeLanguage } from "../../actions/languageActions";
 import type { GlobalState, LanguageState } from "../../types/stateTypes";
@@ -50,7 +51,7 @@ class LanguageSelector extends React.Component<Props> {
   render() {
     return (
       <FormControl
-        componentClass="select"
+        as="select"
         className={styles.languageSelector}
         defaultValue={this.props.language}
         onChange={this.props.changeLanguage}

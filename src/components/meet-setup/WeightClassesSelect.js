@@ -20,7 +20,9 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { ControlLabel, FormGroup } from "react-bootstrap";
+import Form from "react-bootstrap/Form";
+import FormGroup from "react-bootstrap/FormGroup";
+
 import CreatableSelect from "react-select/lib/Creatable";
 
 import { setWeightClasses } from "../../actions/meetSetupActions";
@@ -148,7 +150,7 @@ class WeightClassesSelect extends React.Component<Props, InternalState> {
     const { inputValue, value } = this.state;
     return (
       <FormGroup>
-        <ControlLabel>{this.props.label}</ControlLabel>
+        <Form.Label>{this.props.label}</Form.Label>
         <CreatableSelect
           components={components}
           inputValue={inputValue}

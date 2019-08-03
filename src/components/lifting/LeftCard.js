@@ -29,7 +29,7 @@ import { kg2lbs, displayWeightOnePlace } from "../../logic/units";
 
 import BarLoad from "./BarLoad";
 
-import styles from "./LeftPanel.module.scss";
+import styles from "./LeftCard.module.scss";
 
 import type { Entry, LoadedPlate, Plate } from "../../types/dataTypes";
 import type { GlobalState, LiftingState, RegistrationState } from "../../types/stateTypes";
@@ -61,7 +61,7 @@ interface BarLoadOptions {
   rackInfo: string;
 }
 
-class LeftPanel extends React.Component<Props> {
+class LeftCard extends React.Component<Props> {
   getBarLoadProps = (entryId?: number, attemptOneIndexed?: number): BarLoadOptions => {
     const lift = this.props.lifting.lift;
     const fieldKg = liftToAttemptFieldName(lift);
@@ -184,4 +184,4 @@ const mapStateToProps = (state: GlobalState): StateProps => {
 export default connect(
   mapStateToProps,
   null
-)(LeftPanel);
+)(LeftCard);

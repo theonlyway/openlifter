@@ -22,7 +22,10 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { Button, ControlLabel, FormControl, FormGroup } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import FormControl from "react-bootstrap/FormControl";
+import FormGroup from "react-bootstrap/FormGroup";
 
 import { updateMeet } from "../../actions/meetSetupActions";
 
@@ -966,10 +969,10 @@ class AutoFillRules extends React.Component<Props, InternalState> {
     return (
       <div>
         <FormGroup>
-          <ControlLabel>Auto-Fill Rules</ControlLabel>
+          <Form.Label>Auto-Fill Rules</Form.Label>
           <div>
             <FormControl
-              componentClass="select"
+              as="select"
               onChange={this.handleSelectChange}
               defaultValue={this.state.selectedOption}
               style={{ width: "70%", display: "inline-block" }}
@@ -1003,7 +1006,7 @@ class AutoFillRules extends React.Component<Props, InternalState> {
               </option>
             </FormControl>
 
-            <Button onClick={this.handleClick} bsStyle="primary" style={{ width: "25%", marginLeft: "5%" }}>
+            <Button onClick={this.handleClick} variant="primary" style={{ width: "25%", marginLeft: "5%" }}>
               Auto-Fill
             </Button>
           </div>

@@ -21,7 +21,9 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import { Panel, Table } from "react-bootstrap";
+
+import Card from "react-bootstrap/Card";
+import Table from "react-bootstrap/Table";
 
 import { getFinalResults } from "../../logic/divisionPlace";
 import { getWeightClassStr, getWeightClassLbsStr, wtclsStrKg2Lbs } from "../../reducers/meetReducer";
@@ -219,12 +221,12 @@ class ByDivision extends React.Component<Props> {
     }
 
     return (
-      <Panel key={key}>
-        <Panel.Heading>
+      <Card key={key}>
+        <Card.Header>
           {sex} {wtcls} {category.weightClassStr !== "" ? units : null} {eqpstr} {category.division} {category.event}
-        </Panel.Heading>
-        <Panel.Body>
-          <Table hover condensed>
+        </Card.Header>
+        <Card.Body>
+          <Table hover size="sm">
             <thead>
               <tr>
                 <th>Place</th>
@@ -241,8 +243,8 @@ class ByDivision extends React.Component<Props> {
             </thead>
             <tbody>{rows}</tbody>
           </Table>
-        </Panel.Body>
-      </Panel>
+        </Card.Body>
+      </Card>
     );
   };
 
@@ -255,15 +257,15 @@ class ByDivision extends React.Component<Props> {
       this.props.combineSleevesAndWraps
     );
 
-    let categoryPanels = [];
+    let categoryCards = [];
     for (let i = 0; i < results.length; i++) {
       const panel = this.renderCategoryResults(results[i], i);
       if (panel !== null) {
-        categoryPanels.push(panel);
+        categoryCards.push(panel);
       }
     }
 
-    return <div>{categoryPanels}</div>;
+    return <div>{categoryCards}</div>;
   }
 }
 

@@ -20,7 +20,9 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { ControlLabel, FormGroup, FormControl } from "react-bootstrap";
+import Form from "react-bootstrap/Form";
+import FormGroup from "react-bootstrap/FormGroup";
+import FormControl from "react-bootstrap/FormControl";
 
 import { setLengthDays } from "../../actions/meetSetupActions";
 
@@ -76,7 +78,7 @@ class MeetLength extends React.Component<Props, InternalState> {
   render() {
     return (
       <FormGroup validationState={this.getValidationState()}>
-        <ControlLabel>Days of Lifting</ControlLabel>
+        <Form.Label>Days of Lifting</Form.Label>
         <FormControl
           type="text"
           pattern="[0-9]+"

@@ -21,7 +21,8 @@
 
 import React from "react";
 
-import { Panel, Table } from "react-bootstrap";
+import Card from "react-bootstrap/Card";
+import Table from "react-bootstrap/Table";
 
 import { liftToAttemptFieldName } from "../../logic/entry";
 import { orderEntriesByAttempt } from "../../logic/liftingOrder";
@@ -155,17 +156,17 @@ class OneFlightOrder extends React.Component<Props> {
     }
 
     return (
-      <Panel>
-        <Panel.Heading>Flight {this.props.flight} Lifting Order</Panel.Heading>
-        <Panel.Body>
-          <Table striped hover condensed style={{ margin: "0px" }}>
+      <Card>
+        <Card.Header>Flight {this.props.flight} Lifting Order</Card.Header>
+        <Card.Body>
+          <Table striped hover size="sm" style={{ margin: "0px" }}>
             <thead>
               <tr>{header}</tr>
             </thead>
             <tbody>{rows}</tbody>
           </Table>
-        </Panel.Body>
-      </Panel>
+        </Card.Body>
+      </Card>
     );
   }
 }

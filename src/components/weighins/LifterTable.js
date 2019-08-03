@@ -20,7 +20,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { Table } from "react-bootstrap";
+import Table from "react-bootstrap/Table";
 
 import type { Entry } from "../../types/dataTypes";
 import type { GlobalState } from "../../types/stateTypes";
@@ -77,7 +77,7 @@ class LifterTable extends React.Component<Props> {
 
   render() {
     return (
-      <Table hover condensed style={{ margin: "0px" }}>
+      <Table hover size="sm" style={{ margin: "0px" }}>
         <thead>{this.renderHeader()}</thead>
         <tbody>{this.renderRows()}</tbody>
       </Table>

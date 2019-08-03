@@ -29,7 +29,9 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import { Modal, Button } from "react-bootstrap";
+
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 
 interface OwnProps {
   error: string;
@@ -51,7 +53,7 @@ class ErrorModal extends React.Component<Props> {
           <p>{this.props.error}</p>
         </Modal.Body>
         <Modal.Footer>
-          <Button bsStyle="info" onClick={this.props.close}>
+          <Button variant="info" onClick={this.props.close}>
             Close
           </Button>
         </Modal.Footer>

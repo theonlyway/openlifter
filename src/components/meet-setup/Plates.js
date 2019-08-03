@@ -23,7 +23,9 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { FormControl, FormGroup, Table } from "react-bootstrap";
+import FormControl from "react-bootstrap/FormControl";
+import FormGroup from "react-bootstrap/FormGroup";
+import Table from "react-bootstrap/Table";
 
 import ColorPicker from "./ColorPicker";
 
@@ -121,7 +123,7 @@ class Plates extends React.Component<Props> {
 
     return (
       <div>
-        <Table striped condensed hover style={{ margin: "0px" }}>
+        <Table striped size="sm" hover style={{ margin: "0px" }}>
           <thead>
             <tr>
               <th>Weight ({units})</th>

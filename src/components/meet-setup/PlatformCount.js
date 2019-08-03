@@ -20,7 +20,9 @@ import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import { ControlLabel, FormGroup, FormControl } from "react-bootstrap";
+import Form from "react-bootstrap/Form";
+import FormGroup from "react-bootstrap/FormGroup";
+import FormControl from "react-bootstrap/FormControl";
 
 import { setPlatformsOnDays } from "../../actions/meetSetupActions";
 
@@ -61,7 +63,7 @@ class PlatformCount extends React.Component {
 
     return (
       <FormGroup validationState={this.getValidationState()}>
-        <ControlLabel>{label}</ControlLabel>
+        <Form.Label>{label}</Form.Label>
         <FormControl type="number" value={this.state.value} onChange={this.handleChange} />
       </FormGroup>
     );

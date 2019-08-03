@@ -21,7 +21,8 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import { Button } from "react-bootstrap";
+
+import Button from "react-bootstrap/Button";
 
 import { randomInt, randomFixedPoint } from "./RandomizeHelpers";
 

@@ -21,7 +21,8 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import { Button } from "react-bootstrap";
+
+import Button from "react-bootstrap/Button";
 
 import { newRegistration } from "../../actions/registrationActions";
 
@@ -45,7 +46,7 @@ class NewButton extends React.Component<Props> {
 
   render() {
     return (
-      <Button onClick={this.handleClick} bsStyle="primary" bsSize="large" block>
+      <Button onClick={this.handleClick} variant="primary" bsSize="large" block>
         New Lifter
       </Button>
     );

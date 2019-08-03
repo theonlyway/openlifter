@@ -22,7 +22,9 @@ import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import { ControlLabel, FormControl, FormGroup } from "react-bootstrap";
+import Form from "react-bootstrap/Form";
+import FormControl from "react-bootstrap/FormControl";
+import FormGroup from "react-bootstrap/FormGroup";
 
 import { setMeetName } from "../../actions/meetSetupActions";
 
@@ -61,7 +63,7 @@ class MeetName extends React.Component {
   render() {
     return (
       <FormGroup validationState={this.getValidationState()}>
-        <ControlLabel>Meet Name</ControlLabel>
+        <Form.Label>Meet Name</Form.Label>
         <FormControl
           type="text"
           placeholder="Meet Name"

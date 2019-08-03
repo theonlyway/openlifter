@@ -23,7 +23,8 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import { FormControl } from "react-bootstrap";
+
+import FormControl from "react-bootstrap/FormControl";
 
 import ValidatedTextInput from "../ValidatedTextInput";
 import WeightInput from "./WeightInput";
@@ -133,7 +134,7 @@ class LifterRow extends React.Component<Props> {
     if (this.props.inLiftingPage !== true) {
       // Can be undefined.
       flight = (
-        <FormControl defaultValue={entry.flight} componentClass="select" onChange={this.updateRegistrationFlight}>
+        <FormControl defaultValue={entry.flight} as="select" onChange={this.updateRegistrationFlight}>
           <option value="A">A</option>
           <option value="B">B</option>
           <option value="C">C</option>

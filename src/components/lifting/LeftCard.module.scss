@@ -16,7 +16,7 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-// Theming for the current lifter information header on the top of the Lifting page.
+// Theming for the cards on the left of the Lifting page.
 
 $color-dark: #232323;
 $color-light: #ffffff;
@@ -24,7 +24,7 @@ $color-light: #ffffff;
 $border-rounding: 8px;
 
 
-// The whole left panel.
+// The whole left card.
 div.container {
   width: 100%;
 

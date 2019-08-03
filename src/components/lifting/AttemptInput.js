@@ -22,7 +22,8 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { FormControl, FormGroup } from "react-bootstrap";
+import FormControl from "react-bootstrap/FormControl";
+import FormGroup from "react-bootstrap/FormGroup";
 
 import { liftToAttemptFieldName, liftToStatusFieldName } from "../../logic/entry";
 import { enterAttempt } from "../../actions/liftingActions";

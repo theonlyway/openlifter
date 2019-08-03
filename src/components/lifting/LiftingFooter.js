@@ -23,7 +23,8 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { FormControl } from "react-bootstrap";
+import FormControl from "react-bootstrap/FormControl";
+
 import { globalFocusAttemptInputId } from "./LiftingTable";
 
 import { markLift, overrideAttempt, overrideEntryId, setLiftingGroup } from "../../actions/liftingActions";
@@ -298,7 +299,7 @@ class LiftingFooter extends React.Component<Props> {
       <div className={styles.footer}>
         <div className={styles.leftControls}>
           <FormControl
-            componentClass="select"
+            as="select"
             defaultValue={this.props.lifting.day}
             onChange={this.handleDayChange}
             className={styles.selector}
@@ -306,7 +307,7 @@ class LiftingFooter extends React.Component<Props> {
             {dayOptions}
           </FormControl>
           <FormControl
-            componentClass="select"
+            as="select"
             defaultValue={this.props.lifting.platform}
             onChange={this.handlePlatformChange}
             className={styles.selector}
@@ -314,7 +315,7 @@ class LiftingFooter extends React.Component<Props> {
             {platformOptions}
           </FormControl>
           <FormControl
-            componentClass="select"
+            as="select"
             defaultValue={this.props.lifting.lift}
             onChange={this.handleLiftChange}
             className={styles.selector}
@@ -323,7 +324,7 @@ class LiftingFooter extends React.Component<Props> {
           </FormControl>
           <FormControl
             key={"flight-" + this.props.lifting.flight}
-            componentClass="select"
+            as="select"
             defaultValue={this.props.lifting.flight}
             onChange={this.handleFlightChange}
             className={styles.selector}
@@ -332,7 +333,7 @@ class LiftingFooter extends React.Component<Props> {
           </FormControl>
           <FormControl
             value={this.props.attemptOneIndexed}
-            componentClass="select"
+            as="select"
             onChange={this.handleAttemptChange}
             className={styles.selector}
           >
@@ -340,7 +341,7 @@ class LiftingFooter extends React.Component<Props> {
           </FormControl>
           <FormControl
             value={currentEntryId}
-            componentClass="select"
+            as="select"
             onChange={this.handleLifterChange}
             className={styles.selector}
           >

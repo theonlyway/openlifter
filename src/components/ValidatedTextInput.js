@@ -22,7 +22,9 @@
 // if validation passes; otherwise, the text input reverts to the initial state.
 
 import React from "react";
-import { FormControl, FormGroup } from "react-bootstrap";
+
+import FormControl from "react-bootstrap/FormControl";
+import FormGroup from "react-bootstrap/FormGroup";
 
 import type { Validation } from "../types/dataTypes";
 

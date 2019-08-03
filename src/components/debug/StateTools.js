@@ -20,7 +20,10 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import { Button, ButtonGroup, Panel } from "react-bootstrap";
+
+import Button from "react-bootstrap/Button";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
+import Card from "react-bootstrap/Card";
 
 import RandomizeMeetSetupButton from "./RandomizeMeetSetup";
 import RandomizeRegistrationButton from "./RandomizeRegistration";
@@ -36,10 +39,10 @@ class StateTools extends React.Component {
   render() {
     return (
       <div>
-        <Panel bsStyle="danger">
-          <Panel.Heading>Generate Random Valid Data</Panel.Heading>
-          <Panel.Body>
-            <Button style={{ marginRight: "15px" }} bsStyle="danger" onClick={this.reInitializeRedux}>
+        <Card>
+          <Card.Header>Generate Random Valid Data</Card.Header>
+          <Card.Body>
+            <Button style={{ marginRight: "15px" }} variant="danger" onClick={this.reInitializeRedux}>
               Reset
             </Button>
             <ButtonGroup>
@@ -47,15 +50,15 @@ class StateTools extends React.Component {
               <RandomizeRegistrationButton />
               <RandomizeWeighinsButton />
             </ButtonGroup>
-          </Panel.Body>
-        </Panel>
+          </Card.Body>
+        </Card>
 
-        <Panel bsStyle="info">
-          <Panel.Heading>Redux State</Panel.Heading>
-          <Panel.Body>
+        <Card variant="info">
+          <Card.Header>Redux State</Card.Header>
+          <Card.Body>
             <pre>{JSON.stringify(this.props, null, 2)}</pre>
-          </Panel.Body>
-        </Panel>
+          </Card.Body>
+        </Card>
       </div>
     );
   }
