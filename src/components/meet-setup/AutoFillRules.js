@@ -976,6 +976,7 @@ class AutoFillRules extends React.Component<Props, InternalState> {
               onChange={this.handleSelectChange}
               defaultValue={this.state.selectedOption}
               style={{ width: "70%", display: "inline-block" }}
+              className="custom-select"
             >
               <option key="Traditional" value="Traditional">
                 Traditional Rules

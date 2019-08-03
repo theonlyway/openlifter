@@ -79,14 +79,7 @@ class MeetLength extends React.Component<Props, InternalState> {
     return (
       <FormGroup validationState={this.getValidationState()}>
         <Form.Label>Days of Lifting</Form.Label>
-        <FormControl
-          type="text"
-          pattern="[0-9]+"
-          min="0"
-          step="1"
-          value={this.state.value}
-          onChange={this.handleChange}
-        />
+        <FormControl type="number" min="1" step="1" value={this.state.value} onChange={this.handleChange} />
       </FormGroup>
     );
   }

@@ -253,7 +253,12 @@ class LifterRow extends React.Component {
             <Col md={1}>
               <FormGroup>
                 <Form.Label>Day</Form.Label>
-                <FormControl defaultValue={this.state.selectedDay} as="select" onChange={this.updateRegistrationDay}>
+                <FormControl
+                  defaultValue={this.state.selectedDay}
+                  as="select"
+                  onChange={this.updateRegistrationDay}
+                  className="custom-select"
+                >
                   {dayOptions}
                 </FormControl>
               </FormGroup>
@@ -263,7 +268,12 @@ class LifterRow extends React.Component {
             <Col md={1}>
               <FormGroup>
                 <Form.Label>Platform</Form.Label>
-                <FormControl defaultValue={entry.platform} as="select" onChange={this.updateRegistrationPlatform}>
+                <FormControl
+                  defaultValue={entry.platform}
+                  as="select"
+                  onChange={this.updateRegistrationPlatform}
+                  className="custom-select"
+                >
                   {platformOptions}
                 </FormControl>
               </FormGroup>
@@ -273,7 +283,12 @@ class LifterRow extends React.Component {
             <Col md={1}>
               <FormGroup>
                 <Form.Label>Flight</Form.Label>
-                <FormControl defaultValue={entry.flight} as="select" onChange={this.updateRegistrationFlight}>
+                <FormControl
+                  defaultValue={entry.flight}
+                  as="select"
+                  onChange={this.updateRegistrationFlight}
+                  className="custom-select"
+                >
                   <option value="A">A</option>
                   <option value="B">B</option>
                   <option value="C">C</option>
@@ -290,7 +305,12 @@ class LifterRow extends React.Component {
             <Col md={1}>
               <FormGroup>
                 <Form.Label>Sex</Form.Label>
-                <FormControl defaultValue={entry.sex} as="select" onChange={this.updateRegistrationSex}>
+                <FormControl
+                  defaultValue={entry.sex}
+                  as="select"
+                  onChange={this.updateRegistrationSex}
+                  className="custom-select"
+                >
                   <option value="M">M</option>
                   <option value="F">F</option>
                   <option value="Mx">Mx</option>
@@ -302,7 +322,12 @@ class LifterRow extends React.Component {
             <Col md={2}>
               <FormGroup>
                 <Form.Label>Equipment</Form.Label>
-                <FormControl defaultValue={entry.equipment} as="select" onChange={this.updateRegistrationEquipment}>
+                <FormControl
+                  defaultValue={entry.equipment}
+                  as="select"
+                  onChange={this.updateRegistrationEquipment}
+                  className="custom-select"
+                >
                   <option value="Bare">Bare</option>
                   <option value="Sleeves">Sleeves</option>
                   <option value="Wraps">Wraps</option>

@@ -132,7 +132,12 @@ class MeetSetup extends React.Component<Props> {
 
                 <FormGroup key={this.props.masterKey + "-formula"}>
                   <Form.Label>Best Lifter Formula</Form.Label>
-                  <FormControl as="select" defaultValue={this.props.formula} onChange={this.props.setFormula}>
+                  <FormControl
+                    as="select"
+                    defaultValue={this.props.formula}
+                    onChange={this.props.setFormula}
+                    className="custom-select"
+                  >
                     <option value="Bodyweight Multiple">Bodyweight Multiple</option>
                     <option value="Dots">Dots</option>
                     <option value="Glossbrenner">Glossbrenner</option>
@@ -150,6 +155,7 @@ class MeetSetup extends React.Component<Props> {
                     as="select"
                     defaultValue={this.props.ageCoefficients}
                     onChange={this.props.setAgeCoefficients}
+                    className="custom-select"
                   >
                     <option key="None" value="None">
                       None
@@ -166,6 +172,7 @@ class MeetSetup extends React.Component<Props> {
                     as="select"
                     defaultValue={yesNoFromBoolean(this.props.combineSleevesAndWraps)}
                     onChange={this.props.setCombineSleevesAndWraps}
+                    className="custom-select"
                   >
                     {yesNoBooleanOptions}
                   </FormControl>
@@ -177,6 +184,7 @@ class MeetSetup extends React.Component<Props> {
                     as="select"
                     defaultValue={yesNoFromBoolean(this.props.allow4thAttempts)}
                     onChange={this.props.setAllow4thAttempts}
+                    className="custom-select"
                   >
                     {yesNoBooleanOptions}
                   </FormControl>
@@ -195,6 +203,7 @@ class MeetSetup extends React.Component<Props> {
                     as="select"
                     defaultValue={yesNoFromBoolean(this.props.inKg)}
                     onChange={this.props.setInKg}
+                    className="custom-select"
                   >
                     <option key="Yes" value="Yes">
                       Kilograms
@@ -211,6 +220,7 @@ class MeetSetup extends React.Component<Props> {
                     as="select"
                     defaultValue={yesNoFromBoolean(this.props.showAlternateUnits)}
                     onChange={this.props.setShowAlternateUnits}
+                    className="custom-select"
                   >
                     {yesNoBooleanOptions}
                   </FormControl>

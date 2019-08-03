@@ -134,7 +134,12 @@ class LifterRow extends React.Component<Props> {
     if (this.props.inLiftingPage !== true) {
       // Can be undefined.
       flight = (
-        <FormControl defaultValue={entry.flight} as="select" onChange={this.updateRegistrationFlight}>
+        <FormControl
+          defaultValue={entry.flight}
+          as="select"
+          onChange={this.updateRegistrationFlight}
+          className="custom-select"
+        >
           <option value="A">A</option>
           <option value="B">B</option>
           <option value="C">C</option>
