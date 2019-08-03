@@ -257,22 +257,22 @@ class HomeContainer extends React.Component<Props, InternalState> {
               rel="noopener noreferrer"
               target="_blank"
             >
-              <Button variant="secondary" block style={buttonMargin}>
+              <Button variant="outline-secondary" block style={buttonMargin}>
                 Report an Issue
               </Button>
             </a>
             <a href="https://www.openlifter.com/support" rel="noopener noreferrer" target="_blank">
-              <Button variant="secondary" block style={buttonMargin}>
+              <Button variant="outline-secondary" block style={buttonMargin}>
                 Official Support
               </Button>
             </a>
             <a href="https://gitlab.com/openpowerlifting/openlifter" rel="noopener noreferrer" target="_blank">
-              <Button variant="secondary" block style={buttonMargin}>
+              <Button variant="outline-secondary" block style={buttonMargin}>
                 Full Source Code
               </Button>
             </a>
             <LinkContainer to="/about">
-              <Button variant="secondary" block style={buttonMargin}>
+              <Button variant="outline-secondary" block style={buttonMargin}>
                 Credits and License
               </Button>
             </LinkContainer>
