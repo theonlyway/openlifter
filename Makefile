@@ -9,14 +9,14 @@ all: dev-web
 node_modules:
 	yarn
 
-build/bootstrap-custom.css: node_modules src/bootstrap-custom/bootstrap.less
-	yarn run lessc src/bootstrap-custom/bootstrap.less build/bootstrap-custom.css
+src/bootstrap-custom/bootstrap-custom.css: node_modules src/bootstrap-custom/bootstrap.less
+	yarn run lessc src/bootstrap-custom/bootstrap.less src/bootstrap-custom/bootstrap-custom.css
 
 ############################################
 # Helpers.
 ############################################
 
-build-deps: node_modules build/bootstrap-custom.css
+build-deps: node_modules src/bootstrap-custom/bootstrap-custom.css
 
 dev-electron: build-deps
 	yarn run electron-dev
@@ -31,7 +31,7 @@ test: build-deps
 	CI="yes" yarn run test
 
 less:
-	yarn run lessc src/bootstrap-custom/bootstrap.less build/bootstrap-custom.css
+	yarn run lessc src/bootstrap-custom/bootstrap.less src/bootstrap-custom/bootstrap-custom.css
 
 release: gitlab-pages
 	echo "Built into public/. Don't forget to set a git tag!"
@@ -39,8 +39,6 @@ release: gitlab-pages
 # Builds the project into public/. Overwrites git files -- need to reset after.
 gitlab-pages:
 	make less
-	rm -f src/bootstrap-custom/bootstrap-custom.css
-	cp -f build/bootstrap-custom.css src/bootstrap-custom/bootstrap-custom.css
 	yarn run build
 	rm -rf public/
 	cp --dereference -r build/ public
