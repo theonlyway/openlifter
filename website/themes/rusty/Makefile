@@ -7,4 +7,4 @@ css:
 	yarn run lessc website/themes/rusty/src/bootstrap.less website/themes/rusty/static/css/rusty.css --clean-css="--advanced"
 
 clean:
-	rm static/css/rusty.css
+	rm -f static/css/rusty.css

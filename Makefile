@@ -1,4 +1,4 @@
-.PHONY: build-deps dev-electron dev-web package test check less gitlab-pages clean reallyclean
+.PHONY: build-deps dev-electron dev-web package test check less gitlab-pages clean veryclean
 
 all: dev-web
 
@@ -48,5 +48,5 @@ clean:
 	rm -rf build
 	$(MAKE) -C website clean
 
-reallyclean: clean
+veryclean: clean
 	rm -rf node_modules
