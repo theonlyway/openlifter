@@ -1,0 +1,22 @@
+// Global style stuff.
+$font-family-sans-serif: "Fira Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+// Make the default font about 14px.
+$font-size-base: 0.9rem;
+
+// Chill out the blue.
+$primary: #337AB7;
+
+// The default "bolder" weight doesn't render as bold everywhere.
+$font-weight-bolder: 700;
+
+// Make sure the containers don't overflow 820px.
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 800px,
+  xl: 820px
+);
+
+// Give the About page table more space.
+$table-cell-padding: .4rem;

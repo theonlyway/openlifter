@@ -1,10 +1,9 @@
-// Global style stuff.
-@font-family-sans-serif: "Fira Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+// Theming for the Rusty classes.
+
 body {
-  max-width: 820px;
-  margin-top: 20px;
-  margin-bottom: 10px;
+  margin: 20px;
 }
+
 ul {
   padding-left: 30px;
 }
@@ -53,8 +52,6 @@ p.pitch {
 }
 @media only screen and (min-width: 992px) {
   p.pitch {
-    margin-top: 1.5em;
-    margin-bottom: 1em;
     margin-right: 1em;
     text-align: left;
   }
@@ -74,9 +71,9 @@ p.pitch {
   color: white;
   background-color: #428BCA;
   border-radius: 3px;
-  padding: 2rem;
-  margin-top: 4rem;
-  font-size: 1.5em;
+  padding: 1.25rem;
+  margin-top: 0.825rem;
+  font-size: 21px;
   text-align: center;
 }
 a.release-button:hover, a.release-button:focus {
@@ -116,9 +113,10 @@ ul.laundry-list {
 
 // Standard elements.
 footer {
+  font-size: 0.9rem;
   border-top: 2px solid #dedede;
-  margin: 1.2em auto 0 auto;
-  padding-top: 0.6em;
+  margin: 1.75rem auto 0 auto;
+  padding-top: 0.75rem;
 }
 footer p {
   margin-top: 1.2em;
@@ -143,6 +141,7 @@ div.support-card {
   display: block;
   text-align: center;
   margin-bottom: 1.5em;
+  font-size: 1.25rem;
 }
 
 .support-button {
@@ -169,4 +168,27 @@ ul.faq li h3 {
 }
 ul.faq li p {
   margin-left: 15px;
+}
+
+// Bootstrap 4 sets a top border, which looks pretty gross.
+.table th {
+  border-top: none;
+}
+.table td.success {
+  background-color: #dff0d8; // A pleasant green.
+}
+.table-hover > tbody > tr:hover > td.success {
+  background-color: #d0e9c6; // A more vivacious green.
+}
+.table td.warning {
+  background-color: #fcf8e3; // A pleasant yellow.
+}
+.table-hover > tbody > tr:hover > td.warning {
+  background-color: #faf2cc; // A more vivacious yellow.
+}
+.table td.danger {
+  background-color: #f2dede; // A pleasant red.
+}
+.table-hover > tbody > tr:hover > td.danger {
+  background-color: #ebcccc; // A more vivacious red.
 }
