@@ -356,7 +356,11 @@ class LiftingTable extends React.Component<Props> {
         } else if (this.props.meet.formula === "NASA Points") {
           points = getProjectedNASAPoints(entry);
         } else if (this.props.meet.formula === "Total") {
-          return this.renderCell(entry, "ProjectedTotal", categoryResults);
+          // Duplicate of "ProjectedTotal" logic.
+          // Issue #181: can't just call renderCell() because <td> needs a unique key.
+          const totalKg = getProjectedTotalKg(entry);
+          const asNumber = this.props.meet.inKg ? totalKg : kg2lbs(totalKg);
+          return <td key={columnType}>{totalKg === 0 ? null : displayWeight(asNumber)}</td>;
         } else if (this.props.meet.formula === "Bodyweight Multiple") {
           points = getProjectedBodyweightMultiple(entry);
         }
@@ -383,7 +387,11 @@ class LiftingTable extends React.Component<Props> {
         } else if (this.props.meet.formula === "NASA Points") {
           points = getFinalNASAPoints(entry);
         } else if (this.props.meet.formula === "Total") {
-          return this.renderCell(entry, "FinalTotal", categoryResults);
+          // Duplicate of "FinalTotal" logic.
+          // Issue #181: can't just call renderCell() because <td> needs a unique key.
+          const totalKg = getFinalTotalKg(entry);
+          const asNumber = this.props.meet.inKg ? totalKg : kg2lbs(totalKg);
+          return <td key={columnType}>{totalKg === 0 ? null : displayWeight(asNumber)}</td>;
         } else if (this.props.meet.formula === "Bodyweight Multiple") {
           points = getFinalBodyweightMultiple(entry);
         }
