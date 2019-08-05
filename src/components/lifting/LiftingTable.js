@@ -562,13 +562,12 @@ class LiftingTable extends React.Component<Props> {
     }
 
     // Use projected totals for everything before 2nd attempt deadlifts.
-    let useProjected = true;
-    if (this.props.lifting.lift !== "D" || this.props.attemptOneIndexed < 2) {
-      columns.push("ProjectedTotal", "ProjectedPoints", "Place");
-    } else {
-      useProjected = false;
-      columns.push("FinalTotal", "FinalPoints", "Place");
+    const useProjected = this.props.lifting.lift !== "D" || this.props.attemptOneIndexed < 2;
+    columns.push(useProjected ? "ProjectedTotal" : "FinalTotal");
+    if (this.props.meet.formula !== "Total") {
+      columns.push(useProjected ? "ProjectedPoints" : "FinalPoints");
     }
+    columns.push("Place");
 
     // Build headers.
     let headers = [];
