@@ -4,6 +4,7 @@ all: css
 
 # Build Bootstrap code from the main OpenLifter node_modules/ repo.
 css:
+	mkdir -p static/css
 	yarn run node-sass --linefeed lf --output-style compressed website/themes/rusty/src/bootstrap.scss > static/css/rusty.css
 
 clean:
