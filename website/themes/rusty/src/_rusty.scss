@@ -169,6 +169,9 @@ ul.faq li h3 {
 ul.faq li p {
   margin-left: 15px;
 }
+ul.faq li p + p {
+  margin-top: -0.5rem;
+}
 
 // Bootstrap 4 sets a top border, which looks pretty gross.
 .table th {
