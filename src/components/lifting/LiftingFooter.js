@@ -302,7 +302,7 @@ class LiftingFooter extends React.Component<Props> {
             as="select"
             defaultValue={this.props.lifting.day}
             onChange={this.handleDayChange}
-            className={styles.selector}
+            className={`custom-select ${styles.selector}`}
           >
             {dayOptions}
           </FormControl>
@@ -310,7 +310,7 @@ class LiftingFooter extends React.Component<Props> {
             as="select"
             defaultValue={this.props.lifting.platform}
             onChange={this.handlePlatformChange}
-            className={styles.selector}
+            className={`custom-select ${styles.selector}`}
           >
             {platformOptions}
           </FormControl>
@@ -318,7 +318,7 @@ class LiftingFooter extends React.Component<Props> {
             as="select"
             defaultValue={this.props.lifting.lift}
             onChange={this.handleLiftChange}
-            className={styles.selector}
+            className={`custom-select ${styles.selector}`}
           >
             {liftOptions}
           </FormControl>
@@ -327,7 +327,7 @@ class LiftingFooter extends React.Component<Props> {
             as="select"
             defaultValue={this.props.lifting.flight}
             onChange={this.handleFlightChange}
-            className={styles.selector}
+            className={`custom-select ${styles.selector}`}
           >
             {flightOptions}
           </FormControl>
@@ -335,7 +335,7 @@ class LiftingFooter extends React.Component<Props> {
             value={this.props.attemptOneIndexed}
             as="select"
             onChange={this.handleAttemptChange}
-            className={styles.selector}
+            className={`custom-select ${styles.selector}`}
           >
             {attemptOptions}
           </FormControl>
@@ -343,7 +343,7 @@ class LiftingFooter extends React.Component<Props> {
             value={currentEntryId}
             as="select"
             onChange={this.handleLifterChange}
-            className={styles.selector}
+            className={`custom-select ${styles.selector}`}
           >
             {this.makeLifterOptions()}
           </FormControl>

@@ -318,7 +318,7 @@ class ResultsView extends React.Component<Props, InternalState> {
           defaultValue={this.state.day}
           as="select"
           onChange={this.handleDayChange}
-          className={styles.dropdown}
+          className={`custom-select ${styles.dropdown}`}
         >
           {this.makeDayOptions()}
         </FormControl>
@@ -363,7 +363,7 @@ class ResultsView extends React.Component<Props, InternalState> {
               defaultValue={this.state.by}
               as="select"
               onChange={this.handleByChange}
-              className={styles.dropdown}
+              className={`custom-select ${styles.dropdown}`}
               style={{ marginLeft: "14px" }}
             >
               <option value="Division">By Division</option>

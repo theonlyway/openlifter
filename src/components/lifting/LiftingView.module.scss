@@ -18,8 +18,8 @@
 
 // Styling for how component pieces are arranged in relation to each other.
 
-$left-panel-width: 30%;
-$right-panel-width: 100% - $left-panel-width;
+$left-card-width: 30%;
+$right-card-width: 100% - $left-card-width;
 
 div.liftingView {
   background-color: #edeef0;
@@ -27,22 +27,22 @@ div.liftingView {
   padding: 10px 10px 50px 10px;
 }
 
-// The containing div of the div.leftPanel and div.rightPanel.
+// The containing div of the div.leftCard and div.rightCard.
 div.middleParentContainer {
   display: flex; // Lay out child nodes horizontally.
 }
 
-// The container of the Leftpanel.
-div.leftPanelContainer {
+// The container of the LeftCard.
+div.leftCardContainer {
   display: block;
-  width: $left-panel-width;
+  width: $left-card-width;
   padding-right: 10px;
 }
 
 // The container of the LiftingTable.
-div.rightPanelContainer {
+div.rightCardContainer {
   display: block;
-  width: $right-panel-width;
+  width: $right-card-width;
 
   max-height: 82vh;
   overflow-y: auto;
