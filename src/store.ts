@@ -16,13 +16,22 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-// This helper script is executed manually via "yarn manage:translations".
+import { createStore, applyMiddleware } from "redux";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
-const path = require("path");
-const manageTranslations = require("react-intl-translations-manager").default;
+import thunk from "redux-thunk";
+import rootReducer from "./reducers/rootReducer";
 
-manageTranslations({
-  messagesDirectory: path.join(__dirname, "translations/messages"),
-  translationsDirectory: path.join(__dirname, "translations/locales/"),
-  languages: ["eo"] // any language you need
-});
+const persistConfig = {
+  key: "root",
+  storage
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+export default function configureStore(initialState = {}) {
+  let store = createStore(persistedReducer, applyMiddleware(thunk));
+  let persistor = persistStore(store);
+  return { store, persistor };
+}

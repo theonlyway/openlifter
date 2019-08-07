@@ -16,13 +16,17 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-// This helper script is executed manually via "yarn manage:translations".
+// A page dedicated to debugging tools.
 
-const path = require("path");
-const manageTranslations = require("react-intl-translations-manager").default;
+import React from "react";
+import StateTools from "../components/debug/StateTools";
 
-manageTranslations({
-  messagesDirectory: path.join(__dirname, "translations/messages"),
-  translationsDirectory: path.join(__dirname, "translations/locales/"),
-  languages: ["eo"] // any language you need
-});
+const DebugContainer = () => {
+  return (
+    <div style={{ marginRight: "20px", marginLeft: "20px" }}>
+      <StateTools />
+    </div>
+  );
+};
+
+export default DebugContainer;

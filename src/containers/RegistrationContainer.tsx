@@ -16,13 +16,15 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-// This helper script is executed manually via "yarn manage:translations".
+// Container for the Registration page.
 
-const path = require("path");
-const manageTranslations = require("react-intl-translations-manager").default;
+import React from "react";
+import RegistrationView from "../components/registration/RegistrationView";
 
-manageTranslations({
-  messagesDirectory: path.join(__dirname, "translations/messages"),
-  translationsDirectory: path.join(__dirname, "translations/locales/"),
-  languages: ["eo"] // any language you need
-});
+class RegistrationContainer extends React.Component<{}> {
+  render() {
+    return <RegistrationView />;
+  }
+}
+
+export default RegistrationContainer;

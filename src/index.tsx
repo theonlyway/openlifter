@@ -16,13 +16,22 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-// This helper script is executed manually via "yarn manage:translations".
+import React from "react";
+import ReactDOM from "react-dom";
 
-const path = require("path");
-const manageTranslations = require("react-intl-translations-manager").default;
+import * as serviceWorker from "./serviceWorker";
+import App from "./App";
 
-manageTranslations({
-  messagesDirectory: path.join(__dirname, "translations/messages"),
-  translationsDirectory: path.join(__dirname, "translations/locales/"),
-  languages: ["eo"] // any language you need
-});
+import "./index.css";
+import "./bootstrap-custom/bootstrap.scss";
+import "react-datepicker/dist/react-datepicker.css";
+
+const rootElement = document.getElementById("root");
+if (rootElement !== null) {
+  ReactDOM.render(<App />, rootElement);
+}
+
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: http://bit.ly/CRA-PWA
+serviceWorker.unregister();

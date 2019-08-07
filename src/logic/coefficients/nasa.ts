@@ -16,13 +16,20 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-// This helper script is executed manually via "yarn manage:translations".
+// Defines the calculation of NASA Points.
+// They are defined in a coefficient table: http://nasa-sports.com/coefficient-system/
+// It turns out that they are a simple line.
 
-const path = require("path");
-const manageTranslations = require("react-intl-translations-manager").default;
+export const nasapoints = (bodyweightKg: number, totalKg: number): number => {
+  // The function was determined using fitting in GNUPlot:
+  //
+  // Final set of parameters            Asymptotic Standard Error
+  // =======================            ==========================
+  // m               = 0.00620912       +/- 1.265e-06    (0.02037%)
+  // b               = 0.565697         +/- 0.0001322    (0.02337%)
+  const m = 0.00620912;
+  const b = 0.565697;
 
-manageTranslations({
-  messagesDirectory: path.join(__dirname, "translations/messages"),
-  translationsDirectory: path.join(__dirname, "translations/locales/"),
-  languages: ["eo"] // any language you need
-});
+  if (bodyweightKg < 30) return 0; // Arbitrary lower bound.
+  return (totalKg / bodyweightKg) * (m * bodyweightKg + b);
+};

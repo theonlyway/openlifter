@@ -16,13 +16,18 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-// This helper script is executed manually via "yarn manage:translations".
+// Color codes must be in upper-case to match the ColorPicker output.
+export const PlateColors = {
+  PLATE_DEFAULT_BLACK: "#000000",
+  PLATE_DEFAULT_WHITE: "#FFFFFF",
+  PLATE_DEFAULT_BLUE: "#4990E2",
+  PLATE_DEFAULT_GREEN: "#2AB003",
+  PLATE_DEFAULT_GRAY: "#575757",
+  PLATE_DEFAULT_RED: "#FF0000",
+  PLATE_DEFAULT_YELLOW: "#FFEF2A",
+  PLATE_DEFAULT_ORANGE: "#F25A1D",
+  PLATE_DEFAULT_PINK: "#E81FA5",
+  PLATE_DEFAULT_PURPLE: "#9B16F2"
+};
 
-const path = require("path");
-const manageTranslations = require("react-intl-translations-manager").default;
-
-manageTranslations({
-  messagesDirectory: path.join(__dirname, "translations/messages"),
-  translationsDirectory: path.join(__dirname, "translations/locales/"),
-  languages: ["eo"] // any language you need
-});
+export type PlateColorsType = keyof typeof PlateColors;

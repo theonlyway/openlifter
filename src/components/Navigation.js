@@ -1,5 +1,4 @@
 // vim: set ts=2 sts=2 sw=2 et:
-// @flow
 //
 // This file is part of OpenLifter, simple Powerlifting meet software.
 // Copyright (C) 2019 The OpenPowerlifting Project.

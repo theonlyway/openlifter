@@ -16,13 +16,25 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-// This helper script is executed manually via "yarn manage:translations".
+// See comments in src/versions.js.
 
-const path = require("path");
-const manageTranslations = require("react-intl-translations-manager").default;
+import { stateVersion, releaseVersion } from "../versions";
+import { OverwriteStoreAction } from "../types/actionTypes";
+import { VersionsState } from "../types/stateTypes";
 
-manageTranslations({
-  messagesDirectory: path.join(__dirname, "translations/messages"),
-  translationsDirectory: path.join(__dirname, "translations/locales/"),
-  languages: ["eo"] // any language you need
-});
+const initialState: VersionsState = {
+  stateVersion,
+  releaseVersion
+};
+
+type Action = OverwriteStoreAction;
+
+export default (state: VersionsState = initialState, action: Action): VersionsState => {
+  switch (action.type) {
+    case "OVERWRITE_STORE":
+      return action.store.versions;
+
+    default:
+      return state;
+  }
+};

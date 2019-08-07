@@ -16,13 +16,25 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-// This helper script is executed manually via "yarn manage:translations".
+import { Csv } from "../export/csv";
+import { makeExampleRegistrationsCsv, loadRegistrations } from "./registration-csv";
 
-const path = require("path");
-const manageTranslations = require("react-intl-translations-manager").default;
+import rootReducer from "../../reducers/rootReducer";
 
-manageTranslations({
-  messagesDirectory: path.join(__dirname, "translations/messages"),
-  translationsDirectory: path.join(__dirname, "translations/locales/"),
-  languages: ["eo"] // any language you need
+describe("loadRegistrations", () => {
+  it("can load the example", () => {
+    let state = rootReducer({}, "OVERWRITE_STORE"); // Get a default global state.
+
+    // Make modifications so the example will load.
+    state.meet.divisions = ["Open", "J20-23"];
+
+    const example = makeExampleRegistrationsCsv();
+    expect(typeof example).toEqual("string");
+
+    let csv = new Csv();
+    expect(typeof csv.fromString(example)).toEqual("object");
+
+    let entries = loadRegistrations(state, csv);
+    expect(typeof entries).toEqual("object");
+  });
 });

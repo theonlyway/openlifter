@@ -16,13 +16,14 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-// This helper script is executed manually via "yarn manage:translations".
+// Defines the calculation of points as a multiple of bodyweight.
+//
+// Although this logic is very simple, there is some finesse to avoid
+// division by zero that is easier to write once and import than repeat.
 
-const path = require("path");
-const manageTranslations = require("react-intl-translations-manager").default;
-
-manageTranslations({
-  messagesDirectory: path.join(__dirname, "translations/messages"),
-  translationsDirectory: path.join(__dirname, "translations/locales/"),
-  languages: ["eo"] // any language you need
-});
+export const bodyweight_multiple = (bodyweightKg: number, totalKg: number): number => {
+  if (bodyweightKg <= 0 || totalKg <= 0) {
+    return 0;
+  }
+  return totalKg / bodyweightKg;
+};

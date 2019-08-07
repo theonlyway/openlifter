@@ -40,7 +40,6 @@ gitlab-pages:
 # A simple target to run all the CI server tests.
 # TODO: Doesn't detect compile warnings yet.
 check:
-	yarn run flow check
 	yarn run lint
 	CI="yes" yarn run test
 

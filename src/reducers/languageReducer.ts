@@ -16,13 +16,22 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-// This helper script is executed manually via "yarn manage:translations".
+import { ChangeLanguageAction, OverwriteStoreAction } from "../types/actionTypes";
+import { LanguageState } from "../types/stateTypes";
+import { checkExhausted } from "../types/utils";
 
-const path = require("path");
-const manageTranslations = require("react-intl-translations-manager").default;
+type Action = ChangeLanguageAction | OverwriteStoreAction;
 
-manageTranslations({
-  messagesDirectory: path.join(__dirname, "translations/messages"),
-  translationsDirectory: path.join(__dirname, "translations/locales/"),
-  languages: ["eo"] // any language you need
-});
+export default (state: LanguageState = "en", action: Action): LanguageState => {
+  switch (action.type) {
+    case "CHANGE_LANGUAGE":
+      return action.language;
+
+    case "OVERWRITE_STORE":
+      return action.store.language;
+
+    default:
+      checkExhausted(action);
+      return state;
+  }
+};

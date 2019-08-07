@@ -16,13 +16,14 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-// This helper script is executed manually via "yarn manage:translations".
+import { OverwriteStoreAction } from "../types/actionTypes";
+import { GlobalState } from "../types/stateTypes";
 
-const path = require("path");
-const manageTranslations = require("react-intl-translations-manager").default;
-
-manageTranslations({
-  messagesDirectory: path.join(__dirname, "translations/messages"),
-  translationsDirectory: path.join(__dirname, "translations/locales/"),
-  languages: ["eo"] // any language you need
-});
+// Overwrites the entire Redux store, handled separately by each reducer.
+// This is used to implement "Load from File" functionality.
+export const overwriteStore = (store: GlobalState): OverwriteStoreAction => {
+  return {
+    type: "OVERWRITE_STORE",
+    store: store
+  };
+};
