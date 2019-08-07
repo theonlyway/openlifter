@@ -4,11 +4,11 @@
 
 ## Software Stack
 
-OpenLifter is a single-page webapp built with React, Redux, and Bootstrap. Help is welcome!
+OpenLifter is a single-page webapp built with TypeScript, React, Redux, and Bootstrap. Help is welcome!
 
 ## Development Setup
 
-### Fedora 29
+### Fedora 30
 
 Install Yarn from the Yarn RPM package repository:
 
