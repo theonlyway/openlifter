@@ -14,10 +14,10 @@ tests:
   script:
     - make test
 
-flow:
+typescript:
   stage: test
   script:
-    - make less
+    - yarn run tsc --noEmit
 
 lint:
   stage: test

@@ -19,9 +19,8 @@
 import { validateIso8601Date } from "./iso8601Date";
 
 describe("validateIso8601Date", () => {
-  it("doesn't accept undefined or null", () => {
+  it("doesn't accept undefined", () => {
     expect(validateIso8601Date(undefined)).toEqual("error");
-    expect(validateIso8601Date(null)).toEqual("error");
   });
 
   it("allows the empty string", () => {

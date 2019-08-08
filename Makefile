@@ -38,8 +38,8 @@ gitlab-pages:
 	cp --dereference -r build/ public
 
 # A simple target to run all the CI server tests.
-# TODO: Doesn't detect compile warnings yet.
 check:
+	yarn run tsc --noEmit
 	yarn run lint
 	CI="yes" yarn run test
 
