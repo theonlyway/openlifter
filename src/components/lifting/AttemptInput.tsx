@@ -21,8 +21,7 @@
 import React, { FormEvent } from "react";
 import { connect } from "react-redux";
 
-import FormControl from "react-bootstrap/FormControl";
-import FormGroup from "react-bootstrap/FormGroup";
+import Form from "react-bootstrap/Form";
 
 import { liftToAttemptFieldName, liftToStatusFieldName } from "../../logic/entry";
 import { enterAttempt } from "../../actions/liftingActions";
@@ -155,8 +154,8 @@ class AttemptInput extends React.Component<Props, InternalState> {
   render() {
     return (
       /* TODO: Validation state styling */
-      <FormGroup style={{ marginBottom: 0 }}>
-        <FormControl
+      <Form.Group style={{ marginBottom: 0 }}>
+        <Form.Control
           id={this.props.id}
           type="text"
           placeholder=""
@@ -166,7 +165,7 @@ class AttemptInput extends React.Component<Props, InternalState> {
           onBlur={this.handleBlur}
           className={styles.attemptInput}
         />
-      </FormGroup>
+      </Form.Group>
     );
   }
 }

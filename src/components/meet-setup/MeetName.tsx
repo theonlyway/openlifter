@@ -18,19 +18,35 @@
 
 // Defines the MeetName text input box with validation.
 
-import React from "react";
+import React, { FormEvent } from "react";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
+import { Dispatch } from "redux";
 
 import Form from "react-bootstrap/Form";
-import FormControl from "react-bootstrap/FormControl";
-import FormGroup from "react-bootstrap/FormGroup";
 
 import { setMeetName } from "../../actions/meetSetupActions";
 
-class MeetName extends React.Component {
-  constructor(props, context) {
-    super(props, context);
+import { Validation } from "../../types/dataTypes";
+import { GlobalState } from "../../types/stateTypes";
+import { isString, FormControlTypeHack } from "../../types/utils";
+
+interface StateProps {
+  name: string;
+}
+
+interface DispatchProps {
+  setMeetName: (name: string) => void;
+}
+
+type Props = StateProps & DispatchProps;
+
+interface InternalState {
+  value: string;
+}
+
+class MeetName extends React.Component<Props, InternalState> {
+  constructor(props: Props) {
+    super(props);
 
     this.handleChange = this.handleChange.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
@@ -40,55 +56,56 @@ class MeetName extends React.Component {
     };
   }
 
-  getValidationState() {
+  validate = (): Validation => {
     const { value } = this.state;
     if (!value) return "warning";
     if (value.includes('"')) return "error";
     return "success";
-  }
+  };
 
-  handleChange(event) {
-    const value = event.target.value;
-    this.setState({ value: value });
-  }
+  handleChange = (event: FormEvent<FormControlTypeHack>) => {
+    const value = event.currentTarget.value;
+    if (isString(value)) {
+      this.setState({ value: value });
+    }
+  };
 
   // When the control loses focus, possibly update the Redux store.
-  handleBlur(event) {
-    if (this.getValidationState() !== "success") {
+  handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+    if (this.validate() !== "success") {
       return;
     }
-    this.props.setMeetName(event.target.value);
-  }
+    this.props.setMeetName(this.state.value);
+  };
 
   render() {
+    const validation = this.validate();
+
     return (
-      <FormGroup validationState={this.getValidationState()}>
+      <Form.Group>
         <Form.Label>Meet Name</Form.Label>
-        <FormControl
+        <Form.Control
           type="text"
           placeholder="Meet Name"
           value={this.state.value}
           onChange={this.handleChange}
           onBlur={this.handleBlur}
+          isValid={validation === "success"}
+          isInvalid={validation === "error"}
         />
-      </FormGroup>
+      </Form.Group>
     );
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: GlobalState): StateProps => ({
   name: state.meet.name
 });
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   return {
     setMeetName: name => dispatch(setMeetName(name))
   };
-};
-
-MeetName.propTypes = {
-  name: PropTypes.string.isRequired,
-  setMeetName: PropTypes.func.isRequired
 };
 
 export default connect(
