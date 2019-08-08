@@ -248,8 +248,9 @@ class ResultsView extends React.Component<Props, InternalState> {
     );
 
     let forms = [];
+    const numDays = Math.min(this.props.global.meet.lengthDays, platformsHaveLifted.length);
 
-    for (let i = 0; i < platformsHaveLifted.length; i++) {
+    for (let i = 0; i < numDays; i++) {
       const liftedOnDay = platformsHaveLifted[i];
 
       let buttons = [];
