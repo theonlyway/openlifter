@@ -28,8 +28,7 @@ import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
-import FormControl from "react-bootstrap/FormControl";
-import FormGroup from "react-bootstrap/FormGroup";
+import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
 
 import Select from "react-select";
@@ -90,6 +89,7 @@ class LifterRow extends React.Component<Props, State> {
     this.updateRegistrationEvents = this.updateRegistrationEvents.bind(this);
     this.updateRegistrationEquipment = this.updateRegistrationEquipment.bind(this);
     this.updateRegistrationTeam = this.updateRegistrationTeam.bind(this);
+    this.updateRegistrationInstagram = this.updateRegistrationInstagram.bind(this);
     this.updateRegistrationNotes = this.updateRegistrationNotes.bind(this);
   }
 
@@ -222,6 +222,12 @@ class LifterRow extends React.Component<Props, State> {
     }
   };
 
+  updateRegistrationInstagram = (event: React.FocusEvent<HTMLInputElement>) => {
+    if (assertString(event.target.value)) {
+      this.props.updateRegistration(this.props.id, { instagram: event.target.value });
+    }
+  };
+
   updateRegistrationNotes = (event: React.FocusEvent<HTMLInputElement>) => {
     if (assertString(event.target.value)) {
       this.props.updateRegistration(this.props.id, { notes: event.target.value });
@@ -272,7 +278,7 @@ class LifterRow extends React.Component<Props, State> {
     return (
       <Card>
         <Card.Header style={{ display: "flex" }}>
-          <FormControl type="text" placeholder="Name" defaultValue={entry.name} onBlur={this.updateRegistrationName} />
+          <Form.Control type="text" placeholder="Name" defaultValue={entry.name} onBlur={this.updateRegistrationName} />
           <Button onClick={this.deleteRegistrationClick} variant="danger" style={{ marginLeft: "15px" }}>
             Delete
           </Button>
@@ -282,39 +288,39 @@ class LifterRow extends React.Component<Props, State> {
             <Row>
               {/* Day */}
               <Col md={1}>
-                <FormGroup>
+                <Form.Group>
                   <Form.Label>Day</Form.Label>
-                  <FormControl
+                  <Form.Control
                     defaultValue={this.state.selectedDay}
                     as="select"
                     onChange={this.updateRegistrationDay}
                     className="custom-select"
                   >
                     {dayOptions}
-                  </FormControl>
-                </FormGroup>
+                  </Form.Control>
+                </Form.Group>
               </Col>
 
               {/* Platform */}
               <Col md={1}>
-                <FormGroup>
+                <Form.Group>
                   <Form.Label>Platform</Form.Label>
-                  <FormControl
+                  <Form.Control
                     defaultValue={entry.platform}
                     as="select"
                     onChange={this.updateRegistrationPlatform}
                     className="custom-select"
                   >
                     {platformOptions}
-                  </FormControl>
-                </FormGroup>
+                  </Form.Control>
+                </Form.Group>
               </Col>
 
               {/* Flight */}
               <Col md={1}>
-                <FormGroup>
+                <Form.Group>
                   <Form.Label>Flight</Form.Label>
-                  <FormControl
+                  <Form.Control
                     defaultValue={entry.flight}
                     as="select"
                     onChange={this.updateRegistrationFlight}
@@ -328,15 +334,15 @@ class LifterRow extends React.Component<Props, State> {
                     <option value="F">F</option>
                     <option value="G">G</option>
                     <option value="H">H</option>
-                  </FormControl>
-                </FormGroup>
+                  </Form.Control>
+                </Form.Group>
               </Col>
 
               {/* Sex */}
               <Col md={1}>
-                <FormGroup>
+                <Form.Group>
                   <Form.Label>Sex</Form.Label>
-                  <FormControl
+                  <Form.Control
                     defaultValue={entry.sex}
                     as="select"
                     onChange={this.updateRegistrationSex}
@@ -345,15 +351,15 @@ class LifterRow extends React.Component<Props, State> {
                     <option value="M">M</option>
                     <option value="F">F</option>
                     <option value="Mx">Mx</option>
-                  </FormControl>
-                </FormGroup>
+                  </Form.Control>
+                </Form.Group>
               </Col>
 
               {/* Equipment */}
               <Col md={2}>
-                <FormGroup>
+                <Form.Group>
                   <Form.Label>Equipment</Form.Label>
-                  <FormControl
+                  <Form.Control
                     defaultValue={entry.equipment}
                     as="select"
                     onChange={this.updateRegistrationEquipment}
@@ -364,13 +370,13 @@ class LifterRow extends React.Component<Props, State> {
                     <option value="Wraps">Wraps</option>
                     <option value="Single-ply">Single-ply</option>
                     <option value="Multi-ply">Multi-ply</option>
-                  </FormControl>
-                </FormGroup>
+                  </Form.Control>
+                </Form.Group>
               </Col>
 
               {/* Divisions */}
               <Col md={4}>
-                <FormGroup>
+                <Form.Group>
                   <Form.Label>Divisions</Form.Label>
                   <Select
                     menuPlacement="auto"
@@ -380,12 +386,12 @@ class LifterRow extends React.Component<Props, State> {
                     onChange={this.updateRegistrationDivisions}
                     defaultValue={selectedDivisions}
                   />
-                </FormGroup>
+                </Form.Group>
               </Col>
 
               {/* Events */}
               <Col md={2}>
-                <FormGroup>
+                <Form.Group>
                   <Form.Label>Events</Form.Label>
                   <Select
                     menuPlacement="auto"
@@ -395,7 +401,7 @@ class LifterRow extends React.Component<Props, State> {
                     onChange={this.updateRegistrationEvents}
                     defaultValue={selectedEvents}
                   />
-                </FormGroup>
+                </Form.Group>
               </Col>
             </Row>
           </Container>
@@ -404,7 +410,7 @@ class LifterRow extends React.Component<Props, State> {
             <Row>
               {/* Date of Birth */}
               <Col md={2}>
-                <FormGroup>
+                <Form.Group>
                   <Form.Label>Date of Birth</Form.Label>
                   <ValidatedTextInput
                     initialValue={entry.birthDate}
@@ -412,25 +418,25 @@ class LifterRow extends React.Component<Props, State> {
                     getValidationState={validateIso8601Date}
                     onSuccess={this.updateRegistrationBirthDate}
                   />
-                </FormGroup>
+                </Form.Group>
               </Col>
 
               {/* Member ID */}
               <Col md={2}>
-                <FormGroup>
+                <Form.Group>
                   <Form.Label>Member ID</Form.Label>
-                  <FormControl
+                  <Form.Control
                     type="text"
                     placeholder="ID"
                     defaultValue={entry.memberId}
                     onBlur={this.updateRegistrationMemberId}
                   />
-                </FormGroup>
+                </Form.Group>
               </Col>
 
               {/* Country */}
               <Col md={2}>
-                <FormGroup>
+                <Form.Group>
                   <Form.Label>Country</Form.Label>
                   <ValidatedTextInput
                     initialValue={entry.country}
@@ -438,12 +444,12 @@ class LifterRow extends React.Component<Props, State> {
                     getValidationState={s => (s === "" ? null : "success")}
                     onSuccess={this.updateRegistrationCountry}
                   />
-                </FormGroup>
+                </Form.Group>
               </Col>
 
               {/* State */}
               <Col md={1}>
-                <FormGroup>
+                <Form.Group>
                   <Form.Label>State</Form.Label>
                   <ValidatedTextInput
                     initialValue={entry.state}
@@ -451,14 +457,14 @@ class LifterRow extends React.Component<Props, State> {
                     getValidationState={s => (s === "" ? null : "success")}
                     onSuccess={this.updateRegistrationState}
                   />
-                </FormGroup>
+                </Form.Group>
               </Col>
 
               {/* Lot Number */}
               <Col md={1}>
-                <FormGroup>
+                <Form.Group>
                   <Form.Label>Lot #</Form.Label>
-                  <FormControl
+                  <Form.Control
                     type="number"
                     min="0"
                     defaultValue={entry.lot === 0 ? "" : entry.lot.toString()}
@@ -469,20 +475,20 @@ class LifterRow extends React.Component<Props, State> {
                       this.updateRegistrationLot(event.currentTarget.value)
                     }
                   />
-                </FormGroup>
+                </Form.Group>
               </Col>
 
               {/* Notes */}
               <Col md={4}>
-                <FormGroup>
+                <Form.Group>
                   <Form.Label>Team</Form.Label>
-                  <FormControl
+                  <Form.Control
                     type="text"
                     placeholder=""
                     defaultValue={entry.team}
                     onBlur={this.updateRegistrationTeam}
                   />
-                </FormGroup>
+                </Form.Group>
               </Col>
             </Row>
           </Container>
@@ -490,16 +496,34 @@ class LifterRow extends React.Component<Props, State> {
           <Container style={gridStyle}>
             <Row>
               {/* Notes */}
-              <Col md={12}>
-                <FormGroup>
+              <Col md={2}>
+                <Form.Group>
+                  <Form.Label>Instagram</Form.Label>
+                  <InputGroup>
+                    <InputGroup.Prepend>
+                      <InputGroup.Text>@</InputGroup.Text>
+                    </InputGroup.Prepend>
+                    <Form.Control
+                      type="text"
+                      placeholder=""
+                      defaultValue={entry.instagram}
+                      onBlur={this.updateRegistrationInstagram}
+                    />
+                  </InputGroup>
+                </Form.Group>
+              </Col>
+
+              {/* Notes */}
+              <Col md={10}>
+                <Form.Group>
                   <Form.Label>Notes (for your personal use)</Form.Label>
-                  <FormControl
+                  <Form.Control
                     type="text"
                     placeholder=""
                     defaultValue={entry.notes}
                     onBlur={this.updateRegistrationNotes}
                   />
-                </FormGroup>
+                </Form.Group>
               </Col>
             </Row>
           </Container>

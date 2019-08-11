@@ -69,6 +69,7 @@ export type Entry = {
   memberId: string;
   paid: boolean;
   team: string;
+  instagram?: string; // Optional to maintain dataVersion compat.
   notes: string;
   bodyweightKg: number;
   squatRackInfo: string;
