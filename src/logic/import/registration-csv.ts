@@ -42,7 +42,7 @@ export const makeExampleRegistrationsCsv = (): string => {
   csv.appendColumns(["Division1", "Division2", "Division3"]);
   csv.appendColumns(["Event1", "Event2", "Event3"]);
   csv.appendColumns(["BirthDate", "MemberID", "Country", "State", "Lot", "Team"]);
-  csv.appendColumns(["Notes"]);
+  csv.appendColumns(["Instagram", "Notes"]);
 
   csv.rows[0][csv.index("Day")] = "1";
   csv.rows[0][csv.index("Platform")] = "1";
@@ -62,6 +62,7 @@ export const makeExampleRegistrationsCsv = (): string => {
   csv.rows[0][csv.index("State")] = "NY";
   // Intentionally blank: csv.rows[0][csv.index("Lot")]
   // Intentionally blank: csv.rows[0][csv.index("Team")]
+  csv.rows[0][csv.index("Instagram")] = "emily_example_";
   csv.rows[0][csv.index("Notes")] = "emily@example.com: she's the best!";
 
   return csv.toString();
@@ -84,6 +85,7 @@ const OPTIONAL_FIELDNAMES = [
   "State",
   "Lot",
   "Team",
+  "Instagram",
   "Notes"
 ];
 
@@ -351,6 +353,10 @@ export const loadRegistrations = (state: GlobalState, csv: Csv): Array<Entry> | 
 
         case "Team":
           entry.team = val;
+          break;
+
+        case "Instagram":
+          entry.instagram = val;
           break;
 
         case "Notes":
