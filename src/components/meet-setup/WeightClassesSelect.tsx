@@ -118,21 +118,31 @@ class WeightClassesSelect extends React.Component<Props, InternalState> {
     const { inputValue, value } = this.state;
     if (!inputValue) return;
     if (event.key === "Enter" || event.key === "Tab") {
+      const asNumber = Number(inputValue);
+
+      // Disallow creating non-numeric inputs.
+      if (isNaN(asNumber) || !isFinite(asNumber)) {
+        this.setState({ inputValue: "" });
+        event.preventDefault();
+        return;
+      }
+
+      // Disallow negative inputs.
+      // The string check is for negative zero.
+      if (asNumber < 0 || inputValue.includes("-")) {
+        this.setState({ inputValue: "" });
+        event.preventDefault();
+        return;
+      }
+
       // Disallow creating redundant classes.
       for (let i = 0; i < value.length; i++) {
-        if (value[i].label === inputValue) {
+        if (Number(value[i].label) === asNumber) {
           // Silently drop the redundant weightclass.
           this.setState({ inputValue: "" });
           event.preventDefault();
           return;
         }
-      }
-
-      // Disallow creating non-numeric inputs.
-      if (isNaN(Number(inputValue))) {
-        this.setState({ inputValue: "" });
-        event.preventDefault();
-        return;
       }
 
       // Sort the new value into the array.
