@@ -18,27 +18,49 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
 
 import Form from "react-bootstrap/Form";
-import FormGroup from "react-bootstrap/FormGroup";
 
 import CreatableSelect from "react-select/lib/Creatable";
 
 import { setDivisions } from "../../actions/meetSetupActions";
 
+import { GlobalState } from "../../types/stateTypes";
+import { Dispatch } from "redux";
+import { ActionMeta, ValueType } from "react-select/lib/types";
+
 const components = {
   DropdownIndicator: null
 };
 
-const createOption = label => ({
+interface OptionType {
+  label: string;
+  value: string;
+}
+
+const createOption = (label: string): OptionType => ({
   label,
   value: label
 });
 
-class DivisionSelect extends React.Component {
-  constructor(props, context) {
-    super(props, context);
+interface StateProps {
+  divisions: Array<string>;
+}
+
+interface DispatchProps {
+  setDivisions: (divisions: Array<string>) => void;
+}
+
+type Props = StateProps & DispatchProps;
+
+interface InternalState {
+  inputValue: string;
+  value: Array<OptionType>;
+}
+
+class DivisionSelect extends React.Component<Props, InternalState> {
+  constructor(props: Props) {
+    super(props);
 
     let objarray = [];
     for (let i = 0; i < props.divisions.length; i++) {
@@ -59,7 +81,7 @@ class DivisionSelect extends React.Component {
 
   // Updates the Redux store if a division was added or removed.
   // Since updates are synchronous, we can simply check length.
-  maybeUpdateRedux(objarray) {
+  maybeUpdateRedux = (objarray: Array<OptionType>): void => {
     // objarray is a list of {value: "foo", label: "foo"} objects.
     if (objarray.length === this.props.divisions.length) {
       return;
@@ -71,21 +93,23 @@ class DivisionSelect extends React.Component {
       divisions.push(objarray[i].label);
     }
     this.props.setDivisions(divisions);
-  }
+  };
 
   // Handles the case of deleting an existing division.
-  handleChange(value, actionMeta) {
-    this.setState({ value });
-    this.maybeUpdateRedux(value);
-  }
+  handleChange = (value: ValueType<OptionType>, actionMeta: ActionMeta): void => {
+    if (value instanceof Array) {
+      this.setState({ value: value });
+      this.maybeUpdateRedux(value);
+    }
+  };
 
   // Reflects the current typing status in the state.
-  handleInputChange(inputValue) {
-    this.setState({ inputValue });
-  }
+  handleInputChange = (inputValue: string): void => {
+    this.setState({ inputValue: inputValue });
+  };
 
   // Handles the case of creating a new division.
-  handleKeyDown(event) {
+  handleKeyDown = (event: React.KeyboardEvent<HTMLElement>): void => {
     const { inputValue, value } = this.state;
     if (!inputValue) return;
     if (event.key === "Enter" || event.key === "Tab") {
@@ -107,12 +131,12 @@ class DivisionSelect extends React.Component {
       this.maybeUpdateRedux(newValue);
       event.preventDefault();
     }
-  }
+  };
 
   render() {
     const { inputValue, value } = this.state;
     return (
-      <FormGroup>
+      <Form.Group>
         <Form.Label>Divisions (prefer short codes!)</Form.Label>
         <CreatableSelect
           components={components}
@@ -125,24 +149,19 @@ class DivisionSelect extends React.Component {
           placeholder="Type a division and press Enter..."
           value={value}
         />
-      </FormGroup>
+      </Form.Group>
     );
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: GlobalState): StateProps => ({
   divisions: state.meet.divisions
 });
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   return {
     setDivisions: divisions => dispatch(setDivisions(divisions))
   };
-};
-
-DivisionSelect.propTypes = {
-  divisions: PropTypes.array.isRequired,
-  setDivisions: PropTypes.func.isRequired
 };
 
 export default connect(

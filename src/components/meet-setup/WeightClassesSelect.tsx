@@ -20,7 +20,6 @@ import React from "react";
 import { connect } from "react-redux";
 
 import Form from "react-bootstrap/Form";
-import FormGroup from "react-bootstrap/FormGroup";
 
 import CreatableSelect from "react-select/lib/Creatable";
 
@@ -111,11 +110,11 @@ class WeightClassesSelect extends React.Component<Props, InternalState> {
 
   // Reflects the current typing status in the state.
   handleInputChange = (inputValue: string): void => {
-    this.setState({ inputValue });
+    this.setState({ inputValue: inputValue });
   };
 
   // Handles the case of creating a new weightclass.
-  handleKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
+  handleKeyDown = (event: React.KeyboardEvent<HTMLElement>): void => {
     const { inputValue, value } = this.state;
     if (!inputValue) return;
     if (event.key === "Enter" || event.key === "Tab") {
@@ -152,7 +151,7 @@ class WeightClassesSelect extends React.Component<Props, InternalState> {
   render() {
     const { inputValue, value } = this.state;
     return (
-      <FormGroup>
+      <Form.Group>
         <Form.Label>{this.props.label}</Form.Label>
         <CreatableSelect
           components={components}
@@ -165,7 +164,7 @@ class WeightClassesSelect extends React.Component<Props, InternalState> {
           placeholder="Type a weight class and press Enter..."
           value={value}
         />
-      </FormGroup>
+      </Form.Group>
     );
   }
 }
