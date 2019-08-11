@@ -50,6 +50,9 @@ class LiftingHeader extends React.Component<Props> {
       const entry = this.props.registration.entries[idx];
       lifterName = entry.name;
 
+      if (typeof entry.instagram === "string" && entry.instagram !== "") {
+        divisionsStr += " @" + entry.instagram;
+      }
       if (entry.age > 0) {
         divisionsStr += " / " + entry.age;
       }
