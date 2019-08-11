@@ -27,7 +27,7 @@ import es from "react-intl/locale-data/es";
 import eo from "react-intl/locale-data/eo";
 import OpenLifterIntlProvider from "./components/translations/OpenLifterIntlProvider";
 
-import HomeContainer from "./containers/HomeContainer";
+import RootContainer from "./containers/RootContainer";
 import MeetSetupContainer from "./containers/MeetSetupContainer";
 import RegistrationContainer from "./containers/RegistrationContainer";
 import WeighinsContainer from "./containers/WeighinsContainer";
@@ -59,7 +59,7 @@ class App extends React.Component {
               <div>
                 <Navigation />
                 <Switch>
-                  <Route exact path="/" component={HomeContainer} />
+                  <Route exact path="/" component={RootContainer} />
                   <Route path="/meet-setup" component={MeetSetupContainer} />
                   <Route path="/registration" component={RegistrationContainer} />
                   <Route path="/weigh-ins" component={WeighinsContainer} />
