@@ -9,7 +9,7 @@ theme = "rusty"
     weight = 10
     [languages.en.params]
       description = "Powerful meet software by OpenPowerlifting"
-      keywords = "openlifter,powerlifting,meet,competition,nextlifter,scoreboard"
+      keywords = "powerlifting meet software,powerlifting competition software"
       runtext = "Run OpenLifter"
       pitch = "<b>OpenLifter</b> is powerlifting meet software that runs blazingly fast, works everywhere, and is a joy to use."
       featuring = "Featuring"
