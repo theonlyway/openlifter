@@ -81,7 +81,7 @@ const makeEntriesCsv = (state: GlobalState): Csv => {
   deadliftFieldnames.push("Best3DeadliftKg");
 
   csv.fieldnames = Array.prototype.concat(
-    ["Place", "Name", "Sex", "BirthDate", "Age", "Country", "State"],
+    ["Place", "Name", "Instagram", "Sex", "BirthDate", "Age", "Country", "State"],
     ["Equipment", "Division", "BodyweightKg", "WeightClassKg"],
     squatFieldnames,
     benchFieldnames,
@@ -139,6 +139,7 @@ const addEntriesRow = (csv: Csv, category: Category, entry: Entry, index: number
   }
 
   row[csv.index("Name")] = csvString(entry.name);
+  row[csv.index("Instagram")] = csvString(entry.instagram);
   row[csv.index("Sex")] = csvString(entry.sex);
   row[csv.index("BirthDate")] = csvString(entry.birthDate);
   row[csv.index("Age")] = csvString(entry.age);

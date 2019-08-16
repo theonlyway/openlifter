@@ -22,7 +22,7 @@
 
 // Makes a string suitable for inclusion in a simple CSV file,
 // by deleting all commas and double quotes.
-export const csvString = (x: number | string): string => {
+export const csvString = (x?: number | string): string => {
   if (x === undefined) return "";
   let s = String(x);
 
