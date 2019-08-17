@@ -28,6 +28,7 @@ import { Validation } from "../types/dataTypes";
 import { FormControlTypeHack, assertString } from "../types/utils";
 
 interface OwnProps {
+  type?: string; // The type of input, such as "text" or "number". Defaults to "text".
   label?: string; // Form label text, shown above the input.
   initialValue: string;
   placeholder?: string;
@@ -95,7 +96,7 @@ class BirthDateInput extends React.Component<Props, InternalState> {
       <Form.Group style={this.props.keepMargin === true ? undefined : { marginBottom: 0 }}>
         {maybeLabel}
         <Form.Control
-          type="text"
+          type={this.props.type ? this.props.type : "text"}
           placeholder={this.props.placeholder}
           disabled={this.props.disabled === true ? true : undefined}
           value={this.state.value}

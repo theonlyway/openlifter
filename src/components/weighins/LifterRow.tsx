@@ -25,7 +25,7 @@ import { connect } from "react-redux";
 
 import FormControl from "react-bootstrap/FormControl";
 
-import ValidatedTextInput from "../ValidatedTextInput";
+import ValidatedInput from "../ValidatedInput";
 import WeightInput from "./WeightInput";
 
 import { validatePositiveInteger } from "../../validation/positiveInteger";
@@ -160,7 +160,7 @@ class LifterRow extends React.Component<Props> {
         <td>{entry.name}</td>
 
         <td>
-          <ValidatedTextInput
+          <ValidatedInput
             initialValue={entry.age === 0 ? "" : String(entry.age)}
             placeholder="Age"
             validate={this.validateAge}
@@ -173,7 +173,7 @@ class LifterRow extends React.Component<Props> {
         </td>
 
         <td>
-          <ValidatedTextInput
+          <ValidatedInput
             initialValue={entry.squatRackInfo}
             placeholder={hasSquat ? "S.Rack" : undefined}
             disabled={!hasSquat}
@@ -194,7 +194,7 @@ class LifterRow extends React.Component<Props> {
         </td>
 
         <td>
-          <ValidatedTextInput
+          <ValidatedInput
             initialValue={entry.benchRackInfo}
             placeholder={hasBench ? "B.Rack" : undefined}
             disabled={!hasBench}

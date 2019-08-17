@@ -27,7 +27,7 @@ import FormControl from "react-bootstrap/FormControl";
 import FormGroup from "react-bootstrap/FormGroup";
 import Row from "react-bootstrap/Row";
 
-import ValidatedTextInput from "../ValidatedTextInput";
+import ValidatedInput from "../ValidatedInput";
 
 import MeetDate from "./MeetDate";
 import MeetLength from "./MeetLength";
@@ -101,7 +101,7 @@ class MeetSetup extends React.Component<Props> {
             <Card border="info">
               <Card.Header>Sanction Information</Card.Header>
               <Card.Body>
-                <ValidatedTextInput
+                <ValidatedInput
                   label="Meet Name"
                   placeholder="Meet Name"
                   initialValue={this.props.meet.name}

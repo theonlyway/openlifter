@@ -33,7 +33,7 @@ import Row from "react-bootstrap/Row";
 
 import Select from "react-select";
 
-import ValidatedTextInput from "../ValidatedTextInput";
+import ValidatedInput from "../ValidatedInput";
 
 import { validateIso8601Date } from "../../validation/iso8601Date";
 
@@ -412,7 +412,7 @@ class LifterRow extends React.Component<Props, State> {
               <Col md={2}>
                 <Form.Group>
                   <Form.Label>Date of Birth</Form.Label>
-                  <ValidatedTextInput
+                  <ValidatedInput
                     initialValue={entry.birthDate}
                     placeholder="YYYY-MM-DD"
                     validate={validateIso8601Date}
@@ -438,7 +438,7 @@ class LifterRow extends React.Component<Props, State> {
               <Col md={2}>
                 <Form.Group>
                   <Form.Label>Country</Form.Label>
-                  <ValidatedTextInput
+                  <ValidatedInput
                     initialValue={entry.country}
                     placeholder="Country"
                     validate={s => (s === "" ? null : "success")}
@@ -451,7 +451,7 @@ class LifterRow extends React.Component<Props, State> {
               <Col md={1}>
                 <Form.Group>
                   <Form.Label>State</Form.Label>
-                  <ValidatedTextInput
+                  <ValidatedInput
                     initialValue={entry.state}
                     placeholder="State"
                     validate={s => (s === "" ? null : "success")}
