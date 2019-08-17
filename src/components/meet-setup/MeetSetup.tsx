@@ -31,9 +31,7 @@ import ValidatedInput from "../ValidatedInput";
 
 import MeetDate from "./MeetDate";
 import MeetLength from "./MeetLength";
-import MeetLocation from "./MeetLocation";
 import PlatformCounts from "./PlatformCounts";
-import FederationSelect from "./FederationSelect";
 import AutoFillRules from "./AutoFillRules";
 import DivisionSelect from "./DivisionSelect";
 import WeightClassesSelect from "./WeightClassesSelect";
@@ -54,6 +52,10 @@ interface StateProps {
 
 interface DispatchProps {
   setMeetName: (name: string) => void;
+  setCountry: (country: string) => void;
+  setState: (state: string) => void;
+  setCity: (city: string) => void;
+  setFederation: (fed: string) => void;
   setCombineSleevesAndWraps: (event: FormEvent<FormControlTypeHack>) => void;
   setAllow4thAttempts: (event: FormEvent<FormControlTypeHack>) => void;
   setInKg: (event: FormEvent<FormControlTypeHack>) => void;
@@ -84,7 +86,7 @@ const yesNoFromBoolean = (bool: boolean): string => {
 };
 
 class MeetSetup extends React.Component<Props> {
-  validateMeetName = (value?: string): Validation => {
+  validateRequiredText = (value?: string): Validation => {
     if (!value) return "warning";
     if (value.includes('"')) return "error";
     return "success";
@@ -105,12 +107,42 @@ class MeetSetup extends React.Component<Props> {
                   label="Meet Name"
                   placeholder="Meet Name"
                   initialValue={this.props.meet.name}
-                  validate={this.validateMeetName}
+                  validate={this.validateRequiredText}
                   onSuccess={this.props.setMeetName}
                   keepMargin={true}
                 />
-                <MeetLocation />
-                <FederationSelect />
+                <ValidatedInput
+                  label="Country"
+                  placeholder="Country"
+                  initialValue={this.props.meet.country}
+                  validate={this.validateRequiredText}
+                  onSuccess={this.props.setCountry}
+                  keepMargin={true}
+                />
+                <ValidatedInput
+                  label="State/Province"
+                  placeholder="State/Province"
+                  initialValue={this.props.meet.state}
+                  validate={this.validateRequiredText}
+                  onSuccess={this.props.setState}
+                  keepMargin={true}
+                />
+                <ValidatedInput
+                  label="City/Town"
+                  placeholder="City/Town"
+                  initialValue={this.props.meet.city}
+                  validate={this.validateRequiredText}
+                  onSuccess={this.props.setCity}
+                  keepMargin={true}
+                />
+                <ValidatedInput
+                  label="Federation"
+                  placeholder="Federation"
+                  initialValue={this.props.meet.federation}
+                  validate={this.validateRequiredText}
+                  onSuccess={this.props.setFederation}
+                  keepMargin={true}
+                />
                 <MeetDate />
                 <MeetLength />
                 <PlatformCounts />
@@ -256,6 +288,10 @@ const mapStateToProps = (state: GlobalState): StateProps => ({
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
   setMeetName: (name: string) => dispatch(updateMeet({ name: name })),
+  setCountry: (country: string) => dispatch(updateMeet({ country: country })),
+  setState: (state: string) => dispatch(updateMeet({ state: state })),
+  setCity: (city: string) => dispatch(updateMeet({ city: city })),
+  setFederation: (fed: string) => dispatch(updateMeet({ federation: fed })),
   setCombineSleevesAndWraps: event =>
     assertString(event.currentTarget.value) &&
     dispatch(updateMeet({ combineSleevesAndWraps: yesNoToBoolean(event.currentTarget.value) })),
