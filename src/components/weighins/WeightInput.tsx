@@ -33,7 +33,7 @@ import { enterAttempt } from "../../actions/liftingActions";
 import { liftToAttemptFieldName } from "../../logic/entry";
 import { kg2lbs, lbs2kg, displayWeight } from "../../logic/units";
 
-import { Entry, Lift } from "../../types/dataTypes";
+import { Entry, Lift, Validation } from "../../types/dataTypes";
 import { GlobalState } from "../../types/stateTypes";
 import { FormControlTypeHack, assertString } from "../../types/utils";
 import { Dispatch } from "redux";
@@ -73,7 +73,7 @@ interface InternalState {
 class WeightInput extends React.Component<Props, InternalState> {
   constructor(props: Props) {
     super(props);
-    this.getValidationState = this.getValidationState.bind(this);
+    this.validate = this.validate.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
 
@@ -90,7 +90,7 @@ class WeightInput extends React.Component<Props, InternalState> {
     };
   }
 
-  getValidationState = () => {
+  validate = (): Validation => {
     const weightNum = Number(this.state.weightStr);
     if (isNaN(weightNum) || weightNum < 0) return "error";
     if (this.props.multipleOf !== undefined && weightNum % this.props.multipleOf !== 0.0) {
@@ -113,7 +113,7 @@ class WeightInput extends React.Component<Props, InternalState> {
     const weightStr = event.currentTarget.value;
     const weightNum = Number(weightStr);
 
-    if (this.getValidationState() === "error") {
+    if (this.validate() === "error") {
       return;
     }
 
@@ -139,9 +139,10 @@ class WeightInput extends React.Component<Props, InternalState> {
     // FormGroup provides a default padding of 15, but FormGroup is only being
     // used here to accept a validationState. It's not really a group.
     const undoDefaultPadding = { marginBottom: "0" };
+    const validation: Validation = this.validate();
 
     return (
-      <FormGroup style={undoDefaultPadding} /* TODO: Validation validationState={this.getValidationState()} */>
+      <FormGroup style={undoDefaultPadding}>
         <FormControl
           disabled={this.props.disabled}
           placeholder={this.props.placeholder}
@@ -149,6 +150,9 @@ class WeightInput extends React.Component<Props, InternalState> {
           value={this.state.weightStr}
           onChange={this.handleChange}
           onBlur={this.handleBlur}
+          isValid={validation === "success"}
+          isInvalid={validation === "error"}
+          className={validation === "warning" ? "is-warning" : undefined}
         />
       </FormGroup>
     );
