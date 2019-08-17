@@ -28,3 +28,11 @@ $form-feedback-warning-color: #8a6d3b;
   border-color: $form-feedback-warning-color;
   box-shadow: 0 0 0 .2rem rgba($form-feedback-warning-color, .25);
 }
+
+// Custom styling for attempt inputs, since their borders are hidden.
+// This makes it way more obvious when a value is "weird but allowed."
+$form-feedback-warning-background-color: #ffffc9; // Pale yellow.
+.attempt-input.is-warning {
+  border-color: #ced4da; // The normal default border color.
+  background-color: $form-feedback-warning-background-color;
+}

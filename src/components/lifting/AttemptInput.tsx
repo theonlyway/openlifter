@@ -27,7 +27,7 @@ import { liftToAttemptFieldName, liftToStatusFieldName } from "../../logic/entry
 import { enterAttempt } from "../../actions/liftingActions";
 import { kg2lbs, lbs2kg, displayWeight } from "../../logic/units";
 
-import { Entry, Lift } from "../../types/dataTypes";
+import { Entry, Lift, Validation } from "../../types/dataTypes";
 import { GlobalState } from "../../types/stateTypes";
 
 import styles from "./LiftingTable.module.scss";
@@ -60,7 +60,7 @@ class AttemptInput extends React.Component<Props, InternalState> {
   constructor(props: Props) {
     super(props);
 
-    this.getValidationState = this.getValidationState.bind(this);
+    this.validate = this.validate.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
@@ -79,7 +79,7 @@ class AttemptInput extends React.Component<Props, InternalState> {
     };
   }
 
-  getValidationState = () => {
+  validate = (): Validation => {
     const { value } = this.state;
     if (value === "") return null;
 
@@ -136,7 +136,7 @@ class AttemptInput extends React.Component<Props, InternalState> {
   };
 
   handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
-    if (this.getValidationState() === "error") {
+    if (this.validate() === "error") {
       this.setState({ value: this.state.lastGoodValue });
       return;
     }
@@ -152,8 +152,9 @@ class AttemptInput extends React.Component<Props, InternalState> {
   };
 
   render() {
+    const validation: Validation = this.validate();
+
     return (
-      /* TODO: Validation state styling */
       <Form.Group style={{ marginBottom: 0 }}>
         <Form.Control
           id={this.props.id}
@@ -163,7 +164,11 @@ class AttemptInput extends React.Component<Props, InternalState> {
           onKeyDown={this.handleKeyDown}
           onChange={this.handleChange}
           onBlur={this.handleBlur}
-          className={styles.attemptInput}
+          // Nothing for Valid == we don't want borders.
+          isInvalid={validation === "error"}
+          // Special rules in the _openlifter.scss override warning styles.
+          // Makes the borders look normal but shows a yellow background.
+          className={(validation === "warning" ? "is-warning " : "") + styles.attemptInput + " attempt-input"}
         />
       </Form.Group>
     );
