@@ -36,35 +36,47 @@ interface OwnProps {
   close: () => void;
 }
 
+interface StateProps {
+  name: string;
+}
+
 interface DispatchProps {
   overwriteStore: () => void;
 }
 
-type Props = OwnProps & DispatchProps;
+type Props = OwnProps & StateProps & DispatchProps;
 
 class NewMeetModal extends React.Component<Props> {
   render() {
     return (
       <Modal show={this.props.show} onHide={this.props.close}>
         <Modal.Header closeButton>
-          <Modal.Title>Are you sure?</Modal.Title>
+          <Modal.Title>OK to clear {this.props.name}?</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>Starting a new meet will remove all data from the current meet.</p>
+          <p>Starting a new meet will clear all unsaved data from {this.props.name}.</p>
           <p>Are you sure you want to continue?</p>
         </Modal.Body>
         <Modal.Footer>
+          <Button onClick={this.props.close} variant="light">
+            Close
+          </Button>
           <LinkContainer to="/meet-setup">
             <Button onClick={this.props.overwriteStore} variant="primary">
               Continue
             </Button>
           </LinkContainer>
-          <Button onClick={this.props.close}>Close</Button>
         </Modal.Footer>
       </Modal>
     );
   }
 }
+
+const mapStateToProps = (state: GlobalState): StateProps => {
+  return {
+    name: state.meet.name
+  };
+};
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   return {
@@ -79,6 +91,6 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(NewMeetModal);
