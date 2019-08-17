@@ -27,7 +27,8 @@ import FormControl from "react-bootstrap/FormControl";
 import FormGroup from "react-bootstrap/FormGroup";
 import Row from "react-bootstrap/Row";
 
-import MeetName from "./MeetName";
+import ValidatedTextInput from "../ValidatedTextInput";
+
 import MeetDate from "./MeetDate";
 import MeetLength from "./MeetLength";
 import MeetLocation from "./MeetLocation";
@@ -41,23 +42,18 @@ import Plates from "./Plates";
 
 import { updateMeet, setInKg } from "../../actions/meetSetupActions";
 
-import { GlobalState } from "../../types/stateTypes";
+import { GlobalState, MeetState } from "../../types/stateTypes";
 import { Dispatch } from "redux";
 import { FormControlTypeHack, assertString, assertFormula, assertAgeCoefficients } from "../../types/utils";
-import { AgeCoefficients, Formula } from "../../types/dataTypes";
+import { AgeCoefficients, Formula, Validation } from "../../types/dataTypes";
 
 interface StateProps {
-  allow4thAttempts: boolean;
-  combineSleevesAndWraps: boolean;
-  inKg: boolean;
-  showAlternateUnits: boolean;
-  formula: Formula;
-  ageCoefficients: AgeCoefficients;
-
+  meet: MeetState;
   masterKey: string; // Used to force-update rules components on Auto-Fill.
 }
 
 interface DispatchProps {
+  setMeetName: (name: string) => void;
   setCombineSleevesAndWraps: (event: FormEvent<FormControlTypeHack>) => void;
   setAllow4thAttempts: (event: FormEvent<FormControlTypeHack>) => void;
   setInKg: (event: FormEvent<FormControlTypeHack>) => void;
@@ -88,9 +84,15 @@ const yesNoFromBoolean = (bool: boolean): string => {
 };
 
 class MeetSetup extends React.Component<Props> {
+  validateMeetName = (value?: string): Validation => {
+    if (!value) return "warning";
+    if (value.includes('"')) return "error";
+    return "success";
+  };
+
   render() {
     // This is used as a key to force unit-dependent components to re-initialize state.
-    const inKg = String(this.props.inKg);
+    const inKg = String(this.props.meet.inKg);
 
     return (
       <Container>
@@ -99,7 +101,14 @@ class MeetSetup extends React.Component<Props> {
             <Card border="info">
               <Card.Header>Sanction Information</Card.Header>
               <Card.Body>
-                <MeetName />
+                <ValidatedTextInput
+                  label="Meet Name"
+                  placeholder="Meet Name"
+                  initialValue={this.props.meet.name}
+                  validate={this.validateMeetName}
+                  onSuccess={this.props.setMeetName}
+                  keepMargin={true}
+                />
                 <MeetLocation />
                 <FederationSelect />
                 <MeetDate />
@@ -135,7 +144,7 @@ class MeetSetup extends React.Component<Props> {
                   <Form.Label>Best Lifter Formula</Form.Label>
                   <FormControl
                     as="select"
-                    defaultValue={this.props.formula}
+                    defaultValue={this.props.meet.formula}
                     onChange={this.props.setFormula}
                     className="custom-select"
                   >
@@ -154,7 +163,7 @@ class MeetSetup extends React.Component<Props> {
                   <Form.Label>Age Coefficients for Best Juniors/Masters Lifter</Form.Label>
                   <FormControl
                     as="select"
-                    defaultValue={this.props.ageCoefficients}
+                    defaultValue={this.props.meet.ageCoefficients}
                     onChange={this.props.setAgeCoefficients}
                     className="custom-select"
                   >
@@ -171,7 +180,7 @@ class MeetSetup extends React.Component<Props> {
                   <Form.Label>Should Sleeves and Wraps be combined for placing?</Form.Label>
                   <FormControl
                     as="select"
-                    defaultValue={yesNoFromBoolean(this.props.combineSleevesAndWraps)}
+                    defaultValue={yesNoFromBoolean(this.props.meet.combineSleevesAndWraps)}
                     onChange={this.props.setCombineSleevesAndWraps}
                     className="custom-select"
                   >
@@ -183,7 +192,7 @@ class MeetSetup extends React.Component<Props> {
                   <Form.Label>Can lifters take 4th attempts for records?</Form.Label>
                   <FormControl
                     as="select"
-                    defaultValue={yesNoFromBoolean(this.props.allow4thAttempts)}
+                    defaultValue={yesNoFromBoolean(this.props.meet.allow4thAttempts)}
                     onChange={this.props.setAllow4thAttempts}
                     className="custom-select"
                   >
@@ -202,7 +211,7 @@ class MeetSetup extends React.Component<Props> {
                   <Form.Label>In what units are attempts and bodyweights?</Form.Label>
                   <FormControl
                     as="select"
-                    defaultValue={yesNoFromBoolean(this.props.inKg)}
+                    defaultValue={yesNoFromBoolean(this.props.meet.inKg)}
                     onChange={this.props.setInKg}
                     className="custom-select"
                   >
@@ -216,10 +225,10 @@ class MeetSetup extends React.Component<Props> {
                 </FormGroup>
 
                 <FormGroup>
-                  <Form.Label>Also show attempts in {this.props.inKg ? "pounds" : "kilograms"}?</Form.Label>
+                  <Form.Label>Also show attempts in {this.props.meet.inKg ? "pounds" : "kilograms"}?</Form.Label>
                   <FormControl
                     as="select"
-                    defaultValue={yesNoFromBoolean(this.props.showAlternateUnits)}
+                    defaultValue={yesNoFromBoolean(this.props.meet.showAlternateUnits)}
                     onChange={this.props.setShowAlternateUnits}
                     className="custom-select"
                   >
@@ -241,16 +250,12 @@ class MeetSetup extends React.Component<Props> {
 }
 
 const mapStateToProps = (state: GlobalState): StateProps => ({
-  inKg: state.meet.inKg,
-  showAlternateUnits: state.meet.showAlternateUnits,
-  combineSleevesAndWraps: state.meet.combineSleevesAndWraps,
-  allow4thAttempts: state.meet.allow4thAttempts,
-  formula: state.meet.formula,
-  ageCoefficients: state.meet.ageCoefficients,
+  meet: state.meet,
   masterKey: state.meet.divisions.join()
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
+  setMeetName: (name: string) => dispatch(updateMeet({ name: name })),
   setCombineSleevesAndWraps: event =>
     assertString(event.currentTarget.value) &&
     dispatch(updateMeet({ combineSleevesAndWraps: yesNoToBoolean(event.currentTarget.value) })),

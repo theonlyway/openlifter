@@ -163,7 +163,7 @@ class LifterRow extends React.Component<Props> {
           <ValidatedTextInput
             initialValue={entry.age === 0 ? "" : String(entry.age)}
             placeholder="Age"
-            getValidationState={this.validateAge}
+            validate={this.validateAge}
             onSuccess={this.updateRegistrationAge}
           />
         </td>
@@ -177,7 +177,7 @@ class LifterRow extends React.Component<Props> {
             initialValue={entry.squatRackInfo}
             placeholder={hasSquat ? "S.Rack" : undefined}
             disabled={!hasSquat}
-            getValidationState={this.validateRack}
+            validate={this.validateRack}
             onSuccess={this.updateRegistrationSquatRackInfo}
           />
         </td>
@@ -198,7 +198,7 @@ class LifterRow extends React.Component<Props> {
             initialValue={entry.benchRackInfo}
             placeholder={hasBench ? "B.Rack" : undefined}
             disabled={!hasBench}
-            getValidationState={this.validateRack}
+            validate={this.validateRack}
             onSuccess={this.updateRegistrationBenchRackInfo}
           />
         </td>

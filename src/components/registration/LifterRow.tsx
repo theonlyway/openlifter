@@ -415,7 +415,7 @@ class LifterRow extends React.Component<Props, State> {
                   <ValidatedTextInput
                     initialValue={entry.birthDate}
                     placeholder="YYYY-MM-DD"
-                    getValidationState={validateIso8601Date}
+                    validate={validateIso8601Date}
                     onSuccess={this.updateRegistrationBirthDate}
                   />
                 </Form.Group>
@@ -441,7 +441,7 @@ class LifterRow extends React.Component<Props, State> {
                   <ValidatedTextInput
                     initialValue={entry.country}
                     placeholder="Country"
-                    getValidationState={s => (s === "" ? null : "success")}
+                    validate={s => (s === "" ? null : "success")}
                     onSuccess={this.updateRegistrationCountry}
                   />
                 </Form.Group>
@@ -454,7 +454,7 @@ class LifterRow extends React.Component<Props, State> {
                   <ValidatedTextInput
                     initialValue={entry.state}
                     placeholder="State"
-                    getValidationState={s => (s === "" ? null : "success")}
+                    validate={s => (s === "" ? null : "success")}
                     onSuccess={this.updateRegistrationState}
                   />
                 </Form.Group>

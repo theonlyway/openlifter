@@ -22,18 +22,22 @@
 
 import React from "react";
 
-import FormControl from "react-bootstrap/FormControl";
-import FormGroup from "react-bootstrap/FormGroup";
+import Form from "react-bootstrap/Form";
 
 import { Validation } from "../types/dataTypes";
 import { FormControlTypeHack, assertString } from "../types/utils";
 
 interface OwnProps {
+  label?: string; // Form label text, shown above the input.
   initialValue: string;
   placeholder?: string;
   disabled?: boolean;
-  getValidationState: (value?: string) => Validation;
+  validate: (value?: string) => Validation;
   onSuccess: (value: string) => void;
+
+  // By default, the bottom margin is removed so that this can be used in tables.
+  // Setting this to true adds the margin back. Defaults to false.
+  keepMargin?: boolean;
 }
 
 type Props = Readonly<OwnProps>;
@@ -46,6 +50,7 @@ class BirthDateInput extends React.Component<Props, InternalState> {
   constructor(props: Props) {
     super(props);
 
+    this.validate = this.validate.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
@@ -55,8 +60,8 @@ class BirthDateInput extends React.Component<Props, InternalState> {
     };
   }
 
-  getValidationState = (): Validation => {
-    return this.props.getValidationState(this.state.value);
+  validate = (): Validation => {
+    return this.props.validate(this.state.value);
   };
 
   handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -72,7 +77,7 @@ class BirthDateInput extends React.Component<Props, InternalState> {
   };
 
   handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
-    if (this.getValidationState() === "error") {
+    if (this.validate() === "error") {
       this.setState({ value: this.props.initialValue });
       return;
     }
@@ -83,11 +88,13 @@ class BirthDateInput extends React.Component<Props, InternalState> {
   };
 
   render() {
+    const validation: Validation = this.validate();
+    const maybeLabel = this.props.label ? <Form.Label>{this.props.label}</Form.Label> : undefined;
+
     return (
-      <FormGroup
-        /* TODO: Validation State styling validationState={this.getValidationState()} */ style={{ marginBottom: 0 }}
-      >
-        <FormControl
+      <Form.Group style={this.props.keepMargin === true ? undefined : { marginBottom: 0 }}>
+        {maybeLabel}
+        <Form.Control
           type="text"
           placeholder={this.props.placeholder}
           disabled={this.props.disabled === true ? true : undefined}
@@ -95,8 +102,11 @@ class BirthDateInput extends React.Component<Props, InternalState> {
           onKeyDown={this.handleKeyDown}
           onChange={this.handleChange}
           onBlur={this.handleBlur}
+          isValid={validation === "success"}
+          isInvalid={validation === "error"}
+          className={validation === "warning" ? "is-warning" : undefined}
         />
-      </FormGroup>
+      </Form.Group>
     );
   }
 }

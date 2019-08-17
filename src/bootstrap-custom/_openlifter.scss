@@ -8,3 +8,23 @@ $font-size-base: 0.875rem;
 // that invalidates their background-position attribute in release builds,
 // causing the icons to display way too far on the right.
 $enable-validation-icons: false;
+
+// Bootstrap 4 allows marking elements as valid or invalid by setting
+// "is-valid" and "is-invalid" CSS classes. Unfortunately, they deleted
+// the "is-warning" option. So we add it back manually here.
+//
+// Overriding $form-validation-states doesn't seem to work because it's the
+// .form-control:valid selector that makes something valid -- and there are
+// only :valid and :invalid selectors in CSS, nothing like :warning.
+// So if we override that, the selector unfortunately never matches.
+//
+// So we just make our own CSS "is-warning" class work, ignoring all the
+// .was-validated nonsense. It's just a color change, anyway.
+$form-feedback-warning-color: #8a6d3b;
+.form-control.is-warning {
+  border-color: $form-feedback-warning-color;
+}
+.form-control.is-warning:focus {
+  border-color: $form-feedback-warning-color;
+  box-shadow: 0 0 0 .2rem rgba($form-feedback-warning-color, .25);
+}
