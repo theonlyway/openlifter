@@ -66,6 +66,7 @@ p.pitch {
   font-weight: bold;
 }
 
+// The release button, on the index and releases pages.
 .release-button {
   display: block;
   color: white;
@@ -83,6 +84,11 @@ a.release-button:hover, a.release-button:focus {
   text-align: center;
   margin-top: 2rem;
   margin-bottom: 2rem;
+}
+
+// The beta button, on the releases page.
+.beta-button {
+  background-color: #9942ca; // purple
 }
 
 // "Code" row.
