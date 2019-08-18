@@ -42,7 +42,7 @@ class LiftingHeader extends React.Component<Props> {
   render() {
     // Defaults, in case of no lifter.
     let lifterName = "Flight Complete";
-    let divisionsStr = "";
+    let info = "";
 
     // In the case of a lifter, set fields.
     if (this.props.currentEntryId !== null && this.props.currentEntryId !== undefined) {
@@ -50,21 +50,25 @@ class LiftingHeader extends React.Component<Props> {
       const entry = this.props.registration.entries[idx];
       lifterName = entry.name;
 
+      let infoBuilder: Array<string> = [];
+
       if (typeof entry.instagram === "string" && entry.instagram !== "") {
-        divisionsStr += " @" + entry.instagram;
+        infoBuilder.push("@" + entry.instagram);
       }
       if (entry.age > 0) {
-        divisionsStr += " / " + entry.age;
+        infoBuilder.push(String(entry.age));
       }
       if (entry.divisions.length > 0) {
-        divisionsStr += " / " + entry.divisions.join(", ");
+        infoBuilder.push(entry.divisions.join(", "));
       }
+
+      info = infoBuilder.join(" - ");
     }
 
     return (
       <div className={styles.topBar}>
-        <span className={styles.lifterName}>{lifterName}</span>
-        <span className={styles.divisions}>{divisionsStr}</span>
+        <div className={styles.lifterName}>{lifterName}</div>
+        <div className={styles.info}>{info}</div>
       </div>
     );
   }
