@@ -20,15 +20,13 @@ import React, { FormEvent } from "react";
 import { connect } from "react-redux";
 
 import Form from "react-bootstrap/Form";
-import FormGroup from "react-bootstrap/FormGroup";
-import FormControl from "react-bootstrap/FormControl";
 
 import { setBarAndCollarsWeightKg } from "../../actions/meetSetupActions";
 import { kg2lbs, lbs2kg } from "../../logic/units";
 
-import { Lift } from "../../types/dataTypes";
+import { Lift, Validation } from "../../types/dataTypes";
 import { GlobalState } from "../../types/stateTypes";
-import { checkExhausted, FormControlTypeHack } from "../../types/utils";
+import { assertString, checkExhausted, FormControlTypeHack } from "../../types/utils";
 import { Dispatch } from "redux";
 import { SetBarAndCollarsWeightKgAction } from "../../types/actionTypes";
 
@@ -50,21 +48,21 @@ interface DispatchProps {
 type Props = OwnProps & StateProps & DispatchProps;
 
 interface InternalState {
-  value: number;
+  value: string;
 }
 
 class BarAndCollarsWeightKg extends React.Component<Props, InternalState> {
   constructor(props: Props) {
     super(props);
 
-    this.getValidationState = this.getValidationState.bind(this);
+    this.validate = this.validate.bind(this);
     this.handleChange = this.handleChange.bind(this);
 
     const weight = this.getInitialBarAndCollarsWeightKg(this.props.lift);
     const value = this.props.inKg ? weight : kg2lbs(weight);
 
     this.state = {
-      value: value
+      value: String(value)
     };
   }
 
@@ -82,7 +80,7 @@ class BarAndCollarsWeightKg extends React.Component<Props, InternalState> {
     }
   };
 
-  getValidationState = () => {
+  validate = (): Validation => {
     const { value } = this.state;
     const asNumber = Number(value);
 
@@ -93,18 +91,16 @@ class BarAndCollarsWeightKg extends React.Component<Props, InternalState> {
   };
 
   handleChange = (event: FormEvent<FormControlTypeHack>) => {
-    const value = event.currentTarget.value;
-    if (typeof value !== "number") {
-      throw new Error(`Expected a number, but recieved "${value}"`);
+    const value: string | undefined = event.currentTarget.value;
+    if (assertString(value)) {
+      this.setState({ value: value }, () => {
+        if (this.validate() === "success") {
+          const asNum = Number(value);
+          const weight = this.props.inKg ? asNum : lbs2kg(asNum);
+          this.props.setBarAndCollarsWeightKg(this.props.lift, weight);
+        }
+      });
     }
-
-    this.setState({ value: value }, () => {
-      if (this.getValidationState() === "success") {
-        const asNum = Number(value);
-        const weight = this.props.inKg ? asNum : lbs2kg(asNum);
-        this.props.setBarAndCollarsWeightKg(this.props.lift, weight);
-      }
-    });
   };
 
   getLiftLabel = (lift: Lift): string => {
@@ -122,15 +118,22 @@ class BarAndCollarsWeightKg extends React.Component<Props, InternalState> {
   };
 
   render() {
+    const validation: Validation = this.validate();
     const label =
       this.getLiftLabel(this.props.lift) + " Bar + Collars weight (" + (this.props.inKg ? "kg" : "lbs") + ")";
 
     return (
-      // TODO: Form validation styling
-      <FormGroup>
+      <Form.Group>
         <Form.Label>{label}</Form.Label>
-        <FormControl type="number" value={this.state.value.toString()} onChange={this.handleChange} step={2.5} />
-      </FormGroup>
+        <Form.Control
+          type="number"
+          step={2.5}
+          value={this.state.value}
+          onChange={this.handleChange}
+          isValid={validation === "success"}
+          isInvalid={validation === "error"}
+        />
+      </Form.Group>
     );
   }
 }

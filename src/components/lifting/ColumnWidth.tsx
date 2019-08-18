@@ -27,11 +27,10 @@ import React from "react";
 import { connect } from "react-redux";
 
 import Form from "react-bootstrap/Form";
-import FormGroup from "react-bootstrap/FormGroup";
-import FormControl from "react-bootstrap/FormControl";
 
 import { setTableInfo } from "../../actions/liftingActions";
 
+import { Validation } from "../../types/dataTypes";
 import { GlobalState, LiftingState } from "../../types/stateTypes";
 import { FormControlTypeHack, isString } from "../../types/utils";
 import { Dispatch } from "redux";
@@ -65,7 +64,7 @@ class ColumnWidth extends React.Component<Props, InternalState> {
   constructor(props: Props) {
     super(props);
 
-    this.getValidationState = this.getValidationState.bind(this);
+    this.validate = this.validate.bind(this);
     this.handleChange = this.handleChange.bind(this);
 
     this.state = {
@@ -73,7 +72,7 @@ class ColumnWidth extends React.Component<Props, InternalState> {
     };
   }
 
-  getValidationState = () => {
+  validate = (): Validation => {
     const { value } = this.state;
     const asNumber = Number(value);
 
@@ -91,7 +90,7 @@ class ColumnWidth extends React.Component<Props, InternalState> {
 
     this.setState({ value: value }, () => {
       // As callback, save successful value into Redux store.
-      if (this.getValidationState() !== "error") {
+      if (this.validate() !== "error") {
         // TODO: figure out how to type this nicely. For now, use any
         let changes: any = {};
         changes[this.props.fieldName] = Math.floor(Number(value) * MULTIPLE);
@@ -101,19 +100,23 @@ class ColumnWidth extends React.Component<Props, InternalState> {
   };
 
   render() {
+    const validation: Validation = this.validate();
+
     return (
-      // TODO: Validation state styling
-      <FormGroup>
+      <Form.Group>
         <Form.Label>{this.props.label}</Form.Label>
-        <FormControl
+        <Form.Control
           type="number"
           pattern="[0-9]+"
           min="0"
           step="1"
           value={this.state.value.toString()}
           onChange={this.handleChange}
+          isValid={validation === "success"}
+          isInvalid={validation === "error"}
+          className={validation === "warning" ? "is-warning" : undefined}
         />
-      </FormGroup>
+      </Form.Group>
     );
   }
 }

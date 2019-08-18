@@ -20,11 +20,10 @@ import React from "react";
 import { connect } from "react-redux";
 
 import Form from "react-bootstrap/Form";
-import FormGroup from "react-bootstrap/FormGroup";
-import FormControl from "react-bootstrap/FormControl";
 
 import { setLengthDays } from "../../actions/meetSetupActions";
 
+import { Validation } from "../../types/dataTypes";
 import { GlobalState } from "../../types/stateTypes";
 import { FormControlTypeHack, isString } from "../../types/utils";
 import { isNumber } from "util";
@@ -41,22 +40,22 @@ interface DispatchProps {
 type Props = StateProps & DispatchProps;
 
 interface InternalState {
-  value: number | string;
+  value: string;
 }
 
 class MeetLength extends React.Component<Props, InternalState> {
   constructor(props: Props) {
     super(props);
 
-    this.getValidationState = this.getValidationState.bind(this);
+    this.validate = this.validate.bind(this);
     this.handleChange = this.handleChange.bind(this);
 
     this.state = {
-      value: this.props.lengthDays
+      value: String(this.props.lengthDays)
     };
   }
 
-  getValidationState = () => {
+  validate = (): Validation => {
     const { value } = this.state;
     const asNumber = Number(value);
 
@@ -68,25 +67,34 @@ class MeetLength extends React.Component<Props, InternalState> {
 
   handleChange = (event: React.FormEvent<FormControlTypeHack>) => {
     const value = event.currentTarget.value;
-    if (!isNumber(value) && !isString(value)) {
-      throw new Error(`Expected either a number or string, but got "${value}"`);
+    if (!isString(value)) {
+      throw new Error(`Expected a string, but got "${value}"`);
     }
 
     this.setState({ value: value }, () => {
       // As callback, save successful value into Redux store.
-      if (this.getValidationState() !== "error") {
+      if (this.validate() !== "error") {
         this.props.setLengthDays(Number(value));
       }
     });
   };
 
   render() {
+    const validation: Validation = this.validate();
+
     return (
-      // TODO: Validation state styling
-      <FormGroup>
+      <Form.Group>
         <Form.Label>Days of Lifting</Form.Label>
-        <FormControl type="number" min="1" step="1" value={this.state.value.toString()} onChange={this.handleChange} />
-      </FormGroup>
+        <Form.Control
+          type="number"
+          step="1"
+          value={this.state.value}
+          onChange={this.handleChange}
+          isValid={validation === "success"}
+          isInvalid={validation === "error"}
+          className={validation === "warning" ? "is-warning" : undefined}
+        />
+      </Form.Group>
     );
   }
 }

@@ -30,7 +30,7 @@ class PlatformCount extends React.Component {
   constructor(props) {
     super(props);
 
-    this.getValidationState = this.getValidationState.bind(this);
+    this.validate = this.validate.bind(this);
     this.handleChange = this.handleChange.bind(this);
 
     this.state = {
@@ -38,7 +38,7 @@ class PlatformCount extends React.Component {
     };
   }
 
-  getValidationState() {
+  validate = () => {
     const { value } = this.state;
     const asNumber = Number(value);
 
@@ -46,12 +46,12 @@ class PlatformCount extends React.Component {
       return "error";
     }
     return "success";
-  }
+  };
 
   handleChange(event) {
     const value = event.target.value;
     this.setState({ value: value }, () => {
-      if (this.getValidationState() === "success") {
+      if (this.validate() === "success") {
         this.props.setPlatformsOnDays(this.props.day, value);
       }
     });
@@ -60,11 +60,19 @@ class PlatformCount extends React.Component {
   render() {
     const { day } = this.props;
     const label = "Platforms on Day " + day;
+    const validation = this.validate();
 
     return (
-      <FormGroup validationState={this.getValidationState()}>
+      <FormGroup validationState={this.validate()}>
         <Form.Label>{label}</Form.Label>
-        <FormControl type="number" value={this.state.value} onChange={this.handleChange} />
+        <FormControl
+          type="number"
+          value={this.state.value}
+          onChange={this.handleChange}
+          isValid={validation === "success"}
+          isInvalid={validation === "error"}
+          className={validation === "warning" ? "is-warning" : undefined}
+        />
       </FormGroup>
     );
   }
