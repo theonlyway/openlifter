@@ -161,6 +161,12 @@ export const loadRegistrations = (state: GlobalState, csv: Csv): Array<Entry> | 
 
       switch (fieldname) {
         case "Day": {
+          if (val === "") {
+            // Default to 1.
+            entry.day = 1;
+            break;
+          }
+
           const integer = parseInteger(val);
 
           // Must be an integer.
@@ -185,6 +191,12 @@ export const loadRegistrations = (state: GlobalState, csv: Csv): Array<Entry> | 
         }
 
         case "Platform": {
+          if (val === "") {
+            // Default to 1.
+            entry.platform = 1;
+            break;
+          }
+
           const integer = parseInteger(val);
 
           // Must be an integer.
@@ -212,6 +224,12 @@ export const loadRegistrations = (state: GlobalState, csv: Csv): Array<Entry> | 
         }
 
         case "Flight": {
+          if (val === "") {
+            // Default to A.
+            entry.flight = "A";
+            break;
+          }
+
           if (val.length !== 1) {
             return errprefix + "expected just a single flight letter";
           }
