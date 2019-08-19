@@ -125,6 +125,7 @@ export function assertFormula(value: string): value is Formula {
     case "Glossbrenner":
     case "IPF Points":
     case "NASA Points":
+    case "Reshel":
     case "Schwartz/Malone":
     case "Total":
     case "Wilks":

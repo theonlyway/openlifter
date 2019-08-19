@@ -27,6 +27,7 @@ export type Formula =
   | "Glossbrenner"
   | "IPF Points"
   | "NASA Points"
+  | "Reshel"
   | "Schwartz/Malone"
   | "Total"
   | "Wilks";

@@ -40,6 +40,7 @@ import { dots } from "../../logic/coefficients/dots";
 import { glossbrenner } from "../../logic/coefficients/glossbrenner";
 import { ipfpoints } from "../../logic/coefficients/ipf";
 import { nasapoints } from "../../logic/coefficients/nasa";
+import { reshel } from "../../logic/coefficients/reshel";
 import { schwartzmalone } from "../../logic/coefficients/schwartzmalone";
 import { wilks } from "../../logic/coefficients/wilks";
 
@@ -141,6 +142,9 @@ class ByPoints extends React.Component<Props> {
         break;
       case "NASA Points":
         points = (c * nasapoints(entry.bodyweightKg, totalKg)).toFixed(2);
+        break;
+      case "Reshel":
+        points = (c * reshel(entry.sex, entry.bodyweightKg, totalKg)).toFixed(2);
         break;
       case "Total":
         points = (c * total).toFixed(2);

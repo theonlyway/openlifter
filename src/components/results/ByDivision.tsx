@@ -40,6 +40,7 @@ import { dots } from "../../logic/coefficients/dots";
 import { glossbrenner } from "../../logic/coefficients/glossbrenner";
 import { ipfpoints } from "../../logic/coefficients/ipf";
 import { nasapoints } from "../../logic/coefficients/nasa";
+import { reshel } from "../../logic/coefficients/reshel";
 import { schwartzmalone } from "../../logic/coefficients/schwartzmalone";
 import { wilks } from "../../logic/coefficients/wilks";
 
@@ -126,6 +127,9 @@ class ByDivision extends React.Component<Props> {
         break;
       case "NASA Points":
         points = nasapoints(entry.bodyweightKg, totalKg).toFixed(2);
+        break;
+      case "Reshel":
+        points = reshel(entry.sex, entry.bodyweightKg, totalKg).toFixed(2);
         break;
       case "Total":
         points = total.toFixed(2);

@@ -39,6 +39,8 @@ import {
   getFinalGlossbrenner,
   getProjectedNASAPoints,
   getFinalNASAPoints,
+  getProjectedReshel,
+  getFinalReshel,
   getProjectedSchwartzMalone,
   getFinalSchwartzMalone,
   liftToAttemptFieldName,
@@ -355,6 +357,8 @@ class LiftingTable extends React.Component<Props> {
           points = getProjectedSchwartzMalone(entry);
         } else if (this.props.meet.formula === "NASA Points") {
           points = getProjectedNASAPoints(entry);
+        } else if (this.props.meet.formula === "Reshel") {
+          points = getProjectedReshel(entry);
         } else if (this.props.meet.formula === "Total") {
           // Duplicate of "ProjectedTotal" logic.
           // Issue #181: can't just call renderCell() because <td> needs a unique key.
@@ -386,6 +390,8 @@ class LiftingTable extends React.Component<Props> {
           points = getFinalSchwartzMalone(entry);
         } else if (this.props.meet.formula === "NASA Points") {
           points = getFinalNASAPoints(entry);
+        } else if (this.props.meet.formula === "Reshel") {
+          points = getFinalReshel(entry);
         } else if (this.props.meet.formula === "Total") {
           // Duplicate of "FinalTotal" logic.
           // Issue #181: can't just call renderCell() because <td> needs a unique key.

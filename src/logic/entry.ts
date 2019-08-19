@@ -23,6 +23,7 @@ import { dots } from "./coefficients/dots";
 import { glossbrenner } from "./coefficients/glossbrenner";
 import { ipfpoints } from "./coefficients/ipf";
 import { nasapoints } from "./coefficients/nasa";
+import { reshel } from "./coefficients/reshel";
 import { schwartzmalone } from "./coefficients/schwartzmalone";
 import { wilks } from "./coefficients/wilks";
 
@@ -292,6 +293,15 @@ export const getProjectedNASAPoints = (entry: Entry): number => {
 export const getFinalNASAPoints = (entry: Entry): number => {
   const totalKg = getFinalTotalKg(entry);
   return nasapoints(entry.bodyweightKg, totalKg);
+};
+
+export const getProjectedReshel = (entry: Entry): number => {
+  const totalKg = getProjectedTotalKg(entry);
+  return reshel(entry.sex, entry.bodyweightKg, totalKg);
+};
+export const getFinalReshel = (entry: Entry): number => {
+  const totalKg = getFinalTotalKg(entry);
+  return reshel(entry.sex, entry.bodyweightKg, totalKg);
 };
 
 export const getProjectedSchwartzMalone = (entry: Entry): number => {

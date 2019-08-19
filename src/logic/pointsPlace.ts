@@ -31,6 +31,7 @@ import { dots } from "./coefficients/dots";
 import { glossbrenner } from "./coefficients/glossbrenner";
 import { ipfpoints } from "./coefficients/ipf";
 import { nasapoints } from "./coefficients/nasa";
+import { reshel } from "./coefficients/reshel";
 import { schwartzmalone } from "./coefficients/schwartzmalone";
 import { wilks } from "./coefficients/wilks";
 
@@ -99,6 +100,9 @@ const sortByFormulaPlaceInCategory = (
         break;
       case "NASA Points":
         memoizedPoints[i] = nasapoints(entry.bodyweightKg, totalKg);
+        break;
+      case "Reshel":
+        memoizedPoints[i] = reshel(entry.sex, entry.bodyweightKg, totalKg);
         break;
       case "Dots":
         memoizedPoints[i] = dots(category.sex, entry.bodyweightKg, totalKg);
