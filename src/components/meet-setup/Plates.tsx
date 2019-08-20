@@ -98,7 +98,7 @@ class Plates extends React.Component<Props> {
     const weight = this.props.inKg ? weightKg : kg2lbs(weightKg);
 
     return (
-      <tr key={String(weightKg) + "_" + color}>
+      <tr key={id}>
         <td>{weight}</td>
         <td>
           {/* TODO: Validation state styling */}
@@ -122,12 +122,9 @@ class Plates extends React.Component<Props> {
   };
 
   render() {
-    let plateRows = [];
-    for (let i = 0; i < this.props.plates.length; i++) {
-      const obj = this.props.plates[i];
-      plateRows.push(this.renderWeightRow(obj.weightKg, obj.pairCount, obj.color));
-    }
-
+    const plateRows = this.props.plates.map((obj: Plate) =>
+      this.renderWeightRow(obj.weightKg, obj.pairCount, obj.color)
+    );
     const units = this.props.inKg ? "kg" : "lbs";
 
     return (

@@ -19,7 +19,7 @@
 // Defines a widget for selecting a plate color.
 
 import React from "react";
-import { TwitterPicker, ColorResult, RGBColor } from "react-color";
+import { ColorResult, TwitterPicker } from "react-color";
 
 import { PlateColors } from "../../constants/plateColors";
 
@@ -85,9 +85,15 @@ class ColorPicker extends React.Component<Props, InternalState> {
     }
   };
 
-  handleChange = (color: ColorResult) => {
-    this.setState({ displayColorPicker: false, color: color.hex.toString() });
-    this.props.onChange(color.hex.toUpperCase());
+  handleChange = (color: ColorResult, event: any) => {
+    // @types/react-color doesn't define an event for onChange but it is published in
+    // their documentation: https://casesandberg.github.io/react-color/#api-onChange
+    // If the event was a MouseEvent|TouchEvent (i.e they clicked a swatch) we assume
+    // that the user wants the panel to close immediately.
+    const displayColorPicker = event.clientX === undefined;
+    const hex = color.hex.toUpperCase();
+    this.setState({ displayColorPicker, color: hex });
+    this.props.onChange(hex);
   };
 
   render() {
@@ -98,7 +104,7 @@ class ColorPicker extends React.Component<Props, InternalState> {
       picker = (
         <div className={styles.popover}>
           <div className={styles.cover} onClick={this.handleClose} />
-          <TwitterPicker color={this.state.color} colors={colors} triangle="hide" onChange={this.handleChange} />
+          <TwitterPicker color={this.state.color} colors={colors} triangle="hide" onChange={this.handleChange as any} />
         </div>
       );
     }
