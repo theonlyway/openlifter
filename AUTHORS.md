@@ -7,7 +7,7 @@ If you make a contribution to OpenLifter, please add yourself to this file!
 ## Maintainers
 
 * Sean Stangl ([GitHub](https://github.com/sstangl/), [GitLab](https://gitlab.com/sstangl))
-* Mike Vessia ([GitHub](https://gitlab.com/michaelvessia))
+* Mike Vessia ([GitLab](https://gitlab.com/michaelvessia))
 
 ## Contributors
 
