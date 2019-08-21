@@ -23,10 +23,11 @@ import Form from "react-bootstrap/Form";
 
 import { setLengthDays } from "../../actions/meetSetupActions";
 
+import { parseInteger } from "../../logic/parsers";
+
 import { Validation } from "../../types/dataTypes";
 import { GlobalState } from "../../types/stateTypes";
 import { FormControlTypeHack, isString } from "../../types/utils";
-import { isNumber } from "util";
 import { Dispatch } from "redux";
 
 interface StateProps {
@@ -57,9 +58,9 @@ class MeetLength extends React.Component<Props, InternalState> {
 
   validate = (): Validation => {
     const { value } = this.state;
-    const asNumber = Number(value);
+    const asNumber = parseInteger(value);
 
-    if (isNaN(asNumber) || asNumber <= 0 || asNumber > 14) {
+    if (asNumber === undefined || asNumber <= 0 || asNumber > 14) {
       return "error";
     }
     return "success";
@@ -87,7 +88,9 @@ class MeetLength extends React.Component<Props, InternalState> {
         <Form.Label>Days of Lifting</Form.Label>
         <Form.Control
           type="number"
-          step="1"
+          min={1}
+          max={14}
+          step={1}
           value={this.state.value}
           onChange={this.handleChange}
           isValid={validation === "success"}
