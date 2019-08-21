@@ -29,6 +29,7 @@ describe("parseInteger", () => {
   it("fails on floating-point numbers", () => {
     expect(parseInteger("0.0")).toEqual(undefined);
     expect(parseInteger("1.0")).toEqual(undefined);
+    expect(parseInteger("1.")).toEqual(undefined);
     expect(parseInteger("-1.0")).toEqual(undefined);
   });
 

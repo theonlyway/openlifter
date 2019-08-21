@@ -16,46 +16,69 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import React from "react";
+import React, { FormEvent } from "react";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
 
 import Form from "react-bootstrap/Form";
-import FormGroup from "react-bootstrap/FormGroup";
-import FormControl from "react-bootstrap/FormControl";
 
 import { setPlatformsOnDays } from "../../actions/meetSetupActions";
 
-class PlatformCount extends React.Component {
-  constructor(props) {
+import { parseInteger } from "../../logic/parsers";
+
+import { GlobalState } from "../../types/stateTypes";
+import { Validation } from "../../types/dataTypes";
+import { FormControlTypeHack } from "../../types/utils";
+import { Dispatch } from "redux";
+
+interface OwnProps {
+  day: number;
+}
+
+interface StateProps {
+  platformsOnDays: Array<number>;
+}
+
+interface DispatchProps {
+  setPlatformsOnDays: (day: number, count: number) => void;
+}
+
+type Props = OwnProps & StateProps & DispatchProps;
+
+interface InternalState {
+  value: string;
+}
+
+class PlatformCount extends React.Component<Props, InternalState> {
+  constructor(props: Props) {
     super(props);
 
     this.validate = this.validate.bind(this);
     this.handleChange = this.handleChange.bind(this);
 
     this.state = {
-      value: this.props.platformsOnDays[this.props.day - 1]
+      value: String(this.props.platformsOnDays[this.props.day - 1])
     };
   }
 
-  validate = () => {
+  validate = (): Validation => {
     const { value } = this.state;
-    const asNumber = Number(value);
-
-    if (isNaN(asNumber) || asNumber <= 0 || asNumber > 20) {
+    const asNumber = parseInteger(value);
+    if (asNumber === undefined || asNumber <= 0 || asNumber > 20) {
       return "error";
     }
     return "success";
   };
 
-  handleChange(event) {
-    const value = event.target.value;
-    this.setState({ value: value }, () => {
-      if (this.validate() === "success") {
-        this.props.setPlatformsOnDays(this.props.day, value);
-      }
-    });
-  }
+  handleChange = (event: FormEvent<FormControlTypeHack>) => {
+    const value = event.currentTarget.value;
+    if (typeof value === "string") {
+      this.setState({ value: value }, () => {
+        if (this.validate() === "success") {
+          this.props.setPlatformsOnDays(this.props.day, Number(value));
+        }
+      });
+    }
+  };
 
   render() {
     const { day } = this.props;
@@ -63,35 +86,32 @@ class PlatformCount extends React.Component {
     const validation = this.validate();
 
     return (
-      <FormGroup validationState={this.validate()}>
+      <Form.Group>
         <Form.Label>{label}</Form.Label>
-        <FormControl
+        <Form.Control
           type="number"
+          min={1}
+          max={20}
+          step={1}
           value={this.state.value}
           onChange={this.handleChange}
           isValid={validation === "success"}
           isInvalid={validation === "error"}
           className={validation === "warning" ? "is-warning" : undefined}
         />
-      </FormGroup>
+      </Form.Group>
     );
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: GlobalState): StateProps => ({
   platformsOnDays: state.meet.platformsOnDays
 });
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   return {
     setPlatformsOnDays: (day, count) => dispatch(setPlatformsOnDays(day, count))
   };
-};
-
-PlatformCount.propTypes = {
-  platformsOnDays: PropTypes.array.isRequired,
-  setPlatformsOnDays: PropTypes.func.isRequired,
-  day: PropTypes.number.isRequired
 };
 
 export default connect(
