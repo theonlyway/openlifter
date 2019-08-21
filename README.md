@@ -2,6 +2,10 @@
 
 > Simple software for running a local powerlifting competition.
 
+## Development Chat
+
+Project development is discussed in the [OpenPowerlifting Zulip Chat](https://openpl.zulipchat.com/), in the channel `#coding/openlifter`. Everyone is welcome to join.
+
 ## Software Stack
 
 OpenLifter is a single-page webapp built with TypeScript, React, Redux, and Bootstrap. Help is welcome!
