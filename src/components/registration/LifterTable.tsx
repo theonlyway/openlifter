@@ -24,28 +24,31 @@
 // what data each row should see, etc.
 
 import React from "react";
-import PropTypes from "prop-types";
 
-class LifterTable extends React.Component {
-  constructor(props) {
+import { Entry } from "../../types/dataTypes";
+
+interface OwnProps {
+  entries: Array<Entry>;
+  rowRenderer: any;
+}
+
+type Props = OwnProps;
+
+class LifterTable extends React.Component<Props> {
+  constructor(props: Props) {
     super(props);
     this.renderRows = this.renderRows.bind(this);
   }
 
-  renderRows() {
+  renderRows = () => {
     const LifterRow = this.props.rowRenderer;
     const { entries } = this.props;
     return entries.map(entry => <LifterRow key={entry.id} id={entry.id} />);
-  }
+  };
 
   render() {
     return <div>{this.renderRows()}</div>;
   }
 }
-
-LifterTable.propTypes = {
-  entries: PropTypes.array.isRequired,
-  rowRenderer: PropTypes.any.isRequired
-};
 
 export default LifterTable;

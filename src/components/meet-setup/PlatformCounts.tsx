@@ -18,35 +18,40 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
+
 import PlatformCount from "./PlatformCount";
 
-class PlatformCounts extends React.Component {
-  constructor(props) {
+import { GlobalState } from "../../types/stateTypes";
+
+interface StateProps {
+  lengthDays: number;
+}
+
+type Props = StateProps;
+
+class PlatformCounts extends React.Component<Props> {
+  constructor(props: Props) {
     super(props);
     this.createPlatformInputs = this.createPlatformInputs.bind(this);
   }
 
-  createPlatformInputs() {
+  createPlatformInputs = () => {
     let inputs = [];
     const lengthDays = this.props.lengthDays;
-    for (let i = 1; i <= lengthDays; i++) {
+    for (let i = 1; i <= lengthDays; ++i) {
       inputs.push(<PlatformCount key={i} day={i} />);
     }
     return inputs;
-  }
+  };
+
   render() {
     return <div>{this.createPlatformInputs()}</div>;
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: GlobalState): StateProps => ({
   lengthDays: state.meet.lengthDays
 });
-
-PlatformCounts.propTypes = {
-  lengthDays: PropTypes.number.isRequired
-};
 
 export default connect(
   mapStateToProps,
