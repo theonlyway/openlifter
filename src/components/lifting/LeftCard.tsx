@@ -125,10 +125,18 @@ class LeftCard extends React.Component<Props> {
       makeLoadingRelative(nextLoading, currentLoading);
     }
 
+    let nextEntryName = undefined;
+    if (typeof this.props.nextEntryId === "number") {
+      const idx = this.props.registration.lookup[this.props.nextEntryId];
+      nextEntryName = this.props.registration.entries[idx].name;
+    }
+
     const nextBarLoad =
-      next.weightKg === 0 ? null : (
+      next.weightKg === 0 ? (
+        undefined
+      ) : (
         <div className={styles.loadingBar}>
-          <div className={styles.nextText}>NEXT UP</div>
+          <div className={styles.nextText}>NEXT UP – {nextEntryName}</div>
           <div className={styles.barArea}>
             <BarLoad
               key={String(next.weightKg) + next.rackInfo}

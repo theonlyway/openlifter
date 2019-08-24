@@ -77,4 +77,9 @@ div.nextText {
   font-weight: bold;
   padding-left: 10px;
   padding-top: 20px;
+
+  // Handle long lifter names by cutting them off.
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
