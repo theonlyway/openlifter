@@ -22,7 +22,9 @@
 import React, { FormEvent } from "react";
 import { connect } from "react-redux";
 
-import FormControl from "react-bootstrap/FormControl";
+import Button from "react-bootstrap/Button";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
+import Form from "react-bootstrap/Form";
 
 import { globalFocusAttemptInputId } from "./LiftingTable";
 
@@ -307,31 +309,31 @@ class LiftingFooter extends React.Component<Props> {
     return (
       <div className={styles.footer}>
         <div className={styles.leftControls}>
-          <FormControl
+          <Form.Control
             as="select"
             defaultValue={this.props.lifting.day.toString()}
             onChange={this.handleDayChange}
             className={`custom-select ${styles.selector}`}
           >
             {dayOptions}
-          </FormControl>
-          <FormControl
+          </Form.Control>
+          <Form.Control
             as="select"
             defaultValue={this.props.lifting.platform.toString()}
             onChange={this.handlePlatformChange}
             className={`custom-select ${styles.selector}`}
           >
             {platformOptions}
-          </FormControl>
-          <FormControl
+          </Form.Control>
+          <Form.Control
             as="select"
             defaultValue={this.props.lifting.lift}
             onChange={this.handleLiftChange}
             className={`custom-select ${styles.selector}`}
           >
             {liftOptions}
-          </FormControl>
-          <FormControl
+          </Form.Control>
+          <Form.Control
             key={"flight-" + this.props.lifting.flight}
             as="select"
             defaultValue={this.props.lifting.flight}
@@ -339,32 +341,34 @@ class LiftingFooter extends React.Component<Props> {
             className={`custom-select ${styles.selector}`}
           >
             {flightOptions}
-          </FormControl>
-          <FormControl
+          </Form.Control>
+          <Form.Control
             value={this.props.attemptOneIndexed.toString()}
             as="select"
             onChange={this.handleAttemptChange}
             className={`custom-select ${styles.selector}`}
           >
             {attemptOptions}
-          </FormControl>
-          <FormControl
+          </Form.Control>
+          <Form.Control
             value={currentEntryId}
             as="select"
             onChange={this.handleLifterChange}
             className={`custom-select ${styles.selector}`}
           >
             {this.makeLifterOptions()}
-          </FormControl>
+          </Form.Control>
         </div>
 
         <div className={styles.rightControls}>
-          <button type="button" onClick={this.props.toggleReplaceTableWithWeighins}>
-            Toggle Weigh-ins
-          </button>
-          <button type="button" onClick={this.handleFullscreen} className={styles.fullscreen}>
-            Toggle Fullscreen
-          </button>
+          <ButtonGroup>
+            <Button variant="outline-primary" onClick={this.props.toggleReplaceTableWithWeighins}>
+              Toggle Weigh-ins
+            </Button>
+            <Button variant="outline-secondary" onClick={this.handleFullscreen} className={styles.fullscreen}>
+              Toggle Fullscreen
+            </Button>
+          </ButtonGroup>
           <button type="button" onMouseDown={this.handleNoLift} className={styles.noLift}>
             No Lift
           </button>
