@@ -62,7 +62,7 @@ class LiftingHeader extends React.Component<Props> {
         infoBuilder.push(entry.divisions.join(", "));
       }
 
-      info = infoBuilder.join(" – "); // This is an &ndash;.
+      info = infoBuilder.join(" · ");
     }
 
     return (
