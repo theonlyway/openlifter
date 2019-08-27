@@ -32,6 +32,7 @@ import ErrorModal from "../ErrorModal";
 
 import { Csv } from "../../logic/export/csv";
 import { makeExampleRegistrationsCsv, loadRegistrations } from "../../logic/import/registration-csv";
+import { makeRegistrationsCsv } from "../../logic/export/registrations";
 
 import { newRegistration, deleteRegistration } from "../../actions/registrationActions";
 
@@ -66,6 +67,7 @@ class RegistrationView extends React.Component<Props, InternalState> {
   constructor(props: Props) {
     super(props);
     this.handleDownloadCsvTemplateClick = this.handleDownloadCsvTemplateClick.bind(this);
+    this.handleExportCsvClick = this.handleExportCsvClick.bind(this);
     this.handleOverwriteClick = this.handleOverwriteClick.bind(this);
     this.handleAppendClick = this.handleAppendClick.bind(this);
     this.handleLoadFileInput = this.handleLoadFileInput.bind(this);
@@ -78,6 +80,18 @@ class RegistrationView extends React.Component<Props, InternalState> {
     const text = makeExampleRegistrationsCsv();
     const blob = new Blob([text], { type: "application/text;charset=utf-8" });
     saveAs(blob, "registration-template.csv");
+  };
+
+  handleExportCsvClick = () => {
+    let meetname = this.props.global.meet.name;
+    if (meetname === "") {
+      meetname = "Unnamed-Meet";
+    }
+    meetname = meetname.replace(/ /g, "-");
+
+    const text = makeRegistrationsCsv(this.props.global.registration);
+    const blob = new Blob([text], { type: "application/text;charset=utf-8" });
+    saveAs(blob, meetname + "-Registrations.csv");
   };
 
   handleOverwriteClick = () => {
@@ -155,7 +169,10 @@ class RegistrationView extends React.Component<Props, InternalState> {
     this.setState({ error: "" });
   };
 
+
   render() {
+    const numEntries = this.props.global.registration.entries.length;
+
     return (
       <div style={marginStyle}>
         <ErrorModal
@@ -170,6 +187,10 @@ class RegistrationView extends React.Component<Props, InternalState> {
           <Card.Body>
             <Button variant="info" onClick={this.handleDownloadCsvTemplateClick}>
               Download Template
+            </Button>
+
+            <Button variant="success" disabled={numEntries === 0} onClick={this.handleExportCsvClick} style={{ marginLeft: "14px" }}>
+              Export to CSV
             </Button>
 
             <ButtonGroup style={{ marginLeft: "14px" }}>
