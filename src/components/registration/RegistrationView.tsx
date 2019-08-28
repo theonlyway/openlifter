@@ -169,7 +169,6 @@ class RegistrationView extends React.Component<Props, InternalState> {
     this.setState({ error: "" });
   };
 
-
   render() {
     const numEntries = this.props.global.registration.entries.length;
 
@@ -189,7 +188,12 @@ class RegistrationView extends React.Component<Props, InternalState> {
               Download Template
             </Button>
 
-            <Button variant="success" disabled={numEntries === 0} onClick={this.handleExportCsvClick} style={{ marginLeft: "14px" }}>
+            <Button
+              variant="success"
+              disabled={numEntries === 0}
+              onClick={this.handleExportCsvClick}
+              style={{ marginLeft: "14px" }}
+            >
               Export to CSV
             </Button>
 

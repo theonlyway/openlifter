@@ -53,7 +53,7 @@ export const makeRegistrationsCsv = (registration: RegistrationState): string =>
     // Divisions.
     for (let j = 0; j < entry.divisions.length; ++j) {
       const division: string = entry.divisions[j];
-      const column: string = "Division" + String(j+1);
+      const column: string = "Division" + String(j + 1);
 
       // Create the column if necessary. The previously numbered column exists.
       if (csv.index(column) === -1) {
@@ -67,7 +67,7 @@ export const makeRegistrationsCsv = (registration: RegistrationState): string =>
     // Events.
     for (let j = 0; j < entry.events.length; ++j) {
       const event = entry.events[j];
-      const column: string = "Event" + String(j+1);
+      const column: string = "Event" + String(j + 1);
 
       // Create the column if necessary. The previously numbered column exists.
       if (csv.index(column) === -1) {
