@@ -86,6 +86,45 @@ export const newDefaultEntry = (id: number): Entry => {
   };
 };
 
+// Gets the lifter's age, possibly by inferring it from birthDate.
+// If the age couldn't be determined, returns 0.
+export const getAge = (entry: Entry, meetDate: string): number => {
+  // If the user overrode the Age manually, just take that.
+  if (entry.age > 0) return entry.age;
+
+  // If no birthDate is provided, nothing more can be done.
+  if (entry.birthDate === "") return 0;
+
+  // Infer the age given {meetDate, birthDate, day}.
+  let [my, mm, md] = meetDate.split("-").map(s => Number(s));
+  let [by, bm, bd] = entry.birthDate.split("-").map(s => Number(s));
+
+  // Advance the day counter if necessary.
+  // FIXME: This logic assumes that each month has exactly 31 days.
+  if (entry.day > 1) {
+    md += entry.day - 1;
+    if (md > 31) {
+      md -= 31;
+      mm += 1;
+    }
+    if (mm > 12) {
+      md -= 12;
+      my += 1;
+    }
+  }
+
+  const years = my - by;
+  if (years <= 0) return 0;
+
+  // If their birthday occurred in the most recent year, just diff years.
+  if (bm < mm || (bm == mm && bd <= md)) {
+    return years;
+  }
+
+  // Otherwise, their birthday did not occur yet, so this year doesn't count.
+  return years - 1;
+};
+
 // Gets the best squat, including extra attempts that don't count for the total.
 export const getBest5SquatKg = (entry: Entry): number => {
   let best3SquatKg = 0.0;

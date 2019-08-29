@@ -21,6 +21,7 @@
 import { csvString, Csv } from "./csv";
 import { getFinalResults } from "../divisionPlace";
 import {
+  getAge,
   getBest3SquatKg,
   getBest3BenchKg,
   getBest3DeadliftKg,
@@ -101,7 +102,7 @@ const makeEntriesCsv = (state: GlobalState): Csv => {
     const { category, orderedEntries } = results[i];
 
     for (let j = 0; j < orderedEntries.length; j++) {
-      addEntriesRow(csv, category, orderedEntries[j], j);
+      addEntriesRow(csv, category, state.meet.date, orderedEntries[j], j);
     }
   }
 
@@ -126,7 +127,7 @@ const standardizeEquipment = (eq: Equipment): string => {
   }
 };
 
-const addEntriesRow = (csv: Csv, category: Category, entry: Entry, index: number) => {
+const addEntriesRow = (csv: Csv, category: Category, meetDate: string, entry: Entry, index: number) => {
   const finalEventTotalKg = getFinalEventTotalKg(entry, category.event);
 
   // Initialize an empty row with all columns available.
@@ -142,7 +143,7 @@ const addEntriesRow = (csv: Csv, category: Category, entry: Entry, index: number
   row[csv.index("Instagram")] = csvString(entry.instagram);
   row[csv.index("Sex")] = csvString(entry.sex);
   row[csv.index("BirthDate")] = csvString(entry.birthDate);
-  row[csv.index("Age")] = csvString(entry.age);
+  row[csv.index("Age")] = csvString(getAge(entry, meetDate));
   row[csv.index("Country")] = csvString(entry.country);
   row[csv.index("State")] = csvString(entry.state);
   row[csv.index("Equipment")] = csvString(standardizeEquipment(entry.equipment));

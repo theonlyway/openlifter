@@ -28,6 +28,7 @@ import FormControl from "react-bootstrap/FormControl";
 import ValidatedInput from "../ValidatedInput";
 import WeightInput from "./WeightInput";
 
+import { getAge } from "../../logic/entry";
 import { validatePositiveInteger } from "../../validation/positiveInteger";
 
 import { updateRegistration } from "../../actions/registrationActions";
@@ -153,6 +154,9 @@ class LifterRow extends React.Component<Props> {
       );
     }
 
+    const age = getAge(entry, this.props.meet.date);
+    const ageStr = age === 0 ? "Age" : String(age);
+
     return (
       <tr>
         <td>{entry.platform}</td>
@@ -162,7 +166,7 @@ class LifterRow extends React.Component<Props> {
         <td>
           <ValidatedInput
             initialValue={entry.age === 0 ? "" : String(entry.age)}
-            placeholder="Age"
+            placeholder={ageStr}
             validate={this.validateAge}
             onSuccess={this.updateRegistrationAge}
           />
