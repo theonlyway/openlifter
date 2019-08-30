@@ -26,7 +26,7 @@ export const randomString = (): string => {
     .substr(2);
 };
 
-// Generate a random integer between max and min.
+// Generate a random integer between max and min, inclusive.
 export const randomInt = (min: number, max: number) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
