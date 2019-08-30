@@ -24,28 +24,8 @@ import { connect } from "react-redux";
 import AttemptInput from "./AttemptInput";
 
 import { getWeightClassStr, getWeightClassLbsStr } from "../../reducers/meetReducer";
-import {
-  getProjectedTotalKg,
-  getFinalTotalKg,
-  getProjectedWilks,
-  getFinalWilks,
-  getProjectedIPFPoints,
-  getFinalIPFPoints,
-  getProjectedBodyweightMultiple,
-  getFinalBodyweightMultiple,
-  getProjectedDots,
-  getFinalDots,
-  getProjectedGlossbrenner,
-  getFinalGlossbrenner,
-  getProjectedNASAPoints,
-  getFinalNASAPoints,
-  getProjectedReshel,
-  getFinalReshel,
-  getProjectedSchwartzMalone,
-  getFinalSchwartzMalone,
-  liftToAttemptFieldName,
-  liftToStatusFieldName
-} from "../../logic/entry";
+import { getPoints } from "../../logic/coefficients/coefficients";
+import { getProjectedTotalKg, getFinalTotalKg, liftToAttemptFieldName, liftToStatusFieldName } from "../../logic/entry";
 
 import { getProjectedResults, getFinalResults } from "../../logic/divisionPlace";
 import { kg2lbs, displayWeight } from "../../logic/units";
@@ -345,30 +325,13 @@ class LiftingTable extends React.Component<Props> {
         return <td key={columnType}>{totalKg === 0 ? null : displayWeight(asNumber)}</td>;
       }
       case "ProjectedPoints": {
-        let points = 0;
-        if (this.props.meet.formula === "Glossbrenner") {
-          points = getProjectedGlossbrenner(entry);
-        } else if (this.props.meet.formula === "Dots") {
-          points = getProjectedDots(entry);
-        } else if (this.props.meet.formula === "IPF Points") {
-          const event = entry.events.length > 0 ? entry.events[0] : "SBD";
-          points = getProjectedIPFPoints(entry, event);
-        } else if (this.props.meet.formula === "Wilks") {
-          points = getProjectedWilks(entry);
-        } else if (this.props.meet.formula === "Schwartz/Malone") {
-          points = getProjectedSchwartzMalone(entry);
-        } else if (this.props.meet.formula === "NASA Points") {
-          points = getProjectedNASAPoints(entry);
-        } else if (this.props.meet.formula === "Reshel") {
-          points = getProjectedReshel(entry);
-        } else if (this.props.meet.formula === "Total") {
-          // Duplicate of "ProjectedTotal" logic.
-          // Issue #181: can't just call renderCell() because <td> needs a unique key.
-          const totalKg = getProjectedTotalKg(entry);
-          const asNumber = this.props.meet.inKg ? totalKg : kg2lbs(totalKg);
-          return <td key={columnType}>{totalKg === 0 ? null : displayWeight(asNumber)}</td>;
-        } else if (this.props.meet.formula === "Bodyweight Multiple") {
-          points = getProjectedBodyweightMultiple(entry);
+        const totalKg: number = getProjectedTotalKg(entry);
+        const event = entry.events.length > 0 ? entry.events[0] : "SBD";
+        const points: number = getPoints(this.props.meet.formula, entry, event, totalKg, this.props.meet.inKg);
+
+        // Normally this column is hidden for "Total", but it's handled just in case.
+        if (this.props.meet.formula === "Total") {
+          return <td key={columnType}>{points !== 0 ? displayWeight(points) : null}</td>;
         }
         return <td key={columnType}>{points !== 0 ? points.toFixed(2) : null}</td>;
       }
@@ -378,30 +341,13 @@ class LiftingTable extends React.Component<Props> {
         return <td key={columnType}>{totalKg === 0 ? null : displayWeight(asNumber)}</td>;
       }
       case "FinalPoints": {
-        let points = 0;
-        if (this.props.meet.formula === "Glossbrenner") {
-          points = getFinalGlossbrenner(entry);
-        } else if (this.props.meet.formula === "Dots") {
-          points = getFinalDots(entry);
-        } else if (this.props.meet.formula === "IPF Points") {
-          const event = entry.events.length > 0 ? entry.events[0] : "SBD";
-          points = getFinalIPFPoints(entry, event);
-        } else if (this.props.meet.formula === "Wilks") {
-          points = getFinalWilks(entry);
-        } else if (this.props.meet.formula === "Schwartz/Malone") {
-          points = getFinalSchwartzMalone(entry);
-        } else if (this.props.meet.formula === "NASA Points") {
-          points = getFinalNASAPoints(entry);
-        } else if (this.props.meet.formula === "Reshel") {
-          points = getFinalReshel(entry);
-        } else if (this.props.meet.formula === "Total") {
-          // Duplicate of "FinalTotal" logic.
-          // Issue #181: can't just call renderCell() because <td> needs a unique key.
-          const totalKg = getFinalTotalKg(entry);
-          const asNumber = this.props.meet.inKg ? totalKg : kg2lbs(totalKg);
-          return <td key={columnType}>{totalKg === 0 ? null : displayWeight(asNumber)}</td>;
-        } else if (this.props.meet.formula === "Bodyweight Multiple") {
-          points = getFinalBodyweightMultiple(entry);
+        const totalKg: number = getFinalTotalKg(entry);
+        const event = entry.events.length > 0 ? entry.events[0] : "SBD";
+        const points: number = getPoints(this.props.meet.formula, entry, event, totalKg, this.props.meet.inKg);
+
+        // Normally this column is hidden for "Total", but it's handled just in case.
+        if (this.props.meet.formula === "Total") {
+          return <td key={columnType}>{points !== 0 ? displayWeight(points) : null}</td>;
         }
         return <td key={columnType}>{points !== 0 ? points.toFixed(2) : null}</td>;
       }

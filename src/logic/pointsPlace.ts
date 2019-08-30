@@ -26,17 +26,9 @@
 import { getFinalEventTotalKg } from "./entry";
 
 // Import points formulas.
-import { bodyweight_multiple } from "./coefficients/bodyweight-multiple";
-import { dots } from "./coefficients/dots";
-import { glossbrenner } from "./coefficients/glossbrenner";
-import { ipfpoints } from "./coefficients/ipf";
-import { nasapoints } from "./coefficients/nasa";
-import { reshel } from "./coefficients/reshel";
-import { schwartzmalone } from "./coefficients/schwartzmalone";
-import { wilks } from "./coefficients/wilks";
+import { getPoints, getAgeAdjustedPoints } from "./coefficients/coefficients";
 
 // Import age coefficients.
-import { fosterMcCulloch } from "./coefficients/foster-mcculloch";
 import { checkExhausted } from "../types/utils";
 import { AgeCoefficients, Sex, Event, Equipment, Entry, Formula } from "../types/dataTypes";
 
@@ -67,7 +59,9 @@ const sortByFormulaPlaceInCategory = (
   entries: Array<Entry>,
   category: PointsCategory,
   formula: Formula,
-  ageCoefficients: AgeCoefficients
+  ageCoefficients: AgeCoefficients,
+  inKg: boolean,
+  meetDate: string
 ): Array<Entry> => {
   // Make a map from Entry to initial index.
   let indexMap = new Map();
@@ -82,50 +76,7 @@ const sortByFormulaPlaceInCategory = (
     const entry = entries[i];
     const totalKg = getFinalEventTotalKg(entry, category.event);
 
-    switch (formula) {
-      case "Bodyweight Multiple":
-        memoizedPoints[i] = bodyweight_multiple(entry.bodyweightKg, totalKg);
-        break;
-      case "Glossbrenner":
-        memoizedPoints[i] = glossbrenner(category.sex, entry.bodyweightKg, totalKg);
-        break;
-      case "Wilks":
-        memoizedPoints[i] = wilks(category.sex, entry.bodyweightKg, totalKg);
-        break;
-      case "IPF Points":
-        memoizedPoints[i] = ipfpoints(totalKg, entry.bodyweightKg, category.sex, category.equipment, category.event);
-        break;
-      case "Schwartz/Malone":
-        memoizedPoints[i] = schwartzmalone(category.sex, entry.bodyweightKg, totalKg);
-        break;
-      case "NASA Points":
-        memoizedPoints[i] = nasapoints(entry.bodyweightKg, totalKg);
-        break;
-      case "Reshel":
-        memoizedPoints[i] = reshel(entry.sex, entry.bodyweightKg, totalKg);
-        break;
-      case "Dots":
-        memoizedPoints[i] = dots(category.sex, entry.bodyweightKg, totalKg);
-        break;
-      case "Total":
-        memoizedPoints[i] = totalKg;
-        break;
-      default:
-        checkExhausted(formula);
-        memoizedPoints[i] = 0;
-    }
-
-    // Apply age coefficients now, if requested.
-    switch (ageCoefficients) {
-      case "None":
-        break;
-      case "FosterMcCulloch":
-        memoizedPoints[i] = memoizedPoints[i] * fosterMcCulloch(entry.age);
-        break;
-      default:
-        checkExhausted(ageCoefficients);
-        break;
-    }
+    memoizedPoints[i] = getAgeAdjustedPoints(ageCoefficients, meetDate, formula, entry, category.event, totalKg, inKg);
   }
 
   // Clone the entries array to avoid modifying the original.
@@ -212,7 +163,9 @@ export const getAllRankings = (
   entries: Array<Entry>,
   formula: Formula,
   ageCoefficients: AgeCoefficients,
-  combineSleevesAndWraps: boolean
+  combineSleevesAndWraps: boolean,
+  inKg: boolean,
+  meetDate: string
 ): Array<PointsCategoryResults> => {
   // Generate a map from category to the entries within that category.
   // The map is populated by iterating over each entry and having the entry
@@ -245,7 +198,7 @@ export const getAllRankings = (
   let results = [];
   for (let [key, catEntries] of categoryMap) {
     const category = keyToCategory(key);
-    const orderedEntries = sortByFormulaPlaceInCategory(catEntries, category, formula, ageCoefficients);
+    const orderedEntries = sortByFormulaPlaceInCategory(catEntries, category, formula, ageCoefficients, inKg, meetDate);
     results.push({ category, orderedEntries });
   }
 

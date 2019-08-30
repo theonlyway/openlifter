@@ -35,14 +35,7 @@ import {
 } from "../../logic/entry";
 import { kg2lbs, displayWeight } from "../../logic/units";
 
-import { bodyweight_multiple } from "../../logic/coefficients/bodyweight-multiple";
-import { dots } from "../../logic/coefficients/dots";
-import { glossbrenner } from "../../logic/coefficients/glossbrenner";
-import { ipfpoints } from "../../logic/coefficients/ipf";
-import { nasapoints } from "../../logic/coefficients/nasa";
-import { reshel } from "../../logic/coefficients/reshel";
-import { schwartzmalone } from "../../logic/coefficients/schwartzmalone";
-import { wilks } from "../../logic/coefficients/wilks";
+import { getPoints, getAgeAdjustedPoints } from "../../logic/coefficients/coefficients";
 
 import { PointsCategory, PointsCategoryResults } from "../../logic/pointsPlace";
 import { AgeCoefficients, Entry, Formula, Sex } from "../../types/dataTypes";
@@ -53,6 +46,7 @@ import { fosterMcCulloch } from "../../logic/coefficients/foster-mcculloch";
 interface StateProps {
   inKg: boolean;
   meetName: string;
+  meetDate: string;
   formula: Formula;
   combineSleevesAndWraps: boolean;
   lengthDays: number;
@@ -97,74 +91,41 @@ class ByPoints extends React.Component<Props> {
     const totalKg = getFinalEventTotalKg(entry, category.event);
     if (totalKg === 0) return null;
 
-    const classes = mapSexToClasses(entry.sex, this.props);
-    const squatKg = getBest5SquatKg(entry);
-    const benchKg = getBest5BenchKg(entry);
-    const deadliftKg = getBest5DeadliftKg(entry);
-
     const inKg = this.props.inKg;
-    const total = inKg ? totalKg : kg2lbs(totalKg);
 
     // The place proceeds in order by key, except for DQ entries.
     const rank = totalKg === 0 ? "DQ" : key + 1;
 
-    // Determine age coefficients. The parent component determines their use.
-    let c = 1.0;
-    switch (this.props.ageCoefficients) {
-      case "None":
-        break;
-      case "FosterMcCulloch":
-        c = fosterMcCulloch(entry.age);
-        break;
-      default:
-        break;
-    }
-
-    let points: string | number = 0;
-    switch (this.props.formula) {
-      case "Bodyweight Multiple":
-        points = (c * bodyweight_multiple(entry.bodyweightKg, totalKg)).toFixed(2);
-        break;
-      case "Dots":
-        points = (c * dots(entry.sex, entry.bodyweightKg, totalKg)).toFixed(2);
-        break;
-      case "Glossbrenner":
-        points = (c * glossbrenner(entry.sex, entry.bodyweightKg, totalKg)).toFixed(2);
-        break;
-      case "Wilks":
-        points = (c * wilks(entry.sex, entry.bodyweightKg, totalKg)).toFixed(2);
-        break;
-      case "IPF Points":
-        points = (c * ipfpoints(totalKg, entry.bodyweightKg, entry.sex, category.equipment, category.event)).toFixed(2);
-        break;
-      case "Schwartz/Malone":
-        points = (c * schwartzmalone(entry.sex, entry.bodyweightKg, totalKg)).toFixed(2);
-        break;
-      case "NASA Points":
-        points = (c * nasapoints(entry.bodyweightKg, totalKg)).toFixed(2);
-        break;
-      case "Reshel":
-        points = (c * reshel(entry.sex, entry.bodyweightKg, totalKg)).toFixed(2);
-        break;
-      case "Total":
-        points = (c * total).toFixed(2);
-        break;
-      default:
-        checkExhausted(this.props.formula);
-        break;
-    }
+    const points: number = getAgeAdjustedPoints(
+      this.props.ageCoefficients,
+      this.props.meetDate,
+      this.props.formula,
+      entry,
+      category.event,
+      totalKg,
+      inKg
+    );
 
     let pointsStr = "";
     if (totalKg !== 0 && points === 0) pointsStr = "N/A";
-    else if (totalKg !== 0 && points !== 0) pointsStr = points.toString();
+    else if (totalKg !== 0 && points !== 0) pointsStr = points.toFixed(2);
 
+    const classes = mapSexToClasses(entry.sex, this.props);
     const wtcls = inKg
       ? getWeightClassStr(classes, entry.bodyweightKg)
       : getWeightClassLbsStr(classes, entry.bodyweightKg);
     const bw = inKg ? entry.bodyweightKg : kg2lbs(entry.bodyweightKg);
+
+    const squatKg = getBest5SquatKg(entry);
     const squat = inKg ? squatKg : kg2lbs(squatKg);
+
+    const benchKg = getBest5BenchKg(entry);
     const bench = inKg ? benchKg : kg2lbs(benchKg);
+
+    const deadliftKg = getBest5DeadliftKg(entry);
     const deadlift = inKg ? deadliftKg : kg2lbs(deadliftKg);
+
+    const total = inKg ? totalKg : kg2lbs(totalKg);
 
     return (
       <tr key={key}>
@@ -297,7 +258,9 @@ class ByPoints extends React.Component<Props> {
       entries,
       this.props.formula,
       this.props.ageCoefficients,
-      this.props.combineSleevesAndWraps
+      this.props.combineSleevesAndWraps,
+      this.props.inKg,
+      this.props.meetDate
     );
 
     let categoryCards = [];
@@ -322,6 +285,7 @@ const mapStateToProps = (state: GlobalState, ownProps: OwnProps): StateProps => 
   return {
     inKg: state.meet.inKg,
     meetName: state.meet.name,
+    meetDate: state.meet.date,
     formula: state.meet.formula,
     combineSleevesAndWraps: state.meet.combineSleevesAndWraps,
     lengthDays: state.meet.lengthDays,

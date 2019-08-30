@@ -35,14 +35,7 @@ import {
 } from "../../logic/entry";
 import { kg2lbs, displayWeight } from "../../logic/units";
 
-import { bodyweight_multiple } from "../../logic/coefficients/bodyweight-multiple";
-import { dots } from "../../logic/coefficients/dots";
-import { glossbrenner } from "../../logic/coefficients/glossbrenner";
-import { ipfpoints } from "../../logic/coefficients/ipf";
-import { nasapoints } from "../../logic/coefficients/nasa";
-import { reshel } from "../../logic/coefficients/reshel";
-import { schwartzmalone } from "../../logic/coefficients/schwartzmalone";
-import { wilks } from "../../logic/coefficients/wilks";
+import { getPoints } from "../../logic/coefficients/coefficients";
 
 import { Category, CategoryResults } from "../../logic/divisionPlace";
 import { Entry, Formula, Sex } from "../../types/dataTypes";
@@ -92,64 +85,33 @@ class ByDivision extends React.Component<Props> {
     const totalKg = getFinalEventTotalKg(entry, category.event);
     if (totalKg === 0) return null;
 
-    const classes = mapSexToClasses(entry.sex, this.props);
-    const squatKg = getBest5SquatKg(entry);
-    const benchKg = getBest5BenchKg(entry);
-    const deadliftKg = getBest5DeadliftKg(entry);
-
     const inKg = this.props.inKg;
-    const total = inKg ? totalKg : kg2lbs(totalKg); // For display.
 
     // The place proceeds in order by key, except for DQ entries.
     const place = totalKg === 0 ? "DQ" : key + 1;
 
-    // TODO: Share this code with ByPoints.
-    // TODO: Dont mix numbers and strings like this
-    let points: number | string = 0;
-    switch (this.props.formula) {
-      case "Bodyweight Multiple":
-        points = bodyweight_multiple(entry.bodyweightKg, totalKg).toFixed(2);
-        break;
-      case "Dots":
-        points = dots(entry.sex, entry.bodyweightKg, totalKg).toFixed(2);
-        break;
-      case "Glossbrenner":
-        points = glossbrenner(entry.sex, entry.bodyweightKg, totalKg).toFixed(2);
-        break;
-      case "Wilks":
-        points = wilks(entry.sex, entry.bodyweightKg, totalKg).toFixed(2);
-        break;
-      case "IPF Points":
-        points = ipfpoints(totalKg, entry.bodyweightKg, entry.sex, category.equipment, category.event).toFixed(2);
-        break;
-      case "Schwartz/Malone":
-        points = schwartzmalone(entry.sex, entry.bodyweightKg, totalKg).toFixed(2);
-        break;
-      case "NASA Points":
-        points = nasapoints(entry.bodyweightKg, totalKg).toFixed(2);
-        break;
-      case "Reshel":
-        points = reshel(entry.sex, entry.bodyweightKg, totalKg).toFixed(2);
-        break;
-      case "Total":
-        points = total.toFixed(2);
-        break;
-      default:
-        checkExhausted(this.props.formula);
-        break;
-    }
+    const points: number = getPoints(this.props.formula, entry, category.event, totalKg, inKg);
 
     let pointsStr = "";
     if (totalKg !== 0 && points === 0) pointsStr = "N/A";
-    else if (totalKg !== 0 && points !== 0) pointsStr = points.toString();
+    else if (totalKg !== 0 && points !== 0) pointsStr = points.toFixed(2);
 
+    const classes = mapSexToClasses(entry.sex, this.props);
     const wtcls = inKg
       ? getWeightClassStr(classes, entry.bodyweightKg)
       : getWeightClassLbsStr(classes, entry.bodyweightKg);
     const bw = inKg ? entry.bodyweightKg : kg2lbs(entry.bodyweightKg);
+
+    const squatKg = getBest5SquatKg(entry);
     const squat = inKg ? squatKg : kg2lbs(squatKg);
+
+    const benchKg = getBest5BenchKg(entry);
     const bench = inKg ? benchKg : kg2lbs(benchKg);
+
+    const deadliftKg = getBest5DeadliftKg(entry);
     const deadlift = inKg ? deadliftKg : kg2lbs(deadliftKg);
+
+    const total = inKg ? totalKg : kg2lbs(totalKg); // For display.
 
     const unit = inKg ? "kg" : "lb";
     const otherUnit = inKg ? "lb" : "kg";

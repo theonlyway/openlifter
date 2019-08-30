@@ -18,15 +18,6 @@
 
 // Defines logic for creating and working with Entry objects.
 
-import { bodyweight_multiple } from "./coefficients/bodyweight-multiple";
-import { dots } from "./coefficients/dots";
-import { glossbrenner } from "./coefficients/glossbrenner";
-import { ipfpoints } from "./coefficients/ipf";
-import { nasapoints } from "./coefficients/nasa";
-import { reshel } from "./coefficients/reshel";
-import { schwartzmalone } from "./coefficients/schwartzmalone";
-import { wilks } from "./coefficients/wilks";
-
 import { Entry, Lift, Event, FieldKg, FieldStatus } from "../types/dataTypes";
 import { checkExhausted } from "../types/utils";
 
@@ -277,79 +268,6 @@ export const getFinalEventTotalKg = (entry: Entry, event: Event): number => {
   }
 
   return best3Squat + best3Bench + best3Dead;
-};
-
-// Gets the Wilks score using the projected total.
-export const getProjectedWilks = (entry: Entry): number => {
-  return wilks(entry.sex, entry.bodyweightKg, getProjectedTotalKg(entry));
-};
-
-// Gets the Wilks score using the final total.
-export const getFinalWilks = (entry: Entry): number => {
-  return wilks(entry.sex, entry.bodyweightKg, getFinalTotalKg(entry));
-};
-
-export const getProjectedIPFPoints = (entry: Entry, event: Event): number => {
-  const totalKg = getProjectedTotalKg(entry);
-  return ipfpoints(totalKg, entry.bodyweightKg, entry.sex, entry.equipment, event);
-};
-export const getFinalIPFPoints = (entry: Entry, event: Event): number => {
-  const totalKg = getFinalTotalKg(entry);
-  return ipfpoints(totalKg, entry.bodyweightKg, entry.sex, entry.equipment, event);
-};
-
-export const getProjectedBodyweightMultiple = (entry: Entry): number => {
-  const totalKg = getProjectedTotalKg(entry);
-  return bodyweight_multiple(entry.bodyweightKg, totalKg);
-};
-export const getFinalBodyweightMultiple = (entry: Entry): number => {
-  const totalKg = getFinalTotalKg(entry);
-  return bodyweight_multiple(entry.bodyweightKg, totalKg);
-};
-
-export const getProjectedDots = (entry: Entry): number => {
-  const totalKg = getProjectedTotalKg(entry);
-  return dots(entry.sex, entry.bodyweightKg, totalKg);
-};
-export const getFinalDots = (entry: Entry): number => {
-  const totalKg = getFinalTotalKg(entry);
-  return dots(entry.sex, entry.bodyweightKg, totalKg);
-};
-
-export const getProjectedGlossbrenner = (entry: Entry): number => {
-  const totalKg = getProjectedTotalKg(entry);
-  return glossbrenner(entry.sex, entry.bodyweightKg, totalKg);
-};
-export const getFinalGlossbrenner = (entry: Entry): number => {
-  const totalKg = getFinalTotalKg(entry);
-  return glossbrenner(entry.sex, entry.bodyweightKg, totalKg);
-};
-
-export const getProjectedNASAPoints = (entry: Entry): number => {
-  const totalKg = getProjectedTotalKg(entry);
-  return nasapoints(entry.bodyweightKg, totalKg);
-};
-export const getFinalNASAPoints = (entry: Entry): number => {
-  const totalKg = getFinalTotalKg(entry);
-  return nasapoints(entry.bodyweightKg, totalKg);
-};
-
-export const getProjectedReshel = (entry: Entry): number => {
-  const totalKg = getProjectedTotalKg(entry);
-  return reshel(entry.sex, entry.bodyweightKg, totalKg);
-};
-export const getFinalReshel = (entry: Entry): number => {
-  const totalKg = getFinalTotalKg(entry);
-  return reshel(entry.sex, entry.bodyweightKg, totalKg);
-};
-
-export const getProjectedSchwartzMalone = (entry: Entry): number => {
-  const totalKg = getProjectedTotalKg(entry);
-  return schwartzmalone(entry.sex, entry.bodyweightKg, totalKg);
-};
-export const getFinalSchwartzMalone = (entry: Entry): number => {
-  const totalKg = getFinalTotalKg(entry);
-  return schwartzmalone(entry.sex, entry.bodyweightKg, totalKg);
 };
 
 // Filter entries to only get lifters that are lifting on a given day
