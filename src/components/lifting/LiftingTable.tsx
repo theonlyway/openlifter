@@ -85,7 +85,8 @@ type ColumnType =
   | "B1" | "B2" | "B3" | "B4" // eslint-disable-line
   | "D1" | "D2" | "D3" | "D4" // eslint-disable-line
   | "BestSquat" | "BestBench" // eslint-disable-line
-  | "Spacer"
+  | "Spacer1"
+  | "Spacer2"
   | "ProjectedTotal"
   | "ProjectedPoints"
   | "FinalTotal"
@@ -335,7 +336,8 @@ class LiftingTable extends React.Component<Props> {
         return this.renderBest3AttemptField(entry, "S", columnType);
       case "BestBench":
         return this.renderBest3AttemptField(entry, "B", columnType);
-      case "Spacer":
+      case "Spacer1": // fallthrough
+      case "Spacer2":
         return <td key={columnType} className={styles.spacerCell} />;
       case "ProjectedTotal": {
         const totalKg = getProjectedTotalKg(entry);
@@ -509,7 +511,8 @@ class LiftingTable extends React.Component<Props> {
         return "Squat";
       case "BestBench":
         return "Bench";
-      case "Spacer":
+      case "Spacer1": // fallthrough
+      case "Spacer2":
         return "";
       case "ProjectedTotal":
         return "Total";
@@ -549,24 +552,26 @@ class LiftingTable extends React.Component<Props> {
 
     // Select lift columns based off the current lift.
     if (this.props.lifting.lift === "S") {
+      columns.push("Spacer1");
       columns.push("S1", "S2", "S3");
       if (this.props.attemptOneIndexed === 4) {
         columns.push("S4");
       }
+      columns.push("Spacer2");
       columns.push("B1", "D1");
     } else if (this.props.lifting.lift === "B") {
-      columns.push("BestSquat", "Spacer", "B1", "B2", "B3");
+      columns.push("BestSquat", "Spacer1", "B1", "B2", "B3");
       if (this.props.attemptOneIndexed === 4) {
         columns.push("B4");
       }
-      columns.push("D1");
+      columns.push("Spacer2", "D1");
     } else if (this.props.lifting.lift === "D") {
-      columns.push("BestSquat", "BestBench", "Spacer", "D1", "D2", "D3");
+      columns.push("BestSquat", "BestBench", "Spacer1", "D1", "D2", "D3");
       if (this.props.attemptOneIndexed === 4) {
         columns.push("D4");
       }
+      columns.push("Spacer2");
     }
-    columns.push("Spacer");
 
     // Use projected totals for everything before 2nd attempt deadlifts.
     const useProjected = this.props.lifting.lift !== "D" || this.props.attemptOneIndexed < 2;
@@ -591,7 +596,7 @@ class LiftingTable extends React.Component<Props> {
         if (this.props.lifting.columnDivisionWidthPx) {
           style = { width: this.props.lifting.columnDivisionWidthPx + "px" };
         }
-      } else if (column === "Spacer") {
+      } else if (column === "Spacer1" || column === "Spacer2") {
         className = styles.spacerCell;
       } else if (column === highlightColumn) {
         className = styles.activeColumn;
