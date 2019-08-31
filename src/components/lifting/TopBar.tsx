@@ -58,6 +58,7 @@ class LiftingHeader extends React.Component<Props> {
       if (entry.age > 0) {
         infoBuilder.push(String(entry.age));
       }
+      infoBuilder.push(entry.equipment);
       if (entry.divisions.length > 0) {
         infoBuilder.push(entry.divisions.join(", "));
       }
