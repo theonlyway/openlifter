@@ -30,6 +30,8 @@ $color-dark: #232323;
 $color-light: #ffffff;
 $color-alternating-stripe: #f4f4f4;
 
+$color-active: lightblue;
+
 $color-light-red-tint: #ffeeee;
 $color-light-red-tint-stripe: #ffe3e3;
 $color-light-green-tint: #eeffee;
@@ -63,6 +65,15 @@ table.liftingtable {
 }
 .liftingtable th.spacerCell {
   width: 16px; // Values below 16 are ignored.
+  background-color: $color-light;
+}
+.liftingtable td.spacerCell {
+  background-color: $color-light;
+}
+.liftingtable th.activeColumn {
+  width: 72px;
+  color: $color-dark;
+  background-color: $color-active;
 }
 
 // The header bar gets inverse colors.
@@ -105,7 +116,7 @@ table.liftingtable {
 
 // Decoration for the current lifter's row.
 .liftingtable tr.current {
-  background-color: lightblue;
+  background-color: $color-active;
 }
 
 // A lifting cell marked "Good Lift".

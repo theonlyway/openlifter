@@ -566,6 +566,7 @@ class LiftingTable extends React.Component<Props> {
         columns.push("D4");
       }
     }
+    columns.push("Spacer");
 
     // Use projected totals for everything before 2nd attempt deadlifts.
     const useProjected = this.props.lifting.lift !== "D" || this.props.attemptOneIndexed < 2;
@@ -577,6 +578,7 @@ class LiftingTable extends React.Component<Props> {
 
     // Build headers.
     let headers = [];
+    let highlightColumn = this.props.lifting.lift + String(this.props.attemptOneIndexed);
     for (let i = 0; i < columns.length; i++) {
       const column = columns[i];
       let className = styles.smallCell;
@@ -591,6 +593,8 @@ class LiftingTable extends React.Component<Props> {
         }
       } else if (column === "Spacer") {
         className = styles.spacerCell;
+      } else if (column === highlightColumn) {
+        className = styles.activeColumn;
       }
 
       headers.push(
