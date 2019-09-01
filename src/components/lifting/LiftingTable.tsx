@@ -74,7 +74,7 @@ type Props = OwnProps & StateProps;
 // The main render() function decides what columns to render,
 // and communicates its selection with each row's renderer.
 type ColumnType =
-  | "Name"
+  | "Lifter"
   | "Bodyweight"
   | "WeightClass"
   | "Division"
@@ -255,7 +255,7 @@ class LiftingTable extends React.Component<Props> {
 
   renderCell = (entry: Entry, columnType: ColumnType, categoryResults: Array<CategoryResults>): JSX.Element => {
     switch (columnType) {
-      case "Name": {
+      case "Lifter": {
         let cell: string | JSX.Element = entry.name;
 
         // Bold the name of the current lifter.
@@ -469,8 +469,8 @@ class LiftingTable extends React.Component<Props> {
 
   getColumnHeaderString = (columnType: ColumnType): string => {
     switch (columnType) {
-      case "Name":
-        return "Name";
+      case "Lifter":
+        return "Lifter";
       case "Bodyweight":
         return "Bwt";
       case "WeightClass":
@@ -535,7 +535,7 @@ class LiftingTable extends React.Component<Props> {
     globalHighestAttemptInputAttempt = 0;
 
     // Select the columns for display.
-    let columns: Array<ColumnType> = ["Name"];
+    let columns: Array<ColumnType> = ["Lifter"];
     // If the score table set the division column with to zero, hide it.
     if (this.props.lifting.columnDivisionWidthPx !== 0) {
       columns.push("Division");
@@ -589,7 +589,7 @@ class LiftingTable extends React.Component<Props> {
       let className = styles.smallCell;
       let style: CSSProperties | undefined;
 
-      if (column === "Name") {
+      if (column === "Lifter") {
         className = styles.nameCell;
       } else if (column === "Division") {
         className = styles.divisionCell;
