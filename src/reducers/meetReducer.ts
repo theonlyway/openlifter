@@ -82,12 +82,12 @@ const initialState: MeetState = {
   allow4thAttempts: true,
 
   // Weights and Loading Setup.
-  inKg: true,
-  showAlternateUnits: true,
-  squatBarAndCollarsWeightKg: defaultBarAndCollarsWeightKg,
-  benchBarAndCollarsWeightKg: defaultBarAndCollarsWeightKg,
-  deadliftBarAndCollarsWeightKg: defaultBarAndCollarsWeightKg,
-  plates: defaultPlatesKg
+  inKg: false,
+  showAlternateUnits: false,
+  squatBarAndCollarsWeightKg: lbs2kg(defaultBarAndCollarsWeightLbs),
+  benchBarAndCollarsWeightKg: lbs2kg(defaultBarAndCollarsWeightLbs),
+  deadliftBarAndCollarsWeightKg: lbs2kg(defaultBarAndCollarsWeightLbs),
+  plates: defaultPlatesLbs
 };
 
 // Given a sorted list of weight classes (in kg) and a bodyweight (in kg),
