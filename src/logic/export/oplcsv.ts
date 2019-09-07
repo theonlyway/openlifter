@@ -20,6 +20,7 @@
 
 import { csvString, Csv } from "./csv";
 import { getFinalResults } from "../divisionPlace";
+import { wtclsStrKg2Lbs } from "../../reducers/meetReducer";
 import {
   getAge,
   getBest3SquatKg,
@@ -29,7 +30,7 @@ import {
   entryHasLifted,
   MAX_ATTEMPTS
 } from "../entry";
-import { displayWeight } from "../units";
+import { displayWeight, kg2lbs } from "../units";
 
 import { Category, CategoryResults } from "../divisionPlace";
 import { Entry, Equipment } from "../../types/dataTypes";
@@ -65,29 +66,29 @@ const makeEntriesCsv = (state: GlobalState): Csv => {
 
   let squatFieldnames = [];
   for (let i = 0; i < MAX_ATTEMPTS; i++) {
-    squatFieldnames.push("Squat" + (i + 1) + "Kg");
+    squatFieldnames.push("Squat" + (i + 1) + "LBS");
   }
-  squatFieldnames.push("Best3SquatKg");
+  squatFieldnames.push("Best3SquatLBS");
 
   let benchFieldnames = [];
   for (let i = 0; i < MAX_ATTEMPTS; i++) {
-    benchFieldnames.push("Bench" + (i + 1) + "Kg");
+    benchFieldnames.push("Bench" + (i + 1) + "LBS");
   }
-  benchFieldnames.push("Best3BenchKg");
+  benchFieldnames.push("Best3BenchLBS");
 
   let deadliftFieldnames = [];
   for (let i = 0; i < MAX_ATTEMPTS; i++) {
-    deadliftFieldnames.push("Deadlift" + (i + 1) + "Kg");
+    deadliftFieldnames.push("Deadlift" + (i + 1) + "LBS");
   }
-  deadliftFieldnames.push("Best3DeadliftKg");
+  deadliftFieldnames.push("Best3DeadliftLBS");
 
   csv.fieldnames = Array.prototype.concat(
     ["Place", "Name", "Instagram", "Sex", "BirthDate", "Age", "Country", "State"],
-    ["Equipment", "Division", "BodyweightKg", "WeightClassKg"],
+    ["Equipment", "Division", "BodyweightLBS", "WeightClassLBS"],
     squatFieldnames,
     benchFieldnames,
     deadliftFieldnames,
-    ["TotalKg", "Event", "Team"]
+    ["TotalLBS", "Event", "Team"]
   );
 
   const results: Array<CategoryResults> = getFinalResults(
@@ -148,36 +149,36 @@ const addEntriesRow = (csv: Csv, category: Category, meetDate: string, entry: En
   row[csv.index("State")] = csvString(entry.state);
   row[csv.index("Equipment")] = csvString(standardizeEquipment(entry.equipment));
   row[csv.index("Division")] = csvString(category.division);
-  row[csv.index("BodyweightKg")] = csvString(displayWeight(entry.bodyweightKg));
-  row[csv.index("WeightClassKg")] = csvString(category.weightClassStr);
-  row[csv.index("TotalKg")] = csvString(displayWeight(finalEventTotalKg));
+  row[csv.index("BodyweightLBS")] = csvString(displayWeight(kg2lbs(entry.bodyweightKg)));
+  row[csv.index("WeightClassLBS")] = csvString(wtclsStrKg2Lbs(category.weightClassStr));
+  row[csv.index("TotalLBS")] = csvString(displayWeight(kg2lbs(finalEventTotalKg)));
   row[csv.index("Event")] = csvString(category.event);
   row[csv.index("Team")] = csvString(entry.team);
 
   // Squat.
   if (category.event.includes("S")) {
-    row[csv.index("Best3SquatKg")] = csvString(displayWeight(getBest3SquatKg(entry)));
+    row[csv.index("Best3SquatLBS")] = csvString(displayWeight(kg2lbs(getBest3SquatKg(entry))));
     for (let i = 0; i < MAX_ATTEMPTS; i++) {
-      const field = "Squat" + (i + 1) + "Kg";
-      row[csv.index(field)] = csvString(displayWeight(entry.squatKg[i] * entry.squatStatus[i]));
+      const field = "Squat" + (i + 1) + "LBS";
+      row[csv.index(field)] = csvString(displayWeight(kg2lbs(entry.squatKg[i] * entry.squatStatus[i])));
     }
   }
 
   // Bench.
   if (category.event.includes("B")) {
-    row[csv.index("Best3BenchKg")] = csvString(displayWeight(getBest3BenchKg(entry)));
+    row[csv.index("Best3BenchLBS")] = csvString(displayWeight(kg2lbs(getBest3BenchKg(entry))));
     for (let i = 0; i < MAX_ATTEMPTS; i++) {
-      const field = "Bench" + (i + 1) + "Kg";
-      row[csv.index(field)] = csvString(displayWeight(entry.benchKg[i] * entry.benchStatus[i]));
+      const field = "Bench" + (i + 1) + "LBS";
+      row[csv.index(field)] = csvString(displayWeight(kg2lbs(entry.benchKg[i] * entry.benchStatus[i])));
     }
   }
 
   // Deadlift.
   if (category.event.includes("D")) {
-    row[csv.index("Best3DeadliftKg")] = csvString(displayWeight(getBest3DeadliftKg(entry)));
+    row[csv.index("Best3DeadliftLBS")] = csvString(displayWeight(kg2lbs(getBest3DeadliftKg(entry))));
     for (let i = 0; i < MAX_ATTEMPTS; i++) {
-      const field = "Deadlift" + (i + 1) + "Kg";
-      row[csv.index(field)] = csvString(displayWeight(entry.deadliftKg[i] * entry.deadliftStatus[i]));
+      const field = "Deadlift" + (i + 1) + "LBS";
+      row[csv.index(field)] = csvString(displayWeight(kg2lbs(entry.deadliftKg[i] * entry.deadliftStatus[i])));
     }
   }
 

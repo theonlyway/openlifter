@@ -357,7 +357,7 @@ class ResultsView extends React.Component<Props, InternalState> {
         <Card>
           <Card.Header>Export Official Results</Card.Header>
           <Card.Body>
-            <Button onClick={this.handleExportAsOplCsvClick}>Export for OpenPowerlifting</Button>
+            <Button onClick={this.handleExportAsOplCsvClick}>Export for OpenPowerlifting (in LBS)</Button>
 
             <Button onClick={this.handleExportAsUSAPLCsvClick} style={{ marginLeft: "14px" }}>
               Export for USAPL
