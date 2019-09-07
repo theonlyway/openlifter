@@ -39,7 +39,7 @@ import { GlobalState } from "../types/stateTypes";
 import { Dispatch } from "redux";
 
 // Temporary CSS, just for prototyping.
-const centerConsole = { maxWidth: 700, margin: "0 auto 10px" };
+const centerConsole = { maxWidth: 700, margin: "0 auto 10px", backgroundColor: "black", color: "gray" };
 
 interface StateProps {
   redux: GlobalState;
@@ -215,18 +215,17 @@ class HomeContainer extends React.Component<Props, InternalState> {
           close={this.closeErrorModal}
         />
 
-        <Row>
-          <Col md={12}>
-            <img alt="OpenLifter" src="openlifter.svg" />
-          </Col>
-        </Row>
+        <br />
 
         <Row>
           <Col md={12}>{warning}</Col>
         </Row>
 
         <Row>
-          <Col md={8}>
+          <Col md={6}>
+            <img alt="Blue Collar Barbell" src="bluecollar-square.jpg" width="100%" height="100%" />
+          </Col>
+          <Col md={5}>
             <br />
             <div>
               {wrongVersion === false ? (
@@ -248,9 +247,7 @@ class HomeContainer extends React.Component<Props, InternalState> {
                 Save to File
               </Button>
             </div>
-          </Col>
 
-          <Col md={4}>
             <br />
             <a
               href="https://gitlab.com/openpowerlifting/openlifter/issues/new"
