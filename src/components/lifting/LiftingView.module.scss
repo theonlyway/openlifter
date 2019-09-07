@@ -22,7 +22,8 @@ $left-card-width: 30%;
 $right-card-width: 100% - $left-card-width;
 
 div.liftingView {
-  background-color: #edeef0;
+  background-color: black;
+  color: white;
   // Padding instead of margin, because this affects the full screen view.
   padding: 10px 10px 50px 10px;
 }

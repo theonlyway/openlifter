@@ -307,74 +307,79 @@ class LiftingFooter extends React.Component<Props> {
     const currentEntryId = this.props.currentEntryId === null ? undefined : this.props.currentEntryId.toString();
 
     return (
-      <div className={styles.footer}>
-        <div className={styles.leftControls}>
-          <Form.Control
-            as="select"
-            defaultValue={this.props.lifting.day.toString()}
-            onChange={this.handleDayChange}
-            className={`custom-select ${styles.selector}`}
-          >
-            {dayOptions}
-          </Form.Control>
-          <Form.Control
-            as="select"
-            defaultValue={this.props.lifting.platform.toString()}
-            onChange={this.handlePlatformChange}
-            className={`custom-select ${styles.selector}`}
-          >
-            {platformOptions}
-          </Form.Control>
-          <Form.Control
-            as="select"
-            defaultValue={this.props.lifting.lift}
-            onChange={this.handleLiftChange}
-            className={`custom-select ${styles.selector}`}
-          >
-            {liftOptions}
-          </Form.Control>
-          <Form.Control
-            key={"flight-" + this.props.lifting.flight}
-            as="select"
-            defaultValue={this.props.lifting.flight}
-            onChange={this.handleFlightChange}
-            className={`custom-select ${styles.selector}`}
-          >
-            {flightOptions}
-          </Form.Control>
-          <Form.Control
-            value={this.props.attemptOneIndexed.toString()}
-            as="select"
-            onChange={this.handleAttemptChange}
-            className={`custom-select ${styles.selector}`}
-          >
-            {attemptOptions}
-          </Form.Control>
-          <Form.Control
-            value={currentEntryId}
-            as="select"
-            onChange={this.handleLifterChange}
-            className={`custom-select ${styles.selector}`}
-          >
-            {this.makeLifterOptions()}
-          </Form.Control>
+      <div className={styles.footerplusimage}>
+        <div className={styles.bluecollarbarbelldiv}>
+          <img alt="Blue Collar Barbell" src="bluecollar-horizontal.jpg" />
         </div>
+        <div className={styles.footer}>
+          <div className={styles.leftControls}>
+            <Form.Control
+              as="select"
+              defaultValue={this.props.lifting.day.toString()}
+              onChange={this.handleDayChange}
+              className={`custom-select ${styles.selector}`}
+            >
+              {dayOptions}
+            </Form.Control>
+            <Form.Control
+              as="select"
+              defaultValue={this.props.lifting.platform.toString()}
+              onChange={this.handlePlatformChange}
+              className={`custom-select ${styles.selector}`}
+            >
+              {platformOptions}
+            </Form.Control>
+            <Form.Control
+              as="select"
+              defaultValue={this.props.lifting.lift}
+              onChange={this.handleLiftChange}
+              className={`custom-select ${styles.selector}`}
+            >
+              {liftOptions}
+            </Form.Control>
+            <Form.Control
+              key={"flight-" + this.props.lifting.flight}
+              as="select"
+              defaultValue={this.props.lifting.flight}
+              onChange={this.handleFlightChange}
+              className={`custom-select ${styles.selector}`}
+            >
+              {flightOptions}
+            </Form.Control>
+            <Form.Control
+              value={this.props.attemptOneIndexed.toString()}
+              as="select"
+              onChange={this.handleAttemptChange}
+              className={`custom-select ${styles.selector}`}
+            >
+              {attemptOptions}
+            </Form.Control>
+            <Form.Control
+              value={currentEntryId}
+              as="select"
+              onChange={this.handleLifterChange}
+              className={`custom-select ${styles.selector}`}
+            >
+              {this.makeLifterOptions()}
+            </Form.Control>
+          </div>
 
-        <div className={styles.rightControls}>
-          <ButtonGroup>
-            <Button variant="outline-primary" onClick={this.props.toggleReplaceTableWithWeighins}>
-              Toggle Weigh-ins
-            </Button>
-            <Button variant="outline-secondary" onClick={this.handleFullscreen} className={styles.fullscreen}>
-              Toggle Fullscreen
-            </Button>
-          </ButtonGroup>
-          <button type="button" onMouseDown={this.handleNoLift} className={styles.noLift}>
-            No Lift
-          </button>
-          <button type="button" onMouseDown={this.handleGoodLift} className={styles.goodLift}>
-            Good Lift
-          </button>
+          <div className={styles.rightControls}>
+            <ButtonGroup>
+              <Button variant="outline-primary" onClick={this.props.toggleReplaceTableWithWeighins}>
+                Toggle Weigh-ins
+              </Button>
+              <Button variant="outline-secondary" onClick={this.handleFullscreen} className={styles.fullscreen}>
+                Toggle Fullscreen
+              </Button>
+            </ButtonGroup>
+            <button type="button" onMouseDown={this.handleNoLift} className={styles.noLift}>
+              No Lift
+            </button>
+            <button type="button" onMouseDown={this.handleGoodLift} className={styles.goodLift}>
+              Good Lift
+            </button>
+          </div>
         </div>
       </div>
     );

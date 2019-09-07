@@ -23,16 +23,29 @@ $color-light: #ffffff;
 
 $button-width: 200px;
 
-// Container element of the whole footer.
-div.footer {
-  display: flex;
-  justify-content: space-between;
+// Keeps the Blue Collar Barbell image at the bottom of the screen.
+div.footerplusimage {
   position: fixed;
   left: 0;
   bottom: 0;
   width: 100%;
-  background-color: #f8f8f8;
-  border-top: 1px solid #e7e7e7;
+  background-color: $color-dark;
+}
+
+// Blue collar barbell image containing div
+div.bluecollarbarbelldiv {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: black;
+  padding-bottom: 10px;
+}
+
+// Container element of the whole footer.
+div.footer {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid $color-dark;
 }
 
 div.leftControls {
@@ -86,4 +99,6 @@ button.noLift:hover {
 
 select.selector {
   width: 110px;
+  background-color: $color-dark;
+  color: $color-light;
 }

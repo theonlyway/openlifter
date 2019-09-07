@@ -65,10 +65,10 @@ table.liftingtable {
 }
 .liftingtable th.spacerCell {
   width: 16px; // Values below 16 are ignored.
-  background-color: $color-light;
+  background-color: $color-dark;
 }
 .liftingtable td.spacerCell {
-  background-color: $color-light;
+  background-color: $color-dark;
 }
 .liftingtable th.activeColumn {
   width: 72px;

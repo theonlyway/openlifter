@@ -135,15 +135,17 @@ class LeftCard extends React.Component<Props> {
       next.weightKg === 0 ? (
         undefined
       ) : (
-        <div className={styles.loadingBar}>
-          <div className={styles.nextText}>NEXT UP – {nextEntryName}</div>
-          <div className={styles.barArea}>
-            <BarLoad
-              key={String(next.weightKg) + next.rackInfo}
-              loading={nextLoading}
-              rackInfo={next.rackInfo}
-              inKg={this.props.inKg}
-            />
+        <div className={styles.activeCard}>
+          <div className={styles.loadingBar}>
+            <div className={styles.nextText}>NEXT UP – {nextEntryName}</div>
+            <div className={styles.barArea}>
+              <BarLoad
+                key={String(next.weightKg) + next.rackInfo}
+                loading={nextLoading}
+                rackInfo={next.rackInfo}
+                inKg={this.props.inKg}
+              />
+            </div>
           </div>
         </div>
       );
