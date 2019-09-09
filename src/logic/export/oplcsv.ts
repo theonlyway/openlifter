@@ -20,6 +20,7 @@
 
 import { csvString, Csv } from "./csv";
 import { getFinalResults } from "../divisionPlace";
+import { wtclsStrKg2Lbs } from "../../reducers/meetReducer";
 import {
   getAge,
   getBest3SquatKg,
@@ -29,7 +30,7 @@ import {
   entryHasLifted,
   MAX_ATTEMPTS
 } from "../entry";
-import { displayWeight } from "../units";
+import { displayWeight, kg2lbs } from "../units";
 
 import { Category, CategoryResults } from "../divisionPlace";
 import { Entry, Equipment } from "../../types/dataTypes";
@@ -61,33 +62,36 @@ const makeMeetCsv = (meet: MeetState): Csv => {
 };
 
 const makeEntriesCsv = (state: GlobalState): Csv => {
+  const inKg: boolean = state.meet.inKg;
+  const unit: string = inKg ? "Kg" : "LBS";
+
   let csv = new Csv();
 
   let squatFieldnames = [];
   for (let i = 0; i < MAX_ATTEMPTS; i++) {
-    squatFieldnames.push("Squat" + (i + 1) + "Kg");
+    squatFieldnames.push("Squat" + (i + 1) + unit);
   }
-  squatFieldnames.push("Best3SquatKg");
+  squatFieldnames.push("Best3Squat" + unit);
 
   let benchFieldnames = [];
   for (let i = 0; i < MAX_ATTEMPTS; i++) {
-    benchFieldnames.push("Bench" + (i + 1) + "Kg");
+    benchFieldnames.push("Bench" + (i + 1) + unit);
   }
-  benchFieldnames.push("Best3BenchKg");
+  benchFieldnames.push("Best3Bench" + unit);
 
   let deadliftFieldnames = [];
   for (let i = 0; i < MAX_ATTEMPTS; i++) {
-    deadliftFieldnames.push("Deadlift" + (i + 1) + "Kg");
+    deadliftFieldnames.push("Deadlift" + (i + 1) + unit);
   }
-  deadliftFieldnames.push("Best3DeadliftKg");
+  deadliftFieldnames.push("Best3Deadlift" + unit);
 
   csv.fieldnames = Array.prototype.concat(
     ["Place", "Name", "Instagram", "Sex", "BirthDate", "Age", "Country", "State"],
-    ["Equipment", "Division", "BodyweightKg", "WeightClassKg"],
+    ["Equipment", "Division", "Bodyweight" + unit, "WeightClass" + unit],
     squatFieldnames,
     benchFieldnames,
     deadliftFieldnames,
-    ["TotalKg", "Event", "Team"]
+    ["Total" + unit, "Event", "Team"]
   );
 
   const results: Array<CategoryResults> = getFinalResults(
@@ -102,7 +106,7 @@ const makeEntriesCsv = (state: GlobalState): Csv => {
     const { category, orderedEntries } = results[i];
 
     for (let j = 0; j < orderedEntries.length; j++) {
-      addEntriesRow(csv, category, state.meet.date, orderedEntries[j], j);
+      addEntriesRow(csv, category, inKg, state.meet.date, orderedEntries[j], j);
     }
   }
 
@@ -127,8 +131,17 @@ const standardizeEquipment = (eq: Equipment): string => {
   }
 };
 
-const addEntriesRow = (csv: Csv, category: Category, meetDate: string, entry: Entry, index: number) => {
+const addEntriesRow = (csv: Csv, category: Category, inKg: boolean, meetDate: string, entry: Entry, index: number) => {
+  const unit: string = inKg ? "Kg" : "LBS";
   const finalEventTotalKg = getFinalEventTotalKg(entry, category.event);
+
+  // Helper functions to keep things one-liners below. Handles Kg/Lbs conversion.
+  const weight = (kg: number): string => {
+    return displayWeight(inKg ? kg : kg2lbs(kg));
+  };
+  const wtcls = (cls: string): string => {
+    return inKg ? cls : wtclsStrKg2Lbs(cls);
+  };
 
   // Initialize an empty row with all columns available.
   let row: Array<string> = Array(csv.fieldnames.length).fill("");
@@ -148,36 +161,36 @@ const addEntriesRow = (csv: Csv, category: Category, meetDate: string, entry: En
   row[csv.index("State")] = csvString(entry.state);
   row[csv.index("Equipment")] = csvString(standardizeEquipment(entry.equipment));
   row[csv.index("Division")] = csvString(category.division);
-  row[csv.index("BodyweightKg")] = csvString(displayWeight(entry.bodyweightKg));
-  row[csv.index("WeightClassKg")] = csvString(category.weightClassStr);
-  row[csv.index("TotalKg")] = csvString(displayWeight(finalEventTotalKg));
+  row[csv.index("Bodyweight" + unit)] = csvString(weight(entry.bodyweightKg));
+  row[csv.index("WeightClass" + unit)] = csvString(wtcls(category.weightClassStr));
+  row[csv.index("Total" + unit)] = csvString(weight(finalEventTotalKg));
   row[csv.index("Event")] = csvString(category.event);
   row[csv.index("Team")] = csvString(entry.team);
 
   // Squat.
   if (category.event.includes("S")) {
-    row[csv.index("Best3SquatKg")] = csvString(displayWeight(getBest3SquatKg(entry)));
+    row[csv.index("Best3Squat" + unit)] = csvString(weight(getBest3SquatKg(entry)));
     for (let i = 0; i < MAX_ATTEMPTS; i++) {
-      const field = "Squat" + (i + 1) + "Kg";
-      row[csv.index(field)] = csvString(displayWeight(entry.squatKg[i] * entry.squatStatus[i]));
+      const field = "Squat" + (i + 1) + unit;
+      row[csv.index(field)] = csvString(weight(entry.squatKg[i] * entry.squatStatus[i]));
     }
   }
 
   // Bench.
   if (category.event.includes("B")) {
-    row[csv.index("Best3BenchKg")] = csvString(displayWeight(getBest3BenchKg(entry)));
+    row[csv.index("Best3Bench" + unit)] = csvString(weight(getBest3BenchKg(entry)));
     for (let i = 0; i < MAX_ATTEMPTS; i++) {
-      const field = "Bench" + (i + 1) + "Kg";
-      row[csv.index(field)] = csvString(displayWeight(entry.benchKg[i] * entry.benchStatus[i]));
+      const field = "Bench" + (i + 1) + unit;
+      row[csv.index(field)] = csvString(weight(entry.benchKg[i] * entry.benchStatus[i]));
     }
   }
 
   // Deadlift.
   if (category.event.includes("D")) {
-    row[csv.index("Best3DeadliftKg")] = csvString(displayWeight(getBest3DeadliftKg(entry)));
+    row[csv.index("Best3Deadlift" + unit)] = csvString(weight(getBest3DeadliftKg(entry)));
     for (let i = 0; i < MAX_ATTEMPTS; i++) {
-      const field = "Deadlift" + (i + 1) + "Kg";
-      row[csv.index(field)] = csvString(displayWeight(entry.deadliftKg[i] * entry.deadliftStatus[i]));
+      const field = "Deadlift" + (i + 1) + unit;
+      row[csv.index(field)] = csvString(weight(entry.deadliftKg[i] * entry.deadliftStatus[i]));
     }
   }
 
