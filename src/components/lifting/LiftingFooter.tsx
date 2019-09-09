@@ -88,6 +88,8 @@ class LiftingFooter extends React.Component<Props> {
     this.handleAttemptChange = this.handleAttemptChange.bind(this);
     this.handleLifterChange = this.handleLifterChange.bind(this);
 
+    this.setFocusAttemptInputTimeout = this.setFocusAttemptInputTimeout.bind(this);
+
     this.makeLifterOptions = this.makeLifterOptions.bind(this);
   }
 
@@ -147,6 +149,11 @@ class LiftingFooter extends React.Component<Props> {
   // to the AttemptInput that the score table is likely to want to type into.
   setFocusAttemptInputTimeout = () => {
     if (globalFocusAttemptInputId === null) {
+      return;
+    }
+
+    // Auto-focusing is significantly less useful on 3rd attempts and beyond.
+    if (this.props.attemptOneIndexed >= 3) {
       return;
     }
 
