@@ -183,6 +183,20 @@ class HomeContainer extends React.Component<Props, InternalState> {
       );
     }
 
+    const isBeta: boolean = releaseVersion.includes("eta");
+    let betaWarning = null;
+    if (isBeta === true) {
+      betaWarning = (
+        <h2>
+          <p>
+            This is the <i>in-development</i> next version of OpenLifter.
+          </p>
+          <p>The internal data format is not guaranteed stable.</p>
+          <p>Do not use this to run competitions!</p>
+        </h2>
+      );
+    }
+
     const wrongVersion: boolean = this.props.redux.versions.stateVersion !== stateVersion;
     const dataReleaseVersion = this.props.redux.versions.releaseVersion;
 
@@ -219,6 +233,10 @@ class HomeContainer extends React.Component<Props, InternalState> {
           <Col md={12}>
             <img alt="OpenLifter" src="openlifter.svg" />
           </Col>
+        </Row>
+
+        <Row>
+          <Col md={12}>{betaWarning}</Col>
         </Row>
 
         <Row>
