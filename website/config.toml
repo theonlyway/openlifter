@@ -11,6 +11,7 @@ theme = "rusty"
       description = "Powerful meet software by OpenPowerlifting"
       keywords = "powerlifting meet software,powerlifting competition software"
       runtext = "Run OpenLifter"
+      allReleasesText = "All Releases"
       pitch = "<b>OpenLifter</b> is powerlifting meet software that runs blazingly fast, works everywhere, and is a joy to use."
       featuring = "Featuring"
       featuresList = [
@@ -36,6 +37,7 @@ theme = "rusty"
     [languages.eo.params]
       description = "Fortega softvaro por konkursoj, de OpenPowerlifting"
       runtext = "Lanĉu OpenLifter"
+      allReleasesText = "Ĉiuj Versioj"
       pitch = "<b>OpenLifter</b> estas simpla konkurso-softvaro kiu ĉie funkcias rapide, fideble, kaj plaĉe."
       featuring = "Funkciaro"
       featuresList = [
