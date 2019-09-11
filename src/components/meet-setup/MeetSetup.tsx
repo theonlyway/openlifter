@@ -180,6 +180,7 @@ class MeetSetup extends React.Component<Props> {
                     onChange={this.props.setFormula}
                     className="custom-select"
                   >
+                    <option value="AH">AH (Haleczko)</option>
                     <option value="Bodyweight Multiple">Bodyweight Multiple</option>
                     <option value="Dots">Dots</option>
                     <option value="Glossbrenner">Glossbrenner</option>

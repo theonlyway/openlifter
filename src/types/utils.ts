@@ -120,6 +120,7 @@ export function assertAgeCoefficients(value: string): value is AgeCoefficients {
 export function assertFormula(value: string): value is Formula {
   const formula = value as Formula;
   switch (formula) {
+    case "AH":
     case "Bodyweight Multiple":
     case "Dots":
     case "Glossbrenner":

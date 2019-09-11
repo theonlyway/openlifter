@@ -18,6 +18,7 @@
 
 // Wraps all the points functions into a common interface.
 
+import { ah } from "./ah";
 import { bodyweight_multiple } from "./bodyweight-multiple";
 import { dots } from "./dots";
 import { fosterMcCulloch } from "./foster-mcculloch";
@@ -41,6 +42,8 @@ export const getPoints = (formula: Formula, entry: Entry, event: Event, totalKg:
   const bodyweightKg: number = entry.bodyweightKg;
 
   switch (formula) {
+    case "AH":
+      return ah(sex, bodyweightKg, totalKg);
     case "Bodyweight Multiple":
       return bodyweight_multiple(bodyweightKg, totalKg);
     case "Dots":
