@@ -52,12 +52,12 @@ function ahMen(bodyweightKg: number): number {
 //  AG1: 2.7566
 //  AG10: 1.8
 function ahWomen(bodyweightKg: number): number {
-    const AG1: number = 2.7566;
-    const AG10: number = 1.8;
+  const AG1: number = 2.7566;
+  const AG10: number = 1.8;
 
-    const adjusted = Math.min(Math.max(bodyweightKg, 28.0), 112.0);
+  const adjusted = Math.min(Math.max(bodyweightKg, 28.0), 112.0);
 
-    return AG1 / Math.pow(Math.log10(adjusted), AG10);
+  return AG1 / Math.pow(Math.log10(adjusted), AG10);
 }
 
 // Calculates AH (Haleczko) points, used in ParaPL bench-only meets.
