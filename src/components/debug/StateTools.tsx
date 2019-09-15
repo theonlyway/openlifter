@@ -19,6 +19,7 @@
 // Tools for manipulating state information to aid debugging.
 
 import React from "react";
+import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 
 import Button from "react-bootstrap/Button";
@@ -42,10 +43,12 @@ class StateTools extends React.Component<ReturnType<typeof mapStateToProps>> {
     return (
       <div>
         <Card>
-          <Card.Header>Generate Random Valid Data</Card.Header>
+          <Card.Header>
+            <FormattedMessage id="debug.generator-card-header" defaultMessage="Generate Random Valid Data" />
+          </Card.Header>
           <Card.Body>
             <Button style={{ marginRight: "15px" }} variant="danger" onClick={this.reInitializeRedux}>
-              Reset
+              <FormattedMessage id="debug.button-reset" defaultMessage="Reset" />
             </Button>
             <ButtonGroup>
               <RandomizeMeetSetupButton />
@@ -56,7 +59,9 @@ class StateTools extends React.Component<ReturnType<typeof mapStateToProps>> {
         </Card>
 
         <Card border="info">
-          <Card.Header>Redux State</Card.Header>
+          <Card.Header>
+            <FormattedMessage id="debug.state-card-header" defaultMessage="Redux State" />
+          </Card.Header>
           <Card.Body>
             <pre>{JSON.stringify(this.props, null, 2)}</pre>
           </Card.Body>

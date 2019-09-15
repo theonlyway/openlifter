@@ -1,4 +1,7 @@
 {
+  "debug.button-reset": "Reset",
+  "debug.generator-card-header": "Generate Random Valid Data",
+  "debug.state-card-header": "Redux State",
   "home.new-meet-button": "Komencu Novan Konkurson",
   "nav.debug": "Kontrŭcimiloj",
   "nav.flight-order": "Ordoj",

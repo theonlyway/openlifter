@@ -1,4 +1,7 @@
 [
+  "debug.generator-card-header",
+  "debug.button-reset",
+  "debug.state-card-header",
   "nav.home",
   "nav.meet-setup",
   "nav.registration",
