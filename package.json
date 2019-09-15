@@ -36,8 +36,7 @@
     "electron-dev": "concurrently \"BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
     "electron-pack": "build -c.extraMetadata.main=build/electron.js",
     "preelectron-pack": "yarn build",
-    "extract:messages": "cross-env react-intl-cra 'src/**/*.js' -o src/translations/messages/messages.json",
-    "manage:translations": "node ./src/translationRunner.js"
+    "manage:translations": "node ./src/manageTranslations.js"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -72,11 +71,12 @@
     "eslint-plugin-prettier": "^3.0.0",
     "prettier": "^1.15.2",
     "react-bootstrap": "^1.0.0-beta.10",
-    "react-intl-cra": "^0.3.3",
     "react-intl-translations-manager": "^5.0.3",
     "react-router-bootstrap": "^0.25.0",
     "redux-mock-store": "^1.5.3",
+    "rimraf": "^3.0.0",
     "typescript": "^3.5.3",
+    "typescript-react-intl": "^0.4.0",
     "wait-on": "^3.2.0"
   }
 }

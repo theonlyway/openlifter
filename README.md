@@ -57,19 +57,13 @@ make package
 
 ## Translations
 
-To translate text in a component, you will need to import `FormattedMessage` from `react-intl`, and use the component like this:
+Translations are handled using `react-intl`. They work by using `FormattedMessage`:
 
 ```
 <FormattedMessage id="uniqueId" defaultMessage="English Text" />
 ```
 
-After defining any number of these components, run `yarn extract:messages`
-This command will go through all of the `*.js` files in `src/` and look for `FormattedMessage`.
-If found, it will extract the message into `messages.json`
-
-Then, run `yarn manage:translations`.  This script will (if needed) create a json file for each language that is configured, e.g. `es.json`
-
-In each of the language specific json files will be all of the messages from `messages.json`, with the defaultMessage if they were not previously translated.  Find your message id and add the appropriate translation to these language specific files.
+Running `yarn manage:translations` will read through the codebase for uses of `FormattedMessage` and extract translatable entries into JSON in `src/translations/`.
 
 ## Release instructions
 

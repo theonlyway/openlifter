@@ -18,7 +18,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { IntlProvider } from "react-intl";
-import translations from "../../translations/locales";
+import translations from "../../translations";
 
 import { GlobalState, LanguageState } from "../../types/stateTypes";
 
@@ -31,6 +31,9 @@ type Props = StateProps;
 class OpenLifterIntlProvider extends React.Component<Props> {
   render() {
     const language = this.props.language;
+    if (typeof language !== "string") {
+      throw new Error("language is not a string");
+    }
 
     // Load our translations from the json files
     // TODO: This typing could be nicer, we should be able to state that es/eo = {}, en = undefined

@@ -22,7 +22,7 @@
 // with the "readonly " covariant type, which makes them immutable.
 
 import { Entry, Flight, Formula, Lift, Plate, AgeCoefficients } from "./dataTypes";
-import translations from "../translations/locales";
+import translations from "../translations";
 
 export type VersionsState = {
   readonly stateVersion: string;

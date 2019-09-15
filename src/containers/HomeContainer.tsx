@@ -27,7 +27,8 @@ import { LinkContainer } from "react-router-bootstrap";
 
 import { saveAs } from "file-saver";
 
-// import LanguageSelector from "../components/translations/LanguageSelector";
+import { FormattedMessage } from "react-intl";
+import LanguageSelector from "../components/translations/LanguageSelector";
 import { overwriteStore } from "../actions/globalActions";
 
 import NewMeetModal from "../components/home/NewMeetModal";
@@ -164,23 +165,15 @@ class HomeContainer extends React.Component<Props, InternalState> {
   };
 
   render() {
-    let newMeetButton = undefined;
-    if (this.props.redux.meet.name) {
-      // A meet is active: use the modal.
-      newMeetButton = (
-        <Button variant="primary" block onClick={this.handleNewClick}>
-          New Meet
-        </Button>
-      );
-    } else {
-      // No meet is active: just use a LinkContainer.
-      newMeetButton = (
-        <LinkContainer to="/meet-setup">
-          <Button variant="primary" block onClick={this.handleNewClick}>
-            New Meet
-          </Button>
-        </LinkContainer>
-      );
+    let newMeetButton = (
+      <Button variant="primary" block onClick={this.handleNewClick}>
+        <FormattedMessage id="home.new-meet-button" defaultMessage="New Meet" />
+      </Button>
+    );
+
+    // If no meet is active, make the button just a LinkContainer.
+    if (!this.props.redux.meet.name) {
+      newMeetButton = <LinkContainer to="/meet-setup">{newMeetButton}</LinkContainer>;
     }
 
     const isBeta: boolean = releaseVersion.includes("eta");
@@ -233,6 +226,12 @@ class HomeContainer extends React.Component<Props, InternalState> {
           <Col md={12}>
             <img alt="OpenLifter" src="openlifter.svg" />
           </Col>
+        </Row>
+
+        <Row>
+          <div style={{ width: "180px", margin: "20px" }}>
+            <LanguageSelector />
+          </div>
         </Row>
 
         <Row>
