@@ -42,7 +42,7 @@ class OpenLifterIntlProvider extends React.Component<Props> {
     return (
       // This is going to wrap any children passed to this component with an IntlProvider
       // This will put translations of all of our child components in our app
-      <IntlProvider locale={language} key={language} messages={messages}>
+      <IntlProvider locale={language} defaultLocale="en" key={language} messages={messages}>
         {this.props.children}
       </IntlProvider>
     );

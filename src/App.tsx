@@ -22,9 +22,6 @@ import { PersistGate } from "redux-persist/integration/react";
 import configureStore from "./store";
 import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { addLocaleData } from "react-intl";
-import es from "react-intl/locale-data/es";
-import eo from "react-intl/locale-data/eo";
 import OpenLifterIntlProvider from "./components/translations/OpenLifterIntlProvider";
 
 import RootContainer from "./containers/RootContainer";
@@ -37,8 +34,6 @@ import ResultsContainer from "./containers/ResultsContainer";
 import DebugContainer from "./containers/DebugContainer";
 import AboutContainer from "./containers/AboutContainer";
 import Navigation from "./components/Navigation";
-
-addLocaleData([...es, ...eo]);
 
 class App extends React.Component {
   render() {
