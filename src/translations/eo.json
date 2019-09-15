@@ -1,3 +1,11 @@
 {
-  "home.new-meet-button": "Komencu Novan Konkurson"
+  "home.new-meet-button": "Komencu Novan Konkurson",
+  "nav.debug": "Kontrŭcimiloj",
+  "nav.flight-order": "Ordoj",
+  "nav.home": "Ĉefpaĝo",
+  "nav.lifting": "Konkurso",
+  "nav.meet-setup": "Agordo",
+  "nav.registration": "Registriĝo",
+  "nav.results": "Rezultoj",
+  "nav.weigh-ins": "Komencpezoj"
 }

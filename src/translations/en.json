@@ -1,3 +1,11 @@
 {
-  "home.new-meet-button": "New Meet"
+  "home.new-meet-button": "New Meet",
+  "nav.debug": "Debug",
+  "nav.flight-order": "Flight Order",
+  "nav.home": "Home",
+  "nav.lifting": "Lifting",
+  "nav.meet-setup": "Meet Setup",
+  "nav.registration": "Registration",
+  "nav.results": "Results",
+  "nav.weigh-ins": "Weigh-ins"
 }

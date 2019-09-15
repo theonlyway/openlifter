@@ -19,6 +19,7 @@
 // Defines the Navigation component for navigating between pages using react-router.
 
 import React from "react";
+import { FormattedMessage } from "react-intl";
 
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -40,28 +41,44 @@ const Navigation = () => {
       <Navbar.Collapse>
         <Nav>
           <LinkContainer exact to="/">
-            <Nav.Link>Home</Nav.Link>
+            <Nav.Link>
+              <FormattedMessage id="nav.home" defaultMessage="Home" />
+            </Nav.Link>
           </LinkContainer>
           <LinkContainer to="/meet-setup">
-            <Nav.Link>Meet Setup</Nav.Link>
+            <Nav.Link>
+              <FormattedMessage id="nav.meet-setup" defaultMessage="Meet Setup" />
+            </Nav.Link>
           </LinkContainer>
           <LinkContainer to="/registration">
-            <Nav.Link>Registration</Nav.Link>
+            <Nav.Link>
+              <FormattedMessage id="nav.registration" defaultMessage="Registration" />
+            </Nav.Link>
           </LinkContainer>
           <LinkContainer to="/weigh-ins">
-            <Nav.Link>Weigh-ins</Nav.Link>
+            <Nav.Link>
+              <FormattedMessage id="nav.weigh-ins" defaultMessage="Weigh-ins" />
+            </Nav.Link>
           </LinkContainer>
           <LinkContainer to="/flight-order">
-            <Nav.Link>Flight Order</Nav.Link>
+            <Nav.Link>
+              <FormattedMessage id="nav.flight-order" defaultMessage="Flight Order" />
+            </Nav.Link>
           </LinkContainer>
           <LinkContainer to="/lifting">
-            <Nav.Link>Lifting</Nav.Link>
+            <Nav.Link>
+              <FormattedMessage id="nav.lifting" defaultMessage="Lifting" />
+            </Nav.Link>
           </LinkContainer>
           <LinkContainer to="/results">
-            <Nav.Link>Results</Nav.Link>
+            <Nav.Link>
+              <FormattedMessage id="nav.results" defaultMessage="Results" />
+            </Nav.Link>
           </LinkContainer>
           <LinkContainer to="/debug">
-            <Nav.Link>Debug</Nav.Link>
+            <Nav.Link>
+              <FormattedMessage id="nav.debug" defaultMessage="Debug" />
+            </Nav.Link>
           </LinkContainer>
         </Nav>
       </Navbar.Collapse>

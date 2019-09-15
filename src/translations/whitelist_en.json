@@ -1,2 +1,11 @@
 [
+  "nav.home",
+  "nav.meet-setup",
+  "nav.registration",
+  "nav.weigh-ins",
+  "nav.flight-order",
+  "nav.lifting",
+  "nav.results",
+  "nav.debug",
+  "home.new-meet-button"
 ]
