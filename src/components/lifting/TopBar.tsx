@@ -21,6 +21,8 @@
 import React from "react";
 import { connect } from "react-redux";
 
+import LocalizedString from "../translations/LocalizedString";
+
 import { Entry } from "../../types/dataTypes";
 import { GlobalState, RegistrationState } from "../../types/stateTypes";
 
@@ -41,14 +43,14 @@ type Props = OwnProps & StateProps;
 class LiftingHeader extends React.Component<Props> {
   render() {
     // Defaults, in case of no lifter.
-    let lifterName = "Flight Complete";
+    let lifterName = <LocalizedString id="lifting.flight-complete" />;
     let info = "";
 
     // In the case of a lifter, set fields.
     if (this.props.currentEntryId !== null && this.props.currentEntryId !== undefined) {
       const idx = this.props.registration.lookup[this.props.currentEntryId];
       const entry = this.props.registration.entries[idx];
-      lifterName = entry.name;
+      lifterName = <span>{entry.name}</span>;
 
       let infoBuilder: Array<string> = [];
 

@@ -3,6 +3,7 @@
   "debug.generator-card-header": "Generate Random Valid Data",
   "debug.state-card-header": "Redux State",
   "home.new-meet-button": "New Meet",
+  "lifting.flight-complete": "Flight Complete",
   "nav.debug": "Debug",
   "nav.flight-order": "Flight Order",
   "nav.home": "Home",
