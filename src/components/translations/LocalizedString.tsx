@@ -1,5 +1,4 @@
 // vim: set ts=2 sts=2 sw=2 et:
-//
 // This file is part of OpenLifter, simple Powerlifting meet software.
 // Copyright (C) 2019 The OpenPowerlifting Project.
 //
@@ -16,7 +15,33 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import eo from "./eo.json";
-import en from "./en.json";
+// This provides an alternative interface to react-intl's <FormattedMessage/>.
+//
+// FormattedMessage defines a *new* internationalizable message.
+// In contrast, LocalizedString fetches an *existing* message from the same store
+// and reports it as a simple string (with no formatting or parsing).
+//
+// This enables reuse of translations, so long as the IDs are stable.
 
-export default { eo, en };
+import React from "react";
+import { IntlContext } from "react-intl";
+
+interface OwnProps {
+  id: string; // Translation ID, as listed in 'src/translations/en.json'.
+}
+
+type Props = OwnProps;
+
+class LocalizedString extends React.Component<Props> {
+  render() {
+    return (
+      <IntlContext.Consumer>
+        {intl => {
+          return intl.messages[this.props.id];
+        }}
+      </IntlContext.Consumer>
+    );
+  }
+}
+
+export default LocalizedString;

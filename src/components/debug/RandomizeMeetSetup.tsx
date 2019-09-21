@@ -23,6 +23,8 @@ import { connect } from "react-redux";
 
 import Button from "react-bootstrap/Button";
 
+import LocalizedString from "../translations/LocalizedString";
+
 import { randomString, randomInt, randomFixedPoint } from "./RandomizeHelpers";
 
 import {
@@ -128,7 +130,11 @@ class RandomizeMeetSetupButton extends React.Component<Props> {
   }
 
   render() {
-    return <Button onClick={this.randomizeMeetSetup}>Meet Setup</Button>;
+    return (
+      <Button onClick={this.randomizeMeetSetup}>
+        <LocalizedString id="nav.meet-setup" />
+      </Button>
+    );
   }
 }
 
