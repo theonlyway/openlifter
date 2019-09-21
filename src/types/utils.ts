@@ -71,6 +71,11 @@ export function assertFlight(value: string): value is Flight {
     case "I":
     case "J":
     case "K":
+    case "L":
+    case "M":
+    case "N":
+    case "O":
+    case "P":
       return true;
     default:
       checkExhausted(flight);

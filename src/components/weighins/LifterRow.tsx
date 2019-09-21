@@ -150,6 +150,14 @@ class LifterRow extends React.Component<Props> {
           <option value="F">F</option>
           <option value="G">G</option>
           <option value="H">H</option>
+          <option value="I">I</option>
+          <option value="J">J</option>
+          <option value="K">K</option>
+          <option value="L">L</option>
+          <option value="M">M</option>
+          <option value="N">N</option>
+          <option value="O">O</option>
+          <option value="P">P</option>
         </FormControl>
       );
     }

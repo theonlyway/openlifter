@@ -234,8 +234,8 @@ export const loadRegistrations = (state: GlobalState, csv: Csv): Array<Entry> | 
             return errprefix + "expected just a single flight letter";
           }
 
-          if ("ABCDEFGH".indexOf(val) === -1) {
-            return errprefix + "expected a flight letter, A through H";
+          if ("ABCDEFGHIJKLMNOP".indexOf(val) === -1) {
+            return errprefix + "expected a flight letter, A through P";
           }
 
           // All checks passed!
