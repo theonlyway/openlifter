@@ -24,6 +24,8 @@ import { Dispatch } from "redux";
 
 import Button from "react-bootstrap/Button";
 
+import LocalizedString from "../translations/LocalizedString";
+
 import { randomInt, randomFixedPoint } from "./RandomizeHelpers";
 import { lbs2kg } from "../../logic/units";
 
@@ -131,7 +133,11 @@ class RandomizeWeighinsButton extends React.Component<Props> {
   };
 
   render() {
-    return <Button onClick={this.randomizeWeighins}>Weigh-ins</Button>;
+    return (
+      <Button onClick={this.randomizeWeighins}>
+        <LocalizedString id="nav.weigh-ins" />
+      </Button>
+    );
   }
 }
 

@@ -24,6 +24,8 @@ import { Dispatch } from "redux";
 
 import Button from "react-bootstrap/Button";
 
+import LocalizedString from "../translations/LocalizedString";
+
 import { randomInt } from "./RandomizeHelpers";
 import { newRegistration, deleteRegistration } from "../../actions/registrationActions";
 
@@ -308,7 +310,11 @@ class RandomizeRegistrationButton extends React.Component<Props> {
   }
 
   render() {
-    return <Button onClick={this.randomizeRegistration}>Registration</Button>;
+    return (
+      <Button onClick={this.randomizeRegistration}>
+        <LocalizedString id="nav.registration" />
+      </Button>
+    );
   }
 }
 
