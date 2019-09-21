@@ -2,6 +2,18 @@
   "debug.button-reset": "Reset",
   "debug.generator-card-header": "Generate Random Valid Data",
   "debug.state-card-header": "Redux State",
+  "equipment.bare": "Bare",
+  "equipment.multi-ply": "Multi-ply",
+  "equipment.single-ply": "Single-ply",
+  "equipment.sleeves": "Sleeves",
+  "equipment.wraps": "Wraps",
+  "event.b": "B",
+  "event.bd": "BD",
+  "event.d": "D",
+  "event.s": "S",
+  "event.sb": "SB",
+  "event.sbd": "SBD",
+  "event.sd": "SD",
   "home.new-meet-button": "New Meet",
   "lifting.column-age": "Age",
   "lifting.column-b1": "B1",
@@ -37,5 +49,8 @@
   "nav.meet-setup": "Meet Setup",
   "nav.registration": "Registration",
   "nav.results": "Results",
-  "nav.weigh-ins": "Weigh-ins"
+  "nav.weigh-ins": "Weigh-ins",
+  "sex.f": "F",
+  "sex.m": "M",
+  "sex.mx": "Mx"
 }
