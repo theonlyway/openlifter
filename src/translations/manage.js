@@ -36,7 +36,9 @@ const manageTranslations = require("react-intl-translations-manager").default;
 const { readMessageFiles, getDefaultMessages } = require("react-intl-translations-manager");
 
 function extractTranslations(pattern, cb) {
+  // Array of { id: string, defaultMessage: string } objects.
   let results = [];
+
   pattern = pattern || "src/**/*.@(tsx|ts)";
   glob(pattern, function(err, files) {
     if (err) {
