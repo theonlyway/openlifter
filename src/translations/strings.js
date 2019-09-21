@@ -24,6 +24,34 @@
 // The "manage.js" script picks these up and combines them with the automatically
 // detected messages to create the JSON translation files.
 
-const strings = [{ id: "lifting.flight-complete", defaultMessage: "Flight Complete" }];
+const strings = [
+  { id: "lifting.column-age", defaultMessage: "Age" },
+  { id: "lifting.column-b1", defaultMessage: "B1" },
+  { id: "lifting.column-b2", defaultMessage: "B2" },
+  { id: "lifting.column-b3", defaultMessage: "B3" },
+  { id: "lifting.column-b4", defaultMessage: "B4" },
+  { id: "lifting.column-bestbench", defaultMessage: "Bench" },
+  { id: "lifting.column-bestsquat", defaultMessage: "Squat" },
+  { id: "lifting.column-bodyweight", defaultMessage: "Bwt" },
+  { id: "lifting.column-d1", defaultMessage: "D1" },
+  { id: "lifting.column-d2", defaultMessage: "D2" },
+  { id: "lifting.column-d3", defaultMessage: "D3" },
+  { id: "lifting.column-d4", defaultMessage: "D4" },
+  { id: "lifting.column-division", defaultMessage: "Division" },
+  { id: "lifting.column-equipment", defaultMessage: "Equip" },
+  { id: "lifting.column-finaltotal", defaultMessage: "Total" },
+  { id: "lifting.column-finalpoints", defaultMessage: "Points" },
+  { id: "lifting.column-lifter", defaultMessage: "Lifter" },
+  { id: "lifting.column-lot", defaultMessage: "Lot" },
+  { id: "lifting.column-place", defaultMessage: "Place" },
+  { id: "lifting.column-projectedtotal", defaultMessage: "Total" },
+  { id: "lifting.column-projectedpoints", defaultMessage: "Points" },
+  { id: "lifting.column-s1", defaultMessage: "S1" },
+  { id: "lifting.column-s2", defaultMessage: "S2" },
+  { id: "lifting.column-s3", defaultMessage: "S3" },
+  { id: "lifting.column-s4", defaultMessage: "S4" },
+  { id: "lifting.column-weightclass", defaultMessage: "Class" },
+  { id: "lifting.flight-complete", defaultMessage: "Flight Complete" }
+];
 
 exports.strings = strings;

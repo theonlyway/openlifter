@@ -22,6 +22,7 @@ import React, { CSSProperties } from "react";
 import { connect } from "react-redux";
 
 import AttemptInput from "./AttemptInput";
+import LocalizedString from "../translations/LocalizedString";
 
 import { getWeightClassStr, getWeightClassLbsStr } from "../../reducers/meetReducer";
 import { getPoints } from "../../logic/coefficients/coefficients";
@@ -413,63 +414,63 @@ class LiftingTable extends React.Component<Props> {
     return rows;
   };
 
-  getColumnHeaderString = (columnType: ColumnType): string => {
+  getColumnHeaderLabel = (columnType: ColumnType) => {
     switch (columnType) {
       case "Lifter":
-        return "Lifter";
+        return <LocalizedString id="lifting.column-lifter" />;
       case "Bodyweight":
-        return "Bwt";
+        return <LocalizedString id="lifting.column-bodyweight" />;
       case "WeightClass":
-        return "Class";
+        return <LocalizedString id="lifting.column-weightclass" />;
       case "Division":
-        return "Division";
+        return <LocalizedString id="lifting.column-division" />;
       case "Lot":
-        return "Lot";
+        return <LocalizedString id="lifting.column-lot" />;
       case "Equipment":
-        return "Equip";
+        return <LocalizedString id="lifting.column-equipment" />;
       case "Age":
-        return "Age";
+        return <LocalizedString id="lifting.column-age" />;
       case "S1":
-        return "S1";
+        return <LocalizedString id="lifting.column-s1" />;
       case "S2":
-        return "S2";
+        return <LocalizedString id="lifting.column-s2" />;
       case "S3":
-        return "S3";
+        return <LocalizedString id="lifting.column-s3" />;
       case "S4":
-        return "S4";
+        return <LocalizedString id="lifting.column-s4" />;
       case "B1":
-        return "B1";
+        return <LocalizedString id="lifting.column-b1" />;
       case "B2":
-        return "B2";
+        return <LocalizedString id="lifting.column-b2" />;
       case "B3":
-        return "B3";
+        return <LocalizedString id="lifting.column-b3" />;
       case "B4":
-        return "B4";
+        return <LocalizedString id="lifting.column-b4" />;
       case "D1":
-        return "D1";
+        return <LocalizedString id="lifting.column-d1" />;
       case "D2":
-        return "D2";
+        return <LocalizedString id="lifting.column-d2" />;
       case "D3":
-        return "D3";
+        return <LocalizedString id="lifting.column-d3" />;
       case "D4":
-        return "D4";
+        return <LocalizedString id="lifting.column-d4" />;
       case "BestSquat":
-        return "Squat";
+        return <LocalizedString id="lifting.column-bestsquat" />;
       case "BestBench":
-        return "Bench";
+        return <LocalizedString id="lifting.column-bestbench" />;
       case "Spacer1": // fallthrough
       case "Spacer2":
         return "";
       case "ProjectedTotal":
-        return "Total";
+        return <LocalizedString id="lifting.column-projectedtotal" />;
       case "ProjectedPoints":
-        return "Points";
+        return <LocalizedString id="lifting.column-projectedpoints" />;
       case "FinalTotal":
-        return "Total";
+        return <LocalizedString id="lifting.column-projectedtotal" />;
       case "FinalPoints":
-        return "Points";
+        return <LocalizedString id="lifting.column-finalpoints" />;
       case "Place":
-        return "Place";
+        return <LocalizedString id="lifting.column-place" />;
       default:
         checkExhausted(columnType);
         return "";
@@ -550,7 +551,7 @@ class LiftingTable extends React.Component<Props> {
 
       headers.push(
         <th key={column} className={className} style={style}>
-          {this.getColumnHeaderString(column)}
+          {this.getColumnHeaderLabel(column)}
         </th>
       );
     }
