@@ -24,19 +24,21 @@
 // The "manage.js" script picks these up and combines them with the automatically
 // detected messages to create the JSON translation files.
 
+let strings = new Array();
+
 /* eslint-disable */
 
 // Strings for the Equipment type.
-const equipment = [
+strings = strings.concat([
   { id: "equipment.bare", defaultMessage: "Bare" },
   { id: "equipment.sleeves", defaultMessage: "Sleeves" },
   { id: "equipment.wraps", defaultMessage: "Wraps" },
   { id: "equipment.single-ply", defaultMessage: "Single-ply" },
   { id: "equipment.multi-ply", defaultMessage: "Multi-ply" },
-];
+]);
 
 // Strings for the Event type.
-const event = [
+strings = strings.concat([
   { id: "event.s", defaultMessage: "S" },
   { id: "event.b", defaultMessage: "B" },
   { id: "event.d", defaultMessage: "D" },
@@ -44,22 +46,22 @@ const event = [
   { id: "event.sd", defaultMessage: "SD" },
   { id: "event.bd", defaultMessage: "BD" },
   { id: "event.sbd", defaultMessage: "SBD" },
-];
+]);
 
 // Strings for the Sex type.
-const sex = [
+strings = strings.concat([
   { id: "sex.m", defaultMessage: "M" },
   { id: "sex.f", defaultMessage: "F" },
   { id: "sex.mx", defaultMessage: "Mx" },
-];
+]);
 
 // Strings for the Registration page.
-const registration = [
+strings = strings.concat([
   { id: "registration.button-delete", defaultMessage: "Delete" },
-];
+]);
 
 // Strings for the Lifting page.
-const lifting = [
+strings = strings.concat([
   { id: "lifting.column-age", defaultMessage: "Age" },
   { id: "lifting.column-b1", defaultMessage: "B1" },
   { id: "lifting.column-b2", defaultMessage: "B2" },
@@ -87,7 +89,7 @@ const lifting = [
   { id: "lifting.column-s4", defaultMessage: "S4" },
   { id: "lifting.column-weightclass", defaultMessage: "Class" },
   { id: "lifting.flight-complete", defaultMessage: "Flight Complete" },
-];
+]);
 /* eslint-enable */
 
-exports.strings = Array.prototype.concat(equipment, event, sex, registration, lifting);
+exports.strings = strings;
