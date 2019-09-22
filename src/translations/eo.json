@@ -53,6 +53,8 @@
   "lifting.column-s4": "K4",
   "lifting.column-weightclass": "Aro",
   "lifting.flight-complete": "Grupo finfariĝis",
+  "lifting.next-up": "SEKVANTA – {lifter}",
+  "lifting.rack-info": "Alto {rackInfo}",
   "nav.debug": "Kontrŭcimiloj",
   "nav.flight-order": "Ordoj",
   "nav.home": "Ĉefpaĝo",

@@ -21,6 +21,7 @@
 
 import React from "react";
 import { connect } from "react-redux";
+import { FormattedMessage } from "react-intl";
 
 import { displayWeight } from "../../logic/units";
 import { PlateColors } from "../../constants/plateColors";
@@ -187,7 +188,13 @@ class BarLoad extends React.Component<Props> {
     if (this.props.lift !== "D") {
       rackInfo = (
         <div key={this.props.rackInfo} className={styles.rackInfo}>
-          Rack {this.props.rackInfo}
+          <FormattedMessage
+            id="lifting.rack-info"
+            defaultMessage="Rack {rackInfo}"
+            values={{
+              rackInfo: this.props.rackInfo
+            }}
+          />
         </div>
       );
     }

@@ -53,6 +53,8 @@
   "lifting.column-s4": "S4",
   "lifting.column-weightclass": "Class",
   "lifting.flight-complete": "Flight Complete",
+  "lifting.next-up": "NEXT UP – {lifter}",
+  "lifting.rack-info": "Rack {rackInfo}",
   "nav.debug": "Debug",
   "nav.flight-order": "Flight Order",
   "nav.home": "Home",

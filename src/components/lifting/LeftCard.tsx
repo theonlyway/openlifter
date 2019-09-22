@@ -21,6 +21,7 @@
 
 import React from "react";
 import { connect } from "react-redux";
+import { FormattedMessage } from "react-intl";
 
 import { selectPlates, makeLoadingRelative } from "../../logic/barLoad";
 import { liftToAttemptFieldName } from "../../logic/entry";
@@ -136,7 +137,15 @@ class LeftCard extends React.Component<Props> {
         undefined
       ) : (
         <div className={styles.loadingBar}>
-          <div className={styles.nextText}>NEXT UP – {nextEntryName}</div>
+          <div className={styles.nextText}>
+            <FormattedMessage
+              id="lifting.next-up"
+              defaultMessage="NEXT UP – {lifter}"
+              values={{
+                lifter: nextEntryName
+              }}
+            />
+          </div>
           <div className={styles.barArea}>
             <BarLoad
               key={String(next.weightKg) + next.rackInfo}
