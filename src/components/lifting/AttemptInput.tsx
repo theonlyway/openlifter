@@ -27,7 +27,7 @@ import { liftToAttemptFieldName, liftToStatusFieldName } from "../../logic/entry
 import { enterAttempt } from "../../actions/liftingActions";
 import { kg2lbs, lbs2kg, displayWeight } from "../../logic/units";
 
-import { Entry, Lift, Validation } from "../../types/dataTypes";
+import { Entry, Language, Lift, Validation } from "../../types/dataTypes";
 import { GlobalState } from "../../types/stateTypes";
 
 import styles from "./LiftingTable.module.scss";
@@ -36,6 +36,7 @@ import { Dispatch } from "redux";
 
 interface StateProps {
   inKg: boolean;
+  language: Language;
 }
 
 interface OwnProps {
@@ -70,7 +71,7 @@ class AttemptInput extends React.Component<Props, InternalState> {
 
     let weightStr = "";
     if (weightKg !== 0) {
-      weightStr = displayWeight(this.props.inKg ? weightKg : kg2lbs(weightKg));
+      weightStr = displayWeight(this.props.inKg ? weightKg : kg2lbs(weightKg), this.props.language);
     }
 
     this.state = {
@@ -80,8 +81,11 @@ class AttemptInput extends React.Component<Props, InternalState> {
   }
 
   validate = (): Validation => {
-    const { value } = this.state;
+    let { value } = this.state;
     if (value === "") return null;
+
+    // Allow use of commas as decimal separator.
+    value = value.replace(",", ".");
 
     // Handle all errors before all warnings.
     // Check that the input is a number.
@@ -125,7 +129,7 @@ class AttemptInput extends React.Component<Props, InternalState> {
   handleChange = (event: FormEvent<FormControlTypeHack>) => {
     const value = event.currentTarget.value;
     if (typeof value === "string") {
-      let fixups = value.replace(",", ".").replace(" ", "");
+      let fixups = value.replace(" ", "");
 
       // Dvorak "e" corresponds to QWERTY ".", but also is used in exponential
       // notation, which is a fairly impactful typo.
@@ -144,7 +148,7 @@ class AttemptInput extends React.Component<Props, InternalState> {
     const entryId = this.props.entry.id;
     const lift = this.props.lift;
     const attemptOneIndexed = this.props.attemptOneIndexed;
-    const asNumber = Number(this.state.value);
+    const asNumber = Number(this.state.value.replace(",", "."));
     const weightKg = this.props.inKg ? asNumber : lbs2kg(asNumber);
 
     this.props.enterAttempt(entryId, lift, attemptOneIndexed, weightKg);
@@ -176,7 +180,8 @@ class AttemptInput extends React.Component<Props, InternalState> {
 }
 
 const mapStateToProps = (state: GlobalState): StateProps => ({
-  inKg: state.meet.inKg
+  inKg: state.meet.inKg,
+  language: state.language
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({

@@ -32,20 +32,14 @@ export const lbs2kg = (lbs: number): number => {
 //
 // This rounding behavior eliminates all the visual inconsistencies of lbs->kg
 // conversion -- for example, how 112.5lbs isn't representable exactly in kg.
-export const displayWeight = (weight: number): string => {
-  const s = weight.toFixed(2).replace(".00", "");
-
-  // If the string isn't ".00" but has a decimal, try to chop off a zero.
-  if (s.indexOf(".") >= 0 && s.endsWith("0")) {
-    return s.slice(0, -1);
-  }
-
-  // Otherwise all the digits are necessary.
-  return s;
+export const displayWeight = (weight: number, lang?: string): string => {
+  const locale = lang === undefined ? "en" : lang;
+  return new Intl.NumberFormat(locale, { useGrouping: false, maximumFractionDigits: 2 }).format(weight);
 };
 
 // Renders a weight (kg or lbs) for display, rounding to one decimal place.
 // hiding unnecessary zeros on the right.
-export const displayWeightOnePlace = (weight: number): string => {
-  return weight.toFixed(1).replace(".0", "");
+export const displayWeightOnePlace = (weight: number, lang?: string): string => {
+  const locale = lang === undefined ? "en" : lang;
+  return new Intl.NumberFormat(locale, { useGrouping: false, maximumFractionDigits: 1 }).format(weight);
 };
