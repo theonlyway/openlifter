@@ -21,7 +21,7 @@ import { kg2lbs, lbs2kg, displayWeight } from "../logic/units";
 import { PlateColors } from "../constants/plateColors";
 
 import { MeetSetupAction, OverwriteStoreAction } from "../types/actionTypes";
-import { Plate } from "../types/dataTypes";
+import { Language, Plate } from "../types/dataTypes";
 import { MeetState } from "../types/stateTypes";
 import { checkExhausted } from "../types/utils";
 
@@ -92,16 +92,16 @@ const initialState: MeetState = {
 
 // Given a sorted list of weight classes (in kg) and a bodyweight (in kg),
 // return a string describing the weight class.
-export const getWeightClassStr = (classes: Array<number>, bodyweightKg: number): string => {
+export const getWeightClassStr = (classes: Array<number>, bodyweightKg: number, language?: Language): string => {
   if (bodyweightKg === 0) return "";
   if (classes.length === 0) return "";
 
   for (let i = 0; i < classes.length; i++) {
     if (bodyweightKg <= classes[i]) {
-      return displayWeight(classes[i]);
+      return displayWeight(classes[i], language);
     }
   }
-  return displayWeight(classes[classes.length - 1]) + "+";
+  return displayWeight(classes[classes.length - 1], language) + "+";
 };
 
 // Converts a kg weightclass to pounds.

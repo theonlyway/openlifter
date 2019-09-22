@@ -29,10 +29,10 @@ import { getPoints } from "../../logic/coefficients/coefficients";
 import { getProjectedTotalKg, getFinalTotalKg, liftToAttemptFieldName, liftToStatusFieldName } from "../../logic/entry";
 
 import { getProjectedResults, getFinalResults } from "../../logic/divisionPlace";
-import { kg2lbs, displayWeight } from "../../logic/units";
+import { kg2lbs, displayWeight, displayPoints } from "../../logic/units";
 
 import { CategoryResults } from "../../logic/divisionPlace";
-import { Entry, Lift, Sex, Equipment } from "../../types/dataTypes";
+import { Entry, Equipment, Language, Lift, Sex } from "../../types/dataTypes";
 import { GlobalState, MeetState, LiftingState } from "../../types/stateTypes";
 
 import styles from "./LiftingTable.module.scss";
@@ -47,6 +47,7 @@ interface OwnProps {
 interface StateProps {
   meet: MeetState;
   lifting: LiftingState;
+  language: Language;
 }
 
 type Props = OwnProps & StateProps;
@@ -118,7 +119,7 @@ class LiftingTable extends React.Component<Props> {
       const asNumber = this.props.meet.inKg ? best3 : kg2lbs(best3);
       return (
         <td key={columnType} className={styles.goodlift}>
-          {displayWeight(asNumber)}
+          {displayWeight(asNumber, this.props.language)}
         </td>
       );
     }
@@ -126,7 +127,7 @@ class LiftingTable extends React.Component<Props> {
       const asNumber = this.props.meet.inKg ? lightestFailed : kg2lbs(lightestFailed);
       return (
         <td key={columnType} className={styles.nolift}>
-          {displayWeight(asNumber)}
+          {displayWeight(asNumber, this.props.language)}
         </td>
       );
     }
@@ -141,7 +142,7 @@ class LiftingTable extends React.Component<Props> {
 
     const kg = entry[fieldKg][attemptOneIndexed - 1];
     const status = entry[fieldStatus][attemptOneIndexed - 1];
-    const wStr = displayWeight(this.props.meet.inKg ? kg : kg2lbs(kg));
+    const wStr = displayWeight(this.props.meet.inKg ? kg : kg2lbs(kg), this.props.language);
     const displayStr = kg === 0 ? "" : wStr;
 
     // Get a unique ID for each AttemptInput.
@@ -252,14 +253,14 @@ class LiftingTable extends React.Component<Props> {
       }
       case "Bodyweight": {
         const bw = entry.bodyweightKg;
-        const bwStr = displayWeight(this.props.meet.inKg ? bw : kg2lbs(bw));
+        const bwStr = displayWeight(this.props.meet.inKg ? bw : kg2lbs(bw), this.props.language);
         return <td key={columnType}>{bw === 0 ? null : bwStr}</td>;
       }
       case "WeightClass": {
         const bw = entry.bodyweightKg;
         const classesForSex = this.mapSexToClasses(entry.sex, this.props.meet);
         const weightClass = this.props.meet.inKg
-          ? getWeightClassStr(classesForSex, bw)
+          ? getWeightClassStr(classesForSex, bw, this.props.language)
           : getWeightClassLbsStr(classesForSex, bw);
         return <td key={columnType}>{bw === 0 ? null : weightClass}</td>;
       }
@@ -323,7 +324,7 @@ class LiftingTable extends React.Component<Props> {
       case "ProjectedTotal": {
         const totalKg = getProjectedTotalKg(entry);
         const asNumber = this.props.meet.inKg ? totalKg : kg2lbs(totalKg);
-        return <td key={columnType}>{totalKg === 0 ? null : displayWeight(asNumber)}</td>;
+        return <td key={columnType}>{totalKg === 0 ? null : displayWeight(asNumber, this.props.language)}</td>;
       }
       case "ProjectedPoints": {
         const totalKg: number = getProjectedTotalKg(entry);
@@ -332,14 +333,14 @@ class LiftingTable extends React.Component<Props> {
 
         // Normally this column is hidden for "Total", but it's handled just in case.
         if (this.props.meet.formula === "Total") {
-          return <td key={columnType}>{points !== 0 ? displayWeight(points) : null}</td>;
+          return <td key={columnType}>{points !== 0 ? displayWeight(points, this.props.language) : null}</td>;
         }
-        return <td key={columnType}>{points !== 0 ? points.toFixed(2) : null}</td>;
+        return <td key={columnType}>{points !== 0 ? displayPoints(points, this.props.language) : null}</td>;
       }
       case "FinalTotal": {
         const totalKg = getFinalTotalKg(entry);
         const asNumber = this.props.meet.inKg ? totalKg : kg2lbs(totalKg);
-        return <td key={columnType}>{totalKg === 0 ? null : displayWeight(asNumber)}</td>;
+        return <td key={columnType}>{totalKg === 0 ? null : displayWeight(asNumber, this.props.language)}</td>;
       }
       case "FinalPoints": {
         const totalKg: number = getFinalTotalKg(entry);
@@ -348,9 +349,9 @@ class LiftingTable extends React.Component<Props> {
 
         // Normally this column is hidden for "Total", but it's handled just in case.
         if (this.props.meet.formula === "Total") {
-          return <td key={columnType}>{points !== 0 ? displayWeight(points) : null}</td>;
+          return <td key={columnType}>{points !== 0 ? displayWeight(points, this.props.language) : null}</td>;
         }
-        return <td key={columnType}>{points !== 0 ? points.toFixed(2) : null}</td>;
+        return <td key={columnType}>{points !== 0 ? displayPoints(points, this.props.language) : null}</td>;
       }
       case "Place": {
         // If the lifter has no total, then don't report a place.
@@ -587,7 +588,8 @@ class LiftingTable extends React.Component<Props> {
 const mapStateToProps = (state: GlobalState): StateProps => {
   return {
     meet: state.meet,
-    lifting: state.lifting
+    lifting: state.lifting,
+    language: state.language
   };
 };
 

@@ -16,6 +16,8 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import { Language } from "../types/dataTypes";
+
 // Defines operations for converting between different units, usually
 // pounds and kg.
 
@@ -32,14 +34,23 @@ export const lbs2kg = (lbs: number): number => {
 //
 // This rounding behavior eliminates all the visual inconsistencies of lbs->kg
 // conversion -- for example, how 112.5lbs isn't representable exactly in kg.
-export const displayWeight = (weight: number, lang?: string): string => {
+export const displayWeight = (weight: number, lang?: Language): string => {
   const locale = lang === undefined ? "en" : lang;
   return new Intl.NumberFormat(locale, { useGrouping: false, maximumFractionDigits: 2 }).format(weight);
 };
 
 // Renders a weight (kg or lbs) for display, rounding to one decimal place.
 // hiding unnecessary zeros on the right.
-export const displayWeightOnePlace = (weight: number, lang?: string): string => {
+export const displayWeightOnePlace = (weight: number, lang?: Language): string => {
   const locale = lang === undefined ? "en" : lang;
   return new Intl.NumberFormat(locale, { useGrouping: false, maximumFractionDigits: 1 }).format(weight);
+};
+
+// Points display with two fixed decimal places (including zeros).
+export const displayPoints = (points: number, lang: Language): string => {
+  return new Intl.NumberFormat(lang, {
+    useGrouping: false,
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  }).format(points);
 };
