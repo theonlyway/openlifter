@@ -20,6 +20,7 @@
 
 import translations from "../translations";
 export type Language = keyof typeof translations;
+export type TranslationId = keyof typeof translations.en;
 
 export type Equipment = "Bare" | "Sleeves" | "Wraps" | "Single-ply" | "Multi-ply";
 export type Event = "S" | "B" | "D" | "SB" | "SD" | "BD" | "SBD";

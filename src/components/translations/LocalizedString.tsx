@@ -26,8 +26,10 @@
 import React from "react";
 import { IntlContext } from "react-intl";
 
+import { TranslationId } from "../../types/dataTypes";
+
 interface OwnProps {
-  id: string; // Translation ID, as listed in 'src/translations/en.json'.
+  id: TranslationId; // As listed in 'src/translations/en.json'.
 }
 
 type Props = OwnProps;
