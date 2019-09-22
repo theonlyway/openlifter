@@ -22,8 +22,9 @@ import React from "react";
 import { connect } from "react-redux";
 
 import LocalizedString from "../translations/LocalizedString";
+import { displayNumber } from "../../logic/units";
 
-import { Entry } from "../../types/dataTypes";
+import { Entry, Language } from "../../types/dataTypes";
 import { GlobalState, RegistrationState } from "../../types/stateTypes";
 
 import styles from "./TopBar.module.scss";
@@ -36,6 +37,7 @@ interface OwnProps {
 
 interface StateProps {
   registration: RegistrationState;
+  language: Language;
 }
 
 type Props = OwnProps & StateProps;
@@ -56,9 +58,11 @@ class LiftingHeader extends React.Component<Props> {
 
       if (typeof entry.instagram === "string" && entry.instagram !== "") {
         infoBuilder.push("@" + entry.instagram);
+      } else {
+        infoBuilder.push(""); // Causes a separator dot to display.
       }
       if (entry.age > 0) {
-        infoBuilder.push(String(entry.age));
+        infoBuilder.push(displayNumber(entry.age, this.props.language));
       }
       infoBuilder.push(entry.equipment);
       if (entry.divisions.length > 0) {
@@ -79,7 +83,8 @@ class LiftingHeader extends React.Component<Props> {
 
 const mapStateToProps = (state: GlobalState): StateProps => {
   return {
-    registration: state.registration
+    registration: state.registration,
+    language: state.language
   };
 };
 

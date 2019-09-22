@@ -54,3 +54,9 @@ export const displayPoints = (points: number, lang: Language): string => {
     maximumFractionDigits: 2
   }).format(points);
 };
+
+// Display a generic number that is neither a weight nor points.
+// This is intended for things like ages, day numbers, etc.
+export const displayNumber = (number: number, lang: Language): string => {
+  return new Intl.NumberFormat(lang).format(number);
+};
