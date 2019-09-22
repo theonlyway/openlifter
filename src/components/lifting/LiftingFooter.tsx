@@ -21,6 +21,7 @@
 
 import React, { FormEvent } from "react";
 import { connect } from "react-redux";
+import { FormattedMessage } from "react-intl";
 
 import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
@@ -370,17 +371,17 @@ class LiftingFooter extends React.Component<Props> {
         <div className={styles.rightControls}>
           <ButtonGroup>
             <Button variant="outline-primary" onClick={this.props.toggleReplaceTableWithWeighins}>
-              Toggle Weigh-ins
+              <FormattedMessage id="lifting.button-toggle-weigh-ins" defaultMessage="Toggle Weigh-ins" />
             </Button>
             <Button variant="outline-secondary" onClick={this.handleFullscreen} className={styles.fullscreen}>
-              Toggle Fullscreen
+              <FormattedMessage id="lifting.button-toggle-fullscreen" defaultMessage="Toggle Fullscreen" />
             </Button>
           </ButtonGroup>
           <button type="button" onMouseDown={this.handleNoLift} className={styles.noLift}>
-            No Lift
+            <FormattedMessage id="lifting.button-no-lift" defaultMessage="No Lift" />
           </button>
           <button type="button" onMouseDown={this.handleGoodLift} className={styles.goodLift}>
-            Good Lift
+            <FormattedMessage id="lifting.button-good-lift" defaultMessage="Good Lift" />
           </button>
         </div>
       </div>
