@@ -45,6 +45,7 @@
   "debug.generator-card-header",
   "debug.button-reset",
   "debug.state-card-header",
+  "lifting.rack-info",
   "lifting.next-up",
   "lifting.button-toggle-weigh-ins",
   "lifting.button-toggle-fullscreen",

@@ -1,4 +1,5 @@
 {
+  "common.age": "Age",
   "debug.button-reset": "Reset",
   "debug.generator-card-header": "Generate Random Valid Data",
   "debug.state-card-header": "Redux State",

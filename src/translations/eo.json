@@ -1,4 +1,5 @@
 {
+  "common.age": "Aĝo",
   "debug.button-reset": "Rekomencigu ĉion",
   "debug.generator-card-header": "Nasku leĝajn aleatorajn datenojn",
   "debug.state-card-header": "Interna stato",

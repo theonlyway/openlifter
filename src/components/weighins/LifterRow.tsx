@@ -29,11 +29,12 @@ import ValidatedInput from "../ValidatedInput";
 import WeightInput from "./WeightInput";
 
 import { getAge } from "../../logic/entry";
+import { getString } from "../../logic/strings";
 import { validatePositiveInteger } from "../../validation/positiveInteger";
 
 import { updateRegistration } from "../../actions/registrationActions";
 
-import { Entry, Validation, Flight } from "../../types/dataTypes";
+import { Entry, Flight, Language, Validation } from "../../types/dataTypes";
 import { GlobalState, MeetState } from "../../types/stateTypes";
 import { Dispatch } from "redux";
 import { FormControlTypeHack, assertFlight, assertString } from "../../types/utils";
@@ -46,6 +47,7 @@ interface OwnProps {
 interface StateProps {
   meet: MeetState;
   entry: Entry;
+  language: Language;
 }
 
 interface DispatchProps {
@@ -163,7 +165,7 @@ class LifterRow extends React.Component<Props> {
     }
 
     const age = getAge(entry, this.props.meet.date);
-    const ageStr = age === 0 ? "Age" : String(age);
+    const ageStr = age === 0 ? getString("common.age", this.props.language) : String(age);
 
     return (
       <tr>
@@ -248,7 +250,8 @@ const mapStateToProps = (state: GlobalState, ownProps: OwnProps): StateProps => 
 
   return {
     meet: state.meet,
-    entry: entry
+    entry: entry,
+    language: state.language
   };
 };
 

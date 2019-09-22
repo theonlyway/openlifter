@@ -21,7 +21,9 @@ import { connect } from "react-redux";
 
 import Table from "react-bootstrap/Table";
 
-import { Entry } from "../../types/dataTypes";
+import { getString } from "../../logic/strings";
+
+import { Entry, Language } from "../../types/dataTypes";
 import { GlobalState } from "../../types/stateTypes";
 
 interface OwnProps {
@@ -32,6 +34,7 @@ interface OwnProps {
 
 interface StateProps {
   inKg: boolean;
+  language: Language;
 }
 
 type Props = OwnProps & StateProps;
@@ -63,7 +66,7 @@ class LifterTable extends React.Component<Props> {
         <th style={shortStyle}>Flight</th>
         <th>Name</th>
 
-        <th style={shortStyle}>Age</th>
+        <th style={shortStyle}>{getString("common.age", this.props.language)}</th>
         <th style={shortStyle}>Bodyweight {units}</th>
         <th style={shortStyle}>Squat Rack</th>
         <th style={shortStyle}>Squat Opener {units}</th>
@@ -85,7 +88,8 @@ class LifterTable extends React.Component<Props> {
 }
 
 const mapStateToProps = (state: GlobalState): StateProps => ({
-  inKg: state.meet.inKg
+  inKg: state.meet.inKg,
+  language: state.language
 });
 
 export default connect(

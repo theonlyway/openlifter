@@ -28,6 +28,11 @@ let strings = new Array();
 
 /* eslint-disable */
 
+// Generic strings for common nouns that aren't really particular to a context.
+strings = strings.concat([
+  { id: "common.age", defaultMessage: "Age" },
+]);
+
 // Strings for the Equipment type.
 strings = strings.concat([
   { id: "equipment.bare", defaultMessage: "Bare" },
