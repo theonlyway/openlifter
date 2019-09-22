@@ -21,14 +21,15 @@ import { connect } from "react-redux";
 import FormControl from "react-bootstrap/FormControl";
 
 import { changeLanguage } from "../../actions/languageActions";
-import { GlobalState, LanguageState } from "../../types/stateTypes";
+import { Language } from "../../types/dataTypes";
+import { GlobalState } from "../../types/stateTypes";
 
 import styles from "./LanguageSelector.module.scss";
 import { Dispatch } from "redux";
 import { FormControlTypeHack } from "../../types/utils";
 
 interface StateProps {
-  language: LanguageState;
+  language: Language;
 }
 
 interface DispatchProps {
@@ -71,7 +72,7 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   return {
     // TODO: Can we make this more type safe and avoid the cast?
     changeLanguage: (event: React.FormEvent<FormControlTypeHack>) =>
-      dispatch(changeLanguage(event.currentTarget.value as LanguageState))
+      dispatch(changeLanguage(event.currentTarget.value as Language))
   };
 };
 

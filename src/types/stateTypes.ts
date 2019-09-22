@@ -21,15 +21,12 @@
 // Because the Redux store is immutable, all types are internally prefixed
 // with the "readonly " covariant type, which makes them immutable.
 
-import { Entry, Flight, Formula, Lift, Plate, AgeCoefficients } from "./dataTypes";
-import translations from "../translations";
+import { Entry, Flight, Formula, Language, Lift, Plate, AgeCoefficients } from "./dataTypes";
 
 export type VersionsState = {
   readonly stateVersion: string;
   readonly releaseVersion: string;
 };
-
-export type LanguageState = keyof typeof translations | "en";
 
 export type MeetState = {
   // Sanction Information.
@@ -81,7 +78,7 @@ export type LiftingState = {
 
 export type GlobalState = {
   readonly versions: VersionsState;
-  readonly language: LanguageState;
+  readonly language: Language;
   readonly meet: MeetState;
   readonly registration: RegistrationState;
   readonly lifting: LiftingState;

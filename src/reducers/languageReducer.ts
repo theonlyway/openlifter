@@ -17,12 +17,12 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import { ChangeLanguageAction, OverwriteStoreAction } from "../types/actionTypes";
-import { LanguageState } from "../types/stateTypes";
+import { Language } from "../types/dataTypes";
 import { checkExhausted } from "../types/utils";
 
 type Action = ChangeLanguageAction | OverwriteStoreAction;
 
-export default (state: LanguageState = "en", action: Action): LanguageState => {
+export default (state: Language = "en", action: Action): Language => {
   switch (action.type) {
     case "CHANGE_LANGUAGE":
       return action.language;

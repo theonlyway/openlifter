@@ -17,9 +17,9 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import { ChangeLanguageAction } from "../types/actionTypes";
-import { LanguageState } from "../types/stateTypes";
+import { Language } from "../types/dataTypes";
 
-export const changeLanguage = (language: LanguageState): ChangeLanguageAction => {
+export const changeLanguage = (language: Language): ChangeLanguageAction => {
   return {
     type: "CHANGE_LANGUAGE",
     language

@@ -20,10 +20,11 @@ import { connect } from "react-redux";
 import { IntlProvider } from "react-intl";
 import translations from "../../translations";
 
-import { GlobalState, LanguageState } from "../../types/stateTypes";
+import { GlobalState } from "../../types/stateTypes";
+import { Language } from "../../types/dataTypes";
 
 interface StateProps {
-  language: LanguageState;
+  language: Language;
 }
 
 type Props = StateProps;

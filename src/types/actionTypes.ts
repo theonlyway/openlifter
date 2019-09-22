@@ -18,8 +18,8 @@
 
 // Defines shared types produced by Redux actions.
 
-import { Entry, Flight, Formula, Lift, Sex } from "./dataTypes";
-import { GlobalState, MeetState, LanguageState, LiftingState } from "./stateTypes";
+import { Entry, Flight, Formula, Language, Lift, Sex } from "./dataTypes";
+import { GlobalState, MeetState, LiftingState } from "./stateTypes";
 
 //////////////////////////////////////////////////////////
 // Global Actions.
@@ -36,7 +36,7 @@ export interface OverwriteStoreAction {
 
 export interface ChangeLanguageAction {
   type: "CHANGE_LANGUAGE";
-  language: LanguageState;
+  language: Language;
 }
 
 //////////////////////////////////////////////////////////

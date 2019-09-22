@@ -18,6 +18,9 @@
 
 // Defines all the project-wide data types in a single place.
 
+import translations from "../translations";
+export type Language = keyof typeof translations;
+
 export type Equipment = "Bare" | "Sleeves" | "Wraps" | "Single-ply" | "Multi-ply";
 export type Event = "S" | "B" | "D" | "SB" | "SD" | "BD" | "SBD";
 export type Flight = "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M" | "N" | "O" | "P";
