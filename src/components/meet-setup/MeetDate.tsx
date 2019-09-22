@@ -21,6 +21,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import DatePicker from "react-datepicker";
+import { registerLocale } from "react-datepicker";
+import { FormattedMessage } from "react-intl";
 
 import Form from "react-bootstrap/Form";
 import FormGroup from "react-bootstrap/FormGroup";
@@ -29,10 +31,18 @@ import { setMeetDate } from "../../actions/meetSetupActions";
 import { iso8601ToLocalDate, localDateToIso8601 } from "../../logic/date";
 
 import { GlobalState } from "../../types/stateTypes";
+import { Language } from "../../types/dataTypes";
 import { Dispatch } from "redux";
+
+// The react-datepicker gets locale information from the "date-fns" package.
+// In order for it to understand what our Languages are, we have to register
+// those locales. The react-datepicker provides a helper function to do this.
+import eo from "date-fns/locale/eo";
+registerLocale("eo", eo);
 
 interface StateProps {
   date: string;
+  language: Language;
 }
 
 interface DispatchProps {
@@ -48,9 +58,17 @@ class MeetDate extends React.Component<Props> {
 
     return (
       <FormGroup>
-        <Form.Label>Start Date</Form.Label>
-        <div>
-          <DatePicker dateFormat="yyyy-MM-dd" selected={initialDate} onChange={this.props.setMeetDate} />
+        <Form.Label>
+          <FormattedMessage id="meet-setup.start-date" defaultMessage="Start Date" />
+        </Form.Label>
+        <div style={{ textAlign: "center" }}>
+          <DatePicker
+            dateFormat="yyyy-MM-dd"
+            selected={initialDate}
+            onChange={this.props.setMeetDate}
+            inline
+            locale={this.props.language}
+          />
         </div>
       </FormGroup>
     );
@@ -58,7 +76,8 @@ class MeetDate extends React.Component<Props> {
 }
 
 const mapStateToProps = (state: GlobalState): StateProps => ({
-  date: state.meet.date
+  date: state.meet.date,
+  language: state.language
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
