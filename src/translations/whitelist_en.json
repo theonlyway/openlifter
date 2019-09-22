@@ -53,9 +53,17 @@
   "nav.lifting",
   "nav.results",
   "nav.debug",
+  "registration.button-new-lifter",
   "registration.button-download-template",
   "registration.button-export-to-csv",
   "registration.button-overwrite-from-csv",
   "registration.button-append-from-csv",
-  "home.new-meet-button"
+  "home.button-new-meet",
+  "home.button-load-from-file",
+  "home.button-save-tofile",
+  "home.button-report-issue",
+  "home.button-support",
+  "home.button-source",
+  "home.button-credits",
+  "home.version-date"
 ]

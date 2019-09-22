@@ -167,7 +167,7 @@ class HomeContainer extends React.Component<Props, InternalState> {
   render() {
     let newMeetButton = (
       <Button variant="primary" block onClick={this.handleNewClick}>
-        <FormattedMessage id="home.new-meet-button" defaultMessage="New Meet" />
+        <FormattedMessage id="home.button-new-meet" defaultMessage="New Meet" />
       </Button>
     );
 
@@ -259,10 +259,10 @@ class HomeContainer extends React.Component<Props, InternalState> {
               {newMeetButton}
 
               <Button variant="warning" block onClick={this.handleLoadClick}>
-                Load from File
+                <FormattedMessage id="home.button-load-from-file" defaultMessage="Load from File" />
               </Button>
               <Button variant="success" block onClick={this.handleSaveClick}>
-                Save to File
+                <FormattedMessage id="home.button-save-tofile" defaultMessage="Save to File" />
               </Button>
             </div>
           </Col>
@@ -275,22 +275,22 @@ class HomeContainer extends React.Component<Props, InternalState> {
               target="_blank"
             >
               <Button variant="outline-secondary" block style={buttonMargin}>
-                Report an Issue
+                <FormattedMessage id="home.button-report-issue" defaultMessage="Report an Issue" />
               </Button>
             </a>
             <a href="https://www.openlifter.com/support" rel="noopener noreferrer" target="_blank">
               <Button variant="outline-secondary" block style={buttonMargin}>
-                Official Support
+                <FormattedMessage id="home.button-support" defaultMessage="Official Support" />
               </Button>
             </a>
             <a href="https://gitlab.com/openpowerlifting/openlifter" rel="noopener noreferrer" target="_blank">
               <Button variant="outline-secondary" block style={buttonMargin}>
-                Full Source Code
+                <FormattedMessage id="home.button-source" defaultMessage="Full Source Code" />
               </Button>
             </a>
             <LinkContainer to="/about">
               <Button variant="outline-secondary" block style={buttonMargin}>
-                Credits and License
+                <FormattedMessage id="home.button-credits" defaultMessage="Credits and License" />
               </Button>
             </LinkContainer>
           </Col>
@@ -299,7 +299,14 @@ class HomeContainer extends React.Component<Props, InternalState> {
         <Row>
           <Col md={12} style={{ textAlign: "center", marginTop: "2em" }}>
             <h3>
-              Version {releaseVersion}, {releaseDate}.
+              <FormattedMessage
+                id="home.version-date"
+                defaultMessage="Version {releaseVersion}, {releaseDate}."
+                values={{
+                  releaseVersion: releaseVersion,
+                  releaseDate: releaseDate
+                }}
+              />
             </h3>
           </Col>
         </Row>
