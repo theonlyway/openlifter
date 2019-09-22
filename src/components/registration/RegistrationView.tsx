@@ -20,6 +20,7 @@
 
 import React from "react";
 import { connect } from "react-redux";
+import { FormattedMessage } from "react-intl";
 
 import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
@@ -185,7 +186,7 @@ class RegistrationView extends React.Component<Props, InternalState> {
           <Card.Header>Auto-Import Registrations</Card.Header>
           <Card.Body>
             <Button variant="info" onClick={this.handleDownloadCsvTemplateClick}>
-              Download Template
+              <FormattedMessage id="registration.button-download-template" defaultMessage="Download Template" />
             </Button>
 
             <Button
@@ -194,15 +195,21 @@ class RegistrationView extends React.Component<Props, InternalState> {
               onClick={this.handleExportCsvClick}
               style={{ marginLeft: "14px" }}
             >
-              Export to CSV
+              <FormattedMessage id="registration.button-export-to-csv" defaultMessage="Export to CSV" />
             </Button>
 
             <ButtonGroup style={{ marginLeft: "14px" }}>
               <Button variant="danger" onClick={this.handleOverwriteClick}>
-                Overwrite Registrations from CSV
+                <FormattedMessage
+                  id="registration.button-overwrite-from-csv"
+                  defaultMessage="Overwrite Registrations from CSV"
+                />
               </Button>
               <Button variant="warning" onClick={this.handleAppendClick}>
-                Append Registrations from CSV
+                <FormattedMessage
+                  id="registration.button-append-from-csv"
+                  defaultMessage="Append Registrations from CSV"
+                />
               </Button>
             </ButtonGroup>
           </Card.Body>

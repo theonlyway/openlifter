@@ -14,6 +14,7 @@
   "sex.m",
   "sex.f",
   "sex.mx",
+  "registration.button-delete",
   "lifting.column-age",
   "lifting.column-b1",
   "lifting.column-b2",
@@ -52,5 +53,9 @@
   "nav.lifting",
   "nav.results",
   "nav.debug",
+  "registration.button-download-template",
+  "registration.button-export-to-csv",
+  "registration.button-overwrite-from-csv",
+  "registration.button-append-from-csv",
   "home.new-meet-button"
 ]

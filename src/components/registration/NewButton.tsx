@@ -20,6 +20,7 @@
 
 import React from "react";
 import { connect } from "react-redux";
+import { FormattedMessage } from "react-intl";
 
 import Button from "react-bootstrap/Button";
 
@@ -47,7 +48,7 @@ class NewButton extends React.Component<Props> {
   render() {
     return (
       <Button onClick={this.handleClick} variant="primary" size="lg" block>
-        New Lifter
+        <FormattedMessage id="registration.button-new-lifter" defaultMessage="New Lifter" />
       </Button>
     );
   }

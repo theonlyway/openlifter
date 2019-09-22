@@ -53,6 +53,11 @@ const sex = [
   { id: "sex.mx", defaultMessage: "Mx" },
 ];
 
+// Strings for the Registration page.
+const registration = [
+  { id: "registration.button-delete", defaultMessage: "Delete" },
+];
+
 // Strings for the Lifting page.
 const lifting = [
   { id: "lifting.column-age", defaultMessage: "Age" },
@@ -85,4 +90,4 @@ const lifting = [
 ];
 /* eslint-enable */
 
-exports.strings = Array.prototype.concat(equipment, event, sex, lifting);
+exports.strings = Array.prototype.concat(equipment, event, sex, registration, lifting);

@@ -50,6 +50,12 @@
   "nav.registration": "Registriĝo",
   "nav.results": "Rezultoj",
   "nav.weigh-ins": "Komencpezoj",
+  "registration.button-append-from-csv": "Alpendigu registriĝaĵojn el CSV",
+  "registration.button-delete": "Forviŝu",
+  "registration.button-download-template": "Elŝutu ŝablonon",
+  "registration.button-export-to-csv": "Eksportu en CSV",
+  "registration.button-new-lifter": "Alpendigu novan konkurencanton",
+  "registration.button-overwrite-from-csv": "Superskribu registriĝaron laŭ CSV",
   "sex.f": "Ŝi",
   "sex.m": "Li",
   "sex.mx": "Ri"

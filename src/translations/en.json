@@ -50,6 +50,12 @@
   "nav.registration": "Registration",
   "nav.results": "Results",
   "nav.weigh-ins": "Weigh-ins",
+  "registration.button-append-from-csv": "Append Registrations from CSV",
+  "registration.button-delete": "Delete",
+  "registration.button-download-template": "Download Template",
+  "registration.button-export-to-csv": "Export to CSV",
+  "registration.button-new-lifter": "New Lifter",
+  "registration.button-overwrite-from-csv": "Overwrite Registrations from CSV",
   "sex.f": "F",
   "sex.m": "M",
   "sex.mx": "Mx"

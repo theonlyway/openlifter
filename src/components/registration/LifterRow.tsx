@@ -33,6 +33,7 @@ import Row from "react-bootstrap/Row";
 
 import Select from "react-select";
 
+import LocalizedString from "../translations/LocalizedString";
 import ValidatedInput from "../ValidatedInput";
 
 import { validateIso8601Date } from "../../validation/iso8601Date";
@@ -280,7 +281,7 @@ class LifterRow extends React.Component<Props, State> {
         <Card.Header style={{ display: "flex" }}>
           <Form.Control type="text" placeholder="Name" defaultValue={entry.name} onBlur={this.updateRegistrationName} />
           <Button onClick={this.deleteRegistrationClick} variant="danger" style={{ marginLeft: "15px" }}>
-            Delete
+            <LocalizedString id="registration.button-delete" />
           </Button>
         </Card.Header>
         <Card.Body>
