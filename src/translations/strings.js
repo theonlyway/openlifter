@@ -31,6 +31,10 @@ let strings = new Array();
 // Generic strings for common nouns that aren't really particular to a context.
 strings = strings.concat([
   { id: "common.age", defaultMessage: "Age" },
+  { id: "common.country", defaultMessage: "Country" },
+  { id: "common.federation", defaultMessage: "Federation" },
+  { id: "common.kilograms", defaultMessage: "Kilograms" },
+  { id: "common.pounds", defaultMessage: "Pounds" },
 ]);
 
 // Strings for the Equipment type.
@@ -58,6 +62,13 @@ strings = strings.concat([
   { id: "sex.m", defaultMessage: "M" },
   { id: "sex.f", defaultMessage: "F" },
   { id: "sex.mx", defaultMessage: "Mx" },
+]);
+
+// Strings for the Meet Setup page.
+strings = strings.concat([
+  { id: "meet-setup.city-town", defaultMessage: "City/Town" },
+  { id: "meet-setup.meet-name", defaultMessage: "Meet Name" },
+  { id: "meet-setup.state-province", defaultMessage: "State/Province" },
 ]);
 
 // Strings for the Registration page.

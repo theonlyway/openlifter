@@ -18,6 +18,7 @@
 
 import React, { FormEvent } from "react";
 import { connect } from "react-redux";
+import { FormattedMessage } from "react-intl";
 
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
@@ -38,16 +39,18 @@ import WeightClassesSelect from "./WeightClassesSelect";
 import BarAndCollarsWeightKg from "./BarAndCollarsWeightKg";
 import Plates from "./Plates";
 
+import { getString } from "../../logic/strings";
 import { updateMeet, setInKg } from "../../actions/meetSetupActions";
 
 import { GlobalState, MeetState } from "../../types/stateTypes";
 import { Dispatch } from "redux";
 import { FormControlTypeHack, assertString, assertFormula, assertAgeCoefficients } from "../../types/utils";
-import { AgeCoefficients, Formula, Validation } from "../../types/dataTypes";
+import { AgeCoefficients, Formula, Language, Validation } from "../../types/dataTypes";
 
 interface StateProps {
   meet: MeetState;
   masterKey: string; // Used to force-update rules components on Auto-Fill.
+  language: Language;
 }
 
 interface DispatchProps {
@@ -95,49 +98,61 @@ class MeetSetup extends React.Component<Props> {
   render() {
     // This is used as a key to force unit-dependent components to re-initialize state.
     const inKg = String(this.props.meet.inKg);
+    const language = this.props.language;
+
+    const stringMeetName = getString("meet-setup.meet-name", language);
+    const stringCountry = getString("common.country", language);
+    const stringStateProvince = getString("meet-setup.state-province", language);
+    const stringCityTown = getString("meet-setup.city-town", language);
+    const stringFederation = getString("common.federation", language);
+
+    const stringKilograms = getString("common.kilograms", language);
+    const stringPounds = getString("common.pounds", language);
 
     return (
       <Container>
         <Row>
           <Col md={4}>
             <Card border="info">
-              <Card.Header>Sanction Information</Card.Header>
+              <Card.Header>
+                <FormattedMessage id="meet-setup.header-sanction-info" defaultMessage="Sanction Information" />
+              </Card.Header>
               <Card.Body>
                 <ValidatedInput
-                  label="Meet Name"
-                  placeholder="Meet Name"
+                  label={stringMeetName}
+                  placeholder={stringMeetName}
                   initialValue={this.props.meet.name}
                   validate={this.validateRequiredText}
                   onSuccess={this.props.setMeetName}
                   keepMargin={true}
                 />
                 <ValidatedInput
-                  label="Country"
-                  placeholder="Country"
+                  label={stringCountry}
+                  placeholder={stringCountry}
                   initialValue={this.props.meet.country}
                   validate={this.validateRequiredText}
                   onSuccess={this.props.setCountry}
                   keepMargin={true}
                 />
                 <ValidatedInput
-                  label="State/Province"
-                  placeholder="State/Province"
+                  label={stringStateProvince}
+                  placeholder={stringStateProvince}
                   initialValue={this.props.meet.state}
                   validate={this.validateRequiredText}
                   onSuccess={this.props.setState}
                   keepMargin={true}
                 />
                 <ValidatedInput
-                  label="City/Town"
-                  placeholder="City/Town"
+                  label={stringCityTown}
+                  placeholder={stringCityTown}
                   initialValue={this.props.meet.city}
                   validate={this.validateRequiredText}
                   onSuccess={this.props.setCity}
                   keepMargin={true}
                 />
                 <ValidatedInput
-                  label="Federation"
-                  placeholder="Federation"
+                  label={stringFederation}
+                  placeholder={stringFederation}
                   initialValue={this.props.meet.federation}
                   validate={this.validateRequiredText}
                   onSuccess={this.props.setFederation}
@@ -152,7 +167,9 @@ class MeetSetup extends React.Component<Props> {
 
           <Col md={4}>
             <Card>
-              <Card.Header>Competition Rules</Card.Header>
+              <Card.Header>
+                <FormattedMessage id="meet-setup.header-rules" defaultMessage="Competition Rules" />
+              </Card.Header>
               <Card.Body>
                 <AutoFillRules />
                 <DivisionSelect key={this.props.masterKey} />
@@ -239,7 +256,9 @@ class MeetSetup extends React.Component<Props> {
 
           <Col md={4}>
             <Card border="info">
-              <Card.Header>Weights and Loading Setup</Card.Header>
+              <Card.Header>
+                <FormattedMessage id="meet-setup.header-loading" defaultMessage="Weights and Loading" />
+              </Card.Header>
               <Card.Body>
                 <FormGroup>
                   <Form.Label>In what units are attempts and bodyweights?</Form.Label>
@@ -250,10 +269,10 @@ class MeetSetup extends React.Component<Props> {
                     className="custom-select"
                   >
                     <option key="Yes" value="Yes">
-                      Kilograms
+                      {stringKilograms}
                     </option>
                     <option key="No" value="No">
-                      Pounds
+                      {stringPounds}
                     </option>
                   </FormControl>
                 </FormGroup>
@@ -285,7 +304,8 @@ class MeetSetup extends React.Component<Props> {
 
 const mapStateToProps = (state: GlobalState): StateProps => ({
   meet: state.meet,
-  masterKey: state.meet.divisions.join()
+  masterKey: state.meet.divisions.join(),
+  language: state.language
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
