@@ -23,9 +23,12 @@ import Form from "react-bootstrap/Form";
 
 import CreatableSelect from "react-select/lib/Creatable";
 
+import { getString } from "../../logic/strings";
+import { displayWeight } from "../../logic/units";
+
 import { setWeightClasses } from "../../actions/meetSetupActions";
 
-import { Sex } from "../../types/dataTypes";
+import { Language, Sex } from "../../types/dataTypes";
 import { GlobalState } from "../../types/stateTypes";
 import { checkExhausted } from "../../types/utils";
 import { Dispatch } from "redux";
@@ -42,7 +45,7 @@ type OptionType = {
 
 const createOption = (label: string): OptionType => ({
   label,
-  value: label
+  value: label.replace(",", ".")
 });
 
 interface OwnProps {
@@ -52,6 +55,7 @@ interface OwnProps {
 
 interface StateProps {
   classes: Array<number>;
+  language: Language;
 }
 
 interface DispatchProps {
@@ -71,8 +75,8 @@ class WeightClassesSelect extends React.Component<Props, InternalState> {
 
     let objarray: Array<OptionType> = [];
     for (let i = 0; i < props.classes.length; i++) {
-      const c = String(props.classes[i]);
-      objarray.push({ value: c, label: c });
+      const c = displayWeight(props.classes[i], props.language);
+      objarray.push(createOption(c));
     }
 
     this.state = {
@@ -96,7 +100,7 @@ class WeightClassesSelect extends React.Component<Props, InternalState> {
     // The classes changed: save to Redux.
     let classes = [];
     for (let i = 0; i < objarray.length; i++) {
-      classes.push(Number(objarray[i].label));
+      classes.push(Number(objarray[i].value));
     }
     this.props.setWeightClasses(this.props.sex, classes);
   };
@@ -118,7 +122,7 @@ class WeightClassesSelect extends React.Component<Props, InternalState> {
     const { inputValue, value } = this.state;
     if (!inputValue) return;
     if (event.key === "Enter" || event.key === "Tab") {
-      const asNumber = Number(inputValue);
+      const asNumber = Number(inputValue.replace(",", "."));
 
       // Disallow creating non-numeric inputs.
       if (isNaN(asNumber) || !isFinite(asNumber)) {
@@ -160,6 +164,8 @@ class WeightClassesSelect extends React.Component<Props, InternalState> {
 
   render() {
     const { inputValue, value } = this.state;
+    const placeholder = getString("meet-setup.placeholder-classes", this.props.language);
+
     return (
       <Form.Group>
         <Form.Label>{this.props.label}</Form.Label>
@@ -171,7 +177,7 @@ class WeightClassesSelect extends React.Component<Props, InternalState> {
           onChange={this.handleChange}
           onInputChange={this.handleInputChange}
           onKeyDown={this.handleKeyDown}
-          placeholder="Type a weight class and press Enter..."
+          placeholder={placeholder}
           value={value}
         />
       </Form.Group>
@@ -195,7 +201,8 @@ const selectClassesBySex = (sex: Sex, state: GlobalState): Array<number> => {
 
 const mapStateToProps = (state: GlobalState, ownProps: OwnProps): StateProps => {
   return {
-    classes: selectClassesBySex(ownProps.sex, state)
+    classes: selectClassesBySex(ownProps.sex, state),
+    language: state.language
   };
 };
 

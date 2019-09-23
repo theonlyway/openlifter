@@ -18,14 +18,18 @@
 
 import React from "react";
 import { connect } from "react-redux";
+import { FormattedMessage } from "react-intl";
 
 import Form from "react-bootstrap/Form";
 
 import CreatableSelect from "react-select/lib/Creatable";
 
+import { getString } from "../../logic/strings";
+
 import { setDivisions } from "../../actions/meetSetupActions";
 
 import { GlobalState } from "../../types/stateTypes";
+import { Language } from "../../types/dataTypes";
 import { Dispatch } from "redux";
 import { ActionMeta, ValueType } from "react-select/lib/types";
 
@@ -45,6 +49,7 @@ const createOption = (label: string): OptionType => ({
 
 interface StateProps {
   divisions: Array<string>;
+  language: Language;
 }
 
 interface DispatchProps {
@@ -135,9 +140,12 @@ class DivisionSelect extends React.Component<Props, InternalState> {
 
   render() {
     const { inputValue, value } = this.state;
+    const placeholder = getString("meet-setup.divisions-placeholder", this.props.language);
     return (
       <Form.Group>
-        <Form.Label>Divisions (prefer short codes!)</Form.Label>
+        <Form.Label>
+          <FormattedMessage id="meet-setup.divisions-label" defaultMessage="Divisions (prefer short codes!)" />
+        </Form.Label>
         <CreatableSelect
           components={components}
           inputValue={inputValue}
@@ -146,7 +154,7 @@ class DivisionSelect extends React.Component<Props, InternalState> {
           onChange={this.handleChange}
           onInputChange={this.handleInputChange}
           onKeyDown={this.handleKeyDown}
-          placeholder="Type a division and press Enter..."
+          placeholder={placeholder}
           value={value}
         />
       </Form.Group>
@@ -155,7 +163,8 @@ class DivisionSelect extends React.Component<Props, InternalState> {
 }
 
 const mapStateToProps = (state: GlobalState): StateProps => ({
-  divisions: state.meet.divisions
+  divisions: state.meet.divisions,
+  language: state.language
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {

@@ -101,13 +101,28 @@ class MeetSetup extends React.Component<Props> {
     const language = this.props.language;
 
     const stringMeetName = getString("meet-setup.meet-name", language);
+    const stringFederation = getString("common.federation", language);
     const stringCountry = getString("common.country", language);
     const stringStateProvince = getString("meet-setup.state-province", language);
     const stringCityTown = getString("meet-setup.city-town", language);
-    const stringFederation = getString("common.federation", language);
 
     const stringKilograms = getString("common.kilograms", language);
     const stringPounds = getString("common.pounds", language);
+
+    const stringMensClasses = getString("meet-setup.label-classes-men", language);
+    const stringWomensClasses = getString("meet-setup.label-classes-women", language);
+    const stringMxClasses = getString("meet-setup.label-classes-mx", language);
+
+    const stringAH = getString("formula.ah", language);
+    const stringBodyweightMultiple = getString("formula.bodyweight-multiple", language);
+    const stringDots = getString("formula.dots", language);
+    const stringGlossbrenner = getString("formula.glossbrenner", language);
+    const stringIPFPoints = getString("formula.ipf-points", language);
+    const stringNASAPoints = getString("formula.nasa-points", language);
+    const stringReshel = getString("formula.reshel", language);
+    const stringSchwartzMalone = getString("formula.schwartz-malone", language);
+    const stringTotal = getString("formula.total", language);
+    const stringWilks = getString("formula.wilks", language);
 
     return (
       <Container>
@@ -124,6 +139,14 @@ class MeetSetup extends React.Component<Props> {
                   initialValue={this.props.meet.name}
                   validate={this.validateRequiredText}
                   onSuccess={this.props.setMeetName}
+                  keepMargin={true}
+                />
+                <ValidatedInput
+                  label={stringFederation}
+                  placeholder={stringFederation}
+                  initialValue={this.props.meet.federation}
+                  validate={this.validateRequiredText}
+                  onSuccess={this.props.setFederation}
                   keepMargin={true}
                 />
                 <ValidatedInput
@@ -150,14 +173,6 @@ class MeetSetup extends React.Component<Props> {
                   onSuccess={this.props.setCity}
                   keepMargin={true}
                 />
-                <ValidatedInput
-                  label={stringFederation}
-                  placeholder={stringFederation}
-                  initialValue={this.props.meet.federation}
-                  validate={this.validateRequiredText}
-                  onSuccess={this.props.setFederation}
-                  keepMargin={true}
-                />
                 <MeetDate />
                 <MeetLength />
                 <PlatformCounts />
@@ -173,40 +188,30 @@ class MeetSetup extends React.Component<Props> {
               <Card.Body>
                 <AutoFillRules />
                 <DivisionSelect key={this.props.masterKey} />
-                <WeightClassesSelect
-                  sex="M"
-                  label="Men's Weight Classes (kg), omit SHW"
-                  key={this.props.masterKey + "-M"}
-                />
-                <WeightClassesSelect
-                  sex="F"
-                  label="Women's Weight Classes (kg), omit SHW"
-                  key={this.props.masterKey + "-F"}
-                />
-                <WeightClassesSelect
-                  sex="Mx"
-                  label="Mx Weight Classes (kg), omit SHW"
-                  key={this.props.masterKey + "-Mx"}
-                />
+                <WeightClassesSelect sex="M" label={stringMensClasses} key={this.props.masterKey + "-M"} />
+                <WeightClassesSelect sex="F" label={stringWomensClasses} key={this.props.masterKey + "-F"} />
+                <WeightClassesSelect sex="Mx" label={stringMxClasses} key={this.props.masterKey + "-Mx"} />
 
                 <FormGroup key={this.props.masterKey + "-formula"}>
-                  <Form.Label>Best Lifter Formula</Form.Label>
+                  <Form.Label>
+                    <FormattedMessage id="meet-setup.formula" defaultMessage="Best Lifter Formula" />
+                  </Form.Label>
                   <FormControl
                     as="select"
                     defaultValue={this.props.meet.formula}
                     onChange={this.props.setFormula}
                     className="custom-select"
                   >
-                    <option value="AH">AH (Haleczko)</option>
-                    <option value="Bodyweight Multiple">Bodyweight Multiple</option>
-                    <option value="Dots">Dots</option>
-                    <option value="Glossbrenner">Glossbrenner</option>
-                    <option value="IPF Points">IPF Points</option>
-                    <option value="NASA Points">NASA Points</option>
-                    <option value="Reshel">Reshel</option>
-                    <option value="Schwartz/Malone">Schwartz/Malone</option>
-                    <option value="Total">Total</option>
-                    <option value="Wilks">Wilks</option>
+                    <option value="AH">{stringAH}</option>
+                    <option value="Bodyweight Multiple">{stringBodyweightMultiple}</option>
+                    <option value="Dots">{stringDots}</option>
+                    <option value="Glossbrenner">{stringGlossbrenner}</option>
+                    <option value="IPF Points">{stringIPFPoints}</option>
+                    <option value="NASA Points">{stringNASAPoints}</option>
+                    <option value="Reshel">{stringReshel}</option>
+                    <option value="Schwartz/Malone">{stringSchwartzMalone}</option>
+                    <option value="Total">{stringTotal}</option>
+                    <option value="Wilks">{stringWilks}</option>
                   </FormControl>
                 </FormGroup>
 

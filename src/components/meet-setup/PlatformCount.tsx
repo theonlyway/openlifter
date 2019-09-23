@@ -18,6 +18,7 @@
 
 import React, { FormEvent } from "react";
 import { connect } from "react-redux";
+import { FormattedMessage } from "react-intl";
 
 import Form from "react-bootstrap/Form";
 
@@ -82,12 +83,19 @@ class PlatformCount extends React.Component<Props, InternalState> {
 
   render() {
     const { day } = this.props;
-    const label = "Platforms on Day " + day;
     const validation = this.validate();
 
     return (
       <Form.Group>
-        <Form.Label>{label}</Form.Label>
+        <Form.Label>
+          <FormattedMessage
+            id="meet-setup.platforms-on-day"
+            defaultMessage="Platforms on Day {number}"
+            values={{
+              number: day
+            }}
+          />
+        </Form.Label>
         <Form.Control
           type="number"
           min={1}

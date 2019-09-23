@@ -20,20 +20,25 @@
 
 import React, { FormEvent } from "react";
 import { connect } from "react-redux";
+import { FormattedMessage } from "react-intl";
 
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import FormControl from "react-bootstrap/FormControl";
 import FormGroup from "react-bootstrap/FormGroup";
 
+import { getString } from "../../logic/strings";
+
 import { updateMeet } from "../../actions/meetSetupActions";
 
 import { GlobalState, MeetState } from "../../types/stateTypes";
+import { Language } from "../../types/dataTypes";
 import { checkExhausted, FormControlTypeHack } from "../../types/utils";
 import { Dispatch } from "redux";
 
 interface StateProps {
   federation: string;
+  language: Language;
 }
 
 interface DispatchProps {
@@ -985,10 +990,24 @@ class AutoFillRules extends React.Component<Props, InternalState> {
   };
 
   render() {
+    const lang = this.props.language;
+
+    const stringTraditional = getString("meet-setup.rules-traditional", lang);
+    const stringGPC = getString("meet-setup.rules-gpc", lang);
+    const stringSPF = getString("meet-setup.rules-spf", lang);
+    const stringUPA = getString("meet-setup.rules-upa", lang);
+    const stringUSAPL = getString("meet-setup.rules-usapl", lang);
+    const stringUSPA = getString("meet-setup.rules-uspa", lang);
+    const stringWABDL = getString("meet-setup.rules-wabdl", lang);
+    const stringWPC = getString("meet-setup.rules-wpc", lang);
+    const stringWRPF = getString("meet-setup.rules-wrpf", lang);
+
     return (
       <div>
         <FormGroup>
-          <Form.Label>Auto-Fill Rules</Form.Label>
+          <Form.Label>
+            <FormattedMessage id="meet-setup.label-auto-fill-rules" defaultMessage="Auto-Fill Rules" />
+          </Form.Label>
           <div>
             <FormControl
               as="select"
@@ -998,36 +1017,36 @@ class AutoFillRules extends React.Component<Props, InternalState> {
               className="custom-select"
             >
               <option key="Traditional" value="Traditional">
-                Traditional Rules
+                {stringTraditional}
               </option>
               <option key="GPC" value="GPC">
-                GPC Rules
+                {stringGPC}
               </option>
               <option key="SPF" value="SPF">
-                SPF Rules
+                {stringSPF}
               </option>
               <option key="UPA" value="UPA">
-                UPA Rules
+                {stringUPA}
               </option>
               <option key="USAPL" value="USAPL">
-                USAPL Rules
+                {stringUSAPL}
               </option>
               <option key="USPA" value="USPA">
-                USPA Rules
+                {stringUSPA}
               </option>
               <option key="WABDL" value="WABDL">
-                WABDL Rules
+                {stringWABDL}
               </option>
               <option key="WPC" value="WPC">
-                WPC Rules
+                {stringWPC}
               </option>
               <option key="WRPF" value="WRPF">
-                WRPF Rules
+                {stringWRPF}
               </option>
             </FormControl>
 
             <Button onClick={this.handleClick} variant="primary" style={{ width: "25%", marginLeft: "5%" }}>
-              Auto-Fill
+              <FormattedMessage id="meet-setup.button-autofill" defaultMessage="Auto-Fill" />
             </Button>
           </div>
         </FormGroup>
@@ -1037,7 +1056,8 @@ class AutoFillRules extends React.Component<Props, InternalState> {
 }
 
 const mapStateToProps = (state: GlobalState): StateProps => ({
-  federation: state.meet.federation
+  federation: state.meet.federation,
+  language: state.language
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {

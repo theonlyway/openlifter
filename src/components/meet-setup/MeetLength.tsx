@@ -18,6 +18,7 @@
 
 import React from "react";
 import { connect } from "react-redux";
+import { FormattedMessage } from "react-intl";
 
 import Form from "react-bootstrap/Form";
 
@@ -85,7 +86,9 @@ class MeetLength extends React.Component<Props, InternalState> {
 
     return (
       <Form.Group>
-        <Form.Label>Days of Lifting</Form.Label>
+        <Form.Label>
+          <FormattedMessage id="meet-setup.length-days" defaultMessage="Days of Lifting" />
+        </Form.Label>
         <Form.Control
           type="number"
           min={1}

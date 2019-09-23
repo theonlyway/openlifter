@@ -57,6 +57,20 @@ strings = strings.concat([
   { id: "event.sbd", defaultMessage: "SBD" },
 ]);
 
+// Strings for the Formula type.
+strings = strings.concat([
+  { id: "formula.ah", defaultMessage: "AH (Haleczko)" },
+  { id: "formula.bodyweight-multiple", defaultMessage: "Bodyweight Multiple" },
+  { id: "formula.dots", defaultMessage: "Dots" },
+  { id: "formula.glossbrenner", defaultMessage: "Glossbrenner" },
+  { id: "formula.ipf-points", defaultMessage: "IPF Points" },
+  { id: "formula.nasa-points", defaultMessage: "NASA Points" },
+  { id: "formula.reshel", defaultMessage: "Reshel" },
+  { id: "formula.schwartz-malone", defaultMessage: "Schwartz/Malone" },
+  { id: "formula.total", defaultMessage: "Total" },
+  { id: "formula.wilks", defaultMessage: "Wilks" },
+]);
+
 // Strings for the Sex type.
 strings = strings.concat([
   { id: "sex.m", defaultMessage: "M" },
@@ -67,7 +81,21 @@ strings = strings.concat([
 // Strings for the Meet Setup page.
 strings = strings.concat([
   { id: "meet-setup.city-town", defaultMessage: "City/Town" },
+  { id: "meet-setup.divisions-placeholder", defaultMessage: "Type a division and press Enter..." },
+  { id: "meet-setup.label-classes-men", defaultMessage: "Men's Weight Classes (kg), omit SHW" },
+  { id: "meet-setup.label-classes-mx", defaultMessage: "Mx Weight Classes (kg), omit SHW" },
+  { id: "meet-setup.label-classes-women", defaultMessage: "Women's Weight Classes (kg), omit SHW" },
   { id: "meet-setup.meet-name", defaultMessage: "Meet Name" },
+  { id: "meet-setup.placeholder-classes", defaultMessage: "Type a weight class and press Enter..." },
+  { id: "meet-setup.rules-gpc", defaultMessage: "GPC Rules" },
+  { id: "meet-setup.rules-spf", defaultMessage: "SPF Rules" },
+  { id: "meet-setup.rules-traditional", defaultMessage: "Traditional Rules" },
+  { id: "meet-setup.rules-upa", defaultMessage: "UPA Rules" },
+  { id: "meet-setup.rules-usapl", defaultMessage: "USAPL Rules" },
+  { id: "meet-setup.rules-uspa", defaultMessage: "USPA Rules" },
+  { id: "meet-setup.rules-wabdl", defaultMessage: "WABDL Rules" },
+  { id: "meet-setup.rules-wpc", defaultMessage: "WPC Rules" },
+  { id: "meet-setup.rules-wrpf", defaultMessage: "WRPF Rules" },
   { id: "meet-setup.state-province", defaultMessage: "State/Province" },
 ]);
 
