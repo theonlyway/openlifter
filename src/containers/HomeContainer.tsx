@@ -158,7 +158,11 @@ class HomeContainer extends React.Component<Props, InternalState> {
     return (
       <LinkContainer to="/meet-setup">
         <Button variant="primary" block>
-          Continue {meetname}
+          <FormattedMessage
+            id="home.button-continue"
+            defaultMessage="Continue {meetName}"
+            values={{ meetName: meetname }}
+          />
         </Button>
       </LinkContainer>
     );

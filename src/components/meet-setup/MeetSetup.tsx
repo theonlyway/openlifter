@@ -69,15 +69,6 @@ interface DispatchProps {
 
 type Props = StateProps & DispatchProps;
 
-const yesNoBooleanOptions = [
-  <option key="Yes" value="Yes">
-    Yes
-  </option>,
-  <option key="No" value="No">
-    No
-  </option>
-];
-
 // The widgets speak strings, but the state speaks boolean.
 const yesNoToBoolean = (yesno: string): boolean => {
   if (yesno === "Yes") return true;
@@ -123,6 +114,10 @@ class MeetSetup extends React.Component<Props> {
     const stringSchwartzMalone = getString("formula.schwartz-malone", language);
     const stringTotal = getString("formula.total", language);
     const stringWilks = getString("formula.wilks", language);
+    const stringNone = getString("age-coefficients.none", language);
+    const stringFosterMcCulloch = getString("age-coefficients.foster-mcculloch", language);
+    const stringNo = getString("common.response-no", language);
+    const stringYes = getString("common.response-yes", language);
 
     return (
       <Container>
@@ -216,7 +211,12 @@ class MeetSetup extends React.Component<Props> {
                 </FormGroup>
 
                 <FormGroup key={this.props.masterKey + "-ageCoefficients"}>
-                  <Form.Label>Age Coefficients for Best Juniors/Masters Lifter</Form.Label>
+                  <Form.Label>
+                    <FormattedMessage
+                      id="meet-setup.age-coefficients"
+                      defaultMessage="Age Coefficients for Best Juniors/Masters Lifter"
+                    />
+                  </Form.Label>
                   <FormControl
                     as="select"
                     defaultValue={this.props.meet.ageCoefficients}
@@ -224,35 +224,55 @@ class MeetSetup extends React.Component<Props> {
                     className="custom-select"
                   >
                     <option key="None" value="None">
-                      None
+                      {stringNone}
                     </option>
                     <option key="FosterMcCulloch" value="FosterMcCulloch">
-                      Foster-McCulloch
+                      {stringFosterMcCulloch}
                     </option>
                   </FormControl>
                 </FormGroup>
 
                 <FormGroup key={this.props.masterKey + "-sleeves-wraps"}>
-                  <Form.Label>Should Sleeves and Wraps be combined for placing?</Form.Label>
+                  <Form.Label>
+                    <FormattedMessage
+                      id="meet-setup.combine-sleeves-wraps"
+                      defaultMessage="Should Sleeves and Wraps be combined for placing?"
+                    />
+                  </Form.Label>
                   <FormControl
                     as="select"
                     defaultValue={yesNoFromBoolean(this.props.meet.combineSleevesAndWraps)}
                     onChange={this.props.setCombineSleevesAndWraps}
                     className="custom-select"
                   >
-                    {yesNoBooleanOptions}
+                    <option key="Yes" value="Yes">
+                      {stringYes}
+                    </option>
+                    <option key="No" value="No">
+                      {stringNo}
+                    </option>
                   </FormControl>
                 </FormGroup>
 
                 <FormGroup key={this.props.masterKey + "-4th-attempts"}>
-                  <Form.Label>Can lifters take 4th attempts for records?</Form.Label>
+                  <Form.Label>
+                    <FormattedMessage
+                      id="meet-setup.allow-4th-attempts"
+                      defaultMessage="Can lifters take 4th attempts for records?"
+                    />
+                  </Form.Label>
                   <FormControl
                     as="select"
                     defaultValue={yesNoFromBoolean(this.props.meet.allow4thAttempts)}
                     onChange={this.props.setAllow4thAttempts}
                     className="custom-select"
                   >
-                    {yesNoBooleanOptions}
+                    <option key="Yes" value="Yes">
+                      {stringYes}
+                    </option>
+                    <option key="No" value="No">
+                      {stringNo}
+                    </option>
                   </FormControl>
                 </FormGroup>
               </Card.Body>
@@ -266,7 +286,12 @@ class MeetSetup extends React.Component<Props> {
               </Card.Header>
               <Card.Body>
                 <FormGroup>
-                  <Form.Label>In what units are attempts and bodyweights?</Form.Label>
+                  <Form.Label>
+                    <FormattedMessage
+                      id="meet-setup.units"
+                      defaultMessage="In what units are attempts and bodyweights?"
+                    />
+                  </Form.Label>
                   <FormControl
                     as="select"
                     defaultValue={yesNoFromBoolean(this.props.meet.inKg)}
@@ -290,7 +315,12 @@ class MeetSetup extends React.Component<Props> {
                     onChange={this.props.setShowAlternateUnits}
                     className="custom-select"
                   >
-                    {yesNoBooleanOptions}
+                    <option key="Yes" value="Yes">
+                      {stringYes}
+                    </option>
+                    <option key="No" value="No">
+                      {stringNo}
+                    </option>
                   </FormControl>
                 </FormGroup>
 

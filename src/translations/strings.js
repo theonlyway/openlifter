@@ -34,6 +34,8 @@ strings = strings.concat([
   { id: "common.country", defaultMessage: "Country" },
   { id: "common.federation", defaultMessage: "Federation" },
   { id: "common.kilograms", defaultMessage: "Kilograms" },
+  { id: "common.response-no", defaultMessage: "No" },
+  { id: "common.response-yes", defaultMessage: "Yes" },
   { id: "common.pounds", defaultMessage: "Pounds" },
 ]);
 
@@ -69,6 +71,12 @@ strings = strings.concat([
   { id: "formula.schwartz-malone", defaultMessage: "Schwartz/Malone" },
   { id: "formula.total", defaultMessage: "Total" },
   { id: "formula.wilks", defaultMessage: "Wilks" },
+]);
+
+// Strings for the AgeCoefficients type.
+strings = strings.concat([
+  { id: "age-coefficients.none", defaultMessage: "None" },
+  { id: "age-coefficients.foster-mcculloch", defaultMessage: "Foster-McCulloch" },
 ]);
 
 // Strings for the Sex type.
