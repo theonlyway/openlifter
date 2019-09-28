@@ -22,9 +22,10 @@ import { connect } from "react-redux";
 import Form from "react-bootstrap/Form";
 
 import { setBarAndCollarsWeightKg } from "../../actions/meetSetupActions";
-import { kg2lbs, lbs2kg } from "../../logic/units";
+import { getString } from "../../logic/strings";
+import { displayWeight, kg2lbs, lbs2kg } from "../../logic/units";
 
-import { Lift, Validation } from "../../types/dataTypes";
+import { Language, Lift, Validation } from "../../types/dataTypes";
 import { GlobalState } from "../../types/stateTypes";
 import { assertString, checkExhausted, FormControlTypeHack } from "../../types/utils";
 import { Dispatch } from "redux";
@@ -39,6 +40,7 @@ interface StateProps {
   squatBarAndCollarsWeightKg: number;
   benchBarAndCollarsWeightKg: number;
   deadliftBarAndCollarsWeightKg: number;
+  language: Language;
 }
 
 interface DispatchProps {
@@ -62,7 +64,7 @@ class BarAndCollarsWeightKg extends React.Component<Props, InternalState> {
     const value = this.props.inKg ? weight : kg2lbs(weight);
 
     this.state = {
-      value: String(value)
+      value: displayWeight(value, props.language)
     };
   }
 
@@ -82,7 +84,7 @@ class BarAndCollarsWeightKg extends React.Component<Props, InternalState> {
 
   validate = (): Validation => {
     const { value } = this.state;
-    const asNumber = Number(value);
+    const asNumber = Number(value.replace(",", "."));
 
     if (isNaN(asNumber) || asNumber <= 0 || asNumber < 5) {
       return "error";
@@ -95,7 +97,7 @@ class BarAndCollarsWeightKg extends React.Component<Props, InternalState> {
     if (assertString(value)) {
       this.setState({ value: value }, () => {
         if (this.validate() === "success") {
-          const asNum = Number(value);
+          const asNum = Number(value.replace(",", "."));
           const weight = this.props.inKg ? asNum : lbs2kg(asNum);
           this.props.setBarAndCollarsWeightKg(this.props.lift, weight);
         }
@@ -103,14 +105,26 @@ class BarAndCollarsWeightKg extends React.Component<Props, InternalState> {
     }
   };
 
-  getLiftLabel = (lift: Lift): string => {
+  getLiftLabel = (lift: Lift, inKg: boolean, language: Language): string => {
     switch (lift) {
       case "S":
-        return "Squat";
+        if (inKg) {
+          return getString("meet-setup.bar-weight-squat-kg", language);
+        } else {
+          return getString("meet-setup.bar-weight-squat-lbs", language);
+        }
       case "B":
-        return "Bench";
+        if (inKg) {
+          return getString("meet-setup.bar-weight-bench-kg", language);
+        } else {
+          return getString("meet-setup.bar-weight-bench-lbs", language);
+        }
       case "D":
-        return "Deadlift";
+        if (inKg) {
+          return getString("meet-setup.bar-weight-deadlift-kg", language);
+        } else {
+          return getString("meet-setup.bar-weight-deadlift-lbs", language);
+        }
       default:
         checkExhausted(lift);
         return "";
@@ -119,15 +133,13 @@ class BarAndCollarsWeightKg extends React.Component<Props, InternalState> {
 
   render() {
     const validation: Validation = this.validate();
-    const label =
-      this.getLiftLabel(this.props.lift) + " Bar + Collars weight (" + (this.props.inKg ? "kg" : "lbs") + ")";
+    const label = this.getLiftLabel(this.props.lift, this.props.inKg, this.props.language);
 
     return (
       <Form.Group>
         <Form.Label>{label}</Form.Label>
         <Form.Control
-          type="number"
-          step={2.5}
+          type="input"
           value={this.state.value}
           onChange={this.handleChange}
           isValid={validation === "success"}
@@ -142,7 +154,8 @@ const mapStateToProps = (state: GlobalState): StateProps => ({
   inKg: state.meet.inKg,
   squatBarAndCollarsWeightKg: state.meet.squatBarAndCollarsWeightKg,
   benchBarAndCollarsWeightKg: state.meet.benchBarAndCollarsWeightKg,
-  deadliftBarAndCollarsWeightKg: state.meet.deadliftBarAndCollarsWeightKg
+  deadliftBarAndCollarsWeightKg: state.meet.deadliftBarAndCollarsWeightKg,
+  language: state.language
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {

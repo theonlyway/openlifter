@@ -88,8 +88,16 @@ strings = strings.concat([
 
 // Strings for the Meet Setup page.
 strings = strings.concat([
+  { id: "meet-setup.bar-weight-bench-kg", defaultMessage: "Bench Bar + Collars weight (kg)" },
+  { id: "meet-setup.bar-weight-bench-lbs", defaultMessage: "Bench Bar + Collars weight (lbs)" },
+  { id: "meet-setup.bar-weight-deadlift-kg", defaultMessage: "Deadlift Bar + Collars weight (kg)" },
+  { id: "meet-setup.bar-weight-deadlift-lbs", defaultMessage: "Deadlift Bar + Collars weight (lbs)" },
+  { id: "meet-setup.bar-weight-squat-kg", defaultMessage: "Squat Bar + Collars weight (kg)" },
+  { id: "meet-setup.bar-weight-squat-lbs", defaultMessage: "Squat Bar + Collars weight (lbs)" },
   { id: "meet-setup.city-town", defaultMessage: "City/Town" },
   { id: "meet-setup.divisions-placeholder", defaultMessage: "Type a division and press Enter..." },
+  { id: "meet-setup.label-also-show-kilograms", defaultMessage: "Also show attempts in kilograms?" },
+  { id: "meet-setup.label-also-show-pounds", defaultMessage: "Also show attempts in pounds?" },
   { id: "meet-setup.label-classes-men", defaultMessage: "Men's Weight Classes (kg), omit SHW" },
   { id: "meet-setup.label-classes-mx", defaultMessage: "Mx Weight Classes (kg), omit SHW" },
   { id: "meet-setup.label-classes-women", defaultMessage: "Women's Weight Classes (kg), omit SHW" },

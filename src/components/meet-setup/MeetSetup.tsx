@@ -119,6 +119,9 @@ class MeetSetup extends React.Component<Props> {
     const stringNo = getString("common.response-no", language);
     const stringYes = getString("common.response-yes", language);
 
+    const stringAlsoKilograms = getString("meet-setup.label-also-show-kilograms", language);
+    const stringAlsoPounds = getString("meet-setup.label-also-show-pounds", language);
+
     return (
       <Container>
         <Row>
@@ -308,7 +311,7 @@ class MeetSetup extends React.Component<Props> {
                 </FormGroup>
 
                 <FormGroup>
-                  <Form.Label>Also show attempts in {this.props.meet.inKg ? "pounds" : "kilograms"}?</Form.Label>
+                  <Form.Label>{this.props.meet.inKg ? stringAlsoPounds : stringAlsoKilograms}</Form.Label>
                   <FormControl
                     as="select"
                     defaultValue={yesNoFromBoolean(this.props.meet.showAlternateUnits)}
