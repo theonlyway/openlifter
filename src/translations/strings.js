@@ -103,6 +103,8 @@ strings = strings.concat([
   { id: "meet-setup.label-classes-women", defaultMessage: "Women's Weight Classes (kg), omit SHW" },
   { id: "meet-setup.meet-name", defaultMessage: "Meet Name" },
   { id: "meet-setup.placeholder-classes", defaultMessage: "Type a weight class and press Enter..." },
+  { id: "meet-setup.plates-kg", defaultMessage: "Weight (kg)" },
+  { id: "meet-setup.plates-lbs", defaultMessage: "Weight (lbs)" },
   { id: "meet-setup.rules-gpc", defaultMessage: "GPC Rules" },
   { id: "meet-setup.rules-spf", defaultMessage: "SPF Rules" },
   { id: "meet-setup.rules-traditional", defaultMessage: "Traditional Rules" },

@@ -21,6 +21,7 @@
 
 import React from "react";
 import { connect } from "react-redux";
+import { FormattedMessage } from "react-intl";
 
 import FormControl from "react-bootstrap/FormControl";
 import FormGroup from "react-bootstrap/FormGroup";
@@ -30,9 +31,10 @@ import ColorPicker from "./ColorPicker";
 
 import { setPlateConfig } from "../../actions/meetSetupActions";
 
-import { kg2lbs } from "../../logic/units";
+import { getString } from "../../logic/strings";
+import { displayWeight, kg2lbs } from "../../logic/units";
 
-import { Plate } from "../../types/dataTypes";
+import { Language, Plate } from "../../types/dataTypes";
 import { GlobalState } from "../../types/stateTypes";
 import { Dispatch } from "redux";
 import { FormControlTypeHack, isString } from "../../types/utils";
@@ -41,6 +43,7 @@ import { isNumber } from "util";
 interface StateProps {
   inKg: boolean;
   plates: Array<Plate>;
+  language: Language;
 }
 
 interface DispatchProps {
@@ -93,13 +96,11 @@ class Plates extends React.Component<Props> {
     // The input event value isn't passed by the event, so we assign a unique ID
     // and then just search the whole document for it.
     const id = "weight" + String(weightKg);
-
-    // Don't use displayWeight(): the 1.25lb plates need two decimal places.
     const weight = this.props.inKg ? weightKg : kg2lbs(weightKg);
 
     return (
       <tr key={id}>
-        <td>{weight}</td>
+        <td>{displayWeight(weight, this.props.language)}</td>
         <td>
           {/* TODO: Validation state styling */}
           <FormGroup style={{ marginBottom: 0 }}>
@@ -125,16 +126,21 @@ class Plates extends React.Component<Props> {
     const plateRows = this.props.plates.map((obj: Plate) =>
       this.renderWeightRow(obj.weightKg, obj.pairCount, obj.color)
     );
-    const units = this.props.inKg ? "kg" : "lbs";
+    const unitId = this.props.inKg ? "meet-setup.plates-kg" : "meet-setup.plates-lbs";
+    const stringPlate = getString(unitId, this.props.language);
 
     return (
       <div>
         <Table striped size="sm" hover style={{ margin: "0px" }}>
           <thead>
             <tr>
-              <th>Weight ({units})</th>
-              <th>Pairs of Plates</th>
-              <th>Color</th>
+              <th>{stringPlate}</th>
+              <th>
+                <FormattedMessage id="meet-setup.plates-num-pairs" defaultMessage="Pairs of Plates" />
+              </th>
+              <th>
+                <FormattedMessage id="meet-setup.plates-color" defaultMessage="Color" />
+              </th>
             </tr>
           </thead>
           <tbody>{plateRows}</tbody>
@@ -146,7 +152,8 @@ class Plates extends React.Component<Props> {
 
 const mapStateToProps = (state: GlobalState): StateProps => ({
   inKg: state.meet.inKg,
-  plates: state.meet.plates
+  plates: state.meet.plates,
+  language: state.language
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {

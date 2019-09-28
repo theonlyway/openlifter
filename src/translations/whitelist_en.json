@@ -108,6 +108,8 @@
   "meet-setup.allow-4th-attempts",
   "meet-setup.header-loading",
   "meet-setup.units",
+  "meet-setup.plates-num-pairs",
+  "meet-setup.plates-color",
   "meet-setup.platforms-on-day",
   "nav.home",
   "nav.meet-setup",
