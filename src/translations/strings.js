@@ -140,6 +140,15 @@ strings = strings.concat([
   { id: "weigh-ins.deadlift-placeholder", defaultMessage: "Dead" },
 ]);
 
+// Strings for the Flight Order page.
+strings = strings.concat([
+  { id: "flight-order.squat-column-header", defaultMessage: "Squat" },
+  { id: "flight-order.bench-column-header", defaultMessage: "Bench" },
+  { id: "flight-order.deadlift-column-header", defaultMessage: "Deadlift" },
+  { id: "flight-order.kilograms-header", defaultMessage: "Kg" },
+  { id: "flight-order.pounds-header", defaultMessage: "Lbs" },
+]);
+
 // Strings for the Lifting page.
 strings = strings.concat([
   { id: "lifting.column-age", defaultMessage: "Age" },

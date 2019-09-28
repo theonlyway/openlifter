@@ -19,24 +19,47 @@
 // Shows the first attempt ordering of lifters for a single flight.
 
 import React from "react";
+import { connect } from "react-redux";
 
 import Card from "react-bootstrap/Card";
 import Table from "react-bootstrap/Table";
 
 import { liftToAttemptFieldName } from "../../logic/entry";
 import { orderEntriesByAttempt } from "../../logic/liftingOrder";
-import { kg2lbs, displayWeight } from "../../logic/units";
+import { getString } from "../../logic/strings";
+import { kg2lbs, displayNumber, displayWeight } from "../../logic/units";
 
-import { Entry, Flight, Lift } from "../../types/dataTypes";
+import { Entry, Flight, Language, Lift } from "../../types/dataTypes";
+import { GlobalState } from "../../types/stateTypes";
+import { checkExhausted } from "../../types/utils";
 
 import styles from "./OneFlightOrder.module.scss";
+
+type Column =
+  | "SquatName"
+  | "SquatKg"
+  | "SquatLbs"
+  | "BenchSeparator"
+  | "BenchName"
+  | "BenchKg"
+  | "BenchLbs"
+  | "DeadliftSeparator"
+  | "DeadliftName"
+  | "DeadliftKg"
+  | "DeadliftLbs";
 
 interface OwnProps {
   flight: Flight;
   entriesInFlight: Array<Entry>;
 }
 
-type Props = OwnProps;
+interface StateProps {
+  inKg: boolean;
+  showAlternateUnits: boolean;
+  language: Language;
+}
+
+type Props = OwnProps & StateProps;
 
 class OneFlightOrder extends React.Component<Props> {
   getOrderBy = (lift: Lift): Array<Entry> => {
@@ -51,7 +74,39 @@ class OneFlightOrder extends React.Component<Props> {
     return orderEntriesByAttempt(entriesForLift, fieldKg, 1);
   };
 
+  getColumnHeader(column: Column, language: Language): string {
+    switch (column) {
+      case "SquatName":
+        return getString("flight-order.squat-column-header", language);
+      case "SquatKg":
+        return getString("flight-order.kilograms-header", language);
+      case "SquatLbs":
+        return getString("flight-order.pounds-header", language);
+      case "BenchSeparator":
+        return "";
+      case "BenchName":
+        return getString("flight-order.bench-column-header", language);
+      case "BenchKg":
+        return getString("flight-order.kilograms-header", language);
+      case "BenchLbs":
+        return getString("flight-order.pounds-header", language);
+      case "DeadliftSeparator":
+        return "";
+      case "DeadliftName":
+        return getString("flight-order.deadlift-column-header", language);
+      case "DeadliftKg":
+        return getString("flight-order.kilograms-header", language);
+      case "DeadliftLbs":
+        return getString("flight-order.pounds-header", language);
+      default:
+        checkExhausted(column);
+        return "";
+    }
+  }
+
   render() {
+    const language = this.props.language;
+
     const bySquat = this.getOrderBy("S");
     const byBench = this.getOrderBy("B");
     const byDeadlift = this.getOrderBy("D");
@@ -62,67 +117,125 @@ class OneFlightOrder extends React.Component<Props> {
 
     const maxRows = Math.max(bySquat.length, byBench.length, byDeadlift.length);
 
+    // Figure out what columns to render, and in which order.
+    let columns: Array<Column> = [];
+    if (hasSquat) {
+      columns.push("SquatName");
+      columns.push(this.props.inKg ? "SquatKg" : "SquatLbs");
+      if (this.props.showAlternateUnits) {
+        columns.push(this.props.inKg ? "SquatLbs" : "SquatKg");
+      }
+    }
+    if (hasBench) {
+      if (hasSquat) {
+        columns.push("BenchSeparator");
+      }
+      columns.push("BenchName");
+      columns.push(this.props.inKg ? "BenchKg" : "BenchLbs");
+      if (this.props.showAlternateUnits) {
+        columns.push(this.props.inKg ? "BenchLbs" : "BenchKg");
+      }
+    }
+    if (hasDeadlift) {
+      if (hasSquat || hasBench) {
+        columns.push("DeadliftSeparator");
+      }
+      columns.push("DeadliftName");
+      columns.push(this.props.inKg ? "DeadliftKg" : "DeadliftLbs");
+      if (this.props.showAlternateUnits) {
+        columns.push(this.props.inKg ? "DeadliftLbs" : "DeadliftKg");
+      }
+    }
+
     // Construct a table row-by-row.
     let rows = [];
-    for (let i = 0; i < maxRows; i++) {
+    for (let i = 0; i < maxRows; ++i) {
       let builder = [];
-      let key = 0;
 
-      if (hasSquat) {
-        if (i < bySquat.length) {
-          const entry = bySquat[i];
-          const kg: string = displayWeight(entry.squatKg[0]);
-          const lbs: string = displayWeight(kg2lbs(entry.squatKg[0]));
-          builder.push(
-            <td key={"S-" + entry.id}>
-              {i + 1}. {entry.name}
-            </td>
-          );
-          builder.push(<td key={"S-kg-" + entry.id}>{kg}</td>);
-          builder.push(<td key={"S-lbs-" + entry.id}>{lbs}</td>);
-        } else {
-          builder.push(<td key={key++} />);
-          builder.push(<td key={key++} />);
-          builder.push(<td key={key++} />);
-        }
-      }
+      for (let j = 0; j < columns.length; ++j) {
+        const column = columns[j];
+        let key: string = column + String(i);
 
-      if (hasBench) {
-        if (i < byBench.length) {
-          const entry = byBench[i];
-          const kg: string = displayWeight(entry.benchKg[0]);
-          const lbs: string = displayWeight(kg2lbs(entry.benchKg[0]));
-          builder.push(
-            <td key={"B-" + entry.id} className={styles.leftDivider}>
-              {i + 1}. {entry.name}
-            </td>
-          );
-          builder.push(<td key={"B-kg-" + entry.id}>{kg}</td>);
-          builder.push(<td key={"B-lbs-" + entry.id}>{lbs}</td>);
-        } else {
-          builder.push(<td key={key++} className={styles.leftDivider} />);
-          builder.push(<td key={key++} />);
-          builder.push(<td key={key++} />);
-        }
-      }
+        let content: string = "";
+        let className = undefined;
 
-      if (hasDeadlift) {
-        if (i < byDeadlift.length) {
-          const entry = byDeadlift[i];
-          const kg: string = displayWeight(entry.deadliftKg[0]);
-          const lbs: string = displayWeight(kg2lbs(entry.deadliftKg[0]));
-          builder.push(
-            <td key={"D-" + entry.id} className={styles.leftDivider}>
-              {i + 1}. {entry.name}
-            </td>
-          );
-          builder.push(<td key={"D-kg-" + entry.id}>{kg}</td>);
-          builder.push(<td key={"D-lbs-" + entry.id}>{lbs}</td>);
-        } else {
-          builder.push(<td key={key++} className={styles.leftDivider} />);
-          builder.push(<td key={key++} />);
-          builder.push(<td key={key++} />);
+        switch (column) {
+          case "SquatName": {
+            if (i < bySquat.length) {
+              const entry = bySquat[i];
+              content = displayNumber(i + 1, language) + ". " + entry.name;
+            }
+            break;
+          }
+          case "SquatKg": {
+            if (i < bySquat.length) {
+              const entry = bySquat[i];
+              content = displayWeight(entry.squatKg[0], language);
+            }
+            break;
+          }
+          case "SquatLbs": {
+            if (i < bySquat.length) {
+              const entry = bySquat[i];
+              content = displayWeight(kg2lbs(entry.squatKg[0]), language);
+            }
+            break;
+          }
+          case "BenchSeparator":
+            className = styles.leftDivider;
+            break;
+          case "BenchName": {
+            if (i < byBench.length) {
+              const entry = byBench[i];
+              content = displayNumber(i + 1, language) + ". " + entry.name;
+            }
+            break;
+          }
+          case "BenchKg": {
+            if (i < byBench.length) {
+              const entry = byBench[i];
+              content = displayWeight(entry.benchKg[0], language);
+            }
+            break;
+          }
+          case "BenchLbs": {
+            if (i < byBench.length) {
+              const entry = byBench[i];
+              content = displayWeight(kg2lbs(entry.benchKg[0]), language);
+            }
+            break;
+          }
+          case "DeadliftSeparator":
+            className = styles.leftDivider;
+            break;
+          case "DeadliftName": {
+            if (i < byDeadlift.length) {
+              const entry = byDeadlift[i];
+              content = displayNumber(i + 1, language) + ". " + entry.name;
+            }
+            break;
+          }
+          case "DeadliftKg": {
+            if (i < byDeadlift.length) {
+              const entry = byDeadlift[i];
+              content = displayWeight(entry.deadliftKg[0], language);
+            }
+            break;
+          }
+          case "DeadliftLbs": {
+            if (i < byDeadlift.length) {
+              const entry = byDeadlift[i];
+              content = displayWeight(kg2lbs(entry.deadliftKg[0]), language);
+            }
+            break;
+          }
         }
+
+        builder.push(
+          <td key={key} className={className}>
+            {content}
+          </td>
+        );
       }
 
       rows.push(<tr key={i}>{builder}</tr>);
@@ -130,28 +243,10 @@ class OneFlightOrder extends React.Component<Props> {
 
     // Construct the table header.
     let header = [];
-    if (hasSquat) {
-      header.push(<th key={"S"}>Squat</th>);
-      header.push(<th key={"S-kg"}>Kg</th>);
-      header.push(<th key={"S-lbs"}>Lbs</th>);
-    }
-    if (hasBench) {
-      header.push(
-        <th key={"B"} className={styles.leftDivider}>
-          Bench
-        </th>
-      );
-      header.push(<th key={"B-kg"}>Kg</th>);
-      header.push(<th key={"B-lbs"}>Lbs</th>);
-    }
-    if (hasDeadlift) {
-      header.push(
-        <th key={"D"} className={styles.leftDivider}>
-          Deadlift
-        </th>
-      );
-      header.push(<th key={"D-kg"}>Kg</th>);
-      header.push(<th key={"D-lbs"}>Lbs</th>);
+    for (let i = 0; i < columns.length; ++i) {
+      const column = columns[i];
+      const title = this.getColumnHeader(column, this.props.language);
+      header.push(<th key={column}>{title}</th>);
     }
 
     return (
@@ -170,4 +265,15 @@ class OneFlightOrder extends React.Component<Props> {
   }
 }
 
-export default OneFlightOrder;
+const mapStateToProps = (state: GlobalState): StateProps => {
+  return {
+    inKg: state.meet.inKg,
+    showAlternateUnits: state.meet.showAlternateUnits,
+    language: state.language
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  null
+)(OneFlightOrder);
