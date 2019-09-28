@@ -27,10 +27,10 @@ import { connect } from "react-redux";
 
 import Card from "react-bootstrap/Card";
 
-import TopBar from "./TopBar";
 import LeftCard from "./LeftCard";
-import LiftingTable from "./LiftingTable";
 import LiftingFooter from "./LiftingFooter";
+import LiftingHeader from "./LiftingHeader";
+import LiftingTable from "./LiftingTable";
 import WeighinsView from "../weighins/WeighinsView";
 
 import ColumnWidth from "./ColumnWidth";
@@ -102,7 +102,7 @@ class LiftingView extends React.Component<Props, InternalState> {
           </Card.Body>
         </Card>
         <div id="liftingView" className={styles.liftingView}>
-          <TopBar
+          <LiftingHeader
             attemptOneIndexed={now.attemptOneIndexed}
             orderedEntries={now.orderedEntries}
             currentEntryId={now.currentEntryId}

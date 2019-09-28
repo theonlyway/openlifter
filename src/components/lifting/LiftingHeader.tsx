@@ -27,7 +27,7 @@ import { displayNumber } from "../../logic/units";
 import { Entry, Language } from "../../types/dataTypes";
 import { GlobalState, RegistrationState } from "../../types/stateTypes";
 
-import styles from "./TopBar.module.scss";
+import styles from "./LiftingHeader.module.scss";
 
 interface OwnProps {
   attemptOneIndexed: number;
@@ -73,7 +73,7 @@ class LiftingHeader extends React.Component<Props> {
     }
 
     return (
-      <div className={styles.topBar}>
+      <div className={styles.header}>
         <div className={styles.lifterName}>{lifterName}</div>
         <div className={styles.info}>{info}</div>
       </div>

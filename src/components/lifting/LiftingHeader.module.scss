@@ -23,9 +23,14 @@ $color-light: #ffffff;
 
 $border-rounding: 8px;
 
+@mixin handle-text-overflow() {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
 
 // The bar containing the lifter information.
-div.topBar {
+div.header {
   display: flex;
   align-items: center;
 
@@ -42,19 +47,18 @@ div.topBar {
   border-radius: $border-rounding;
   box-shadow: 0 0 20px 0 hsla(0, 0%, 64%, .45);
 
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
 }
 
 // The call-out for the lifter name.
 div.lifterName {
+  @include handle-text-overflow();
   font-size: 60px;
   font-weight: bold;
 }
 
 // Remaining info to the right of the lifterName.
 div.info {
+  @include handle-text-overflow();
   font-size: 42px;
   margin-left: 16px;
 }
