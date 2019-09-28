@@ -33,7 +33,7 @@ import { enterAttempt } from "../../actions/liftingActions";
 import { liftToAttemptFieldName } from "../../logic/entry";
 import { kg2lbs, lbs2kg, displayWeight } from "../../logic/units";
 
-import { Entry, Lift, Validation } from "../../types/dataTypes";
+import { Entry, Language, Lift, Validation } from "../../types/dataTypes";
 import { GlobalState } from "../../types/stateTypes";
 import { FormControlTypeHack, assertString } from "../../types/utils";
 import { Dispatch } from "redux";
@@ -57,6 +57,7 @@ interface OwnProps {
 interface StateProps {
   inKg: boolean;
   weightKg: number;
+  language: Language;
 }
 
 interface DispatchProps {
@@ -86,12 +87,12 @@ class WeightInput extends React.Component<Props, InternalState> {
     // To avoid confusion (auto-rounding) when typing, just store a String.
     this.state = {
       // Prefer displaying an empty string to 0.0.
-      weightStr: weight === 0.0 ? "" : displayWeight(weight)
+      weightStr: weight === 0.0 ? "" : displayWeight(weight, props.language)
     };
   }
 
   validate = (): Validation => {
-    const weightNum = Number(this.state.weightStr);
+    const weightNum = Number(this.state.weightStr.replace(",", "."));
     if (isNaN(weightNum) || weightNum < 0) return "error";
     if (this.props.multipleOf !== undefined && weightNum % this.props.multipleOf !== 0.0) {
       return "warning";
@@ -110,7 +111,7 @@ class WeightInput extends React.Component<Props, InternalState> {
 
   // Update the Redux store.
   handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
-    const weightStr = event.currentTarget.value;
+    const weightStr = event.currentTarget.value.replace(",", ".");
     const weightNum = Number(weightStr);
 
     if (this.validate() === "error") {
@@ -178,7 +179,8 @@ const mapStateToProps = (state: GlobalState, ownProps: OwnProps): StateProps => 
 
   return {
     inKg: state.meet.inKg,
-    weightKg: weightKg
+    weightKg: weightKg,
+    language: state.language
   };
 };
 
