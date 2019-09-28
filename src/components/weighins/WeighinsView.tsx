@@ -21,6 +21,7 @@
 
 import React from "react";
 import { connect } from "react-redux";
+import { FormattedMessage } from "react-intl";
 
 import Card from "react-bootstrap/Card";
 
@@ -97,7 +98,13 @@ class WeighinsView extends React.Component<Props> {
 
       dayCards.push(
         <Card key={i}>
-          <Card.Header>Day {i} Weigh-ins</Card.Header>
+          <Card.Header>
+            <FormattedMessage
+              id="weigh-ins.day-header"
+              defaultMessage="Day {dayNumber} Weigh-ins"
+              values={{ dayNumber: i }}
+            />
+          </Card.Header>
           <Card.Body>
             <LifterTable entries={lifters} rowRenderer={LifterRow} inLiftingPage={inLiftingPage} />
           </Card.Body>
@@ -109,8 +116,15 @@ class WeighinsView extends React.Component<Props> {
     if (dayCards.length === 0) {
       dayCards.push(
         <Card key={0} border="info">
-          <Card.Header>Waiting for Registration</Card.Header>
-          <Card.Body>Add lifters on the Registration page before weighing them in.</Card.Body>
+          <Card.Header>
+            <FormattedMessage id="weigh-ins.empty-header" defaultMessage="Waiting for Registration" />
+          </Card.Header>
+          <Card.Body>
+            <FormattedMessage
+              id="weigh-ins.empty-body"
+              defaultMessage="Add lifters on the Registration page before weighing them in."
+            />
+          </Card.Body>
         </Card>
       );
     }

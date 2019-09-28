@@ -30,6 +30,7 @@ import WeightInput from "./WeightInput";
 
 import { getAge } from "../../logic/entry";
 import { getString } from "../../logic/strings";
+import { displayNumber, displayWeight } from "../../logic/units";
 import { validatePositiveInteger } from "../../validation/positiveInteger";
 
 import { updateRegistration } from "../../actions/registrationActions";
@@ -109,6 +110,7 @@ class LifterRow extends React.Component<Props> {
   };
 
   render() {
+    const language = this.props.language;
     const entry = this.props.entry;
 
     // Check whether the event(s) include a given lift.
@@ -165,7 +167,7 @@ class LifterRow extends React.Component<Props> {
     }
 
     const age = getAge(entry, this.props.meet.date);
-    const ageStr = age === 0 ? getString("common.age", this.props.language) : String(age);
+    const ageStr = age === 0 ? getString("common.age", language) : displayNumber(age, language);
 
     return (
       <tr>
@@ -175,7 +177,7 @@ class LifterRow extends React.Component<Props> {
 
         <td>
           <ValidatedInput
-            initialValue={entry.age === 0 ? "" : String(entry.age)}
+            initialValue={entry.age === 0 ? "" : displayNumber(entry.age, language)}
             placeholder={ageStr}
             validate={this.validateAge}
             onSuccess={this.updateRegistrationAge}
@@ -183,13 +185,18 @@ class LifterRow extends React.Component<Props> {
         </td>
 
         <td>
-          <WeightInput id={this.props.id} field="bodyweightKg" placeholder="Bwt" disabled={false} />
+          <WeightInput
+            id={this.props.id}
+            field="bodyweightKg"
+            placeholder={getString("weigh-ins.bodyweight-placeholder", language)}
+            disabled={false}
+          />
         </td>
 
         <td>
           <ValidatedInput
             initialValue={entry.squatRackInfo}
-            placeholder={hasSquat ? "S.Rack" : undefined}
+            placeholder={hasSquat ? getString("weigh-ins.squat-rack-placeholder", language) : undefined}
             disabled={!hasSquat}
             validate={this.validateRack}
             onSuccess={this.updateRegistrationSquatRackInfo}
@@ -202,7 +209,7 @@ class LifterRow extends React.Component<Props> {
             lift="S"
             multipleOf={2.5}
             attemptOneIndexed={1}
-            placeholder={hasSquat ? "Squat" : undefined}
+            placeholder={hasSquat ? getString("weigh-ins.squat-placeholder", language) : undefined}
             disabled={disableSquatWeight}
           />
         </td>
@@ -210,7 +217,7 @@ class LifterRow extends React.Component<Props> {
         <td>
           <ValidatedInput
             initialValue={entry.benchRackInfo}
-            placeholder={hasBench ? "B.Rack" : undefined}
+            placeholder={hasBench ? getString("weigh-ins.bench-rack-placeholder", language) : undefined}
             disabled={!hasBench}
             validate={this.validateRack}
             onSuccess={this.updateRegistrationBenchRackInfo}
@@ -223,7 +230,7 @@ class LifterRow extends React.Component<Props> {
             lift="B"
             multipleOf={2.5}
             attemptOneIndexed={1}
-            placeholder={hasBench ? "Bench" : undefined}
+            placeholder={hasBench ? getString("weigh-ins.bench-placeholder", language) : undefined}
             disabled={disableBenchWeight}
           />
         </td>
@@ -234,7 +241,7 @@ class LifterRow extends React.Component<Props> {
             lift="D"
             multipleOf={2.5}
             attemptOneIndexed={1}
-            placeholder={hasDeadlift ? "Dead" : undefined}
+            placeholder={hasDeadlift ? getString("weigh-ins.deadlift-placeholder", language) : undefined}
             disabled={disableDeadliftWeight}
           />
         </td>

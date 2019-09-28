@@ -122,6 +122,24 @@ strings = strings.concat([
   { id: "registration.button-delete", defaultMessage: "Delete" },
 ]);
 
+// Strings for the Weigh-ins page.
+strings = strings.concat([
+  { id: "weigh-ins.bodyweight-header-kg", defaultMessage: "Bodyweight Kg" },
+  { id: "weigh-ins.bodyweight-header-lbs", defaultMessage: "Bodyweight Lbs" },
+  { id: "weigh-ins.squat-header-kg", defaultMessage: "Squat Opener Kg" },
+  { id: "weigh-ins.squat-header-lbs", defaultMessage: "Squat Opener Lbs" },
+  { id: "weigh-ins.bench-header-kg", defaultMessage: "Bench Opener Kg" },
+  { id: "weigh-ins.bench-header-lbs", defaultMessage: "Bench Opener Lbs" },
+  { id: "weigh-ins.deadlift-header-kg", defaultMessage: "Deadlift Opener Kg" },
+  { id: "weigh-ins.deadlift-header-lbs", defaultMessage: "Deadlift Opener Lbs" },
+  { id: "weigh-ins.bodyweight-placeholder", defaultMessage: "Bwt" },
+  { id: "weigh-ins.squat-rack-placeholder", defaultMessage: "S.Rack" },
+  { id: "weigh-ins.squat-placeholder", defaultMessage: "Squat" },
+  { id: "weigh-ins.bench-rack-placeholder", defaultMessage: "B.Rack" },
+  { id: "weigh-ins.bench-placeholder", defaultMessage: "Bench" },
+  { id: "weigh-ins.deadlift-placeholder", defaultMessage: "Dead" },
+]);
+
 // Strings for the Lifting page.
 strings = strings.concat([
   { id: "lifting.column-age", defaultMessage: "Age" },

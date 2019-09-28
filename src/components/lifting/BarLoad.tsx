@@ -26,7 +26,7 @@ import { FormattedMessage } from "react-intl";
 import { displayWeight } from "../../logic/units";
 import { PlateColors } from "../../constants/plateColors";
 
-import { Lift, LoadedPlate } from "../../types/dataTypes";
+import { Language, Lift, LoadedPlate } from "../../types/dataTypes";
 import { GlobalState } from "../../types/stateTypes";
 
 import styles from "./BarLoad.module.scss";
@@ -39,6 +39,7 @@ interface OwnProps {
 
 interface StateProps {
   lift: Lift;
+  language: Language;
 }
 
 type Props = OwnProps & StateProps;
@@ -102,7 +103,7 @@ class BarLoad extends React.Component<Props> {
     }
   };
 
-  weightAnyToText = (weightAny: number): string => {
+  weightAnyToText = (weightAny: number, language: Language): string => {
     switch (weightAny) {
       case 1.25:
         return "1¼";
@@ -113,7 +114,7 @@ class BarLoad extends React.Component<Props> {
       case 0.25:
         return "¼";
       default:
-        return String(weightAny);
+        return displayWeight(weightAny, language);
     }
   };
 
@@ -133,7 +134,7 @@ class BarLoad extends React.Component<Props> {
       if (weightAny < 0) {
         divs.push(
           <div key={"error"} className={styles.error}>
-            ?{displayWeight(-1 * weightAny)}
+            ?{displayWeight(-1 * weightAny, this.props.language)}
           </div>
         );
         break;
@@ -170,7 +171,7 @@ class BarLoad extends React.Component<Props> {
             className={inKg ? this.weightKgToStyle(weightAny) : this.weightLbsToStyle(weightAny)}
             style={style}
           >
-            <div>{this.weightAnyToText(weightAny)}</div>
+            <div>{this.weightAnyToText(weightAny, this.props.language)}</div>
             {showCounter ? <div>{counter}</div> : null}
           </div>
         );
@@ -213,7 +214,8 @@ class BarLoad extends React.Component<Props> {
 
 const mapStateToProps = (state: GlobalState): StateProps => {
   return {
-    lift: state.lifting.lift
+    lift: state.lifting.lift,
+    language: state.language
   };
 };
 

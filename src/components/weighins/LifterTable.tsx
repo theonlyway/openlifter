@@ -18,6 +18,7 @@
 
 import React from "react";
 import { connect } from "react-redux";
+import { FormattedMessage } from "react-intl";
 
 import Table from "react-bootstrap/Table";
 
@@ -58,21 +59,35 @@ class LifterTable extends React.Component<Props> {
     // Styling for small, single-character selector columns.
     const shortStyle = { width: "85px" };
 
-    const units = this.props.inKg ? "Kg" : "Lbs";
+    const inKg = this.props.inKg;
+
+    const units = inKg ? "Kg" : "Lbs";
+    const bodyweightId = inKg ? "weigh-ins.bodyweight-header-kg" : "weigh-ins.bodyweight-header-lbs";
+    const squatId = inKg ? "weigh-ins.squat-header-kg" : "weigh-ins.squat-header-lbs";
+    const benchId = inKg ? "weigh-ins.bench-header-kg" : "weigh-ins.bench-header-lbs";
+    const deadliftId = inKg ? "weigh-ins.deadlift-header-kg" : "weigh-ins.deadlift-header-lbs";
 
     return (
       <tr>
-        <th style={shortStyle}>Platform</th>
-        <th style={shortStyle}>Flight</th>
-        <th>Name</th>
+        <th style={shortStyle}>
+          <FormattedMessage id="weigh-ins.platform-header" defaultMessage="Platform" />
+        </th>
+        <th style={shortStyle}>
+          <FormattedMessage id="weigh-ins.platform-flight" defaultMessage="Flight" />
+        </th>
+        <th>{getString("lifting.column-lifter", this.props.language)}</th>
 
         <th style={shortStyle}>{getString("common.age", this.props.language)}</th>
-        <th style={shortStyle}>Bodyweight {units}</th>
-        <th style={shortStyle}>Squat Rack</th>
-        <th style={shortStyle}>Squat Opener {units}</th>
-        <th style={shortStyle}>Bench Rack</th>
-        <th style={shortStyle}>Bench Opener {units}</th>
-        <th style={shortStyle}>Deadlift Opener {units}</th>
+        <th style={shortStyle}>{getString(bodyweightId, this.props.language)}</th>
+        <th style={shortStyle}>
+          <FormattedMessage id="weigh-ins.squat-rack-header" defaultMessage="Squat Rack" />
+        </th>
+        <th style={shortStyle}>{getString(squatId, this.props.language)}</th>
+        <th style={shortStyle}>
+          <FormattedMessage id="weigh-ins.bench-rack-header" defaultMessage="Bench Rack" />
+        </th>
+        <th style={shortStyle}>{getString(benchId, this.props.language)}</th>
+        <th style={shortStyle}>{getString(deadliftId, this.props.language)}</th>
       </tr>
     );
   };
