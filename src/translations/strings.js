@@ -127,6 +127,36 @@ strings = strings.concat([
   { id: "registration.state-province", defaultMessage: "State" },
 ]);
 
+// Strings for the CSV import/export feature on the Registration page.
+strings = strings.concat([
+  { id: "import.template-filename", defaultMessage: "registration-template" },
+  { id: "import.example-name", defaultMessage: "Emily Example" },
+  { id: "import.example-division1", defaultMessage: "Open" },
+  { id: "import.example-division2", defaultMessage: "J20-23" },
+  { id: "import.example-instagram", defaultMessage: "emily_example_" },
+  { id: "import.example-notes", defaultMessage: "emily@example.com: she's the best!" },
+  { id: "import.example-sex", defaultMessage: "F" },
+  { id: "import.example-country", defaultMessage: "USA" },
+  { id: "import.example-state", defaultMessage: "NY" },
+  { id: "import.example-birthdate", defaultMessage: "1998-02-16" },
+  { id: "import.column-day", defaultMessage: "Day" },
+  { id: "import.column-platform", defaultMessage: "Platform" },
+  { id: "import.column-flight", defaultMessage: "Flight" },
+  { id: "import.column-name", defaultMessage: "Name" },
+  { id: "import.column-sex", defaultMessage: "Sex" },
+  { id: "import.column-equipment", defaultMessage: "Equipment" },
+  { id: "import.column-division-n", defaultMessage: "Division{N}" },
+  { id: "import.column-event-n", defaultMessage: "Event{N}" },
+  { id: "import.column-birthdate", defaultMessage: "BirthDate" },
+  { id: "import.column-memberid", defaultMessage: "MemberID" },
+  { id: "import.column-country", defaultMessage: "Country" },
+  { id: "import.column-state", defaultMessage: "State" },
+  { id: "import.column-lot", defaultMessage: "Lot" },
+  { id: "import.column-team", defaultMessage: "Team" },
+  { id: "import.column-instagram", defaultMessage: "Instagram" },
+  { id: "import.column-notes", defaultMessage: "Notes" },
+]);
+
 // Strings for the Weigh-ins page.
 strings = strings.concat([
   { id: "weigh-ins.bodyweight-header-kg", defaultMessage: "Bodyweight Kg" },

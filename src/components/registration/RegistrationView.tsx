@@ -34,6 +34,7 @@ import ErrorModal from "../ErrorModal";
 import { Csv } from "../../logic/export/csv";
 import { makeExampleRegistrationsCsv, loadRegistrations } from "../../logic/import/registration-csv";
 import { makeRegistrationsCsv } from "../../logic/export/registrations";
+import { getString } from "../../logic/strings";
 
 import { newRegistration, deleteRegistration } from "../../actions/registrationActions";
 
@@ -78,9 +79,10 @@ class RegistrationView extends React.Component<Props, InternalState> {
   }
 
   handleDownloadCsvTemplateClick = () => {
-    const text = makeExampleRegistrationsCsv();
+    const text = makeExampleRegistrationsCsv(this.props.global.language);
     const blob = new Blob([text], { type: "application/text;charset=utf-8" });
-    saveAs(blob, "registration-template.csv");
+    const filename = getString("import.template-filename", this.props.global.language) + ".csv";
+    saveAs(blob, filename);
   };
 
   handleExportCsvClick = () => {

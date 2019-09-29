@@ -28,7 +28,7 @@ describe("loadRegistrations", () => {
     // Make modifications so the example will load.
     state.meet.divisions = ["Open", "J20-23"];
 
-    const example = makeExampleRegistrationsCsv();
+    const example = makeExampleRegistrationsCsv("en");
     expect(typeof example).toEqual("string");
 
     let csv = new Csv();

@@ -24,8 +24,9 @@ import { Csv, getSpreadsheetColumnName } from "../export/csv";
 import { newDefaultEntry } from "../entry";
 
 import { parseInteger, parseEquipment, parseEvent, parseSex, parseDate } from "../parsers";
+import { getString } from "../strings";
 
-import { Entry, Flight } from "../../types/dataTypes";
+import { Entry, Flight, Language } from "../../types/dataTypes";
 import { GlobalState } from "../../types/stateTypes";
 import { assertFlight } from "../../types/utils";
 
@@ -34,36 +35,55 @@ import { assertFlight } from "../../types/utils";
 //
 // This is in code so that it can live right next to loadRegistrations()
 // for easier long-term maintenance.
-export const makeExampleRegistrationsCsv = (): string => {
+export const makeExampleRegistrationsCsv = (language: Language): string => {
   let csv = new Csv();
   csv.rows = [[]]; // appendColumns() will resize the dummy row correctly.
 
-  csv.appendColumns(["Day", "Platform", "Flight", "Name", "Sex", "Equipment"]);
-  csv.appendColumns(["Division1", "Division2", "Division3"]);
-  csv.appendColumns(["Event1", "Event2", "Event3"]);
-  csv.appendColumns(["BirthDate", "MemberID", "Country", "State", "Lot", "Team"]);
-  csv.appendColumns(["Instagram", "Notes"]);
+  const day = getString("import.column-day", language);
+  const platform = getString("import.column-platform", language);
+  const flight = getString("import.column-flight", language);
+  const name = getString("import.column-name", language);
+  const sex = getString("import.column-sex", language);
+  const equipment = getString("import.column-equipment", language);
+  const division1 = getString("import.column-division-n", language).replace("{N}", "1");
+  const division2 = getString("import.column-division-n", language).replace("{N}", "2");
+  const division3 = getString("import.column-division-n", language).replace("{N}", "3");
+  const event1 = getString("import.column-event-n", language).replace("{N}", "1");
+  const event2 = getString("import.column-event-n", language).replace("{N}", "2");
+  const event3 = getString("import.column-event-n", language).replace("{N}", "3");
+  const birthdate = getString("import.column-birthdate", language);
+  const memberid = getString("import.column-memberid", language);
+  const country = getString("import.column-country", language);
+  const state = getString("import.column-state", language);
+  const lot = getString("import.column-lot", language);
+  const team = getString("import.column-team", language);
+  const instagram = getString("import.column-instagram", language);
+  const notes = getString("import.column-notes", language);
 
-  csv.rows[0][csv.index("Day")] = "1";
-  csv.rows[0][csv.index("Platform")] = "1";
-  csv.rows[0][csv.index("Flight")] = "A";
-  csv.rows[0][csv.index("Name")] = "Emily Example";
-  csv.rows[0][csv.index("Sex")] = "F";
-  csv.rows[0][csv.index("Equipment")] = "Sleeves";
-  csv.rows[0][csv.index("Division1")] = "Open";
-  csv.rows[0][csv.index("Division2")] = "J20-23";
-  // Intentionally blank: csv.rows[0][csv.index("Division3")]
-  csv.rows[0][csv.index("Event1")] = "SBD";
-  csv.rows[0][csv.index("Event2")] = "BD";
-  // Intentionally blank: csv.rows[0][csv.index("Event3")]
-  csv.rows[0][csv.index("BirthDate")] = "1998-02-16";
-  // Intentionally blank: csv.rows[0][csv.index("MemberID")]
-  csv.rows[0][csv.index("Country")] = "USA";
-  csv.rows[0][csv.index("State")] = "NY";
-  // Intentionally blank: csv.rows[0][csv.index("Lot")]
-  // Intentionally blank: csv.rows[0][csv.index("Team")]
-  csv.rows[0][csv.index("Instagram")] = "emily_example_";
-  csv.rows[0][csv.index("Notes")] = "emily@example.com: she's the best!";
+  csv.appendColumns([day, platform, flight, name, sex, equipment]);
+  csv.appendColumns([division1, division2, division3, event1, event2, event3]);
+  csv.appendColumns([birthdate, memberid, country, state, lot, team, instagram, notes]);
+
+  csv.rows[0][csv.index(day)] = "1";
+  csv.rows[0][csv.index(platform)] = "1";
+  csv.rows[0][csv.index(flight)] = "A";
+  csv.rows[0][csv.index(name)] = getString("import.example-name", language);
+  csv.rows[0][csv.index(sex)] = getString("import.example-sex", language);
+  csv.rows[0][csv.index(equipment)] = getString("equipment.sleeves", language);
+  csv.rows[0][csv.index(division1)] = getString("import.example-division1", language);
+  csv.rows[0][csv.index(division2)] = getString("import.example-division2", language);
+  // Intentionally blank: csv.rows[0][csv.index(division3)]
+  csv.rows[0][csv.index(event1)] = getString("event.sbd", language);
+  csv.rows[0][csv.index(event2)] = getString("event.bd", language);
+  // Intentionally blank: csv.rows[0][csv.index(event3)]
+  csv.rows[0][csv.index(birthdate)] = getString("import.example-birthdate", language);
+  // Intentionally blank: csv.rows[0][csv.index(memberid)]
+  csv.rows[0][csv.index(country)] = getString("import.example-country", language);
+  csv.rows[0][csv.index(state)] = getString("import.example-state", language);
+  // Intentionally blank: csv.rows[0][csv.index(lot)]
+  // Intentionally blank: csv.rows[0][csv.index(team)]
+  csv.rows[0][csv.index(instagram)] = getString("import.example-instagram", language);
+  csv.rows[0][csv.index(notes)] = getString("import.example-notes", language);
 
   return csv.toString();
 };
