@@ -24,6 +24,7 @@ import { ColorResult, TwitterPicker } from "react-color";
 import { PlateColors } from "../../constants/plateColors";
 
 import styles from "./ColorPicker.module.scss";
+import * as Popper from "react-popper";
 
 interface OwnProps {
   color: string;
@@ -52,7 +53,6 @@ class ColorPicker extends React.Component<Props, InternalState> {
     };
 
     this.handleClick = this.handleClick.bind(this);
-    this.handleClose = this.handleClose.bind(this);
     this.handleMouseLeave = this.handleMouseLeave.bind(this);
     this.handleMouseEnter = this.handleMouseEnter.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -61,11 +61,6 @@ class ColorPicker extends React.Component<Props, InternalState> {
   handleClick = () => {
     clearTimeout(this.state.timeoutId);
     this.setState({ displayColorPicker: !this.state.displayColorPicker, timeoutId: null });
-  };
-
-  handleClose = () => {
-    clearTimeout(this.state.timeoutId);
-    this.setState({ displayColorPicker: false, timeoutId: null });
   };
 
   handleMouseLeave = () => {
@@ -98,24 +93,37 @@ class ColorPicker extends React.Component<Props, InternalState> {
 
   render() {
     const colors = Object.values(PlateColors);
-
     let picker = null;
     if (this.state.displayColorPicker) {
       picker = (
-        <div className={styles.popover}>
-          <div className={styles.cover} onClick={this.handleClose} />
-          <TwitterPicker color={this.state.color} colors={colors} triangle="hide" onChange={this.handleChange as any} />
-        </div>
+        <Popper.Popper placement="bottom-end">
+          {({ ref, style, placement }) => (
+            <div ref={ref} style={style} data-placement={placement}>
+              <TwitterPicker
+                color={this.state.color}
+                colors={colors}
+                triangle="hide"
+                onChange={this.handleChange as any}
+              />
+            </div>
+          )}
+        </Popper.Popper>
       );
     }
 
     return (
-      <div onMouseLeave={this.handleMouseLeave} onMouseEnter={this.handleMouseEnter}>
-        <div className={styles.swatch} onClick={this.handleClick}>
-          <div className={styles.color} style={{ background: this.state.color }} />
+      <Popper.Manager>
+        <div onMouseLeave={this.handleMouseLeave} onMouseEnter={this.handleMouseEnter}>
+          <Popper.Reference>
+            {({ ref }) => (
+              <div ref={ref} className={styles.swatch} onClick={this.handleClick}>
+                <div className={styles.color} style={{ background: this.state.color }} />
+              </div>
+            )}
+          </Popper.Reference>
+          {picker}
         </div>
-        {picker}
-      </div>
+      </Popper.Manager>
     );
   }
 }
