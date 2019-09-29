@@ -183,7 +183,9 @@ class RegistrationView extends React.Component<Props, InternalState> {
         />
 
         <Card border="info">
-          <Card.Header>Auto-Import Registrations</Card.Header>
+          <Card.Header>
+            <FormattedMessage id="registration.auto-import-card-header" defaultMessage="Auto-Import Registrations" />
+          </Card.Header>
           <Card.Body>
             <Button variant="info" onClick={this.handleDownloadCsvTemplateClick}>
               <FormattedMessage id="registration.button-download-template" defaultMessage="Download Template" />

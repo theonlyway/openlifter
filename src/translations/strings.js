@@ -34,9 +34,11 @@ strings = strings.concat([
   { id: "common.country", defaultMessage: "Country" },
   { id: "common.federation", defaultMessage: "Federation" },
   { id: "common.kilograms", defaultMessage: "Kilograms" },
+  { id: "common.name", defaultMessage: "Name" },
+  { id: "common.pounds", defaultMessage: "Pounds" },
   { id: "common.response-no", defaultMessage: "No" },
   { id: "common.response-yes", defaultMessage: "Yes" },
-  { id: "common.pounds", defaultMessage: "Pounds" },
+  { id: "common.select-placeholder", defaultMessage: "Select..." },
 ]);
 
 // Strings for the Equipment type.
@@ -119,7 +121,10 @@ strings = strings.concat([
 
 // Strings for the Registration page.
 strings = strings.concat([
+  { id: "registration.birthdate-placeholder", defaultMessage: "YYYY-MM-DD" },
   { id: "registration.button-delete", defaultMessage: "Delete" },
+  { id: "registration.member-id-placeholder", defaultMessage: "ID" },
+  { id: "registration.state-province", defaultMessage: "State" },
 ]);
 
 // Strings for the Weigh-ins page.

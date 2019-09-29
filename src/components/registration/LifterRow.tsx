@@ -22,6 +22,7 @@
 
 import React from "react";
 import { connect } from "react-redux";
+import { FormattedMessage } from "react-intl";
 
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
@@ -33,6 +34,7 @@ import Row from "react-bootstrap/Row";
 
 import Select from "react-select";
 
+import { getString } from "../../logic/strings";
 import LocalizedString from "../translations/LocalizedString";
 import ValidatedInput from "../ValidatedInput";
 
@@ -41,9 +43,9 @@ import { validateIso8601Date } from "../../validation/iso8601Date";
 import { deleteRegistration, updateRegistration } from "../../actions/registrationActions";
 import { FormControlTypeHack, checkExhausted, assertString, assertFlight, assertSex } from "../../types/utils";
 import { ActionMeta } from "react-select/lib/types";
-import { Entry, Equipment } from "../../types/dataTypes";
+import { Entry, Equipment, Language } from "../../types/dataTypes";
 import { Dispatch } from "redux";
-import { GlobalState } from "../../types/stateTypes";
+import { GlobalState, MeetState } from "../../types/stateTypes";
 
 const eventOptions = [
   { value: "S", label: "S" },
@@ -59,13 +61,19 @@ interface OwnProps {
   id: number;
 }
 
-interface State {
+interface StateProps {
+  meet: MeetState;
+  entry: Entry;
+  language: Language;
+}
+
+interface InternalState {
   selectedDay: number;
 }
 
-type Props = OwnProps & ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
+type Props = OwnProps & StateProps & ReturnType<typeof mapDispatchToProps>;
 
-class LifterRow extends React.Component<Props, State> {
+class LifterRow extends React.Component<Props, InternalState> {
   constructor(props: Props) {
     super(props);
 
@@ -276,10 +284,23 @@ class LifterRow extends React.Component<Props, State> {
 
     const gridStyle = { padding: "0px", margin: "0px" };
 
+    const language = this.props.language;
+    const stringName = getString("common.name", language);
+    const stringCountry = getString("common.country", language);
+    const stringState = getString("registration.state-province", language);
+    const stringBirthDatePlaceholder = getString("registration.birthdate-placeholder", language);
+    const stringMemberIdPlaceholder = getString("registration.member-id-placeholder", language);
+    const stringSelectPlaceholder = getString("common.select-placeholder", language);
+
     return (
       <Card>
         <Card.Header style={{ display: "flex" }}>
-          <Form.Control type="text" placeholder="Name" defaultValue={entry.name} onBlur={this.updateRegistrationName} />
+          <Form.Control
+            type="text"
+            placeholder={stringName}
+            defaultValue={entry.name}
+            onBlur={this.updateRegistrationName}
+          />
           <Button onClick={this.deleteRegistrationClick} variant="danger" style={{ marginLeft: "15px" }}>
             <LocalizedString id="registration.button-delete" />
           </Button>
@@ -290,7 +311,9 @@ class LifterRow extends React.Component<Props, State> {
               {/* Day */}
               <Col md={1}>
                 <Form.Group>
-                  <Form.Label>Day</Form.Label>
+                  <Form.Label>
+                    <FormattedMessage id="registration.day-label" defaultMessage="Day" />
+                  </Form.Label>
                   <Form.Control
                     defaultValue={this.state.selectedDay}
                     as="select"
@@ -305,7 +328,9 @@ class LifterRow extends React.Component<Props, State> {
               {/* Platform */}
               <Col md={1}>
                 <Form.Group>
-                  <Form.Label>Platform</Form.Label>
+                  <Form.Label>
+                    <FormattedMessage id="registration.platform-label" defaultMessage="Platform" />
+                  </Form.Label>
                   <Form.Control
                     defaultValue={entry.platform}
                     as="select"
@@ -320,7 +345,9 @@ class LifterRow extends React.Component<Props, State> {
               {/* Flight */}
               <Col md={1}>
                 <Form.Group>
-                  <Form.Label>Flight</Form.Label>
+                  <Form.Label>
+                    <FormattedMessage id="registration.flight-label" defaultMessage="Flight" />
+                  </Form.Label>
                   <Form.Control
                     defaultValue={entry.flight}
                     as="select"
@@ -350,16 +377,18 @@ class LifterRow extends React.Component<Props, State> {
               {/* Sex */}
               <Col md={1}>
                 <Form.Group>
-                  <Form.Label>Sex</Form.Label>
+                  <Form.Label>
+                    <FormattedMessage id="registration.sex-label" defaultMessage="Sex" />
+                  </Form.Label>
                   <Form.Control
                     defaultValue={entry.sex}
                     as="select"
                     onChange={this.updateRegistrationSex}
                     className="custom-select"
                   >
-                    <option value="M">M</option>
-                    <option value="F">F</option>
-                    <option value="Mx">Mx</option>
+                    <option value="M">{getString("sex.m", language)}</option>
+                    <option value="F">{getString("sex.f", language)}</option>
+                    <option value="Mx">{getString("sex.mx", language)}</option>
                   </Form.Control>
                 </Form.Group>
               </Col>
@@ -367,18 +396,20 @@ class LifterRow extends React.Component<Props, State> {
               {/* Equipment */}
               <Col md={2}>
                 <Form.Group>
-                  <Form.Label>Equipment</Form.Label>
+                  <Form.Label>
+                    <FormattedMessage id="registration.equipment-label" defaultMessage="Equipment" />
+                  </Form.Label>
                   <Form.Control
                     defaultValue={entry.equipment}
                     as="select"
                     onChange={this.updateRegistrationEquipment}
                     className="custom-select"
                   >
-                    <option value="Bare">Bare</option>
-                    <option value="Sleeves">Sleeves</option>
-                    <option value="Wraps">Wraps</option>
-                    <option value="Single-ply">Single-ply</option>
-                    <option value="Multi-ply">Multi-ply</option>
+                    <option value="Bare">{getString("equipment.bare", language)}</option>
+                    <option value="Sleeves">{getString("equipment.sleeves", language)}</option>
+                    <option value="Wraps">{getString("equipment.wraps", language)}</option>
+                    <option value="Single-ply">{getString("equipment.single-ply", language)}</option>
+                    <option value="Multi-ply">{getString("equipment.multi-ply", language)}</option>
                   </Form.Control>
                 </Form.Group>
               </Col>
@@ -386,9 +417,12 @@ class LifterRow extends React.Component<Props, State> {
               {/* Divisions */}
               <Col md={4}>
                 <Form.Group>
-                  <Form.Label>Divisions</Form.Label>
+                  <Form.Label>
+                    <FormattedMessage id="registration.divisions-label" defaultMessage="Divisions" />
+                  </Form.Label>
                   <Select
                     menuPlacement="auto"
+                    placeholder={stringSelectPlaceholder}
                     options={divisionOptions}
                     isClearable={false}
                     isMulti={true}
@@ -401,9 +435,12 @@ class LifterRow extends React.Component<Props, State> {
               {/* Events */}
               <Col md={2}>
                 <Form.Group>
-                  <Form.Label>Events</Form.Label>
+                  <Form.Label>
+                    <FormattedMessage id="registration.events-label" defaultMessage="Events" />
+                  </Form.Label>
                   <Select
                     menuPlacement="auto"
+                    placeholder={stringSelectPlaceholder}
                     options={eventOptions}
                     isClearable={false}
                     isMulti={true}
@@ -420,10 +457,12 @@ class LifterRow extends React.Component<Props, State> {
               {/* Date of Birth */}
               <Col md={2}>
                 <Form.Group>
-                  <Form.Label>Date of Birth</Form.Label>
+                  <Form.Label>
+                    <FormattedMessage id="registration.birthdate-label" defaultMessage="Date of Birth" />
+                  </Form.Label>
                   <ValidatedInput
                     initialValue={entry.birthDate}
-                    placeholder="YYYY-MM-DD"
+                    placeholder={stringBirthDatePlaceholder}
                     validate={validateIso8601Date}
                     onSuccess={this.updateRegistrationBirthDate}
                   />
@@ -433,10 +472,12 @@ class LifterRow extends React.Component<Props, State> {
               {/* Member ID */}
               <Col md={2}>
                 <Form.Group>
-                  <Form.Label>Member ID</Form.Label>
+                  <Form.Label>
+                    <FormattedMessage id="registration.member-id-label" defaultMessage="Member ID" />
+                  </Form.Label>
                   <Form.Control
                     type="text"
-                    placeholder="ID"
+                    placeholder={stringMemberIdPlaceholder}
                     defaultValue={entry.memberId}
                     onBlur={this.updateRegistrationMemberId}
                   />
@@ -446,10 +487,10 @@ class LifterRow extends React.Component<Props, State> {
               {/* Country */}
               <Col md={2}>
                 <Form.Group>
-                  <Form.Label>Country</Form.Label>
+                  <Form.Label>{stringCountry}</Form.Label>
                   <ValidatedInput
                     initialValue={entry.country}
-                    placeholder="Country"
+                    placeholder={stringCountry}
                     validate={s => (s === "" ? null : "success")}
                     onSuccess={this.updateRegistrationCountry}
                   />
@@ -459,10 +500,10 @@ class LifterRow extends React.Component<Props, State> {
               {/* State */}
               <Col md={1}>
                 <Form.Group>
-                  <Form.Label>State</Form.Label>
+                  <Form.Label>{stringState}</Form.Label>
                   <ValidatedInput
                     initialValue={entry.state}
-                    placeholder="State"
+                    placeholder={stringState}
                     validate={s => (s === "" ? null : "success")}
                     onSuccess={this.updateRegistrationState}
                   />
@@ -472,7 +513,9 @@ class LifterRow extends React.Component<Props, State> {
               {/* Lot Number */}
               <Col md={1}>
                 <Form.Group>
-                  <Form.Label>Lot #</Form.Label>
+                  <Form.Label>
+                    <FormattedMessage id="registration.lot-label" defaultMessage="Lot #" />
+                  </Form.Label>
                   <Form.Control
                     type="number"
                     min="0"
@@ -490,7 +533,9 @@ class LifterRow extends React.Component<Props, State> {
               {/* Notes */}
               <Col md={4}>
                 <Form.Group>
-                  <Form.Label>Team</Form.Label>
+                  <Form.Label>
+                    <FormattedMessage id="registration.team-label" defaultMessage="Team" />
+                  </Form.Label>
                   <Form.Control
                     type="text"
                     placeholder=""
@@ -507,7 +552,9 @@ class LifterRow extends React.Component<Props, State> {
               {/* Notes */}
               <Col md={2}>
                 <Form.Group>
-                  <Form.Label>Instagram</Form.Label>
+                  <Form.Label>
+                    <FormattedMessage id="registration.instagram-label" defaultMessage="Instagram" />
+                  </Form.Label>
                   <InputGroup>
                     <InputGroup.Prepend>
                       <InputGroup.Text>@</InputGroup.Text>
@@ -525,7 +572,9 @@ class LifterRow extends React.Component<Props, State> {
               {/* Notes */}
               <Col md={10}>
                 <Form.Group>
-                  <Form.Label>Notes (for your personal use)</Form.Label>
+                  <Form.Label>
+                    <FormattedMessage id="registration.notes-label" defaultMessage="Notes (for your personal use)" />
+                  </Form.Label>
                   <Form.Control
                     type="text"
                     placeholder=""
@@ -542,14 +591,15 @@ class LifterRow extends React.Component<Props, State> {
   }
 }
 
-const mapStateToProps = (state: GlobalState, ownProps: OwnProps) => {
+const mapStateToProps = (state: GlobalState, ownProps: OwnProps): StateProps => {
   // Only have props for the entry corresponding to this one row.
   const lookup = state.registration.lookup;
   const entry = state.registration.entries[lookup[ownProps.id]];
 
   return {
     meet: state.meet,
-    entry: entry
+    entry: entry,
+    language: state.language
   };
 };
 
