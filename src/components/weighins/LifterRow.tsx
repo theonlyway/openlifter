@@ -16,7 +16,7 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-// Defines a row in the LifterTable on the Weigh-inss page.
+// Defines a row in the LifterTable on the Weigh-ins page.
 // This provides a bunch of widgets, each of which correspond to
 // the state of a single entry.
 
