@@ -55,10 +55,13 @@ class AboutContainer extends React.Component<{}> {
                   <ul>
                     <li>Tommy DeFea &mdash; Graphic design</li>
                     <li>Trystan Oakley &mdash; Testing</li>
+                    <li>Jared Klopper &mdash; Programming</li>
+                    <li>Rodney Marsh &mdash; Programming</li>
                     <li>Matt Pearce &mdash; Coefficient calculations</li>
                     <li>Sean Stangl &mdash; Programming and maintenance</li>
                     <li>Michael Vessia &mdash; Programming and maintenance</li>
                     <li>Sarah Wellberg &mdash; UX design and testing</li>
+                    <li>Jo Whiteley &mdash; Testing</li>
                   </ul>
                 </p>
               </Card.Body>
