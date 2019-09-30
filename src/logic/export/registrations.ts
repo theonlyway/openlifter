@@ -19,45 +19,66 @@
 // Exports registration data to a CSV file.
 
 import { csvString, Csv } from "./csv";
+import { getString, localizeEquipment, localizeFlight, localizeSex } from "../strings";
 
-import { Entry, Event } from "../../types/dataTypes";
+import { Entry, Event, Language } from "../../types/dataTypes";
 import { RegistrationState } from "../../types/stateTypes";
 
-export const makeRegistrationsCsv = (registration: RegistrationState): string => {
+export const makeRegistrationsCsv = (registration: RegistrationState, language: Language): string => {
   let csv = new Csv();
 
-  csv.appendColumns(["Day", "Platform", "Flight", "Name", "Sex", "Equipment"]);
-  csv.appendColumns(["Division1", "Event1"]); // Base cases. Others inserted by need.
-  csv.appendColumns(["BirthDate", "MemberID", "Country", "State", "Lot", "Team"]);
-  csv.appendColumns(["Instagram", "Notes"]);
+  const division_template = getString("import.column-division-n", language);
+  const event_template = getString("import.column-event-n", language);
+
+  const col_day = getString("import.column-day", language);
+  const col_platform = getString("import.column-platform", language);
+  const col_flight = getString("import.column-flight", language);
+  const col_name = getString("import.column-name", language);
+  const col_sex = getString("import.column-sex", language);
+  const col_equipment = getString("import.column-equipment", language);
+  const col_division1 = division_template.replace("{N}", "1");
+  const col_event1 = event_template.replace("{N}", "1");
+  const col_birthdate = getString("import.column-birthdate", language);
+  const col_memberid = getString("import.column-memberid", language);
+  const col_country = getString("import.column-country", language);
+  const col_state = getString("import.column-state", language);
+  const col_lot = getString("import.column-lot", language);
+  const col_team = getString("import.column-team", language);
+  const col_instagram = getString("import.column-instagram", language);
+  const col_notes = getString("import.column-notes", language);
+
+  csv.appendColumns([col_day, col_platform, col_flight, col_name, col_sex, col_equipment]);
+  csv.appendColumns([col_division1, col_event1]); // Base cases. Others inserted by need.
+  csv.appendColumns([col_birthdate, col_memberid, col_country, col_state, col_lot]);
+  csv.appendColumns([col_team, col_instagram, col_notes]);
 
   for (let i = 0; i < registration.entries.length; ++i) {
     const entry = registration.entries[i];
 
     let row: Array<string> = new Array(csv.fieldnames.length).fill("");
-    row[csv.index("Day")] = csvString(entry.day);
-    row[csv.index("Platform")] = csvString(entry.platform);
-    row[csv.index("Flight")] = csvString(entry.flight);
-    row[csv.index("Name")] = csvString(entry.name);
-    row[csv.index("Sex")] = csvString(entry.sex);
-    row[csv.index("Equipment")] = csvString(entry.equipment);
-    row[csv.index("BirthDate")] = csvString(entry.birthDate);
-    row[csv.index("MemberID")] = csvString(entry.memberId);
-    row[csv.index("Country")] = csvString(entry.country);
-    row[csv.index("State")] = csvString(entry.state);
-    row[csv.index("Lot")] = csvString(entry.lot);
-    row[csv.index("Team")] = csvString(entry.team);
-    row[csv.index("Instagram")] = csvString(entry.instagram);
-    row[csv.index("Notes")] = csvString(entry.notes);
+    row[csv.index(col_day)] = csvString(entry.day);
+    row[csv.index(col_platform)] = csvString(entry.platform);
+    row[csv.index(col_flight)] = csvString(localizeFlight(entry.flight, language));
+    row[csv.index(col_name)] = csvString(entry.name);
+    row[csv.index(col_sex)] = csvString(localizeSex(entry.sex, language));
+    row[csv.index(col_equipment)] = csvString(localizeEquipment(entry.equipment, language));
+    row[csv.index(col_birthdate)] = csvString(entry.birthDate);
+    row[csv.index(col_memberid)] = csvString(entry.memberId);
+    row[csv.index(col_country)] = csvString(entry.country);
+    row[csv.index(col_state)] = csvString(entry.state);
+    row[csv.index(col_lot)] = csvString(entry.lot);
+    row[csv.index(col_team)] = csvString(entry.team);
+    row[csv.index(col_instagram)] = csvString(entry.instagram);
+    row[csv.index(col_notes)] = csvString(entry.notes);
 
     // Divisions.
     for (let j = 0; j < entry.divisions.length; ++j) {
       const division: string = entry.divisions[j];
-      const column: string = "Division" + String(j + 1);
+      const column: string = division_template.replace("{N}", String(j + 1));
 
       // Create the column if necessary. The previously numbered column exists.
       if (csv.index(column) === -1) {
-        const prevIndex = csv.index("Division" + String(j));
+        const prevIndex = csv.index(division_template.replace("{N}", String(j)));
         csv.insertColumn(prevIndex + 1, column); // Make space in other rows.
         row.splice(prevIndex + 1, 0, ""); // Make space in this row.
       }
@@ -67,11 +88,11 @@ export const makeRegistrationsCsv = (registration: RegistrationState): string =>
     // Events.
     for (let j = 0; j < entry.events.length; ++j) {
       const event = entry.events[j];
-      const column: string = "Event" + String(j + 1);
+      const column: string = event_template.replace("{N}", String(j + 1));
 
       // Create the column if necessary. The previously numbered column exists.
       if (csv.index(column) === -1) {
-        const prevIndex = csv.index("Event" + String(j));
+        const prevIndex = csv.index(event_template.replace("{N}", String(j)));
         csv.insertColumn(prevIndex + 1, column); // Make space in other rows.
         row.splice(prevIndex + 1, 0, ""); // Make space in this row.
       }

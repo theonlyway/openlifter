@@ -39,6 +39,7 @@ strings = strings.concat([
   { id: "common.response-no", defaultMessage: "No" },
   { id: "common.response-yes", defaultMessage: "Yes" },
   { id: "common.select-placeholder", defaultMessage: "Select..." },
+  { id: "common.unnamed-filename", defaultMessage: "Unnamed-Meet" },
 ]);
 
 // Strings for the Equipment type.
@@ -130,6 +131,7 @@ strings = strings.concat([
 // Strings for the CSV import/export feature on the Registration page.
 strings = strings.concat([
   { id: "import.template-filename", defaultMessage: "registration-template" },
+  { id: "import.export-filename", defaultMessage: "{MeetName}-Registrations" },
   { id: "import.example-name", defaultMessage: "Emily Example" },
   { id: "import.example-division1", defaultMessage: "Open" },
   { id: "import.example-division2", defaultMessage: "J20-23" },

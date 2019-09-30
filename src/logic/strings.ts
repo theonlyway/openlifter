@@ -23,9 +23,72 @@
 // to in the React context.
 
 import translations from "../translations";
-import { Language, TranslationId } from "../types/dataTypes";
+import { Equipment, Flight, Language, Sex, TranslationId } from "../types/dataTypes";
+import { checkExhausted } from "../types/utils";
 
 // Fetches a simple string from the translations store. No formatting is performed.
 export const getString = (id: TranslationId, lang: Language): string => {
   return translations[lang][id];
+};
+
+// Localizes an Equipment value.
+export const localizeEquipment = (equipment: Equipment, language: Language): string => {
+  switch (equipment) {
+    case "Bare":
+      return getString("equipment.bare", language);
+    case "Sleeves":
+      return getString("equipment.sleeves", language);
+    case "Wraps":
+      return getString("equipment.wraps", language);
+    case "Single-ply":
+      return getString("equipment.single-ply", language);
+    case "Multi-ply":
+      return getString("equipment.multi-ply", language);
+    default:
+      checkExhausted(equipment);
+      return "";
+  }
+};
+
+// Delocalizes an Equipment value.
+export const delocalizeEquipment = (text: string, language: Language): Equipment => {
+  if (text === getString("equipment.bare", language)) return "Bare";
+  if (text === getString("equipment.sleeves", language)) return "Sleeves";
+  if (text === getString("equipment.wraps", language)) return "Wraps";
+  if (text === getString("equipment.single-ply", language)) return "Single-ply";
+  if (text === getString("equipment.multi-ply", language)) return "Multi-ply";
+  throw new Error("Failed to delocalize Equipment: " + text);
+};
+
+// Localizes a Flight value.
+export const localizeFlight = (flight: Flight, language: Language): string => {
+  return flight;
+};
+
+// Delocalizes a Flight value.
+export const delocalizeFlight = (text: string, language: Language): Flight => {
+  return text as Flight;
+};
+
+// Localizes a Sex value.
+export const localizeSex = (sex: Sex, language: Language): string => {
+  switch (sex) {
+    case "M":
+      return getString("sex.m", language);
+    case "F":
+      return getString("sex.f", language);
+    case "Mx":
+      return getString("sex.mx", language);
+    default:
+      checkExhausted(sex);
+      return "";
+  }
+};
+
+// Delocalizes a Sex value.
+export const delocalizeSex = (text: string, language: Language): string => {
+  if (text === getString("sex.m", language)) return "M";
+  if (text === getString("sex.f", language)) return "F";
+  if (text === getString("sex.mx", language)) return "Mx";
+  throw new Error("Failed to delocalize Sex: " + text);
 };

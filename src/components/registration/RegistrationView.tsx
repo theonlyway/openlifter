@@ -88,13 +88,17 @@ class RegistrationView extends React.Component<Props, InternalState> {
   handleExportCsvClick = () => {
     let meetname = this.props.global.meet.name;
     if (meetname === "") {
-      meetname = "Unnamed-Meet";
+      meetname = getString("common.unnamed-filename", this.props.global.language);
     }
     meetname = meetname.replace(/ /g, "-");
 
-    const text = makeRegistrationsCsv(this.props.global.registration);
+    const language = this.props.global.language;
+    const text = makeRegistrationsCsv(this.props.global.registration, language);
     const blob = new Blob([text], { type: "application/text;charset=utf-8" });
-    saveAs(blob, meetname + "-Registrations.csv");
+
+    const basename = getString("import.export-filename", this.props.global.language);
+    const filename = basename.replace("{MeetName}", meetname) + ".csv";
+    saveAs(blob, filename);
   };
 
   handleOverwriteClick = () => {
