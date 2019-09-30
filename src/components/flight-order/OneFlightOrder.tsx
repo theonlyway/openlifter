@@ -20,13 +20,14 @@
 
 import React from "react";
 import { connect } from "react-redux";
+import { FormattedMessage } from "react-intl";
 
 import Card from "react-bootstrap/Card";
 import Table from "react-bootstrap/Table";
 
 import { liftToAttemptFieldName } from "../../logic/entry";
 import { orderEntriesByAttempt } from "../../logic/liftingOrder";
-import { getString } from "../../logic/strings";
+import { getString, localizeFlight } from "../../logic/strings";
 import { kg2lbs, displayNumber, displayWeight } from "../../logic/units";
 
 import { Entry, Flight, Language, Lift } from "../../types/dataTypes";
@@ -251,7 +252,13 @@ class OneFlightOrder extends React.Component<Props> {
 
     return (
       <Card>
-        <Card.Header>Flight {this.props.flight} Lifting Order</Card.Header>
+        <Card.Header>
+          <FormattedMessage
+            id="flight-order.flight-card"
+            defaultMessage="Flight {flight} Lifting Order"
+            values={{ flight: localizeFlight(this.props.flight, this.props.language) }}
+          />
+        </Card.Header>
         <Card.Body>
           <Table striped hover size="sm" style={{ margin: "0px" }}>
             <thead>

@@ -20,6 +20,7 @@
 
 import React, { FormEvent } from "react";
 import { connect } from "react-redux";
+import { FormattedMessage } from "react-intl";
 
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
@@ -29,14 +30,17 @@ import OneFlightOrder from "./OneFlightOrder";
 import OneCategory from "./OneCategory";
 
 import { getProjectedResults } from "../../logic/divisionPlace";
+import { getString } from "../../logic/strings";
+import { displayNumber } from "../../logic/units";
 
-import { Entry, Flight } from "../../types/dataTypes";
+import { Entry, Flight, Language } from "../../types/dataTypes";
 import { GlobalState, MeetState } from "../../types/stateTypes";
 import { FormControlTypeHack } from "../../types/utils";
 
 interface StateProps {
   meet: MeetState;
   entries: Array<Entry>;
+  language: Language;
 }
 
 type Props = StateProps;
@@ -86,25 +90,28 @@ class FlightOrderView extends React.Component<Props, InternalState> {
   };
 
   render() {
+    const language = this.props.language;
     const selectorStyle = { width: "120px" };
 
     // Make options for all of the days.
     let dayOptions = [];
+    const dayTemplate = getString("lifting.footer-day-template", language);
     for (let i = 1; i <= this.props.meet.lengthDays; i++) {
       dayOptions.push(
         <option value={i} key={i}>
-          Day {i}
+          {dayTemplate.replace("{N}", displayNumber(i, language))}
         </option>
       );
     }
 
     // Make options for all of the available platforms on the current day.
     let platformOptions = [];
-    let numPlatforms = this.props.meet.platformsOnDays[this.state.day - 1];
+    const platformTemplate = getString("lifting.footer-platform-template", language);
+    const numPlatforms = this.props.meet.platformsOnDays[this.state.day - 1];
     for (let i = 1; i <= numPlatforms; i++) {
       platformOptions.push(
         <option value={i} key={i}>
-          Platform {i}
+          {platformTemplate.replace("{N}", displayNumber(i, language))}
         </option>
       );
     }
@@ -173,7 +180,7 @@ class FlightOrderView extends React.Component<Props, InternalState> {
             </FormControl>
 
             <Button variant="info" onClick={this.handlePrint}>
-              Print Page
+              <FormattedMessage id="flight-order.print-button" defaultMessage="Print Page" />
             </Button>
           </Card.Body>
         </Card>
@@ -188,7 +195,8 @@ class FlightOrderView extends React.Component<Props, InternalState> {
 const mapStateToProps = (state: GlobalState): StateProps => {
   return {
     meet: state.meet,
-    entries: state.registration.entries
+    entries: state.registration.entries,
+    language: state.language
   };
 };
 
