@@ -34,7 +34,7 @@ import Row from "react-bootstrap/Row";
 
 import Select from "react-select";
 
-import { getString } from "../../logic/strings";
+import { getString, localizeEvent } from "../../logic/strings";
 import LocalizedString from "../translations/LocalizedString";
 import ValidatedInput from "../ValidatedInput";
 
@@ -46,16 +46,6 @@ import { ActionMeta } from "react-select/lib/types";
 import { Entry, Equipment, Language } from "../../types/dataTypes";
 import { Dispatch } from "redux";
 import { GlobalState, MeetState } from "../../types/stateTypes";
-
-const eventOptions = [
-  { value: "S", label: "S" },
-  { value: "B", label: "B" },
-  { value: "D", label: "D" },
-  { value: "BD", label: "BD" },
-  { value: "SBD", label: "SBD" },
-  { value: "SB", label: "SB" },
-  { value: "SD", label: "SD" }
-];
 
 interface OwnProps {
   id: number;
@@ -188,7 +178,7 @@ class LifterRow extends React.Component<Props, InternalState> {
     if (value.length !== this.props.entry.divisions.length) {
       let divisions = [];
       for (let i = 0; i < value.length; i++) {
-        divisions.push(value[i].label);
+        divisions.push(value[i].value);
       }
       this.props.updateRegistration(this.props.id, { divisions: divisions });
     }
@@ -200,7 +190,7 @@ class LifterRow extends React.Component<Props, InternalState> {
     if (value.length !== this.props.entry.events.length) {
       let events = [];
       for (let i = 0; i < value.length; i++) {
-        events.push(value[i].label);
+        events.push(value[i].value);
       }
       this.props.updateRegistration(this.props.id, { events: events });
     }
@@ -245,6 +235,7 @@ class LifterRow extends React.Component<Props, InternalState> {
 
   render() {
     const entry = this.props.entry;
+    const language = this.props.language;
 
     let dayOptions = [];
     for (let i = 1; i <= this.props.meet.lengthDays; i++) {
@@ -278,19 +269,28 @@ class LifterRow extends React.Component<Props, InternalState> {
 
     let selectedEvents = [];
     for (let i = 0; i < entry.events.length; i++) {
-      const events = entry.events[i];
-      selectedEvents.push({ value: events, label: events });
+      const event = entry.events[i];
+      selectedEvents.push({ value: event, label: localizeEvent(event, language) });
     }
 
     const gridStyle = { padding: "0px", margin: "0px" };
 
-    const language = this.props.language;
     const stringName = getString("common.name", language);
     const stringCountry = getString("common.country", language);
     const stringState = getString("registration.state-province", language);
     const stringBirthDatePlaceholder = getString("registration.birthdate-placeholder", language);
     const stringMemberIdPlaceholder = getString("registration.member-id-placeholder", language);
     const stringSelectPlaceholder = getString("common.select-placeholder", language);
+
+    const eventOptions = [
+      { value: "S", label: getString("event.s", language) },
+      { value: "B", label: getString("event.b", language) },
+      { value: "D", label: getString("event.d", language) },
+      { value: "BD", label: getString("event.bd", language) },
+      { value: "SBD", label: getString("event.sbd", language) },
+      { value: "SB", label: getString("event.sb", language) },
+      { value: "SD", label: getString("event.sd", language) }
+    ];
 
     return (
       <Card>
