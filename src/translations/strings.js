@@ -62,6 +62,26 @@ strings = strings.concat([
   { id: "event.sbd", defaultMessage: "SBD" },
 ]);
 
+// Strings for the Flight type.
+strings = strings.concat([
+  { id: "flight.a", defaultMessage: "A" },
+  { id: "flight.b", defaultMessage: "B" },
+  { id: "flight.c", defaultMessage: "C" },
+  { id: "flight.d", defaultMessage: "D" },
+  { id: "flight.e", defaultMessage: "E" },
+  { id: "flight.f", defaultMessage: "F" },
+  { id: "flight.g", defaultMessage: "G" },
+  { id: "flight.h", defaultMessage: "H" },
+  { id: "flight.i", defaultMessage: "I" },
+  { id: "flight.j", defaultMessage: "J" },
+  { id: "flight.k", defaultMessage: "K" },
+  { id: "flight.l", defaultMessage: "L" },
+  { id: "flight.m", defaultMessage: "M" },
+  { id: "flight.n", defaultMessage: "N" },
+  { id: "flight.o", defaultMessage: "O" },
+  { id: "flight.p", defaultMessage: "P" },
+]);
+
 // Strings for the Formula type.
 strings = strings.concat([
   { id: "formula.ah", defaultMessage: "AH (Haleczko)" },

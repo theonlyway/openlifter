@@ -18,23 +18,41 @@
 
 import { Csv } from "../export/csv";
 import { makeExampleRegistrationsCsv, loadRegistrations } from "./registration-csv";
+import { getString } from "../strings";
 
 import rootReducer from "../../reducers/rootReducer";
 
+const makeState = language => {
+  let state = rootReducer({}, "OVERWRITE_STORE"); // Get a default global state.
+  state.meet.divisions = [
+    getString("import.example-division1", language),
+    getString("import.example-division2", language)
+  ];
+  return state;
+};
+
 describe("loadRegistrations", () => {
-  it("can load the example", () => {
-    let state = rootReducer({}, "OVERWRITE_STORE"); // Get a default global state.
-
-    // Make modifications so the example will load.
-    state.meet.divisions = ["Open", "J20-23"];
-
+  it("can load the example in English", () => {
     const example = makeExampleRegistrationsCsv("en");
     expect(typeof example).toEqual("string");
 
     let csv = new Csv();
     expect(typeof csv.fromString(example)).toEqual("object");
 
-    let entries = loadRegistrations(state, csv);
+    let entries = loadRegistrations(makeState("en"), csv, "en");
+    expect(typeof entries).toEqual("object");
+  });
+});
+
+describe("loadRegistrations", () => {
+  it("can load the example in Esperanto", () => {
+    const example = makeExampleRegistrationsCsv("eo");
+    expect(typeof example).toEqual("string");
+
+    let csv = new Csv();
+    expect(typeof csv.fromString(example)).toEqual("object");
+
+    let entries = loadRegistrations(makeState("eo"), csv, "eo");
     expect(typeof entries).toEqual("object");
   });
 });

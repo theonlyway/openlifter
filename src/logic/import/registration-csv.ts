@@ -24,7 +24,8 @@ import { Csv, getSpreadsheetColumnName } from "../export/csv";
 import { newDefaultEntry } from "../entry";
 
 import { parseInteger, parseEquipment, parseEvent, parseSex, parseDate } from "../parsers";
-import { getString } from "../strings";
+import { getString, delocalizeEquipment, delocalizeEvent, delocalizeFlight, delocalizeSex } from "../strings";
+import { displayNumber } from "../units";
 
 import { Entry, Flight, Language } from "../../types/dataTypes";
 import { GlobalState } from "../../types/stateTypes";
@@ -88,34 +89,71 @@ export const makeExampleRegistrationsCsv = (language: Language): string => {
   return csv.toString();
 };
 
-// Every fieldname must be either mandatory or optional.
-const MANDATORY_FIELDNAMES = ["Day", "Platform", "Flight", "Name", "Sex", "Equipment", "Division1", "Event1"];
-const OPTIONAL_FIELDNAMES = [
-  "Division2",
-  "Division3",
-  "Division4",
-  "Division5",
-  "Event2",
-  "Event3",
-  "Event4",
-  "Event5",
-  "BirthDate",
-  "MemberID",
-  "Country",
-  "State",
-  "Lot",
-  "Team",
-  "Instagram",
-  "Notes"
-];
-
 // Attempts to load registration information from a CSV object.
 //
 // On success, returns an array of Entry objects.
 //   NOTE CAREFULLY that the global state is not updated by this function.
 //   The caller must integrate the Entry objects, updating EntryID Tracking.
 // On failure, returns an error string with a user-presentable message.
-export const loadRegistrations = (state: GlobalState, csv: Csv): Array<Entry> | string => {
+export const loadRegistrations = (state: GlobalState, csv: Csv, language: Language): Array<Entry> | string => {
+  const division_template = getString("import.column-division-n", language);
+  const event_template = getString("import.column-event-n", language);
+
+  const col_day = getString("import.column-day", language);
+  const col_platform = getString("import.column-platform", language);
+  const col_flight = getString("import.column-flight", language);
+  const col_name = getString("import.column-name", language);
+  const col_sex = getString("import.column-sex", language);
+  const col_equipment = getString("import.column-equipment", language);
+  const col_division1 = division_template.replace("{N}", "1");
+  const col_division2 = division_template.replace("{N}", "2");
+  const col_division3 = division_template.replace("{N}", "3");
+  const col_division4 = division_template.replace("{N}", "4");
+  const col_division5 = division_template.replace("{N}", "5");
+  const col_event1 = event_template.replace("{N}", "1");
+  const col_event2 = event_template.replace("{N}", "2");
+  const col_event3 = event_template.replace("{N}", "3");
+  const col_event4 = event_template.replace("{N}", "4");
+  const col_event5 = event_template.replace("{N}", "5");
+  const col_birthdate = getString("import.column-birthdate", language);
+  const col_memberid = getString("import.column-memberid", language);
+  const col_country = getString("import.column-country", language);
+  const col_state = getString("import.column-state", language);
+  const col_lot = getString("import.column-lot", language);
+  const col_team = getString("import.column-team", language);
+  const col_instagram = getString("import.column-instagram", language);
+  const col_notes = getString("import.column-notes", language);
+
+  // Every fieldname must be either mandatory or optional.
+  const MANDATORY_FIELDNAMES = [
+    col_day,
+    col_platform,
+    col_flight,
+    col_name,
+    col_sex,
+    col_equipment,
+    col_division1,
+    col_event1
+  ];
+  const OPTIONAL_FIELDNAMES = [
+    col_division2,
+    col_division3,
+    col_division4,
+    col_division5,
+    col_event2,
+    col_event3,
+    col_event4,
+    col_event5,
+    col_birthdate,
+    col_memberid,
+    col_country,
+    col_state,
+    col_lot,
+    col_team,
+    col_instagram,
+    col_notes
+  ];
+
   // Check the existent fieldnames for sanity.
   for (let i = 0; i < csv.fieldnames.length; ++i) {
     const name: string = csv.fieldnames[i];
@@ -153,7 +191,7 @@ export const loadRegistrations = (state: GlobalState, csv: Csv): Array<Entry> | 
   // The "Platform" column" must occur after the "Day" column: the parsing
   // below is stateful, and needs to know how many platforms are on that day
   // when it reads in the platform value.
-  if (csv.fieldnames.indexOf("Platform") <= csv.fieldnames.indexOf("Day")) {
+  if (csv.fieldnames.indexOf(col_platform) <= csv.fieldnames.indexOf(col_day)) {
     return "The Day column must come before the Platform column";
   }
 
@@ -174,19 +212,16 @@ export const loadRegistrations = (state: GlobalState, csv: Csv): Array<Entry> | 
 
       // User-visible row number, for error messages.
       // The first row is for the fieldnames, and spreadsheet programs are 1-indexed.
-      let rowstr = String(i + 2);
+      let rowstr = displayNumber(i + 2, language);
 
       // Start building the error string early, since it's repeated a lot.
       let errprefix = "Invalid " + fieldname + " '" + val + "' in row " + rowstr + ": ";
 
-      switch (fieldname) {
-        case "Day": {
-          if (val === "") {
-            // Default to 1.
-            entry.day = 1;
-            break;
-          }
-
+      if (fieldname === col_day) {
+        // Default to 1.
+        if (val === "") {
+          entry.day = 1;
+        } else {
           const integer = parseInteger(val);
 
           // Must be an integer.
@@ -207,16 +242,12 @@ export const loadRegistrations = (state: GlobalState, csv: Csv): Array<Entry> | 
 
           // All checks passed!
           entry.day = integer;
-          break;
         }
-
-        case "Platform": {
-          if (val === "") {
-            // Default to 1.
-            entry.platform = 1;
-            break;
-          }
-
+      } else if (fieldname === col_platform) {
+        // Default to 1.
+        if (val === "") {
+          entry.platform = 1;
+        } else {
           const integer = parseInteger(val);
 
           // Must be an integer.
@@ -240,71 +271,48 @@ export const loadRegistrations = (state: GlobalState, csv: Csv): Array<Entry> | 
 
           // All checks passed!
           entry.platform = integer;
-          break;
         }
-
-        case "Flight": {
-          if (val === "") {
-            // Default to A.
-            entry.flight = "A";
-            break;
+      } else if (fieldname === col_flight) {
+        // Default to A.
+        if (val === "") {
+          entry.flight = "A";
+        } else {
+          try {
+            entry.flight = delocalizeFlight(val, language);
+          } catch (err) {
+            return errprefix + "expected a valid flight";
           }
-
-          if (val.length !== 1) {
-            return errprefix + "expected just a single flight letter";
-          }
-
-          if ("ABCDEFGHIJKLMNOP".indexOf(val) === -1) {
-            return errprefix + "expected a flight letter, A through P";
-          }
-
-          // All checks passed!
-          // Narrow the type to flight (or throw an error if we've broken our validation) and continue
-          if (assertFlight(val)) {
-            entry.flight = val;
-          }
-          break;
         }
-
-        case "Name": {
-          if (val === "") {
-            return errprefix + "every lifter needs a Name";
-          }
-          if (val.toUpperCase() === val) {
-            return errprefix + "the Name should not be all-uppercase";
-          }
-          entry.name = val;
-          break;
+      } else if (fieldname === col_name) {
+        if (val === "") {
+          return errprefix + "every lifter needs a Name";
         }
-
-        case "Sex": {
-          const sex = parseSex(val);
-          if (typeof sex !== "string") {
-            return errprefix + "valid values are M, F, and Mx";
-          }
-          entry.sex = sex;
-          break;
+        entry.name = val;
+      } else if (fieldname === col_sex) {
+        try {
+          entry.sex = delocalizeSex(val, language);
+        } catch (err) {
+          return errprefix + "valid values are M, F, and Mx";
         }
-
-        case "Equipment": {
-          const eqt = parseEquipment(val);
-          if (typeof eqt !== "string") {
-            return errprefix + "valid values are 'Bare', 'Sleeves', 'Wraps', 'Single-ply', and 'Multi-ply'";
-          }
-          entry.equipment = eqt;
-          break;
+      } else if (fieldname === col_equipment) {
+        try {
+          entry.equipment = delocalizeEquipment(val, language);
+        } catch (err) {
+          return errprefix + "valid values are 'Bare', 'Sleeves', 'Wraps', 'Single-ply', and 'Multi-ply'";
         }
-
-        case "Division1": // fallthrough
-        case "Division2": // fallthrough
-        case "Division3": // fallthrough
-        case "Division4": // fallthrough
-        case "Division5": {
+      } else if (
+        fieldname === col_division1 ||
+        fieldname === col_division2 ||
+        fieldname === col_division3 ||
+        fieldname === col_division4 ||
+        fieldname === col_division5
+      ) {
+        if (val === "") {
           // Only the first Division is mandatory.
-          if (val === "" && fieldname !== "Division1") {
-            break;
+          if (fieldname === col_division1) {
+            return errprefix + "the first division is mandatory";
           }
-
+        } else {
           // Check that it appears as a valid division.
           if (!state.meet.divisions.includes(val)) {
             return errprefix + "not a valid division per the Meet Setup page";
@@ -316,41 +324,35 @@ export const loadRegistrations = (state: GlobalState, csv: Csv): Array<Entry> | 
           }
 
           entry.divisions.push(val);
-          break;
         }
-
-        case "Event1": // fallthrough
-        case "Event2": // fallthrough
-        case "Event3": // fallthrough
-        case "Event4": // fallthrough
-        case "Event5": {
+      } else if (
+        fieldname === col_event1 ||
+        fieldname === col_event2 ||
+        fieldname === col_event3 ||
+        fieldname === col_event4 ||
+        fieldname === col_event5
+      ) {
+        if (val === "") {
           // Only the first Event is mandatory.
-          if (val === "" && fieldname !== "Event1") {
-            break;
+          if (fieldname === col_event1) {
+            return errprefix + "the first event is mandatory";
           }
+        } else {
+          try {
+            const evt = delocalizeEvent(val, language);
 
-          // Check that it's well-formed.
-          const evt = parseEvent(val);
-          if (typeof evt !== "string") {
+            // Check for duplicates.
+            if (entry.events.includes(evt)) {
+              return errprefix + "the lifter is already registered for that Event";
+            }
+            entry.events.push(evt);
+          } catch (err) {
             return errprefix + "should be formed like 'SBD', 'BD', 'B', etc.";
           }
-
-          // Check for duplicates.
-          if (entry.events.includes(evt)) {
-            return errprefix + "the lifter is already registered for that Event";
-          }
-
-          // All checks passed!
-          entry.events.push(evt);
-          break;
         }
-
-        case "BirthDate": {
-          if (val === "") {
-            // BirthDate is optional.
-            break;
-          }
-
+      } else if (fieldname === col_birthdate) {
+        // BirthDate is optional.
+        if (val !== "") {
           const bd = parseDate(val);
           if (typeof bd !== "string") {
             let e = "date must be in the unambiguous international standard: YYYY-MM-DD";
@@ -358,27 +360,16 @@ export const loadRegistrations = (state: GlobalState, csv: Csv): Array<Entry> | 
           }
 
           entry.birthDate = bd;
-          break;
         }
-
-        case "MemberID":
-          entry.memberId = val;
-          break;
-
-        case "Country":
-          entry.country = val;
-          break;
-
-        case "State":
-          entry.state = val;
-          break;
-
-        case "Lot": {
-          if (val === "") {
-            // Empty strings are allowed: just doesn't use lots.
-            break;
-          }
-
+      } else if (fieldname === col_memberid) {
+        entry.memberId = val;
+      } else if (fieldname === col_country) {
+        entry.country = val;
+      } else if (fieldname === col_state) {
+        entry.state = val;
+      } else if (fieldname === col_lot) {
+        // Empty strings are allowed: just doesn't use lots.
+        if (val !== "") {
           const integer = parseInteger(val);
           if (typeof integer !== "number" || integer < 1) {
             return errprefix + "expected an empty cell or a positive integer";
@@ -386,23 +377,15 @@ export const loadRegistrations = (state: GlobalState, csv: Csv): Array<Entry> | 
 
           // All checks passed!
           entry.lot = integer;
-          break;
         }
-
-        case "Team":
-          entry.team = val;
-          break;
-
-        case "Instagram":
-          entry.instagram = val;
-          break;
-
-        case "Notes":
-          entry.notes = val;
-          break;
-
-        default:
-          return 'Missing handler for the "' + fieldname + '" column';
+      } else if (fieldname === col_team) {
+        entry.team = val;
+      } else if (fieldname === col_instagram) {
+        entry.instagram = val;
+      } else if (fieldname === col_notes) {
+        entry.notes = val;
+      } else {
+        return 'Missing handler for the "' + fieldname + '" column';
       }
     }
   }

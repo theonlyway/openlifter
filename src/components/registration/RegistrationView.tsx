@@ -145,7 +145,8 @@ class RegistrationView extends React.Component<Props, InternalState> {
       }
 
       // Convert the Csv to an Array<Entry>.
-      const maybeEntries = loadRegistrations(rememberThis.props.global, csv);
+      const language = rememberThis.props.global.language;
+      const maybeEntries = loadRegistrations(rememberThis.props.global, csv, language);
       if (typeof maybeEntries === "string") {
         rememberThis.setState({ error: maybeEntries });
         return;

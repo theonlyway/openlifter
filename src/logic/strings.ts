@@ -97,12 +97,64 @@ export const delocalizeEvent = (text: string, language: Language): Event => {
 
 // Localizes a Flight value.
 export const localizeFlight = (flight: Flight, language: Language): string => {
-  return flight;
+  switch (flight) {
+    case "A":
+      return getString("flight.a", language);
+    case "B":
+      return getString("flight.b", language);
+    case "C":
+      return getString("flight.c", language);
+    case "D":
+      return getString("flight.d", language);
+    case "E":
+      return getString("flight.e", language);
+    case "F":
+      return getString("flight.f", language);
+    case "G":
+      return getString("flight.g", language);
+    case "H":
+      return getString("flight.h", language);
+    case "I":
+      return getString("flight.i", language);
+    case "J":
+      return getString("flight.j", language);
+    case "K":
+      return getString("flight.k", language);
+    case "L":
+      return getString("flight.l", language);
+    case "M":
+      return getString("flight.m", language);
+    case "N":
+      return getString("flight.n", language);
+    case "O":
+      return getString("flight.o", language);
+    case "P":
+      return getString("flight.p", language);
+    default:
+      checkExhausted(flight);
+      return "";
+  }
 };
 
 // Delocalizes a Flight value.
 export const delocalizeFlight = (text: string, language: Language): Flight => {
-  return text as Flight;
+  if (text === getString("flight.a", language)) return "A";
+  if (text === getString("flight.b", language)) return "B";
+  if (text === getString("flight.c", language)) return "C";
+  if (text === getString("flight.d", language)) return "D";
+  if (text === getString("flight.e", language)) return "E";
+  if (text === getString("flight.f", language)) return "F";
+  if (text === getString("flight.g", language)) return "G";
+  if (text === getString("flight.h", language)) return "H";
+  if (text === getString("flight.i", language)) return "I";
+  if (text === getString("flight.j", language)) return "J";
+  if (text === getString("flight.k", language)) return "K";
+  if (text === getString("flight.l", language)) return "L";
+  if (text === getString("flight.m", language)) return "M";
+  if (text === getString("flight.n", language)) return "N";
+  if (text === getString("flight.o", language)) return "O";
+  if (text === getString("flight.p", language)) return "P";
+  throw new Error("Failed to delocalize Flight: " + text);
 };
 
 // Localizes a Sex value.
@@ -121,7 +173,7 @@ export const localizeSex = (sex: Sex, language: Language): string => {
 };
 
 // Delocalizes a Sex value.
-export const delocalizeSex = (text: string, language: Language): string => {
+export const delocalizeSex = (text: string, language: Language): Sex => {
   if (text === getString("sex.m", language)) return "M";
   if (text === getString("sex.f", language)) return "F";
   if (text === getString("sex.mx", language)) return "Mx";
