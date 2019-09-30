@@ -29,7 +29,7 @@ import ValidatedInput from "../ValidatedInput";
 import WeightInput from "./WeightInput";
 
 import { getAge } from "../../logic/entry";
-import { getString } from "../../logic/strings";
+import { getString, localizeFlight } from "../../logic/strings";
 import { displayNumber, displayWeight } from "../../logic/units";
 import { validatePositiveInteger } from "../../validation/positiveInteger";
 
@@ -136,7 +136,7 @@ class LifterRow extends React.Component<Props> {
     const disableDeadliftWeight = !hasDeadlift || entry.deadliftStatus[0] !== 0;
 
     // Only show the Flight selector if the Weigh-ins page is non-embedded.
-    let flight: Flight | JSX.Element = entry.flight;
+    let flight: string | JSX.Element = localizeFlight(entry.flight, language);
     if (this.props.inLiftingPage !== true) {
       // Can be undefined.
       flight = (
