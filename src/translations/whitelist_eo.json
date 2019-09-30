@@ -2,5 +2,6 @@
   "flight.a",
   "flight.b",
   "flight.c",
-  "flight-order.kilograms-header"
+  "flight-order.kilograms-header",
+  "lifting.current-weight-kg"
 ]

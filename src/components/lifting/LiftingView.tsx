@@ -24,6 +24,7 @@
 
 import React from "react";
 import { connect } from "react-redux";
+import { FormattedMessage } from "react-intl";
 
 import Card from "react-bootstrap/Card";
 
@@ -35,11 +36,13 @@ import WeighinsView from "../weighins/WeighinsView";
 
 import ColumnWidth from "./ColumnWidth";
 
+import { getString } from "../../logic/strings";
+
 import styles from "./LiftingView.module.scss";
 
 import { getLiftingOrder } from "../../logic/liftingOrder";
 
-import { Entry, Flight } from "../../types/dataTypes";
+import { Entry, Flight, Language } from "../../types/dataTypes";
 import { GlobalState, MeetState, LiftingState } from "../../types/stateTypes";
 
 interface StateProps {
@@ -47,6 +50,7 @@ interface StateProps {
   lifting: LiftingState;
   flightsOnPlatform: Array<Flight>;
   entriesInFlight: Array<Entry>;
+  language: Language;
 }
 
 type Props = StateProps;
@@ -96,9 +100,17 @@ class LiftingView extends React.Component<Props, InternalState> {
         <Card border="primary" style={{ marginLeft: "12px", marginRight: "12px" }}>
           <Card.Body>
             <div style={{ width: "160px" }}>
-              <ColumnWidth label="Division Column Width" fieldName="columnDivisionWidthPx" />
+              <ColumnWidth
+                label={getString("lifting.division-column-width-label", this.props.language)}
+                fieldName="columnDivisionWidthPx"
+              />
             </div>
-            <h3>To fit to the screen, zoom the browser in or out and then press Toggle Fullscreen.</h3>
+            <h3>
+              <FormattedMessage
+                id="lifting.garish-instructions"
+                defaultMessage="To fit to the screen, zoom the browser in or out and then press Toggle Fullscreen."
+              />
+            </h3>
           </Card.Body>
         </Card>
         <div id="liftingView" className={styles.liftingView}>
@@ -161,7 +173,8 @@ const mapStateToProps = (state: GlobalState): StateProps => {
     meet: state.meet,
     lifting: state.lifting,
     flightsOnPlatform: flights,
-    entriesInFlight: entriesInFlight
+    entriesInFlight: entriesInFlight,
+    language: state.language
   };
 };
 

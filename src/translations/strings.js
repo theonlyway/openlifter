@@ -234,6 +234,10 @@ strings = strings.concat([
   { id: "lifting.column-s3", defaultMessage: "S3" },
   { id: "lifting.column-s4", defaultMessage: "S4" },
   { id: "lifting.column-weightclass", defaultMessage: "Class" },
+  { id: "lifting.current-weight-kg-lbs", defaultMessage: "{kg}kg / {lbs}lb" },
+  { id: "lifting.current-weight-kg", defaultMessage: "{kg}kg" },
+  { id: "lifting.current-weight-lbs-kg", defaultMessage: "{lbs}lb / {kg}kg" },
+  { id: "lifting.current-weight-lbs", defaultMessage: "{lbs}lb" },
   { id: "lifting.flight-complete", defaultMessage: "Flight Complete" },
   { id: "lifting.footer-day-template", defaultMessage: "Day {N}" },
   { id: "lifting.footer-platform-template", defaultMessage: "Platform {N}" },
@@ -242,6 +246,7 @@ strings = strings.concat([
   { id: "lifting.footer-squat", defaultMessage: "Squat" },
   { id: "lifting.footer-bench", defaultMessage: "Bench" },
   { id: "lifting.footer-deadlift", defaultMessage: "Deadlift" },
+  { id: "lifting.division-column-width-label", defaultMessage: "Division Column Width" },
 ]);
 /* eslint-enable */
 

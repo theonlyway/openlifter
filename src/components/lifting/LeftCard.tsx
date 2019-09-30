@@ -25,13 +25,14 @@ import { FormattedMessage } from "react-intl";
 
 import { selectPlates, makeLoadingRelative } from "../../logic/barLoad";
 import { liftToAttemptFieldName } from "../../logic/entry";
+import { getString } from "../../logic/strings";
 import { kg2lbs, displayWeightOnePlace } from "../../logic/units";
 
 import BarLoad from "./BarLoad";
 
 import styles from "./LeftCard.module.scss";
 
-import { Entry, LoadedPlate, Plate } from "../../types/dataTypes";
+import { Entry, Language, LoadedPlate, Plate } from "../../types/dataTypes";
 import { GlobalState, LiftingState, RegistrationState } from "../../types/stateTypes";
 
 interface OwnProps {
@@ -51,6 +52,7 @@ interface StateProps {
   plates: Array<Plate>;
   registration: RegistrationState;
   lifting: LiftingState;
+  language: Language;
 }
 
 type Props = OwnProps & StateProps;
@@ -102,8 +104,9 @@ class LeftCard extends React.Component<Props> {
     const next = this.getBarLoadProps(this.props.nextEntryId, this.props.nextAttemptOneIndexed);
 
     // Show one decimal point, and omit it if possible.
-    const weightKgText = displayWeightOnePlace(current.weightKg);
-    const weightLbsText = displayWeightOnePlace(current.weightLbs);
+    const language = this.props.language;
+    const weightKgText = displayWeightOnePlace(current.weightKg, language);
+    const weightLbsText = displayWeightOnePlace(current.weightLbs, language);
 
     const barAndCollarsWeightKg = this.getBarAndCollarsWeightKg();
 
@@ -157,17 +160,28 @@ class LeftCard extends React.Component<Props> {
         </div>
       );
 
-    let attemptText = this.props.inKg ? weightKgText + "kg" : weightLbsText + "lb";
-    if (this.props.showAlternateUnits) {
-      attemptText += " / ";
-      attemptText += this.props.inKg ? weightLbsText + "lb" : weightKgText + "kg";
+    let attemptTemplate = "";
+    if (this.props.inKg) {
+      if (this.props.showAlternateUnits) {
+        attemptTemplate = getString("lifting.current-weight-kg-lbs", language);
+      } else {
+        attemptTemplate = getString("lifting.current-weight-kg", language);
+      }
+    } else {
+      if (this.props.showAlternateUnits) {
+        attemptTemplate = getString("lifting.current-weight-lbs-kg", language);
+      } else {
+        attemptTemplate = getString("lifting.current-weight-lbs", language);
+      }
     }
 
     return (
       <div className={styles.container}>
         <div className={styles.activeCard}>
           <div className={styles.loadingBar}>
-            <div className={styles.attemptText}>{attemptText}</div>
+            <div className={styles.attemptText}>
+              {attemptTemplate.replace("{kg}", weightKgText).replace("{lbs}", weightLbsText)}
+            </div>
             <div className={styles.barArea}>
               <BarLoad
                 key={String(current.weightKg) + current.rackInfo}
@@ -193,7 +207,8 @@ const mapStateToProps = (state: GlobalState): StateProps => {
     deadliftBarAndCollarsWeightKg: state.meet.deadliftBarAndCollarsWeightKg,
     plates: state.meet.plates,
     registration: state.registration,
-    lifting: state.lifting
+    lifting: state.lifting,
+    language: state.language
   };
 };
 
