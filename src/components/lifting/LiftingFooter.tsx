@@ -29,9 +29,12 @@ import Form from "react-bootstrap/Form";
 
 import { globalFocusAttemptInputId } from "./LiftingTable";
 
+import { getString, localizeFlight } from "../../logic/strings";
+import { displayNumber } from "../../logic/units";
+
 import { markLift, overrideAttempt, overrideEntryId, setLiftingGroup } from "../../actions/liftingActions";
 
-import { Entry, Flight, Lift } from "../../types/dataTypes";
+import { Entry, Flight, Language, Lift } from "../../types/dataTypes";
 import { GlobalState, LiftingState } from "../../types/stateTypes";
 
 import styles from "./LiftingFooter.module.scss";
@@ -51,6 +54,7 @@ interface StateProps {
   lengthDays: number;
   platformsOnDays: Array<number>;
   allow4thAttempts: boolean;
+  language: Language;
 }
 
 interface DispatchProps {
@@ -61,18 +65,6 @@ interface DispatchProps {
 }
 
 type Props = OwnProps & StateProps & DispatchProps;
-
-const liftOptions = [
-  <option key={"S"} value={"S"}>
-    Squat
-  </option>,
-  <option key={"B"} value={"B"}>
-    Bench
-  </option>,
-  <option key={"D"} value={"D"}>
-    Deadlift
-  </option>
-];
 
 class LiftingFooter extends React.Component<Props> {
   constructor(props: Props) {
@@ -261,34 +253,49 @@ class LiftingFooter extends React.Component<Props> {
   };
 
   render() {
+    const language = this.props.language;
     const numPlatforms = this.props.platformsOnDays[this.props.lifting.day - 1];
 
     let dayOptions = [];
+    const dayTemplate = getString("lifting.footer-day-template", language);
     for (let i = 1; i <= this.props.lengthDays; i++) {
-      const label = "Day " + String(i);
       dayOptions.push(
         <option value={i} key={i}>
-          {label}
+          {dayTemplate.replace("{N}", displayNumber(i, language))}
         </option>
       );
     }
 
     let platformOptions = [];
+    const platformTemplate = getString("lifting.footer-platform-template", language);
     for (let i = 1; i <= numPlatforms; i++) {
       platformOptions.push(
         <option value={i} key={i}>
-          Platform {i}
+          {platformTemplate.replace("{N}", displayNumber(i, language))}
         </option>
       );
     }
 
+    const liftOptions = [
+      <option key={"S"} value={"S"}>
+        {getString("lifting.footer-squat", language)}
+      </option>,
+      <option key={"B"} value={"B"}>
+        {getString("lifting.footer-bench", language)}
+      </option>,
+      <option key={"D"} value={"D"}>
+        {getString("lifting.footer-deadlift", language)}
+      </option>
+    ];
+
     let flightOptions = [];
+    const flightTemplate = getString("lifting.footer-flight-template", language);
     for (let i = 0; i < this.props.flightsOnPlatform.length; i++) {
       const flight = this.props.flightsOnPlatform[i];
       const key = this.props.lifting.day + "-" + this.props.lifting.platform + "-" + i;
       flightOptions.push(
         <option value={flight} key={key}>
-          Flight {flight}
+          {flightTemplate.replace("{flight}", localizeFlight(flight, language))}
         </option>
       );
     }
@@ -297,17 +304,18 @@ class LiftingFooter extends React.Component<Props> {
     }
 
     let attemptOptions = [];
+    const attemptTemplate = getString("lifting.footer-attempt-template", language);
     for (let i = 1; i <= 3; i++) {
       attemptOptions.push(
         <option key={i} value={i}>
-          Attempt {i}
+          {attemptTemplate.replace("{N}", displayNumber(i, language))}
         </option>
       );
     }
     if (this.props.allow4thAttempts === true) {
       attemptOptions.push(
         <option key={4} value={4}>
-          Attempt 4
+          {attemptTemplate.replace("{N}", displayNumber(4, language))}
         </option>
       );
     }
@@ -394,7 +402,8 @@ const mapStateToProps = (state: GlobalState) => {
     lengthDays: state.meet.lengthDays,
     platformsOnDays: state.meet.platformsOnDays,
     allow4thAttempts: state.meet.allow4thAttempts,
-    lifting: state.lifting
+    lifting: state.lifting,
+    language: state.language
   };
 };
 

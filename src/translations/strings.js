@@ -235,6 +235,13 @@ strings = strings.concat([
   { id: "lifting.column-s4", defaultMessage: "S4" },
   { id: "lifting.column-weightclass", defaultMessage: "Class" },
   { id: "lifting.flight-complete", defaultMessage: "Flight Complete" },
+  { id: "lifting.footer-day-template", defaultMessage: "Day {N}" },
+  { id: "lifting.footer-platform-template", defaultMessage: "Platform {N}" },
+  { id: "lifting.footer-flight-template", defaultMessage: "Flight {flight}" },
+  { id: "lifting.footer-attempt-template", defaultMessage: "Attempt {N}" },
+  { id: "lifting.footer-squat", defaultMessage: "Squat" },
+  { id: "lifting.footer-bench", defaultMessage: "Bench" },
+  { id: "lifting.footer-deadlift", defaultMessage: "Deadlift" },
 ]);
 /* eslint-enable */
 

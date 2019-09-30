@@ -22,6 +22,7 @@ import React from "react";
 import { connect } from "react-redux";
 
 import LocalizedString from "../translations/LocalizedString";
+import { localizeEquipment } from "../../logic/strings";
 import { displayNumber } from "../../logic/units";
 
 import { Entry, Language } from "../../types/dataTypes";
@@ -64,7 +65,7 @@ class LiftingHeader extends React.Component<Props> {
       if (entry.age > 0) {
         infoBuilder.push(displayNumber(entry.age, this.props.language));
       }
-      infoBuilder.push(entry.equipment);
+      infoBuilder.push(localizeEquipment(entry.equipment, this.props.language));
       if (entry.divisions.length > 0) {
         infoBuilder.push(entry.divisions.join(", "));
       }
