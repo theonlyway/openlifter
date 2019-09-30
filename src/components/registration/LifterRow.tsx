@@ -354,22 +354,22 @@ class LifterRow extends React.Component<Props, InternalState> {
                     onChange={this.updateRegistrationFlight}
                     className="custom-select"
                   >
-                    <option value="A">A</option>
-                    <option value="B">B</option>
-                    <option value="C">C</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                    <option value="F">F</option>
-                    <option value="G">G</option>
-                    <option value="H">H</option>
-                    <option value="I">I</option>
-                    <option value="J">J</option>
-                    <option value="K">K</option>
-                    <option value="L">L</option>
-                    <option value="M">M</option>
-                    <option value="N">N</option>
-                    <option value="O">O</option>
-                    <option value="P">P</option>
+                    <option value="A">{getString("flight.a", language)}</option>
+                    <option value="B">{getString("flight.b", language)}</option>
+                    <option value="C">{getString("flight.c", language)}</option>
+                    <option value="D">{getString("flight.d", language)}</option>
+                    <option value="E">{getString("flight.e", language)}</option>
+                    <option value="F">{getString("flight.f", language)}</option>
+                    <option value="G">{getString("flight.g", language)}</option>
+                    <option value="H">{getString("flight.h", language)}</option>
+                    <option value="I">{getString("flight.i", language)}</option>
+                    <option value="J">{getString("flight.j", language)}</option>
+                    <option value="K">{getString("flight.k", language)}</option>
+                    <option value="L">{getString("flight.l", language)}</option>
+                    <option value="M">{getString("flight.m", language)}</option>
+                    <option value="N">{getString("flight.n", language)}</option>
+                    <option value="O">{getString("flight.o", language)}</option>
+                    <option value="P">{getString("flight.p", language)}</option>
                   </Form.Control>
                 </Form.Group>
               </Col>
