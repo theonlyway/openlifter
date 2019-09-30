@@ -19,7 +19,7 @@
 // Exports registration data to a CSV file.
 
 import { csvString, Csv } from "./csv";
-import { getString, localizeEquipment, localizeFlight, localizeSex } from "../strings";
+import { getString, localizeEquipment, localizeEvent, localizeFlight, localizeSex } from "../strings";
 
 import { Entry, Event, Language } from "../../types/dataTypes";
 import { RegistrationState } from "../../types/stateTypes";
@@ -96,7 +96,7 @@ export const makeRegistrationsCsv = (registration: RegistrationState, language: 
         csv.insertColumn(prevIndex + 1, column); // Make space in other rows.
         row.splice(prevIndex + 1, 0, ""); // Make space in this row.
       }
-      row[csv.index(column)] = csvString(event);
+      row[csv.index(column)] = csvString(localizeEvent(event, language));
     }
 
     csv.rows.push(row);

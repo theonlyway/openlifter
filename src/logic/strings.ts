@@ -23,7 +23,7 @@
 // to in the React context.
 
 import translations from "../translations";
-import { Equipment, Flight, Language, Sex, TranslationId } from "../types/dataTypes";
+import { Equipment, Event, Flight, Language, Sex, TranslationId } from "../types/dataTypes";
 import { checkExhausted } from "../types/utils";
 
 // Fetches a simple string from the translations store. No formatting is performed.
@@ -58,6 +58,41 @@ export const delocalizeEquipment = (text: string, language: Language): Equipment
   if (text === getString("equipment.single-ply", language)) return "Single-ply";
   if (text === getString("equipment.multi-ply", language)) return "Multi-ply";
   throw new Error("Failed to delocalize Equipment: " + text);
+};
+
+// Localizes an Event value.
+export const localizeEvent = (event: Event, language: Language): string => {
+  switch (event) {
+    case "S":
+      return getString("event.s", language);
+    case "B":
+      return getString("event.b", language);
+    case "D":
+      return getString("event.d", language);
+    case "SB":
+      return getString("event.sb", language);
+    case "SD":
+      return getString("event.sd", language);
+    case "BD":
+      return getString("event.bd", language);
+    case "SBD":
+      return getString("event.sbd", language);
+    default:
+      checkExhausted(event);
+      return "";
+  }
+};
+
+// Delocalizes an Event value.
+export const delocalizeEvent = (text: string, language: Language): Event => {
+  if (text === getString("event.s", language)) return "S";
+  if (text === getString("event.b", language)) return "B";
+  if (text === getString("event.d", language)) return "D";
+  if (text === getString("event.sb", language)) return "SB";
+  if (text === getString("event.sd", language)) return "SD";
+  if (text === getString("event.bd", language)) return "BD";
+  if (text === getString("event.sbd", language)) return "SBD";
+  throw new Error("Failed to delocalize Event: " + text);
 };
 
 // Localizes a Flight value.
