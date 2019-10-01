@@ -20,6 +20,7 @@
 
 import React from "react";
 import { connect } from "react-redux";
+import { FormattedMessage } from "react-intl";
 
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
@@ -34,10 +35,11 @@ import ErrorModal from "../ErrorModal";
 import { mergePlatform } from "../../actions/registrationActions";
 
 import { liftingPresentOnPlatform, getWhetherPlatformsHaveLifted } from "../../logic/entry";
+import { getString } from "../../logic/strings";
 import { exportAsOplCsv } from "../../logic/export/oplcsv";
 import { exportAsUSAPLCsv } from "../../logic/export/usapl";
 
-import { Entry } from "../../types/dataTypes";
+import { Entry, Language } from "../../types/dataTypes";
 import { GlobalState } from "../../types/stateTypes";
 
 import styles from "./ResultsView.module.scss";
@@ -47,6 +49,7 @@ const marginStyle = { margin: "0 20px 0 20px" };
 
 interface StateProps {
   global: GlobalState;
+  language: Language;
 }
 
 interface DispatchProps {
@@ -123,7 +126,7 @@ class ResultsView extends React.Component<Props, InternalState> {
     // TODO: Share this logic with HomeContainer.
     let meetname = this.props.global.meet.name;
     if (meetname === "") {
-      meetname = "Unnamed-Meet";
+      meetname = getString("common.unnamed-filename", this.props.language);
     }
     meetname = meetname.replace(/ /g, "-");
 
@@ -136,7 +139,7 @@ class ResultsView extends React.Component<Props, InternalState> {
     // TODO: Share this logic with handleExportAsOplCsvClick.
     let meetname = this.props.global.meet.name;
     if (meetname === "") {
-      meetname = "Unnamed-Meet";
+      meetname = getString("common.unnamed-filename", this.props.language);
     }
     meetname = meetname.replace(/ /g, "-");
 
@@ -149,7 +152,7 @@ class ResultsView extends React.Component<Props, InternalState> {
     // TODO: Share this logic with handleExportAsOplCsvClick.
     let meetname = this.props.global.meet.name;
     if (meetname === "") {
-      meetname = "Unnamed-Meet";
+      meetname = getString("common.unnamed-filename", this.props.language);
     }
     meetname = meetname.replace(/ /g, "-");
     const exportname = meetname + "-Day-" + day + "-Platform-" + platform;
@@ -346,27 +349,43 @@ class ResultsView extends React.Component<Props, InternalState> {
         />
 
         <Card border="primary">
-          <Card.Header>Merge Platforms</Card.Header>
+          <Card.Header>
+            <FormattedMessage id="results.merge-platforms-card-header" defaultMessage="Merge Platforms" />
+          </Card.Header>
           <Card.Body>
-            <div style={{ fontWeight: "bold" }}>Merging platforms will overwrite data. Please save before merging.</div>
+            <div style={{ fontWeight: "bold" }}>
+              <FormattedMessage
+                id="results.merge-platforms-warning"
+                defaultMessage="Merging platforms will overwrite data. Please save before merging."
+              />
+            </div>
             <br />
             {this.makePlatformMergeButtons()}
           </Card.Body>
         </Card>
 
         <Card>
-          <Card.Header>Export Official Results</Card.Header>
+          <Card.Header>
+            <FormattedMessage id="results.export-results-card-header" defaultMessage="Export Official Results" />
+          </Card.Header>
           <Card.Body>
-            <Button onClick={this.handleExportAsOplCsvClick}>Export for OpenPowerlifting</Button>
+            <Button onClick={this.handleExportAsOplCsvClick}>
+              <FormattedMessage
+                id="results.export-openpowerlifting-button"
+                defaultMessage="Export for OpenPowerlifting"
+              />
+            </Button>
 
             <Button onClick={this.handleExportAsUSAPLCsvClick} style={{ marginLeft: "14px" }}>
-              Export for USAPL
+              <FormattedMessage id="results.export-usapl-button" defaultMessage="Export for USAPL" />
             </Button>
           </Card.Body>
         </Card>
 
         <Card border="info">
-          <Card.Header>Results For...</Card.Header>
+          <Card.Header>
+            <FormattedMessage id="results.results-card-header" defaultMessage="Results For..." />
+          </Card.Header>
           <Card.Body className={styles.controlCard}>
             {daySelector}
 
@@ -419,7 +438,8 @@ const assertValidResultsBy = (value: string): value is ResultsBy => {
 
 const mapStateToProps = (state: GlobalState): StateProps => {
   return {
-    global: state
+    global: state,
+    language: state.language
   };
 };
 
