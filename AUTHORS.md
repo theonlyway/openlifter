@@ -18,5 +18,6 @@ Please also add yourself to the in-program credits in `src/containers/AboutConta
 * Rodney Marsh
 * Trystan Oakley
 * Matt Pearce
+* Alan Sambol
 * Sarah Wellberg
 * Jo Whiteley
