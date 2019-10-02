@@ -1,5 +1,6 @@
 baseURL = "https://www.openlifter.com/"
 DefaultContentLanguage = "en"
+DefaultContentLanguageInSubdir = "true"
 title = "OpenLifter"
 theme = "rusty"
 
