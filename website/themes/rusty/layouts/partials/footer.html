@@ -1,6 +1,6 @@
 <footer class="container">
   <p>
-    {{ i18n "footer.other-languages-intro" }}
+    {{ i18n "footer.other-languages-intro" }}:
     {{ range first 1 $.Site.Home.AllTranslations -}}
       <a href="{{ .Permalink }}">{{ .Language.LanguageName }}</a>
     {{- end -}}

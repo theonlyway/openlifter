@@ -1,0 +1,40 @@
+header.about:
+  other: Detaloj
+header.guide:
+  other: Gvidilo
+header.support:
+  other: Asisto
+header.source:
+  other: Fontkodo
+footer.other-languages-intro:
+  other: Nia retejo en aliaj lingvoj
+index.html-title:
+  other: OpenLifter
+index.html-meta-description:
+  other: Fortega softvaro por konkursoj, de OpenPowerlifting
+index.html-meta-keywords:
+  other: konkurso softvaro,fortego programo
+index.main-pitch:
+  other: <b>OpenLifter</b> estas simpla konkurso-softvaro kiu ĉie funkcias rapide, fideble, kaj plaĉe.
+index.run-button:
+  other: Lanĉu OpenLifter <span>{{ .Count }}</span>
+index.all-releases:
+  other: Ĉiuj Versioj
+index.feature-list-introduction:
+  other: Funkciaro
+index.feature-next-up-bar-loading:
+  other: sekvanta platordo
+index.feature-automatic-saving:
+  other: aŭtomata konservo
+index.feature-no-crashing:
+  other: neniom da kraŝoj
+index.feature-no-excel-license:
+  other: neniom da excel
+index.feature-full-offline-functionality:
+  other: plenloka reĝimo
+index.feature-audience-readable-text:
+  other: klara, granda teksto
+index.feature-instant-results:
+  other: tujaj rezultoj
+index.feature-rule-support:
+  other: multfederaciaj reguloj
