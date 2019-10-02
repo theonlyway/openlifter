@@ -136,6 +136,8 @@
   "lifting.footer-day-template": "Dan {N}",
   "lifting.footer-deadlift": "Mrtvo dizanje",
   "lifting.footer-flight-template": "Grupa {flight}",
+  "lifting.footer-no-flights": "No Flights",
+  "lifting.footer-no-lifters": "No Lifters",
   "lifting.footer-platform-template": "Platforma {N}",
   "lifting.footer-squat": "Čučanj",
   "lifting.garish-instructions": "Kako biste ispravno popunili ekran, kliknite na zoom-in/out u pregledniku i pritisnite gumb \"Prikaz preko cijelog ekrana\".",

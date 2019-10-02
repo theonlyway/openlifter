@@ -246,6 +246,8 @@ strings = strings.concat([
   { id: "lifting.footer-squat", defaultMessage: "Squat" },
   { id: "lifting.footer-bench", defaultMessage: "Bench" },
   { id: "lifting.footer-deadlift", defaultMessage: "Deadlift" },
+  { id: "lifting.footer-no-flights", defaultMessage: "No Flights" },
+  { id: "lifting.footer-no-lifters", defaultMessage: "No Lifters" },
   { id: "lifting.division-column-width-label", defaultMessage: "Division Column Width" },
 ]);
 /* eslint-enable */

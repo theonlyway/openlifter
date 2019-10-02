@@ -136,6 +136,8 @@
   "lifting.footer-day-template": "Tago {N}",
   "lifting.footer-deadlift": "Mortolevo",
   "lifting.footer-flight-template": "Grupo {flight}",
+  "lifting.footer-no-flights": "Nenia Grupo",
+  "lifting.footer-no-lifters": "Neniu",
   "lifting.footer-platform-template": "Estrado {N}",
   "lifting.footer-squat": "Kaŭro",
   "lifting.garish-instructions": "Por plenuzi la ekranon, zomigu aŭ malzomigu la retumilon, kaj infre premu la plenekranan butonon.",

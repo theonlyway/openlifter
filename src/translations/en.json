@@ -136,6 +136,8 @@
   "lifting.footer-day-template": "Day {N}",
   "lifting.footer-deadlift": "Deadlift",
   "lifting.footer-flight-template": "Flight {flight}",
+  "lifting.footer-no-flights": "No Flights",
+  "lifting.footer-no-lifters": "No Lifters",
   "lifting.footer-platform-template": "Platform {N}",
   "lifting.footer-squat": "Squat",
   "lifting.garish-instructions": "To fit to the screen, zoom the browser in or out and then press Toggle Fullscreen.",

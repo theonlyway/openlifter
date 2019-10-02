@@ -235,7 +235,7 @@ class LiftingFooter extends React.Component<Props> {
     if (orderedEntries.length === 0) {
       return (
         <option value={0} key={0}>
-          No Lifters
+          {getString("lifting.footer-no-lifters", this.props.language)}
         </option>
       );
     }
@@ -300,7 +300,7 @@ class LiftingFooter extends React.Component<Props> {
       );
     }
     if (flightOptions.length === 0) {
-      flightOptions.push(<option key="none">No Flights</option>);
+      flightOptions.push(<option key="none">{getString("lifting.footer-no-flights", language)}</option>);
     }
 
     let attemptOptions = [];
