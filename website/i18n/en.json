@@ -1,0 +1,62 @@
+{
+    "header.about": {
+        "other": "About"
+    },
+    "header.guide": {
+        "other": "Guide"
+    },
+    "header.support": {
+        "other": "Support"
+    },
+    "header.source": {
+        "other": "Source"
+    },
+    "footer.other-languages-intro": {
+        "other": "Our site in other languages:"
+    },
+    "index.html-title": {
+        "other": "OpenLifter"
+    },
+    "index.html-meta-description": {
+        "other": "Powerful meet software by OpenPowerlifting"
+    },
+    "index.html-meta-keywords": {
+        "other": "powerlifting meet software,powerlifting competition software"
+    },
+    "index.main-pitch": {
+        "other": "<b>OpenLifter</b> is powerlifting meet software that runs blazingly fast, works everywhere, and is a joy to use."
+    },
+    "index.run-button": {
+        "other": "Run OpenLifter <span>{{ .Count }}</span>"
+    },
+    "index.all-releases": {
+        "other": "All Releases"
+    },
+    "index.feature-list-introduction": {
+        "other": "Featuring"
+    },
+    "index.feature-next-up-bar-loading": {
+        "other": "next-up bar loading"
+    },
+    "index.feature-automatic-saving": {
+        "other": "automatic saving"
+    },
+    "index.feature-no-crashing": {
+        "other": "no crashing"
+    },
+    "index.feature-no-excel-license": {
+        "other": "no excel license"
+    },
+    "index.feature-full-offline-functionality": {
+        "other": "full offline functionality"
+    },
+    "index.feature-audience-readable-text": {
+        "other": "audience-readable text"
+    },
+    "index.feature-instant-results": {
+        "other": "instant, exportable results"
+    },
+    "index.feature-rule-support": {
+        "other": "multi-federation rule support"
+    }
+}

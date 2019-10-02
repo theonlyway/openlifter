@@ -2,11 +2,11 @@
 
 # Start the development server.
 all: rusty releases
-	hugo server --disableFastRender
+	hugo server --i18n-warnings --disableFastRender
 
 # Build for deployment to a website.
 build: rusty releases
-	hugo --cleanDestinationDir
+	hugo --i18n-warnings --cleanDestinationDir
 
 # Builds the "Rusty" theme.
 rusty:

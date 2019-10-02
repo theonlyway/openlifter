@@ -2,13 +2,13 @@
 <html lang="{{ .Site.Language }}">
 <head>
   <meta charset="utf-8">
-  <link rel="stylesheet" href="/css/rusty.css">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="{{ .Site.Params.description }}">
-  <meta name="keywords" content="{{ .Site.Params.keywords }}">
+  <meta name="description" content="{{ i18n "index.html-meta-description" }}">
+  <meta name="keywords" content="{{ i18n "index.html-meta-keywords" }}">
   {{ partial "alternates.html" . }}
-  <title>{{ .Title }}</title>
+  <title>{{ i18n "index.html-title" }}</title>
 
+  <link rel="stylesheet" href="/css/rusty.css">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -23,18 +23,17 @@
   <div class="container">
     <div class="row pitch-row row-spacer">
       <div class="col-md-8">
-        <p class="pitch">{{ .Site.Params.pitch | safeHTML }}</p>
+        <p class="pitch">{{ i18n "index.main-pitch" | safeHTML }}</p>
       </div>
       <div class="col-md-4">
-        <a class="release-button" href="/releases/1.0.1/">
+        <a class="release-button" href="/releases/{{ .Site.Params.ReleaseVersion }}/">
           <div class="release-version">
-            {{ .Site.Params.RunText }}
-            <span>1.0.1</span>
+            {{ i18n "index.run-button" $.Site.Params.ReleaseVersion | safeHTML }}
           </div>
         </a>
         <div class="release-date">
           <a class="other-versions" href="{{ "releases/" | relLangURL }}">
-            {{ .Site.Params.AllReleasesText }}
+            {{ i18n "index.all-releases" }}
           </a>
         </div>
       </div>
@@ -42,11 +41,16 @@
 
     <div class="row code-row row-spacer">
       <div class="col-md-4">
-        <h2>{{ .Site.Params.featuring }}</h2>
+        <h2>{{ i18n "index.feature-list-introduction" }}</h2>
         <ul class="laundry-list">
-          {{ range .Site.Params.featuresList -}}
-            <li>{{ . }}</li>
-          {{- end }}
+          <li>{{ i18n "index.feature-next-up-bar-loading" }}</li>
+          <li>{{ i18n "index.feature-automatic-saving" }}</li>
+          <li>{{ i18n "index.feature-no-crashing" }}</li>
+          <li>{{ i18n "index.feature-no-excel-license" }}</li>
+          <li>{{ i18n "index.feature-full-offline-functionality" }}</li>
+          <li>{{ i18n "index.feature-audience-readable-text" }}</li>
+          <li>{{ i18n "index.feature-instant-results" }}</li>
+          <li>{{ i18n "index.feature-rule-support" }}</li>
         </ul>
       </div>
       <div class="col-md-8">

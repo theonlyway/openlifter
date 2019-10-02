@@ -6,11 +6,11 @@
       </a>
     </li>
     <li class="col-md-8 menu">
-      <a href="{{ "about/" | relLangURL }}"><h2>{{ .Site.Params.AboutLink }}</h2></a>
-      <a href="{{ "guide/" | relLangURL }}"><h2>{{ .Site.Params.GuideLink }}</h2></a>
-      <a href="{{ "support/" | relLangURL }}"><h2>{{ .Site.Params.SupportLink }}</h2></a>
+      <a href="{{ "about/" | relLangURL }}"><h2>{{ i18n "header.about" }}</h2></a>
+      <a href="{{ "guide/" | relLangURL }}"><h2>{{ i18n "header.guide" }}</h2></a>
+      <a href="{{ "support/" | relLangURL }}"><h2>{{ i18n "header.support" }}</h2></a>
       <a href="https://gitlab.com/openpowerlifting/openlifter/">
-        <h2>{{ .Site.Params.SourceCodeLink }}</h2>
+        <h2>{{ i18n "header.source" }}</h2>
       </a>
     </li>
   </ul>

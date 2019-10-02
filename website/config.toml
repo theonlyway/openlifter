@@ -1,59 +1,21 @@
 baseURL = "https://www.openlifter.com/"
-DefaultContentLanguage = "en"
-DefaultContentLanguageInSubdir = "true"
+defaultContentLanguage = "en"
+defaultContentLanguageInSubdir = "true"
 title = "OpenLifter"
 theme = "rusty"
+
+[params]
+  releaseVersion = "1.0.1"
 
 [languages]
   [languages.en]
     languageName = "English"
     weight = 10
     [languages.en.params]
-      description = "Powerful meet software by OpenPowerlifting"
-      keywords = "powerlifting meet software,powerlifting competition software"
-      runtext = "Run OpenLifter"
-      allReleasesText = "All Releases"
-      pitch = "<b>OpenLifter</b> is powerlifting meet software that runs blazingly fast, works everywhere, and is a joy to use."
-      featuring = "Featuring"
-      featuresList = [
-        "next-up bar loading",
-        "automatic saving",
-        "no crashing",
-        "no excel license",
-        "full offline functionality",
-        "audience-readable text",
-        "instant, exportable results",
-        "multi-federation rule support"
-      ]
-      aboutLink = "About"
-      releasesLink = "Releases"
-      guideLink = "Guide"
-      sourceCodeLink = "Source"
-      supportLink = "Support"
-      otherLanguagesIntro = "Our site in other languages:"
+      placeholder = "Placeholder"
 
   [languages.eo]
     languageName = "Esperanto"
     weight = 20
     [languages.eo.params]
-      description = "Fortega softvaro por konkursoj, de OpenPowerlifting"
-      runtext = "Lanĉu OpenLifter"
-      allReleasesText = "Ĉiuj Versioj"
-      pitch = "<b>OpenLifter</b> estas simpla konkurso-softvaro kiu ĉie funkcias rapide, fideble, kaj plaĉe."
-      featuring = "Funkciaro"
-      featuresList = [
-        "sekvanta platordo",
-        "aŭtomata konservo",
-        "neniom da kraŝoj",
-        "neniom da excel",
-        "plenloka reĝimo",
-        "klara, granda teksto",
-        "tujaj rezultoj",
-        "multfederaciaj reguloj",
-      ]
-      aboutLink = "Detaloj"
-      releasesLink = "Eldonaĵoj"
-      guideLink = "Gvidilo"
-      sourceCodeLink = "Fontkodo"
-      supportLink = "Asisto"
-      otherLanguagesIntro = "Nia retejo en aliaj lingvoj:"
+      placeholder = "Placeholder"
