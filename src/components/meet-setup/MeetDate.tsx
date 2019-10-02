@@ -39,6 +39,8 @@ import { Dispatch } from "redux";
 // those locales. The react-datepicker provides a helper function to do this.
 import eo from "date-fns/locale/eo";
 registerLocale("eo", eo);
+import hr from "date-fns/locale/hr";
+registerLocale("hr", hr);
 
 interface StateProps {
   date: string;
