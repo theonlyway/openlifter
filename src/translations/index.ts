@@ -19,5 +19,6 @@
 import eo from "./eo.json";
 import en from "./en.json";
 import hr from "./hr.json";
+import ru from "./ru.json";
 
-export default { eo, en, hr };
+export default { eo, en, hr, ru };

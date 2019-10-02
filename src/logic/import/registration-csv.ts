@@ -67,7 +67,7 @@ export const makeExampleRegistrationsCsv = (language: Language): string => {
 
   csv.rows[0][csv.index(day)] = "1";
   csv.rows[0][csv.index(platform)] = "1";
-  csv.rows[0][csv.index(flight)] = "A";
+  csv.rows[0][csv.index(flight)] = getString("flight.a", language);
   csv.rows[0][csv.index(name)] = getString("import.example-name", language);
   csv.rows[0][csv.index(sex)] = getString("import.example-sex", language);
   csv.rows[0][csv.index(equipment)] = getString("equipment.sleeves", language);
