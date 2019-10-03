@@ -1,0 +1,106 @@
+#!/usr/bin/env python3
+
+import os
+import sys   # For exiting with an error code, so builds don't silently fail.
+import toml  # For the main config.toml.
+import yaml  # For the translations/*.yaml files.
+
+
+# Directory containing this script.
+SCRIPTDIR = os.path.dirname(os.path.realpath(__file__))
+# The root directory of the website subproject.
+WEBSITEDIR = os.path.dirname(SCRIPTDIR)
+# The content directory.
+CONTENTDIR = os.path.join(WEBSITEDIR, "content")
+# The i18n directory containing translation YAML files.
+I18NDIR = os.path.join(WEBSITEDIR, "i18n")
+
+
+# Parses the Hugo config.toml to determine configured languages.
+def get_project_languages():
+    filename = os.path.join(WEBSITEDIR, "config.toml")
+    values = toml.load(filename)
+    return list(values['languages'].keys())
+
+
+# Makes a map of language code to YAML key:value store.
+def load_translations(languages):
+    translations = dict() 
+
+    # Load the YAML files.
+    for lang in languages:
+        filepath = os.path.join(I18NDIR, lang + ".yaml")
+        with open(filepath) as fd:
+            yamlmap = yaml.safe_load(fd.read())
+
+        # The YAML is organized weirdly because of Hugo.
+        # Every value is actually stored on an "other" subkey.
+        locale = dict()
+        for key in yamlmap:
+            locale[key] = yamlmap[key]["other"]
+
+        translations[lang] = locale
+
+    # If a key is present in the English variant but not in the localized variant,
+    # steal the English text.
+    english = translations["en"]
+    for lang in languages:
+        if lang == 'en':
+            continue
+
+        locale = translations[lang]
+
+        for key in english:
+            if not key in locale:
+                locale[key] = english[key]
+
+    return translations
+
+
+# The main localization function.
+def localize(text, locale):
+    # This is written suboptimally, but it's very clear.
+    while '{{' in text:
+        # These throw ValueErrors if not found, causing build failure.
+        start = text.index('{{') 
+        end = text.index('}}')
+
+        text_before = text[:start]
+        text_after = text[(end+2):]
+
+        # Get the actual instruction, not counting the brackets.
+        call_parts = text[(start+2):end].strip().split()
+
+        # The only directive we understand is 'i18n'.
+        assert call_parts[0] == "i18n"
+        translation_id = call_parts[1].strip("'").strip('"')
+
+        text = text_before + locale[translation_id] + text_after
+
+    return text
+
+
+def main():
+    # Load the TOML.
+    languages = get_project_languages()
+
+    # Load the YAML.
+    translations = load_translations(languages)
+
+    # For each HTML file in the current directory, generate a localized variant.
+    for filename in filter(lambda x : x.endswith(".html"), os.listdir(SCRIPTDIR)):
+        filepath = os.path.join(SCRIPTDIR, filename)
+        with open(filepath) as fd:
+            text = fd.read()
+        
+        for language in languages:
+            newname = filename.replace(".html", ".%s.html" % language)
+            targetpath = os.path.join(CONTENTDIR, newname)
+
+            localized = localize(text, translations[language])
+            with open(targetpath, 'w') as fd:
+                fd.write(localized)
+
+
+if __name__ == "__main__":
+    main()
