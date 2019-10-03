@@ -1,0 +1,291 @@
+header.about:
+  # Please use just one short word. Otherwise the site layout breaks.
+  other: Over
+header.guide:
+  # Please use just one short word. Otherwise the site layout breaks.
+  other: Gids
+header.support:
+  # Please use just one short word. Otherwise the site layout breaks.
+  other: Ondersteuning
+header.source:
+  # Please use just one short word. Otherwise the site layout breaks.
+  other: Bron
+footer.other-languages-intro:
+  other: Onze site in verschillende talen
+index.html-title:
+  other: OpenLifter
+index.html-meta-description:
+  other: Krachtige wedstrijd software door OpenPowerlifting
+index.html-meta-keywords:
+  other: powerlifting wedstrijd software, powerlifting competitie software
+index.main-pitch:
+  other: <b>OpenLifter</b> is powerlifting software die héél snel is, overal werkt en fijn is in het gebruik.
+index.run-button:
+  other: Start OpenLifter <span>{{ .Count }}</span>
+index.all-releases:
+  other: Alle versies
+index.feature-list-introduction:
+  other: Featuring
+index.feature-next-up-bar-loading:
+  other: Eerstvolgende stang lading
+index.feature-automatic-saving:
+  other: Automatisch opslaan
+index.feature-no-crashing:
+  other: Geen crashes
+index.feature-no-excel-license:
+  other: Geen excel licentie
+index.feature-full-offline-functionality:
+  other: Volledige offline functionaliteit
+index.feature-audience-readable-text:
+  other: Toeschouwer vriendelijke tekst
+index.feature-instant-results:
+  other: meteen, exporteerbare resultaten
+index.feature-rule-support:
+  other: Ondersteuning van meerdere federaties hun reglementen
+about.html-title:
+  other: Over OpenLifter
+about.html-description:
+  other: Vergelijking tussen OpenLifter en andere powerlifting software
+about.html-keywords:
+  other: openlifter vergelijking
+about.comparison-chart:
+  other: Vergelijkingslijst
+about.comparison-intro-1:
+  other: Hier is een makkelijke manier om OpenLifter te vergelijken met andere software
+about.comparison-intro-2:
+  other: Wij hebben de volgende vergelijkingslijst in samenspraak met de auteur van LiftingCast gemaakt en zijn ervan overtuigd dat deze accuraat is.
+about.table-header-openlifter:
+  other: OpenLifter
+about.table-header-liftingcast:
+  other: LiftingCast
+about.table-header-nextlifter:
+  other: NextLifter
+about.table-header-ironcomp:
+  other: IronComp
+about.table-row-homepage:
+  other: Startpagina
+about.table-row-homepage-none:
+  other: Geen
+about.table-row-license:
+  other: Licentie
+about.table-row-license-agplv3p:
+  # This is "Free" as in "Freedom", not as in "Without cost". In European languages, the root should be something like "Libera."
+  other: Gratis (AGPLv3+)
+about.table-row-license-freeware:
+  other: Gratis software
+about.table-row-license-proprietary:
+  other: Gepatendeerd
+about.table-row-cost:
+  other: Kosten
+about.table-row-cost-free:
+  other: Gratis
+about.table-row-cost-liftingcast:
+  other: Gratis (Premium $0.75/Atleet)
+about.table-row-cost-excel:
+  other: Excel licentie ($70/jaar)
+about.table-row-runs-on:
+  other: Werkt op
+about.table-row-runs-on-any-browser:
+  other: Elke browser
+about.table-row-runs-on-chrome:
+  other: Alleen op Chrome
+about.table-row-runs-on-excel:
+  other: Microsoft Excel
+about.table-row-runs-on-windows-mac:
+  other: Windows en macOS
+about.table-row-languages:
+  other: Talen
+about.table-row-languages-many:
+  other: Veel
+about.table-row-languages-english-only:
+  other: Alleen Engels
+about.table-row-works-offline:
+  other: Werkt offline
+about.table-row-screens-needed:
+  other: Beeldscherm benodigd
+about.table-row-screens-needed-1-per:
+  other: 1 per plankier
+about.table-row-screens-needed-2p-per:
+  other: 2+ per plankier
+about.table-row-federations:
+  other: Federaties
+about.table-row-federations-all:
+  other: Alle federaties
+about.table-row-federations-ipl-only:
+  other: Alleen IPL
+about.table-row-scoreboard:
+  other: Online scoreboard
+about.table-row-generic-yes-premium:
+  other: Ja (met premium)
+about.table-row-generic-no:
+  other: "Nee"
+about.table-row-generic-yes:
+  other: "Ja"
+about.table-row-multi-platform:
+  other: Meerdere platformen
+about.table-row-multi-platform-yes-usb:
+  other: Ja (USB-stick)
+about.table-row-autosave:
+  other: Automatisch opslaan
+about.table-row-training:
+  other: Training nodig
+about.table-row-training-minimal:
+  other: Minimaal
+about.table-row-training-moderate:
+  other: Gemiddeld
+about.table-row-training-moderate-issues:
+  other: Gemiddeld (problemen)
+about.table-row-training-significant:
+  other: Significant
+about.table-row-registration:
+  other: Registratie
+about.table-row-registration-csv:
+  other: Automatisch (CSV)
+about.table-row-registration-premium:
+  other: Automatisch (met premium)
+about.table-row-registration-manual:
+  other: Handmatig
+about.about-section:
+  other: Over OpenLifter
+about.start-info:
+  other: Het OpenLifter project is gestart op November 2018 door <a href="https://www.openpowerlifting.org">het OpenPowerlifting team</a> om de beste competitie software te ontwikkelen.
+about.design-header:
+  other: OpenLifter is gemaakt om...
+about.design-goal-1:
+  other: de werelds eerste gratis en open-source wedstrijdsoftware te zijn;
+about.design-goal-2:
+  other: Een simpele, maar duidelijke interface te hebben die niet veel training vereist;
+about.design-goal-3:
+  other: Compleet crash bestendig te zijn door een enkele globale status;
+about.design-goal-4:
+  other: Te werken met één projector en één goedkope computer die op elke OS draait;
+about.design-goal-5:
+  other: Het geprojecteerde scherm leesbaar maken voor toeschouwers.
+about.closing-text:
+  other: Wij hebben veel ervaring in het organiseren van powerlifting wedstrijden, zoals spotten, laden, scheidsrechteren en het beheren van de wedstrijdtafel. Wij hebben onze wensenlijst daarom ook in OpenLifter gestopt.
+guide.html-title:
+  other: Openlifter Handboek
+guide.html-meta-description:
+  other: Openlifter Video uitleg en FAQ
+guide.html-meta-keywords:
+  other: openlifter handboek,openlifter faq,openlifter tutorial
+guide.faq-section:
+  other: FAQ
+guide.faq-pounds-question:
+  other: Heeft OpenLifter ondersteuning voor lbs?
+guide.faq-pounds-answer:
+  other: Ja.
+guide.faq-multiple-divisions-question:
+  other: Kan een lifter en meerdere divisies en evenementen meedoen?
+guide.faq-multiple-divisions-answer:
+  other: Ja, op de registratie pagina kunnen de divisie en evenementen velden meerdere waarden hebben voor één lifter. De eerste divisie die ingevoerd wordt zal weergegeven worden tijdens de wedstrijd op het wedstrijdscherm.
+guide.faq-multiple-platforms-question:
+  other: Kan ik meerdere plankieren hebben?
+guide.faq-multiple-platforms-answer:
+  other: Ja, maar je moet wel een manier hebben om dan de informatie uit te wisselen tussen meerdere computers. Meestal wordt dit gedaan met een USB-stick. Zet de wedstrijd op en registreer alle atleten op één computer, daarna sla je vanuit de startpagina op. Sla het bestand op de tweede computer op en laadt het in OpenLifter. Na de wedstrijd zal de resultaten pagina een exporteer en samenvoeg knop hebben die gebruikt kan worden om de beide plankieren samen te voegen op een computer. Daardoor heb je alle resultaten op één computer voor alle plankieren.
+guide.faq-changing-registration-later-question:
+  other: Als ik de registraties informatie aanpas na het liften, zal dan alles exploderen?
+guide.faq-changing-registration-later-answer:
+  other: Niks zal exploderen. OpenLifter laat je alles aanpassen wanneer jij dit wilt.
+guide.faq-rack-heights-question:
+  other: Hoe stel ik de bankdruk safety hoogtes in? En hoe de squat in/uit optie?
+guide.faq-rack-heights-answer:
+  other: Op de inweeg pagina accepteert het "squat rek" en "bankdruk rek" vrije invoer van tekst en niet alleen nummers. Een Bankdruk hoogte van 5 met een safety hoogte van 3 staat genoteerd als "5/3". Maar je kunt elke notitie invullen die gewenst is. Dit geldt ook voor het squatrek bijvoorbeeld "15in".
+guide.faq-fixing-lifts-question:
+  other: Hoe pas ik een lift aan die incorrect is genoteerd?
+guide.faq-fixing-lifts-answer:
+  other: Gebruik de invoer aan de onderkant van de linker hoek om de atleet te her selecteren en klik dan op Geen lift of Goede lift om het aan te passen.
+guide.faq-changing-rack-heights-question:
+  other: Hoe pas ik de rek hoogtes aan? En de volgende groep openers?
+guide.faq-changing-rack-heights-answer:
+  other: Op de wedstrijd pagina klik je op de "omschakelen inwegen" knop. Dat zal de inweeg pagina laten verschijnen in de wedstrijd pagina. Zo kun je alles aanpassen en het gewichten laden geprojecteerd laten blijven. Wanneer je klaat bent klik je weer op "Omschakelen inwegen" om terug te gaan.
+guide.faq-saving-frequency-question:
+  other: Hoe vaak moet ik een bestand opslaan?
+guide.faq-saving-frequency-answer:
+  other: Een goede regel is om een bestand op te slaan voordat je OpenLifter afsluit. </p><p>OpenLifter zal na elke wijziging automatisch opslaan in het browser geheugen. Als je per ongeluk de browser sluit dan zal alles daarna blijven staan nadat je deze opnieuw opgestart hebt. Maar als je OpenLifter een paar dagen niet gebruikt dan mag de browser dingen vergeten en kan die mogelijk je wedstrijd vergeten (al is dit onwaarschijnlijk). Als je er zeker van wilt zijn dat die er na een paar dagen nog is sla een bestand op.
+guide.faq-lifting-text-question:
+  other: De tekst op de wedstrijd pagina is veels te groot!
+guide.faq-lifting-text-answer:
+  other: Gebruik je browser zijn in-en uitzoom functie op alles op je scherm te laten passen. De meeste browsers laten dit toe door ctrl+scrollen van de muis te doen.
+guide.faq-results-text-question:
+  other: De tekst op de resultaten pagina is veels te klein!
+guide.faq-results-text-answer:
+  other: Gebruik dezelfde browser in-en uitzoom functies om alles passend te krijgen. Als je de tekst heel groot maakt, dan past deze op je projetor en kun je aan het einde van de competitie via impromptu een slideshow starten. Toeschouwers houden hier van want dan hebben ze wat om naar te kijken.
+guide.faq-auto-import-registration-question:
+  other: Kan ik automatisch atleten details importeren vanuit de registratie pagina?
+guide.faq-auto-import-registration-answer:
+  other: Ja, door deze naar een speciaal CSV-bestand op te slaan. Aan de bovenkant van de registratie pagina is een knop waarmee je de template kunt downloaden. Zo kun je leren hoe het eruit ziet. Als het format niet klopt met wat we verwachten dan zal het een handige error geven. Als je eenmaal geleerd hebt door te doen wat het programma verwacht is het de volgende keer kei makkelijk.
+guide.faq-online-scoresheet-question:
+  other: Is er een online scoreoverzicht?
+guide.faq-online-scoresheet-answer:
+  other: Dat is er niet. Als OpenLifter eenmaal gelanceerd is, is het volledig offline. Het draait dus op je computer en niet een server.
+guide.faq-third-sex-question:
+  other: Ik zie M, F en Mx gewichtsklassen, wat is Mx?
+guide.faq-third-sex-answer:
+  other: Mx (uitgesproken als <i>Muks</i>) is <a href="https://en.wikipedia.org/wiki/Mx_(title)">een gender-neutraal titel</a> &mdash; net als meneer en mevrouw &mdash; origineel komt dit uit Engeland.</p><p>De meeste federaties vereisen dat atleten in de mannelijke (M) of vrouwelijke (F) categorieën meedoen. Sommige federaties laten atleten wel meedoen in een derde categorie, maar Mx is inclusiever.</p><p>Als je een competitie wilt waarbij mannen en vrouwen onderling tegen elkaar strijden dan kun je de Mx categorie ook gebruiken.
+guide.faq-openpowerlifting-results-question:
+  other: Stuurt deze automatisch resultaten naar OpenPowerlifting?
+guide.faq-openpowerlifting-results-answer:
+  other: Nee, OpenPowerlifting vereist dat de federatie de resultaten eerst bevestigd. Hierdoor kunnen ze niet direct ontvangen worden. Alhoewel als je op de "exporteer naar Powerlifting" knop duwt op de resultaten pagina dan zal deze de resultaten download in een hele <i>makkelijke</i> manier voor ons. Dus als je onze levens makkelijker wilt maken <a href="https://www.openpowerlifting.org/contact">zend ons je bestanden</a>. We zullen ze toevoegen als de federatie ze bevestigd heeft.
+guide.faq-warmup-room-question:
+  other: Hoe stel ik mijn beeldschermen in de warming-up ruimte in?
+guide.faq-warmup-room-answer:
+  other: Gebruik de gedeelde desktop software voor lokale netwerken en dan de deel scherm functie. Chat programma met schermdeel functies werken ook.
+support.html-title:
+  other: OpenLifter ondersteuning
+support.html-meta-description:
+  other: Ondersteuning en personalisatie opties
+support.html-meta-keywords:
+  other: openlifter help,openlifter ondersteuning,openlifter training
+support.support-section:
+  other: Officiële ondersteuning
+support.no-warranty:
+  other: OpenLifter is gratis en open source, maar komt niet met garantie of ondersteuning.
+support.we-have-services:
+  other: Als je technische ondersteuning wilt voor je wedstrijd, dan bieden wij meerdere diensten aan &mdash; van je wegwijs maken in de software tot het nakijken dat alles goed ingesteld is, tot zelfs helemaal in persoon de wedstrijdtafel draaien en je personeel te trainen.
+support.contact-us-button:
+  other: Contact
+support.customization-header:
+  other: Aangepaste
+support.customization-subheader:
+  other: Krijg een specifieke versie van OpenLifter voor je wedstrijd
+support.customization-item-logo:
+  other: Laat je logo projecteren!
+support.customization-item-branding:
+  other: Je eigen branding
+support.customization-item-features:
+  other: Aangepaste opties
+support.customization-item-desktop:
+  other: Desktop versies
+support.customization-item-cost:
+  other: Start vanaf US$75
+support.customization-email-subject:
+  other: Aangepaste versie aanvraag
+support.online-header:
+  other: Online ondersteuning
+support.online-subheader:
+  other: Regel een wedstrijd met completen technisch vertrouwen
+support.online-item-training:
+  other: Training voor je personeel
+support.online-item-email:
+  other: Ongelimiteerde e-mail ondersteuning
+support.online-item-phone:
+  other: Telefonische support op de wedstrijddag
+support.online-item-cost:
+  other: Start vanaf US$120
+support.online-email-subject:
+  other: Online ondersteuning aanvraag
+support.in-person-header:
+  other: Persoonlijke ondersteuning
+support.in-person-subheader:
+  other: Laat het OpenPowerlifting team de wedstrijd runnen
+support.in-person-item-everything:
+  other: We zullen alles doen!
+support.in-person-item-training:
+  other: We training ook personeel
+support.in-person-item-worldwide:
+  other: Wereldwijd beschikbaar
+support.in-person-item-cost:
+  other: De prijs varieert gebaseerd op de kosten van het reizen, informeer van tevoren
+support.in-person-email-subject:
+  other: Persoonlijke ondersteuning
