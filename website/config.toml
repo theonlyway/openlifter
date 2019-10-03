@@ -19,3 +19,9 @@ theme = "rusty"
     weight = 20
     [languages.eo.params]
       placeholder = "Placeholder"
+
+  [languages.zh-Hans]
+    languageName = "简体中文"
+    weight = 20
+    [languages.zh-Hans.params]
+      placeholder = "Placeholder"
