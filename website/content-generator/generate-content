@@ -94,7 +94,9 @@ def main():
             text = fd.read()
         
         for language in languages:
-            newname = filename.replace(".html", ".%s.html" % language)
+            # The language must be entirely lower-case, for example 'zh-Hans'
+            # will not be found by the Hugo content generator.
+            newname = filename.replace(".html", ".%s.html" % (language.lower()))
             targetpath = os.path.join(CONTENTDIR, newname)
 
             localized = localize(text, translations[language])
