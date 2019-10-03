@@ -15,6 +15,7 @@ Please also add yourself to the in-program credits in `src/containers/AboutConta
 
 * Arman Danielyan
 * Tommy DeFea
+* Alper Dokucu
 * Jared Klopper
 * Rodney Marsh
 * Trystan Oakley

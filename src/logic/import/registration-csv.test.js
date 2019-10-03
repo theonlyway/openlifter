@@ -82,3 +82,16 @@ describe("loadRegistrations", () => {
     expect(typeof entries).toEqual("object");
   });
 });
+
+describe("loadRegistrations", () => {
+  it("can load the example in Turkish", () => {
+    const example = makeExampleRegistrationsCsv("tr");
+    expect(typeof example).toEqual("string");
+
+    let csv = new Csv();
+    expect(typeof csv.fromString(example)).toEqual("object");
+
+    let entries = loadRegistrations(makeState("tr"), csv, "tr");
+    expect(typeof entries).toEqual("object");
+  });
+});

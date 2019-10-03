@@ -43,6 +43,8 @@ import hr from "date-fns/locale/hr";
 registerLocale("hr", hr);
 import ru from "date-fns/locale/ru";
 registerLocale("ru", ru);
+import tr from "date-fns/locale/tr";
+registerLocale("tr", tr);
 
 interface StateProps {
   date: string;

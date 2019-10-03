@@ -51,6 +51,9 @@ const languageOptions = [
   </option>,
   <option key="ru" value="ru">
     Русский
+  </option>,
+  <option key="tr" value="tr">
+    Türkçe
   </option>
 ];
 
