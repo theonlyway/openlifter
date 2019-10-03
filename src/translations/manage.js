@@ -20,7 +20,7 @@
 // It was copied from here: https://github.com/bang88/typescript-react-intl/issues/19
 
 const DEFAULT_LANGUAGE = "en";
-const LANGUAGES = ["eo", "hr", "ru", "tr"];
+const LANGUAGES = ["eo", "hr", "nl", "ru", "tr"];
 const TARGET_DIRECTORY = "src/translations";
 const EXTRACT_MESSAGE_FILE_PATTERN = "src/**/*.@(tsx|ts)";
 

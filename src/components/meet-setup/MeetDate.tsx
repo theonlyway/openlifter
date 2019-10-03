@@ -41,6 +41,8 @@ import eo from "date-fns/locale/eo";
 registerLocale("eo", eo);
 import hr from "date-fns/locale/hr";
 registerLocale("hr", hr);
+import nl from "date-fns/locale/nl";
+registerLocale("nl", nl);
 import ru from "date-fns/locale/ru";
 registerLocale("ru", ru);
 import tr from "date-fns/locale/tr";
