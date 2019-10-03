@@ -45,15 +45,15 @@ index.feature-rule-support:
 about.html-title:
   other: Pri OpenLifter
 about.html-description:
-  other: Comparison between OpenLifter and other powerlifting software
+  other: Komparo de OpenLifter kaj aliaj softvaroj
 about.html-keywords:
-  other: openlifter comparison
+  other: openlifter komparo
 about.comparison-chart:
   other: Kompara Diagramo
 about.comparison-intro-1:
   other: Jen simpla diagramo por kompari OpenLifter kun aliaj programoj.
 about.comparison-intro-2:
-  other: We developed the following comparison chart in consultation with the author of LiftingCast and believe that it is accurate.
+  other: Ni kreis la sekvantan komparan diagramon kune kun la kreitulo de LiftingCast, kaj ni kredas, ke ĝi akuratas.
 about.table-header-openlifter:
   other: OpenLifter
 about.table-header-liftingcast:
@@ -101,19 +101,19 @@ about.table-row-languages-english-only:
 about.table-row-works-offline:
   other: Loka Funkcio
 about.table-row-screens-needed:
-  other: Screens Needed
+  other: Ekranoj Bezonaj
 about.table-row-screens-needed-1-per:
-  other: 1 per Platform
+  other: 1 po Estrado
 about.table-row-screens-needed-2p-per:
-  other: 2+ per Platform
+  other: 2+ po Estrado
 about.table-row-federations:
   other: Federacioj
 about.table-row-federations-all:
-  other: All Feds
+  other: Ĉiuj Fedoj
 about.table-row-federations-ipl-only:
   other: Nur IPL
 about.table-row-scoreboard:
-  other: Online Scoreboard
+  other: Reta Poentotabulo
 about.table-row-generic-yes-premium:
   other: Jes (Premie)
 about.table-row-generic-no:
@@ -121,13 +121,13 @@ about.table-row-generic-no:
 about.table-row-generic-yes:
   other: "Jes"
 about.table-row-multi-platform:
-  other: Multi-Platform
+  other: Multaj Estradoj
 about.table-row-multi-platform-yes-usb:
   other: Jes (USB Memorilo)
 about.table-row-autosave:
   other: Aŭtokonservado
 about.table-row-training:
-  other: Training Needed
+  other: Trejnado Bezona
 about.table-row-training-minimal:
   other: Minimuma
 about.table-row-training-moderate:
@@ -147,18 +147,18 @@ about.table-row-registration-manual:
 about.about-section:
   other: Pri OpenLifter
 about.start-info:
-  other: The OpenLifter project was started in November 2018 by <a href="https://www.openpowerlifting.org">the OpenPowerlifting team</a> in order to advance the state of the art in competition software.
+  other: La projekton OpenLifter je novembro 2018 kreis <a href="https://www.openpowerlifting.org">la OpenPowerlifting teamo</a> por plifaciligi la funkciadon de konkurso-softvaro.
 about.design-header:
   other: Ni kreis OpenLifter por...
 about.design-goal-1:
-  other: be the world's first free and open-source meet software;
+  other: esti la unua libra kaj nefermita fontteksta konkurso-softvaro;
 about.design-goal-2:
-  other: have a simple, obvious interface and not require much training;
+  other: havi simplan fasadon kaj ne bezoni trejnadon;
 about.design-goal-3:
-  other: be completely crash-proof by using a single global state;
+  other: ne kraŝi per uzi simplan internan strukturon;
 about.design-goal-4:
-  other: work with one projector and one cheap computer running any OS;
+  other: funkcii kun unu projekcilo kaj unu malkara komputilo;
 about.design-goal-5:
-  other: make the projected display audience-readable.
+  other: legebligi la projekciitan ekranon por la spektantoj.
 about.closing-text:
-  other: We have extensive experience helping run powerlifting meets, from spotting and loading to judging to running score tables. We put our feature wish-list into OpenLifter.
+  other: Nia teamo havas spertecon pri la funkciado de konkursoj por multaj jaroj. OpenLifter estas nia revo-softvaro.
