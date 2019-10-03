@@ -226,3 +226,61 @@ guide.faq-warmup-room-question:
   other: How do I set up monitors for the warmup room?
 guide.faq-warmup-room-answer:
   other: Use desktop sharing software for your local network, and then share the screen. Chat programs with screen sharing features will work too.
+support.html-title:
+  other: OpenLifter Support
+support.html-meta-description:
+  other: Support and Customization Options
+support.html-meta-keywords:
+  other: openlifter help,openlifter support,openlifter training
+support.support-section:
+  other: Official Support
+support.no-warranty:
+  other: OpenLifter is free and open source, but does not come with a warranty or support.
+support.we-have-services:
+  other: If you would like technical support for your meet, we offer several services &mdash; from walking you through the software and making sure things are set up correctly, all the way to in-person score table direction and training for your staff.
+support.contact-us-button:
+  other: Contact Us
+support.customization-header:
+  other: Customization
+support.customization-subheader:
+  other: Get a version of OpenLifter specifically for your meet
+support.customization-item-logo:
+  other: Have your logo projected!
+support.customization-item-branding:
+  other: Your own branding
+support.customization-item-features:
+  other: Custom features
+support.customization-item-desktop:
+  other: Desktop versions
+support.customization-item-cost:
+  other: Starting at US$75
+support.customization-email-subject:
+  other: Custom Version Inquiry
+support.online-header:
+  other: Online Support
+support.online-subheader:
+  other: Run a meet with complete technical confidence
+support.online-item-training:
+  other: Training for your staff
+support.online-item-email:
+  other: Unlimited e-mail support
+support.online-item-phone:
+  other: Meet-day phone support
+support.online-item-cost:
+  other: Starting at US$120
+support.online-email-subject:
+  other: Online Support Inquiry
+support.in-person-header:
+  other: In-Person Support
+support.in-person-subheader:
+  other: Have the OpenPowerlifting team run your score table
+support.in-person-item-everything:
+  other: We'll do everything!
+support.in-person-item-training:
+  other: We'll also train your staff
+support.in-person-item-worldwide:
+  other: Available worldwide
+support.in-person-item-cost:
+  other: Pricing varies based on cost of travel, please inquire
+support.in-person-email-subject:
+  other: In-Person Support
