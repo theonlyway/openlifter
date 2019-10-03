@@ -1,10 +1,14 @@
 header.about:
+  # Please use just one short word. Otherwise the site layout breaks.
   other: Detaloj
 header.guide:
+  # Please use just one short word. Otherwise the site layout breaks.
   other: Gvidilo
 header.support:
+  # Please use just one short word. Otherwise the site layout breaks.
   other: Asisto
 header.source:
+  # Please use just one short word. Otherwise the site layout breaks.
   other: Fontkodo
 footer.other-languages-intro:
   other: Nia retejo en aliaj lingvoj
@@ -38,3 +42,123 @@ index.feature-instant-results:
   other: tujaj rezultoj
 index.feature-rule-support:
   other: multfederaciaj reguloj
+about.html-title:
+  other: Pri OpenLifter
+about.html-description:
+  other: Comparison between OpenLifter and other powerlifting software
+about.html-keywords:
+  other: openlifter comparison
+about.comparison-chart:
+  other: Kompara Diagramo
+about.comparison-intro-1:
+  other: Jen simpla diagramo por kompari OpenLifter kun aliaj programoj.
+about.comparison-intro-2:
+  other: We developed the following comparison chart in consultation with the author of LiftingCast and believe that it is accurate.
+about.table-header-openlifter:
+  other: OpenLifter
+about.table-header-liftingcast:
+  other: LiftingKast
+about.table-header-nextlifter:
+  other: NextLifter
+about.table-header-ironcomp:
+  other: IronKomp
+about.table-row-homepage:
+  other: Retpaĝaro
+about.table-row-homepage-none:
+  other: Neniu
+about.table-row-license:
+  other: Licenco
+about.table-row-license-agplv3p:
+  other: Libera (AGPLv3+)
+about.table-row-license-freeware:
+  other: Ĉiesaĵo
+about.table-row-license-proprietary:
+  other: Proprieta
+about.table-row-cost:
+  other: Kosto
+about.table-row-cost-free:
+  other: Senkosta
+about.table-row-cost-liftingcast:
+  other: Premie ($0.75 per Ulo)
+about.table-row-cost-excel:
+  other: Excel ($70 per Jaro)
+about.table-row-runs-on:
+  other: Kie Funkcias
+about.table-row-runs-on-any-browser:
+  other: Ajna Retumilo
+about.table-row-runs-on-chrome:
+  other: Nur Chrome
+about.table-row-runs-on-excel:
+  other: Microsoft Excel
+about.table-row-runs-on-windows-mac:
+  other: Windows kaj macOS
+about.table-row-languages:
+  other: Lingvoj
+about.table-row-languages-many:
+  other: Multaj
+about.table-row-languages-english-only:
+  other: Nur la Angla
+about.table-row-works-offline:
+  other: Loka Funkcio
+about.table-row-screens-needed:
+  other: Screens Needed
+about.table-row-screens-needed-1-per:
+  other: 1 per Platform
+about.table-row-screens-needed-2p-per:
+  other: 2+ per Platform
+about.table-row-federations:
+  other: Federacioj
+about.table-row-federations-all:
+  other: All Feds
+about.table-row-federations-ipl-only:
+  other: Nur IPL
+about.table-row-scoreboard:
+  other: Online Scoreboard
+about.table-row-generic-yes-premium:
+  other: Jes (Premie)
+about.table-row-generic-no:
+  other: "Ne"
+about.table-row-generic-yes:
+  other: "Jes"
+about.table-row-multi-platform:
+  other: Multi-Platform
+about.table-row-multi-platform-yes-usb:
+  other: Jes (USB Memorilo)
+about.table-row-autosave:
+  other: Aŭtokonservado
+about.table-row-training:
+  other: Training Needed
+about.table-row-training-minimal:
+  other: Minimuma
+about.table-row-training-moderate:
+  other: Modera
+about.table-row-training-moderate-issues:
+  other: Modera (Atentindaĵoj)
+about.table-row-training-significant:
+  other: Signifa
+about.table-row-registration:
+  other: Registriĝo
+about.table-row-registration-csv:
+  other: Aŭtomata (CSV)
+about.table-row-registration-premium:
+  other: Aŭtomata (Premie)
+about.table-row-registration-manual:
+  other: Mana
+about.about-section:
+  other: Pri OpenLifter
+about.start-info:
+  other: The OpenLifter project was started in November 2018 by <a href="https://www.openpowerlifting.org">the OpenPowerlifting team</a> in order to advance the state of the art in competition software.
+about.design-header:
+  other: Ni kreis OpenLifter por...
+about.design-goal-1:
+  other: be the world's first free and open-source meet software;
+about.design-goal-2:
+  other: have a simple, obvious interface and not require much training;
+about.design-goal-3:
+  other: be completely crash-proof by using a single global state;
+about.design-goal-4:
+  other: work with one projector and one cheap computer running any OS;
+about.design-goal-5:
+  other: make the projected display audience-readable.
+about.closing-text:
+  other: We have extensive experience helping run powerlifting meets, from spotting and loading to judging to running score tables. We put our feature wish-list into OpenLifter.
