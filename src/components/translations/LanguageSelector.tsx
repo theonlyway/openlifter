@@ -57,6 +57,9 @@ const languageOptions = [
   </option>,
   <option key="tr" value="tr">
     Türkçe
+  </option>,
+  <option key="zh-Hans" value="zh-Hans">
+    简体中文
   </option>
 ];
 

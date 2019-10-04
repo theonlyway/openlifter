@@ -47,6 +47,8 @@ import ru from "date-fns/locale/ru";
 registerLocale("ru", ru);
 import tr from "date-fns/locale/tr";
 registerLocale("tr", tr);
+import zh_CN from "date-fns/locale/zh-CN";
+registerLocale("zh-Hans", zh_CN);
 
 interface StateProps {
   date: string;

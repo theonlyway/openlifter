@@ -108,3 +108,16 @@ describe("loadRegistrations", () => {
     expect(typeof entries).toEqual("object");
   });
 });
+
+describe("loadRegistrations", () => {
+  it("can load the example in Simplified Chinese", () => {
+    const example = makeExampleRegistrationsCsv("zh-Hans");
+    expect(typeof example).toEqual("string");
+
+    let csv = new Csv();
+    expect(typeof csv.fromString(example)).toEqual("object");
+
+    let entries = loadRegistrations(makeState("zh-Hans"), csv, "zh-Hans");
+    expect(typeof entries).toEqual("object");
+  });
+});

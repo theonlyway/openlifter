@@ -22,5 +22,6 @@ import hr from "./hr.json";
 import nl from "./nl.json";
 import ru from "./ru.json";
 import tr from "./tr.json";
+import zh_Hans from "./zh-Hans.json";
 
-export default { eo, en, hr, nl, ru, tr };
+export default { eo, en, hr, nl, ru, tr, "zh-Hans": zh_Hans };

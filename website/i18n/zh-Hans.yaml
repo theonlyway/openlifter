@@ -15,45 +15,45 @@ footer.other-languages-intro:
 index.html-title:
   other: OpenLifter
 index.html-meta-description:
-  other: 由OpenPowerlifting研发的强力力量举比赛软件
+  other: 由 OpenPowerlifting 开发的功能强大的力量举比赛软件
 index.html-meta-keywords:
   other: 力量举比赛软件，力量举比赛软件
 index.main-pitch:
-  other: <b>OpenLifter</b>是一个便捷快速，随时可用的力量举比赛软件
+  other: <b>OpenLifter</b> 是一个便捷快速，界面友好，可以随时随地使用的力量举比赛软件
 index.run-button:
-  other: 运行OpenLifter <span>{{ .Count }}</span>
+  other: 运行 OpenLifter <span>{{ .Count }}</span>
 index.all-releases:
-  other: 所有发布
+  other: 所有版本
 index.feature-list-introduction:
-  other: 包括
+  other: 特色
 index.feature-next-up-bar-loading:
-  other: 下一个杠铃重量
+  other: 下把杠铃重量
 index.feature-automatic-saving:
   other: 自动保存
 index.feature-no-crashing:
   other: 无闪退
 index.feature-no-excel-license:
-  other: 无需excel
+  other: 无需 Excel 软件
 index.feature-full-offline-functionality:
-  other: 完全的离线支持
+  other: 完全支持离线
 index.feature-audience-readable-text:
-  other: 观众易读的字体
+  other: 内容观众可读
 index.feature-instant-results:
-  other: 快速，可导出的结果
+  other: 快捷方便，支持结果导出
 index.feature-rule-support:
-  other: 多组织规则支持
+  other: 支持多个组织的规则
 about.html-title:
-  other: About OpenLifter
+  other: 关于 OpenLifter
 about.html-description:
-  other: Comparison between OpenLifter and other powerlifting software
+  other: OpenLifter 与其它力量举软件的对比
 about.html-keywords:
-  other: openlifter comparison
+  other: OpenLifter 对比
 about.comparison-chart:
-  other: Comparison Chart
+  other: 对比列表
 about.comparison-intro-1:
-  other: Here's an easy way to see how OpenLifter compares to other software.
+  other: 这里，我们直观地展示了 OpenLifter 与其它软件的差别。
 about.comparison-intro-2:
-  other: We developed the following comparison chart in consultation with the author of LiftingCast and believe that it is accurate.
+  other: 我们列出了以下的对比表格；为了结果尽量准确客观，我们咨询了 LiftingCast 的作者。
 about.table-header-openlifter:
   other: OpenLifter
 about.table-header-liftingcast:
@@ -63,102 +63,229 @@ about.table-header-nextlifter:
 about.table-header-ironcomp:
   other: IronComp
 about.table-row-homepage:
-  other: Homepage
+  other: 主页
 about.table-row-homepage-none:
-  other: None
+  other: 无
 about.table-row-license:
-  other: License
+  other: 版权
 about.table-row-license-agplv3p:
-  other: Free (AGPLv3+)
+  other: 免费 (AGPLv3+)
 about.table-row-license-freeware:
-  other: Freeware
+  other: 免费软件
 about.table-row-license-proprietary:
-  other: Proprietary
+  other: 专利软件
 about.table-row-cost:
-  other: Cost
+  other: 价格
 about.table-row-cost-free:
-  other: Free
+  other: 免费
 about.table-row-cost-liftingcast:
-  other: Free (Premium $0.75/Lifter)
+  other: 免费（高级版 0.75 美元/人）
 about.table-row-cost-excel:
-  other: Excel License ($70/year)
+  other: Excel 软件（70 美元/年）
 about.table-row-runs-on:
-  other: Runs On
+  other: 使用平台
 about.table-row-runs-on-any-browser:
-  other: Any Browser
+  other: 任何浏览器
 about.table-row-runs-on-chrome:
-  other: Chrome Only
+  other: 仅支持谷歌浏览器
 about.table-row-runs-on-excel:
-  other: Microsoft Excel
+  other: 微软 Excel
 about.table-row-runs-on-windows-mac:
-  other: Windows and macOS
+  other: Windows 及 macOS 操作系统
 about.table-row-languages:
-  other: Languages
+  other: 语言
 about.table-row-languages-many:
-  other: Many
+  other: 多语言
 about.table-row-languages-english-only:
-  other: English Only
+  other: 仅支持英文
 about.table-row-works-offline:
-  other: Works Offline
+  other: 离线使用
 about.table-row-screens-needed:
-  other: Screens Needed
+  other: 需要屏幕
 about.table-row-screens-needed-1-per:
-  other: 1 per Platform
+  other: 每个比赛台 1 屏
 about.table-row-screens-needed-2p-per:
-  other: 2+ per Platform
+  other: 每个比赛台 2+ 屏
 about.table-row-federations:
-  other: Federations
+  other: 组织
 about.table-row-federations-all:
-  other: All Feds
+  other: 所有组织
 about.table-row-federations-ipl-only:
-  other: IPL Only
+  other: 仅支持 IPF
 about.table-row-scoreboard:
-  other: Online Scoreboard
+  other: 在线积分板
 about.table-row-generic-yes-premium:
-  other: Yes (with Premium)
+  other: 是（高级版本）
 about.table-row-generic-no:
-  other: "No"
+  other: "否"
 about.table-row-generic-yes:
-  other: "Yes"
+  other: "是"
 about.table-row-multi-platform:
-  other: Multi-Platform
+  other: 支持多比赛台
 about.table-row-multi-platform-yes-usb:
-  other: Yes (USB stick)
+  other: 是（USB 闪存盘）
 about.table-row-autosave:
-  other: Autosave
+  other: 自动保存
 about.table-row-training:
-  other: Training Needed
+  other: 培训需求
 about.table-row-training-minimal:
-  other: Minimal
+  other: 极少
 about.table-row-training-moderate:
-  other: Moderate
+  other: 中等
 about.table-row-training-moderate-issues:
-  other: Moderate (Issues)
+  other: 中等（重要问题）
 about.table-row-training-significant:
-  other: Significant
+  other: 较多
 about.table-row-registration:
-  other: Registration
+  other: 注册
 about.table-row-registration-csv:
-  other: Automatic (CSV)
+  other: 自动 (CSV)
 about.table-row-registration-premium:
-  other: Automatic (with Premium)
+  other: 自动（高级版）
 about.table-row-registration-manual:
-  other: Manual
+  other: 手动
 about.about-section:
-  other: About OpenLifter
+  other: 关于 OpenLifter
 about.start-info:
-  other: The OpenLifter project was started in November 2018 by <a href="https://www.openpowerlifting.org">the OpenPowerlifting team</a> in order to advance the state of the art in competition software.
+  # Added back in the </a>, but not sure if I put it in the right place.
+  other: OpenLifter 工程在 2018 年由  <a href="https://www.openpowerlifting.org">OpenPowerlifting 团队</a>发起，目标是做出最先进的力量举比赛软件。
 about.design-header:
-  other: OpenLifter is designed to...
+  other: OpenLifter 的设计目的…
 about.design-goal-1:
-  other: be the world's first free and open-source meet software;
+  other: 成为世界上第一个完全免费、开源的力量举比赛软件；
 about.design-goal-2:
-  other: have a simple, obvious interface and not require much training;
+  other: 具有简单、明了的操作界面，不需要什么培训就能使用；
 about.design-goal-3:
-  other: be completely crash-proof by using a single global state;
+  other: 全球统一状态，完全防闪退；
 about.design-goal-4:
-  other: work with one projector and one cheap computer running any OS;
+  other: 支持任何操作系统，只需电脑和投影仪就可操作；
 about.design-goal-5:
-  other: make the projected display audience-readable.
+  other: 投影内容可以让观众清晰阅读。
 about.closing-text:
-  other: We have extensive experience helping run powerlifting meets, from spotting and loading to judging to running score tables. We put our feature wish-list into OpenLifter.
+  other: 我们有着丰富的组织力量举比赛的经验，从保护到加重，从裁判到计分都很在行。我们把我们理想的软件特征都加入了 OpenLifter。
+guide.html-title:
+  other: OpenLifter 指南
+guide.html-meta-description:
+  other: OpenLifter 教学视频及问答
+guide.html-meta-keywords:
+  other: OpenLifter 指南，OpenLifter 问答，OpenLifter 教学
+guide.faq-section:
+  other: 问答
+guide.faq-pounds-question:
+  other: OpenLifter 支持磅为单位吗？
+guide.faq-pounds-answer:
+  other: 没错。
+guide.faq-multiple-divisions-question:
+  other: 同一位参赛者可以在不同级别或者赛事类型中参赛吗？
+guide.faq-multiple-divisions-answer:
+  other: 可以。在注册页面的“级别及赛事类型”一栏中，同一位参赛者可以输入不同内容。输入的第一个级别内容则会显示在比赛计分表中。
+guide.faq-multiple-platforms-question:
+  other: 我可以同时在不同比赛台上运行吗？
+guide.faq-multiple-platforms-answer:
+  other: 可以。只要你可以在不同电脑之间传文件就行，比如 USB 之类的。设置完比赛信息和注册完所有参赛者之后，从主页上保存就行。然后把保存好的文件拷贝到其它平台的电脑上，再导入 OpenLifter 软件。在比赛结束之后，结果屏幕会有“导出及合并平台”的选项。你可以使用 USB 来合并导出的文件，这样结果就包含所有的比赛台信息了。
+guide.faq-changing-registration-later-question:
+  other: 如果我在比赛开始之后想修改注册信息，这玩意会爆炸吗？
+guide.faq-changing-registration-later-answer:
+  other: 别怕，在 OpenLifter 软件里，你可以随时随地修改信息。
+guide.faq-rack-heights-question:
+  other: 我该怎么标注卧推的安全架高度？或者深蹲不同的进架、出架高度？
+guide.faq-rack-heights-answer:
+  other: 在称重界面的“深蹲架高”和“卧推架高”选项中，你可以输入任何文字，不仅限于阿拉伯数字。举个常见的例子：某位选手需要 5 号卧推架高，3 号卧推保护杆架高，你可以输入“5/3”，不过你不必拘泥于这种特定格式，只要组织人员看得懂就行了。同样道理，对于深蹲架高，你可以直接输入“15 进”。
+guide.faq-fixing-lifts-question:
+  other: 我该如何修改被误输的内容？
+guide.faq-fixing-lifts-answer:
+  other: 在比赛页面中，使用左下角的控制选项重新选择该参赛者，然后点击“失败”或者“成功”按钮进行修改就行了。
+guide.faq-changing-rack-heights-question:
+  other: 我该如何修改架高？下一组的开把重量呢？
+guide.faq-changing-rack-heights-answer:
+  other: 在比赛页面，点击“切换称重”按钮。这样做可以把称重页面嵌入到比赛页面中，让你在不影响比赛加重的情况下修改所有信息。在你完成修改之后，再次点击“切换称重”按钮就能回到原始界面。
+guide.faq-saving-frequency-question:
+  other: 我该多久存一次档？
+guide.faq-saving-frequency-answer:
+  other: 一个黄金准则是在关闭 OpenLifter 软件之前存一次档。</p><p> OpenLifter 软件会在每一次修改之后自动保存在浏览器记录中。如果你不小心关闭了浏览器，再次打开的时候所有内容都会在那。但如果你有几天没用 OpenLifter 软件了，你的浏览器可能会有点健忘，然后不小心丢失比赛数据（这种情况很罕见）。如果你想要确保比赛结果在几天之后还在的话，不妨把数据手动保存成文件。这么做也不会多麻烦。
+guide.faq-lifting-text-question:
+  other: 比赛页面的字太大了！
+guide.faq-lifting-text-answer:
+  other: 使用你浏览器“放大”和“缩小”的功能让字体适应屏幕就行了。大部分浏览器都可以通过直接使用 Ctrl + 鼠标滚轮来调整界面大小。
+guide.faq-results-text-question:
+  other: 结果页面的字太小了！
+guide.faq-results-text-answer:
+  other: 使用上文说的“放大”和“缩小”功能就行了。如果你把字体放的很大，还可以把结果页面做成幻灯片在比赛结束之后即兴表演。很多观众在比赛结束时会想找点东西看，所以这样做他们会很喜欢。
+guide.faq-auto-import-registration-question:
+  other: 我可以在注册页面自动导入参赛者的信息吗？
+guide.faq-auto-import-registration-answer:
+  other: 可以，只要你的数据是特殊的 CSV 导入格式就行。在注册页面的顶端，有一个“下载范例”的按钮，你可以通过它来学习如何制作同样格式的模板。如果你的格式和软件不兼容，会弹出一个错误信息告诉你该怎么做。在你学会（通过不断的犯错）了该如何使用软件之后，下一次就很容易了。
+guide.faq-online-scoresheet-question:
+  other: 这个软件有在线版本吗？
+guide.faq-online-scoresheet-answer:
+  other: 没有。在 OpenLifter 发布之后，它是一个完全的离线软件。它在你的电脑上运行，而不是我们的服务器上。
+guide.faq-third-sex-question:
+  other: 我看到性别选项中有女性，男性，还有 Mx。Mx 是什么意思？
+guide.faq-third-sex-answer:
+  other: Mx (读音为 <i>Muks</i>) 是一种和先生、小姐类似的<a href="https://en.wikipedia.org/wiki/Mx_(title)">性别中立的称呼</a> &mdash;。它从英国发源。</p><p>绝大多数组织会要求参赛者在男女两种性别之间二选一，而有些组织则允许他们以第三种性别类型参赛。Mx 是一种包容一切的称呼，它可以让参赛者不必被强迫用二分法选择自己的性别。</p><p>如果你想要进行一场男女一起参赛的比赛，你也可以把所有人的性别都填写为 Mx。
+guide.faq-openpowerlifting-results-question:
+  other: 这个软件会把结果自动收录到 OpenPowerlifting 网站吗？
+guide.faq-openpowerlifting-results-answer:
+  other: 不会。OpenPowerlifting 网站需要相关组织的允许，并在确认结果之后才能收录，所以这个软件的结果不会自动被收录。不过，如果你点击结果页面的“导出到 OpenPowerlifting”选项，它会把比赛结果下载成<i>非常</i>适用于 OpenPowerlifting 网站的格式。如果你想帮我们点忙的话，<a href="https://www.openpowerlifting.org/contact">发送这个文件</a>会很有帮助。我们可以在相关组织允许之后将它们上传。
+guide.faq-warmup-room-question:
+  other: 我该如何在热身区域设置显示屏？
+guide.faq-warmup-room-answer:
+  other: 你可以用本地网络中的桌面共享软件，然后共享屏幕就行了。有些聊天软件的共享屏幕功能也行。
+support.html-title:
+  other: OpenLifter 支持
+support.html-meta-description:
+  other: 支持及自定义选项
+support.html-meta-keywords:
+  other: OpenLifter 帮助，OpenLifter 支持，OpenLifter 培训
+support.support-section:
+  other: 官方支持
+support.no-warranty:
+  other: OpenLifter 是一个完全免费、开源的软件，但并不附赠保修或者技术支持服务。
+support.we-have-services:
+  other: 如果你想为自己的比赛寻求技术帮助，我们还提供了其它服务，&mdash;从手把手教你使用软件，确保所有东西都完美地设置好，到线下的现场人员支持，以及帮你训练员工。
+support.contact-us-button:
+  other: 联系我们
+support.customization-header:
+  other: 个性化
+support.customization-subheader:
+  other: 为你的比赛做一版个性化的 OpenLifter
+support.customization-item-logo:
+  other: 放映你的 LOGO！
+support.customization-item-branding:
+  other: 你自己的品牌
+support.customization-item-features:
+  other: 个性化特征
+support.customization-item-desktop:
+  other: 桌面版本
+support.customization-item-cost:
+  other: 75 美金起
+support.customization-email-subject:
+  other: 咨询个性化版本
+support.online-header:
+  other: 在线支持
+support.online-subheader:
+  other: 用完全自信的技术举办比赛
+support.online-item-training:
+  other: 培训员工
+support.online-item-email:
+  other: 无限邮件支持
+support.online-item-phone:
+  other: 比赛日电话支持
+support.online-item-cost:
+  other: 120 美金起
+support.online-email-subject:
+  other: 咨询在线支持
+support.in-person-header:
+  other: 线下支持
+support.in-person-subheader:
+  other: 让 OpenLifter 团队帮你计分
+support.in-person-item-everything:
+  other: 你能想到的，我们都做！
+support.in-person-item-training:
+  other: 我们还会帮你训练员工
+support.in-person-item-worldwide:
+  other: 全球服务
+support.in-person-item-cost:
+  other: 价格随地点、交通变动，请咨询我们
+support.in-person-email-subject:
+  other: 线下支持
