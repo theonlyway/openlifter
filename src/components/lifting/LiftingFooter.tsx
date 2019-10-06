@@ -75,6 +75,7 @@ class LiftingFooter extends React.Component<Props> {
     this.handleFlightChange = this.handleFlightChange.bind(this);
     this.handleLiftChange = this.handleLiftChange.bind(this);
 
+    this.handleOnMouseEnter = this.handleOnMouseEnter.bind(this);
     this.handleGoodLift = this.handleGoodLift.bind(this);
     this.handleNoLift = this.handleNoLift.bind(this);
 
@@ -160,6 +161,23 @@ class LiftingFooter extends React.Component<Props> {
         elem.focus();
       }
     }, 100);
+  };
+
+  // This resolves Issue #224. The Good Lift and No Lift buttons are connected
+  // to onMouseDown handlers to greatly improve responsive feel. However, that
+  // means that an onBlur event is not fired for any AttemptInput that is
+  // currently being edited. We need to ensure that it's fired, just as if we
+  // were using a normal onClick handler.
+  //
+  // To ensure that any current AttemptInput is blurred, an onMouseEnter handler
+  // is added that always blurs the currently-focused element. Because there are
+  // several hundred milliseconds between onMouseEnter and onMouseDown due to
+  // human reaction timing, the onBlur event will fully-execute before onMouseDown.
+  handleOnMouseEnter = () => {
+    const activeElement = document.activeElement;
+    if (activeElement instanceof HTMLElement) {
+      activeElement.blur();
+    }
   };
 
   handleGoodLift = () => {
@@ -385,10 +403,20 @@ class LiftingFooter extends React.Component<Props> {
               <FormattedMessage id="lifting.button-toggle-fullscreen" defaultMessage="Toggle Fullscreen" />
             </Button>
           </ButtonGroup>
-          <button type="button" onMouseDown={this.handleNoLift} className={styles.noLift}>
+          <button
+            type="button"
+            onMouseEnter={this.handleOnMouseEnter}
+            onMouseDown={this.handleNoLift}
+            className={styles.noLift}
+          >
             <FormattedMessage id="lifting.button-no-lift" defaultMessage="No Lift" />
           </button>
-          <button type="button" onMouseDown={this.handleGoodLift} className={styles.goodLift}>
+          <button
+            type="button"
+            onMouseEnter={this.handleOnMouseEnter}
+            onMouseDown={this.handleGoodLift}
+            className={styles.goodLift}
+          >
             <FormattedMessage id="lifting.button-good-lift" defaultMessage="Good Lift" />
           </button>
         </div>
