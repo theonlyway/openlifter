@@ -136,6 +136,11 @@ strings = strings.concat([
   { id: "error.csv-field-suffix-event-invalid", defaultMessage: "valid events are {SBD}, {BD}, {SB}, {SD}, {S}, {B}, and {D}." },
   { id: "error.csv-field-suffix-date-format", defaultMessage: "date must be in the unambiguous international standard: YYYY-MM-DD." },
   { id: "error.csv-field-empty-or-positive", defaultMessage: "expected an empty cell or a positive integer." },
+  { id: "error.internal-error", defaultMessage: "An unexpected internal error occurred." },
+  { id: "error.version-mismatch", defaultMessage: "This meet uses data version {thisVersion}, but the selected file uses data version {otherVersion}." },
+  { id: "error.meetname-mismatch", defaultMessage: "This meet is named '{thisName}', but the selected file is for a meet named '{otherName}'. As a safety check, the names much match for merging to be allowed." },
+  { id: "error.no-platform-data", defaultMessage: "The selected file does not have any lifting data for Day {day} Platform {platform}." },
+  { id: "error.not-json", defaultMessage: "Could not parse file as JSON." },
 ]);
 
 // Strings for the Home page.
@@ -285,6 +290,22 @@ strings = strings.concat([
   { id: "lifting.footer-no-lifters", defaultMessage: "No Lifters" },
   { id: "lifting.division-column-width-label", defaultMessage: "Division Column Width" },
 ]);
+
+// Strings for the Results page.
+strings = strings.concat([
+  { id: "results.combine-platforms-header", defaultMessage: "Combine Platforms for Day {N}" },
+  { id: "results.merge-platform", defaultMessage: "Merge Day {day} Platform {platform}" },
+  { id: "results.export-platform", defaultMessage: "Export Day {day} Platform {platform}" },
+  { id: "results.merge-error-title", defaultMessage: "Merge Error" },
+  { id: "results.best-juniors-lifter", defaultMessage: "Best Juniors Lifter" },
+  { id: "results.best-masters-lifter", defaultMessage: "Best Masters Lifter" },
+  { id: "results.best-lifter", defaultMessage: "Best Lifter" },
+  { id: "results.by-division", defaultMessage: "By Division" },
+  { id: "results.all-days-together", defaultMessage: "All Days Together" },
+  { id: "results.just-day-n", defaultMessage: "Just Day {N}" },
+  { id: "results.platform-export-filename", defaultMessage: "{meetName}-Day-{day}-Platform-{platform}" },
+]);
+
 /* eslint-enable */
 
 exports.strings = strings;

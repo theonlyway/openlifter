@@ -84,6 +84,7 @@ class ResultsView extends React.Component<Props, InternalState> {
     this.handleMergePlatformClick = this.handleMergePlatformClick.bind(this);
     this.handleLoadFileInput = this.handleLoadFileInput.bind(this);
     this.closeErrorModal = this.closeErrorModal.bind(this);
+    this.makePlatformMergeButtons = this.makePlatformMergeButtons.bind(this);
 
     this.state = {
       day: 0, // Meaning "all". Flow complained about mixing numbers and strings.
@@ -93,15 +94,18 @@ class ResultsView extends React.Component<Props, InternalState> {
   }
 
   makeDayOptions = () => {
+    const language = this.props.language;
     let options = [
       <option key={"all"} value={0}>
-        All Days Together
+        {getString("results.all-days-together", language)}
       </option>
     ];
+
+    const justDayTemplate = getString("results.just-day-n", language);
     for (let day = 1; day <= this.props.global.meet.lengthDays; day++) {
       options.push(
         <option key={day} value={day}>
-          Just Day {day}
+          {justDayTemplate.replace("{N}", String(day))}
         </option>
       );
     }
@@ -150,12 +154,18 @@ class ResultsView extends React.Component<Props, InternalState> {
 
   handleExportPlatformClick = (day: number, platform: number, event: Object) => {
     // TODO: Share this logic with handleExportAsOplCsvClick.
+    const language = this.props.language;
     let meetname = this.props.global.meet.name;
     if (meetname === "") {
-      meetname = getString("common.unnamed-filename", this.props.language);
+      meetname = getString("common.unnamed-filename", language);
     }
     meetname = meetname.replace(/ /g, "-");
-    const exportname = meetname + "-Day-" + day + "-Platform-" + platform;
+
+    const template = getString("results.platform-export-filename", language);
+    const exportname = template
+      .replace("{day}", String(day))
+      .replace("{platform}", String(platform))
+      .replace("{meetName}", meetname);
 
     const state = JSON.stringify(this.props.global);
     const blob = new Blob([state], { type: "application/json;charset=utf-8" });
@@ -186,6 +196,7 @@ class ResultsView extends React.Component<Props, InternalState> {
 
     // Remember the props in the onload() closure.
     let props = this.props;
+    const language = props.language;
 
     let rememberThis = this;
     const selectedFile = loadHelper.files[0];
@@ -196,7 +207,7 @@ class ResultsView extends React.Component<Props, InternalState> {
       // If this occurs, we've introduced a bug when initiating the file reader, or the read failed.
       // Add this check as a guard so the typing is narrowed
       if (typeof reader.result !== "string") {
-        window.alert("Unable to load file: an unexpected internal error occured");
+        window.alert(getString("error.internal-error", language));
         return;
       }
 
@@ -205,22 +216,18 @@ class ResultsView extends React.Component<Props, InternalState> {
 
         // stateVersion must match.
         if (obj.versions.stateVersion !== props.global.versions.stateVersion) {
-          error =
-            "This meet uses data version " +
-            props.global.versions.stateVersion +
-            ", but the selected file uses data version " +
-            obj.versions.stateVersion;
+          const e = getString("error.version-mismatch", language);
+          error = e
+            .replace("{thisVersion}", props.global.versions.stateVersion)
+            .replace("{otherVersion}", obj.versions.stateVersion);
         } else if (obj.meet.name !== props.global.meet.name) {
           // The meet name must match, for sanity checking.
-          error =
-            'This meet is named "' +
-            props.global.meet.name +
-            '", but the selected file is for the meet "' +
-            obj.meet.name +
-            '". Might be the wrong competition?';
+          const e = getString("error.meetname-mismatch", language);
+          error = e.replace("{thisName}", props.global.meet.name).replace("{otherName}", obj.meet.name);
         } else if (!liftingPresentOnPlatform(obj.registration.entries, day, platform)) {
           // The meet must actually contain data from the given (day, platform).
-          error = "The selected file doesn't have any lifting data for Day " + day + " Platform " + platform + ".";
+          const e = getString("error.no-platform-data", language);
+          error = e.replace("{day}", String(day)).replace("{platform}", String(platform));
         } else {
           // Sanity checks passed: fire off a mergePlatform action!
           const platformEntries = obj.registration.entries.filter(e => {
@@ -229,7 +236,7 @@ class ResultsView extends React.Component<Props, InternalState> {
           props.mergePlatform(day, platform, platformEntries);
         }
       } catch (err) {
-        error = "Couldn't parse JSON.";
+        error = getString("error.not-json", language);
       }
 
       if (typeof error === "string") {
@@ -250,6 +257,11 @@ class ResultsView extends React.Component<Props, InternalState> {
       this.props.global.registration.entries
     );
 
+    const language = this.props.language;
+    const combineTemplate = getString("results.combine-platforms-header", language);
+    const mergeTemplate = getString("results.merge-platform", language);
+    const exportTemplate = getString("results.export-platform", language);
+
     let forms = [];
     const numDays = Math.min(this.props.global.meet.lengthDays, platformsHaveLifted.length);
 
@@ -259,9 +271,10 @@ class ResultsView extends React.Component<Props, InternalState> {
       let buttons = [];
       for (let j = 0; j < liftedOnDay.length; j++) {
         const lifted = liftedOnDay[j];
-        const actionText = lifted === true ? "Export" : "Merge";
         const variant = lifted === true ? "success" : "warning";
         const marginStyle = j > 0 ? { marginLeft: "14px" } : undefined;
+
+        const actionTemplate = lifted === true ? exportTemplate : mergeTemplate;
         buttons.push(
           <Button
             key={i + "-" + j}
@@ -273,14 +286,14 @@ class ResultsView extends React.Component<Props, InternalState> {
                 : this.handleMergePlatformClick(i + 1, j + 1, e);
             }}
           >
-            {actionText} Day {i + 1} Platform {j + 1}
+            {actionTemplate.replace("{day}", String(i + 1)).replace("{platform}", String(j + 1))}
           </Button>
         );
       }
 
       forms.push(
         <div key={i}>
-          <div>Combine Platforms for Day {i + 1}</div>
+          <div>{combineTemplate.replace("{N}", String(i + 1))}</div>
           <div>{buttons}</div>
           {i < platformsHaveLifted.length - 1 ? <br /> : null}
         </div>
@@ -291,6 +304,7 @@ class ResultsView extends React.Component<Props, InternalState> {
   };
 
   render() {
+    const language = this.props.language;
     let results = null;
     switch (this.state.by) {
       case "Division":
@@ -343,7 +357,7 @@ class ResultsView extends React.Component<Props, InternalState> {
       <div style={marginStyle}>
         <ErrorModal
           error={this.state.error}
-          title="Merge Error"
+          title={getString("results.merge-error-title", language)}
           show={this.state.error !== ""}
           close={this.closeErrorModal}
         />
@@ -396,14 +410,14 @@ class ResultsView extends React.Component<Props, InternalState> {
               className={`custom-select ${styles.dropdown}`}
               style={{ marginLeft: "14px" }}
             >
-              <option value="Division">By Division</option>
+              <option value="Division">{getString("results.by-division", language)}</option>
               {this.props.global.meet.ageCoefficients !== "None" ? (
-                <option value="BestJuniorsLifter">Best Juniors Lifter</option>
+                <option value="BestJuniorsLifter">{getString("results.best-juniors-lifter", language)}</option>
               ) : null}
               {this.props.global.meet.ageCoefficients !== "None" ? (
-                <option value="BestMastersLifter">Best Masters Lifter</option>
+                <option value="BestMastersLifter">{getString("results.best-masters-lifter", language)}</option>
               ) : null}
-              <option value="Points">Best Lifter</option>
+              <option value="Points">{getString("results.best-lifter", language)}</option>
             </FormControl>
           </Card.Body>
         </Card>
