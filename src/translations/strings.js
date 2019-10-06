@@ -31,7 +31,10 @@ let strings = new Array();
 // Generic strings for common nouns that aren't really particular to a context.
 strings = strings.concat([
   { id: "common.age", defaultMessage: "Age" },
+  { id: "common.button-close", defaultMessage: "Close" },
+  { id: "common.button-continue", defaultMessage: "Continue" },
   { id: "common.country", defaultMessage: "Country" },
+  { id: "common.danger-allcaps", defaultMessage: "DANGER!!!" },
   { id: "common.federation", defaultMessage: "Federation" },
   { id: "common.kilograms", defaultMessage: "Kilograms" },
   { id: "common.name", defaultMessage: "Name" },
@@ -107,6 +110,16 @@ strings = strings.concat([
   { id: "sex.m", defaultMessage: "M" },
   { id: "sex.f", defaultMessage: "F" },
   { id: "sex.mx", defaultMessage: "Mx" },
+]);
+
+// Strings for error messages.
+strings = strings.concat([
+  { id: "error.invalid-openlifter", defaultMessage: "That didn't look like a valid OpenLifter file!" },
+]);
+
+// Strings for the Home page.
+strings = strings.concat([
+  { id: "home.error-load-popup-title", defaultMessage: "Load from File Error" },
 ]);
 
 // Strings for the Meet Setup page.

@@ -19,15 +19,19 @@
 
 import React from "react";
 import { connect } from "react-redux";
+import { FormattedMessage } from "react-intl";
 
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 
 import { LinkContainer } from "react-router-bootstrap";
 
+import { getString } from "../../logic/strings";
+
 import { overwriteStore } from "../../actions/globalActions";
 import rootReducer from "../../reducers/rootReducer";
 
+import { Language } from "../../types/dataTypes";
 import { GlobalState } from "../../types/stateTypes";
 import { Dispatch } from "redux";
 
@@ -38,6 +42,7 @@ interface OwnProps {
 
 interface StateProps {
   name: string;
+  language: Language;
 }
 
 interface DispatchProps {
@@ -51,19 +56,36 @@ class NewMeetModal extends React.Component<Props> {
     return (
       <Modal show={this.props.show} onHide={this.props.close}>
         <Modal.Header closeButton>
-          <Modal.Title>OK to clear {this.props.name}?</Modal.Title>
+          <Modal.Title>
+            <FormattedMessage
+              id="home.new-meet-popup-title"
+              defaultMessage="OK to clear {meetName}?"
+              values={{ meetName: this.props.name }}
+            />
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>Starting a new meet will clear all unsaved data from {this.props.name}.</p>
-          <p>Are you sure you want to continue?</p>
+          <p>
+            <FormattedMessage
+              id="home.new-meet-popup-message-clear"
+              defaultMessage="Starting a new meet will clear all unsaved data from {meetName}."
+              values={{ meetName: this.props.name }}
+            />
+          </p>
+          <p>
+            <FormattedMessage
+              id="home.new-meet-popup-message-sure"
+              defaultMessage="Are you sure you want to continue?"
+            />
+          </p>
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={this.props.close} variant="light">
-            Close
+            {getString("common.button-close", this.props.language)}
           </Button>
           <LinkContainer to="/meet-setup">
             <Button onClick={this.props.overwriteStore} variant="primary">
-              Continue
+              {getString("common.button-continue", this.props.language)}
             </Button>
           </LinkContainer>
         </Modal.Footer>
@@ -74,7 +96,8 @@ class NewMeetModal extends React.Component<Props> {
 
 const mapStateToProps = (state: GlobalState): StateProps => {
   return {
-    name: state.meet.name
+    name: state.meet.name,
+    language: state.language
   };
 };
 

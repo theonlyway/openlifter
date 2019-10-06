@@ -34,6 +34,8 @@ import { overwriteStore } from "../actions/globalActions";
 import NewMeetModal from "../components/home/NewMeetModal";
 import ErrorModal from "../components/ErrorModal";
 
+import { getString } from "../logic/strings";
+
 import { stateVersion, releaseVersion, releaseDate } from "../versions";
 
 import { GlobalState } from "../types/stateTypes";
@@ -105,6 +107,7 @@ class HomeContainer extends React.Component<Props, InternalState> {
     }
 
     const selectedFile = loadHelper.files[0];
+    const language = this.props.redux.language;
     let rememberThis = this;
 
     let reader = new FileReader();
@@ -129,7 +132,7 @@ class HomeContainer extends React.Component<Props, InternalState> {
       }
 
       if (errored) {
-        const error = "That didn't look like an OpenLifter file!";
+        const error = getString("error.invalid-openlifter", language);
         rememberThis.setState({ error: error });
       }
     };
@@ -137,10 +140,9 @@ class HomeContainer extends React.Component<Props, InternalState> {
   };
 
   handleSaveClick = () => {
-    // TODO: Share this logic with ResultsView.
     let meetname = this.props.redux.meet.name;
     if (meetname === "") {
-      meetname = "Unnamed-Meet";
+      meetname = getString("common.unnamed-filename", this.props.redux.language);
     }
     meetname = meetname.replace(/ /g, "-");
 
@@ -186,10 +188,20 @@ class HomeContainer extends React.Component<Props, InternalState> {
       betaWarning = (
         <h2>
           <p>
-            This is the <i>in-development</i> next version of OpenLifter.
+            <FormattedMessage
+              id="home.beta-warning-1"
+              defaultMessage="This is the in-development, next version of OpenLifter."
+            />
           </p>
-          <p>The internal data format is not guaranteed stable.</p>
-          <p>Do not use this to run competitions!</p>
+          <p>
+            <FormattedMessage
+              id="home.beta-warning-2"
+              defaultMessage="The internal data format is not guaranteed stable."
+            />
+          </p>
+          <p>
+            <FormattedMessage id="home.beta-warning-3" defaultMessage="Do not use this to run competitions!" />
+          </p>
         </h2>
       );
     }
@@ -198,19 +210,21 @@ class HomeContainer extends React.Component<Props, InternalState> {
     const dataReleaseVersion = this.props.redux.versions.releaseVersion;
 
     const buttonMargin = { marginBottom: "5px" };
+    const language = this.props.redux.language;
 
     let warning = null;
     if (wrongVersion === true) {
       warning = (
         <h2>
           <p>
-            <b>DANGER!!!</b>
+            <b>{getString("common.danger-allcaps", language)}</b>
           </p>
           <p>
-            The loaded meet was made in OpenLifter <b>{dataReleaseVersion}</b>.
-          </p>
-          <p>
-            That format is incompatible with OpenLifter <b>{releaseVersion}</b>.
+            <FormattedMessage
+              id="home.wrong-version-warning"
+              defaultMessage="The loaded meet was made in OpenLifter {oldVersion}. That format is incompatible with OpenLifter {thisVersion}."
+              values={{ oldVersion: dataReleaseVersion, thisVersion: releaseVersion }}
+            />
           </p>
         </h2>
       );
@@ -221,7 +235,7 @@ class HomeContainer extends React.Component<Props, InternalState> {
         <NewMeetModal show={this.state.showNewMeetModal} close={this.closeConfirmModal} />
         <ErrorModal
           error={this.state.error}
-          title="Load from File Error"
+          title={getString("home.error-load-popup-title", language)}
           show={this.state.error !== ""}
           close={this.closeErrorModal}
         />
@@ -255,7 +269,11 @@ class HomeContainer extends React.Component<Props, InternalState> {
               ) : (
                 <a href={"https://www.openlifter.com/releases/" + dataReleaseVersion}>
                   <Button variant="success" block style={{ marginBottom: "5px" }}>
-                    Switch to OpenLifter {dataReleaseVersion}
+                    <FormattedMessage
+                      id="home.button-switch-version"
+                      defaultMessage="Switch to OpenLifter {otherVersion}"
+                      values={{ otherVersion: dataReleaseVersion }}
+                    />
                   </Button>
                 </a>
               )}
