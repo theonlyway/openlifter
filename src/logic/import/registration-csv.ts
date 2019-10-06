@@ -163,9 +163,11 @@ export const loadRegistrations = (state: GlobalState, csv: Csv, language: Langua
       const colname = getSpreadsheetColumnName(i);
       const allfields: string = MANDATORY_FIELDNAMES.join(", ") + ", " + OPTIONAL_FIELDNAMES.join(", ");
 
-      let e = "Unknown fieldname '" + name + "' in column " + colname + ".";
-      e += " Here's a list of all accepted column names: " + allfields;
-      return e;
+      const e = getString("error.csv-unknown-header", language);
+      return e
+        .replace("{name}", name)
+        .replace("{ABC}", colname)
+        .replace("{validList}", allfields);
     }
 
     // Fieldnames cannot be repeated.
@@ -174,9 +176,11 @@ export const loadRegistrations = (state: GlobalState, csv: Csv, language: Langua
         const iname = getSpreadsheetColumnName(i);
         const jname = getSpreadsheetColumnName(j);
 
-        let e = 'The column "' + csv.fieldnames[i] + '" occurs in two columns:';
-        e += " " + iname + " and " + jname;
-        return e;
+        const e = getString("error.csv-duplicate-header", language);
+        return e
+          .replace("{name}", csv.fieldnames[i])
+          .replace("{firstABC}", iname)
+          .replace("{secondABC}", jname);
       }
     }
   }
@@ -184,7 +188,8 @@ export const loadRegistrations = (state: GlobalState, csv: Csv, language: Langua
   // Check that all of the MANDATORY_FIELDNAMES are included.
   for (let i = 0; i < MANDATORY_FIELDNAMES.length; ++i) {
     if (!csv.fieldnames.includes(MANDATORY_FIELDNAMES[i])) {
-      return 'The mandatory "' + MANDATORY_FIELDNAMES[i] + '" column is missing';
+      const e = getString("error.csv-missing-header", language);
+      return e.replace("{name}", MANDATORY_FIELDNAMES[i]);
     }
   }
 
@@ -192,12 +197,15 @@ export const loadRegistrations = (state: GlobalState, csv: Csv, language: Langua
   // below is stateful, and needs to know how many platforms are on that day
   // when it reads in the platform value.
   if (csv.fieldnames.indexOf(col_platform) <= csv.fieldnames.indexOf(col_day)) {
-    return "The Day column must come before the Platform column";
+    const e = getString("error.csv-day-platform-order", language);
+    return e.replace("{day}", col_day).replace("{platform}", col_platform);
   }
 
   // The caller needs to update this field on the state later, if successful.
   let nextEntryId = state.registration.nextEntryId;
   let entries: Array<Entry> = [];
+
+  const errprefix_template = getString("error.csv-field-prefix", language);
 
   // The fieldnames are valid! Now we can start building Entries.
   for (let i = 0; i < csv.rows.length; ++i) {
@@ -215,7 +223,10 @@ export const loadRegistrations = (state: GlobalState, csv: Csv, language: Langua
       let rowstr = displayNumber(i + 2, language);
 
       // Start building the error string early, since it's repeated a lot.
-      let errprefix = "Invalid " + fieldname + " '" + val + "' in row " + rowstr + ": ";
+      const errprefix = errprefix_template
+        .replace("{cellType}", fieldname)
+        .replace("{cellValue}", val)
+        .replace("{rowNumber}", rowstr);
 
       if (fieldname === col_day) {
         // Default to 1.
@@ -226,18 +237,19 @@ export const loadRegistrations = (state: GlobalState, csv: Csv, language: Langua
 
           // Must be an integer.
           if (typeof integer !== "number") {
-            return errprefix + "expected an integer";
+            return errprefix + getString("error.csv-field-suffix-integer", language);
           }
 
           // Can't be less than one: there's always at least one day.
           if (integer < 1) {
-            return errprefix + "can't be less than 1";
+            return errprefix + getString("error.csv-field-suffix-positive", language);
           }
 
           // Can't be greater than the number of days specified in the GlobalState.
           const numDays = state.meet.lengthDays;
           if (integer > numDays) {
-            return errprefix + "the Meet Setup page specifies only " + numDays + " days";
+            const e = getString("error.csv-field-suffix-day-overflow", language);
+            return errprefix + e.replace("{numDays}", String(numDays));
           }
 
           // All checks passed!
@@ -252,12 +264,12 @@ export const loadRegistrations = (state: GlobalState, csv: Csv, language: Langua
 
           // Must be an integer.
           if (typeof integer !== "number") {
-            return errprefix + "expected an integer";
+            return errprefix + getString("error.csv-field-suffix-integer", language);
           }
 
           // Can't be less than one: there's always at least one platform.
           if (integer < 1) {
-            return errprefix + "can't be less than 1";
+            return errprefix + getString("error.csv-field-suffix-positive", language);
           }
 
           // Can't be greater than the number of platforms specified in the GlobalState.
@@ -266,7 +278,8 @@ export const loadRegistrations = (state: GlobalState, csv: Csv, language: Langua
           const day = entry.day;
           const platforms = state.meet.platformsOnDays[day];
           if (integer > platforms) {
-            return errprefix + "Day " + day + " only has " + platforms + " platforms";
+            const e = getString("error.csv-field-suffix-platform-overflow", language);
+            return errprefix + e.replace("{dayNumber}", String(day)).replace("{numPlatforms}", String(platforms));
           }
 
           // All checks passed!
@@ -280,25 +293,49 @@ export const loadRegistrations = (state: GlobalState, csv: Csv, language: Langua
           try {
             entry.flight = delocalizeFlight(val, language);
           } catch (err) {
-            return errprefix + "expected a valid flight";
+            return errprefix + getString("error.csv-field-suffix-flight-invalid", language);
           }
         }
       } else if (fieldname === col_name) {
         if (val === "") {
-          return errprefix + "every lifter needs a Name";
+          return errprefix + getString("error.csv-field-suffix-name-blank", language);
         }
         entry.name = val;
       } else if (fieldname === col_sex) {
         try {
           entry.sex = delocalizeSex(val, language);
         } catch (err) {
-          return errprefix + "valid values are M, F, and Mx";
+          const e = getString("error.csv-field-suffix-sex-invalid", language);
+          const m = getString("sex.m", language);
+          const f = getString("sex.f", language);
+          const mx = getString("sex.mx", language);
+          return (
+            errprefix +
+            e
+              .replace("{M}", m)
+              .replace("{F}", f)
+              .replace("{Mx}", mx)
+          );
         }
       } else if (fieldname === col_equipment) {
         try {
           entry.equipment = delocalizeEquipment(val, language);
         } catch (err) {
-          return errprefix + "valid values are 'Bare', 'Sleeves', 'Wraps', 'Single-ply', and 'Multi-ply'";
+          const e = getString("error.csv-field-suffix-equipment-invalid", language);
+          const bare = getString("equipment.bare", language);
+          const sleeves = getString("equipment.sleeves", language);
+          const wraps = getString("equipment.wraps", language);
+          const single = getString("equipment.single-ply", language);
+          const multi = getString("equipment.multi-ply", language);
+          return (
+            errprefix +
+            e
+              .replace("{bare}", bare)
+              .replace("{sleeves}", sleeves)
+              .replace("{wraps}", wraps)
+              .replace("{single}", single)
+              .replace("{multi}", multi)
+          );
         }
       } else if (
         fieldname === col_division1 ||
@@ -310,17 +347,17 @@ export const loadRegistrations = (state: GlobalState, csv: Csv, language: Langua
         if (val === "") {
           // Only the first Division is mandatory.
           if (fieldname === col_division1) {
-            return errprefix + "the first division is mandatory";
+            return errprefix + getString("error.csv-field-suffix-division-blank", language);
           }
         } else {
           // Check that it appears as a valid division.
           if (!state.meet.divisions.includes(val)) {
-            return errprefix + "not a valid division per the Meet Setup page";
+            return errprefix + getString("error.csv-field-suffix-division-invalid", language);
           }
 
           // Check that it wasn't already added.
           if (entry.divisions.includes(val)) {
-            return errprefix + "the lifter is already in that Division";
+            return errprefix + getString("error.csv-field-suffix-division-duplicate", language);
           }
 
           entry.divisions.push(val);
@@ -335,7 +372,7 @@ export const loadRegistrations = (state: GlobalState, csv: Csv, language: Langua
         if (val === "") {
           // Only the first Event is mandatory.
           if (fieldname === col_event1) {
-            return errprefix + "the first event is mandatory";
+            return errprefix + getString("error.csv-field-suffix-event-blank", language);
           }
         } else {
           try {
@@ -343,11 +380,29 @@ export const loadRegistrations = (state: GlobalState, csv: Csv, language: Langua
 
             // Check for duplicates.
             if (entry.events.includes(evt)) {
-              return errprefix + "the lifter is already registered for that Event";
+              return errprefix + getString("error.csv-field-suffix-event-duplicate", language);
             }
             entry.events.push(evt);
           } catch (err) {
-            return errprefix + "should be formed like 'SBD', 'BD', 'B', etc.";
+            const e = getString("error.csv-field-suffix-event-invalid", language);
+            const sbd = getString("event.sbd", language);
+            const bd = getString("event.bd", language);
+            const sb = getString("event.sb", language);
+            const sd = getString("event.sd", language);
+            const s = getString("event.s", language);
+            const b = getString("event.b", language);
+            const d = getString("event.d", language);
+            return (
+              errprefix +
+              e
+                .replace("{SBD}", sbd)
+                .replace("{BD}", bd)
+                .replace("{SB}", sb)
+                .replace("{SD}", sd)
+                .replace("{S}", s)
+                .replace("{B}", b)
+                .replace("{D}", d)
+            );
           }
         }
       } else if (fieldname === col_birthdate) {
@@ -355,8 +410,7 @@ export const loadRegistrations = (state: GlobalState, csv: Csv, language: Langua
         if (val !== "") {
           const bd = parseDate(val);
           if (typeof bd !== "string") {
-            let e = "date must be in the unambiguous international standard: YYYY-MM-DD";
-            return errprefix + e;
+            return errprefix + getString("error.csv-field-suffix-date-format", language);
           }
 
           entry.birthDate = bd;
@@ -372,7 +426,7 @@ export const loadRegistrations = (state: GlobalState, csv: Csv, language: Langua
         if (val !== "") {
           const integer = parseInteger(val);
           if (typeof integer !== "number" || integer < 1) {
-            return errprefix + "expected an empty cell or a positive integer";
+            return errprefix + getString("error.csv-field-empty-or-positive", language);
           }
 
           // All checks passed!

@@ -184,7 +184,7 @@ class RegistrationView extends React.Component<Props, InternalState> {
       <div style={marginStyle}>
         <ErrorModal
           error={this.state.error}
-          title="Importation Error"
+          title={getString("registration.importation-error", this.props.global.language)}
           show={this.state.error !== ""}
           close={this.closeErrorModal}
         />

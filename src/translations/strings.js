@@ -115,6 +115,27 @@ strings = strings.concat([
 // Strings for error messages.
 strings = strings.concat([
   { id: "error.invalid-openlifter", defaultMessage: "That didn't look like a valid OpenLifter file!" },
+  { id: "error.csv-unknown-header", defaultMessage: "Unknown header {name} in column {ABC}. Here's a list of all accepted column names: {validList}." },
+  { id: "error.csv-duplicate-header", defaultMessage: "The header {name} appears twice, in columns {firstABC} and {secondABC}." },
+  { id: "error.csv-missing-header", defaultMessage: "The mandatory column {name} is missing." },
+  { id: "error.csv-day-platform-order", defaultMessage: "The {day} column must precede the {platform} column." },
+  { id: "error.csv-field-prefix", defaultMessage: "Invalid {cellType} '{cellValue}' in row {rowNumber}: '" },
+  { id: "error.csv-field-suffix-integer", defaultMessage: "expected an integer." },
+  { id: "error.csv-field-suffix-positive", defaultMessage: "can't be less than 1." },
+  { id: "error.csv-field-suffix-day-overflow", defaultMessage: "the Meet Setup page specifices only {numDays} days." },
+  { id: "error.csv-field-suffix-platform-overflow", defaultMessage: "Day {dayNumber} only has {numPlatforms} platforms." },
+  { id: "error.csv-field-suffix-flight-invalid", defaultMessage: "expected a valid flight." },
+  { id: "error.csv-field-suffix-name-blank", defaultMessage: "every lifter must have a name." },
+  { id: "error.csv-field-suffix-sex-invalid", defaultMessage: "valid sexes are {M}, {F}, and {Mx}." },
+  { id: "error.csv-field-suffix-equipment-invalid", defaultMessage: "valid Equipment values are {bare}, {sleeves}, {wraps}, {single}, and {multi}." },
+  { id: "error.csv-field-suffix-division-blank", defaultMessage: "the first division is mandatory." },
+  { id: "error.csv-field-suffix-division-invalid", defaultMessage: "not a valid division per the Meet Setup page." },
+  { id: "error.csv-field-suffix-division-duplicate", defaultMessage: "the lifter was already registered in that division by another column." },
+  { id: "error.csv-field-suffix-event-blank", defaultMessage: "the first event is mandatory." },
+  { id: "error.csv-field-suffix-event-duplicate", defaultMessage: "the lifter was already registered in that event by another column." },
+  { id: "error.csv-field-suffix-event-invalid", defaultMessage: "valid events are {SBD}, {BD}, {SB}, {SD}, {S}, {B}, and {D}." },
+  { id: "error.csv-field-suffix-date-format", defaultMessage: "date must be in the unambiguous international standard: YYYY-MM-DD." },
+  { id: "error.csv-field-empty-or-positive", defaultMessage: "expected an empty cell or a positive integer." },
 ]);
 
 // Strings for the Home page.
@@ -157,6 +178,7 @@ strings = strings.concat([
 strings = strings.concat([
   { id: "registration.birthdate-placeholder", defaultMessage: "YYYY-MM-DD" },
   { id: "registration.button-delete", defaultMessage: "Delete" },
+  { id: "registration.importation-error", defaultMessage: "Importation Error" },
   { id: "registration.member-id-placeholder", defaultMessage: "ID" },
   { id: "registration.state-province", defaultMessage: "State" },
 ]);
