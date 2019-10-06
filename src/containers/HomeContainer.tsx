@@ -189,18 +189,9 @@ class HomeContainer extends React.Component<Props, InternalState> {
         <h2>
           <p>
             <FormattedMessage
-              id="home.beta-warning-1"
-              defaultMessage="This is the in-development, next version of OpenLifter."
+              id="home.beta-warning"
+              defaultMessage="This is the in-development, next version of OpenLifter. The internal data format is unstable. Do not use this to run competitions!"
             />
-          </p>
-          <p>
-            <FormattedMessage
-              id="home.beta-warning-2"
-              defaultMessage="The internal data format is not guaranteed stable."
-            />
-          </p>
-          <p>
-            <FormattedMessage id="home.beta-warning-3" defaultMessage="Do not use this to run competitions!" />
           </p>
         </h2>
       );
