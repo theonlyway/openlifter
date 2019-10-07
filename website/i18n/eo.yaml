@@ -63,7 +63,7 @@ about.table-header-nextlifter:
 about.table-header-ironcomp:
   other: IronKomp
 about.table-row-homepage:
-  other: Retpaĝaro
+  other: Retejo
 about.table-row-homepage-none:
   other: Neniu
 about.table-row-license:
@@ -162,3 +162,141 @@ about.design-goal-5:
   other: legebligi la projekciitan ekranon por la spektantoj.
 about.closing-text:
   other: Nia teamo havas spertecon pri la funkciado de konkursoj por multaj jaroj. OpenLifter estas nia revo-softvaro.
+guide.html-title:
+  other: OpenLifter Gvidilo
+guide.html-meta-description:
+  other: OpenLifter Video Walkthrough and FAQ
+guide.html-meta-keywords:
+  other: openlifting gvidilo,openlifter fakdosiero,openlifter lernilo
+guide.faq-section:
+  other: Fakdosiero
+guide.faq-pounds-question:
+  other: Ĉu OpenLifter permesas uzi funtojn?
+guide.faq-pounds-answer:
+  other: Certe.
+guide.faq-multiple-divisions-question:
+  other: Ĉu unu konkursanto povas konkursi en multoblaj divizioj aŭ eventoj?
+guide.faq-multiple-divisions-answer:
+  other: Jes. En la paĝo por registriĝo, la Divizioj kaj Eventoj tekstujoj akceptas multoblajn aĵojn por unu konkursanto. La unua divizio aperos en la paĝo por la konkurso.
+guide.faq-multiple-platforms-question:
+  other: Ĉu la konkurso povas uzi multoblajn estradojn?
+guide.faq-multiple-platforms-answer:
+  other: Yes. You'll need some way to transfer files between computers, usually with a USB key. Set up the competition and register all the lifters on one computer, then Save from the Home screen. Transfer that save file to the computers next to each platform, and Load it into OpenLifter. Once lifting is over, the Results screen will then have Export and Merge buttons for each platform. Use the USB key to merge in the exported files. Then you'll have all the results on one computer and the results will include all platforms.
+guide.faq-changing-registration-later-question:
+  other: If I change registration stuff after lifting started, will everything explode?
+guide.faq-changing-registration-later-answer:
+  other: Nothing will explode. OpenLifter lets you change anything at any time and will do the right thing.
+guide.faq-rack-heights-question:
+  other: How do I mark bench safety heights? What about squat rack in/out?
+guide.faq-rack-heights-answer:
+  other: On the Weigh-ins page, the "Squat Rack" and "Bench Rack" inputs accept freeform text, not just numbers. Most commonly, a bench rack height of 5 with a safety weight of 3 is written as "5/3", but you can use whatever notation your loading crew prefers. Similarly for the squat rack, you can enter "15in".
+guide.faq-fixing-lifts-question:
+  other: Kiel ripari provon, kiu misregistritas?
+guide.faq-fixing-lifts-answer:
+  other: Use the controls in the lower-left corner of the Lifting page to reselect that lifter, and then click the No Lift or Good Lift button to change it.
+guide.faq-changing-rack-heights-question:
+  other: How do I change rack heights? What about the next flight's openers?
+guide.faq-changing-rack-heights-answer:
+  other: On the Lifting page, click the "Toggle Weigh-ins" button. That will embed the Weigh-ins page into the Lifting page, so you can change all that stuff and keep the loading projected. When you're done changing things, click the "Toggle Weigh-ins" button again to switch back.
+guide.faq-saving-frequency-question:
+  other: How often should I save to a file?
+guide.faq-saving-frequency-answer:
+  other: A good rule of thumb is to save to a file right before you go to close OpenLifter.</p><p>OpenLifter auto-saves into browser memory after every change. If you accidentally close the browser, everything will still be there when you reopen it. But if you don't use OpenLifter for a few days, browsers are allowed to forget things, so it might forget about your competition (although that's unlikely). If you want to guarantee that the competition is still there a few days from now, save it to a file. Can't hurt.
+guide.faq-lifting-text-question:
+  other: The text on the Lifting page is way too big!
+guide.faq-lifting-text-answer:
+  other: Use your browser's "Zoom In" and "Zoom Out" buttons to fit things to your screen. Most browsers will also let you change zoom settings by holding Ctrl and scrolling the mouse wheel.
+guide.faq-results-text-question:
+  other: The text on the Results page is way too small!
+guide.faq-results-text-answer:
+  other: Use the same browser "Zoom In" and "Zoom Out" features to get things to fit. If you make the text really big, you can fit it to your projector and put on an impromptu slideshow at the end of the competition. Audiences seem to like that because it gives them something to look at.
+guide.faq-auto-import-registration-question:
+  other: Can I auto-import lifter details into the registration page?
+guide.faq-auto-import-registration-answer:
+  other: Yes, by exporting your data into a special CSV importation format. At the top of the Registration page, there is a button for downloading a template, so you can learn what that format looks like by example. If the format doesn't match what we expect, it will give you a helpful error message. Once you learn (by trial and error) what the program is expecting, the next time should be really easy.
+guide.faq-online-scoresheet-question:
+  other: Is there an online scoresheet?
+guide.faq-online-scoresheet-answer:
+  other: There is not. Once OpenLifter is launched, it's entirely offline. It runs on your computer, not on our server.
+guide.faq-third-sex-question:
+  other: I see M, F, and Mx weight classes. What's Mx?
+guide.faq-third-sex-answer:
+  other: Mx (pronounced <i>Muks</i>) is <a href="https://en.wikipedia.org/wiki/Mx_(title)">a gender-neutral title</a> &mdash; like Mr and Ms &mdash; originating from the UK.</p><p>Most federations require lifters to compete in either the male or female categories. Some federations additionally allow lifters to enter a third category. Mx is all-inclusive. It can include non-binary lifters without forcing assignation into the standard dichotomy.</p><p>If you wanted to run a competition where men and women are all competing together, you could put everyone into the Mx category.
+guide.faq-openpowerlifting-results-question:
+  other: Does this auto-submit results to OpenPowerlifting?
+guide.faq-openpowerlifting-results-answer:
+  other: No. OpenPowerlifting requires the sanctioning federation to certify the results, so results can't be received directly. However, if you click the "Export for OpenPowerlifting" button on the Results page, it will download the results in a format that is <i>really</i> convenient for us. If you'd like to make our lives easier, <a href="https://www.openpowerlifting.org/contact">sending in those files</a> would be helpful. We can add them after the sanctioning body approves them.
+guide.faq-warmup-room-question:
+  other: How do I set up monitors for the warmup room?
+guide.faq-warmup-room-answer:
+  other: Use desktop sharing software for your local network, and then share the screen. Chat programs with screen sharing features will work too.
+support.html-title:
+  other: OpenLifter Apogo
+support.html-meta-description:
+  other: Apogado kaj laŭplaĉigaj opcioj
+support.html-meta-keywords:
+  other: openlifter apogo,openlifter helpo,openlifter trejnado
+support.support-section:
+  other: Oficiala Apogo
+support.no-warranty:
+  other: OpenLifter is free and open source, but does not come with a warranty or support.
+support.we-have-services:
+  other: If you would like technical support for your meet, we offer several services &mdash; from walking you through the software and making sure things are set up correctly, all the way to in-person score table direction and training for your staff.
+support.contact-us-button:
+  other: Kontaktu nin
+support.customization-header:
+  other: Laŭplaĉigoj
+support.customization-subheader:
+  other: Get a version of OpenLifter specifically for your meet
+support.customization-item-logo:
+  other: Have your logo projected!
+support.customization-item-branding:
+  other: Your own branding
+support.customization-item-features:
+  other: Custom features
+support.customization-item-desktop:
+  other: Desktop versions
+support.customization-item-cost:
+  other: Starting at US$75
+support.customization-email-subject:
+  other: Custom Version Inquiry
+support.online-header:
+  other: Online Support
+support.online-subheader:
+  other: Run a meet with complete technical confidence
+support.online-item-training:
+  other: Training for your staff
+support.online-item-email:
+  other: Unlimited e-mail support
+support.online-item-phone:
+  other: Meet-day phone support
+support.online-item-cost:
+  other: Starting at US$120
+support.online-email-subject:
+  other: Online Support Inquiry
+support.in-person-header:
+  other: Proprapersona apogo
+support.in-person-subheader:
+  other: Have the OpenPowerlifting team run your score table
+support.in-person-item-everything:
+  other: Ni faros ĉion!
+support.in-person-item-training:
+  other: Ni ankaŭ trejnos vian dungitaron
+support.in-person-item-worldwide:
+  other: Disponata tutmonde
+support.in-person-item-cost:
+  other: Pricing varies based on cost of travel, please inquire
+support.in-person-email-subject:
+  other: In-Person Support
+releases.html-title:
+  other: OpenLifter Versioj
+releases.html-meta-description:
+  other: Ĉiuj versioj de OpenLifter, eĉ la malnovaj
+releases.html-meta-keywords:
+  other: openlifter malnovaj versioj
+releases.in-development:
+  other: In Development
+releases.major-changes-in-the-next-version:
+  other: Major Changes Coming in the Next Version
+releases.changelog-initial-public-release:
+  other: Unua publika versio.
