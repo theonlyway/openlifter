@@ -33,12 +33,13 @@ import {
   getFinalEventTotalKg,
   entryHasLifted
 } from "../../logic/entry";
-import { kg2lbs, displayWeight } from "../../logic/units";
+import { kg2lbs, displayWeight, displayPoints, displayNumber } from "../../logic/units";
 
+import { getString, localizeEquipment, localizeEvent, localizeWeightClassStr } from "../../logic/strings";
 import { getPoints } from "../../logic/coefficients/coefficients";
 
 import { Category, CategoryResults } from "../../logic/divisionPlace";
-import { Entry, Formula, Sex } from "../../types/dataTypes";
+import { Entry, Formula, Language, Sex } from "../../types/dataTypes";
 import { GlobalState } from "../../types/stateTypes";
 import { checkExhausted } from "../../types/utils";
 
@@ -52,6 +53,7 @@ interface StateProps {
   weightClassesKgMen: Array<number>;
   weightClassesKgWomen: Array<number>;
   weightClassesKgMx: Array<number>;
+  language: Language;
   entries: Array<Entry>;
 }
 
@@ -86,19 +88,23 @@ class ByDivision extends React.Component<Props> {
     if (totalKg === 0) return null;
 
     const inKg = this.props.inKg;
+    const language = this.props.language;
 
     // The place proceeds in order by key, except for DQ entries.
-    const place = totalKg === 0 ? "DQ" : key + 1;
+    const place = totalKg === 0 ? getString("results.lifter-disqualified", language) : key + 1;
 
     const points: number = getPoints(this.props.formula, entry, category.event, totalKg, inKg);
 
     let pointsStr = "";
-    if (totalKg !== 0 && points === 0) pointsStr = "N/A";
-    else if (totalKg !== 0 && points !== 0) pointsStr = points.toFixed(2);
+    if (totalKg !== 0 && points === 0) {
+      pointsStr = getString("results.value-not-applicable", language);
+    } else if (totalKg !== 0 && points !== 0) {
+      pointsStr = displayPoints(points, language);
+    }
 
     const classes = mapSexToClasses(entry.sex, this.props);
     const wtcls = inKg
-      ? getWeightClassStr(classes, entry.bodyweightKg)
+      ? getWeightClassStr(classes, entry.bodyweightKg, language)
       : getWeightClassLbsStr(classes, entry.bodyweightKg);
     const bw = inKg ? entry.bodyweightKg : kg2lbs(entry.bodyweightKg);
 
@@ -111,16 +117,26 @@ class ByDivision extends React.Component<Props> {
     const deadliftKg = getBest5DeadliftKg(entry);
     const deadlift = inKg ? deadliftKg : kg2lbs(deadliftKg);
 
-    const total = inKg ? totalKg : kg2lbs(totalKg); // For display.
+    let weightTemplate = "";
+    if (inKg) {
+      if (this.props.showAlternateUnits === true) {
+        weightTemplate = getString("lifting.current-weight-kg-lbs", language);
+      } else {
+        weightTemplate = getString("lifting.current-weight-kg", language);
+      }
+    } else {
+      if (this.props.showAlternateUnits === true) {
+        weightTemplate = getString("lifting.current-weight-lbs-kg", language);
+      } else {
+        weightTemplate = getString("lifting.current-weight-lbs", language);
+      }
+    }
 
-    const unit = inKg ? "kg" : "lb";
-    const otherUnit = inKg ? "lb" : "kg";
-
-    // Calculate the total in the alternate units, if requested.
-    let alternateTotal: string | null = null;
-    if (this.props.showAlternateUnits === true && totalKg !== 0) {
-      const amount = inKg ? kg2lbs(totalKg) : totalKg;
-      alternateTotal = unit + " / " + displayWeight(amount) + otherUnit;
+    let weightString: null | string = null;
+    if (totalKg > 0) {
+      weightString = weightTemplate
+        .replace("{kg}", displayWeight(totalKg, language))
+        .replace("{lbs}", displayWeight(kg2lbs(totalKg), language));
     }
 
     return (
@@ -128,28 +144,25 @@ class ByDivision extends React.Component<Props> {
         <td>{place}</td>
         <td>{entry.name}</td>
         <td>{entry.bodyweightKg === 0 ? null : wtcls}</td>
-        <td>{entry.bodyweightKg === 0 ? null : displayWeight(bw)}</td>
+        <td>{entry.bodyweightKg === 0 ? null : displayWeight(bw, language)}</td>
         <td>{entry.age === 0 ? null : entry.age}</td>
-        <td>{squatKg === 0 ? "" : displayWeight(squat)}</td>
-        <td>{benchKg === 0 ? "" : displayWeight(bench)}</td>
-        <td>{deadliftKg === 0 ? "" : displayWeight(deadlift)}</td>
-        <td>
-          {totalKg === 0 ? "" : displayWeight(total)}
-          {alternateTotal}
-        </td>
+        <td>{squatKg === 0 ? "" : displayWeight(squat, language)}</td>
+        <td>{benchKg === 0 ? "" : displayWeight(bench, language)}</td>
+        <td>{deadliftKg === 0 ? "" : displayWeight(deadlift, language)}</td>
+        <td>{weightString}</td>
         <td>{pointsStr}</td>
       </tr>
     );
   };
 
-  mapSexToLabel = (sex: Sex): string => {
+  mapSexToLabel = (sex: Sex, language: Language): string => {
     switch (sex) {
       case "M":
-        return "Men's";
+        return getString("results.mens", language);
       case "F":
-        return "Women's";
+        return getString("results.womens", language);
       case "Mx":
-        return "Mx";
+        return getString("results.mxs", language);
       default:
         checkExhausted(sex);
         return "";
@@ -158,7 +171,8 @@ class ByDivision extends React.Component<Props> {
 
   renderCategoryResults = (results: CategoryResults, key: number): JSX.Element | null => {
     const { category, orderedEntries } = results;
-    const sex = this.mapSexToLabel(category.sex);
+    const language = this.props.language;
+    const sex: string = this.mapSexToLabel(category.sex, language);
 
     // Gather rows.
     let rows = [];
@@ -174,38 +188,47 @@ class ByDivision extends React.Component<Props> {
       return null;
     }
 
-    let eqpstr: string = category.equipment;
+    let eqpstr: string = localizeEquipment(category.equipment, language);
     if (this.props.combineSleevesAndWraps) {
-      eqpstr = "Sleeves + Wraps";
+      eqpstr = getString("results.combined-sleeves-wraps", language);
     }
 
-    let units = this.props.inKg ? "kilo" : "pound";
+    let units = this.props.inKg
+      ? getString("results.spoken-unit-kilo", language)
+      : getString("results.spoken-unit-pound", language);
 
     // Convert the category.weightClassStr to pounds.
-    let wtcls = category.weightClassStr;
+    let wtcls = localizeWeightClassStr(category.weightClassStr, language);
     if (category.weightClassStr !== "" && !this.props.inKg) {
       wtcls = wtclsStrKg2Lbs(category.weightClassStr);
     }
 
+    const template = getString("results.division-template", language);
+    const division = template
+      .replace("{sex}", sex)
+      .replace("{weightClass}", wtcls)
+      .replace("{spokenUnits}", category.weightClassStr !== "" ? units : "")
+      .replace("{equipment}", eqpstr)
+      .replace("{division}", category.division)
+      .replace("{event}", localizeEvent(category.event, language));
+
     return (
       <Card key={key}>
-        <Card.Header>
-          {sex} {wtcls} {category.weightClassStr !== "" ? units : null} {eqpstr} {category.division} {category.event}
-        </Card.Header>
+        <Card.Header>{division}</Card.Header>
         <Card.Body>
           <Table hover size="sm">
             <thead>
               <tr>
-                <th>Place</th>
-                <th>Name</th>
-                <th>Class</th>
-                <th>Bwt</th>
-                <th>Age</th>
-                <th>Squat</th>
-                <th>Bench</th>
-                <th>Deadlift</th>
-                <th>Total</th>
-                <th>Points</th>
+                <th>{getString("lifting.column-place", language)}</th>
+                <th>{getString("lifting.column-lifter", language)}</th>
+                <th>{getString("lifting.column-weightclass", language)}</th>
+                <th>{getString("lifting.column-bodyweight", language)}</th>
+                <th>{getString("lifting.column-age", language)}</th>
+                <th>{getString("flight-order.squat-column-header", language)}</th>
+                <th>{getString("flight-order.bench-column-header", language)}</th>
+                <th>{getString("flight-order.deadlift-column-header", language)}</th>
+                <th>{getString("lifting.column-finaltotal", language)}</th>
+                <th>{getString("lifting.column-finalpoints", language)}</th>
               </tr>
             </thead>
             <tbody>{rows}</tbody>
@@ -253,6 +276,7 @@ const mapStateToProps = (state: GlobalState, ownProps: OwnProps): StateProps => 
     weightClassesKgMen: state.meet.weightClassesKgMen,
     weightClassesKgWomen: state.meet.weightClassesKgWomen,
     weightClassesKgMx: state.meet.weightClassesKgMx,
+    language: state.language,
     entries: entries
   };
 };

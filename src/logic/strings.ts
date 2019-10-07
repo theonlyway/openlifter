@@ -25,6 +25,7 @@
 import translations from "../translations";
 import { Equipment, Event, Flight, Language, Sex, TranslationId } from "../types/dataTypes";
 import { checkExhausted } from "../types/utils";
+import { displayWeight } from "./units";
 
 // Fetches a simple string from the translations store. No formatting is performed.
 export const getString = (id: TranslationId, lang: Language): string => {
@@ -178,4 +179,13 @@ export const delocalizeSex = (text: string, language: Language): Sex => {
   if (text === getString("sex.f", language)) return "F";
   if (text === getString("sex.mx", language)) return "Mx";
   throw new Error("Failed to delocalize Sex: " + text);
+};
+
+// Localizes a Category weightclass string.
+// This is used by the Flight Order and Results pages.
+export const localizeWeightClassStr = (wtcls: string, language: Language): string => {
+  const isSHW = wtcls.endsWith("+");
+  const asNumber = Number(wtcls.replace("+", ""));
+  if (asNumber === 0) return "";
+  return displayWeight(asNumber, language) + (isSHW ? "+" : "");
 };

@@ -33,12 +33,13 @@ import {
   getFinalEventTotalKg,
   entryHasLifted
 } from "../../logic/entry";
-import { kg2lbs, displayWeight } from "../../logic/units";
+import { getString, localizeEquipment, localizeEvent, localizeSex } from "../../logic/strings";
+import { kg2lbs, displayNumber, displayPoints, displayWeight } from "../../logic/units";
 
 import { getPoints, getAgeAdjustedPoints } from "../../logic/coefficients/coefficients";
 
 import { PointsCategory, PointsCategoryResults } from "../../logic/pointsPlace";
-import { AgeCoefficients, Entry, Formula, Sex } from "../../types/dataTypes";
+import { AgeCoefficients, Entry, Formula, Language, Sex } from "../../types/dataTypes";
 import { GlobalState } from "../../types/stateTypes";
 import { checkExhausted } from "../../types/utils";
 import { fosterMcCulloch } from "../../logic/coefficients/foster-mcculloch";
@@ -53,6 +54,7 @@ interface StateProps {
   weightClassesKgMen: Array<number>;
   weightClassesKgWomen: Array<number>;
   weightClassesKgMx: Array<number>;
+  language: Language;
   entries: Array<Entry>;
 }
 
@@ -92,9 +94,10 @@ class ByPoints extends React.Component<Props> {
     if (totalKg === 0) return null;
 
     const inKg = this.props.inKg;
+    const language = this.props.language;
 
     // The place proceeds in order by key, except for DQ entries.
-    const rank = totalKg === 0 ? "DQ" : key + 1;
+    const rank = totalKg === 0 ? getString("results.lifter-disqualified", language) : displayNumber(key + 1, language);
 
     const points: number = getAgeAdjustedPoints(
       this.props.ageCoefficients,
@@ -107,12 +110,15 @@ class ByPoints extends React.Component<Props> {
     );
 
     let pointsStr = "";
-    if (totalKg !== 0 && points === 0) pointsStr = "N/A";
-    else if (totalKg !== 0 && points !== 0) pointsStr = points.toFixed(2);
+    if (totalKg !== 0 && points === 0) {
+      pointsStr = getString("results.value-not-applicable", language);
+    } else if (totalKg !== 0 && points !== 0) {
+      pointsStr = displayPoints(points, language);
+    }
 
     const classes = mapSexToClasses(entry.sex, this.props);
     const wtcls = inKg
-      ? getWeightClassStr(classes, entry.bodyweightKg)
+      ? getWeightClassStr(classes, entry.bodyweightKg, language)
       : getWeightClassLbsStr(classes, entry.bodyweightKg);
     const bw = inKg ? entry.bodyweightKg : kg2lbs(entry.bodyweightKg);
 
@@ -131,28 +137,28 @@ class ByPoints extends React.Component<Props> {
       <tr key={key}>
         <td>{rank}</td>
         <td>{entry.name}</td>
-        <td>{entry.sex}</td>
-        <td>{entry.equipment}</td>
+        <td>{localizeSex(entry.sex, language)}</td>
+        <td>{localizeEquipment(entry.equipment, language)}</td>
         <td>{entry.bodyweightKg === 0 ? null : wtcls}</td>
-        <td>{entry.bodyweightKg === 0 ? null : displayWeight(bw)}</td>
-        <td>{entry.age === 0 ? null : entry.age}</td>
-        <td>{squatKg === 0 ? "" : displayWeight(squat)}</td>
-        <td>{benchKg === 0 ? "" : displayWeight(bench)}</td>
-        <td>{deadliftKg === 0 ? "" : displayWeight(deadlift)}</td>
-        <td>{totalKg === 0 ? "" : displayWeight(total)}</td>
+        <td>{entry.bodyweightKg === 0 ? null : displayWeight(bw, language)}</td>
+        <td>{entry.age === 0 ? null : displayNumber(entry.age, language)}</td>
+        <td>{squatKg === 0 ? "" : displayWeight(squat, language)}</td>
+        <td>{benchKg === 0 ? "" : displayWeight(bench, language)}</td>
+        <td>{deadliftKg === 0 ? "" : displayWeight(deadlift, language)}</td>
+        <td>{totalKg === 0 ? "" : displayWeight(total, language)}</td>
         <td>{pointsStr}</td>
       </tr>
     );
   };
 
-  mapSexToLabel = (sex: Sex): string => {
+  mapSexToLabel = (sex: Sex, language: Language): string => {
     switch (sex) {
       case "M":
-        return "Men's";
+        return getString("results.mens", language);
       case "F":
-        return "Women's";
+        return getString("results.womens", language);
       case "Mx":
-        return "Mx";
+        return getString("results.mxs", language);
       default:
         checkExhausted(sex);
         return "";
@@ -161,7 +167,8 @@ class ByPoints extends React.Component<Props> {
 
   renderCategoryResults = (results: PointsCategoryResults, key: number): JSX.Element | null => {
     const { category, orderedEntries } = results;
-    const sex = this.mapSexToLabel(category.sex);
+    const language = this.props.language;
+    const sex: string = this.mapSexToLabel(category.sex, language);
 
     // Gather rows.
     let rows = [];
@@ -177,32 +184,40 @@ class ByPoints extends React.Component<Props> {
       return null;
     }
 
-    let eqpstr: string = category.equipment;
+    let eqpstr: string = localizeEquipment(category.equipment, language);
     if (this.props.combineSleevesAndWraps) {
-      eqpstr = "Sleeves + Wraps";
+      eqpstr = getString("results.combined-sleeves-wraps", language);
     }
+
+    const template = getString("results.category-template", language);
+    const categoryString = template
+      .replace("{sex}", sex)
+      .replace("{equipment}", eqpstr)
+      .replace("{event}", localizeEvent(category.event, language));
 
     return (
       <Card key={key}>
-        <Card.Header>
-          {sex} {eqpstr} {category.event}
-        </Card.Header>
+        <Card.Header>{categoryString}</Card.Header>
         <Card.Body>
           <Table striped hover size="sm">
             <thead>
               <tr>
-                <th>Rank</th>
-                <th>Name</th>
-                <th>Sex</th>
-                <th>Equipment</th>
-                <th>Class</th>
-                <th>Bwt</th>
-                <th>Age</th>
-                <th>Squat</th>
-                <th>Bench</th>
-                <th>Deadlift</th>
-                <th>Total</th>
-                <th>{this.props.ageCoefficients === "None" ? "Points" : "Age-Points"}</th>
+                <th>{getString("results.column-rank", language)}</th>
+                <th>{getString("lifting.column-lifter", language)}</th>
+                <th>{getString("results.column-sex", language)}</th>
+                <th>{getString("results.column-equipment", language)}</th>
+                <th>{getString("lifting.column-weightclass", language)}</th>
+                <th>{getString("lifting.column-bodyweight", language)}</th>
+                <th>{getString("lifting.column-age", language)}</th>
+                <th>{getString("flight-order.squat-column-header", language)}</th>
+                <th>{getString("flight-order.bench-column-header", language)}</th>
+                <th>{getString("flight-order.deadlift-column-header", language)}</th>
+                <th>{getString("lifting.column-finaltotal", language)}</th>
+                <th>
+                  {this.props.ageCoefficients === "None"
+                    ? getString("lifting.column-finalpoints", language)
+                    : getString("results.column-age-points", language)}
+                </th>
               </tr>
             </thead>
             <tbody>{rows}</tbody>
@@ -292,6 +307,7 @@ const mapStateToProps = (state: GlobalState, ownProps: OwnProps): StateProps => 
     weightClassesKgMen: state.meet.weightClassesKgMen,
     weightClassesKgWomen: state.meet.weightClassesKgWomen,
     weightClassesKgMx: state.meet.weightClassesKgMx,
+    language: state.language,
     entries: entries
   };
 };

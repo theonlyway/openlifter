@@ -3,5 +3,6 @@
   "flight.b",
   "flight.c",
   "flight-order.kilograms-header",
-  "lifting.current-weight-kg"
+  "lifting.current-weight-kg",
+  "results.value-not-applicable"
 ]
