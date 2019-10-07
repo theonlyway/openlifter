@@ -210,6 +210,10 @@ guide.faq-auto-import-registration-question:
   other: Can I auto-import lifter details into the registration page?
 guide.faq-auto-import-registration-answer:
   other: Yes, by exporting your data into a special CSV importation format. At the top of the Registration page, there is a button for downloading a template, so you can learn what that format looks like by example. If the format doesn't match what we expect, it will give you a helpful error message. Once you learn (by trial and error) what the program is expecting, the next time should be really easy.
+guide.faq-lot-numbers-question:
+  other: What are Lot numbers?
+guide.faq-lot-numbers-answer:
+  other: Lot numbers are one way to decide who goes first when two lifters call for the same weight. The lifter with the lower lot number goes first. Some federations require using this system. Usually lot numbers are assigned by the meet director based on order of registration.</p><p>Use of lot numbers is completely optional. If you don't use lot numbers, OpenLifter will break ties by preserving the same relative order as in the previous attempt. This works very well and is what lifters expect. If your federation does not require lot numbers, we recommend not using them.
 guide.faq-online-scoresheet-question:
   other: Is there an online scoresheet?
 guide.faq-online-scoresheet-answer:
