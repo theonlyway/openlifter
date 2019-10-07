@@ -10,7 +10,6 @@ build: rusty content releases
 
 # Uses `content-generator/generate-content` to auto-translate content/ files.
 content:
-	rm -rf content
 	mkdir -p content
 	content-generator/generate-content
 	
@@ -29,5 +28,6 @@ releases:
 	cp -r ../releases static/releases
 
 clean:
+	rm -rf content
 	rm -rf public
 	make -C themes/rusty clean
