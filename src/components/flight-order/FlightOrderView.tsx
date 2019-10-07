@@ -149,11 +149,15 @@ class FlightOrderView extends React.Component<Props, InternalState> {
       this.props.meet.combineSleevesAndWraps
     );
 
-    let categories = [];
+    let categories: Array<JSX.Element> = [];
+    // FIXME: Disable categories for the moment. They seem unhelpful.
+    // As far as I know, no one has paid them much attention.
+    /*
     for (let i = 0; i < categoryResults.length; i++) {
       const id = "" + this.state.day + "-" + this.state.platform + "-" + i;
       categories.push(<OneCategory key={id} platform={this.state.platform} categoryResults={categoryResults[i]} />);
     }
+    */
 
     return (
       <div style={marginStyle}>
