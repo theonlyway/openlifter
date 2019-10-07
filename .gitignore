@@ -17,6 +17,7 @@ website/themes/rusty/static/css/rusty.css
 website/static/releases
 
 # Build directories.
+website/content/
 website/public/
 
 # Dependencies

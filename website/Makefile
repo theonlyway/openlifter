@@ -1,12 +1,19 @@
-.PHONY: all rusty build clean releases
+.PHONY: all content rusty build clean releases
 
 # Start the development server.
-all: rusty releases
+all: rusty content releases
 	hugo server --i18n-warnings --disableFastRender
 
 # Build for deployment to a website.
-build: rusty releases
+build: rusty content releases
 	hugo --i18n-warnings --cleanDestinationDir
+
+# Uses `content-generator/generate-content` to auto-translate content/ files.
+content:
+	rm -rf content
+	mkdir -p content
+	content-generator/generate-content
+	
 
 # Builds the "Rusty" theme.
 rusty:

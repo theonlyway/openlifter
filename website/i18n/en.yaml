@@ -284,3 +284,15 @@ support.in-person-item-cost:
   other: Pricing varies based on cost of travel, please inquire
 support.in-person-email-subject:
   other: In-Person Support
+releases.html-title:
+  other: OpenLifter Releases
+releases.html-meta-description:
+  other: All OpenLifter releases, including old versions
+releases.html-meta-keywords:
+  other: openlifter old versions
+releases.in-development:
+  other: In Development
+releases.major-changes-in-the-next-version:
+  other: Major Changes Coming in the Next Version
+releases.changelog-initial-public-release:
+  other: Initial public release.
