@@ -8,6 +8,12 @@ theme = "rusty"
   releaseVersion = "1.0.1"
 
 [languages]
+  [languages.de]
+    languageName = "Deutsch"
+    weight = 20
+    [languages.de.params]
+      placeholder = "Placeholder"
+
   [languages.en]
     languageName = "English"
     weight = 10

@@ -23,6 +23,7 @@ Please also add yourself to the in-program credits in `src/containers/AboutConta
 * Trystan Oakley
 * Matt Pearce
 * Alan Sambol
+* Milena Schaefer
 * Andrius Virbičianskas
 * Sarah Wellberg
 * Jo Whiteley
