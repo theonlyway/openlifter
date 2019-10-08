@@ -1,0 +1,302 @@
+header.about:
+  other: Sobre
+header.guide:
+  other: Guia
+header.support:
+  other: Suporte
+header.source:
+  other: Fonte
+footer.other-languages-intro:
+  other: Nosso site em outros idiomas
+index.html-title:
+  other: OpenLifter
+index.html-meta-description:
+  other: Poderoso programa de competição da OpenPowerlifting
+index.html-meta-keywords:
+  other: programa competicao powerlifting,programa competicao powerlifting
+index.main-pitch:
+  other: <b>OpenLifter</b> é um poderoso programa de competição de powerlifting incrivelmente rápido, funcioina em qualquer lugar e é prazeroso de usar.
+index.run-button:
+  other: Executar OpenLifter </span>{{ .Count }}</span>
+index.all-releases:
+  other: Todas as versões
+index.feature-list-introduction:
+  other: Características
+index.feature-next-up-bar-loading:
+  other: barra de carregamento 'a seguir'
+index.feature-automatic-saving:
+  other: salvamento automático
+index.feature-no-crashing:
+  other: sem falhas
+index.feature-no-excel-license:
+  other: sem licença do excel
+index.feature-full-offline-functionality:
+  other: funcionalidade completamente offline
+index.feature-audience-readable-text:
+  other: texto legível pela audiência
+index.feature-instant-results:
+  other: resultados exportáveis instantâneos
+index.feature-rule-support:
+  other: apoio a regras de múltiplas federações
+about.html-title:
+  other: Sobre OpenLifter
+about.html-description:
+  other: Comparação entre OpenLifter e outros programas de powerlifting
+about.html-keywords:
+  other: comparacao openlifter
+about.comparison-chart:
+  other: Gráfico de comparação
+about.comparison-intro-1:
+  other: Aqui está uma forma fácil de ver como o OpenLifter se compara a outros programas
+about.comparison-intro-2:
+  other: Desenvolvemos o seguinte gráfico comparativo após consultar o autor de LiftingCast e acreditamos estar correto.
+about.table-header-openlifter:
+  other: OpenLifter
+about.table-header-liftingcast:
+  other: LiftingCast
+about.table-header-nextlifter:
+  other: NextLifter
+about.table-header-ironcomp:
+  other: IronComp
+about.table-row-homepage:
+  other: Homepage
+about.table-row-homepage-none:
+  other: Nenhum
+about.table-row-license:
+  other: Licença
+about.table-row-license-agplv3p:
+  other: Grátis (AGPLv3+)
+about.table-row-license-freeware:
+  other: Freeware
+about.table-row-license-proprietary:
+  other: Proprietária
+about.table-row-cost:
+  other: Custo
+about.table-row-cost-free:
+  other: Grátis
+about.table-row-cost-liftingcast:
+  other: Grátis (Premium $0,75/Levantador)
+about.table-row-cost-excel:
+  other: Licença do Excel ($70/ano)
+about.table-row-runs-on:
+  other: Roda em
+about.table-row-runs-on-any-browser:
+  other: Qualquer navegador
+about.table-row-runs-on-chrome:
+  other: Apenas no Chrome
+about.table-row-runs-on-excel:
+  other: Microsoft Excel
+about.table-row-runs-on-windows-mac:
+  other: Windows e macOS
+about.table-row-languages:
+  other: Idiomas
+about.table-row-languages-many:
+  other: Vários
+about.table-row-languages-english-only:
+  other: Apenas Inglês
+about.table-row-works-offline:
+  other: Funciona Offline
+about.table-row-screens-needed:
+  other: Triagens necessárias // I believe screens in this context means to sort competitors, correct? If so, 'Triagens' or 'Avaliações' can be used
+about.table-row-screens-needed-1-per:
+  other: 1 por Plataforma
+about.table-row-screens-needed-2p-per:
+  other: 2+ por Plataforma
+about.table-row-federations:
+  other: Federações
+about.table-row-federations-all:
+  other: Todas as Federações
+about.table-row-federations-ipl-only:
+  other: Apenas IPL
+about.table-row-scoreboard:
+  other: Placar Online
+about.table-row-generic-yes-premium:
+  other: Sim (com Premium)
+about.table-row-generic-no:
+  other: Não
+about.table-row-generic-yes:
+  other: Sim
+about.table-row-multi-platform:
+  other: Multi-Plataforma
+about.table-row-multi-platform-yes-usb:
+  other: Sim (dispositivo USB)
+about.table-row-autosave:
+  other: Salvamento automático
+about.table-row-training:
+  other: Treinamento Necessário
+about.table-row-training-minimal:
+  other: Mínimo
+about.table-row-training-moderate:
+  other: Moderado
+about.table-row-training-moderate-issues:
+  other: Moderado (Problemas) // what's the context of '(Issues)'? Problems or something else? If problems, then 'Problemas' is correct
+about.table-row-training-significant:
+  other: Significativo
+about.table-row-registration:
+  other: Cadastro
+about.table-row-registration-csv:
+  other: Automático (CSV)
+about.table-row-registration-premium:
+  other: Automático (com Premium)
+about.table-row-registration-manual:
+  other: Manual
+about.about-section:
+  other: Sobre OpenLifter
+about.start-info:
+  other: O projeto OpenLifter foi iniciado em Novembro de 2018 pela <a href="https://www.openpowerlifting.org">equipe OpenPowerlifting</a> a fim de desenvolver* um programa de competição de última geração.
+about.design-header:
+  other: O OpenLifter foi desenvolvido para...
+about.design-goal-1:
+  other: ser o primeiro programa de competição gratuito e de código aberto do mundo;
+about.design-goal-2:
+  other: ter uma interface simples e óbvia e que não precise de muito treinamento;
+about.design-goal-3:
+  other: ser completamente à prova de falhas usando um único estado global;
+about.design-goal-4:
+  other: funcionar com um projetor e um computador barato rodando qualquer SO;
+about.design-goal-5:
+  other: fazer a exibição projetada legível para o público;
+about.closing-text:
+  other: Temos uma vasta experiência ajudando a realizar competições de powerlifting, desde
+guide.html-title:
+  other: Guia OpenLifter
+guide.html-meta-description:
+  other: Passo a passo em vídeo do OpenLifter e Perguntas Frequentes
+guide.html-meta-keywords:
+  other: guia openlifter,faq openlifter,tutorial openlifter
+guide.faq-section:
+  other: Perguntas Frequentes
+guide.faq-pounds-question:
+  other: O OpenLifter tem suporte para libras?
+guide.faq-pounds-answer:
+  other: Sim.
+guide.faq-multiple-divisions-question:
+  other: Um levantador pode estar em várias divisões ou eventos?
+guide.faq-multiple-divisions-answer:
+  other: Sim. Na página de Cadastro, os campos para a Divisão e o Evento aceitam múltiplos valores para um levantador. A primeira Divisão inserida será a mostrada na tela da tabela de Levantamento.
+guide.faq-multiple-platforms-question:
+  other: Posso ter múltiplas plataformas?
+guide.faq-multiple-platforms-answer:
+  other: Sim. Você irá precisar de alguma forma de transferir arquivos entre computadores, geralmente com um dispositivo USB. Configure a competição e cadastre todos os levantadores em um computador, então Salve na tela inicial. Transfira esse arquivo salvo para os computadores com outras plataformas e Carregue-o no OpenLifter. Depois de terminado o levantamento, a tela de Resultados terá os botões de Exportar e Mesclar para cada plataforma. Use o dispositivo USB para mesclar os arquivos exportados. Então você terá todos os resultados em um computador e estes resultados incluirão todas as plataformas.
+guide.faq-changing-registration-later-question:
+  other: Se eu alterar o cadastro após o levantamento ter sido iniciado, vai explodir tudo?
+guide.faq-changing-registration-later-answer:
+  other: Nada vai explodir. O OpenLifter permite alterar qualquer coisa a qualquer momento e ele fará a coisa certa.
+guide.faq-rack-heights-question:
+  other: Como faço para marcar as alturas de segurança do banco? E quanto ao rack de agachamento in/out?
+guide.faq-rack-heights-answer:
+  other: Na página Pesagens, as entradas do "Rack de Agachamento" e "Rack de Bancada" aceitam textos livres, não apenas números. Mais comumente, uma altura de 5 de rack de bancada com um peso de segurança de 3 é escrito como "5/3", mas você pode usar qualquer notação que sua equipe de carregamento preferir. Da mesma forma, para o rack de agachamento, você pode inserir "15in".
+guide.faq-fixing-lifts-question:
+  other: Como faço para corrigir um levantamento marcado incorretamente?
+guide.faq-fixing-lifts-answer:
+  other: Use os controles no canto inferior esquerdo da página de Levantamento para selecionar novamente o levantador e então clique no botão Sem Levantamento ou Bom Levantamento para alterar.
+guide.faq-changing-rack-heights-question:
+  other: Como altero a altura do rack? E quantos aos abridores do próximo voo*? // Flight is a term used on powerlifting, but what would be a good synonym?
+guide.faq-changing-rack-heights-answer:
+  other: Na página Levantamento, clique no botão "Alternar Pesagens". Isso incorporará a página Pesagens à página Levantamento, para que você possa alterar essas coisas e manter o carregamento projetado. Quando tiver terminado as alterações, clique no botão "Alternar Pesagens" novamente para voltar.
+guide.faq-saving-frequency-question:
+  other: Com que frequência eu devo salvar para o arquivo?
+guide.faq-saving-frequency-answer:
+  other: Uma boa regra a seguir é de salvar em arquivo antes de fechar o OpenLifter.</p><p>O OpenLifter salva automaticamente na memória do navegador após cada alteração. Se você fechar o navegador acidentalmente, tudo continuará lá quando você o reabrir. Mas se você não usar o OpenLifter por alguns dias, navegadores pode esquecer as coisas, então ele pode esquecer da sua competição (apesar de improvável). Se quiser garantir que sua competição ainda esteja lá em alguns dias, salve em arquivo. Não machuca.
+guide.faq-lifting-text-question:
+  other: O texto na página Levantamento é grande demais!
+guide.faq-lifting-text-answer:
+  other: Use os botões de Zoom do seu navegador para ajustar à sua tela. A maioria dos navegadores também permitem alterar as configurações de zoom segurando Ctrl e rolando a roda do mouse.
+guide.faq-results-text-question:
+  other: O texto na página Resultados é pequeno demais!
+guide.faq-results-text-answer:
+  other: Use as mesmas recursos de "Mais Zoom" e "Menos Zoom" para ajustar as coisas. Se você tonar o texto muito grande, poderá ajustar à seu projeto e fazer uma apresentação de slides improvisada no final da competição. O público parace gostar disso porque lhes dá algo para olhar.
+guide.faq-auto-import-registration-question:
+  other: Posso importar automaticamente detalhes do levantador na página de cadastro?
+guide.faq-auto-import-registration-answer:
+  other: Sim, exportando seus dados em um formato de importação especial CSV. No topo da página Cadastro, há um botão para baixar um modelo para que você possa aprender, por exemplo, como esse formato é. Se o formato não corresponder ao que esperamos, será apresentada uma mensagem de error útil. Uma vez aprendido (através de tentativa e erro) o que o programa está esperando, a próxima vez será bem fácil.
+guide.faq-lot-numbers-question:
+  other: O que são números Lote?
+guide.faq-lot-numbers-answer:
+  other: Números de Lote são uma forma de decidir quem vai primeiro quando dois levantadores pedem o mesmo peso. O levantador com o número de lote menor vai primeiro. Algumas federações exigem o uso deste sistema. Geralmente números de lote são atribuídos pelo diretor da competição baseado na ordem de cadastro.</p><p>O uso de números de lote é completamente opcional. Se você não usar números de lote, o OpenLifter irá decidir empates preservando a mesma ordem relativa da tentativa anterior. Isto funciona muito bem e é o que os levantadores esperam. Se sua federação não exige números de lote, recomendamos não usá-los.
+guide.faq-online-scoresheet-question:
+  other: Existe uma ficha de pontuação online?
+guide.faq-online-scoresheet-answer:
+  other: Não existe. Uma vez que o OpenLifter é iniciado, ele é inteiramente offline. Ele roda no seu computador, não no nosso servidor.
+guide.faq-third-sex-question:
+  other: Vejo classes de peso H, M, Mx. O que é Mx?
+guide.faq-third-sex-answer:
+  other: Mx (pronunciado <i>Muks</i> é <a href="https://en.wikipedia.org/wiki/Mx_(title)"> título de gênero neutro</a> &mdash; assim como Sr e Sra &mdash; originado no Reino Unido.</p><p>A maioria das federações exigem que os levantadores compitam nas categorias masculina ou feminina. Algumas federações permitem que os levantadores entrem em uma terceira categoria. Mx é tudo junto e misturado. Pode incluir levantadores não-binários sem forçar atribuição à dicotomia padrão.</p><p>Se você quiser fazer uma competição onde homens e mulheres competem juntos, você pode colocar todo mundo na categoria Mx.
+guide.faq-openpowerlifting-results-question:
+  other: Isto envia automaticamente os resultados para a OpenPowerlifting?
+guide.faq-openpowerlifting-results-answer:
+  other: Não. A OpernPowerlifting exige que a federação sancionadora certifique os resultados, para que não possam ser recebidos diretamente. No entanto, se você clicar no botão "Exportar para OpernPowerlifting" na página Resultados, irá baixar os resultados em um formato que é <i>muito</i> conveniente para nós. Se você quiser faciliar nossas vidas, <a href="https://www.openpowerlifting.org/contact">enviar esses arquivos</a> seria útil. Podemos adicioná-los após após o órgão sancionador aprová-los.
+guide.faq-warmup-room-question:
+  other: Como eu configuro monitores para a sala de aquecimento?
+guide.faq-warmup-room-answer:
+  other: Use programa de compartilhamento de área de trabalho para sua rede local, então compartilhe a tela. Programas de bate-papo com recursos de compartilhamento de tela também servem.
+support.html-title:
+  other: Suporte OpenLifter
+support.html-meta-description:
+  other: Opções de Suporte e Personalização
+support.html-meta-keywords:
+  other: ajuda openlifter,suporte openlifter,treinamento openlifter
+support.support-section:
+  other: Suporte Oficial
+support.no-warranty:
+  other: O OpenLifter é gratuito e de código aberto, mas não vem com garantia ou suporte.
+support.we-have-services:
+  other: Se você quiser suporte técnico para sua competição, nós oferecemos vários serviços &mdash;
+support.contact-us-button:
+  other: Entre em contato conosco
+support.customization-header:
+  other: Personalização
+support.customization-subheader:
+  other: Adquira uma versão do OpenLifter especificamente para sua competição
+support.customization-item-logo:
+  other: Projete seu logotipo!
+support.customization-item-branding:
+  other: Sua própria marca
+support.customization-item-features:
+  other: Recursos personalizados
+support.customization-item-desktop:
+  other: Versões para Desktop
+support.customization-item-cost:
+  other: A partir de US$75
+support.customization-email-subject:
+  other: Consulta de Versão Personalizada
+support.online-header:
+  other: Suporte Online
+support.online-subheader:
+  other: Realize uma competição com total confiança técnica
+support.online-item-training:
+  other: Treinamento para sua equipe
+support.online-item-email:
+  other: Suporte iliimtado por e-mail
+support.online-item-phone:
+  other: Suporte telefônico no dia da competição
+support.online-item-cost:
+  other: A partir de US$120
+support.online-email-subject:
+  other: Consulta de Suporte Online
+support.in-person-header:
+  other: Suporte Presencial
+support.in-person-subheader:
+  other: Tenha a equipe OpenPowerlifting cuidando da sua tabela de pontuação
+support.in-person-item-everything:
+  other: Nós faremos tudo!
+support.in-person-item-training:
+  other: Trambém treinaremos sua equipe
+support.in-person-item-worldwide:
+  other: Disponível no mundo todo
+support.in-person-item-cost:
+  other: Preços variam de acordo com os custos da viagem, por favor consulte
+support.in-person-email-subject:
+  other: Suporte Presencial
+releases.html-title:
+  other: Versões do OpenLifter
+releases.html-meta-description:
+  other: Todos as versões do OpenLifter, incluindo versões antigas
+releases.html-meta-keywords:
+  other: versoes antigas openlifter
+releases.in-development:
+  other: Em desenvolvimento
+releases.major-changes-in-the-next-version:
+  other: Grandes Mudanças Chegando na Próxima Versão
+releases.changelog-initial-public-release:
+  other: Lancamento público inicial.
