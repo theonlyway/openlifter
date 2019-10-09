@@ -13,6 +13,7 @@ Please also add yourself to the in-program credits in `src/containers/AboutConta
 
 ## Contributors
 
+* Romina Basting
 * Mike Beelen
 * Arman Danielyan
 * Tommy DeFea

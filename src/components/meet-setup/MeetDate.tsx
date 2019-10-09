@@ -37,6 +37,8 @@ import { Dispatch } from "redux";
 // The react-datepicker gets locale information from the "date-fns" package.
 // In order for it to understand what our Languages are, we have to register
 // those locales. The react-datepicker provides a helper function to do this.
+import de from "date-fns/locale/de";
+registerLocale("de", de);
 import eo from "date-fns/locale/eo";
 registerLocale("eo", eo);
 import hr from "date-fns/locale/hr";

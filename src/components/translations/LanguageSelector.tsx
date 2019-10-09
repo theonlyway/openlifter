@@ -40,6 +40,9 @@ type Props = StateProps & DispatchProps;
 
 // TODO: Can we get these from the i18n lib somehow?
 const languageOptions = [
+  <option key="de" value="de">
+    Deutsch
+  </option>,
   <option key="en" value="en">
     English
   </option>,

@@ -1,6 +1,6 @@
 header.about:
   # Please use just one short word. Otherwise the site layout breaks.
-  other: About
+  other: Über
 header.guide:
   # Please use just one short word. Otherwise the site layout breaks.
   other: Anleitung
@@ -27,18 +27,18 @@ index.all-releases:
   other: Alle Veröffentlichungen
 index.feature-list-introduction:
   # Gotta see it in context
-  other: Mit
+  other: Funktionen
 index.feature-next-up-bar-loading:
   # Gotta see it in context
-  other: Als nächstes Stange wird beladen
+  other: Nächstes Gewicht
 index.feature-automatic-saving:
-  other: automatisch speichern
+  other: automatisches Speichern
 index.feature-no-crashing:
-  other: kein abstürzen
+  other: ohne Abstürzen
 index.feature-no-excel-license:
   other: keine Excel Lizenz
 index.feature-full-offline-functionality:
-  other: Komplette offline Funktionalität
+  other: Komplette offline funktionsfähig
 index.feature-audience-readable-text:
   other: Text lesbar für das Publikum
 index.feature-instant-results:
@@ -72,9 +72,9 @@ about.table-row-homepage-none:
 about.table-row-license:
   other: Lizenz
 about.table-row-license-agplv3p:
-  other: Kostenlos (AGPLv3+)
+  other: Freie (AGPLv3+)
 about.table-row-license-freeware:
-  other: kostenlose Software
+  other: Kostenlose
 about.table-row-license-proprietary:
   other: Eigentum
 about.table-row-cost:
@@ -252,7 +252,7 @@ support.no-warranty:
   other: OpenLifter ist kostenlos und ein open source Programm. Leider gibt es keine Garantie oder Support.
 support.we-have-services:
   # Might wanna be careful offering this in other languages/countries?
-  other: Falls Sie technische Hilfe für Ihren Wettkampf benötigen, bieten wir mehrere Optionen an &mdash; alles von einem generellen Tutorial zur Software und einem Service um zu schauen ob alles korrekt eingegeben wurde, bis hin zu Unterstützung bei der Ergebnisverwaltung und Schulung Ihrer Angestellten vor Ort.
+  other: Falls Sie technische Hilfe für Ihren Wettkampf benötigen, bieten wir mehrere Optionen an &mdash; von einem generellen Tutorial zur Software und Service-Optionen um zu schauen ob alles korrekt eingegeben wurde, bis hin zu Unterstützung bei der Ergebnisverwaltung und Schulung Ihrer Angestellten vor Ort.
 support.contact-us-button:
   other: Kontakt
 support.customization-header:
