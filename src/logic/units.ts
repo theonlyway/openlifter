@@ -36,14 +36,46 @@ export const lbs2kg = (lbs: number): number => {
 // conversion -- for example, how 112.5lbs isn't representable exactly in kg.
 export const displayWeight = (weight: number, lang?: Language): string => {
   const locale = lang === undefined ? "en" : lang;
-  return new Intl.NumberFormat(locale, { useGrouping: false, maximumFractionDigits: 2 }).format(weight);
+
+  // This matches the OpenPowerlifting WeightKg::as_lbs() conversion logic.
+  // First, round to the hundredth place, stored as an integer.
+  let rounded = Math.round(weight * 100);
+
+  // If the fractional part is close to another tenth, add a correction.
+  // This happens due to floating-point imprecision.
+  if (rounded % 10 === 9) {
+    // Add 0.01 (still stored as an integer).
+    rounded += 1;
+  }
+
+  // Convert back to normal floating-point without truncation.
+  rounded = rounded / 100;
+
+  // This rounds to two decimal places, matching the OpenPowerlifting logic.
+  // Rounding is also important to keep the weight inputs working in pounds mode.
+  return new Intl.NumberFormat(locale, { useGrouping: false, maximumFractionDigits: 2 }).format(rounded);
 };
 
-// Renders a weight (kg or lbs) for display, rounding to one decimal place.
+// Renders a weight (kg or lbs) for display, truncating to one decimal place.
 // hiding unnecessary zeros on the right.
 export const displayWeightOnePlace = (weight: number, lang?: Language): string => {
   const locale = lang === undefined ? "en" : lang;
-  return new Intl.NumberFormat(locale, { useGrouping: false, maximumFractionDigits: 1 }).format(weight);
+
+  // This matches the OpenPowerlifting WeightKg::as_lbs() conversion logic.
+  // First, round to the hundredth place, stored as an integer.
+  let rounded = Math.round(weight * 100);
+
+  // If the fractional part is close to another tenth, add a correction.
+  // This happens due to floating-point imprecision.
+  if (rounded % 10 === 9) {
+    // Add 0.01 (still stored as an integer).
+    rounded += 1;
+  }
+
+  // Truncate to the tenth place, then convert back to normal floating-point.
+  const truncated = Math.trunc(rounded / 10) / 10;
+
+  return new Intl.NumberFormat(locale, { useGrouping: false, maximumFractionDigits: 1 }).format(truncated);
 };
 
 // Points display with two fixed decimal places (including zeros).
