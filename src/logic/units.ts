@@ -51,8 +51,6 @@ export const displayWeight = (weight: number, lang?: Language): string => {
   // Convert back to normal floating-point without truncation.
   rounded = rounded / 100;
 
-  // This rounds to two decimal places, matching the OpenPowerlifting logic.
-  // Rounding is also important to keep the weight inputs working in pounds mode.
   return new Intl.NumberFormat(locale, { useGrouping: false, maximumFractionDigits: 2 }).format(rounded);
 };
 
