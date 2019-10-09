@@ -17,6 +17,7 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import React from "react";
+import { FormattedMessage } from "react-intl";
 
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
@@ -42,16 +43,23 @@ class AboutContainer extends React.Component<{}> {
         <Row>
           <Col md={6}>
             <Card>
-              <Card.Header>Credits</Card.Header>
+              <Card.Header>
+                <FormattedMessage id="about.credits-header" defaultMessage="Credits" />
+              </Card.Header>
               <Card.Body>
                 <p>
-                  OpenLifter is made by the{" "}
-                  <a href="https://www.openpowerlifting.org" rel="noopener noreferrer" target="_blank">
-                    OpenPowerlifting project
-                  </a>
-                  .
+                  <FormattedMessage
+                    id="about.made-by"
+                    defaultMessage="OpenLifter is made by the OpenPowerlifting project."
+                  />
                 </p>
                 <p>
+                  <a href="https://www.openpowerlifting.org" rel="noopener noreferrer" target="_blank">
+                    OpenPowerlifting.org
+                  </a>
+                </p>
+                <p>
+                  <FormattedMessage id="about.credits-intro" defaultMessage="Thanks to:" />
                   <ul>
                     <li>Mike Beelen &mdash; Dutch localization</li>
                     <li>Arman Danielyan &mdash; Russian localization</li>
@@ -77,30 +85,70 @@ class AboutContainer extends React.Component<{}> {
 
           <Col md={6}>
             <Card>
-              <Card.Header>License</Card.Header>
+              <Card.Header>
+                <FormattedMessage id="about.license-header" defaultMessage="License" />
+              </Card.Header>
               <Card.Body>
-                <p>OpenLifter is Copyright (C) 2018-2019 The OpenPowerlifting Project.</p>
-                <p>OpenLifter is Free Software. Free Software grants you the following freedoms:</p>
+                <p>
+                  <FormattedMessage
+                    id="about.copyright"
+                    defaultMessage="OpenLifter is Copyright (C) 2018-2019 The OpenPowerlifting Project."
+                  />
+                </p>
+                <p>
+                  <FormattedMessage
+                    id="about.freedom-intro"
+                    defaultMessage="OpenLifter is Free Software. Free Software grants you the following freedoms:"
+                  />
+                </p>
                 <ol>
-                  <li>The freedom to run the program as you wish, for any purpose.</li>
-                  <li>The freedom to study how the program works, and change it as you wish.</li>
-                  <li>The freedom to redistribute copies so you can help others.</li>
-                  <li>The freedom to distribute copies of your modified versions to others.</li>
+                  <li>
+                    <FormattedMessage
+                      id="about.freedom-0"
+                      defaultMessage="The freedom to run the program as you wish, for any purpose."
+                    />
+                  </li>
+                  <li>
+                    <FormattedMessage
+                      id="about.freedom-1"
+                      defaultMessage="The freedom to study how the program works, and change it as you wish."
+                    />
+                  </li>
+                  <li>
+                    <FormattedMessage
+                      id="about.freedom-2"
+                      defaultMessage="The freedom to redistribute copies so you can help others."
+                    />
+                  </li>
+                  <li>
+                    <FormattedMessage
+                      id="about.freedom-3"
+                      defaultMessage="The freedom to distribute copies of your modified versions to others."
+                    />
+                  </li>
                 </ol>
                 <p>
-                  The AGPLv3+ license we use means that if you distribute this software or host it on a server, you must
-                  give your users the same rights we give you, including full source code. In addition, AGPLv3+ code
-                  must <i>remain</i> free/libre, and cannot be included in proprietary software or in free/libre
-                  software with a weaker or incompatible license.
+                  <FormattedMessage
+                    id="about.freedom-quick-summary"
+                    defaultMessage="The AGPLv3+ license we use means that if you distribute this software or host it on a server, you must give your users the same rights we give you, including full source code. In addition, AGPLv3+ code must remain free/libre, and cannot be included in proprietary software or in free/libre software with a weaker or incompatible license."
+                  />
                 </p>
-                <p>Here is the short license blurb:</p>
+                <p>
+                  <FormattedMessage
+                    id="about.agpl-short-english-intro"
+                    defaultMessage="Here is the short English license blurb:"
+                  />
+                </p>
                 <pre>{licenseText}</pre>
                 <a href="https://www.gnu.org/licenses/agpl-3.0.en.html" rel="noopener noreferrer" target="_blank">
-                  Full Text of the GNU Affero General Public License, Version 3
+                  <FormattedMessage
+                    id="about.link-full-agpl-license"
+                    defaultMessage="Full Text of the GNU Affero General Public License, Version 3"
+                  />
                 </a>
                 <br />
                 <a href="https://www.gnu.org/licenses/gpl-faq.html" rel="noopener noreferrer" target="_blank">
-                  FAQ about GNU Licenses
+                  <FormattedMessage id="about.link-gnu-faq" defaultMessage="FAQ about GNU Licenses" />
                 </a>
               </Card.Body>
             </Card>
