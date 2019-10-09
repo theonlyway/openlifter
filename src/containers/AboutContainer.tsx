@@ -63,6 +63,7 @@ class AboutContainer extends React.Component<{}> {
                   <ul>
                     <li>Romina Basting &mdash; German localization</li>
                     <li>Mike Beelen &mdash; Dutch localization</li>
+                    <li>Jerônimo Cavalcante &mdash; Portuguese localization</li>
                     <li>Arman Danielyan &mdash; Russian localization</li>
                     <li>Tommy DeFea &mdash; Graphic design</li>
                     <li>Alper Dokucu &mdash; Turkish localization</li>
@@ -71,6 +72,7 @@ class AboutContainer extends React.Component<{}> {
                     <li>Kai Ma &mdash; Simplified Chinese localization</li>
                     <li>Rodney Marsh &mdash; Programming</li>
                     <li>Matt Pearce &mdash; Coefficient calculations</li>
+                    <li>David Sacras &mdash; Portuguese localization</li>
                     <li>Alan Sambol &mdash; Croatian localization</li>
                     <li>Milena Schaefer &mdash; German localization</li>
                     <li>Sean Stangl &mdash; Programming and maintenance</li>

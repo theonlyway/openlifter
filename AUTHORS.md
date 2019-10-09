@@ -15,6 +15,7 @@ Please also add yourself to the in-program credits in `src/containers/AboutConta
 
 * Romina Basting
 * Mike Beelen
+* Jerônimo Cavalcante
 * Arman Danielyan
 * Tommy DeFea
 * Alper Dokucu
@@ -23,6 +24,7 @@ Please also add yourself to the in-program credits in `src/containers/AboutConta
 * Rodney Marsh
 * Trystan Oakley
 * Matt Pearce
+* David Sacras
 * Alan Sambol
 * Milena Schaefer
 * Andrius Virbičianskas
