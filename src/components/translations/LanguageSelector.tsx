@@ -58,6 +58,9 @@ const languageOptions = [
   <option key="nl" value="nl">
     Nederlands
   </option>,
+  <option key="pt" value="pt">
+    Português
+  </option>,
   <option key="ru" value="ru">
     Русский
   </option>,
