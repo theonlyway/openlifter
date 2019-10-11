@@ -65,7 +65,7 @@ about.table-row-homepage-none:
 about.table-row-license:
   other: Licença
 about.table-row-license-agplv3p:
-  other: Gratuito (AGPLv3+)
+  other: Livre (AGPLv3+)
 about.table-row-license-freeware:
   other: Freeware
 about.table-row-license-proprietary:
@@ -75,7 +75,7 @@ about.table-row-cost:
 about.table-row-cost-free:
   other: Gratuito
 about.table-row-cost-liftingcast:
-  other: Gratuito (Premium $0,75/Levantador)
+  other: Gratuito (Premium $0,75/Competidor)
 about.table-row-cost-excel:
   other: Licença do Excel ($70/ano)
 about.table-row-runs-on:
@@ -147,7 +147,7 @@ about.start-info:
 about.design-header:
   other: O OpenLifter foi desenvolvido para...
 about.design-goal-1:
-  other: ser o primeiro programa de competição gratuito e de código aberto do mundo;
+  other: ser o primeiro programa de competição livre e de código aberto do mundo;
 about.design-goal-2:
   other: ter uma interface simples e óbvia e que não precise de muito treinamento;
 about.design-goal-3:
@@ -157,7 +157,7 @@ about.design-goal-4:
 about.design-goal-5:
   other: tornar a exibição projetada legível para o público;
 about.closing-text:
-  other: Temos uma vasta experiência ajudando a realizar competições de powerlifting, da assistência no levantamento e carregamento, ao julgamento e gerenciamento de tabela de pontuação. Nós colocamos nossa lista de desejos de funcionalidades no OpenLifter.
+  other: Temos uma vasta experiência ajudando a realizar competições de powerlifting, da assistência no levantamento e no carregamento, no julgamento até o gerenciamento da tabela de pontuação. Nós colocamos nossa lista de desejos de funcionalidades no OpenLifter.
 guide.html-title:
   other: Guia OpenLifter
 guide.html-meta-description:
@@ -171,27 +171,27 @@ guide.faq-pounds-question:
 guide.faq-pounds-answer:
   other: Sim.
 guide.faq-multiple-divisions-question:
-  other: Um levantador pode estar em várias divisões ou eventos?
+  other: Um competidor pode estar em várias divisões ou eventos?
 guide.faq-multiple-divisions-answer:
-  other: Sim. Na página Cadastro, os campos para a Divisão e o Evento aceitam múltiplos valores para um levantador. A primeira Divisão inserida será a mostrada na tela da tabela de Levantamento.
+  other: Sim. Na página Cadastro, os campos para a Divisão e o Evento aceitam múltiplos valores para um competidor. A primeira Divisão inserida será a mostrada na tela da tabela de Levantamento.
 guide.faq-multiple-platforms-question:
   other: Posso ter múltiplas plataformas?
 guide.faq-multiple-platforms-answer:
-  other: Sim. Você irá precisar de alguma forma de transferir arquivos entre computadores, como um dispositivo USB. Configure a competição e cadastre todos os levantadores em um computador, então Salve na Tela Inicial. Transfira este arquivo salvo para os computadores com outras plataformas e Carregue-o no OpenLifter. Depois de terminado o levantamento, a tela de Resultados terá os botões de Exportar e Mesclar para cada plataforma. Use o dispositivo USB para mesclar os arquivos exportados. Então você terá todos os resultados em um computador e estes resultados incluirão todas as plataformas.
+  other: Sim. Você irá precisar de alguma forma de transferir arquivos entre computadores, como um dispositivo USB. Configure a competição e cadastre todos os competidores em um computador, então Salve na Tela Inicial. Transfira este arquivo salvo para os computadores com outras plataformas e Carregue-o no OpenLifter. Depois de terminado o levantamento, a tela de Resultados terá os botões de Exportar e Mesclar para cada plataforma. Use o dispositivo USB para mesclar os arquivos exportados. Então você terá todos os resultados em um computador e estes resultados incluirão todas as plataformas.
 guide.faq-changing-registration-later-question:
-  other: Se eu alterar o cadastro após o início do levantamento, vai tudo pelos ares?
+  other: Se eu alterar o cadastro após o início do levantamento, vai explodir tudo?
 guide.faq-changing-registration-later-answer:
-  other: Nada vai explodir. O OpenLifter permite a alteração de qualquer coisa a qualquer momento e ele fará a coisa certa.
+  other: Não, nada vai explodir não. O OpenLifter permite a alteração de qualquer coisa a qualquer momento e ele fará a coisa certa.
 guide.faq-rack-heights-question:
-  other: Como faço para marcar as alturas de segurança do banco? E quanto ao rack de agachamento in/out?
+  other: Como faço para marcar as alturas de segurança do supino? E quanto ao rack agachamento in/out?
 guide.faq-rack-heights-answer:
-  other: Na página Pesagens, as entradas do "Rack de Agachamento" e "Rack de Bancada" aceitam textos livres, não apenas números. No geral, uma altura de 5 de rack de bancada com um peso de segurança de 3 é escrito como "5/3", mas você pode usar qualquer notação que sua equipe de carregamento preferir. Da mesma forma, para o rack de agachamento, você pode inserir "15in".
+  other: Na página Pesagens, as entradas do "Rack Agachamento" e "Rack Supino" aceitam textos livres, não apenas números. No geral, uma altura de 5 de rack supino com um peso de segurança de 3 é escrito como "5/3", mas você pode usar qualquer notação que sua equipe de carregamento preferir. Da mesma forma, para o rack agachamento, você pode digitar "15in".
 guide.faq-fixing-lifts-question:
   other: Como faço para corrigir um levantamento marcado incorretamente?
 guide.faq-fixing-lifts-answer:
-  other: Use os controles no canto inferior esquerdo da página Levantamento para selecionar novamente o levantador e, então, clique no botão Sem Levantamento ou Bom Levantamento para alterar.
+  other: Use os controles no canto inferior esquerdo da página Levantamento para selecionar novamente o levantador e, então, clique no botão Inválido ou Válido para alterar.
 guide.faq-changing-rack-heights-question:
-  other: Como altero a altura do rack? E quanto a quem abre o próximo grupo?
+  other: Como altero a altura do rack? E quanto ao peso inicial do próximo grupo?
 guide.faq-changing-rack-heights-answer:
   other: Na página Levantamento, clique no botão "Alternar Pesagens". Isso incorporará a página Pesagens à página Levantamento para que você possa fazer estas alterações e manter o carregamento projetado. Quando tiver terminado de fazer alterações, clique novamente no botão "Alternar Pesagens" para voltar.
 guide.faq-saving-frequency-question:
@@ -211,9 +211,9 @@ guide.faq-auto-import-registration-question:
 guide.faq-auto-import-registration-answer:
   other: Sim, exportando seus dados em um formato de importação especial CSV. No topo da página Cadastro há um botão para baixar um modelo para que você possa aprender, por exemplo, como esse formato é. Se o formato não corresponder ao que esperamos, será apresentada uma mensagem de error útil. Uma vez aprendido (através de tentativa e erro) o que o programa espera, a próxima vez será bem mais fácil.
 guide.faq-lot-numbers-question:
-  other: O que são números Lote?
+  other: O que são números de Grupo?
 guide.faq-lot-numbers-answer:
-  other: Números de Lote são uma forma de decidir quem vai primeiro quando dois levantadores pedem o mesmo peso. O levantador com o número de lote menor vai primeiro. Algumas federações exigem o uso deste sistema. Geralmente números de lote são atribuídos pelo diretor da competição baseado na ordem de cadastramento.</p><p>O uso de números de lote é completamente opcional. Se você não usa números de lote, o OpenLifter irá decidir empates mantendo a mesma ordem relativa da tentativa anterior. Isto funciona muito bem e é o esperado pelos levantadores. Se sua federação não exige números de lote, recomendamos não usá-los.
+  other: Números de Grupo são uma forma de decidir quem vai primeiro quando dois levantadores pedem o mesmo peso. O levantador com o número de grupo menor vai primeiro. Algumas federações exigem o uso deste sistema. Geralmente os números de grupo são atribuídos pelo diretor da competição baseado na ordem de cadastramento.</p><p>O uso de números de grupo é completamente opcional. Se você não usa números de grupo, o OpenLifter irá decidir empates mantendo a mesma ordem relativa da tentativa anterior. Isto funciona muito bem e é o esperado pelos levantadores. Se sua federação não exige números de grupo, recomendamos não usá-los.
 guide.faq-online-scoresheet-question:
   other: Existe uma ficha de pontuação online?
 guide.faq-online-scoresheet-answer:
@@ -239,7 +239,7 @@ support.html-meta-keywords:
 support.support-section:
   other: Suporte Oficial
 support.no-warranty:
-  other: O OpenLifter é gratuito e de código aberto, mas não vem com garantia ou suporte.
+  other: O OpenLifter é livre e de código aberto, mas não vem com garantia ou suporte.
 support.we-have-services:
   other: Se você quiser suporte técnico para sua competição, nós oferecemos vários serviços &mdash; desde o passo a passo de como configurar o programa, a treinamento presencial para sua equipe.
 support.contact-us-button:
