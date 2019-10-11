@@ -61,6 +61,7 @@ class AboutContainer extends React.Component<{}> {
                 <p>
                   <FormattedMessage id="about.credits-intro" defaultMessage="Thanks to:" />
                   <ul>
+                    <li>Irene Aguilar &mdash; Spanish localization</li>
                     <li>Romina Basting &mdash; German localization</li>
                     <li>Mike Beelen &mdash; Dutch localization</li>
                     <li>Jerônimo Cavalcante &mdash; Portuguese localization</li>

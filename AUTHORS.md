@@ -13,6 +13,7 @@ Please also add yourself to the in-program credits in `src/containers/AboutConta
 
 ## Contributors
 
+* Irene Aguilar
 * Romina Basting
 * Mike Beelen
 * Jerônimo Cavalcante

@@ -46,6 +46,9 @@ const languageOptions = [
   <option key="en" value="en">
     English
   </option>,
+  <option key="es" value="es">
+    Español
+  </option>,
   <option key="eo" value="eo">
     Esperanto
   </option>,
