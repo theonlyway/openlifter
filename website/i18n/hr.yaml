@@ -1,0 +1,306 @@
+header.about:
+  # Please use just one short word. Otherwise the site layout breaks.
+  other: Detalji
+header.guide:
+  # Please use just one short word. Otherwise the site layout breaks.
+  other: Vodič
+header.support:
+  # Please use just one short word. Otherwise the site layout breaks.
+  other: Podrška
+header.source:
+  # Please use just one short word. Otherwise the site layout breaks.
+  other: Izvorni kod
+footer.other-languages-intro:
+  other: Stranica na drugim jezicima
+index.html-title:
+  other: OpenLifter
+index.html-meta-description:
+  other: Moćan softver za natjecanja, od OpenPowerlifting tima
+index.html-meta-keywords:
+  other: softver za powerlifting natjecanja
+index.main-pitch:
+  other: <b>OpenLifter</b> je softver za powerlifting natjecanja koji radi nevjerojatno brzo, radi svugdje i ugodan je za korištenje.
+index.run-button:
+  other: Pokreni OpenLifter <span>{{ .Count }}</span>
+index.all-releases:
+  other: Sve verzije
+index.feature-list-introduction:
+  other: Značajke
+index.feature-next-up-bar-loading:
+  other: nadolazeći raspored utega na šipci
+index.feature-automatic-saving:
+  other: automatsko spremanje
+index.feature-no-crashing:
+  other: bez rušenja
+index.feature-no-excel-license:
+  other: bez potrebe za excel licencom
+index.feature-full-offline-functionality:
+  other: potpuna offline funkcionalnost
+index.feature-audience-readable-text:
+  other: lako čitljiv tekst za publiku
+index.feature-instant-results:
+  other: trenutni rezultati s mogućnošću izvoza
+index.feature-rule-support:
+  other: podrška za pravila različitih federacija
+about.html-title:
+  other: OpenLifter detalji
+about.html-description:
+  other: Usporedba između OpenLifter i ostalih powerlifting softvera
+about.html-keywords:
+  other: openlifter usporedba
+about.comparison-chart:
+  other: Usporedna tablica
+about.comparison-intro-1:
+  other: Jednostavan način kakav je OpenLifter u usporedbi s drugim softverom.
+about.comparison-intro-2:
+  other: Usporedna tablica je sastavljena u konzultacijama s autorom LiftingCast programa i vjerujemo da je točna.
+about.table-header-openlifter:
+  other: OpenLifter
+about.table-header-liftingcast:
+  other: LiftingCast
+about.table-header-nextlifter:
+  other: NextLifter
+about.table-header-ironcomp:
+  other: IronComp
+about.table-row-homepage:
+  other: Stranica
+about.table-row-homepage-none:
+  other: Nema
+about.table-row-license:
+  other: Licenca
+about.table-row-license-agplv3p:
+  other: Slobodna (AGPLv3+)
+about.table-row-license-freeware:
+  other: Freeware
+about.table-row-license-proprietary:
+  other: Vlasnička
+about.table-row-cost:
+  other: Cijena
+about.table-row-cost-free:
+  other: Besplatan
+about.table-row-cost-liftingcast:
+  other: Besplatan (Premium 0,75$/natjecatelj)
+about.table-row-cost-excel:
+  other: Excel licenca (70$/godišnje)
+about.table-row-runs-on:
+  other: Radi na
+about.table-row-runs-on-any-browser:
+  other: Svaki preglednik
+about.table-row-runs-on-chrome:
+  other: Samo Chrome
+about.table-row-runs-on-excel:
+  other: Microsoft Excel
+about.table-row-runs-on-windows-mac:
+  other: Windows i macOS
+about.table-row-languages:
+  other: Jezici
+about.table-row-languages-many:
+  other: Mnogo
+about.table-row-languages-english-only:
+  other: Samo engleski
+about.table-row-works-offline:
+  other: Radi offline
+about.table-row-screens-needed:
+  other: Potrebno ekrana
+about.table-row-screens-needed-1-per:
+  other: 1 po platformi
+about.table-row-screens-needed-2p-per:
+  other: 2+ po platformi
+about.table-row-federations:
+  other: Federacije
+about.table-row-federations-all:
+  other: Sve federacije
+about.table-row-federations-ipl-only:
+  other: Samo IPL
+about.table-row-scoreboard:
+  other: Online rezultati
+about.table-row-generic-yes-premium:
+  other: Da (samo Premium)
+about.table-row-generic-no:
+  other: "Ne"
+about.table-row-generic-yes:
+  other: "Da"
+about.table-row-multi-platform:
+  other: Više platformi
+about.table-row-multi-platform-yes-usb:
+  other: Da (USB stick)
+about.table-row-autosave:
+  other: Automatsko spremanje
+about.table-row-training:
+  other: Potrebna obuka
+about.table-row-training-minimal:
+  other: Minimalna
+about.table-row-training-moderate:
+  other: Umjerena
+about.table-row-training-moderate-issues:
+  other: Umjerena (problemi)
+about.table-row-training-significant:
+  other: Značajna
+about.table-row-registration:
+  other: Registracija
+about.table-row-registration-csv:
+  other: Automatska (CSV)
+about.table-row-registration-premium:
+  other: Automatska (samo Premium)
+about.table-row-registration-manual:
+  other: Ručna
+about.about-section:
+  other: O OpenLifter projektu
+about.start-info:
+  other: OpenLifter projekt je započet u studenom 2018. godine od strane <a href="https://www.openpowerlifting.org">OpenPowerlifting tima</a> kako bi se pomaknule granice kvalitete postojećeg softvera za powerlifting natjecanja.
+about.design-header:
+  other: OpenLifter je osmišljen da...
+about.design-goal-1:
+  other: bude prvi slobodan i open-source powerlifting softver na svijetu;
+about.design-goal-2:
+  other: ima jednostavno i intuitivno korisničko sučelje bez potrebe za puno obuke;
+about.design-goal-3:
+  other: bude u potpunosti otporan na rušenje, koristeći jedinstveno globalno stanje;
+about.design-goal-4:
+  other: radi s jednim projektorom i jednim jeftinim računalom s bilo kojim OS-om;
+about.design-goal-5:
+  other: ima sučelje koje je čitko za publiku.
+about.closing-text:
+  other: Imamo mnogo iskustva s vođenjem powerlifting natjecanja, od "spottanja" i postavljanja utega, preko suđenja, do vođenja tablica s rezultatima. Sve mogućnosti koje su nam nedostajale smo ugradili u OpenLifter.
+guide.html-title:
+  other: OpenLifter vodič
+guide.html-meta-description:
+  other: OpenLifter video vodič i ČPP
+guide.html-meta-keywords:
+  other: openlifter vodič, openlifter čpp, openlifter tutorial
+guide.faq-section:
+  other: ČPP
+guide.faq-pounds-question:
+  other: Podržava li OpenLifter funte?
+guide.faq-pounds-answer:
+  other: Da.
+guide.faq-multiple-divisions-question:
+  other: Može li jedan natjecatelj sudjelovati u više kategorija ili disciplina?
+guide.faq-multiple-divisions-answer:
+  other: Može. Na stranici registracije, polja Dobna Kategorija i Disciplina mogu sadržavati više vrijednosti za jednog natjecatelja. Prva Dobna Kategorija koja se unese će biti prikazana na tablici stranice Dizanje.
+guide.faq-multiple-platforms-question:
+  other: Mogu li imati više platformi?
+guide.faq-multiple-platforms-answer:
+  other: Da. Potreban je neki način razmjene datoteka između računala, obično koristeći USB stick. Postavite natjecanje i registrirajte sve natjecatelje na jednom računalu te spremite sa početne stranice. Prebacite spremljenu datoteku na računalo svake platforme te ju učitajte u OpenLifter. Jednom kad je natjecanje gotovo, stranica s rezultatima će imati opciju izvoza i spajanja za svaku platformu. Koristeći USB stick spojite sve izvezene datoteke. Tada će svi rezultati biti na jednom računalu i sadržavati će sve platforme.
+guide.faq-changing-registration-later-question:
+  other: Ako promijenim nešto na registraciji nakon što je natjecanje počelo, hoće li sve eksplodirati?
+guide.faq-changing-registration-later-answer:
+  other: Ništa neće eksplodirati. OpenLifter Vam dozvoljava da promijenite bilo što u bilo kojem trenutku i napraviti će očekivanu stvar.
+guide.faq-rack-heights-question:
+  other: Kako da označim veličine sigurnosnih stalaka za bench? Što sa stalkom za čučanj - unutarnja ili vanjska varijanta?
+guide.faq-rack-heights-answer:
+  other: Na stranici Vaganje, "Čučanj stalak" i "Potisak stalak" dozvoljavaju unos bilo kakvog teksta, ne samo brojeva. Najčešće, visina bench stalka 5 sa visinom sigurnosnih stalaka 3 se piše "5/3", ali možete koristiti kakvu god notaciju vaša ekipa za postavljanje utega preferira. Slično i za stalak za čučanj, možete koristiti "15in".
+guide.faq-fixing-lifts-question:
+  other: Kako popraviti pokušaj koji je pogrešno ocijenjen?
+guide.faq-fixing-lifts-answer:
+  other: Koristeći kontrole u donjem lijevom kutu stranice Dizanje, odaberite natjecatelja i odaberite Uspješan / Neuspješan pokušaj.
+guide.faq-changing-rack-heights-question:
+  other: Kako promijeniti visine stalaka? Što s početnim pokušajima sljedeće grupe?
+guide.faq-changing-rack-heights-answer:
+  other: Na stranici Dizanje, kliknite na gumb Vaganje. To će otvoriti i ubaciti stranicu Vaganje unutar trenutne stranice, tako da možete promijeniti bilo dok je raspored utega i dalje vidljiv. Kada završite s promjenama, kliknite ponovno na gumb Vaganje kako biste sakrili otvorenu stranicu.
+guide.faq-saving-frequency-question:
+  other: Koliko često bih trebao spremati u datoteku?
+guide.faq-saving-frequency-answer:
+  other: Nepisano pravilo jest da spremite u datoteku netom prije nego zatvorite OpenLifter.</p><p>OpenLifter automatski sprema stanje u memoriju preglednika nakon svake izmjene. Ako slučajno zatvorite preglednik, sve će Vas dočekati kada ga ponovno otvorite. Međutim, ako ne koristite OpenLifter nekoliko dana, preglednicima je dozvoljeno da "zaborave" stvari, tako da je moguće da izbrišu Vaše natjecanje (iako je malo vjerojatno). Ako želite biti sigurni da natjecanje nije izbrisano kroz nekoliko dana, spremite ga u datoteku. Ne može škoditi.
+guide.faq-lifting-text-question:
+  other: Tekst na stranici Dizanje je prevelik!
+guide.faq-lifting-text-answer:
+  other: Koristite funkcije "Zoom in" i "Zoom out" Vašeg preglednika kako biste prilagodili veličinu Vašem ekranu. Većina preglednika dopušta promjenu zoom postavki korištenjem kombinacije tipke Ctrl i kotrljanjem kotačića na mišu.
+guide.faq-results-text-question:
+  other: Tekst na stranici rezultata je premalen!
+guide.faq-results-text-answer:
+  other: Koristite spomenute "Zoom in" i "Zoom out" funkcije Vašeg preglednika kako biste prilagodili veličinu Vašem ekranu. Ako želite da tekst bude jako velik, probajte ga prilagoditi vašem projektoru i pokrenuti prezentacijski način rada na kraju natjecanja. Publika obično voli gledati u rezultate nakon natjecanja.
+guide.faq-auto-import-registration-question:
+  other: Mogu li automatski uvesti detalje natjecatelja u registracijsku stranicu?
+guide.faq-auto-import-registration-answer:
+  other: Možete, tako da pripremite Vaše podatke u posebnom CSV formatu. Na vrhu registracijske stranice stoji gumb za preuzimanje predloška, tako da možete proučiti kako format izgleda na konkretnom primjeru. Ako format ne odgovara onome što očekujemo, dobit ćete korisnu poruku greške. Jednom kad naučite (metodom pokušaja i pogreške) što program očekuje, sljedeći put bi trebalo biti vrlo jednostavno.
+guide.faq-online-scoresheet-question:
+  other: Postoji li mogućnost za online prikaz rezultata?
+guide.faq-online-scoresheet-answer:
+  other: Ne postoji. Jednom kada pokrenete OpenLifter, vrti se u potpunosti offline, na Vašem računalu, bez ikakvog servera.
+guide.faq-third-sex-question:
+  other: Vidim težinske kategorije za M, Ž i Mx. Što je Mx?
+guide.faq-third-sex-answer:
+  other: Mx (izgovara se <i>Muks</i>) je i <a href="https://en.wikipedia.org/wiki/Mx_(title)">rodno neutralna titula</a> &mdash; kao Gosp. i Gđa. &mdash; izvorno iz UK.</p><p>Većina federacija zahtijeva od natjecatelja da se natječu ili u muškoj ili ženskoj kategoriji. Neke federacije dodatno dozvoljavaju natjecateljima da se natječu u trećoj kategoriji. Mx uključuje sve ostalo. Može uključivati ne-binarne natjecatelje bez nužnosti svrstavanja u standardnu dihotomiju.</p><p>Također, ako želite organizirati natjecanje gdje se muškarci i žene natječu zajedno, možete sve staviti u Mx kategoriju.
+guide.faq-openpowerlifting-results-question:
+  other: Da li se rezultati automatski objavljuju na OpenPowerlifting?
+guide.faq-openpowerlifting-results-answer:
+  other: Ne. OpenPowerlifting zahtijeva od federacije da potvrdi rezultate, tako da ne mogu biti preuzeti direktno. Međutim, ako kliknete na "Izvoz za OpenPowerlifting" gumb na stranici rezultata, preuzet ćete rezultate u formatu koji je <i>vrlo</i> zgodan za nas. Ako nam želite olakšati život, <a href="https://www.openpowerlifting.org/contact">slanje tih rezultata</a> bi bilo vrlo korisno. Možemo ih dodati čim ih federacija potvrdi.
+guide.faq-warmup-room-question:
+  other: Kako postaviti monitore za prostor za zagrijavanje?
+guide.faq-warmup-room-answer:
+  other: Koristeći softver za dijeljenje zaslona unutar lokalne mreže. Chat programi sa podrškom za dijeljenje zaslona su također opcija.
+support.html-title:
+  other: OpenLifter podrška
+support.html-meta-description:
+  other: Opcije podrške i prilagodbe
+support.html-meta-keywords:
+  other: openlifter pomoć, openlifter podrška, openlifter obuka
+support.support-section:
+  other: Službena podrška
+support.no-warranty:
+  other: OpenLifter je besplatan i otvorenog koda, međutim, ne dolazi sa garancijom niti podrškom.
+support.we-have-services:
+  other: Ukoliko Vam je potrebna tehnička podrška za Vaše natjecanje, nudimo nekoliko usluga &mdash; od prolaženja kroz softver korak po korak i osiguravanja da je sve dobro postavljeno, sve do osobne pomoći oko vođenja natjecanja i obuke za Vaše osoblje.
+support.contact-us-button:
+  other: Kontaktirajte nas
+support.customization-header:
+  other: Prilagodba
+support.customization-subheader:
+  other: Zatražite verziju OpenLifter softvera napravljenu specifično za Vaše natjecanje
+support.customization-item-logo:
+  other: Vaš logo na projektoru!
+support.customization-item-branding:
+  other: Vaše brendiranje
+support.customization-item-features:
+  other: Posebne mogućnosti
+support.customization-item-desktop:
+  other: Desktop verzije
+support.customization-item-cost:
+  other: Počevši od 75 USD.
+support.customization-email-subject:
+  other: Zahtjev za posebnom verzijom
+support.online-header:
+  other: Online podrška
+support.online-subheader:
+  other: Vodite natjecanje bez brige o tehničkoj izvedbi
+support.online-item-training:
+  other: Obuka za Vaše osoblje
+support.online-item-email:
+  other: Neograničena e-mail podrška
+support.online-item-phone:
+  other: Telefonska podrška na dan natjecanja
+support.online-item-cost:
+  other: Počevši od 120 USD
+support.online-email-subject:
+  other: Zahtjev za online podrškom
+support.in-person-header:
+  other: Osobna podrška
+support.in-person-subheader:
+  other: Odaberite OpenPowerlifting tim za vođenje Vašeg zapisničkog stola
+support.in-person-item-everything:
+  other: Mi ćemo odraditi sve!
+support.in-person-item-training:
+  other: Također ćemo odraditi obuku Vašeg osoblja
+support.in-person-item-worldwide:
+  other: Dostupno diljem svijeta
+support.in-person-item-cost:
+  other: Cijena ovisi o putnim troškovima, pošaljite nam upit
+support.in-person-email-subject:
+  other: Osobna podrška
+releases.html-title:
+  other: OpenLifter verzije
+releases.html-meta-description:
+  other: Sve OpenLifter verzije, uključujući stare
+releases.html-meta-keywords:
+  other: openlifter stare verzije
+releases.in-development:
+  other: U razvoju
+releases.major-changes-in-the-next-version:
+  other: Glavne promjene u sljedećoj verziji
+releases.changelog-initial-public-release:
+  other: Prva javna verzija
+guide.faq-lot-numbers-question:
+  other: Što su lot brojevi?
+guide.faq-lot-numbers-answer:
+  other: Lot brojevi su jedan od načina odlučivanja koji natjecatelj nastupa prvi kada dva natjecatelja dižu istu kilažu. Natjecatelj s manjim lot brojem diže prvi. Neke federacije zahtijevaju korištenje ovog sistema. Obično se lot brojevi dodjeljuju od strane organizatora na temelju redoslijeda registracije.</p><p>Korištenje lot brojeva je u potpunosti opcionalno. Ako ne koristite lot brojeve, OpenLifter će odlučiti tako da očuva relativni redoslijed kao i u prijašnjim pokušajima. To funkcionira vrlo dobro i u skladu s očekivanjima natjecatelja. Ako Vaša federacija ne koristi lot brojeve, naša preporuka je da ih ne koristite.

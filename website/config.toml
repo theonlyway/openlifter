@@ -26,6 +26,12 @@ theme = "rusty"
     [languages.eo.params]
       placeholder = "Placeholder"
 
+  [languages.hr]
+    languageName = "Hrvatski"
+    weight = 20
+    [languages.hr.params]
+      placeholder = "Placeholder"
+
   [languages.nl]
     languageName = "Nederlands"
     weight = 20
