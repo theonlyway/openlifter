@@ -63,10 +63,20 @@ type ColumnType =
   | "Lot"
   | "Equipment"
   | "Age"
-  | "S1" | "S2" | "S3" | "S4" // eslint-disable-line
-  | "B1" | "B2" | "B3" | "B4" // eslint-disable-line
-  | "D1" | "D2" | "D3" | "D4" // eslint-disable-line
-  | "BestSquat" | "BestBench" // eslint-disable-line
+  | "S1"
+  | "S2"
+  | "S3"
+  | "S4" // eslint-disable-line
+  | "B1"
+  | "B2"
+  | "B3"
+  | "B4" // eslint-disable-line
+  | "D1"
+  | "D2"
+  | "D3"
+  | "D4" // eslint-disable-line
+  | "BestSquat"
+  | "BestBench" // eslint-disable-line
   | "Spacer1"
   | "Spacer2"
   | "ProjectedTotal"

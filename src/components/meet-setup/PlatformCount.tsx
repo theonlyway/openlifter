@@ -30,6 +30,7 @@ import { GlobalState } from "../../types/stateTypes";
 import { Validation } from "../../types/dataTypes";
 import { FormControlTypeHack } from "../../types/utils";
 import { Dispatch } from "redux";
+import NumberInput from "../common/NumberInput";
 
 interface OwnProps {
   day: number;
@@ -70,15 +71,12 @@ class PlatformCount extends React.Component<Props, InternalState> {
     return "success";
   };
 
-  handleChange = (event: FormEvent<FormControlTypeHack>) => {
-    const value = event.currentTarget.value;
-    if (typeof value === "string") {
-      this.setState({ value: value }, () => {
-        if (this.validate() === "success") {
-          this.props.setPlatformsOnDays(this.props.day, Number(value));
-        }
-      });
-    }
+  handleChange = (value: string | undefined) => {
+    this.setState({ value: value || "" }, () => {
+      if (this.validate() === "success") {
+        this.props.setPlatformsOnDays(this.props.day, Number(value));
+      }
+    });
   };
 
   render() {
@@ -86,8 +84,8 @@ class PlatformCount extends React.Component<Props, InternalState> {
     const validation = this.validate();
 
     return (
-      <Form.Group>
-        <Form.Label>
+      <NumberInput
+        label={
           <FormattedMessage
             id="meet-setup.platforms-on-day"
             defaultMessage="Platforms on Day {number}"
@@ -95,19 +93,14 @@ class PlatformCount extends React.Component<Props, InternalState> {
               number: day
             }}
           />
-        </Form.Label>
-        <Form.Control
-          type="number"
-          min={1}
-          max={20}
-          step={1}
-          value={this.state.value}
-          onChange={this.handleChange}
-          isValid={validation === "success"}
-          isInvalid={validation === "error"}
-          className={validation === "warning" ? "is-warning" : undefined}
-        />
-      </Form.Group>
+        }
+        min={1}
+        max={20}
+        step={1}
+        value={this.state.value}
+        onChange={this.handleChange}
+        validationStatus={validation}
+      />
     );
   }
 }

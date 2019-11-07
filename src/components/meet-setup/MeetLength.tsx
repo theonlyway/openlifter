@@ -30,6 +30,7 @@ import { Validation } from "../../types/dataTypes";
 import { GlobalState } from "../../types/stateTypes";
 import { FormControlTypeHack, isString } from "../../types/utils";
 import { Dispatch } from "redux";
+import NumberInput from "../common/NumberInput";
 
 interface StateProps {
   lengthDays: number;
@@ -67,13 +68,8 @@ class MeetLength extends React.Component<Props, InternalState> {
     return "success";
   };
 
-  handleChange = (event: React.FormEvent<FormControlTypeHack>) => {
-    const value = event.currentTarget.value;
-    if (!isString(value)) {
-      throw new Error(`Expected a string, but got "${value}"`);
-    }
-
-    this.setState({ value: value }, () => {
+  handleChange = (value: string | undefined) => {
+    this.setState({ value: value || "" }, () => {
       // As callback, save successful value into Redux store.
       if (this.validate() !== "error") {
         this.props.setLengthDays(Number(value));
@@ -85,22 +81,15 @@ class MeetLength extends React.Component<Props, InternalState> {
     const validation: Validation = this.validate();
 
     return (
-      <Form.Group>
-        <Form.Label>
-          <FormattedMessage id="meet-setup.length-days" defaultMessage="Days of Lifting" />
-        </Form.Label>
-        <Form.Control
-          type="number"
-          min={1}
-          max={14}
-          step={1}
-          value={this.state.value}
-          onChange={this.handleChange}
-          isValid={validation === "success"}
-          isInvalid={validation === "error"}
-          className={validation === "warning" ? "is-warning" : undefined}
-        />
-      </Form.Group>
+      <NumberInput
+        label={<FormattedMessage id="meet-setup.length-days" defaultMessage="Days of Lifting" />}
+        min={1}
+        max={14}
+        step={1}
+        value={this.state.value}
+        onChange={this.handleChange}
+        validationStatus={validation}
+      />
     );
   }
 }
