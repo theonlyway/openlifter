@@ -38,6 +38,7 @@ import DivisionSelect from "./DivisionSelect";
 import WeightClassesSelect from "./WeightClassesSelect";
 import BarAndCollarsWeightKg from "./BarAndCollarsWeightKg";
 import Plates from "./Plates";
+import YesNoButton from "../common/YesNoButton";
 
 import { getString } from "../../logic/strings";
 import { updateMeet, setInKg } from "../../actions/meetSetupActions";
@@ -59,10 +60,10 @@ interface DispatchProps {
   setState: (state: string) => void;
   setCity: (city: string) => void;
   setFederation: (fed: string) => void;
-  setCombineSleevesAndWraps: (event: FormEvent<FormControlTypeHack>) => void;
-  setAllow4thAttempts: (event: FormEvent<FormControlTypeHack>) => void;
-  setInKg: (event: FormEvent<FormControlTypeHack>) => void;
-  setShowAlternateUnits: (event: FormEvent<FormControlTypeHack>) => void;
+  setCombineSleevesAndWraps: (bool: boolean) => void;
+  setAllow4thAttempts: (bool: boolean) => void;
+  setInKg: (bool: boolean) => void;
+  setShowAlternateUnits: (bool: boolean) => void;
   setFormula: (event: FormEvent<FormControlTypeHack>) => void;
   setAgeCoefficients: (event: FormEvent<FormControlTypeHack>) => void;
 }
@@ -236,47 +237,33 @@ class MeetSetup extends React.Component<Props> {
                 </FormGroup>
 
                 <FormGroup key={this.props.masterKey + "-sleeves-wraps"}>
-                  <Form.Label>
-                    <FormattedMessage
-                      id="meet-setup.combine-sleeves-wraps"
-                      defaultMessage="Should Sleeves and Wraps be combined for placing?"
-                    />
-                  </Form.Label>
-                  <FormControl
-                    as="select"
-                    defaultValue={yesNoFromBoolean(this.props.meet.combineSleevesAndWraps)}
-                    onChange={this.props.setCombineSleevesAndWraps}
-                    className="custom-select"
-                  >
-                    <option key="Yes" value="Yes">
-                      {stringYes}
-                    </option>
-                    <option key="No" value="No">
-                      {stringNo}
-                    </option>
-                  </FormControl>
+                  <YesNoButton
+                    label={
+                      <FormattedMessage
+                        id="meet-setup.combine-sleeves-wraps"
+                        defaultMessage="Should Sleeves and Wraps be combined for placing?"
+                      />
+                    }
+                    value={this.props.meet.combineSleevesAndWraps}
+                    setValue={this.props.setCombineSleevesAndWraps}
+                    yes={stringYes}
+                    no={stringNo}
+                  />
                 </FormGroup>
 
                 <FormGroup key={this.props.masterKey + "-4th-attempts"}>
-                  <Form.Label>
-                    <FormattedMessage
-                      id="meet-setup.allow-4th-attempts"
-                      defaultMessage="Can lifters take 4th attempts for records?"
-                    />
-                  </Form.Label>
-                  <FormControl
-                    as="select"
-                    defaultValue={yesNoFromBoolean(this.props.meet.allow4thAttempts)}
-                    onChange={this.props.setAllow4thAttempts}
-                    className="custom-select"
-                  >
-                    <option key="Yes" value="Yes">
-                      {stringYes}
-                    </option>
-                    <option key="No" value="No">
-                      {stringNo}
-                    </option>
-                  </FormControl>
+                  <YesNoButton
+                    label={
+                      <FormattedMessage
+                        id="meet-setup.allow-4th-attempts"
+                        defaultMessage="Can lifters take 4th attempts for records?"
+                      />
+                    }
+                    value={this.props.meet.allow4thAttempts}
+                    setValue={this.props.setAllow4thAttempts}
+                    yes={stringYes}
+                    no={stringNo}
+                  />
                 </FormGroup>
               </Card.Body>
             </Card>
@@ -289,42 +276,28 @@ class MeetSetup extends React.Component<Props> {
               </Card.Header>
               <Card.Body>
                 <FormGroup>
-                  <Form.Label>
-                    <FormattedMessage
-                      id="meet-setup.units"
-                      defaultMessage="In what units are attempts and bodyweights?"
-                    />
-                  </Form.Label>
-                  <FormControl
-                    as="select"
-                    defaultValue={yesNoFromBoolean(this.props.meet.inKg)}
-                    onChange={this.props.setInKg}
-                    className="custom-select"
-                  >
-                    <option key="Yes" value="Yes">
-                      {stringKilograms}
-                    </option>
-                    <option key="No" value="No">
-                      {stringPounds}
-                    </option>
-                  </FormControl>
+                  <YesNoButton
+                    label={
+                      <FormattedMessage
+                        id="meet-setup.units"
+                        defaultMessage="In what units are attempts and bodyweights?"
+                      />
+                    }
+                    value={this.props.meet.inKg}
+                    setValue={this.props.setInKg}
+                    yes={stringKilograms}
+                    no={stringPounds}
+                  />
                 </FormGroup>
 
                 <FormGroup>
-                  <Form.Label>{this.props.meet.inKg ? stringAlsoPounds : stringAlsoKilograms}</Form.Label>
-                  <FormControl
-                    as="select"
-                    defaultValue={yesNoFromBoolean(this.props.meet.showAlternateUnits)}
-                    onChange={this.props.setShowAlternateUnits}
-                    className="custom-select"
-                  >
-                    <option key="Yes" value="Yes">
-                      {stringYes}
-                    </option>
-                    <option key="No" value="No">
-                      {stringNo}
-                    </option>
-                  </FormControl>
+                  <YesNoButton
+                    label={this.props.meet.inKg ? stringAlsoPounds : stringAlsoKilograms}
+                    value={this.props.meet.showAlternateUnits}
+                    setValue={this.props.setShowAlternateUnits}
+                    yes={stringYes}
+                    no={stringNo}
+                  />
                 </FormGroup>
 
                 <BarAndCollarsWeightKg key={"S" + inKg} lift="S" />
@@ -352,17 +325,10 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
   setState: (state: string) => dispatch(updateMeet({ state: state })),
   setCity: (city: string) => dispatch(updateMeet({ city: city })),
   setFederation: (fed: string) => dispatch(updateMeet({ federation: fed })),
-  setCombineSleevesAndWraps: event =>
-    assertString(event.currentTarget.value) &&
-    dispatch(updateMeet({ combineSleevesAndWraps: yesNoToBoolean(event.currentTarget.value) })),
-  setAllow4thAttempts: event =>
-    assertString(event.currentTarget.value) &&
-    dispatch(updateMeet({ allow4thAttempts: yesNoToBoolean(event.currentTarget.value) })),
-  setInKg: event =>
-    assertString(event.currentTarget.value) && dispatch(setInKg(yesNoToBoolean(event.currentTarget.value))),
-  setShowAlternateUnits: event =>
-    assertString(event.currentTarget.value) &&
-    dispatch(updateMeet({ showAlternateUnits: yesNoToBoolean(event.currentTarget.value) })),
+  setCombineSleevesAndWraps: bool => dispatch(updateMeet({ combineSleevesAndWraps: bool })),
+  setAllow4thAttempts: bool => dispatch(updateMeet({ allow4thAttempts: bool })),
+  setInKg: bool => dispatch(setInKg(bool)),
+  setShowAlternateUnits: bool => dispatch(updateMeet({ showAlternateUnits: bool })),
   setFormula: event =>
     assertString(event.currentTarget.value) &&
     assertFormula(event.currentTarget.value) &&
