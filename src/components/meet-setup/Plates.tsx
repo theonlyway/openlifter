@@ -39,6 +39,7 @@ import { GlobalState } from "../../types/stateTypes";
 import { Dispatch } from "redux";
 import { FormControlTypeHack, isString } from "../../types/utils";
 import { isNumber } from "util";
+import PlateInput from "./PlateInput";
 
 interface StateProps {
   inKg: boolean;
@@ -99,26 +100,15 @@ class Plates extends React.Component<Props> {
     const weight = this.props.inKg ? weightKg : kg2lbs(weightKg);
 
     return (
-      <tr key={id}>
-        <td>{displayWeight(weight, this.props.language)}</td>
-        <td>
-          {/* TODO: Validation state styling */}
-          <FormGroup style={{ marginBottom: 0 }}>
-            <FormControl
-              id={id}
-              onChange={(e: React.FormEvent<FormControlTypeHack>) =>
-                this.updateHandler(weightKg, id, e.currentTarget.value, color)
-              }
-              type="number"
-              defaultValue={amount.toString()}
-              min={0}
-            />
-          </FormGroup>
-        </td>
-        <td>
-          <ColorPicker color={color} onChange={color => this.updateHandler(weightKg, id, amount, color)} />
-        </td>
-      </tr>
+      <PlateInput
+        id={id}
+        weightKg={weightKg}
+        displayWeight={displayWeight(weight, this.props.language)}
+        defaultValue={amount.toString()}
+        pairCount={amount}
+        color={color}
+        onChange={this.updateHandler}
+      />
     );
   };
 

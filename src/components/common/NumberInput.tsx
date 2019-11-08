@@ -26,13 +26,14 @@ import { FormControlTypeHack } from "../../types/utils";
 import { Validation } from "../../types/dataTypes";
 
 interface Props {
-  label: JSX.Element;
+  label?: JSX.Element | string;
   min: number;
   max: number;
   step: number;
   value: string;
   onChange: (value: string | undefined) => void;
-  validationStatus: Validation;
+  validationStatus?: Validation;
+  inputWidth?: string;
 }
 
 const incrementByStep = (
@@ -66,7 +67,7 @@ const decrementByStep = (
 const NumberInput: FunctionComponent<Props> = props => {
   return (
     <Form.Group>
-      <Form.Label>{props.label}</Form.Label>
+      {props.label && <Form.Label>{props.label}</Form.Label>}
       <div style={{ display: "flex" }}>
         <Button
           variant="outline-secondary"
@@ -75,6 +76,7 @@ const NumberInput: FunctionComponent<Props> = props => {
           -
         </Button>
         <Form.Control
+          style={{ width: `${props.inputWidth || "100%"}` }}
           min={props.min}
           max={props.max}
           value={props.value}
