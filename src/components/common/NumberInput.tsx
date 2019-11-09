@@ -43,7 +43,7 @@ const incrementByStep = (
   onChange: (value: string | undefined) => void
 ) => {
   const newValue = baseValue + step;
-  if (max && newValue > max) {
+  if (max !== undefined && newValue > max) {
     onChange(String(max));
   } else {
     onChange(String(newValue));
@@ -57,7 +57,7 @@ const decrementByStep = (
   onChange: (value: string | undefined) => void
 ) => {
   const newValue = baseValue - step;
-  if (min && newValue < min) {
+  if (min !== undefined && newValue < min) {
     onChange(String(min));
   } else {
     onChange(String(newValue));
