@@ -27,8 +27,8 @@ import { Validation } from "../../types/dataTypes";
 
 interface Props {
   label?: JSX.Element | string;
-  min: number;
-  max: number;
+  min?: number;
+  max?: number;
   step: number;
   value: string;
   onChange: (value: string | undefined) => void;
@@ -39,11 +39,11 @@ interface Props {
 const incrementByStep = (
   baseValue: number,
   step: number,
-  max: number,
+  max: number | undefined,
   onChange: (value: string | undefined) => void
 ) => {
   const newValue = baseValue + step;
-  if (newValue > max) {
+  if (max && newValue > max) {
     onChange(String(max));
   } else {
     onChange(String(newValue));
@@ -53,11 +53,11 @@ const incrementByStep = (
 const decrementByStep = (
   baseValue: number,
   step: number,
-  min: number,
+  min: number | undefined,
   onChange: (value: string | undefined) => void
 ) => {
   const newValue = baseValue - step;
-  if (newValue < min) {
+  if (min && newValue < min) {
     onChange(String(min));
   } else {
     onChange(String(newValue));

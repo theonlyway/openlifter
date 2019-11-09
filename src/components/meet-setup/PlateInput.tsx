@@ -43,7 +43,6 @@ const PlateInput: FunctionComponent<Props> = props => {
       <td>
         <FormGroup>
           <NumberInput
-            max={999}
             min={0}
             step={1}
             value={String(props.pairCount)}

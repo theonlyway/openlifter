@@ -30,6 +30,7 @@ import { GlobalState } from "../../types/stateTypes";
 import { assertString, checkExhausted, FormControlTypeHack } from "../../types/utils";
 import { Dispatch } from "redux";
 import { SetBarAndCollarsWeightKgAction } from "../../types/actionTypes";
+import NumberInput from "../common/NumberInput";
 
 interface OwnProps {
   lift: Lift;
@@ -92,17 +93,15 @@ class BarAndCollarsWeightKg extends React.Component<Props, InternalState> {
     return "success";
   };
 
-  handleChange = (event: FormEvent<FormControlTypeHack>) => {
-    const value: string | undefined = event.currentTarget.value;
-    if (assertString(value)) {
-      this.setState({ value: value }, () => {
-        if (this.validate() === "success") {
-          const asNum = Number(value.replace(",", "."));
-          const weight = this.props.inKg ? asNum : lbs2kg(asNum);
-          this.props.setBarAndCollarsWeightKg(this.props.lift, weight);
-        }
-      });
-    }
+  handleChange = (value: string | undefined) => {
+    const stringValue = value || "";
+    this.setState({ value: stringValue }, () => {
+      if (this.validate() === "success") {
+        const asNum = Number(stringValue.replace(",", "."));
+        const weight = this.props.inKg ? asNum : lbs2kg(asNum);
+        this.props.setBarAndCollarsWeightKg(this.props.lift, weight);
+      }
+    });
   };
 
   getLiftLabel = (lift: Lift, inKg: boolean, language: Language): string => {
@@ -136,16 +135,14 @@ class BarAndCollarsWeightKg extends React.Component<Props, InternalState> {
     const label = this.getLiftLabel(this.props.lift, this.props.inKg, this.props.language);
 
     return (
-      <Form.Group>
-        <Form.Label>{label}</Form.Label>
-        <Form.Control
-          type="input"
-          value={this.state.value}
-          onChange={this.handleChange}
-          isValid={validation === "success"}
-          isInvalid={validation === "error"}
-        />
-      </Form.Group>
+      <NumberInput
+        label={label}
+        min={0}
+        step={2.5}
+        value={this.state.value}
+        onChange={this.handleChange}
+        validationStatus={validation}
+      />
     );
   }
 }
