@@ -30,6 +30,7 @@ import { saveAs } from "file-saver";
 
 import ByDivision from "./ByDivision";
 import ByPoints from "./ByPoints";
+import ByTeam from "./ByTeam";
 import ErrorModal from "../ErrorModal";
 
 import { mergePlatform } from "../../actions/registrationActions";
@@ -57,7 +58,7 @@ interface DispatchProps {
 }
 
 type Props = StateProps & DispatchProps;
-type ResultsBy = "Division" | "Points" | "BestMastersLifter" | "BestJuniorsLifter";
+type ResultsBy = "Division" | "Points" | "Team" | "BestMastersLifter" | "BestJuniorsLifter";
 
 interface InternalState {
   day: number;
@@ -315,6 +316,9 @@ class ResultsView extends React.Component<Props, InternalState> {
           <ByPoints key={this.state.day} day={this.state.day} ageCoefficients="None" agePointsCategory="BestLifter" />
         );
         break;
+      case "Team":
+        results = <ByTeam key={this.state.day} day={this.state.day} />;
+        break;
       case "BestMastersLifter":
         results = (
           <ByPoints
@@ -411,6 +415,7 @@ class ResultsView extends React.Component<Props, InternalState> {
               style={{ marginLeft: "14px" }}
             >
               <option value="Division">{getString("results.by-division", language)}</option>
+              <option value="Team">By Team</option>
               {this.props.global.meet.ageCoefficients !== "None" ? (
                 <option value="BestJuniorsLifter">{getString("results.best-juniors-lifter", language)}</option>
               ) : null}
@@ -443,6 +448,7 @@ const assertValidResultsBy = (value: string): value is ResultsBy => {
     case "BestMastersLifter":
     case "Division":
     case "Points":
+    case "Team":
       return true;
     default:
       checkExhausted(resultsBy);
