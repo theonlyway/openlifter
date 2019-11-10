@@ -51,7 +51,8 @@ const initialState: LiftingState = {
   overrideEntryId: null, // Allows selecting a lifter, even if they've already gone.
 
   // Presentational configuration.
-  columnDivisionWidthPx: 90
+  columnDivisionWidthPx: 90,
+  columnTeamWidthPx: 90
 };
 
 type Action =

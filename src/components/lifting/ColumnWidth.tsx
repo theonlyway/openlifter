@@ -36,7 +36,7 @@ import { FormControlTypeHack, isString } from "../../types/utils";
 import { Dispatch } from "redux";
 import { isNumber } from "util";
 
-type WidthFields = "columnDivisionWidthPx";
+type WidthFields = "columnDivisionWidthPx" | "columnTeamWidthPx";
 
 interface OwnProps {
   label: string; // The label to display.
@@ -103,7 +103,7 @@ class ColumnWidth extends React.Component<Props, InternalState> {
     const validation: Validation = this.validate();
 
     return (
-      <Form.Group>
+      <Form.Group style={{ width: "160px", paddingRight: "16px" }}>
         <Form.Label>{this.props.label}</Form.Label>
         <Form.Control
           type="number"

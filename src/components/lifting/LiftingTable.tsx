@@ -63,6 +63,7 @@ type ColumnType =
   | "Lot"
   | "Equipment"
   | "Age"
+  | "Team"
   | "S1"
   | "S2"
   | "S3"
@@ -300,6 +301,12 @@ class LiftingTable extends React.Component<Props> {
       }
       case "Age":
         return <td key={columnType}>{entry.age}</td>;
+      case "Team":
+        return (
+          <td key={columnType} className={styles.textCell}>
+            {entry.team}
+          </td>
+        );
       case "S1":
         return this.renderAttemptField(entry, "S", 1, columnType);
       case "S2":
@@ -441,6 +448,8 @@ class LiftingTable extends React.Component<Props> {
         return <LocalizedString id="lifting.column-equipment" />;
       case "Age":
         return <LocalizedString id="lifting.column-age" />;
+      case "Team":
+        return "Club";
       case "S1":
         return <LocalizedString id="lifting.column-s1" />;
       case "S2":
@@ -498,6 +507,10 @@ class LiftingTable extends React.Component<Props> {
     if (this.props.lifting.columnDivisionWidthPx !== 0) {
       columns.push("Division");
     }
+    // Skip the "Team" column if columnTeamWidthPx is zero or undefined.
+    if (this.props.lifting.columnTeamWidthPx) {
+      columns.push("Team");
+    }
     columns.push("Bodyweight", "WeightClass");
 
     // The "Lot" column is only shown if lot numbers are used.
@@ -550,9 +563,14 @@ class LiftingTable extends React.Component<Props> {
       if (column === "Lifter") {
         className = styles.nameCell;
       } else if (column === "Division") {
-        className = styles.divisionCell;
+        className = styles.textCell;
         if (this.props.lifting.columnDivisionWidthPx) {
           style = { width: this.props.lifting.columnDivisionWidthPx + "px" };
+        }
+      } else if (column === "Team") {
+        className = styles.textCell;
+        if (this.props.lifting.columnTeamWidthPx) {
+          style = { width: this.props.lifting.columnTeamWidthPx + "px" };
         }
       } else if (column === "Spacer1" || column === "Spacer2") {
         className = styles.spacerCell;

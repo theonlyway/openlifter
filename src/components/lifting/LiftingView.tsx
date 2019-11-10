@@ -99,11 +99,12 @@ class LiftingView extends React.Component<Props, InternalState> {
       <div>
         <Card border="primary" style={{ marginLeft: "12px", marginRight: "12px" }}>
           <Card.Body>
-            <div style={{ width: "160px" }}>
+            <div style={{ display: "flex", flexFlow: "row" }}>
               <ColumnWidth
                 label={getString("lifting.division-column-width-label", this.props.language)}
                 fieldName="columnDivisionWidthPx"
               />
+              <ColumnWidth label="Club Column Width" fieldName="columnTeamWidthPx" />
             </div>
             <h3>
               <FormattedMessage

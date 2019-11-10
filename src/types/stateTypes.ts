@@ -74,6 +74,7 @@ export type LiftingState = {
   readonly overrideAttempt: number | null;
   readonly overrideEntryId: number | null;
   readonly columnDivisionWidthPx: number;
+  readonly columnTeamWidthPx: number;
 };
 
 export type GlobalState = {
