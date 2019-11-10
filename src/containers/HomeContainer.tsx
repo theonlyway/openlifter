@@ -28,7 +28,6 @@ import { LinkContainer } from "react-router-bootstrap";
 import { saveAs } from "file-saver";
 
 import { FormattedMessage } from "react-intl";
-import LanguageSelector from "../components/translations/LanguageSelector";
 import { overwriteStore } from "../actions/globalActions";
 
 import NewMeetModal from "../components/home/NewMeetModal";
@@ -235,12 +234,6 @@ class HomeContainer extends React.Component<Props, InternalState> {
           <Col md={12}>
             <img alt="OpenLifter" src="openlifter.svg" />
           </Col>
-        </Row>
-
-        <Row>
-          <div style={{ width: "180px", margin: "20px" }}>
-            <LanguageSelector />
-          </div>
         </Row>
 
         <Row>
