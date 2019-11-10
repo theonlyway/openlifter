@@ -65,9 +65,15 @@ class LiftingHeader extends React.Component<Props> {
       if (entry.age > 0) {
         infoBuilder.push(displayNumber(entry.age, this.props.language));
       }
-      infoBuilder.push(localizeEquipment(entry.equipment, this.props.language));
-      if (entry.divisions.length > 0) {
-        infoBuilder.push(entry.divisions.join(", "));
+
+      // If the team is provided, show only that (for IrishPF Team Meets).
+      if (entry.team) {
+        infoBuilder.push(entry.team);
+      } else {
+        infoBuilder.push(localizeEquipment(entry.equipment, this.props.language));
+        if (entry.divisions.length > 0) {
+          infoBuilder.push(entry.divisions.join(", "));
+        }
       }
 
       info = infoBuilder.join(" · ");
