@@ -215,6 +215,11 @@ class RandomizeRegistrationButton extends React.Component<Props> {
       const sexes: Sex[] = ["M", "F", "Mx"];
       const sex: Sex = sexes[randomInt(0, sexes.length - 1)];
 
+      // Assign a random Team.
+      // ==========================================
+      const teams: string[] = ["Team Red", "Team Green", "Team Blue"];
+      const team: string = teams[randomInt(0, teams.length - 1)];
+
       // Generate random events, making most lifters SBD.
       // ==========================================
       let events: Event[] = [];
@@ -287,6 +292,7 @@ class RandomizeRegistrationButton extends React.Component<Props> {
         flight: flight,
         name: name,
         sex: sex,
+        team: team,
         events: events,
         equipment: equipment,
         divisions: divisions
