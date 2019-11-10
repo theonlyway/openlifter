@@ -143,6 +143,7 @@ class ByDivision extends React.Component<Props> {
       <tr key={key}>
         <td>{place}</td>
         <td>{entry.name}</td>
+        <td>{entry.team}</td>
         <td>{entry.bodyweightKg === 0 ? null : wtcls}</td>
         <td>{entry.bodyweightKg === 0 ? null : displayWeight(bw, language)}</td>
         <td>{entry.age === 0 ? null : entry.age}</td>
@@ -221,6 +222,7 @@ class ByDivision extends React.Component<Props> {
               <tr>
                 <th>{getString("lifting.column-place", language)}</th>
                 <th>{getString("lifting.column-lifter", language)}</th>
+                <th>Club</th>
                 <th>{getString("lifting.column-weightclass", language)}</th>
                 <th>{getString("lifting.column-bodyweight", language)}</th>
                 <th>{getString("lifting.column-age", language)}</th>
