@@ -36,3 +36,9 @@ $form-feedback-warning-background-color: #ffffc9; // Pale yellow.
   border-color: #ced4da; // The normal default border color.
   background-color: $form-feedback-warning-background-color;
 }
+
+
+a.nav-link.active {
+  font-weight: bold;
+  border: 1px solid white;
+}
