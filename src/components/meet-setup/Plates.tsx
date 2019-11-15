@@ -102,6 +102,7 @@ class Plates extends React.Component<Props> {
     return (
       <PlateInput
         id={id}
+        key={id}
         weightKg={weightKg}
         displayWeight={displayWeight(weight, this.props.language)}
         defaultValue={amount.toString()}

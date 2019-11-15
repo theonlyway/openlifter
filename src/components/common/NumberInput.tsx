@@ -20,8 +20,14 @@
 
 import React, { FunctionComponent } from "react";
 import { FormattedMessage } from "react-intl";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
+
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import InputGroup from "react-bootstrap/InputGroup";
+
 import { FormControlTypeHack } from "../../types/utils";
 import { Validation } from "../../types/dataTypes";
 
@@ -33,7 +39,7 @@ interface Props {
   value: string;
   onChange: (value: string | undefined) => void;
   validationStatus?: Validation;
-  inputWidth?: string;
+  marginBottom?: string;
 }
 
 const incrementByStep = (
@@ -66,17 +72,18 @@ const decrementByStep = (
 
 const NumberInput: FunctionComponent<Props> = props => {
   return (
-    <Form.Group>
+    <Form.Group style={{ marginBottom: `${props.marginBottom || undefined}` }}>
       {props.label && <Form.Label>{props.label}</Form.Label>}
-      <div style={{ display: "flex" }}>
-        <Button
-          variant="outline-secondary"
-          onClick={() => decrementByStep(Number(props.value), props.step, props.min, props.onChange)}
-        >
-          -
-        </Button>
+      <InputGroup>
+        <InputGroup.Prepend>
+          <Button
+            variant="outline-secondary"
+            onClick={() => decrementByStep(Number(props.value), props.step, props.min, props.onChange)}
+          >
+            <FontAwesomeIcon icon={faMinus} />
+          </Button>
+        </InputGroup.Prepend>
         <Form.Control
-          style={{ width: `${props.inputWidth || "100%"}` }}
           min={props.min}
           max={props.max}
           value={props.value}
@@ -85,13 +92,15 @@ const NumberInput: FunctionComponent<Props> = props => {
           isInvalid={props.validationStatus === "error"}
           className={props.validationStatus === "warning" ? "is-warning" : undefined}
         />
-        <Button
-          variant="outline-secondary"
-          onClick={() => incrementByStep(Number(props.value), props.step, props.max, props.onChange)}
-        >
-          +
-        </Button>
-      </div>
+        <InputGroup.Append>
+          <Button
+            variant="outline-secondary"
+            onClick={() => incrementByStep(Number(props.value), props.step, props.max, props.onChange)}
+          >
+            <FontAwesomeIcon icon={faPlus} />
+          </Button>
+        </InputGroup.Append>
+      </InputGroup>
     </Form.Group>
   );
 };

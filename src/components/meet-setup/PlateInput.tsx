@@ -41,15 +41,13 @@ const PlateInput: FunctionComponent<Props> = props => {
     <tr key={props.id}>
       <td>{props.displayWeight}</td>
       <td>
-        <FormGroup>
-          <NumberInput
-            min={0}
-            step={1}
-            value={String(props.pairCount)}
-            onChange={count => props.onChange(props.weightKg, props.id, Number(count), props.color)}
-            inputWidth="50%"
-          />
-        </FormGroup>
+        <NumberInput
+          min={0}
+          step={1}
+          value={String(props.pairCount)}
+          onChange={count => props.onChange(props.weightKg, props.id, Number(count), props.color)}
+          marginBottom="0px"
+        />
       </td>
       <td>
         <ColorPicker
