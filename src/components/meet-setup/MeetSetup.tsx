@@ -207,7 +207,6 @@ class MeetSetup extends React.Component<Props> {
                     <option value="Glossbrenner">{stringGlossbrenner}</option>
                     <option value="IPF Points">{stringIPFPoints}</option>
                     <option value="NASA Points">{stringNASAPoints}</option>
-                    <option value="Reshel">{stringReshel}</option>
                     <option value="Schwartz/Malone">{stringSchwartzMalone}</option>
                     <option value="Total">{stringTotal}</option>
                     <option value="Wilks">{stringWilks}</option>
