@@ -299,7 +299,7 @@ class LifterRow extends React.Component<Props, InternalState> {
 
     return (
       <Accordion defaultActiveKey={String(this.props.id)}>
-        <Card>
+        <Card style={{ overflow: "visible" }}>
           <Accordion.Toggle
             as={Card.Header}
             onClick={() => this.setState({ isCardOpen: !this.state.isCardOpen })}
