@@ -26,6 +26,9 @@ import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Card from "react-bootstrap/Card";
 
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import LifterTable from "./LifterTable";
 import LifterRow from "./LifterRow";
 import NewButton from "./NewButton";
@@ -58,6 +61,8 @@ type Props = StateProps & DispatchProps;
 interface InternalState {
   // Controls the ErrorModal popup. Shown when error !== "".
   error: string;
+  // Used for showing spinning indicators when loading files
+  isLoadingFiles: boolean;
 }
 
 const marginStyle = { margin: "0 20px 20px 20px" };
@@ -75,7 +80,7 @@ class RegistrationView extends React.Component<Props, InternalState> {
     this.handleLoadFileInput = this.handleLoadFileInput.bind(this);
     this.closeErrorModal = this.closeErrorModal.bind(this);
 
-    this.state = { error: "" };
+    this.state = { error: "", isLoadingFiles: false };
   }
 
   handleDownloadCsvTemplateClick = () => {
@@ -127,6 +132,7 @@ class RegistrationView extends React.Component<Props, InternalState> {
     let rememberThis = this;
 
     let reader = new FileReader();
+
     reader.onload = function(event) {
       // If this occurs, we've introduced a bug when initiating the file reader, or the read failed.
       // Add this check as a guard so the typing is narrowed
@@ -170,6 +176,15 @@ class RegistrationView extends React.Component<Props, InternalState> {
         rememberThis.props.newRegistration(entries[i]);
       }
     };
+
+    reader.onloadstart = function(event) {
+      rememberThis.setState({ isLoadingFiles: true });
+    };
+
+    reader.onloadend = function(event) {
+      rememberThis.setState({ isLoadingFiles: false });
+    };
+
     reader.readAsText(selectedFile);
   };
 
@@ -209,6 +224,7 @@ class RegistrationView extends React.Component<Props, InternalState> {
 
             <ButtonGroup style={{ marginLeft: "14px" }}>
               <Button variant="danger" onClick={this.handleOverwriteClick}>
+                {this.state.isLoadingFiles && <FontAwesomeIcon style={{ marginRight: "5px" }} icon={faSpinner} spin />}
                 <FormattedMessage
                   id="registration.button-overwrite-from-csv"
                   defaultMessage="Overwrite Registrations from CSV"
