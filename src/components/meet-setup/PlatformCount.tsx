@@ -27,7 +27,7 @@ import { setPlatformsOnDays } from "../../actions/meetSetupActions";
 import { parseInteger } from "../../logic/parsers";
 
 import { GlobalState } from "../../types/stateTypes";
-import { Validation } from "../../types/dataTypes";
+import { Language, Validation } from "../../types/dataTypes";
 import { FormControlTypeHack } from "../../types/utils";
 import { Dispatch } from "redux";
 import NumberInput from "../common/NumberInput";
@@ -38,6 +38,7 @@ interface OwnProps {
 
 interface StateProps {
   platformsOnDays: Array<number>;
+  language: Language;
 }
 
 interface DispatchProps {
@@ -100,13 +101,15 @@ class PlatformCount extends React.Component<Props, InternalState> {
         value={this.state.value}
         onChange={this.handleChange}
         validationStatus={validation}
+        language={this.props.language}
       />
     );
   }
 }
 
 const mapStateToProps = (state: GlobalState): StateProps => ({
-  platformsOnDays: state.meet.platformsOnDays
+  platformsOnDays: state.meet.platformsOnDays,
+  language: state.language
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {

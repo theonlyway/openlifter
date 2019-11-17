@@ -28,8 +28,10 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
 
+import { string2number, displayNumber } from "../../logic/units";
+
 import { FormControlTypeHack } from "../../types/utils";
-import { Validation } from "../../types/dataTypes";
+import { Language, Validation } from "../../types/dataTypes";
 
 interface Props {
   label?: JSX.Element | string;
@@ -38,6 +40,7 @@ interface Props {
   step: number;
   value: string;
   onChange: (value: string | undefined) => void;
+  language: Language;
   validationStatus?: Validation;
   marginBottom?: string;
 }
@@ -46,13 +49,15 @@ const incrementByStep = (
   baseValue: number,
   step: number,
   max: number | undefined,
-  onChange: (value: string | undefined) => void
+  onChange: (value: string | undefined) => void,
+  language: Language
 ) => {
-  const newValue = baseValue + step;
+  const newValue: number = baseValue + step;
   if (max !== undefined && newValue > max) {
-    onChange(String(max));
+    onChange(displayNumber(max, language));
   } else {
-    onChange(String(newValue));
+    console.log(newValue, displayNumber(newValue, language));
+    onChange(displayNumber(newValue, language));
   }
 };
 
@@ -60,13 +65,14 @@ const decrementByStep = (
   baseValue: number,
   step: number,
   min: number | undefined,
-  onChange: (value: string | undefined) => void
+  onChange: (value: string | undefined) => void,
+  language: Language
 ) => {
-  const newValue = baseValue - step;
+  const newValue: number = baseValue - step;
   if (min !== undefined && newValue < min) {
-    onChange(String(min));
+    onChange(displayNumber(min, language));
   } else {
-    onChange(String(newValue));
+    onChange(displayNumber(newValue, language));
   }
 };
 
@@ -78,7 +84,9 @@ const NumberInput: FunctionComponent<Props> = props => {
         <InputGroup.Prepend>
           <Button
             variant="outline-secondary"
-            onClick={() => decrementByStep(Number(props.value), props.step, props.min, props.onChange)}
+            onClick={() =>
+              decrementByStep(string2number(props.value), props.step, props.min, props.onChange, props.language)
+            }
           >
             <FontAwesomeIcon icon={faMinus} />
           </Button>
@@ -95,7 +103,9 @@ const NumberInput: FunctionComponent<Props> = props => {
         <InputGroup.Append>
           <Button
             variant="outline-secondary"
-            onClick={() => incrementByStep(Number(props.value), props.step, props.max, props.onChange)}
+            onClick={() =>
+              incrementByStep(string2number(props.value), props.step, props.max, props.onChange, props.language)
+            }
           >
             <FontAwesomeIcon icon={faPlus} />
           </Button>

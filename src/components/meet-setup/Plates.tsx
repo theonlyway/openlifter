@@ -109,6 +109,7 @@ class Plates extends React.Component<Props> {
         pairCount={amount}
         color={color}
         onChange={this.updateHandler}
+        language={this.props.language}
       />
     );
   };

@@ -20,11 +20,14 @@
 // to loaders on one side, and what color it is, for a single plate weight.
 
 import React, { FunctionComponent } from "react";
-import { Plate } from "../../types/dataTypes";
+
+import FormGroup from "react-bootstrap/FormGroup";
+
 import NumberInput from "../common/NumberInput";
 import ColorPicker from "./ColorPicker";
+
 import { GlobalState } from "../../types/stateTypes";
-import FormGroup from "react-bootstrap/FormGroup";
+import { Language, Plate } from "../../types/dataTypes";
 
 interface Props {
   id: string;
@@ -33,6 +36,7 @@ interface Props {
   defaultValue: string;
   pairCount: number;
   color: string;
+  language: Language;
   onChange: (weightKg: number, id: string, amount: number, color: string) => void;
 }
 
@@ -46,6 +50,7 @@ const PlateInput: FunctionComponent<Props> = props => {
           step={1}
           value={String(props.pairCount)}
           onChange={count => props.onChange(props.weightKg, props.id, Number(count), props.color)}
+          language={props.language}
           marginBottom="0px"
         />
       </td>

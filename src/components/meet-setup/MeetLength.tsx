@@ -18,22 +18,24 @@
 
 import React from "react";
 import { connect } from "react-redux";
+import { Dispatch } from "redux";
 import { FormattedMessage } from "react-intl";
 
 import Form from "react-bootstrap/Form";
+
+import NumberInput from "../common/NumberInput";
 
 import { setLengthDays } from "../../actions/meetSetupActions";
 
 import { parseInteger } from "../../logic/parsers";
 
-import { Validation } from "../../types/dataTypes";
+import { Language, Validation } from "../../types/dataTypes";
 import { GlobalState } from "../../types/stateTypes";
 import { FormControlTypeHack, isString } from "../../types/utils";
-import { Dispatch } from "redux";
-import NumberInput from "../common/NumberInput";
 
 interface StateProps {
   lengthDays: number;
+  language: Language;
 }
 
 interface DispatchProps {
@@ -88,6 +90,7 @@ class MeetLength extends React.Component<Props, InternalState> {
         step={1}
         value={this.state.value}
         onChange={this.handleChange}
+        language={this.props.language}
         validationStatus={validation}
       />
     );
@@ -95,7 +98,8 @@ class MeetLength extends React.Component<Props, InternalState> {
 }
 
 const mapStateToProps = (state: GlobalState): StateProps => ({
-  lengthDays: state.meet.lengthDays
+  lengthDays: state.meet.lengthDays,
+  language: state.language
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {

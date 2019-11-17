@@ -23,7 +23,7 @@ import Form from "react-bootstrap/Form";
 
 import { setBarAndCollarsWeightKg } from "../../actions/meetSetupActions";
 import { getString } from "../../logic/strings";
-import { displayWeight, kg2lbs, lbs2kg } from "../../logic/units";
+import { displayWeight, kg2lbs, lbs2kg, string2number } from "../../logic/units";
 
 import { Language, Lift, Validation } from "../../types/dataTypes";
 import { GlobalState } from "../../types/stateTypes";
@@ -84,9 +84,7 @@ class BarAndCollarsWeightKg extends React.Component<Props, InternalState> {
   };
 
   validate = (): Validation => {
-    const { value } = this.state;
-    const asNumber = Number(value.replace(",", "."));
-
+    const asNumber = string2number(this.state.value);
     if (isNaN(asNumber) || asNumber <= 0 || asNumber < 5) {
       return "error";
     }
@@ -97,7 +95,7 @@ class BarAndCollarsWeightKg extends React.Component<Props, InternalState> {
     const stringValue = value || "";
     this.setState({ value: stringValue }, () => {
       if (this.validate() === "success") {
-        const asNum = Number(stringValue.replace(",", "."));
+        const asNum = string2number(stringValue);
         const weight = this.props.inKg ? asNum : lbs2kg(asNum);
         this.props.setBarAndCollarsWeightKg(this.props.lift, weight);
       }
@@ -141,6 +139,7 @@ class BarAndCollarsWeightKg extends React.Component<Props, InternalState> {
         step={2.5}
         value={this.state.value}
         onChange={this.handleChange}
+        language={this.props.language}
         validationStatus={validation}
       />
     );

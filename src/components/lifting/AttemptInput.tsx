@@ -25,7 +25,7 @@ import Form from "react-bootstrap/Form";
 
 import { liftToAttemptFieldName, liftToStatusFieldName } from "../../logic/entry";
 import { enterAttempt } from "../../actions/liftingActions";
-import { kg2lbs, lbs2kg, displayWeight } from "../../logic/units";
+import { kg2lbs, lbs2kg, string2number, displayWeight } from "../../logic/units";
 
 import { Entry, Language, Lift, Validation } from "../../types/dataTypes";
 import { GlobalState } from "../../types/stateTypes";
@@ -148,7 +148,7 @@ class AttemptInput extends React.Component<Props, InternalState> {
     const entryId = this.props.entry.id;
     const lift = this.props.lift;
     const attemptOneIndexed = this.props.attemptOneIndexed;
-    const asNumber = Number(this.state.value.replace(",", "."));
+    const asNumber = string2number(this.state.value);
     const weightKg = this.props.inKg ? asNumber : lbs2kg(asNumber);
 
     this.props.enterAttempt(entryId, lift, attemptOneIndexed, weightKg);

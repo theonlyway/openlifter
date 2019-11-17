@@ -29,6 +29,11 @@ export const lbs2kg = (lbs: number): number => {
   return lbs / 2.20462262;
 };
 
+// Converts a displayed String to a Number, even if that string is localized.
+export const string2number = (s: string): number => {
+  return Number(s.replace(",", "."));
+};
+
 // Renders a weight (kg or lbs) for display, rounding to two decimal places,
 // hiding unnecessary zeros on the right.
 //

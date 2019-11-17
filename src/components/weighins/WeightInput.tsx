@@ -31,7 +31,7 @@ import { updateRegistration } from "../../actions/registrationActions";
 import { enterAttempt } from "../../actions/liftingActions";
 
 import { liftToAttemptFieldName } from "../../logic/entry";
-import { kg2lbs, lbs2kg, displayWeight } from "../../logic/units";
+import { kg2lbs, lbs2kg, string2number, displayWeight } from "../../logic/units";
 
 import { Entry, Language, Lift, Validation } from "../../types/dataTypes";
 import { GlobalState } from "../../types/stateTypes";
@@ -92,7 +92,7 @@ class WeightInput extends React.Component<Props, InternalState> {
   }
 
   validate = (): Validation => {
-    const weightNum = Number(this.state.weightStr.replace(",", "."));
+    const weightNum = string2number(this.state.weightStr);
     if (isNaN(weightNum) || weightNum < 0) return "error";
     if (this.props.multipleOf !== undefined && weightNum % this.props.multipleOf !== 0.0) {
       return "warning";
@@ -111,8 +111,7 @@ class WeightInput extends React.Component<Props, InternalState> {
 
   // Update the Redux store.
   handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
-    const weightStr = event.currentTarget.value.replace(",", ".");
-    const weightNum = Number(weightStr);
+    const weightNum = string2number(event.currentTarget.value);
 
     if (this.validate() === "error") {
       return;

@@ -24,7 +24,7 @@ import Form from "react-bootstrap/Form";
 import CreatableSelect from "react-select/lib/Creatable";
 
 import { getString } from "../../logic/strings";
-import { displayWeight } from "../../logic/units";
+import { string2number, displayWeight } from "../../logic/units";
 
 import { setWeightClasses } from "../../actions/meetSetupActions";
 
@@ -122,7 +122,7 @@ class WeightClassesSelect extends React.Component<Props, InternalState> {
     const { inputValue, value } = this.state;
     if (!inputValue) return;
     if (event.key === "Enter" || event.key === "Tab") {
-      const asNumber = Number(inputValue.replace(",", "."));
+      const asNumber = string2number(inputValue);
 
       // Disallow creating non-numeric inputs.
       if (isNaN(asNumber) || !isFinite(asNumber)) {
