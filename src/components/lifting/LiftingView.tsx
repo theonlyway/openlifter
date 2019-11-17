@@ -97,7 +97,7 @@ class LiftingView extends React.Component<Props, InternalState> {
 
     return (
       <div>
-        <Card border="primary" style={{ marginLeft: "12px", marginRight: "12px" }}>
+        <Card border="primary" style={{ margin: "12px 20px" }}>
           <Card.Body>
             <div style={{ width: "160px" }}>
               <ColumnWidth

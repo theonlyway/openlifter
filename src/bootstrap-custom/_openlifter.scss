@@ -3,6 +3,7 @@
 
 // Decrease the default font size throughout the whole application.
 $font-size-base: 0.75rem;
+$font-size-navbar: 0.875rem;
 
 // Disable validation icons. There is currently a bug in node-sass 4.12.0
 // that invalidates their background-position attribute in release builds,
@@ -57,7 +58,16 @@ $form-feedback-warning-background-color: #ffffc9; // Pale yellow.
   background-color: $form-feedback-warning-background-color;
 }
 
+// Custom styling for the Navbar at the top of the screen.
+.navbar {
+  padding: 0.25rem 1rem !important; // Decrease vertical padding.
+  margin-bottom: 17px; // Separation between the Navbar and content.
+}
+
 // Custom styling for the link to the current page in the Navbar.
+a.nav-link {
+  font-size: $font-size-navbar;
+}
 a.nav-link.active {
   font-weight: bold;
 }
