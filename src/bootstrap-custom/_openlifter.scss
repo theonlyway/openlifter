@@ -11,6 +11,9 @@ $font-size-navbar: 0.875rem;
 $enable-validation-icons: false;
 
 // Configuration of the color system.
+$body-bg: #f8fdff; // Slightly different white to make the foreground pop.
+
+// Buttons and highlights and such.
 $primary: #007bff; // $blue.
 $secondary: #adb5bd; // $gray-500.
 $success: #28a745; // $green.
@@ -61,7 +64,6 @@ $form-feedback-warning-background-color: #ffffc9; // Pale yellow.
 // Custom styling for the Navbar at the top of the screen.
 .navbar {
   padding: 0.25rem 1rem !important; // Decrease vertical padding.
-  margin-bottom: 17px; // Separation between the Navbar and content.
 }
 
 // Custom styling for the link to the current page in the Navbar.

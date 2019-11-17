@@ -42,7 +42,7 @@ class StateTools extends React.Component<ReturnType<typeof mapStateToProps>> {
   render() {
     return (
       <div>
-        <Card>
+        <Card style={{ marginBottom: "17px" }}>
           <Card.Header>
             <FormattedMessage id="debug.generator-card-header" defaultMessage="Generate Random Valid Data" />
           </Card.Header>
@@ -58,7 +58,7 @@ class StateTools extends React.Component<ReturnType<typeof mapStateToProps>> {
           </Card.Body>
         </Card>
 
-        <Card border="info">
+        <Card>
           <Card.Header>
             <FormattedMessage id="debug.state-card-header" defaultMessage="Redux State" />
           </Card.Header>

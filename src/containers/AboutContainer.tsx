@@ -24,6 +24,8 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 
+import styles from "../components/common/ContentArea.module.scss";
+
 // Extracted out so that <pre> renders linebreaks properly.
 const licenseText =
   "This program is free software: you can redistribute it and/or modify\n" +
@@ -39,7 +41,7 @@ const licenseText =
 class AboutContainer extends React.Component<{}> {
   render() {
     return (
-      <Container>
+      <Container className={styles.contentArea}>
         <Row>
           <Col md={6}>
             <Card>

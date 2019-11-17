@@ -19,11 +19,17 @@
 // Container for the Results page.
 
 import React from "react";
+
 import ResultsView from "../components/results/ResultsView";
+import styles from "../components/common/ContentArea.module.scss";
 
 class ResultsContainer extends React.Component<{}> {
   render() {
-    return <ResultsView />;
+    return (
+      <div className={styles.contentArea}>
+        <ResultsView />
+      </div>
+    );
   }
 }
 

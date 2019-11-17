@@ -38,11 +38,13 @@ import { getString } from "../logic/strings";
 
 import { stateVersion, releaseVersion, releaseDate } from "../versions";
 
+import styles from "../components/common/ContentArea.module.scss";
+
 import { GlobalState } from "../types/stateTypes";
 import { Dispatch } from "redux";
 
 // Temporary CSS, just for prototyping.
-const centerConsole = { maxWidth: 700, margin: "0 auto 10px" };
+const centerConsole = { maxWidth: 700, marginRight: "auto", marginLeft: "auto" };
 
 interface StateProps {
   redux: GlobalState;
@@ -222,7 +224,7 @@ class HomeContainer extends React.Component<Props, InternalState> {
     }
 
     return (
-      <Container style={centerConsole}>
+      <Container style={centerConsole} className={styles.contentArea}>
         <NewMeetModal show={this.state.showNewMeetModal} close={this.closeConfirmModal} />
         <ErrorModal
           error={this.state.error}

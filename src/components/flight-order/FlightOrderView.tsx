@@ -50,8 +50,6 @@ interface InternalState {
   platform: number;
 }
 
-const marginStyle = { margin: "0 20px" };
-
 class FlightOrderView extends React.Component<Props, InternalState> {
   constructor(props: Props) {
     super(props);
@@ -91,7 +89,7 @@ class FlightOrderView extends React.Component<Props, InternalState> {
 
   render() {
     const language = this.props.language;
-    const selectorStyle = { width: "120px" };
+    const selectorStyle = { width: "120px", marginRight: "15px" };
 
     // Make options for all of the days.
     let dayOptions = [];
@@ -160,8 +158,8 @@ class FlightOrderView extends React.Component<Props, InternalState> {
     */
 
     return (
-      <div style={marginStyle}>
-        <Card border="info">
+      <div>
+        <Card style={{ marginBottom: "17px" }}>
           <Card.Body style={{ display: "flex" }}>
             <FormControl
               defaultValue={this.state.day}

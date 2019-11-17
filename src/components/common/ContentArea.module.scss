@@ -16,19 +16,17 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import React from "react";
+// Common styling for the content area, as opposed to the Navbar.
+//
+// This is intended to be used by containers (src/containers/) to wrap
+// the content area, providing standard page margins.
+//
+// The default Bootstrap containers are often unsuitable, because they set
+// a maximum width, and sometimes we really do want to use the whole screen.
 
-import MeetSetup from "../components/meet-setup/MeetSetup";
-import styles from "../components/common/ContentArea.module.scss";
+$vertical-margin: 17px;
+$horizontal-margin: 20px;
 
-class MeetSetupContainer extends React.Component<{}> {
-  render() {
-    return (
-      <div className={styles.contentArea}>
-        <MeetSetup />
-      </div>
-    );
-  }
+div.contentArea {
+  margin: $vertical-margin $horizontal-margin $vertical-margin $horizontal-margin;
 }
-
-export default MeetSetupContainer;

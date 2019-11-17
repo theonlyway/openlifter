@@ -19,11 +19,17 @@
 // Container for the Weighins page.
 
 import React from "react";
+
 import WeighinsView from "../components/weighins/WeighinsView";
+import styles from "../components/common/ContentArea.module.scss";
 
 class WeighinsContainer extends React.Component<{}> {
   render() {
-    return <WeighinsView />;
+    return (
+      <div className={styles.contentArea}>
+        <WeighinsView />
+      </div>
+    );
   }
 }
 

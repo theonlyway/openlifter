@@ -19,11 +19,13 @@
 // A page dedicated to debugging tools.
 
 import React from "react";
+
 import StateTools from "../components/debug/StateTools";
+import styles from "../components/common/ContentArea.module.scss";
 
 const DebugContainer = () => {
   return (
-    <div style={{ marginRight: "20px", marginLeft: "20px" }}>
+    <div className={styles.contentArea}>
       <StateTools />
     </div>
   );

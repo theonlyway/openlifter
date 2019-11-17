@@ -32,8 +32,6 @@ import LifterRow from "./LifterRow";
 import { Entry } from "../../types/dataTypes";
 import { GlobalState } from "../../types/stateTypes";
 
-const marginStyle = { margin: "0 20px 0 20px" };
-
 // For use when embedded inside the Lifting page.
 interface OwnProps {
   day?: number;
@@ -129,7 +127,7 @@ class WeighinsView extends React.Component<Props> {
       );
     }
 
-    return <div style={marginStyle}>{dayCards}</div>;
+    return <div>{dayCards}</div>;
   }
 }
 

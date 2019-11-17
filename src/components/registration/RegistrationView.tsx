@@ -65,8 +65,6 @@ interface InternalState {
   isLoadingFiles: boolean;
 }
 
-const marginStyle = { margin: "0 20px 20px 20px" };
-
 // Used to distinguish between the Overwrite and Append modes.
 var globalImportKind: string = "Overwrite";
 
@@ -196,7 +194,7 @@ class RegistrationView extends React.Component<Props, InternalState> {
     const numEntries = this.props.global.registration.entries.length;
 
     return (
-      <div style={marginStyle}>
+      <div>
         <ErrorModal
           error={this.state.error}
           title={getString("registration.importation-error", this.props.global.language)}
@@ -204,7 +202,7 @@ class RegistrationView extends React.Component<Props, InternalState> {
           close={this.closeErrorModal}
         />
 
-        <Card border="info">
+        <Card border="info" style={{ marginBottom: "17px" }}>
           <Card.Header>
             <FormattedMessage id="registration.auto-import-card-header" defaultMessage="Auto-Import Registrations" />
           </Card.Header>

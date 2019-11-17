@@ -298,7 +298,7 @@ class LifterRow extends React.Component<Props, InternalState> {
     ];
 
     return (
-      <Accordion defaultActiveKey={String(this.props.id)}>
+      <Accordion defaultActiveKey={String(this.props.id)} style={{ marginBottom: "17px" }}>
         <Card style={{ overflow: "visible" }}>
           <Accordion.Toggle
             as={Card.Header}
