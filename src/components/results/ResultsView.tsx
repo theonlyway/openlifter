@@ -354,7 +354,7 @@ class ResultsView extends React.Component<Props, InternalState> {
     }
 
     return (
-      <div style={marginStyle}>
+      <div>
         <ErrorModal
           error={this.state.error}
           title={getString("results.merge-error-title", language)}
@@ -362,7 +362,7 @@ class ResultsView extends React.Component<Props, InternalState> {
           close={this.closeErrorModal}
         />
 
-        <Card border="primary">
+        <Card border="primary" style={{ marginBottom: "17px" }}>
           <Card.Header>
             <FormattedMessage id="results.merge-platforms-card-header" defaultMessage="Merge Platforms" />
           </Card.Header>
@@ -378,7 +378,7 @@ class ResultsView extends React.Component<Props, InternalState> {
           </Card.Body>
         </Card>
 
-        <Card>
+        <Card style={{ marginBottom: "17px" }}>
           <Card.Header>
             <FormattedMessage id="results.export-results-card-header" defaultMessage="Export Official Results" />
           </Card.Header>

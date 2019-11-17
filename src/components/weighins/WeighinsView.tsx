@@ -95,7 +95,7 @@ class WeighinsView extends React.Component<Props> {
       });
 
       dayCards.push(
-        <Card key={i}>
+        <Card key={i} style={{ marginBottom: "17px" }}>
           <Card.Header>
             <FormattedMessage
               id="weigh-ins.day-header"
