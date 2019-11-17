@@ -9,6 +9,26 @@ $font-size-base: 0.875rem;
 // causing the icons to display way too far on the right.
 $enable-validation-icons: false;
 
+// Configuration of the color system.
+$primary: #007bff; // $blue.
+$secondary: #adb5bd; // $gray-500.
+$success: #28a745; // $green.
+$info: #5bc0de; // The info color from version 1.0 (using Bootstrap 3).
+$warning: #ffc107; // $yellow.
+$danger: #dc3545; // $red.
+$light: #f8f9fa; // $gray-100.
+$dark: #343a40; // $gray-800.
+
+// Bootstrap button logic determines the text color from the background color
+// by deciding whether the background is "light" or "dark". We want it to always
+// use a white font color, even if the background is light.
+.btn-info {
+  color: #fff !important;
+}
+.btn-warning {
+  color: #fff !important;
+}
+
 // Bootstrap 4 allows marking elements as valid or invalid by setting
 // "is-valid" and "is-invalid" CSS classes. Unfortunately, they deleted
 // the "is-warning" option. So we add it back manually here.
