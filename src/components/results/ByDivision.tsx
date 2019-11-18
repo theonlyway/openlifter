@@ -33,7 +33,7 @@ import {
   getFinalEventTotalKg,
   entryHasLifted
 } from "../../logic/entry";
-import { kg2lbs, displayWeight, displayPoints, displayNumber } from "../../logic/units";
+import { kg2lbs, displayWeight, displayPoints } from "../../logic/units";
 
 import { getString, localizeEquipment, localizeEvent, localizeWeightClassStr } from "../../logic/strings";
 import { getPoints } from "../../logic/coefficients/coefficients";

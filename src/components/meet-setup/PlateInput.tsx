@@ -21,13 +21,10 @@
 
 import React, { FunctionComponent } from "react";
 
-import FormGroup from "react-bootstrap/FormGroup";
-
 import NumberInput from "../common/NumberInput";
 import ColorPicker from "./ColorPicker";
 
-import { GlobalState } from "../../types/stateTypes";
-import { Language, Plate } from "../../types/dataTypes";
+import { Language } from "../../types/dataTypes";
 
 interface Props {
   id: string;

@@ -16,11 +16,9 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import React, { FormEvent } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { FormattedMessage } from "react-intl";
-
-import Form from "react-bootstrap/Form";
 
 import { setPlatformsOnDays } from "../../actions/meetSetupActions";
 
@@ -28,7 +26,6 @@ import { parseInteger } from "../../logic/parsers";
 
 import { GlobalState } from "../../types/stateTypes";
 import { Language, Validation } from "../../types/dataTypes";
-import { FormControlTypeHack } from "../../types/utils";
 import { Dispatch } from "redux";
 import NumberInput from "../common/NumberInput";
 

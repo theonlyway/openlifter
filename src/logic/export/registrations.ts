@@ -21,7 +21,7 @@
 import { csvString, Csv } from "./csv";
 import { getString, localizeEquipment, localizeEvent, localizeFlight, localizeSex } from "../strings";
 
-import { Entry, Event, Language } from "../../types/dataTypes";
+import { Language } from "../../types/dataTypes";
 import { RegistrationState } from "../../types/stateTypes";
 
 export const makeRegistrationsCsv = (registration: RegistrationState, language: Language): string => {

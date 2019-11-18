@@ -46,7 +46,7 @@ import { updateMeet, setInKg } from "../../actions/meetSetupActions";
 import { GlobalState, MeetState } from "../../types/stateTypes";
 import { Dispatch } from "redux";
 import { FormControlTypeHack, assertString, assertFormula, assertAgeCoefficients } from "../../types/utils";
-import { AgeCoefficients, Formula, Language, Validation } from "../../types/dataTypes";
+import { Language, Validation } from "../../types/dataTypes";
 
 interface StateProps {
   meet: MeetState;
@@ -69,16 +69,6 @@ interface DispatchProps {
 }
 
 type Props = StateProps & DispatchProps;
-
-// The widgets speak strings, but the state speaks boolean.
-const yesNoToBoolean = (yesno: string): boolean => {
-  if (yesno === "Yes") return true;
-  return false;
-};
-const yesNoFromBoolean = (bool: boolean): string => {
-  if (bool === true) return "Yes";
-  return "No";
-};
 
 class MeetSetup extends React.Component<Props> {
   validateRequiredText = (value?: string): Validation => {
@@ -111,7 +101,7 @@ class MeetSetup extends React.Component<Props> {
     const stringGlossbrenner = getString("formula.glossbrenner", language);
     const stringIPFPoints = getString("formula.ipf-points", language);
     const stringNASAPoints = getString("formula.nasa-points", language);
-    const stringReshel = getString("formula.reshel", language);
+    // const stringReshel = getString("formula.reshel", language);
     const stringSchwartzMalone = getString("formula.schwartz-malone", language);
     const stringTotal = getString("formula.total", language);
     const stringWilks = getString("formula.wilks", language);

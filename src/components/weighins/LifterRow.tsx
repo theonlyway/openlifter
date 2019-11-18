@@ -30,12 +30,12 @@ import WeightInput from "./WeightInput";
 
 import { getAge } from "../../logic/entry";
 import { getString, localizeFlight } from "../../logic/strings";
-import { displayNumber, displayWeight } from "../../logic/units";
+import { displayNumber } from "../../logic/units";
 import { validatePositiveInteger } from "../../validation/positiveInteger";
 
 import { updateRegistration } from "../../actions/registrationActions";
 
-import { Entry, Flight, Language, Validation } from "../../types/dataTypes";
+import { Entry, Language, Validation } from "../../types/dataTypes";
 import { GlobalState, MeetState } from "../../types/stateTypes";
 import { Dispatch } from "redux";
 import { FormControlTypeHack, assertFlight, assertString } from "../../types/utils";

@@ -24,7 +24,6 @@ import { changeLanguage } from "../../actions/languageActions";
 import { Language } from "../../types/dataTypes";
 import { GlobalState } from "../../types/stateTypes";
 
-import styles from "./LanguageSelector.module.scss";
 import { Dispatch } from "redux";
 import { FormControlTypeHack } from "../../types/utils";
 

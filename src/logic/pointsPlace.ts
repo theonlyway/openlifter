@@ -26,7 +26,7 @@
 import { getFinalEventTotalKg } from "./entry";
 
 // Import points formulas.
-import { getPoints, getAgeAdjustedPoints } from "./coefficients/coefficients";
+import { getAgeAdjustedPoints } from "./coefficients/coefficients";
 
 // Import age coefficients.
 import { checkExhausted } from "../types/utils";

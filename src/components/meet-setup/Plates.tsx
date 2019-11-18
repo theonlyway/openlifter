@@ -23,11 +23,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { FormattedMessage } from "react-intl";
 
-import FormControl from "react-bootstrap/FormControl";
-import FormGroup from "react-bootstrap/FormGroup";
 import Table from "react-bootstrap/Table";
-
-import ColorPicker from "./ColorPicker";
 
 import { setPlateConfig } from "../../actions/meetSetupActions";
 
@@ -37,7 +33,7 @@ import { displayWeight, kg2lbs } from "../../logic/units";
 import { Language, Plate } from "../../types/dataTypes";
 import { GlobalState } from "../../types/stateTypes";
 import { Dispatch } from "redux";
-import { FormControlTypeHack, isString } from "../../types/utils";
+import { isString } from "../../types/utils";
 import { isNumber } from "util";
 import PlateInput from "./PlateInput";
 

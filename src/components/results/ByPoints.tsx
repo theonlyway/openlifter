@@ -36,7 +36,7 @@ import {
 import { getString, localizeEquipment, localizeEvent, localizeSex } from "../../logic/strings";
 import { kg2lbs, displayNumber, displayPoints, displayWeight } from "../../logic/units";
 
-import { getPoints, getAgeAdjustedPoints } from "../../logic/coefficients/coefficients";
+import { getAgeAdjustedPoints } from "../../logic/coefficients/coefficients";
 
 import { PointsCategory, PointsCategoryResults } from "../../logic/pointsPlace";
 import { AgeCoefficients, Entry, Formula, Language, Sex } from "../../types/dataTypes";

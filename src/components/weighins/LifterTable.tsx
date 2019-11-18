@@ -61,7 +61,6 @@ class LifterTable extends React.Component<Props> {
 
     const inKg = this.props.inKg;
 
-    const units = inKg ? "Kg" : "Lbs";
     const bodyweightId = inKg ? "weigh-ins.bodyweight-header-kg" : "weigh-ins.bodyweight-header-lbs";
     const squatId = inKg ? "weigh-ins.squat-header-kg" : "weigh-ins.squat-header-lbs";
     const benchId = inKg ? "weigh-ins.bench-header-kg" : "weigh-ins.bench-header-lbs";

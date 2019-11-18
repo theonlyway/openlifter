@@ -27,9 +27,7 @@ import Card from "react-bootstrap/Card";
 import FormControl from "react-bootstrap/FormControl";
 
 import OneFlightOrder from "./OneFlightOrder";
-import OneCategory from "./OneCategory";
 
-import { getProjectedResults } from "../../logic/divisionPlace";
 import { getString } from "../../logic/strings";
 import { displayNumber } from "../../logic/units";
 
@@ -138,6 +136,9 @@ class FlightOrderView extends React.Component<Props, InternalState> {
       flightOrders.push(<OneFlightOrder key={id} flight={flight} entriesInFlight={entriesInFlight} />);
     }
 
+    // FIXME: Disable categories for the moment. They seem unhelpful.
+    // As far as I know, no one has paid them much attention.
+    /*
     // Look through the entries to discover what divisions exist.
     const categoryResults = getProjectedResults(
       shownEntries,
@@ -148,9 +149,6 @@ class FlightOrderView extends React.Component<Props, InternalState> {
     );
 
     let categories: Array<JSX.Element> = [];
-    // FIXME: Disable categories for the moment. They seem unhelpful.
-    // As far as I know, no one has paid them much attention.
-    /*
     for (let i = 0; i < categoryResults.length; i++) {
       const id = "" + this.state.day + "-" + this.state.platform + "-" + i;
       categories.push(<OneCategory key={id} platform={this.state.platform} categoryResults={categoryResults[i]} />);
@@ -188,7 +186,6 @@ class FlightOrderView extends React.Component<Props, InternalState> {
         </Card>
 
         {flightOrders}
-        {categories}
       </div>
     );
   }

@@ -108,7 +108,7 @@ export const getAge = (entry: Entry, meetDate: string): number => {
   if (years <= 0) return 0;
 
   // If their birthday occurred in the most recent year, just diff years.
-  if (bm < mm || (bm == mm && bd <= md)) {
+  if (bm < mm || (bm === mm && bd <= md)) {
     return years;
   }
 

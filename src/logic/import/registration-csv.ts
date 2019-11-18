@@ -23,13 +23,12 @@
 import { Csv, getSpreadsheetColumnName } from "../export/csv";
 import { newDefaultEntry } from "../entry";
 
-import { parseInteger, parseEquipment, parseEvent, parseSex, parseDate } from "../parsers";
+import { parseInteger, parseDate } from "../parsers";
 import { getString, delocalizeEquipment, delocalizeEvent, delocalizeFlight, delocalizeSex } from "../strings";
 import { displayNumber } from "../units";
 
-import { Entry, Flight, Language } from "../../types/dataTypes";
+import { Entry, Language } from "../../types/dataTypes";
 import { GlobalState } from "../../types/stateTypes";
-import { assertFlight } from "../../types/utils";
 
 // Generates a string representing a downloadable CSV file, for use as an example
 // of the registration format.

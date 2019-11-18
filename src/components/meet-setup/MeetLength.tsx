@@ -21,8 +21,6 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { FormattedMessage } from "react-intl";
 
-import Form from "react-bootstrap/Form";
-
 import NumberInput from "../common/NumberInput";
 
 import { setLengthDays } from "../../actions/meetSetupActions";
@@ -31,7 +29,6 @@ import { parseInteger } from "../../logic/parsers";
 
 import { Language, Validation } from "../../types/dataTypes";
 import { GlobalState } from "../../types/stateTypes";
-import { FormControlTypeHack, isString } from "../../types/utils";
 
 interface StateProps {
   lengthDays: number;

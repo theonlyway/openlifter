@@ -48,7 +48,7 @@ import { Entry, Equipment, Language } from "../../types/dataTypes";
 import { Dispatch } from "redux";
 import { GlobalState, MeetState } from "../../types/stateTypes";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlusSquare, faMinusSquare, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { faPlusSquare, faMinusSquare } from "@fortawesome/free-solid-svg-icons";
 
 interface OwnProps {
   id: number;

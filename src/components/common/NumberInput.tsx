@@ -19,7 +19,6 @@
 // This is a generic number input with a minus and a plus surrounding it
 
 import React, { FunctionComponent } from "react";
-import { FormattedMessage } from "react-intl";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
