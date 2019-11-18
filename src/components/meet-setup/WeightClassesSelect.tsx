@@ -141,7 +141,7 @@ class WeightClassesSelect extends React.Component<Props, InternalState> {
 
       // Disallow creating redundant classes.
       for (let i = 0; i < value.length; i++) {
-        if (Number(value[i].label) === asNumber) {
+        if (string2number(value[i].label) === asNumber) {
           // Silently drop the redundant weightclass.
           this.setState({ inputValue: "" });
           event.preventDefault();
