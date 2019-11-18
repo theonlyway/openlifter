@@ -140,7 +140,7 @@ class RegistrationView extends React.Component<Props, InternalState> {
       }
 
       let csv = new Csv();
-      const maybeError = csv.fromString(reader.result);
+      const maybeError = csv.fromString(reader.result.replace(/;/g, ","));
 
       // Check if an error message occurred.
       if (typeof maybeError === "string") {
