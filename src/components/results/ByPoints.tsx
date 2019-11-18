@@ -34,7 +34,7 @@ import {
   entryHasLifted
 } from "../../logic/entry";
 import { getString, localizeEquipment, localizeEvent, localizeSex } from "../../logic/strings";
-import { kg2lbs, displayNumber, displayPoints, displayWeight } from "../../logic/units";
+import { kg2lbs, displayNumber, displayPoints, displayWeight, displayPlaceOrdinal } from "../../logic/units";
 
 import { getAgeAdjustedPoints } from "../../logic/coefficients/coefficients";
 
@@ -97,7 +97,10 @@ class ByPoints extends React.Component<Props> {
     const language = this.props.language;
 
     // The place proceeds in order by key, except for DQ entries.
-    const rank = totalKg === 0 ? getString("results.lifter-disqualified", language) : displayNumber(key + 1, language);
+    const rank =
+      totalKg === 0
+        ? getString("results.lifter-disqualified", language)
+        : displayPlaceOrdinal(key + 1, entry, language);
 
     const points: number = getAgeAdjustedPoints(
       this.props.ageCoefficients,
@@ -196,7 +199,7 @@ class ByPoints extends React.Component<Props> {
       .replace("{event}", localizeEvent(category.event, language));
 
     return (
-      <Card key={key}>
+      <Card key={key} style={{ marginTop: "17px" }}>
         <Card.Header>{categoryString}</Card.Header>
         <Card.Body>
           <Table striped hover size="sm">

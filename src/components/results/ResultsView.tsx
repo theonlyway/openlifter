@@ -347,6 +347,7 @@ class ResultsView extends React.Component<Props, InternalState> {
           as="select"
           onChange={this.handleDayChange}
           className={`custom-select ${styles.dropdown}`}
+          style={{ marginRight: "15px" }}
         >
           {this.makeDayOptions()}
         </FormControl>
@@ -408,7 +409,6 @@ class ResultsView extends React.Component<Props, InternalState> {
               as="select"
               onChange={this.handleByChange}
               className={`custom-select ${styles.dropdown}`}
-              style={{ marginLeft: "14px" }}
             >
               <option value="Division">{getString("results.by-division", language)}</option>
               {this.props.global.meet.ageCoefficients !== "None" ? (

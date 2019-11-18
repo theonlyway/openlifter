@@ -29,7 +29,7 @@ import { getPoints } from "../../logic/coefficients/coefficients";
 import { getProjectedTotalKg, getFinalTotalKg, liftToAttemptFieldName, liftToStatusFieldName } from "../../logic/entry";
 
 import { getProjectedResults, getFinalResults } from "../../logic/divisionPlace";
-import { kg2lbs, displayWeight, displayPoints } from "../../logic/units";
+import { kg2lbs, displayWeight, displayPoints, displayPlaceOrdinal } from "../../logic/units";
 
 import { CategoryResults } from "../../logic/divisionPlace";
 import { Entry, Equipment, Language, Lift, Sex } from "../../types/dataTypes";
@@ -386,7 +386,8 @@ class LiftingTable extends React.Component<Props> {
             const catEntry = catEntries[j];
 
             if (catEntry.id === entry.id) {
-              return <td key={columnType}>{j + 1}</td>;
+              const ordinal = displayPlaceOrdinal(j + 1, entry, this.props.language);
+              return <td key={columnType}>{ordinal}</td>;
             }
           }
         }

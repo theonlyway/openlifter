@@ -16,7 +16,7 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { Language } from "../types/dataTypes";
+import { Entry, Language } from "../types/dataTypes";
 
 // Defines operations for converting between different units, usually
 // pounds and kg.
@@ -94,4 +94,16 @@ export const displayPoints = (points: number, lang: Language): string => {
 // This is intended for things like ages, day numbers, etc.
 export const displayNumber = (number: number, lang: Language): string => {
   return new Intl.NumberFormat(lang).format(number);
+};
+
+// Display an ordinal number representing a place.
+// In Spanish, Portuguese, and Italian, the ordinal differs based on the lifter's Sex.
+export const displayPlaceOrdinal = (number: number, entry: Entry, lang: Language): string => {
+  switch (lang) {
+    case "es":
+    case "pt":
+      return displayNumber(number, lang) + (entry.sex === "F" ? "ª" : "º");
+    default:
+      return displayNumber(number, lang);
+  }
 };

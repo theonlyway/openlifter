@@ -33,7 +33,7 @@ import {
   getFinalEventTotalKg,
   entryHasLifted
 } from "../../logic/entry";
-import { kg2lbs, displayWeight, displayPoints } from "../../logic/units";
+import { kg2lbs, displayWeight, displayPoints, displayPlaceOrdinal } from "../../logic/units";
 
 import { getString, localizeEquipment, localizeEvent, localizeWeightClassStr } from "../../logic/strings";
 import { getPoints } from "../../logic/coefficients/coefficients";
@@ -91,7 +91,10 @@ class ByDivision extends React.Component<Props> {
     const language = this.props.language;
 
     // The place proceeds in order by key, except for DQ entries.
-    const place = totalKg === 0 ? getString("results.lifter-disqualified", language) : key + 1;
+    const place =
+      totalKg === 0
+        ? getString("results.lifter-disqualified", language)
+        : displayPlaceOrdinal(key + 1, entry, this.props.language);
 
     const points: number = getPoints(this.props.formula, entry, category.event, totalKg, inKg);
 
@@ -213,7 +216,7 @@ class ByDivision extends React.Component<Props> {
       .replace("{event}", localizeEvent(category.event, language));
 
     return (
-      <Card key={key}>
+      <Card key={key} style={{ marginTop: "17px" }}>
         <Card.Header>{division}</Card.Header>
         <Card.Body>
           <Table hover size="sm">
