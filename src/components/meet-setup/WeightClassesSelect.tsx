@@ -21,7 +21,7 @@ import { connect } from "react-redux";
 
 import Form from "react-bootstrap/Form";
 
-import CreatableSelect from "react-select/lib/Creatable";
+import CreatableSelect from "react-select/creatable";
 
 import { getString } from "../../logic/strings";
 import { string2number, displayWeight } from "../../logic/units";
@@ -32,7 +32,7 @@ import { Language, Sex } from "../../types/dataTypes";
 import { GlobalState } from "../../types/stateTypes";
 import { checkExhausted } from "../../types/utils";
 import { Dispatch } from "redux";
-import { ActionMeta, ValueType } from "react-select/lib/types";
+import { ActionMeta, ValueType } from "react-select";
 
 const components = {
   DropdownIndicator: null

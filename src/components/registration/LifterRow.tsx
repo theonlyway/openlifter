@@ -33,7 +33,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
 import Accordion from "react-bootstrap/Accordion";
 
-import Select from "react-select";
+import Select, { ActionMeta } from "react-select";
 
 import { getString, localizeEvent } from "../../logic/strings";
 import LocalizedString from "../translations/LocalizedString";
@@ -43,7 +43,6 @@ import { validateIso8601Date } from "../../validation/iso8601Date";
 
 import { deleteRegistration, updateRegistration } from "../../actions/registrationActions";
 import { FormControlTypeHack, checkExhausted, assertString, assertFlight, assertSex } from "../../types/utils";
-import { ActionMeta } from "react-select/lib/types";
 import { Entry, Equipment, Language } from "../../types/dataTypes";
 import { Dispatch } from "redux";
 import { GlobalState, MeetState } from "../../types/stateTypes";

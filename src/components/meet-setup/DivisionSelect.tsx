@@ -22,7 +22,7 @@ import { FormattedMessage } from "react-intl";
 
 import Form from "react-bootstrap/Form";
 
-import CreatableSelect from "react-select/lib/Creatable";
+import CreatableSelect from "react-select/creatable";
 
 import { getString } from "../../logic/strings";
 
@@ -31,7 +31,7 @@ import { setDivisions } from "../../actions/meetSetupActions";
 import { GlobalState } from "../../types/stateTypes";
 import { Language } from "../../types/dataTypes";
 import { Dispatch } from "redux";
-import { ActionMeta, ValueType } from "react-select/lib/types";
+import { ActionMeta, ValueType } from "react-select";
 
 const components = {
   DropdownIndicator: null
