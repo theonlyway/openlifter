@@ -50,7 +50,6 @@ import { Language, Validation } from "../../types/dataTypes";
 
 interface StateProps {
   meet: MeetState;
-  masterKey: string; // Used to force-update rules components on Auto-Fill.
   language: Language;
 }
 
@@ -70,7 +69,22 @@ interface DispatchProps {
 
 type Props = StateProps & DispatchProps;
 
-class MeetSetup extends React.Component<Props> {
+interface InternalState {
+  // This is a number used to derive a `key` for many widgets.
+  // Incrementing the ticker can be used to force a re-render.
+  // This is used to re-render things after the "Auto-Fill" button is pressed.
+  ticker: number;
+}
+
+class MeetSetup extends React.Component<Props, InternalState> {
+  constructor(props: Props) {
+    super(props);
+
+    this.state = {
+      ticker: 0
+    };
+  }
+
   validateRequiredText = (value?: string): Validation => {
     if (!value) return "warning";
     if (value.includes('"')) return "error";
@@ -175,13 +189,13 @@ class MeetSetup extends React.Component<Props> {
                 <FormattedMessage id="meet-setup.header-rules" defaultMessage="Competition Rules" />
               </Card.Header>
               <Card.Body>
-                <AutoFillRules />
-                <DivisionSelect key={this.props.masterKey} />
-                <WeightClassesSelect sex="M" label={stringMensClasses} key={this.props.masterKey + "-M"} />
-                <WeightClassesSelect sex="F" label={stringWomensClasses} key={this.props.masterKey + "-F"} />
-                <WeightClassesSelect sex="Mx" label={stringMxClasses} key={this.props.masterKey + "-Mx"} />
+                <AutoFillRules onChange={() => this.setState({ ticker: this.state.ticker + 1 })} />
+                <DivisionSelect key={this.state.ticker + "-divselect"} />
+                <WeightClassesSelect sex="M" label={stringMensClasses} key={this.state.ticker + "-M"} />
+                <WeightClassesSelect sex="F" label={stringWomensClasses} key={this.state.ticker + "-F"} />
+                <WeightClassesSelect sex="Mx" label={stringMxClasses} key={this.state.ticker + "-Mx"} />
 
-                <FormGroup key={this.props.masterKey + "-formula"}>
+                <FormGroup key={this.state.ticker + "-formula"}>
                   <Form.Label>
                     <FormattedMessage id="meet-setup.formula" defaultMessage="Best Lifter Formula" />
                   </Form.Label>
@@ -203,7 +217,7 @@ class MeetSetup extends React.Component<Props> {
                   </FormControl>
                 </FormGroup>
 
-                <FormGroup key={this.props.masterKey + "-ageCoefficients"}>
+                <FormGroup key={this.state.ticker + "-ageCoefficients"}>
                   <Form.Label>
                     <FormattedMessage
                       id="meet-setup.age-coefficients"
@@ -225,7 +239,7 @@ class MeetSetup extends React.Component<Props> {
                   </FormControl>
                 </FormGroup>
 
-                <FormGroup key={this.props.masterKey + "-sleeves-wraps"}>
+                <FormGroup key={this.state.ticker + "-sleeves-wraps"}>
                   <YesNoButton
                     label={
                       <FormattedMessage
@@ -240,7 +254,7 @@ class MeetSetup extends React.Component<Props> {
                   />
                 </FormGroup>
 
-                <FormGroup key={this.props.masterKey + "-4th-attempts"}>
+                <FormGroup key={this.state.ticker + "-4th-attempts"}>
                   <YesNoButton
                     label={
                       <FormattedMessage
@@ -304,7 +318,6 @@ class MeetSetup extends React.Component<Props> {
 
 const mapStateToProps = (state: GlobalState): StateProps => ({
   meet: state.meet,
-  masterKey: state.meet.divisions.join(),
   language: state.language
 });
 

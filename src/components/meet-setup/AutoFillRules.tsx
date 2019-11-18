@@ -45,7 +45,12 @@ interface DispatchProps {
   updateMeet: (changes: Partial<MeetState>) => void;
 }
 
-type Props = StateProps & DispatchProps;
+interface OwnProps {
+  // Used by the MeetSetup component to cause component updates.
+  onChange: () => void;
+}
+
+type Props = StateProps & DispatchProps & OwnProps;
 
 type AutoFillOption = "Traditional" | "GPC" | "SPF" | "UPA" | "USAPL" | "USPA" | "WABDL" | "WPC" | "WRPF";
 
@@ -958,30 +963,39 @@ class AutoFillRules extends React.Component<Props, InternalState> {
     switch (this.state.selectedOption) {
       case "Traditional":
         this.props.updateMeet(traditionalDefaults);
+        this.props.onChange();
         return;
       case "GPC":
         this.props.updateMeet(gpcDefaults);
+        this.props.onChange();
         return;
       case "SPF":
         this.props.updateMeet(spfDefaults);
+        this.props.onChange();
         return;
       case "UPA":
         this.props.updateMeet(upaDefaults);
+        this.props.onChange();
         return;
       case "USAPL":
         this.props.updateMeet(usaplDefaults);
+        this.props.onChange();
         return;
       case "USPA":
         this.props.updateMeet(uspaDefaults);
+        this.props.onChange();
         return;
       case "WABDL":
         this.props.updateMeet(wabdlDefaults);
+        this.props.onChange();
         return;
       case "WPC":
         this.props.updateMeet(wpcDefaults);
+        this.props.onChange();
         return;
       case "WRPF":
         this.props.updateMeet(wrpfDefaults);
+        this.props.onChange();
         return;
       default:
         checkExhausted(this.state.selectedOption);
