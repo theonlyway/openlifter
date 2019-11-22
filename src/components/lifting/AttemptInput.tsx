@@ -189,7 +189,4 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
     dispatch(enterAttempt(entryId, lift, attemptOneIndexed, weightKg))
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(AttemptInput);
+export default connect(mapStateToProps, mapDispatchToProps)(AttemptInput);

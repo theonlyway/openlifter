@@ -102,7 +102,4 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(LanguageSelector);
+export default connect(mapStateToProps, mapDispatchToProps)(LanguageSelector);

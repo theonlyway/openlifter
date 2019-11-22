@@ -153,7 +153,4 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(RandomizeMeetSetupButton);
+export default connect(mapStateToProps, mapDispatchToProps)(RandomizeMeetSetupButton);

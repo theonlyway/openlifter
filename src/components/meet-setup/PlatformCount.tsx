@@ -115,7 +115,4 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(PlatformCount);
+export default connect(mapStateToProps, mapDispatchToProps)(PlatformCount);

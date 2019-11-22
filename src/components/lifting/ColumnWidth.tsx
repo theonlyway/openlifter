@@ -131,7 +131,4 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ColumnWidth);
+export default connect(mapStateToProps, mapDispatchToProps)(ColumnWidth);

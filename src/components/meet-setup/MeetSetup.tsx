@@ -341,7 +341,4 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
     dispatch(updateMeet({ ageCoefficients: event.currentTarget.value }))
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(MeetSetup);
+export default connect(mapStateToProps, mapDispatchToProps)(MeetSetup);

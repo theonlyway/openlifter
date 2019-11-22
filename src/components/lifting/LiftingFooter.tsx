@@ -446,7 +446,4 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(LiftingFooter);
+export default connect(mapStateToProps, mapDispatchToProps)(LiftingFooter);

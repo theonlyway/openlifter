@@ -70,7 +70,4 @@ class OneCategory extends React.Component<Props> {
   }
 }
 
-export default connect(
-  null,
-  null
-)(OneCategory);
+export default connect(null, null)(OneCategory);

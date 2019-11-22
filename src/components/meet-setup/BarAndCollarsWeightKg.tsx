@@ -158,7 +158,4 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(BarAndCollarsWeightKg);
+export default connect(mapStateToProps, mapDispatchToProps)(BarAndCollarsWeightKg);

@@ -335,7 +335,4 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(RandomizeRegistrationButton);
+export default connect(mapStateToProps, mapDispatchToProps)(RandomizeRegistrationButton);

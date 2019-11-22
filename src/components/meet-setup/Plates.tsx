@@ -150,7 +150,4 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Plates);
+export default connect(mapStateToProps, mapDispatchToProps)(Plates);

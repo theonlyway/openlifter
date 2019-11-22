@@ -152,7 +152,4 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
     dispatch(enterAttempt(entryId, lift, attemptOneIndexed, weightKg))
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(RandomizeWeighinsButton);
+export default connect(mapStateToProps, mapDispatchToProps)(RandomizeWeighinsButton);

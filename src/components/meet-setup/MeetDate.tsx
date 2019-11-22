@@ -108,7 +108,4 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(MeetDate);
+export default connect(mapStateToProps, mapDispatchToProps)(MeetDate);

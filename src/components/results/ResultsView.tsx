@@ -463,7 +463,4 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ResultsView);
+export default connect(mapStateToProps, mapDispatchToProps)(ResultsView);

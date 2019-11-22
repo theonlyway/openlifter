@@ -212,7 +212,4 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(WeightClassesSelect);
+export default connect(mapStateToProps, mapDispatchToProps)(WeightClassesSelect);

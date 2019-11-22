@@ -60,7 +60,4 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   };
 };
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(NewButton);
+export default connect(null, mapDispatchToProps)(NewButton);

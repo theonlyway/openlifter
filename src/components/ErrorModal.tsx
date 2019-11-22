@@ -61,7 +61,4 @@ class ErrorModal extends React.Component<Props> {
   }
 }
 
-export default connect(
-  null,
-  null
-)(ErrorModal);
+export default connect(null, null)(ErrorModal);

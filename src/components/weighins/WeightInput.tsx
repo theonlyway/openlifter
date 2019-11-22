@@ -191,7 +191,4 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(WeightInput);
+export default connect(mapStateToProps, mapDispatchToProps)(WeightInput);

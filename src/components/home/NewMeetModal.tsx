@@ -113,7 +113,4 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(NewMeetModal);
+export default connect(mapStateToProps, mapDispatchToProps)(NewMeetModal);

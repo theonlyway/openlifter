@@ -268,7 +268,4 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(LifterRow);
+export default connect(mapStateToProps, mapDispatchToProps)(LifterRow);
