@@ -53,7 +53,4 @@ const mapStateToProps = (state: GlobalState): StateProps => ({
   lengthDays: state.meet.lengthDays
 });
 
-export default connect(
-  mapStateToProps,
-  null
-)(PlatformCounts);
+export default connect(mapStateToProps)(PlatformCounts);

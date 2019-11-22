@@ -106,7 +106,4 @@ const mapStateToProps = (state: GlobalState): StateProps => ({
   language: state.language
 });
 
-export default connect(
-  mapStateToProps,
-  null
-)(LifterTable);
+export default connect(mapStateToProps)(LifterTable);

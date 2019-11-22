@@ -54,7 +54,4 @@ const mapStateToProps = (state: GlobalState): StateProps => ({
   language: state.language
 });
 
-export default connect(
-  mapStateToProps,
-  null
-)(OpenLifterIntlProvider);
+export default connect(mapStateToProps)(OpenLifterIntlProvider);

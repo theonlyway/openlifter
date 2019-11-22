@@ -284,7 +284,4 @@ const mapStateToProps = (state: GlobalState, ownProps: OwnProps): StateProps => 
   };
 };
 
-export default connect(
-  mapStateToProps,
-  null
-)(ByDivision);
+export default connect(mapStateToProps)(ByDivision);

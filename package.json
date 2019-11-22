@@ -63,8 +63,8 @@
     "@types/react-router-bootstrap": "^0.24.5",
     "@types/react-select": "^3.0.8",
     "@types/redux-mock-store": "^1.0.1",
-    "@typescript-eslint/eslint-plugin": "^1.13.0",
-    "@typescript-eslint/parser": "^1.13.0",
+    "@typescript-eslint/eslint-plugin": "^2.8.0",
+    "@typescript-eslint/parser": "^2.8.0",
     "bootstrap": "4.3",
     "concurrently": "^4.1.0",
     "electron": "^6.0",
@@ -78,7 +78,7 @@
     "react-router-bootstrap": "^0.25.0",
     "redux-mock-store": "^1.5.3",
     "rimraf": "^3.0.0",
-    "typescript": "^3.5.3",
+    "typescript": "^3.7.2",
     "typescript-react-intl": "^0.4.0",
     "wait-on": "^3.2.0"
   }

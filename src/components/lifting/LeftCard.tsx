@@ -212,7 +212,4 @@ const mapStateToProps = (state: GlobalState): StateProps => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  null
-)(LeftCard);
+export default connect(mapStateToProps)(LeftCard);

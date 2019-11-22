@@ -143,7 +143,4 @@ const mapStateToProps = (state: GlobalState, ownProps: OwnProps): StateProps => 
   return { entries };
 };
 
-export default connect(
-  mapStateToProps,
-  null
-)(WeighinsView);
+export default connect(mapStateToProps)(WeighinsView);

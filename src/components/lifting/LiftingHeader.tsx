@@ -89,7 +89,4 @@ const mapStateToProps = (state: GlobalState): StateProps => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  null
-)(LiftingHeader);
+export default connect(mapStateToProps)(LiftingHeader);

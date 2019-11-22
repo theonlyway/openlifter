@@ -75,7 +75,4 @@ const mapStateToProps = (state: GlobalState) => ({
   ...state
 });
 
-export default connect(
-  mapStateToProps,
-  null
-)(StateTools);
+export default connect(mapStateToProps)(StateTools);

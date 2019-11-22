@@ -199,7 +199,4 @@ const mapStateToProps = (state: GlobalState): StateProps => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  null
-)(FlightOrderView);
+export default connect(mapStateToProps)(FlightOrderView);

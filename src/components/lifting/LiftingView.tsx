@@ -178,7 +178,4 @@ const mapStateToProps = (state: GlobalState): StateProps => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  null
-)(LiftingView);
+export default connect(mapStateToProps)(LiftingView);

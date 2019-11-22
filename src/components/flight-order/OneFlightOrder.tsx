@@ -280,7 +280,4 @@ const mapStateToProps = (state: GlobalState): StateProps => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  null
-)(OneFlightOrder);
+export default connect(mapStateToProps)(OneFlightOrder);

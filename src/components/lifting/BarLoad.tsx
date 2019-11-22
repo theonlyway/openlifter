@@ -219,7 +219,4 @@ const mapStateToProps = (state: GlobalState): StateProps => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  null
-)(BarLoad);
+export default connect(mapStateToProps)(BarLoad);

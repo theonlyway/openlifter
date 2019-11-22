@@ -315,7 +315,4 @@ const mapStateToProps = (state: GlobalState, ownProps: OwnProps): StateProps => 
   };
 };
 
-export default connect(
-  mapStateToProps,
-  null
-)(ByPoints);
+export default connect(mapStateToProps)(ByPoints);
