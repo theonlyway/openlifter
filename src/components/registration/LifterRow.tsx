@@ -306,7 +306,6 @@ class LifterRow extends React.Component<Props, InternalState> {
     const stringCountry = getString("common.country", language);
     const stringState = getString("registration.state-province", language);
     const stringBirthDatePlaceholder = getString("registration.birthdate-placeholder", language);
-    const stringAgePlaceholder = getString("common.age", language);
     const stringMemberIdPlaceholder = getString("registration.member-id-placeholder", language);
     const stringSelectPlaceholder = getString("common.select-placeholder", language);
 
@@ -522,11 +521,11 @@ class LifterRow extends React.Component<Props, InternalState> {
                   <Col md={1}>
                     <Form.Group>
                       <Form.Label>
-                        <FormattedMessage id="registration.age-label" defaultMessage="Age" />
+                        {getString("common.age", language)}
                       </Form.Label>
                       <ValidatedInput
                         initialValue={entry.age === 0 ? "" : displayNumber(entry.age, language)}
-                        placeholder={stringAgePlaceholder}
+                        placeholder={getString("common.age", language)}
                         validate={this.validateAge}
                         onSuccess={this.updateRegistrationAge}
                       />
