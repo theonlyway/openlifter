@@ -10,13 +10,15 @@
 </noscript>
 
 <script type="text/javascript">
+(function() {
 if (typeof navigator.languages === "object") {
   var k = ["de","en","eo","hr","nl","pt","zh-Hans"];
   var l = navigator.languages;
   for (var i=0; i<l.length; ++i) {
-    if (k.indexOf(l[i])>=0) window.location.href = "/"+l[i];
+    if (k.indexOf(l[i])>=0) { window.location.href = "/"+l[i]; return; }
   }
 }
 window.location.href = "/en";
+})();
 </script>
 </head></html>
