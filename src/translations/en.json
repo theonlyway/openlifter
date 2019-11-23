@@ -245,6 +245,7 @@
   "nav.registration": "Registration",
   "nav.results": "Results",
   "nav.weigh-ins": "Weigh-ins",
+  "registration.age-label": "Age",
   "registration.auto-import-card-header": "Auto-Import Registrations",
   "registration.birthdate-label": "Date of Birth",
   "registration.birthdate-placeholder": "YYYY-MM-DD",

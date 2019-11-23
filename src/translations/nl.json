@@ -245,6 +245,7 @@
   "nav.registration": "Registratie",
   "nav.results": "Resultaten",
   "nav.weigh-ins": "Inwegen",
+  "registration.age-label": "Age",
   "registration.auto-import-card-header": "Automatische import van registraties",
   "registration.birthdate-label": "Geboortedatum",
   "registration.birthdate-placeholder": "YYYY-MM-DD",

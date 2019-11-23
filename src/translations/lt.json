@@ -245,6 +245,7 @@
   "nav.registration": "Registracija",
   "nav.results": "Rezultatai",
   "nav.weigh-ins": "Svėrimas",
+  "registration.age-label": "Age",
   "registration.auto-import-card-header": "Automatiškai Sukelti Registracijas",
   "registration.birthdate-label": "Gimimo Data",
   "registration.birthdate-placeholder": "YYYY-MM-DD",

@@ -36,14 +36,16 @@ import Accordion from "react-bootstrap/Accordion";
 import Select, { ActionMeta } from "react-select";
 
 import { getString, localizeEvent } from "../../logic/strings";
+import { displayNumber, string2number } from "../../logic/units";
 import LocalizedString from "../translations/LocalizedString";
 import ValidatedInput from "../ValidatedInput";
 
 import { validateIso8601Date } from "../../validation/iso8601Date";
+import { validatePositiveInteger } from "../../validation/positiveInteger";
 
 import { deleteRegistration, updateRegistration } from "../../actions/registrationActions";
 import { FormControlTypeHack, checkExhausted, assertString, assertFlight, assertSex } from "../../types/utils";
-import { Entry, Equipment, Language } from "../../types/dataTypes";
+import { Entry, Equipment, Language, Validation } from "../../types/dataTypes";
 import { Dispatch } from "redux";
 import { GlobalState, MeetState } from "../../types/stateTypes";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -86,6 +88,7 @@ class LifterRow extends React.Component<Props, InternalState> {
     this.updateRegistrationLot = this.updateRegistrationLot.bind(this);
     this.updateRegistrationMemberId = this.updateRegistrationMemberId.bind(this);
     this.updateRegistrationBirthDate = this.updateRegistrationBirthDate.bind(this);
+    this.updateRegistrationAge = this.updateRegistrationAge.bind(this);
     this.updateRegistrationCountry = this.updateRegistrationCountry.bind(this);
     this.updateRegistrationState = this.updateRegistrationState.bind(this);
     this.updateRegistrationDivisions = this.updateRegistrationDivisions.bind(this);
@@ -145,7 +148,7 @@ class LifterRow extends React.Component<Props, InternalState> {
   }
 
   updateRegistrationLot = (lot: string) => {
-    const asNumber = Number(lot);
+    const asNumber = string2number(lot);
     if (asNumber >= 0 && asNumber !== this.props.entry.lot) {
       this.props.updateRegistration(this.props.id, { lot: asNumber });
     }
@@ -161,6 +164,13 @@ class LifterRow extends React.Component<Props, InternalState> {
   updateRegistrationBirthDate = (birthDate: string) => {
     if (this.props.entry.birthDate !== birthDate) {
       this.props.updateRegistration(this.props.id, { birthDate: birthDate });
+    }
+  };
+
+  updateRegistrationAge = (age: string) => {
+    const num = string2number(age);
+    if (this.props.entry.age !== num) {
+      this.props.updateRegistration(this.props.id, { age: num });
     }
   };
 
@@ -237,6 +247,19 @@ class LifterRow extends React.Component<Props, InternalState> {
     }
   };
 
+  // FIXME: Could be shared with weighins logic.
+  validateAge = (value?: string): Validation => {
+    if (value === "") return null;
+
+    const pos: Validation = validatePositiveInteger(value);
+    if (pos === "success") {
+      // Complain a little if the age is implausible.
+      const n = Number(value);
+      if (n <= 4 || n > 100) return "warning";
+    }
+    return pos;
+  };
+
   render() {
     const entry = this.props.entry;
     const language = this.props.language;
@@ -283,6 +306,7 @@ class LifterRow extends React.Component<Props, InternalState> {
     const stringCountry = getString("common.country", language);
     const stringState = getString("registration.state-province", language);
     const stringBirthDatePlaceholder = getString("registration.birthdate-placeholder", language);
+    const stringAgePlaceholder = getString("common.age", language);
     const stringMemberIdPlaceholder = getString("registration.member-id-placeholder", language);
     const stringSelectPlaceholder = getString("common.select-placeholder", language);
 
@@ -494,6 +518,21 @@ class LifterRow extends React.Component<Props, InternalState> {
                     </Form.Group>
                   </Col>
 
+                  {/* Age */}
+                  <Col md={1}>
+                    <Form.Group>
+                      <Form.Label>
+                        <FormattedMessage id="registration.age-label" defaultMessage="Age" />
+                      </Form.Label>
+                      <ValidatedInput
+                        initialValue={entry.age === 0 ? "" : displayNumber(entry.age, language)}
+                        placeholder={stringAgePlaceholder}
+                        validate={this.validateAge}
+                        onSuccess={this.updateRegistrationAge}
+                      />
+                    </Form.Group>
+                  </Col>
+
                   {/* Member ID */}
                   <Col md={2}>
                     <Form.Group>
@@ -556,7 +595,7 @@ class LifterRow extends React.Component<Props, InternalState> {
                   </Col>
 
                   {/* Notes */}
-                  <Col md={4}>
+                  <Col md={3}>
                     <Form.Group>
                       <Form.Label>
                         <FormattedMessage id="registration.team-label" defaultMessage="Team" />

@@ -245,6 +245,7 @@
   "nav.registration": "Cadastro",
   "nav.results": "Resultados",
   "nav.weigh-ins": "Pesagens",
+  "registration.age-label": "Age",
   "registration.auto-import-card-header": "Importar Cadastros Automaticamente",
   "registration.birthdate-label": "Data de Nascimento",
   "registration.birthdate-placeholder": "AAAA-MM-DD",

@@ -245,6 +245,7 @@
   "nav.registration": "Registracije",
   "nav.results": "Rezultati",
   "nav.weigh-ins": "Vaganje",
+  "registration.age-label": "Age",
   "registration.auto-import-card-header": "Automatski uvoz registracija",
   "registration.birthdate-label": "Datum rođenja",
   "registration.birthdate-placeholder": "YYYY-MM-DD",
