@@ -35,9 +35,11 @@ import DebugContainer from "./containers/DebugContainer";
 import AboutContainer from "./containers/AboutContainer";
 import Navigation from "./components/Navigation";
 
+import { getDefaultLanguage } from "./logic/strings";
+
 class App extends React.Component {
   render() {
-    let { store, persistor } = configureStore();
+    let { store, persistor } = configureStore({ language: getDefaultLanguage() });
 
     return (
       // Provider is a React component from the react-redux library.

@@ -189,3 +189,24 @@ export const localizeWeightClassStr = (wtcls: string, language: Language): strin
   if (asNumber === 0) return "";
   return displayWeight(asNumber, language) + (isSHW ? "+" : "");
 };
+
+// Negotiates the default language with the navigator, if possible.
+export const getDefaultLanguage = (): Language => {
+  const defaultLanguage: Language = "en";
+
+  // Make sure that we're in a modern browser.
+  if (typeof navigator !== "object" || typeof navigator.languages !== "object") {
+    return defaultLanguage;
+  }
+
+  // Iterate over the available languages looking for the first match.
+  const languages: ReadonlyArray<string> = navigator.languages;
+  for (let i = 0; i < languages.length; ++i) {
+    const language = languages[i];
+    if (language in translations) {
+      return language as Language;
+    }
+  }
+
+  return defaultLanguage;
+};

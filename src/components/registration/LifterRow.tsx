@@ -520,9 +520,7 @@ class LifterRow extends React.Component<Props, InternalState> {
                   {/* Age */}
                   <Col md={1}>
                     <Form.Group>
-                      <Form.Label>
-                        {getString("common.age", language)}
-                      </Form.Label>
+                      <Form.Label>{getString("common.age", language)}</Form.Label>
                       <ValidatedInput
                         initialValue={entry.age === 0 ? "" : displayNumber(entry.age, language)}
                         placeholder={getString("common.age", language)}
