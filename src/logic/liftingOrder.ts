@@ -23,7 +23,7 @@ import { LiftingState } from "../types/stateTypes";
 
 // Helper function: for a given entry, see what attempt number would be next.
 //
-// Returns a number >1 if the entry is still lifting, representing the next attempt.
+// Returns a number >= 1 if the entry is still lifting, representing the next attempt.
 // Returns zero if the entry does not have any pending attempts.
 const getNextAttemptNumberForEntry = (entry: Entry, fieldKg: FieldKg, fieldStatus: FieldStatus): number => {
   const weightsKg = entry[fieldKg];
@@ -33,6 +33,22 @@ const getNextAttemptNumberForEntry = (entry: Entry, fieldKg: FieldKg, fieldStatu
   // looking for the first attempt that meets the criteria.
   for (var i = MAX_ATTEMPTS - 1; i >= 0; i--) {
     if (weightsKg[i] !== 0 && statuses[i] === 0) {
+      return i + 1;
+    }
+  }
+  return 0;
+};
+
+// Helper function: for a given entry, see the maximum attempt number made.
+//
+// Returns a number >= 1 representing the highest-numbered attempt attempted.
+// Returns zero if the entry has not attempted any attempts.
+const getMaxAttemptNumberForEntry = (entry: Entry, fieldKg: FieldKg, fieldStatus: FieldStatus): number => {
+  const weightsKg = entry[fieldKg];
+  const statuses = entry[fieldStatus];
+
+  for (var i = MAX_ATTEMPTS - 1; i >= 0; i--) {
+    if (weightsKg[i] !== 0 && statuses[i] !== 0) {
       return i + 1;
     }
   }
@@ -69,11 +85,37 @@ const getActiveAttemptNumber = (entriesInFlight: Array<Entry>, lifting: LiftingS
     }
   }
 
-  // In the case of no pending lifts, just default to first attempt.
-  if (earliestAttemptOneIndexed === MAX_ATTEMPTS + 1) {
-    return 1;
+  // The lowest pending attempt number is the current one.
+  if (earliestAttemptOneIndexed < MAX_ATTEMPTS + 1) {
+    return earliestAttemptOneIndexed;
   }
-  return earliestAttemptOneIndexed;
+
+  // In the case of no pending lifts, try to helpfully infer the next attempt.
+  let latestAttemptOneIndexed = 0;
+  for (var i = 0; i < entriesInFlight.length; i++) {
+    const entry = entriesInFlight[i];
+    const max = getMaxAttemptNumberForEntry(entry, fieldKg, fieldStatus);
+    // Zero return value means "no attempted attempts for this entry."
+    if (max > latestAttemptOneIndexed) {
+      latestAttemptOneIndexed = max;
+    }
+  }
+
+  // If >0, we know there are no pending attempts, and we know that everyone
+  // has taken all of the Nth attempt. So we should display the (N+1)th attempt.
+  if (latestAttemptOneIndexed > 0) {
+    // Don't auto-advance from 3rd to 4th attempts.
+    // However, if we're already on 4th attempts, stay there.
+    if (latestAttemptOneIndexed + 1 >= 4) {
+      return latestAttemptOneIndexed;
+    }
+
+    // Roll-over to the next attempt (with no pending entries).
+    return latestAttemptOneIndexed + 1;
+  }
+
+  // Otherwise, just default to the first attempt.
+  return 1;
 };
 
 // Helper function for recursive comparison.
