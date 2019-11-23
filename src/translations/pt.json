@@ -119,7 +119,7 @@
   "home.new-meet-popup-title": "OK para limpar {meetName}?",
   "home.version-date": "Versão {releaseVersion}, {releaseDate}.",
   "home.wrong-version-warning": "A competição carregada foi criada no OpenLifter {oldVersion}. Este formato é incompatível com o OpenLifter {thisVersion}.",
-  "import.column-age": "Age",
+  "import.column-age": "Idade",
   "import.column-birthdate": "DataDeNascimento",
   "import.column-country": "País",
   "import.column-day": "Dia",

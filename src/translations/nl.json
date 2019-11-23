@@ -119,7 +119,7 @@
   "home.new-meet-popup-title": "OK to clear {meetName}?",
   "home.version-date": "Versie {releaseVersion}, {releaseDate}",
   "home.wrong-version-warning": "The loaded meet was made in OpenLifter {oldVersion}. That format is incompatible with OpenLifter {thisVersion}.",
-  "import.column-age": "Age",
+  "import.column-age": "Leeftijd",
   "import.column-birthdate": "Verjaardag",
   "import.column-country": "Land",
   "import.column-day": "Dag",
