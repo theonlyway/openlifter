@@ -119,6 +119,7 @@
   "home.new-meet-popup-title": "Ĉu ĝustas vakigi na {meetName}?",
   "home.version-date": "La {releaseVersion} versio, kreita {releaseDate}.",
   "home.wrong-version-warning": "Ĉi-tiu konkurso estas kreita de OpenLifter {oldVersion}. Tiu formato neakordas kun OpenLifter {thisVersion}.",
+  "import.column-age": "Age",
   "import.column-birthdate": "Naskiĝtago",
   "import.column-country": "Lando",
   "import.column-day": "Tago",

@@ -119,6 +119,7 @@
   "home.new-meet-popup-title": "Soll {meetName} gelöscht werden?",
   "home.version-date": "Version {releaseVersion}, {releaseDate}.",
   "home.wrong-version-warning": "Der geladene Wettkamof wurde in OpenLifter {oldVersion} erstellt. Das Format ist nicht mit OpenLifter {thisVersion} kompatibel.",
+  "import.column-age": "Age",
   "import.column-birthdate": "Geburtsdatum",
   "import.column-country": "Land",
   "import.column-day": "Tag",

@@ -119,6 +119,7 @@
   "home.new-meet-popup-title": "¿Estás seguro/a de querer borrar {meetName}?",
   "home.version-date": "Versión {releaseVersion}, {releaseDate}",
   "home.wrong-version-warning": "El campeonato cargado se creó en OpenLifter {oldVersion}. Este formato es incompatible con OpenLifter {thisVersion}.",
+  "import.column-age": "Age",
   "import.column-birthdate": "Fecha de nacimiento",
   "import.column-country": "País",
   "import.column-day": "Día",

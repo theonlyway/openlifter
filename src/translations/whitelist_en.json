@@ -133,6 +133,7 @@
   "import.column-division-n",
   "import.column-event-n",
   "import.column-birthdate",
+  "import.column-age",
   "import.column-memberid",
   "import.column-country",
   "import.column-state",

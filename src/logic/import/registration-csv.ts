@@ -52,6 +52,7 @@ export const makeExampleRegistrationsCsv = (language: Language): string => {
   const event2 = getString("import.column-event-n", language).replace("{N}", "2");
   const event3 = getString("import.column-event-n", language).replace("{N}", "3");
   const birthdate = getString("import.column-birthdate", language);
+  const age = getString("import.column-age", language);
   const memberid = getString("import.column-memberid", language);
   const country = getString("import.column-country", language);
   const state = getString("import.column-state", language);
@@ -62,7 +63,8 @@ export const makeExampleRegistrationsCsv = (language: Language): string => {
 
   csv.appendColumns([day, platform, flight, name, sex, equipment]);
   csv.appendColumns([division1, division2, division3, event1, event2, event3]);
-  csv.appendColumns([birthdate, memberid, country, state, lot, team, instagram, notes]);
+  csv.appendColumns([birthdate, age, memberid, country, state]);
+  csv.appendColumns([lot, team, instagram, notes]);
 
   csv.rows[0][csv.index(day)] = "1";
   csv.rows[0][csv.index(platform)] = "1";
@@ -77,6 +79,7 @@ export const makeExampleRegistrationsCsv = (language: Language): string => {
   csv.rows[0][csv.index(event2)] = getString("event.bd", language);
   // Intentionally blank: csv.rows[0][csv.index(event3)]
   csv.rows[0][csv.index(birthdate)] = getString("import.example-birthdate", language);
+  // Intentionally blank: csv.rows[0][csv.index(age)]
   // Intentionally blank: csv.rows[0][csv.index(memberid)]
   csv.rows[0][csv.index(country)] = getString("import.example-country", language);
   csv.rows[0][csv.index(state)] = getString("import.example-state", language);
@@ -115,6 +118,7 @@ export const loadRegistrations = (state: GlobalState, csv: Csv, language: Langua
   const col_event4 = event_template.replace("{N}", "4");
   const col_event5 = event_template.replace("{N}", "5");
   const col_birthdate = getString("import.column-birthdate", language);
+  const col_age = getString("import.column-age", language);
   const col_memberid = getString("import.column-memberid", language);
   const col_country = getString("import.column-country", language);
   const col_state = getString("import.column-state", language);
@@ -144,6 +148,7 @@ export const loadRegistrations = (state: GlobalState, csv: Csv, language: Langua
     col_event4,
     col_event5,
     col_birthdate,
+    col_age,
     col_memberid,
     col_country,
     col_state,
@@ -413,6 +418,17 @@ export const loadRegistrations = (state: GlobalState, csv: Csv, language: Langua
           }
 
           entry.birthDate = bd;
+        }
+      } else if (fieldname === col_age) {
+        // Age is optional.
+        if (val !== "") {
+          const integer = parseInteger(val);
+          if (typeof integer !== "number" || integer < 1) {
+            return errprefix + getString("error.csv-field-empty-or-positive", language);
+          }
+
+          // All checks passed!
+          entry.age = integer;
         }
       } else if (fieldname === col_memberid) {
         entry.memberId = val;

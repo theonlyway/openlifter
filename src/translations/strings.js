@@ -210,6 +210,7 @@ strings = strings.concat([
   { id: "import.column-division-n", defaultMessage: "Division{N}" },
   { id: "import.column-event-n", defaultMessage: "Event{N}" },
   { id: "import.column-birthdate", defaultMessage: "BirthDate" },
+  { id: "import.column-age", defaultMessage: "Age" },
   { id: "import.column-memberid", defaultMessage: "MemberID" },
   { id: "import.column-country", defaultMessage: "Country" },
   { id: "import.column-state", defaultMessage: "State" },
