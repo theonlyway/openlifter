@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8" />
+<title>OpenLifter Redirect</title>
+<meta name="robots" content="noindex">
+
+<noscript>
+<link rel="canonical" href="/en"/>
+<meta http-equiv="refresh" content="0; url=/en" />
+</noscript>
+
+<script type="text/javascript">
+if (typeof navigator.languages === "object") {
+  var k = ["de","en","eo","hr","nl","pt","zh-Hans"];
+  var l = navigator.languages;
+  for (var i=0; i<l.length; ++i) {
+    if (k.indexOf(l[i])>=0) window.location.href = "/"+l[i];
+  }
+}
+window.location.href = "/en";
+</script>
+</head></html>

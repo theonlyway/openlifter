@@ -7,6 +7,8 @@ all: rusty content releases
 # Build for deployment to a website.
 build: rusty content releases
 	hugo --i18n-warnings --cleanDestinationDir
+	# Hugo overwrites our manually-coded index.html, so put it back.
+	cp -f static/index.html public/index.html
 
 # Uses `content-generator/generate-content` to auto-translate content/ files.
 content:
