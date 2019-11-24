@@ -59,7 +59,7 @@ class OneCategory extends React.Component<Props> {
     }
 
     return (
-      <Card border="info">
+      <Card>
         <Card.Header>
           Platform {this.props.platform} Lifters in {sex} {category.weightClassStr}kg {category.equipment}{" "}
           {category.division} {category.event}

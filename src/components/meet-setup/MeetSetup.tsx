@@ -131,7 +131,7 @@ class MeetSetup extends React.Component<Props, InternalState> {
       <Container>
         <Row>
           <Col md={4}>
-            <Card border="info">
+            <Card>
               <Card.Header>
                 <FormattedMessage id="meet-setup.header-sanction-info" defaultMessage="Sanction Information" />
               </Card.Header>
@@ -273,7 +273,7 @@ class MeetSetup extends React.Component<Props, InternalState> {
           </Col>
 
           <Col md={4}>
-            <Card border="info">
+            <Card>
               <Card.Header>
                 <FormattedMessage id="meet-setup.header-loading" defaultMessage="Weights and Loading" />
               </Card.Header>

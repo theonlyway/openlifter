@@ -202,7 +202,7 @@ class RegistrationView extends React.Component<Props, InternalState> {
           close={this.closeErrorModal}
         />
 
-        <Card border="info" style={{ marginBottom: "17px" }}>
+        <Card style={{ marginBottom: "17px" }}>
           <Card.Header>
             <FormattedMessage id="registration.auto-import-card-header" defaultMessage="Auto-Import Registrations" />
           </Card.Header>

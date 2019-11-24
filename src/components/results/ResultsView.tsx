@@ -363,7 +363,7 @@ class ResultsView extends React.Component<Props, InternalState> {
           close={this.closeErrorModal}
         />
 
-        <Card border="primary" style={{ marginBottom: "17px" }}>
+        <Card style={{ marginBottom: "17px" }}>
           <Card.Header>
             <FormattedMessage id="results.merge-platforms-card-header" defaultMessage="Merge Platforms" />
           </Card.Header>
@@ -397,7 +397,7 @@ class ResultsView extends React.Component<Props, InternalState> {
           </Card.Body>
         </Card>
 
-        <Card border="info">
+        <Card>
           <Card.Header>
             <FormattedMessage id="results.results-card-header" defaultMessage="Results For..." />
           </Card.Header>

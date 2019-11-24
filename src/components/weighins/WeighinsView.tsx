@@ -113,7 +113,7 @@ class WeighinsView extends React.Component<Props> {
     // If there are no days thus far, show a default warning panel.
     if (dayCards.length === 0) {
       dayCards.push(
-        <Card key={0} border="info">
+        <Card key={0}>
           <Card.Header>
             <FormattedMessage id="weigh-ins.empty-header" defaultMessage="Waiting for Registration" />
           </Card.Header>
