@@ -31,7 +31,6 @@ import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
-import Accordion from "react-bootstrap/Accordion";
 
 import Select, { ActionMeta } from "react-select";
 
@@ -63,7 +62,6 @@ interface StateProps {
 
 interface InternalState {
   selectedDay: number;
-  isCardOpen: boolean;
 }
 
 type Props = OwnProps & StateProps & ReturnType<typeof mapDispatchToProps>;
@@ -75,8 +73,7 @@ class LifterRow extends React.Component<Props, InternalState> {
     // Store the Day in state to update the Platform options when the Day changes.
     // Store the Birth Date in state to re-render when a new date is selected
     this.state = {
-      selectedDay: props.entry.day,
-      isCardOpen: true
+      selectedDay: props.entry.day
     };
 
     this.deleteRegistrationClick = this.deleteRegistrationClick.bind(this);
@@ -320,339 +317,308 @@ class LifterRow extends React.Component<Props, InternalState> {
     ];
 
     return (
-      <Accordion defaultActiveKey={String(this.props.id)} style={{ marginBottom: "17px" }}>
-        <Card style={{ overflow: "visible" }}>
-          <Accordion.Toggle
-            as={Card.Header}
-            onClick={() => this.setState({ isCardOpen: !this.state.isCardOpen })}
-            eventKey={String(this.props.id)}
-          >
-            <div style={{ display: "flex" }}>
-              <FontAwesomeIcon size="lg" icon={this.state.isCardOpen ? faMinusSquare : faPlusSquare} />
-              <div style={{ marginLeft: "1rem" }}>{entry.name}</div>
-            </div>
-          </Accordion.Toggle>
-          <Accordion.Collapse eventKey={String(this.props.id)}>
-            <Card.Body>
-              <Container style={gridStyle}>
-                <Row>
-                  <Col md={11}>
-                    <Form.Group>
-                      <Form.Label>{stringName}</Form.Label>
-                      <Form.Control
-                        type="text"
-                        placeholder=""
-                        defaultValue={entry.name}
-                        onBlur={this.updateRegistrationName}
-                      />
-                    </Form.Group>
-                  </Col>
-                  <Col md={1}>
-                    <Button onClick={this.deleteRegistrationClick} variant="danger" style={{ marginLeft: "15px" }}>
-                      <LocalizedString id="registration.button-delete" />
-                    </Button>
-                  </Col>
-                </Row>
-              </Container>
-              <Container style={gridStyle}>
-                <Row>
-                  {/* Day */}
-                  <Col md={1}>
-                    <Form.Group>
-                      <Form.Label>
-                        <FormattedMessage id="registration.day-label" defaultMessage="Day" />
-                      </Form.Label>
-                      <Form.Control
-                        defaultValue={this.state.selectedDay}
-                        as="select"
-                        onChange={this.updateRegistrationDay}
-                        className="custom-select"
-                      >
-                        {dayOptions}
-                      </Form.Control>
-                    </Form.Group>
-                  </Col>
+      <Card style={{ overflow: "visible", marginBottom: "17px" }}>
+        <Card.Header style={{ display: "flex" }}>
+          <Form.Control type="text" placeholder="" defaultValue={entry.name} onBlur={this.updateRegistrationName} />
+          <Button onClick={this.deleteRegistrationClick} variant="danger" style={{ marginLeft: "15px" }}>
+            <LocalizedString id="registration.button-delete" />
+          </Button>
+        </Card.Header>
+        <Card.Body>
+          <Container style={gridStyle}>
+            <Row>
+              {/* Day */}
+              <Col md={1}>
+                <Form.Group>
+                  <Form.Label>
+                    <FormattedMessage id="registration.day-label" defaultMessage="Day" />
+                  </Form.Label>
+                  <Form.Control
+                    defaultValue={this.state.selectedDay}
+                    as="select"
+                    onChange={this.updateRegistrationDay}
+                    className="custom-select"
+                  >
+                    {dayOptions}
+                  </Form.Control>
+                </Form.Group>
+              </Col>
 
-                  {/* Platform */}
-                  <Col md={1}>
-                    <Form.Group>
-                      <Form.Label>
-                        <FormattedMessage id="registration.platform-label" defaultMessage="Platform" />
-                      </Form.Label>
-                      <Form.Control
-                        defaultValue={entry.platform}
-                        as="select"
-                        onChange={this.updateRegistrationPlatform}
-                        className="custom-select"
-                      >
-                        {platformOptions}
-                      </Form.Control>
-                    </Form.Group>
-                  </Col>
+              {/* Platform */}
+              <Col md={1}>
+                <Form.Group>
+                  <Form.Label>
+                    <FormattedMessage id="registration.platform-label" defaultMessage="Platform" />
+                  </Form.Label>
+                  <Form.Control
+                    defaultValue={entry.platform}
+                    as="select"
+                    onChange={this.updateRegistrationPlatform}
+                    className="custom-select"
+                  >
+                    {platformOptions}
+                  </Form.Control>
+                </Form.Group>
+              </Col>
 
-                  {/* Flight */}
-                  <Col md={1}>
-                    <Form.Group>
-                      <Form.Label>
-                        <FormattedMessage id="registration.flight-label" defaultMessage="Flight" />
-                      </Form.Label>
-                      <Form.Control
-                        defaultValue={entry.flight}
-                        as="select"
-                        onChange={this.updateRegistrationFlight}
-                        className="custom-select"
-                      >
-                        <option value="A">{getString("flight.a", language)}</option>
-                        <option value="B">{getString("flight.b", language)}</option>
-                        <option value="C">{getString("flight.c", language)}</option>
-                        <option value="D">{getString("flight.d", language)}</option>
-                        <option value="E">{getString("flight.e", language)}</option>
-                        <option value="F">{getString("flight.f", language)}</option>
-                        <option value="G">{getString("flight.g", language)}</option>
-                        <option value="H">{getString("flight.h", language)}</option>
-                        <option value="I">{getString("flight.i", language)}</option>
-                        <option value="J">{getString("flight.j", language)}</option>
-                        <option value="K">{getString("flight.k", language)}</option>
-                        <option value="L">{getString("flight.l", language)}</option>
-                        <option value="M">{getString("flight.m", language)}</option>
-                        <option value="N">{getString("flight.n", language)}</option>
-                        <option value="O">{getString("flight.o", language)}</option>
-                        <option value="P">{getString("flight.p", language)}</option>
-                      </Form.Control>
-                    </Form.Group>
-                  </Col>
+              {/* Flight */}
+              <Col md={1}>
+                <Form.Group>
+                  <Form.Label>
+                    <FormattedMessage id="registration.flight-label" defaultMessage="Flight" />
+                  </Form.Label>
+                  <Form.Control
+                    defaultValue={entry.flight}
+                    as="select"
+                    onChange={this.updateRegistrationFlight}
+                    className="custom-select"
+                  >
+                    <option value="A">{getString("flight.a", language)}</option>
+                    <option value="B">{getString("flight.b", language)}</option>
+                    <option value="C">{getString("flight.c", language)}</option>
+                    <option value="D">{getString("flight.d", language)}</option>
+                    <option value="E">{getString("flight.e", language)}</option>
+                    <option value="F">{getString("flight.f", language)}</option>
+                    <option value="G">{getString("flight.g", language)}</option>
+                    <option value="H">{getString("flight.h", language)}</option>
+                    <option value="I">{getString("flight.i", language)}</option>
+                    <option value="J">{getString("flight.j", language)}</option>
+                    <option value="K">{getString("flight.k", language)}</option>
+                    <option value="L">{getString("flight.l", language)}</option>
+                    <option value="M">{getString("flight.m", language)}</option>
+                    <option value="N">{getString("flight.n", language)}</option>
+                    <option value="O">{getString("flight.o", language)}</option>
+                    <option value="P">{getString("flight.p", language)}</option>
+                  </Form.Control>
+                </Form.Group>
+              </Col>
 
-                  {/* Sex */}
-                  <Col md={1}>
-                    <Form.Group>
-                      <Form.Label>
-                        <FormattedMessage id="registration.sex-label" defaultMessage="Sex" />
-                      </Form.Label>
-                      <Form.Control
-                        defaultValue={entry.sex}
-                        as="select"
-                        onChange={this.updateRegistrationSex}
-                        className="custom-select"
-                      >
-                        <option value="M">{getString("sex.m", language)}</option>
-                        <option value="F">{getString("sex.f", language)}</option>
-                        <option value="Mx">{getString("sex.mx", language)}</option>
-                      </Form.Control>
-                    </Form.Group>
-                  </Col>
+              {/* Sex */}
+              <Col md={1}>
+                <Form.Group>
+                  <Form.Label>
+                    <FormattedMessage id="registration.sex-label" defaultMessage="Sex" />
+                  </Form.Label>
+                  <Form.Control
+                    defaultValue={entry.sex}
+                    as="select"
+                    onChange={this.updateRegistrationSex}
+                    className="custom-select"
+                  >
+                    <option value="M">{getString("sex.m", language)}</option>
+                    <option value="F">{getString("sex.f", language)}</option>
+                    <option value="Mx">{getString("sex.mx", language)}</option>
+                  </Form.Control>
+                </Form.Group>
+              </Col>
 
-                  {/* Equipment */}
-                  <Col md={2}>
-                    <Form.Group>
-                      <Form.Label>
-                        <FormattedMessage id="registration.equipment-label" defaultMessage="Equipment" />
-                      </Form.Label>
-                      <Form.Control
-                        defaultValue={entry.equipment}
-                        as="select"
-                        onChange={this.updateRegistrationEquipment}
-                        className="custom-select"
-                      >
-                        <option value="Bare">{getString("equipment.bare", language)}</option>
-                        <option value="Sleeves">{getString("equipment.sleeves", language)}</option>
-                        <option value="Wraps">{getString("equipment.wraps", language)}</option>
-                        <option value="Single-ply">{getString("equipment.single-ply", language)}</option>
-                        <option value="Multi-ply">{getString("equipment.multi-ply", language)}</option>
-                      </Form.Control>
-                    </Form.Group>
-                  </Col>
+              {/* Equipment */}
+              <Col md={2}>
+                <Form.Group>
+                  <Form.Label>
+                    <FormattedMessage id="registration.equipment-label" defaultMessage="Equipment" />
+                  </Form.Label>
+                  <Form.Control
+                    defaultValue={entry.equipment}
+                    as="select"
+                    onChange={this.updateRegistrationEquipment}
+                    className="custom-select"
+                  >
+                    <option value="Bare">{getString("equipment.bare", language)}</option>
+                    <option value="Sleeves">{getString("equipment.sleeves", language)}</option>
+                    <option value="Wraps">{getString("equipment.wraps", language)}</option>
+                    <option value="Single-ply">{getString("equipment.single-ply", language)}</option>
+                    <option value="Multi-ply">{getString("equipment.multi-ply", language)}</option>
+                  </Form.Control>
+                </Form.Group>
+              </Col>
 
-                  {/* Divisions */}
-                  <Col md={4}>
-                    <Form.Group>
-                      <Form.Label>
-                        <FormattedMessage id="registration.divisions-label" defaultMessage="Divisions" />
-                      </Form.Label>
-                      <Select
-                        menuPlacement="auto"
-                        placeholder={stringSelectPlaceholder}
-                        options={divisionOptions}
-                        isClearable={false}
-                        isMulti={true}
-                        onChange={this.updateRegistrationDivisions}
-                        defaultValue={selectedDivisions}
-                      />
-                    </Form.Group>
-                  </Col>
+              {/* Divisions */}
+              <Col md={4}>
+                <Form.Group>
+                  <Form.Label>
+                    <FormattedMessage id="registration.divisions-label" defaultMessage="Divisions" />
+                  </Form.Label>
+                  <Select
+                    menuPlacement="auto"
+                    placeholder={stringSelectPlaceholder}
+                    options={divisionOptions}
+                    isClearable={false}
+                    isMulti={true}
+                    onChange={this.updateRegistrationDivisions}
+                    defaultValue={selectedDivisions}
+                  />
+                </Form.Group>
+              </Col>
 
-                  {/* Events */}
-                  <Col md={2}>
-                    <Form.Group>
-                      <Form.Label>
-                        <FormattedMessage id="registration.events-label" defaultMessage="Events" />
-                      </Form.Label>
-                      <Select
-                        menuPlacement="auto"
-                        placeholder={stringSelectPlaceholder}
-                        options={eventOptions}
-                        isClearable={false}
-                        isMulti={true}
-                        onChange={this.updateRegistrationEvents}
-                        defaultValue={selectedEvents}
-                      />
-                    </Form.Group>
-                  </Col>
-                </Row>
-              </Container>
+              {/* Events */}
+              <Col md={2}>
+                <Form.Group>
+                  <Form.Label>
+                    <FormattedMessage id="registration.events-label" defaultMessage="Events" />
+                  </Form.Label>
+                  <Select
+                    menuPlacement="auto"
+                    placeholder={stringSelectPlaceholder}
+                    options={eventOptions}
+                    isClearable={false}
+                    isMulti={true}
+                    onChange={this.updateRegistrationEvents}
+                    defaultValue={selectedEvents}
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+          </Container>
 
-              <Container style={gridStyle}>
-                <Row>
-                  {/* Date of Birth */}
-                  <Col md={2}>
-                    <Form.Group>
-                      <Form.Label>
-                        <FormattedMessage id="registration.birthdate-label" defaultMessage="Date of Birth" />
-                      </Form.Label>
-                      <ValidatedInput
-                        initialValue={entry.birthDate}
-                        placeholder={stringBirthDatePlaceholder}
-                        validate={validateIso8601Date}
-                        onSuccess={this.updateRegistrationBirthDate}
-                      />
-                    </Form.Group>
-                  </Col>
+          <Container style={gridStyle}>
+            <Row>
+              {/* Date of Birth */}
+              <Col md={2}>
+                <Form.Group>
+                  <Form.Label>
+                    <FormattedMessage id="registration.birthdate-label" defaultMessage="Date of Birth" />
+                  </Form.Label>
+                  <ValidatedInput
+                    initialValue={entry.birthDate}
+                    placeholder={stringBirthDatePlaceholder}
+                    validate={validateIso8601Date}
+                    onSuccess={this.updateRegistrationBirthDate}
+                  />
+                </Form.Group>
+              </Col>
 
-                  {/* Age */}
-                  <Col md={1}>
-                    <Form.Group>
-                      <Form.Label>{getString("common.age", language)}</Form.Label>
-                      <ValidatedInput
-                        initialValue={entry.age === 0 ? "" : displayNumber(entry.age, language)}
-                        placeholder={getString("common.age", language)}
-                        validate={this.validateAge}
-                        onSuccess={this.updateRegistrationAge}
-                      />
-                    </Form.Group>
-                  </Col>
+              {/* Age */}
+              <Col md={1}>
+                <Form.Group>
+                  <Form.Label>{getString("common.age", language)}</Form.Label>
+                  <ValidatedInput
+                    initialValue={entry.age === 0 ? "" : displayNumber(entry.age, language)}
+                    placeholder={getString("common.age", language)}
+                    validate={this.validateAge}
+                    onSuccess={this.updateRegistrationAge}
+                  />
+                </Form.Group>
+              </Col>
 
-                  {/* Member ID */}
-                  <Col md={2}>
-                    <Form.Group>
-                      <Form.Label>
-                        <FormattedMessage id="registration.member-id-label" defaultMessage="Member ID" />
-                      </Form.Label>
-                      <Form.Control
-                        type="text"
-                        placeholder={stringMemberIdPlaceholder}
-                        defaultValue={entry.memberId}
-                        onBlur={this.updateRegistrationMemberId}
-                      />
-                    </Form.Group>
-                  </Col>
+              {/* Member ID */}
+              <Col md={2}>
+                <Form.Group>
+                  <Form.Label>
+                    <FormattedMessage id="registration.member-id-label" defaultMessage="Member ID" />
+                  </Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder={stringMemberIdPlaceholder}
+                    defaultValue={entry.memberId}
+                    onBlur={this.updateRegistrationMemberId}
+                  />
+                </Form.Group>
+              </Col>
 
-                  {/* Country */}
-                  <Col md={2}>
-                    <Form.Group>
-                      <Form.Label>{stringCountry}</Form.Label>
-                      <ValidatedInput
-                        initialValue={entry.country}
-                        placeholder={stringCountry}
-                        validate={s => (s === "" ? null : "success")}
-                        onSuccess={this.updateRegistrationCountry}
-                      />
-                    </Form.Group>
-                  </Col>
+              {/* Country */}
+              <Col md={2}>
+                <Form.Group>
+                  <Form.Label>{stringCountry}</Form.Label>
+                  <ValidatedInput
+                    initialValue={entry.country}
+                    placeholder={stringCountry}
+                    validate={s => (s === "" ? null : "success")}
+                    onSuccess={this.updateRegistrationCountry}
+                  />
+                </Form.Group>
+              </Col>
 
-                  {/* State */}
-                  <Col md={1}>
-                    <Form.Group>
-                      <Form.Label>{stringState}</Form.Label>
-                      <ValidatedInput
-                        initialValue={entry.state}
-                        placeholder={stringState}
-                        validate={s => (s === "" ? null : "success")}
-                        onSuccess={this.updateRegistrationState}
-                      />
-                    </Form.Group>
-                  </Col>
+              {/* State */}
+              <Col md={1}>
+                <Form.Group>
+                  <Form.Label>{stringState}</Form.Label>
+                  <ValidatedInput
+                    initialValue={entry.state}
+                    placeholder={stringState}
+                    validate={s => (s === "" ? null : "success")}
+                    onSuccess={this.updateRegistrationState}
+                  />
+                </Form.Group>
+              </Col>
 
-                  {/* Lot Number */}
-                  <Col md={1}>
-                    <Form.Group>
-                      <Form.Label>
-                        <FormattedMessage id="registration.lot-label" defaultMessage="Lot #" />
-                      </Form.Label>
-                      <Form.Control
-                        type="number"
-                        min="0"
-                        defaultValue={entry.lot === 0 ? "" : entry.lot.toString()}
-                        onBlur={(event: { currentTarget: { value: string } }) =>
-                          this.updateRegistrationLot(event.currentTarget.value)
-                        }
-                        onChange={(
-                          event: React.FormEvent<FormControlTypeHack> & { currentTarget: { value: string } }
-                        ) => this.updateRegistrationLot(event.currentTarget.value)}
-                      />
-                    </Form.Group>
-                  </Col>
+              {/* Lot Number */}
+              <Col md={1}>
+                <Form.Group>
+                  <Form.Label>
+                    <FormattedMessage id="registration.lot-label" defaultMessage="Lot #" />
+                  </Form.Label>
+                  <Form.Control
+                    type="number"
+                    min="0"
+                    defaultValue={entry.lot === 0 ? "" : entry.lot.toString()}
+                    onBlur={(event: { currentTarget: { value: string } }) =>
+                      this.updateRegistrationLot(event.currentTarget.value)
+                    }
+                    onChange={(event: React.FormEvent<FormControlTypeHack> & { currentTarget: { value: string } }) =>
+                      this.updateRegistrationLot(event.currentTarget.value)
+                    }
+                  />
+                </Form.Group>
+              </Col>
 
-                  {/* Notes */}
-                  <Col md={3}>
-                    <Form.Group>
-                      <Form.Label>
-                        <FormattedMessage id="registration.team-label" defaultMessage="Team" />
-                      </Form.Label>
-                      <Form.Control
-                        type="text"
-                        placeholder=""
-                        defaultValue={entry.team}
-                        onBlur={this.updateRegistrationTeam}
-                      />
-                    </Form.Group>
-                  </Col>
-                </Row>
-              </Container>
+              {/* Notes */}
+              <Col md={3}>
+                <Form.Group>
+                  <Form.Label>
+                    <FormattedMessage id="registration.team-label" defaultMessage="Team" />
+                  </Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder=""
+                    defaultValue={entry.team}
+                    onBlur={this.updateRegistrationTeam}
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+          </Container>
 
-              <Container style={gridStyle}>
-                <Row>
-                  {/* Notes */}
-                  <Col md={2}>
-                    <Form.Group>
-                      <Form.Label>
-                        <FormattedMessage id="registration.instagram-label" defaultMessage="Instagram" />
-                      </Form.Label>
-                      <InputGroup>
-                        <InputGroup.Prepend>
-                          <InputGroup.Text>@</InputGroup.Text>
-                        </InputGroup.Prepend>
-                        <Form.Control
-                          type="text"
-                          placeholder=""
-                          defaultValue={entry.instagram}
-                          onBlur={this.updateRegistrationInstagram}
-                        />
-                      </InputGroup>
-                    </Form.Group>
-                  </Col>
+          <Container style={gridStyle}>
+            <Row>
+              {/* Notes */}
+              <Col md={2}>
+                <Form.Group>
+                  <Form.Label>
+                    <FormattedMessage id="registration.instagram-label" defaultMessage="Instagram" />
+                  </Form.Label>
+                  <InputGroup>
+                    <InputGroup.Prepend>
+                      <InputGroup.Text>@</InputGroup.Text>
+                    </InputGroup.Prepend>
+                    <Form.Control
+                      type="text"
+                      placeholder=""
+                      defaultValue={entry.instagram}
+                      onBlur={this.updateRegistrationInstagram}
+                    />
+                  </InputGroup>
+                </Form.Group>
+              </Col>
 
-                  {/* Notes */}
-                  <Col md={10}>
-                    <Form.Group>
-                      <Form.Label>
-                        <FormattedMessage
-                          id="registration.notes-label"
-                          defaultMessage="Notes (for your personal use)"
-                        />
-                      </Form.Label>
-                      <Form.Control
-                        type="text"
-                        placeholder=""
-                        defaultValue={entry.notes}
-                        onBlur={this.updateRegistrationNotes}
-                      />
-                    </Form.Group>
-                  </Col>
-                </Row>
-              </Container>
-            </Card.Body>
-          </Accordion.Collapse>
-        </Card>
-      </Accordion>
+              {/* Notes */}
+              <Col md={10}>
+                <Form.Group>
+                  <Form.Label>
+                    <FormattedMessage id="registration.notes-label" defaultMessage="Notes (for your personal use)" />
+                  </Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder=""
+                    defaultValue={entry.notes}
+                    onBlur={this.updateRegistrationNotes}
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+          </Container>
+        </Card.Body>
+      </Card>
     );
   }
 }
