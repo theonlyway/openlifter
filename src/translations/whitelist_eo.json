@@ -4,5 +4,8 @@
   "flight.c",
   "flight-order.kilograms-header",
   "lifting.current-weight-kg",
-  "results.value-not-applicable"
+  "results.value-not-applicable",
+  "results.mxs",
+  "results.division-template",
+  "results.category-template"
 ]
