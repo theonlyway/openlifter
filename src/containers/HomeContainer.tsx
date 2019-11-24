@@ -20,6 +20,7 @@ import React from "react";
 import { connect } from "react-redux";
 
 import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -61,6 +62,9 @@ interface InternalState {
 }
 
 type Props = StateProps & DispatchProps;
+
+// Gets links and buttons to have the same vertical spacing.
+const buttonMargin = { marginBottom: "8px" };
 
 class HomeContainer extends React.Component<Props, InternalState> {
   constructor(props: Props) {
@@ -161,7 +165,7 @@ class HomeContainer extends React.Component<Props, InternalState> {
     }
     return (
       <LinkContainer to="/meet-setup">
-        <Button variant="primary" block>
+        <Button variant="primary" block style={buttonMargin}>
           <FormattedMessage
             id="home.button-continue"
             defaultMessage="Continue {meetName}"
@@ -174,7 +178,7 @@ class HomeContainer extends React.Component<Props, InternalState> {
 
   render() {
     let newMeetButton = (
-      <Button variant="primary" block onClick={this.handleNewClick}>
+      <Button variant="primary" block onClick={this.handleNewClick} style={buttonMargin}>
         <FormattedMessage id="home.button-new-meet" defaultMessage="New Meet" />
       </Button>
     );
@@ -188,27 +192,26 @@ class HomeContainer extends React.Component<Props, InternalState> {
     let betaWarning = null;
     if (isBeta === true) {
       betaWarning = (
-        <h2>
+        <h3>
           <p>
             <FormattedMessage
               id="home.beta-warning"
               defaultMessage="This is the in-development, next version of OpenLifter. The internal data format is unstable. Do not use this to run competitions!"
             />
           </p>
-        </h2>
+        </h3>
       );
     }
 
     const wrongVersion: boolean = this.props.redux.versions.stateVersion !== stateVersion;
     const dataReleaseVersion = this.props.redux.versions.releaseVersion;
 
-    const buttonMargin = { marginBottom: "5px" };
     const language = this.props.redux.language;
 
     let warning = null;
     if (wrongVersion === true) {
       warning = (
-        <h2>
+        <h3>
           <p>
             <b>{getString("common.danger-allcaps", language)}</b>
           </p>
@@ -219,12 +222,12 @@ class HomeContainer extends React.Component<Props, InternalState> {
               values={{ oldVersion: dataReleaseVersion, thisVersion: releaseVersion }}
             />
           </p>
-        </h2>
+        </h3>
       );
     }
 
     return (
-      <Container style={centerConsole} className={styles.contentArea}>
+      <Card style={centerConsole} className={styles.contentArea}>
         <NewMeetModal show={this.state.showNewMeetModal} close={this.closeConfirmModal} />
         <ErrorModal
           error={this.state.error}
@@ -233,98 +236,91 @@ class HomeContainer extends React.Component<Props, InternalState> {
           close={this.closeErrorModal}
         />
 
-        <Row>
-          <Col md={12}>
-            <img alt="OpenLifter" src="openlifter.svg" />
-          </Col>
-        </Row>
+        <Card.Header>
+          <img alt="OpenLifter" src="openlifter.svg" />
+          {betaWarning}
+        </Card.Header>
 
-        <Row>
-          <div style={{ width: "180px", margin: "20px" }}>
-            <LanguageSelector />
-          </div>
-        </Row>
+        <Card.Body>
+          <Container>
+            <Row>{warning}</Row>
+            <Row style={buttonMargin}>
+              <Col md={8}>
+                {wrongVersion === false ? (
+                  this.renderContinueButton()
+                ) : (
+                  <a href={"https://www.openlifter.com/releases/" + dataReleaseVersion}>
+                    <Button variant="success" block>
+                      <FormattedMessage
+                        id="home.button-switch-version"
+                        defaultMessage="Switch to OpenLifter {otherVersion}"
+                        values={{ otherVersion: dataReleaseVersion }}
+                      />
+                    </Button>
+                  </a>
+                )}
+              </Col>
+              <Col md={4}>
+                <LanguageSelector />
+              </Col>
+            </Row>
 
-        <Row>
-          <Col md={12}>{betaWarning}</Col>
-        </Row>
+            <Row>
+              <Col md={8}>
+                <div>
+                  {newMeetButton}
 
-        <Row>
-          <Col md={12}>{warning}</Col>
-        </Row>
+                  <Button variant="warning" block onClick={this.handleLoadClick} style={buttonMargin}>
+                    <FormattedMessage id="home.button-load-from-file" defaultMessage="Load from File" />
+                  </Button>
+                  <Button variant="success" block onClick={this.handleSaveClick} style={buttonMargin}>
+                    <FormattedMessage id="home.button-save-tofile" defaultMessage="Save to File" />
+                  </Button>
+                </div>
+              </Col>
 
-        <Row>
-          <Col md={8}>
-            <br />
-            <div>
-              {wrongVersion === false ? (
-                this.renderContinueButton()
-              ) : (
-                <a href={"https://www.openlifter.com/releases/" + dataReleaseVersion}>
-                  <Button variant="success" block style={{ marginBottom: "5px" }}>
-                    <FormattedMessage
-                      id="home.button-switch-version"
-                      defaultMessage="Switch to OpenLifter {otherVersion}"
-                      values={{ otherVersion: dataReleaseVersion }}
-                    />
+              <Col md={4}>
+                <a
+                  href="https://gitlab.com/openpowerlifting/openlifter/issues/new"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <Button variant="outline-secondary" block style={buttonMargin}>
+                    <FormattedMessage id="home.button-report-issue" defaultMessage="Report an Issue" />
                   </Button>
                 </a>
-              )}
+                <a href="https://www.openlifter.com/support" rel="noopener noreferrer" target="_blank">
+                  <Button variant="outline-secondary" block style={buttonMargin}>
+                    <FormattedMessage id="home.button-support" defaultMessage="Official Support" />
+                  </Button>
+                </a>
+                <a href="https://gitlab.com/openpowerlifting/openlifter" rel="noopener noreferrer" target="_blank">
+                  <Button variant="outline-secondary" block style={buttonMargin}>
+                    <FormattedMessage id="home.button-source" defaultMessage="Full Source Code" />
+                  </Button>
+                </a>
+                <LinkContainer to="/about">
+                  <Button variant="outline-secondary" block style={buttonMargin}>
+                    <FormattedMessage id="home.button-credits" defaultMessage="Credits and License" />
+                  </Button>
+                </LinkContainer>
+              </Col>
+            </Row>
+          </Container>
+        </Card.Body>
 
-              {newMeetButton}
-
-              <Button variant="warning" block onClick={this.handleLoadClick}>
-                <FormattedMessage id="home.button-load-from-file" defaultMessage="Load from File" />
-              </Button>
-              <Button variant="success" block onClick={this.handleSaveClick}>
-                <FormattedMessage id="home.button-save-tofile" defaultMessage="Save to File" />
-              </Button>
-            </div>
-          </Col>
-
-          <Col md={4}>
-            <br />
-            <a
-              href="https://gitlab.com/openpowerlifting/openlifter/issues/new"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <Button variant="outline-secondary" block style={buttonMargin}>
-                <FormattedMessage id="home.button-report-issue" defaultMessage="Report an Issue" />
-              </Button>
-            </a>
-            <a href="https://www.openlifter.com/support" rel="noopener noreferrer" target="_blank">
-              <Button variant="outline-secondary" block style={buttonMargin}>
-                <FormattedMessage id="home.button-support" defaultMessage="Official Support" />
-              </Button>
-            </a>
-            <a href="https://gitlab.com/openpowerlifting/openlifter" rel="noopener noreferrer" target="_blank">
-              <Button variant="outline-secondary" block style={buttonMargin}>
-                <FormattedMessage id="home.button-source" defaultMessage="Full Source Code" />
-              </Button>
-            </a>
-            <LinkContainer to="/about">
-              <Button variant="outline-secondary" block style={buttonMargin}>
-                <FormattedMessage id="home.button-credits" defaultMessage="Credits and License" />
-              </Button>
-            </LinkContainer>
-          </Col>
-        </Row>
-
-        <Row>
-          <Col md={12} style={{ textAlign: "center", marginTop: "2em" }}>
-            <h3>
-              <FormattedMessage
-                id="home.version-date"
-                defaultMessage="Version {releaseVersion}, {releaseDate}."
-                values={{
-                  releaseVersion: releaseVersion,
-                  releaseDate: releaseDate
-                }}
-              />
-            </h3>
-          </Col>
-        </Row>
+        <Card.Footer>
+          <h3 style={{ textAlign: "center" }}>
+            <FormattedMessage
+              id="home.version-date"
+              defaultMessage="Version {releaseVersion}, {releaseDate}."
+              values={{
+                releaseVersion: releaseVersion,
+                releaseDate: releaseDate
+              }}
+            />
+          </h3>
+        </Card.Footer>
 
         <input
           id="loadhelper"
@@ -333,7 +329,7 @@ class HomeContainer extends React.Component<Props, InternalState> {
           style={{ display: "none" }}
           onChange={this.handleLoadFileInput}
         />
-      </Container>
+      </Card>
     );
   }
 }
