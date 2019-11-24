@@ -24,6 +24,7 @@ import { FormattedMessage } from "react-intl";
 
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+import CardDeck from "react-bootstrap/CardDeck";
 import FormControl from "react-bootstrap/FormControl";
 
 import { saveAs } from "file-saver";
@@ -363,39 +364,41 @@ class ResultsView extends React.Component<Props, InternalState> {
           close={this.closeErrorModal}
         />
 
-        <Card style={{ marginBottom: "17px" }}>
-          <Card.Header>
-            <FormattedMessage id="results.merge-platforms-card-header" defaultMessage="Merge Platforms" />
-          </Card.Header>
-          <Card.Body>
-            <div style={{ fontWeight: "bold" }}>
-              <FormattedMessage
-                id="results.merge-platforms-warning"
-                defaultMessage="Merging platforms will overwrite data. Please save before merging."
-              />
-            </div>
-            <br />
-            {this.makePlatformMergeButtons()}
-          </Card.Body>
-        </Card>
+        <CardDeck>
+          <Card style={{ marginBottom: "17px" }}>
+            <Card.Header>
+              <FormattedMessage id="results.merge-platforms-card-header" defaultMessage="Merge Platforms" />
+            </Card.Header>
+            <Card.Body>
+              <div style={{ fontWeight: "bold" }}>
+                <FormattedMessage
+                  id="results.merge-platforms-warning"
+                  defaultMessage="Merging platforms will overwrite data. Please save before merging."
+                />
+              </div>
+              <br />
+              {this.makePlatformMergeButtons()}
+            </Card.Body>
+          </Card>
 
-        <Card style={{ marginBottom: "17px" }}>
-          <Card.Header>
-            <FormattedMessage id="results.export-results-card-header" defaultMessage="Export Official Results" />
-          </Card.Header>
-          <Card.Body>
-            <Button onClick={this.handleExportAsOplCsvClick}>
-              <FormattedMessage
-                id="results.export-openpowerlifting-button"
-                defaultMessage="Export for OpenPowerlifting"
-              />
-            </Button>
+          <Card style={{ marginBottom: "17px" }}>
+            <Card.Header>
+              <FormattedMessage id="results.export-results-card-header" defaultMessage="Export Official Results" />
+            </Card.Header>
+            <Card.Body>
+              <Button onClick={this.handleExportAsOplCsvClick}>
+                <FormattedMessage
+                  id="results.export-openpowerlifting-button"
+                  defaultMessage="Export for OpenPowerlifting"
+                />
+              </Button>
 
-            <Button onClick={this.handleExportAsUSAPLCsvClick} style={{ marginLeft: "14px" }}>
-              <FormattedMessage id="results.export-usapl-button" defaultMessage="Export for USAPL" />
-            </Button>
-          </Card.Body>
-        </Card>
+              <Button onClick={this.handleExportAsUSAPLCsvClick} style={{ marginLeft: "14px" }}>
+                <FormattedMessage id="results.export-usapl-button" defaultMessage="Export for USAPL" />
+              </Button>
+            </Card.Body>
+          </Card>
+        </CardDeck>
 
         <Card>
           <Card.Header>
