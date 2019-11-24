@@ -33,7 +33,7 @@ import { updateRegistration } from "../../actions/registrationActions";
 import { enterAttempt } from "../../actions/liftingActions";
 
 import { GlobalState, MeetState, RegistrationState } from "../../types/stateTypes";
-import { Lift } from "../../types/dataTypes";
+import { Entry, Lift } from "../../types/dataTypes";
 
 interface StateProps {
   meet: MeetState;
@@ -41,7 +41,7 @@ interface StateProps {
 }
 
 interface DispatchProps {
-  updateRegistration: (entryId: number, obj: Object) => void;
+  updateRegistration: (entryId: number, obj: Partial<Entry>) => void;
   enterAttempt: (entryId: number, lift: Lift, attemptOneIndexed: number, weightKg: number) => void;
 }
 
