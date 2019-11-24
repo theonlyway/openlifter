@@ -310,7 +310,7 @@ class HomeContainer extends React.Component<Props, InternalState> {
         </Card.Body>
 
         <Card.Footer>
-          <h3 style={{ textAlign: "center" }}>
+          <h4 style={{ textAlign: "center" }}>
             <FormattedMessage
               id="home.version-date"
               defaultMessage="Version {releaseVersion}, {releaseDate}."
@@ -319,7 +319,7 @@ class HomeContainer extends React.Component<Props, InternalState> {
                 releaseDate: releaseDate
               }}
             />
-          </h3>
+          </h4>
         </Card.Footer>
 
         <input
