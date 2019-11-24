@@ -119,6 +119,9 @@ class ByPoints extends React.Component<Props> {
       pointsStr = displayPoints(points, language);
     }
 
+    const firstDivision = entry.divisions.length > 0 ? entry.divisions[0] : "";
+    const numDivisions = entry.divisions.length;
+
     const classes = mapSexToClasses(entry.sex, this.props);
     const wtcls = inKg
       ? getWeightClassStr(classes, entry.bodyweightKg, language)
@@ -141,6 +144,9 @@ class ByPoints extends React.Component<Props> {
         <td>{rank}</td>
         <td>{entry.name}</td>
         <td>{localizeSex(entry.sex, language)}</td>
+        <td>
+          {firstDivision} {numDivisions > 1 ? "(+" + (numDivisions - 1) + ")" : ""}
+        </td>
         <td>{localizeEquipment(entry.equipment, language)}</td>
         <td>{entry.bodyweightKg === 0 ? null : wtcls}</td>
         <td>{entry.bodyweightKg === 0 ? null : displayWeight(bw, language)}</td>
@@ -208,6 +214,7 @@ class ByPoints extends React.Component<Props> {
                 <th>{getString("results.column-rank", language)}</th>
                 <th>{getString("lifting.column-lifter", language)}</th>
                 <th>{getString("results.column-sex", language)}</th>
+                <th>{getString("lifting.column-division", language)}</th>
                 <th>{getString("results.column-equipment", language)}</th>
                 <th>{getString("lifting.column-weightclass", language)}</th>
                 <th>{getString("lifting.column-bodyweight", language)}</th>
