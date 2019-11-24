@@ -24,18 +24,23 @@ import React, { FunctionComponent } from "react";
 import NumberInput from "../common/NumberInput";
 import ColorPicker from "./ColorPicker";
 
-import { Language } from "../../types/dataTypes";
+import { Validation } from "../../types/dataTypes";
 
 interface Props {
   id: string;
   weightKg: number;
-  displayWeight: string;
-  defaultValue: string;
+  displayWeight: string; // What kind of a plate this is.
   pairCount: number;
   color: string;
-  language: Language;
   onChange: (weightKg: number, id: string, amount: number, color: string) => void;
 }
+
+const validate = (n: number): Validation => {
+  if (!Number.isInteger(n) || n < 0 || n > 50) {
+    return "error";
+  }
+  return "success";
+};
 
 const PlateInput: FunctionComponent<Props> = props => {
   return (
@@ -44,12 +49,10 @@ const PlateInput: FunctionComponent<Props> = props => {
       <td>
         <div style={{ maxWidth: "130px" }}>
           <NumberInput
-            min={0}
-            max={50}
+            initialValue={props.pairCount}
             step={1}
-            value={String(props.pairCount)}
-            onChange={count => props.onChange(props.weightKg, props.id, Number(count), props.color)}
-            language={props.language}
+            validate={validate}
+            onChange={count => props.onChange(props.weightKg, props.id, count, props.color)}
             marginBottom="0px"
           />
         </div>

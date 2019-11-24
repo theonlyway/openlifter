@@ -101,11 +101,9 @@ class Plates extends React.Component<Props> {
         key={id}
         weightKg={weightKg}
         displayWeight={displayWeight(weight, this.props.language)}
-        defaultValue={amount.toString()}
         pairCount={amount}
         color={color}
         onChange={this.updateHandler}
-        language={this.props.language}
       />
     );
   };

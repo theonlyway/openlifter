@@ -27,12 +27,11 @@ import { setLengthDays } from "../../actions/meetSetupActions";
 
 import { parseInteger } from "../../logic/parsers";
 
-import { Language, Validation } from "../../types/dataTypes";
+import { Validation } from "../../types/dataTypes";
 import { GlobalState } from "../../types/stateTypes";
 
 interface StateProps {
   lengthDays: number;
-  language: Language;
 }
 
 interface DispatchProps {
@@ -42,7 +41,7 @@ interface DispatchProps {
 type Props = StateProps & DispatchProps;
 
 interface InternalState {
-  value: string;
+  initialValue: number;
 }
 
 class MeetLength extends React.Component<Props, InternalState> {
@@ -53,50 +52,38 @@ class MeetLength extends React.Component<Props, InternalState> {
     this.handleChange = this.handleChange.bind(this);
 
     this.state = {
-      value: String(this.props.lengthDays)
+      initialValue: this.props.lengthDays
     };
   }
 
-  validate = (): Validation => {
-    const { value } = this.state;
-    const asNumber = parseInteger(value);
-
-    if (asNumber === undefined || asNumber <= 0 || asNumber > 14) {
+  validate = (n: number): Validation => {
+    if (!Number.isInteger(n) || n <= 0 || n > 14) {
       return "error";
     }
     return "success";
   };
 
-  handleChange = (value: string | undefined) => {
-    this.setState({ value: value || "" }, () => {
-      // As callback, save successful value into Redux store.
-      if (this.validate() !== "error") {
-        this.props.setLengthDays(Number(value));
-      }
-    });
+  handleChange = (n: number): void => {
+    if (this.validate(n)) {
+      this.props.setLengthDays(n);
+    }
   };
 
   render() {
-    const validation: Validation = this.validate();
-
     return (
       <NumberInput
-        label={<FormattedMessage id="meet-setup.length-days" defaultMessage="Days of Lifting" />}
-        min={1}
-        max={14}
+        initialValue={this.state.initialValue}
         step={1}
-        value={this.state.value}
+        validate={this.validate}
         onChange={this.handleChange}
-        language={this.props.language}
-        validationStatus={validation}
+        label={<FormattedMessage id="meet-setup.length-days" defaultMessage="Days of Lifting" />}
       />
     );
   }
 }
 
 const mapStateToProps = (state: GlobalState): StateProps => ({
-  lengthDays: state.meet.lengthDays,
-  language: state.language
+  lengthDays: state.meet.lengthDays
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {

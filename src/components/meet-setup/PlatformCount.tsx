@@ -25,7 +25,7 @@ import { setPlatformsOnDays } from "../../actions/meetSetupActions";
 import { parseInteger } from "../../logic/parsers";
 
 import { GlobalState } from "../../types/stateTypes";
-import { Language, Validation } from "../../types/dataTypes";
+import { Validation } from "../../types/dataTypes";
 import { Dispatch } from "redux";
 import NumberInput from "../common/NumberInput";
 
@@ -35,7 +35,6 @@ interface OwnProps {
 
 interface StateProps {
   platformsOnDays: Array<number>;
-  language: Language;
 }
 
 interface DispatchProps {
@@ -45,7 +44,7 @@ interface DispatchProps {
 type Props = OwnProps & StateProps & DispatchProps;
 
 interface InternalState {
-  value: string;
+  initialValue: number;
 }
 
 class PlatformCount extends React.Component<Props, InternalState> {
@@ -56,57 +55,46 @@ class PlatformCount extends React.Component<Props, InternalState> {
     this.handleChange = this.handleChange.bind(this);
 
     this.state = {
-      value: String(this.props.platformsOnDays[this.props.day - 1])
+      initialValue: this.props.platformsOnDays[this.props.day - 1]
     };
   }
 
-  validate = (): Validation => {
-    const { value } = this.state;
-    const asNumber = parseInteger(value);
-    if (asNumber === undefined || asNumber <= 0 || asNumber > 20) {
+  validate = (n: number): Validation => {
+    if (!Number.isInteger(n) || n <= 0 || n > 20) {
       return "error";
     }
     return "success";
   };
 
-  handleChange = (value: string | undefined) => {
-    this.setState({ value: value || "" }, () => {
-      if (this.validate() === "success") {
-        this.props.setPlatformsOnDays(this.props.day, Number(value));
-      }
-    });
+  handleChange = (n: number): void => {
+    if (this.validate(n) === "success") {
+      this.props.setPlatformsOnDays(this.props.day, n);
+    }
   };
 
   render() {
-    const { day } = this.props;
-    const validation = this.validate();
-
     return (
       <NumberInput
+        initialValue={this.state.initialValue}
+        step={1}
+        validate={this.validate}
+        onChange={this.handleChange}
         label={
           <FormattedMessage
             id="meet-setup.platforms-on-day"
             defaultMessage="Platforms on Day {number}"
             values={{
-              number: day
+              number: this.props.day
             }}
           />
         }
-        min={1}
-        max={20}
-        step={1}
-        value={this.state.value}
-        onChange={this.handleChange}
-        validationStatus={validation}
-        language={this.props.language}
       />
     );
   }
 }
 
 const mapStateToProps = (state: GlobalState): StateProps => ({
-  platformsOnDays: state.meet.platformsOnDays,
-  language: state.language
+  platformsOnDays: state.meet.platformsOnDays
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {

@@ -49,7 +49,7 @@ interface DispatchProps {
 type Props = OwnProps & StateProps & DispatchProps;
 
 interface InternalState {
-  value: string;
+  initialValue: number;
 }
 
 class BarAndCollarsWeightKg extends React.Component<Props, InternalState> {
@@ -60,10 +60,9 @@ class BarAndCollarsWeightKg extends React.Component<Props, InternalState> {
     this.handleChange = this.handleChange.bind(this);
 
     const weight = this.getInitialBarAndCollarsWeightKg(this.props.lift);
-    const value = this.props.inKg ? weight : kg2lbs(weight);
 
     this.state = {
-      value: displayWeight(value, props.language)
+      initialValue: this.props.inKg ? weight : kg2lbs(weight)
     };
   }
 
@@ -81,23 +80,19 @@ class BarAndCollarsWeightKg extends React.Component<Props, InternalState> {
     }
   };
 
-  validate = (): Validation => {
-    const asNumber = string2number(this.state.value);
-    if (isNaN(asNumber) || asNumber <= 0 || asNumber < 5) {
+  validate = (n: number): Validation => {
+    // Don't use isInteger() since decimals are allowed.
+    if (isNaN(n) || !isFinite(n) || n < 5 || n > 1000) {
       return "error";
     }
     return "success";
   };
 
-  handleChange = (value: string | undefined) => {
-    const stringValue = value || "";
-    this.setState({ value: stringValue }, () => {
-      if (this.validate() === "success") {
-        const asNum = string2number(stringValue);
-        const weight = this.props.inKg ? asNum : lbs2kg(asNum);
-        this.props.setBarAndCollarsWeightKg(this.props.lift, weight);
-      }
-    });
+  handleChange = (n: number) => {
+    if (this.validate(n) === "success") {
+      const weight = this.props.inKg ? n : lbs2kg(n);
+      this.props.setBarAndCollarsWeightKg(this.props.lift, weight);
+    }
   };
 
   getLiftLabel = (lift: Lift, inKg: boolean, language: Language): string => {
@@ -127,18 +122,13 @@ class BarAndCollarsWeightKg extends React.Component<Props, InternalState> {
   };
 
   render() {
-    const validation: Validation = this.validate();
-    const label = this.getLiftLabel(this.props.lift, this.props.inKg, this.props.language);
-
     return (
       <NumberInput
-        label={label}
-        min={0}
+        initialValue={this.state.initialValue}
         step={2.5}
-        value={this.state.value}
+        validate={this.validate}
         onChange={this.handleChange}
-        language={this.props.language}
-        validationStatus={validation}
+        label={this.getLiftLabel(this.props.lift, this.props.inKg, this.props.language)}
       />
     );
   }
