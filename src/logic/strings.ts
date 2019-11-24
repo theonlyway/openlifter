@@ -139,7 +139,10 @@ export const localizeFlight = (flight: Flight, language: Language): string => {
 
 // Delocalizes a Flight value.
 export const delocalizeFlight = (text: string, language: Language): Flight => {
-  if (text === getString("flight.a", language)) return "A";
+  // The "A" character gets special handling for the benefit of Cyrillic.
+  // Latin "A" and Cyrillic "A" are visually identical, but differ in encoding.
+  if (text === getString("flight.a", language) || text === "A") return "A";
+
   if (text === getString("flight.b", language)) return "B";
   if (text === getString("flight.c", language)) return "C";
   if (text === getString("flight.d", language)) return "D";
