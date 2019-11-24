@@ -83,6 +83,7 @@ const NumberInput: FunctionComponent<Props> = props => {
         <InputGroup.Prepend>
           <Button
             variant="outline-secondary"
+            style={{ borderRight: "0px" }}
             onMouseDown={() =>
               decrementByStep(string2number(props.value), props.step, props.min, props.onChange, props.language)
             }
@@ -102,6 +103,7 @@ const NumberInput: FunctionComponent<Props> = props => {
         <InputGroup.Append>
           <Button
             variant="outline-secondary"
+            style={{ borderLeft: "0px" }}
             onMouseDown={() =>
               incrementByStep(string2number(props.value), props.step, props.max, props.onChange, props.language)
             }
