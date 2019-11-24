@@ -98,7 +98,7 @@ class ColorPicker extends React.Component<Props, InternalState> {
       picker = (
         <Popper.Popper placement="bottom-end">
           {({ ref, style, placement }) => (
-            <div ref={ref} style={style} data-placement={placement}>
+            <div ref={ref} style={style} className={styles.onTop} data-placement={placement}>
               <TwitterPicker
                 color={this.state.color}
                 colors={colors}
