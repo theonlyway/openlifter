@@ -93,7 +93,8 @@ export const displayPoints = (points: number, lang: Language): string => {
 // Display a generic number that is neither a weight nor points.
 // This is intended for things like ages, day numbers, etc.
 export const displayNumber = (number: number, lang: Language): string => {
-  return new Intl.NumberFormat(lang).format(number);
+  // Grouping should not be used: otherwise ',' is ambiguous as a separator.
+  return new Intl.NumberFormat(lang, { useGrouping: false }).format(number);
 };
 
 // Display an ordinal number representing a place.

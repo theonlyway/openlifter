@@ -55,7 +55,6 @@ const incrementByStep = (
   if (max !== undefined && newValue > max) {
     onChange(displayNumber(max, language));
   } else {
-    console.log(newValue, displayNumber(newValue, language));
     onChange(displayNumber(newValue, language));
   }
 };

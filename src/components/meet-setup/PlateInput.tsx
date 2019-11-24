@@ -45,6 +45,7 @@ const PlateInput: FunctionComponent<Props> = props => {
         <div style={{ maxWidth: "130px" }}>
           <NumberInput
             min={0}
+            max={50}
             step={1}
             value={String(props.pairCount)}
             onChange={count => props.onChange(props.weightKg, props.id, Number(count), props.color)}
