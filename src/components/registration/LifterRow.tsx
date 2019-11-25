@@ -47,8 +47,6 @@ import { FormControlTypeHack, checkExhausted, assertString, assertFlight, assert
 import { Entry, Equipment, Language, Validation } from "../../types/dataTypes";
 import { Dispatch } from "redux";
 import { GlobalState, MeetState } from "../../types/stateTypes";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlusSquare, faMinusSquare } from "@fortawesome/free-solid-svg-icons";
 
 interface OwnProps {
   id: number;
@@ -304,7 +302,6 @@ class LifterRow extends React.Component<Props, InternalState> {
 
     const gridStyle = { padding: "0px", margin: "0px" };
 
-    const stringName = getString("common.name", language);
     const stringCountry = getString("common.country", language);
     const stringState = getString("registration.state-province", language);
     const stringBirthDatePlaceholder = getString("registration.birthdate-placeholder", language);

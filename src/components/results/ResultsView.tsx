@@ -46,7 +46,6 @@ import { GlobalState } from "../../types/stateTypes";
 import styles from "./ResultsView.module.scss";
 import { FormControlTypeHack, checkExhausted, assertString } from "../../types/utils";
 import { Dispatch } from "redux";
-const marginStyle = { margin: "0 20px 0 20px" };
 
 type ResultsBy = "Division" | "Points" | "BestMastersLifter" | "BestJuniorsLifter";
 

@@ -22,8 +22,6 @@ import { FormattedMessage } from "react-intl";
 
 import { setPlatformsOnDays } from "../../actions/meetSetupActions";
 
-import { parseInteger } from "../../logic/parsers";
-
 import { GlobalState } from "../../types/stateTypes";
 import { Validation } from "../../types/dataTypes";
 import { Dispatch } from "redux";

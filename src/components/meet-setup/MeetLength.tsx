@@ -25,8 +25,6 @@ import NumberInput from "../common/NumberInput";
 
 import { setLengthDays } from "../../actions/meetSetupActions";
 
-import { parseInteger } from "../../logic/parsers";
-
 import { Validation } from "../../types/dataTypes";
 import { GlobalState } from "../../types/stateTypes";
 
