@@ -45,11 +45,11 @@ const languageOptions = [
   <option key="en" value="en">
     English (en)
   </option>,
-  <option key="es" value="es">
-    Español (es)
-  </option>,
   <option key="eo" value="eo">
     Esperanto (eo)
+  </option>,
+  <option key="es" value="es">
+    Español (es)
   </option>,
   <option key="hr" value="hr">
     Hrvatski (hr)
