@@ -72,6 +72,7 @@ class AboutContainer extends React.Component<{}> {
                     <li>Alper Dokucu &mdash; Turkish localization</li>
                     <li>Trystan Oakley &mdash; Testing</li>
                     <li>Jared Klopper &mdash; Programming</li>
+                    <li>Boris Lerner &mdash; Russian localization</li>
                     <li>Kai Ma &mdash; Simplified Chinese localization</li>
                     <li>Rodney Marsh &mdash; Programming</li>
                     <li>Matt Pearce &mdash; Coefficient calculations</li>

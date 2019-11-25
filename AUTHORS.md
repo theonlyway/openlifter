@@ -21,6 +21,7 @@ Please also add yourself to the in-program credits in `src/containers/AboutConta
 * Tommy DeFea
 * Alper Dokucu
 * Jared Klopper
+* Boris Lerner
 * Kai Ma
 * Rodney Marsh
 * Trystan Oakley
