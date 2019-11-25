@@ -23,7 +23,7 @@ import { getString } from "../strings";
 import rootReducer from "../../reducers/rootReducer";
 
 const makeState = language => {
-  let state = rootReducer({}, "OVERWRITE_STORE"); // Get a default global state.
+  const state = rootReducer({}, "OVERWRITE_STORE"); // Get a default global state.
   state.meet.divisions = [
     getString("import.example-division1", language),
     getString("import.example-division2", language)
@@ -36,10 +36,10 @@ describe("loadRegistrations", () => {
     const example = makeExampleRegistrationsCsv("de");
     expect(typeof example).toEqual("string");
 
-    let csv = new Csv();
+    const csv = new Csv();
     expect(typeof csv.fromString(example)).toEqual("object");
 
-    let entries = loadRegistrations(makeState("de"), csv, "de");
+    const entries = loadRegistrations(makeState("de"), csv, "de");
     expect(typeof entries).toEqual("object");
   });
 });
@@ -49,10 +49,10 @@ describe("loadRegistrations", () => {
     const example = makeExampleRegistrationsCsv("en");
     expect(typeof example).toEqual("string");
 
-    let csv = new Csv();
+    const csv = new Csv();
     expect(typeof csv.fromString(example)).toEqual("object");
 
-    let entries = loadRegistrations(makeState("en"), csv, "en");
+    const entries = loadRegistrations(makeState("en"), csv, "en");
     expect(typeof entries).toEqual("object");
   });
 });
@@ -62,10 +62,10 @@ describe("loadRegistrations", () => {
     const example = makeExampleRegistrationsCsv("eo");
     expect(typeof example).toEqual("string");
 
-    let csv = new Csv();
+    const csv = new Csv();
     expect(typeof csv.fromString(example)).toEqual("object");
 
-    let entries = loadRegistrations(makeState("eo"), csv, "eo");
+    const entries = loadRegistrations(makeState("eo"), csv, "eo");
     expect(typeof entries).toEqual("object");
   });
 });
@@ -75,10 +75,10 @@ describe("loadRegistrations", () => {
     const example = makeExampleRegistrationsCsv("es");
     expect(typeof example).toEqual("string");
 
-    let csv = new Csv();
+    const csv = new Csv();
     expect(typeof csv.fromString(example)).toEqual("object");
 
-    let entries = loadRegistrations(makeState("es"), csv, "es");
+    const entries = loadRegistrations(makeState("es"), csv, "es");
     expect(typeof entries).toEqual("object");
   });
 });
@@ -88,10 +88,10 @@ describe("loadRegistrations", () => {
     const example = makeExampleRegistrationsCsv("hr");
     expect(typeof example).toEqual("string");
 
-    let csv = new Csv();
+    const csv = new Csv();
     expect(typeof csv.fromString(example)).toEqual("object");
 
-    let entries = loadRegistrations(makeState("hr"), csv, "hr");
+    const entries = loadRegistrations(makeState("hr"), csv, "hr");
     expect(typeof entries).toEqual("object");
   });
 });
@@ -101,10 +101,10 @@ describe("loadRegistrations", () => {
     const example = makeExampleRegistrationsCsv("lt");
     expect(typeof example).toEqual("string");
 
-    let csv = new Csv();
+    const csv = new Csv();
     expect(typeof csv.fromString(example)).toEqual("object");
 
-    let entries = loadRegistrations(makeState("lt"), csv, "lt");
+    const entries = loadRegistrations(makeState("lt"), csv, "lt");
     expect(typeof entries).toEqual("object");
   });
 });
@@ -114,10 +114,10 @@ describe("loadRegistrations", () => {
     const example = makeExampleRegistrationsCsv("nl");
     expect(typeof example).toEqual("string");
 
-    let csv = new Csv();
+    const csv = new Csv();
     expect(typeof csv.fromString(example)).toEqual("object");
 
-    let entries = loadRegistrations(makeState("nl"), csv, "nl");
+    const entries = loadRegistrations(makeState("nl"), csv, "nl");
     expect(typeof entries).toEqual("object");
   });
 });
@@ -127,10 +127,10 @@ describe("loadRegistrations", () => {
     const example = makeExampleRegistrationsCsv("pt");
     expect(typeof example).toEqual("string");
 
-    let csv = new Csv();
+    const csv = new Csv();
     expect(typeof csv.fromString(example)).toEqual("object");
 
-    let entries = loadRegistrations(makeState("pt"), csv, "pt");
+    const entries = loadRegistrations(makeState("pt"), csv, "pt");
     expect(typeof entries).toEqual("object");
   });
 });
@@ -140,10 +140,10 @@ describe("loadRegistrations", () => {
     const example = makeExampleRegistrationsCsv("ru");
     expect(typeof example).toEqual("string");
 
-    let csv = new Csv();
+    const csv = new Csv();
     expect(typeof csv.fromString(example)).toEqual("object");
 
-    let entries = loadRegistrations(makeState("ru"), csv, "ru");
+    const entries = loadRegistrations(makeState("ru"), csv, "ru");
     expect(typeof entries).toEqual("object");
   });
 });
@@ -153,10 +153,10 @@ describe("loadRegistrations", () => {
     const example = makeExampleRegistrationsCsv("tr");
     expect(typeof example).toEqual("string");
 
-    let csv = new Csv();
+    const csv = new Csv();
     expect(typeof csv.fromString(example)).toEqual("object");
 
-    let entries = loadRegistrations(makeState("tr"), csv, "tr");
+    const entries = loadRegistrations(makeState("tr"), csv, "tr");
     expect(typeof entries).toEqual("object");
   });
 });
@@ -166,10 +166,10 @@ describe("loadRegistrations", () => {
     const example = makeExampleRegistrationsCsv("zh-Hans");
     expect(typeof example).toEqual("string");
 
-    let csv = new Csv();
+    const csv = new Csv();
     expect(typeof csv.fromString(example)).toEqual("object");
 
-    let entries = loadRegistrations(makeState("zh-Hans"), csv, "zh-Hans");
+    const entries = loadRegistrations(makeState("zh-Hans"), csv, "zh-Hans");
     expect(typeof entries).toEqual("object");
   });
 });

@@ -73,7 +73,7 @@ class WeightClassesSelect extends React.Component<Props, InternalState> {
   constructor(props: Props) {
     super(props);
 
-    let objarray: Array<OptionType> = [];
+    const objarray: Array<OptionType> = [];
     for (let i = 0; i < props.classes.length; i++) {
       const c = displayWeight(props.classes[i], props.language);
       objarray.push(createOption(c));
@@ -98,7 +98,7 @@ class WeightClassesSelect extends React.Component<Props, InternalState> {
     }
 
     // The classes changed: save to Redux.
-    let classes = [];
+    const classes = [];
     for (let i = 0; i < objarray.length; i++) {
       classes.push(Number(objarray[i].value));
     }

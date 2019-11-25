@@ -48,6 +48,22 @@ import { FormControlTypeHack, checkExhausted, assertString } from "../../types/u
 import { Dispatch } from "redux";
 const marginStyle = { margin: "0 20px 0 20px" };
 
+type ResultsBy = "Division" | "Points" | "BestMastersLifter" | "BestJuniorsLifter";
+
+const assertValidResultsBy = (value: string): value is ResultsBy => {
+  const resultsBy = value as ResultsBy;
+  switch (resultsBy) {
+    case "BestJuniorsLifter":
+    case "BestMastersLifter":
+    case "Division":
+    case "Points":
+      return true;
+    default:
+      checkExhausted(resultsBy);
+      throw new Error(`Expected a valid value for ResultsBy. Got "${value}"`);
+  }
+};
+
 interface StateProps {
   global: GlobalState;
   language: Language;
@@ -58,7 +74,6 @@ interface DispatchProps {
 }
 
 type Props = StateProps & DispatchProps;
-type ResultsBy = "Division" | "Points" | "BestMastersLifter" | "BestJuniorsLifter";
 
 interface InternalState {
   day: number;
@@ -96,7 +111,7 @@ class ResultsView extends React.Component<Props, InternalState> {
 
   makeDayOptions = () => {
     const language = this.props.language;
-    let options = [
+    const options = [
       <option key={"all"} value={0}>
         {getString("results.all-days-together", language)}
       </option>
@@ -153,7 +168,7 @@ class ResultsView extends React.Component<Props, InternalState> {
     saveAs(blob, meetname + ".USAPL.csv");
   };
 
-  handleExportPlatformClick = (day: number, platform: number, event: Object) => {
+  handleExportPlatformClick = (day: number, platform: number, event: Record<string, any>) => {
     // TODO: Share this logic with handleExportAsOplCsvClick.
     const language = this.props.language;
     let meetname = this.props.global.meet.name;
@@ -175,7 +190,7 @@ class ResultsView extends React.Component<Props, InternalState> {
 
   // The file input is hidden, and we want to use a button to activate it.
   // This event handler makes a proxy call to the *real* event handler.
-  handleMergePlatformClick = (day: number, platform: number, event: Object) => {
+  handleMergePlatformClick = (day: number, platform: number, event: Record<string, any>) => {
     const loadHelper = document.getElementById("loadhelper");
     if (loadHelper !== null) {
       globalMergeDay = day;
@@ -196,12 +211,12 @@ class ResultsView extends React.Component<Props, InternalState> {
     const platform: number = globalMergePlatform;
 
     // Remember the props in the onload() closure.
-    let props = this.props;
+    const props = this.props;
     const language = props.language;
 
-    let rememberThis = this;
+    const rememberThis = this;
     const selectedFile = loadHelper.files[0];
-    let reader = new FileReader();
+    const reader = new FileReader();
     reader.onload = () => {
       let error: string | null = null;
 
@@ -213,7 +228,7 @@ class ResultsView extends React.Component<Props, InternalState> {
       }
 
       try {
-        let obj: GlobalState = JSON.parse(reader.result);
+        const obj: GlobalState = JSON.parse(reader.result);
 
         // stateVersion must match.
         if (obj.versions.stateVersion !== props.global.versions.stateVersion) {
@@ -263,13 +278,13 @@ class ResultsView extends React.Component<Props, InternalState> {
     const mergeTemplate = getString("results.merge-platform", language);
     const exportTemplate = getString("results.export-platform", language);
 
-    let forms = [];
+    const forms = [];
     const numDays = Math.min(this.props.global.meet.lengthDays, platformsHaveLifted.length);
 
     for (let i = 0; i < numDays; i++) {
       const liftedOnDay = platformsHaveLifted[i];
 
-      let buttons = [];
+      const buttons = [];
       for (let j = 0; j < liftedOnDay.length; j++) {
         const lifted = liftedOnDay[j];
         const variant = lifted === true ? "success" : "warning";
@@ -438,20 +453,6 @@ class ResultsView extends React.Component<Props, InternalState> {
     );
   }
 }
-
-const assertValidResultsBy = (value: string): value is ResultsBy => {
-  const resultsBy = value as ResultsBy;
-  switch (resultsBy) {
-    case "BestJuniorsLifter":
-    case "BestMastersLifter":
-    case "Division":
-    case "Points":
-      return true;
-    default:
-      checkExhausted(resultsBy);
-      throw new Error(`Expected a valid value for ResultsBy. Got "${value}"`);
-  }
-};
 
 const mapStateToProps = (state: GlobalState): StateProps => {
   return {

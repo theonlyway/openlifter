@@ -33,7 +33,7 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export default function configureStore(initialState: Partial<GlobalState> = {}) {
-  let store = createStore(persistedReducer, initialState, applyMiddleware(thunk));
-  let persistor = persistStore(store);
+  const store = createStore(persistedReducer, initialState, applyMiddleware(thunk));
+  const persistor = persistStore(store);
   return { store, persistor };
 }

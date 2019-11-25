@@ -128,7 +128,7 @@ const sortByPlaceInCategory = (entries: Array<Entry>, category: Category, type: 
   const event = category.event;
 
   // Clone the entries array to avoid modifying the original.
-  let clonedEntries = entries.slice();
+  const clonedEntries = entries.slice();
 
   // Sort in the given category, first place having the lowest index.
   clonedEntries.sort((a, b) => {
@@ -287,7 +287,7 @@ const getAllResults = (
   // Generate a map from category to the entries within that category.
   // The map is populated by iterating over each entry and having the entry
   // append itself to per-category lists.
-  let categoryMap = new Map();
+  const categoryMap = new Map();
   for (let i = 0; i < entries.length; i++) {
     const e = entries[i];
 
@@ -318,8 +318,8 @@ const getAllResults = (
   }
 
   // Iterate over each category and assign a Place to the entries therein.
-  let results = [];
-  for (let [key, catEntries] of categoryMap) {
+  const results = [];
+  for (const [key, catEntries] of categoryMap) {
     const category = keyToCategory(key);
     const orderedEntries = sortByPlaceInCategory(catEntries, category, type);
     results.push({ category, orderedEntries });

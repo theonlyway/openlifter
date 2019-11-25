@@ -58,19 +58,19 @@ const makeBirthDate = (entry: Entry): string => {
   if (entry.birthDate === undefined || entry.birthDate === "") {
     return "";
   }
-  let [year, month, day]: Array<string> = entry.birthDate.split("-");
+  const [year, month, day]: Array<string> = entry.birthDate.split("-");
   return month + "/" + day + "/" + year;
 };
 
 // Given an Entry and its index in the CategoryResults.orderedEntries,
 // render all that information as a one-liner CSV string.
-const addDataRow = (csv: Csv, category: Category, entry: Entry) => {
+const addDataRow = (csv: Csv, category: Category, entry: Entry): void => {
   const hasSquat: boolean = category.event.includes("S");
   const hasBench: boolean = category.event.includes("B");
   const hasDL: boolean = category.event.includes("D");
 
   // Initialize an empty row with all columns available.
-  let row: Array<string> = Array(csv.fieldnames.length).fill("");
+  const row: Array<string> = Array(csv.fieldnames.length).fill("");
 
   row[csv.index("Name")] = csvString(entry.name);
   row[csv.index("Team")] = csvString(entry.team);
@@ -96,7 +96,7 @@ const addDataRow = (csv: Csv, category: Category, entry: Entry) => {
 };
 
 export const exportAsUSAPLCsv = (state: GlobalState): string => {
-  let csv = new Csv();
+  const csv = new Csv();
   csv.fieldnames = [
     "Name",
     "Team",

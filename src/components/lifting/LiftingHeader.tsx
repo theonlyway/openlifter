@@ -55,7 +55,7 @@ class LiftingHeader extends React.Component<Props> {
       const entry = this.props.registration.entries[idx];
       lifterName = <span>{entry.name}</span>;
 
-      let infoBuilder: Array<string> = [];
+      const infoBuilder: Array<string> = [];
 
       if (typeof entry.instagram === "string" && entry.instagram !== "") {
         infoBuilder.push("@" + entry.instagram);

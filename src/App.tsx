@@ -39,7 +39,7 @@ import { getDefaultLanguage } from "./logic/strings";
 
 class App extends React.Component {
   render() {
-    let { store, persistor } = configureStore({ language: getDefaultLanguage() });
+    const { store, persistor } = configureStore({ language: getDefaultLanguage() });
 
     return (
       // Provider is a React component from the react-redux library.

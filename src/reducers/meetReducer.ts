@@ -167,7 +167,7 @@ export default (state: MeetState = initialState, action: Action): MeetState => {
       if (numDays >= state.platformsOnDays.length) {
         const diff = numDays - state.platformsOnDays.length;
 
-        let newPlatformsOnDays: Array<number> = state.platformsOnDays.slice();
+        const newPlatformsOnDays: Array<number> = state.platformsOnDays.slice();
         for (let i = 0; i < diff; i++) {
           newPlatformsOnDays.push(defaultPlatformsOnDay);
         }
@@ -181,7 +181,7 @@ export default (state: MeetState = initialState, action: Action): MeetState => {
       const day = Number(action.day);
       const count = Number(action.count);
 
-      let newPlatformsOnDays: Array<number> = state.platformsOnDays.slice();
+      const newPlatformsOnDays: Array<number> = state.platformsOnDays.slice();
       newPlatformsOnDays[day - 1] = count;
       return { ...state, platformsOnDays: newPlatformsOnDays };
     }
@@ -237,7 +237,7 @@ export default (state: MeetState = initialState, action: Action): MeetState => {
       const index = state.plates.findIndex(p => p.weightKg === weightKg);
 
       // Clone the array.
-      let newPlates: Array<Plate> = state.plates.slice();
+      const newPlates: Array<Plate> = state.plates.slice();
 
       // Replace with a new object in the new array.
       newPlates[index] = { weightKg, pairCount, color };
@@ -249,7 +249,7 @@ export default (state: MeetState = initialState, action: Action): MeetState => {
       const changes = action.changes;
 
       // Make a new MeetState with just the changes overwritten.
-      let newState = Object.assign({}, state);
+      const newState = Object.assign({}, state);
       return Object.assign(newState, changes);
     }
 

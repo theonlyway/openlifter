@@ -23,10 +23,10 @@ import { Sex } from "../../types/dataTypes";
 import { checkExhausted } from "../../types/utils";
 
 function wilksPoly(a: number, b: number, c: number, d: number, e: number, f: number, x: number): number {
-  var x2 = x * x,
-    x3 = x2 * x,
-    x4 = x3 * x,
-    x5 = x4 * x;
+  const x2 = x * x;
+  const x3 = x2 * x;
+  const x4 = x3 * x;
+  const x5 = x4 * x;
   return 500.0 / (a + b * x + c * x2 + d * x3 + e * x4 + f * x5);
 }
 

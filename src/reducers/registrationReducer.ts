@@ -63,8 +63,8 @@ export default (state: RegistrationState = initialState, action: Action): Regist
 
       // Generate an entries array with one more item (without modifying the orginal).
       // Object.assign() allows `obj` to overwrite defaults if present.
-      let entries: Array<Entry> = state.entries.slice();
-      let newEntry = newDefaultEntry(state.nextEntryId);
+      const entries: Array<Entry> = state.entries.slice();
+      const newEntry = newDefaultEntry(state.nextEntryId);
 
       // If a previous entry exists, pre-populate some information from it.
       if (entries.length > 0) {
@@ -80,7 +80,7 @@ export default (state: RegistrationState = initialState, action: Action): Regist
       // Since a new entry was added, generate a new 'lookup' object,
       // mapping from the globally-unique EntryId to the array index.
       // Specify type explicitly here so that we can mutate it
-      let lookup: NumberLookup = Object.assign({}, state.lookup);
+      const lookup: NumberLookup = Object.assign({}, state.lookup);
       lookup[state.nextEntryId] = entries.length - 1;
 
       return {
@@ -95,14 +95,14 @@ export default (state: RegistrationState = initialState, action: Action): Regist
       const entryId = action.entryId;
 
       // Generate an entries array without the given item.
-      let entries: Array<Entry> = state.entries.filter((item, index) => item.id !== entryId);
+      const entries: Array<Entry> = state.entries.filter((item, index) => item.id !== entryId);
 
       // Since the entry was deleted from anywhere in the array,
       // construct a new lookup table from scratch.
-      let lookup: NumberLookup = {};
+      const lookup: NumberLookup = {};
 
       for (let i = 0; i < entries.length; i++) {
-        let entry = entries[i];
+        const entry = entries[i];
         lookup[entry.id] = i;
       }
 
@@ -118,12 +118,12 @@ export default (state: RegistrationState = initialState, action: Action): Regist
       const changes = action.changes;
 
       // Clone the entries array, since one entry will reference a new object.
-      let entries: Array<Entry> = state.entries.slice();
+      const entries: Array<Entry> = state.entries.slice();
 
       // Make a new object with just the changes overwritten,
       // and reference that object from the new array.
       const index = entries.findIndex(obj => obj.id === entryId);
-      let newEntry = Object.assign({}, entries[index]);
+      const newEntry = Object.assign({}, entries[index]);
       entries[index] = Object.assign(newEntry, changes);
 
       return {
@@ -142,16 +142,16 @@ export default (state: RegistrationState = initialState, action: Action): Regist
       const field: FieldKg = liftToAttemptFieldName(lift);
 
       // Clone the entries array, since one slot will reference a new object.
-      let newEntries: Array<Entry> = state.entries.slice();
+      const newEntries: Array<Entry> = state.entries.slice();
       const index = newEntries.findIndex(obj => obj.id === entryId);
       const oldEntry = newEntries[index];
 
       // Make a copy of the attempts array containing the new attempt.
-      let newarray = oldEntry[field].slice();
+      const newarray = oldEntry[field].slice();
       newarray[attemptOneIndexed - 1] = weightKg;
 
       // Put that new attempts array into an object so we can use Object.assign().
-      let newfields: Partial<Entry> = {};
+      const newfields: Partial<Entry> = {};
       newfields[field] = newarray;
 
       // Make a new entry from the old entry, with the attempts field overwritten.
@@ -175,20 +175,20 @@ export default (state: RegistrationState = initialState, action: Action): Regist
       const fieldStatus = liftToStatusFieldName(lift);
 
       // Clone the entries array, since one slot will reference a new object.
-      let newEntries: Array<Entry> = state.entries.slice();
+      const newEntries: Array<Entry> = state.entries.slice();
       const index = newEntries.findIndex(obj => obj.id === entryId);
       const oldEntry = newEntries[index];
 
       // Make a copy of the status array containing the new status.
-      let newarray = oldEntry[fieldStatus].slice();
+      const newarray = oldEntry[fieldStatus].slice();
       newarray[attemptOneIndexed - 1] = status;
 
       // Put that new array into an object so we can use Object.assign().
-      let newfields: Partial<Entry> = {};
+      const newfields: Partial<Entry> = {};
       newfields[fieldStatus] = newarray;
 
       // Make a new entry from the old entry, with the status field overwritten.
-      let newEntry = Object.assign({}, oldEntry);
+      const newEntry = Object.assign({}, oldEntry);
       newEntries[index] = Object.assign(newEntry, newfields);
 
       return {
@@ -204,7 +204,7 @@ export default (state: RegistrationState = initialState, action: Action): Regist
       const platformEntries: Array<Entry> = action.platformEntries;
 
       // Filter out state entries assigned to the merged (day, platform).
-      let newEntries = state.entries.filter(e => {
+      const newEntries = state.entries.filter(e => {
         return !(e.day === day && e.platform === platform);
       });
 
@@ -214,13 +214,13 @@ export default (state: RegistrationState = initialState, action: Action): Regist
       // For each incoming Entry, copy the object, assign a new ID,
       // and place it in the newEntries array.
       for (let i = 0; i < platformEntries.length; i++) {
-        let entry: Entry = Object.assign({}, platformEntries[i]);
+        const entry: Entry = Object.assign({}, platformEntries[i]);
         entry.id = nextEntryId++;
         newEntries.push(entry);
       }
 
       // Generate an entirely new lookup table.
-      let lookup: NumberLookup = {};
+      const lookup: NumberLookup = {};
       for (let i = 0; i < newEntries.length; i++) {
         lookup[newEntries[i].id] = i;
       }

@@ -27,7 +27,7 @@ export const iso8601ToLocalDate = (s: string): Date => {
   const month = parseInt(monthStr, 10);
   const day = parseInt(dayStr, 10);
 
-  let d = new Date();
+  const d = new Date();
   d.setFullYear(year, month - 1, day);
   return d;
 };

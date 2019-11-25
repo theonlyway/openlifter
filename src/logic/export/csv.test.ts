@@ -52,14 +52,14 @@ describe("getSpreadsheetColumnName", () => {
 
 describe("Csv", () => {
   it("completes a fromString() -> toString() round-trip", () => {
-    let csv = new Csv();
+    const csv = new Csv();
     const basic = "Foo,Bar,Baz\n1,2,3\n4,5,6\n";
     expect(csv.fromString(basic).toString()).toEqual(basic);
   });
 
   // Error message strings are returned on failure.
   it("fails fromString() if wonky stuff is going on", () => {
-    let csv = new Csv();
+    const csv = new Csv();
 
     const missing_header = "Foo,,Baz\n1,2,3\n";
     expect(typeof csv.fromString(missing_header)).toEqual("string");

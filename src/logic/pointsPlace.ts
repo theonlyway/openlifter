@@ -64,14 +64,14 @@ const sortByFormulaPlaceInCategory = (
   meetDate: string
 ): Array<Entry> => {
   // Make a map from Entry to initial index.
-  let indexMap = new Map();
+  const indexMap = new Map();
   for (let i = 0; i < entries.length; i++) {
     indexMap.set(entries[i], i);
   }
 
   // Pre-calculate all the points into an array to avoid computing them multiple
   // times in the sort.
-  let memoizedPoints = new Array(entries.length);
+  const memoizedPoints = new Array(entries.length);
   for (let i = 0; i < entries.length; i++) {
     const entry = entries[i];
     const totalKg = getFinalEventTotalKg(entry, category.event);
@@ -80,7 +80,7 @@ const sortByFormulaPlaceInCategory = (
   }
 
   // Clone the entries array to avoid modifying the original.
-  let clonedEntries = entries.slice();
+  const clonedEntries = entries.slice();
 
   // Sort in the given category, first place having the lowest index.
   clonedEntries.sort((a, b) => {
@@ -133,7 +133,7 @@ const getSexSortOrder = (sex: Sex): number => {
 
 // Determines the sort (and therefore presentation) order for the Category Results.
 // The input array is sorted in-place; nothing is returned.
-export const sortPointsCategoryResults = (results: Array<PointsCategoryResults>) => {
+export const sortPointsCategoryResults = (results: Array<PointsCategoryResults>): void => {
   results.sort((a, b) => {
     const catA = a.category;
     const catB = b.category;
@@ -170,7 +170,7 @@ export const getAllRankings = (
   // Generate a map from category to the entries within that category.
   // The map is populated by iterating over each entry and having the entry
   // append itself to per-category lists.
-  let categoryMap = new Map();
+  const categoryMap = new Map();
   for (let i = 0; i < entries.length; i++) {
     const e = entries[i];
 
@@ -195,8 +195,8 @@ export const getAllRankings = (
   }
 
   // Iterate over each category and assign a Place to the entries therein.
-  let results = [];
-  for (let [key, catEntries] of categoryMap) {
+  const results = [];
+  for (const [key, catEntries] of categoryMap) {
     const category = keyToCategory(key);
     const orderedEntries = sortByFormulaPlaceInCategory(catEntries, category, formula, ageCoefficients, inKg, meetDate);
     results.push({ category, orderedEntries });

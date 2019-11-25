@@ -53,7 +53,7 @@ class OneCategory extends React.Component<Props> {
 
     const sex = sexToLabel(category.sex);
 
-    let namelist = [];
+    const namelist = [];
     for (let i = 0; i < entries.length; i++) {
       namelist.push(entries[i].name);
     }

@@ -66,7 +66,7 @@ class ColorPicker extends React.Component<Props, InternalState> {
   handleMouseLeave = () => {
     // Close the popup after a second has elapsed.
     // This gives the user a chance to bring the mouse back into the popup.
-    let timeoutId = setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       this.setState({ displayColorPicker: false, timeoutId: null });
     }, 1000);
     this.setState({ timeoutId: timeoutId });

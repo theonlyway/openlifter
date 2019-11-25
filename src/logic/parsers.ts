@@ -35,7 +35,7 @@ export const parseInteger = (s: string): number | undefined => {
 
   // Check the string character-by-character.
   for (let i = 0; i < s.length; ++i) {
-    let charcode = s.charCodeAt(i);
+    const charcode = s.charCodeAt(i);
 
     // A single negative is allowed at the front.
     if (i === 0 && charcode === ascii_minus) {
@@ -102,7 +102,7 @@ export const parseDate = (s: string): string | undefined => {
     return;
   }
 
-  let pieces = s.split("-");
+  const pieces = s.split("-");
   if (pieces.length !== 3) {
     return;
   }
@@ -111,9 +111,9 @@ export const parseDate = (s: string): string | undefined => {
     return;
   }
 
-  let year = parseInteger(pieces[0]);
-  let month = parseInteger(pieces[1]);
-  let day = parseInteger(pieces[2]);
+  const year = parseInteger(pieces[0]);
+  const month = parseInteger(pieces[1]);
+  const day = parseInteger(pieces[2]);
 
   if (typeof year !== "number" || year < 1920) return;
   if (typeof month !== "number" || month < 1 || month > 12) return;

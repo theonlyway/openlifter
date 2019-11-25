@@ -90,7 +90,7 @@ class FlightOrderView extends React.Component<Props, InternalState> {
     const selectorStyle = { width: "120px", marginRight: "15px" };
 
     // Make options for all of the days.
-    let dayOptions = [];
+    const dayOptions = [];
     const dayTemplate = getString("lifting.footer-day-template", language);
     for (let i = 1; i <= this.props.meet.lengthDays; i++) {
       dayOptions.push(
@@ -101,7 +101,7 @@ class FlightOrderView extends React.Component<Props, InternalState> {
     }
 
     // Make options for all of the available platforms on the current day.
-    let platformOptions = [];
+    const platformOptions = [];
     const platformTemplate = getString("lifting.footer-platform-template", language);
     const numPlatforms = this.props.meet.platformsOnDays[this.state.day - 1];
     for (let i = 1; i <= numPlatforms; i++) {
@@ -113,12 +113,12 @@ class FlightOrderView extends React.Component<Props, InternalState> {
     }
 
     // Get all the entries under the current (day, platform) selection.
-    let shownEntries = this.props.entries.filter(e => {
+    const shownEntries = this.props.entries.filter(e => {
       return e.day === this.state.day && e.platform === this.state.platform;
     });
 
     // Look through the entries to discover what flights exist.
-    let knownFlights: Flight[] = [];
+    const knownFlights: Flight[] = [];
     for (let i = 0; i < shownEntries.length; i++) {
       const entry = shownEntries[i];
       if (knownFlights.indexOf(entry.flight) === -1) {
@@ -128,7 +128,7 @@ class FlightOrderView extends React.Component<Props, InternalState> {
     knownFlights.sort();
 
     // For each flight, see if there are any lifters, and build a OneFlightOrder.
-    let flightOrders = [];
+    const flightOrders = [];
     for (let i = 0; i < knownFlights.length; i++) {
       const flight = knownFlights[i];
       const entriesInFlight = shownEntries.filter(e => e.flight === flight);

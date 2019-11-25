@@ -31,7 +31,7 @@ const getNextAttemptNumberForEntry = (entry: Entry, fieldKg: FieldKg, fieldStatu
 
   // Lifters only set the next attempt, so loop backwards,
   // looking for the first attempt that meets the criteria.
-  for (var i = MAX_ATTEMPTS - 1; i >= 0; i--) {
+  for (let i = MAX_ATTEMPTS - 1; i >= 0; i--) {
     if (weightsKg[i] !== 0 && statuses[i] === 0) {
       return i + 1;
     }
@@ -47,7 +47,7 @@ const getMaxAttemptNumberForEntry = (entry: Entry, fieldKg: FieldKg, fieldStatus
   const weightsKg = entry[fieldKg];
   const statuses = entry[fieldStatus];
 
-  for (var i = MAX_ATTEMPTS - 1; i >= 0; i--) {
+  for (let i = MAX_ATTEMPTS - 1; i >= 0; i--) {
     if (weightsKg[i] !== 0 && statuses[i] !== 0) {
       return i + 1;
     }
@@ -76,7 +76,7 @@ const getActiveAttemptNumber = (entriesInFlight: Array<Entry>, lifting: LiftingS
 
   // Iterate in reverse, looking for the earliest attempt that hasn't been lifted.
   let earliestAttemptOneIndexed = MAX_ATTEMPTS + 1;
-  for (var i = 0; i < entriesInFlight.length; i++) {
+  for (let i = 0; i < entriesInFlight.length; i++) {
     const entry = entriesInFlight[i];
     const next = getNextAttemptNumberForEntry(entry, fieldKg, fieldStatus);
     // Zero return value means "no pending attempts for this entry."
@@ -92,7 +92,7 @@ const getActiveAttemptNumber = (entriesInFlight: Array<Entry>, lifting: LiftingS
 
   // In the case of no pending lifts, try to helpfully infer the next attempt.
   let latestAttemptOneIndexed = 0;
-  for (var i = 0; i < entriesInFlight.length; i++) {
+  for (let i = 0; i < entriesInFlight.length; i++) {
     const entry = entriesInFlight[i];
     const max = getMaxAttemptNumberForEntry(entry, fieldKg, fieldStatus);
     // Zero return value means "no attempted attempts for this entry."
@@ -169,10 +169,10 @@ const orderEntriesForAttempt = (
   const existsPrevAttempt = attemptOneIndexed > 1;
 
   // Divide the entries into disjoint groups:
-  let byNextAttempt: Array<Entry> = []; // Entries sorted by their next attempt.
-  let byThisAttempt: Array<Entry> = []; // Entries sorted by this attempt.
-  let byPrevAttempt: Array<Entry> = []; // Entries sorted by previous attempt.
-  let notLifting: Array<Entry> = []; // Entries that don't have this or next attempts in.
+  const byNextAttempt: Array<Entry> = []; // Entries sorted by their next attempt.
+  const byThisAttempt: Array<Entry> = []; // Entries sorted by this attempt.
+  const byPrevAttempt: Array<Entry> = []; // Entries sorted by previous attempt.
+  const notLifting: Array<Entry> = []; // Entries that don't have this or next attempts in.
 
   for (let i = 0; i < entriesInFlight.length; i++) {
     const entry = entriesInFlight[i];

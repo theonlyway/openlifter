@@ -129,7 +129,7 @@ class WeightInput extends React.Component<Props, InternalState> {
       this.props.enterAttempt(this.props.id, lift, attemptOneIndexed, weightKg);
     } else if (this.props.field !== undefined) {
       // Otherwise, the field is a Number.
-      let newfields: Partial<Entry> = {};
+      const newfields: Partial<Entry> = {};
       newfields[this.props.field] = weightKg;
       this.props.updateRegistration(this.props.id, newfields);
     }

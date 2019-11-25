@@ -208,7 +208,7 @@ class LiftingFooter extends React.Component<Props> {
 
   // Check whether "document.fullscreenElement" exists, including prefixes.
   hasFullscreenElement = (): boolean => {
-    let doc: any = document;
+    const doc: any = document;
     if (doc.fullscreenElement) return true;
     if (doc.webkitFullscreenElement) return true;
     if (doc.mozFullscreenElement) return true;
@@ -218,7 +218,7 @@ class LiftingFooter extends React.Component<Props> {
 
   // Calls exitFullscreen(), but with prefixes.
   exitFullscreen = () => {
-    let doc: any = document;
+    const doc: any = document;
     if (typeof doc.exitFullscreen === "function") doc.exitFullscreen();
     else if (typeof doc.webkitExitFullscreen === "function") doc.webkitExitFullscreen();
     else if (typeof doc.mozExitFullscreen === "function") doc.mozExitFullscreen();
@@ -258,7 +258,7 @@ class LiftingFooter extends React.Component<Props> {
       );
     }
 
-    let lifterOptions = [];
+    const lifterOptions = [];
     for (let i = 0; i < orderedEntries.length; i++) {
       const entry = orderedEntries[i];
       lifterOptions.push(
@@ -274,7 +274,7 @@ class LiftingFooter extends React.Component<Props> {
     const language = this.props.language;
     const numPlatforms = this.props.platformsOnDays[this.props.lifting.day - 1];
 
-    let dayOptions = [];
+    const dayOptions = [];
     const dayTemplate = getString("lifting.footer-day-template", language);
     for (let i = 1; i <= this.props.lengthDays; i++) {
       dayOptions.push(
@@ -284,7 +284,7 @@ class LiftingFooter extends React.Component<Props> {
       );
     }
 
-    let platformOptions = [];
+    const platformOptions = [];
     const platformTemplate = getString("lifting.footer-platform-template", language);
     for (let i = 1; i <= numPlatforms; i++) {
       platformOptions.push(
@@ -306,7 +306,7 @@ class LiftingFooter extends React.Component<Props> {
       </option>
     ];
 
-    let flightOptions = [];
+    const flightOptions = [];
     const flightTemplate = getString("lifting.footer-flight-template", language);
     for (let i = 0; i < this.props.flightsOnPlatform.length; i++) {
       const flight = this.props.flightsOnPlatform[i];
@@ -321,7 +321,7 @@ class LiftingFooter extends React.Component<Props> {
       flightOptions.push(<option key="none">{getString("lifting.footer-no-flights", language)}</option>);
     }
 
-    let attemptOptions = [];
+    const attemptOptions = [];
     const attemptTemplate = getString("lifting.footer-attempt-template", language);
     for (let i = 1; i <= 3; i++) {
       attemptOptions.push(

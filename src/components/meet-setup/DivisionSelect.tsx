@@ -67,7 +67,7 @@ class DivisionSelect extends React.Component<Props, InternalState> {
   constructor(props: Props) {
     super(props);
 
-    let objarray = [];
+    const objarray = [];
     for (let i = 0; i < props.divisions.length; i++) {
       const division = props.divisions[i];
       objarray.push({ value: division, label: division });
@@ -93,7 +93,7 @@ class DivisionSelect extends React.Component<Props, InternalState> {
     }
 
     // The divisions changed: save to Redux.
-    let divisions = [];
+    const divisions = [];
     for (let i = 0; i < objarray.length; i++) {
       divisions.push(objarray[i].label);
     }

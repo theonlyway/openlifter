@@ -76,7 +76,7 @@ class WeighinsView extends React.Component<Props> {
 
     // Make a separate panel for each day.
     const numDays = this.getNumDaysFromEntries();
-    let dayCards = [];
+    const dayCards = [];
     for (let i = 1; i <= numDays; i++) {
       const lifters = getLiftersOnDay(this.props.entries, i);
 

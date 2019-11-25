@@ -25,7 +25,7 @@ import { Language } from "../../types/dataTypes";
 import { RegistrationState } from "../../types/stateTypes";
 
 export const makeRegistrationsCsv = (registration: RegistrationState, language: Language): string => {
-  let csv = new Csv();
+  const csv = new Csv();
 
   const division_template = getString("import.column-division-n", language);
   const event_template = getString("import.column-event-n", language);
@@ -56,7 +56,7 @@ export const makeRegistrationsCsv = (registration: RegistrationState, language: 
   for (let i = 0; i < registration.entries.length; ++i) {
     const entry = registration.entries[i];
 
-    let row: Array<string> = new Array(csv.fieldnames.length).fill("");
+    const row: Array<string> = new Array(csv.fieldnames.length).fill("");
     row[csv.index(col_day)] = csvString(entry.day);
     row[csv.index(col_platform)] = csvString(entry.platform);
     row[csv.index(col_flight)] = csvString(localizeFlight(entry.flight, language));

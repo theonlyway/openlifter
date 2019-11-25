@@ -35,9 +35,21 @@ import {
   setPlatformsOnDays,
   setWeightClasses
 } from "../../actions/meetSetupActions";
+
 import { GlobalState } from "../../types/stateTypes";
 import { Dispatch } from "redux";
 import { Sex } from "../../types/dataTypes";
+
+interface DispatchProps {
+  setDivisions: (divisions: Array<string>) => void;
+  setFederation: (federation: string) => void;
+  setLengthDays: (length: number) => void;
+  setMeetName: (name: string) => void;
+  setPlatformsOnDays: (day: number, count: number) => void;
+  setWeightClasses: (sex: Sex, classesKg: number[]) => void;
+}
+
+type Props = GlobalState & DispatchProps;
 
 const NonsenseFederations = [
   "CTHULHU",
@@ -52,8 +64,6 @@ const NonsenseFederations = [
 ];
 
 const NonsenseDivisions = ["Masters", "Juniors", "Lawyers", "Infants", "Turtles", "Rabbits"];
-
-type Props = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
 
 class RandomizeMeetSetupButton extends React.Component<Props> {
   constructor(props: Props) {
@@ -112,7 +122,7 @@ class RandomizeMeetSetupButton extends React.Component<Props> {
     // Generate nonsense divisions.
     // ==========================================
     const numDivisions = randomInt(1, 20);
-    let divisions = [];
+    const divisions = [];
     for (let i = 0; i < numDivisions; i++) {
       let div = NonsenseDivisions[randomInt(0, NonsenseDivisions.length - 1)];
       if (Math.random() > 0.5) {
@@ -138,11 +148,11 @@ class RandomizeMeetSetupButton extends React.Component<Props> {
   }
 }
 
-const mapStateToProps = (state: GlobalState) => ({
+const mapStateToProps = (state: GlobalState): GlobalState => ({
   ...state
 });
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   return {
     setDivisions: (divisions: Array<string>) => dispatch(setDivisions(divisions)),
     setFederation: (federation: string) => dispatch(setFederation(federation)),

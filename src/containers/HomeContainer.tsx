@@ -114,13 +114,13 @@ class HomeContainer extends React.Component<Props, InternalState> {
 
     const selectedFile = loadHelper.files[0];
     const language = this.props.redux.language;
-    let rememberThis = this;
+    const rememberThis = this;
 
-    let reader = new FileReader();
+    const reader = new FileReader();
     reader.onload = function(event: any) {
       let errored = false;
       try {
-        let obj = JSON.parse(event.target.result);
+        const obj = JSON.parse(event.target.result);
 
         // Basic error checking, make sure it's the right format.
         if (
@@ -158,7 +158,7 @@ class HomeContainer extends React.Component<Props, InternalState> {
   };
 
   renderContinueButton = () => {
-    let meetname = this.props.redux.meet.name;
+    const meetname = this.props.redux.meet.name;
     if (meetname === "") {
       // Unnamed or unstarted meet, so don't render a continue button
       return;

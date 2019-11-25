@@ -119,7 +119,7 @@ class OneFlightOrder extends React.Component<Props> {
     const maxRows = Math.max(bySquat.length, byBench.length, byDeadlift.length);
 
     // Figure out what columns to render, and in which order.
-    let columns: Array<Column> = [];
+    const columns: Array<Column> = [];
     if (hasSquat) {
       columns.push("SquatName");
       columns.push(this.props.inKg ? "SquatKg" : "SquatLbs");
@@ -149,13 +149,13 @@ class OneFlightOrder extends React.Component<Props> {
     }
 
     // Construct a table row-by-row.
-    let rows = [];
+    const rows = [];
     for (let i = 0; i < maxRows; ++i) {
-      let builder = [];
+      const builder = [];
 
       for (let j = 0; j < columns.length; ++j) {
         const column = columns[j];
-        let key: string = column + String(i);
+        const key: string = column + String(i);
 
         let content: string = "";
         let className = undefined;
@@ -243,7 +243,7 @@ class OneFlightOrder extends React.Component<Props> {
     }
 
     // Construct the table header.
-    let header = [];
+    const header = [];
     for (let i = 0; i < columns.length; ++i) {
       const column = columns[i];
       const title = this.getColumnHeader(column, this.props.language);

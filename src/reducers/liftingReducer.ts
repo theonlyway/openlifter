@@ -101,7 +101,7 @@ export default (state: LiftingState = initialState, action: Action): LiftingStat
       // are not overwritten by this action.
 
       // Make a new object that's state + changes, with changes taking priority.
-      let combined = Object.assign({}, state);
+      const combined = Object.assign({}, state);
       Object.assign(combined, changes);
 
       // Source from this new combined object, with fields unrelated to customization

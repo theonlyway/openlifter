@@ -67,7 +67,7 @@ class Plates extends React.Component<Props> {
     if (value === undefined) return "error";
 
     // Ensure that the value is an integer in a reasonable range.
-    let asNum = Number(value);
+    const asNum = Number(value);
     if (Math.floor(asNum) !== asNum) return "error";
     if (asNum < 0 || asNum > 20) return "error";
     if (String(asNum) !== value) return "error";

@@ -56,13 +56,13 @@ export const schwartz_coefficient = (bodyweightKg: number): number => {
   const adjusted = Math.min(Math.max(bodyweightKg, 40.0), 166.0);
 
   if (adjusted <= 126.0) {
-    let x0 = 0.631926 * 10.0;
-    let x1 = 0.262349 * adjusted;
-    let x2 = 0.51155 * Math.pow(10.0, -2) * Math.pow(adjusted, 2);
-    let x3 = 0.519738 * Math.pow(10.0, -4) * Math.pow(adjusted, 3);
-    let x4 = 0.267626 * Math.pow(10.0, -6) * Math.pow(adjusted, 4);
-    let x5 = 0.540132 * Math.pow(10.0, -9) * Math.pow(adjusted, 5);
-    let x6 = 0.728875 * Math.pow(10.0, -13) * Math.pow(adjusted, 6);
+    const x0 = 0.631926 * 10.0;
+    const x1 = 0.262349 * adjusted;
+    const x2 = 0.51155 * Math.pow(10.0, -2) * Math.pow(adjusted, 2);
+    const x3 = 0.519738 * Math.pow(10.0, -4) * Math.pow(adjusted, 3);
+    const x4 = 0.267626 * Math.pow(10.0, -6) * Math.pow(adjusted, 4);
+    const x5 = 0.540132 * Math.pow(10.0, -9) * Math.pow(adjusted, 5);
+    const x6 = 0.728875 * Math.pow(10.0, -13) * Math.pow(adjusted, 6);
     return x0 - x1 + x2 - x3 + x4 - x5 - x6;
   } else if (adjusted <= 136.0) {
     return 0.521 - 0.0012 * (adjusted - 125.0);
@@ -91,7 +91,7 @@ export const malone_coefficient = (bodyweightKg: number): number => {
   const C = 0.322935585328304;
 
   // Lower bound chosen at point where Malone = max(Wilks).
-  let adjusted = Math.max(bodyweightKg, 29.24);
+  const adjusted = Math.max(bodyweightKg, 29.24);
 
   return A * Math.pow(adjusted, B) + C;
 };

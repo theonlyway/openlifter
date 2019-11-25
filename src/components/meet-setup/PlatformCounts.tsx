@@ -36,7 +36,7 @@ class PlatformCounts extends React.Component<Props> {
   }
 
   createPlatformInputs = () => {
-    let inputs = [];
+    const inputs = [];
     const lengthDays = this.props.lengthDays;
     for (let i = 1; i <= lengthDays; ++i) {
       inputs.push(<PlatformCount key={i} day={i} />);

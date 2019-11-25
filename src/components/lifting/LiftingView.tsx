@@ -157,7 +157,7 @@ const mapStateToProps = (state: GlobalState): StateProps => {
   );
 
   // Determine available flights from the entries themselves.
-  let flights: Array<Flight> = [];
+  const flights: Array<Flight> = [];
   for (let i = 0; i < entriesOnPlatform.length; i++) {
     const entry = entriesOnPlatform[i];
     if (flights.indexOf(entry.flight) === -1) {

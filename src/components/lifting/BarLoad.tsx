@@ -123,7 +123,7 @@ class BarLoad extends React.Component<Props> {
     const plates: Array<LoadedPlate> = this.props.loading;
     const inKg: boolean = this.props.inKg;
 
-    let divs = [];
+    const divs = [];
     let i = 0;
 
     // Iterate on a group of plates of the same weight at a time.

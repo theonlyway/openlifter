@@ -32,7 +32,7 @@ import RandomizeWeighinsButton from "./RandomizeWeighins";
 
 import { GlobalState } from "../../types/stateTypes";
 
-class StateTools extends React.Component<ReturnType<typeof mapStateToProps>> {
+class StateTools extends React.Component<GlobalState> {
   // The simplest possible way to implement a Reset button.
   reInitializeRedux = () => {
     localStorage.clear();
@@ -71,7 +71,7 @@ class StateTools extends React.Component<ReturnType<typeof mapStateToProps>> {
   }
 }
 
-const mapStateToProps = (state: GlobalState) => ({
+const mapStateToProps = (state: GlobalState): GlobalState => ({
   ...state
 });
 

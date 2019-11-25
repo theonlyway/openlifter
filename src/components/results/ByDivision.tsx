@@ -178,7 +178,7 @@ class ByDivision extends React.Component<Props> {
     const sex: string = this.mapSexToLabel(category.sex, language);
 
     // Gather rows.
-    let rows = [];
+    const rows = [];
     for (let i = 0; i < orderedEntries.length; i++) {
       const row = this.renderEntryRow(orderedEntries[i], category, i);
       if (row !== null) {
@@ -196,7 +196,7 @@ class ByDivision extends React.Component<Props> {
       eqpstr = getString("results.combined-sleeves-wraps", language);
     }
 
-    let units = this.props.inKg
+    const units = this.props.inKg
       ? getString("results.spoken-unit-kilo", language)
       : getString("results.spoken-unit-pound", language);
 
@@ -250,7 +250,7 @@ class ByDivision extends React.Component<Props> {
       this.props.combineSleevesAndWraps
     );
 
-    let categoryCards = [];
+    const categoryCards = [];
     for (let i = 0; i < results.length; i++) {
       const panel = this.renderCategoryResults(results[i], i);
       if (panel !== null) {

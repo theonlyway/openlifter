@@ -54,11 +54,13 @@ export const selectPlates = (
   });
 
   let sideWeightKg = (loadingAny - barAndCollarsWeightAny) / 2;
-  let loading: Array<LoadedPlate> = [];
+  const loading: Array<LoadedPlate> = [];
 
   // Run through each plate in order, applying as many of that plate as will fit.
   for (let i = 0; i < sortedPlates.length; i++) {
-    let { weightKg, pairCount, color } = sortedPlates[i];
+    const weightKg = sortedPlates[i].weightKg;
+    const color = sortedPlates[i].color;
+    let pairCount = sortedPlates[i].pairCount;
     while (pairCount > 0 && weightKg <= sideWeightKg) {
       pairCount--;
       sideWeightKg -= weightKg;
@@ -90,7 +92,7 @@ export const makeLoadingRelative = (loading: Array<LoadedPlate>, relativeTo: Arr
   // For each plate in the loading, look for a matching plate in relativeTo[finger..].
   // When found, move the finger past that point.
   for (let i = 0; i < loading.length; i++) {
-    let loadedPlate = loading[i];
+    const loadedPlate = loading[i];
     const index = findWeightFrom(relativeTo, finger, loadedPlate.weightAny);
     if (index >= 0) {
       finger = index + 1;

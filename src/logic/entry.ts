@@ -88,7 +88,7 @@ export const getAge = (entry: Entry, meetDate: string): number => {
 
   // Infer the age given {meetDate, birthDate, day}.
   let [my, mm, md] = meetDate.split("-").map(s => Number(s));
-  let [by, bm, bd] = entry.birthDate.split("-").map(s => Number(s));
+  const [by, bm, bd] = entry.birthDate.split("-").map(s => Number(s));
 
   // Advance the day counter if necessary.
   // FIXME: This logic assumes that each month has exactly 31 days.
@@ -336,10 +336,10 @@ export const getWhetherPlatformsHaveLifted = (
   platformsOnDays: Array<number>,
   entries: Array<Entry>
 ): Array<Array<boolean>> => {
-  let ret = [];
+  const ret = [];
   for (let day = 1; day <= platformsOnDays.length; day++) {
     const platformsOnDay = platformsOnDays[day - 1];
-    let acc = [];
+    const acc = [];
     for (let platform = 1; platform <= platformsOnDay; platform++) {
       acc.push(liftingPresentOnPlatform(entries, day, platform));
     }

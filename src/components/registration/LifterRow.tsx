@@ -60,11 +60,16 @@ interface StateProps {
   language: Language;
 }
 
+interface DispatchProps {
+  deleteRegistration: (entryId: number) => void;
+  updateRegistration: (entryId: number, obj: Partial<Entry>) => void;
+}
+
 interface InternalState {
   selectedDay: number;
 }
 
-type Props = OwnProps & StateProps & ReturnType<typeof mapDispatchToProps>;
+type Props = OwnProps & StateProps & DispatchProps;
 
 class LifterRow extends React.Component<Props, InternalState> {
   constructor(props: Props) {
@@ -187,7 +192,7 @@ class LifterRow extends React.Component<Props, InternalState> {
     // Value is an array of { value, label } objects.
     // Since updates are synchronous, we can just compare lengths.
     if (value.length !== this.props.entry.divisions.length) {
-      let divisions = [];
+      const divisions = [];
       for (let i = 0; i < value.length; i++) {
         divisions.push(value[i].value);
       }
@@ -199,7 +204,7 @@ class LifterRow extends React.Component<Props, InternalState> {
     // Value is an array of { value, label } objects.
     // Since updates are synchronous, we can just compare lengths.
     if (value.length !== this.props.entry.events.length) {
-      let events = [];
+      const events = [];
       for (let i = 0; i < value.length; i++) {
         events.push(value[i].value);
       }
@@ -261,7 +266,7 @@ class LifterRow extends React.Component<Props, InternalState> {
     const entry = this.props.entry;
     const language = this.props.language;
 
-    let dayOptions = [];
+    const dayOptions = [];
     for (let i = 1; i <= this.props.meet.lengthDays; i++) {
       dayOptions.push(
         <option value={i} key={i}>
@@ -270,7 +275,7 @@ class LifterRow extends React.Component<Props, InternalState> {
       );
     }
 
-    let platformOptions = [];
+    const platformOptions = [];
     for (let i = 1; i <= this.props.meet.platformsOnDays[entry.day - 1]; i++) {
       platformOptions.push(
         <option value={i} key={i}>
@@ -279,19 +284,19 @@ class LifterRow extends React.Component<Props, InternalState> {
       );
     }
 
-    let divisionOptions = [];
+    const divisionOptions = [];
     for (let i = 0; i < this.props.meet.divisions.length; i++) {
-      let division = this.props.meet.divisions[i];
+      const division = this.props.meet.divisions[i];
       divisionOptions.push({ value: division, label: division });
     }
 
-    let selectedDivisions = [];
+    const selectedDivisions = [];
     for (let i = 0; i < entry.divisions.length; i++) {
       const division = entry.divisions[i];
       selectedDivisions.push({ value: division, label: division });
     }
 
-    let selectedEvents = [];
+    const selectedEvents = [];
     for (let i = 0; i < entry.events.length; i++) {
       const event = entry.events[i];
       selectedEvents.push({ value: event, label: localizeEvent(event, language) });
@@ -635,7 +640,7 @@ const mapStateToProps = (state: GlobalState, ownProps: OwnProps): StateProps => 
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   return {
     deleteRegistration: (entryId: number) => dispatch(deleteRegistration(entryId)),
     updateRegistration: (entryId: number, obj: Partial<Entry>) => dispatch(updateRegistration(entryId, obj))

@@ -938,7 +938,7 @@ class AutoFillRules extends React.Component<Props, InternalState> {
   }
 
   handleSelectChange = (event: FormEvent<FormControlTypeHack>) => {
-    let value = event.currentTarget.value as AutoFillOption;
+    const value = event.currentTarget.value as AutoFillOption;
     // Only handle any valid values & assist the compiler in giving us a compile error if AutoFillOption has more values added
     switch (value) {
       case "Traditional":

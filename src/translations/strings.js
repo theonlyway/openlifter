@@ -24,7 +24,7 @@
 // The "manage.js" script picks these up and combines them with the automatically
 // detected messages to create the JSON translation files.
 
-let strings = new Array();
+let strings = [];
 
 /* eslint-disable */
 

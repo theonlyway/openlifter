@@ -181,7 +181,12 @@ const NonsenseLastNames = [
   "Zabini"
 ];
 
-type Props = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
+interface DispatchProps {
+  newRegistration: (obj: Partial<Entry>) => void;
+  deleteRegistration: (entryId: number) => void;
+}
+
+type Props = GlobalState & DispatchProps;
 
 class RandomizeRegistrationButton extends React.Component<Props> {
   constructor(props: Props) {
@@ -222,7 +227,7 @@ class RandomizeRegistrationButton extends React.Component<Props> {
 
       // Generate random events, making most lifters SBD.
       // ==========================================
-      let events: Event[] = [];
+      const events: Event[] = [];
       if (Math.random() < 0.5) {
         events.push("SBD");
       }
@@ -269,13 +274,13 @@ class RandomizeRegistrationButton extends React.Component<Props> {
 
       // File into random divisions.
       // ==========================================
-      let divisions = [];
+      const divisions = [];
       if (this.props.meet.divisions.length > 0) {
         const divisionsUpperBound = Math.max(1, this.props.meet.divisions.length - 1);
         const numDivisions = randomInt(1, divisionsUpperBound);
 
         // List of remaining available divisions.
-        let divchooser = this.props.meet.divisions.slice();
+        const divchooser = this.props.meet.divisions.slice();
 
         for (let i = 0; i < numDivisions; i++) {
           const choice = randomInt(0, divchooser.length - 1);
@@ -324,11 +329,11 @@ class RandomizeRegistrationButton extends React.Component<Props> {
   }
 }
 
-const mapStateToProps = (state: GlobalState) => ({
+const mapStateToProps = (state: GlobalState): GlobalState => ({
   ...state
 });
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   return {
     newRegistration: (obj: Partial<Entry>) => dispatch(newRegistration(obj)),
     deleteRegistration: (entryId: number) => dispatch(deleteRegistration(entryId))

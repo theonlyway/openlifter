@@ -66,7 +66,7 @@ interface InternalState {
 }
 
 // Used to distinguish between the Overwrite and Append modes.
-var globalImportKind: string = "Overwrite";
+let globalImportKind: string = "Overwrite";
 
 class RegistrationView extends React.Component<Props, InternalState> {
   constructor(props: Props) {
@@ -127,9 +127,9 @@ class RegistrationView extends React.Component<Props, InternalState> {
     }
 
     const selectedFile = loadHelper.files[0];
-    let rememberThis = this;
+    const rememberThis = this;
 
-    let reader = new FileReader();
+    const reader = new FileReader();
 
     reader.onload = function(event) {
       // If this occurs, we've introduced a bug when initiating the file reader, or the read failed.
@@ -139,7 +139,7 @@ class RegistrationView extends React.Component<Props, InternalState> {
         return;
       }
 
-      let csv = new Csv();
+      const csv = new Csv();
       const maybeError = csv.fromString(reader.result.replace(/;/g, ","));
 
       // Check if an error message occurred.

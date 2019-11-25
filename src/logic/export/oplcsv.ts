@@ -38,10 +38,10 @@ import { GlobalState, MeetState } from "../../types/stateTypes";
 import { checkExhausted } from "../../types/utils";
 
 const makeMeetCsv = (meet: MeetState): Csv => {
-  let csv = new Csv();
+  const csv = new Csv();
   csv.fieldnames = ["Federation", "Date", "MeetCountry", "MeetState", "MeetTown", "MeetName", "Formula"];
 
-  let row: Array<string> = [
+  const row: Array<string> = [
     csvString(meet.federation),
     csvString(meet.date),
     csvString(meet.country),
@@ -56,58 +56,6 @@ const makeMeetCsv = (meet: MeetState): Csv => {
   if (meet.combineSleevesAndWraps === true) {
     csv.fieldnames.push("RuleSet");
     csv.rows[0].push("CombineRawAndWraps");
-  }
-
-  return csv;
-};
-
-const makeEntriesCsv = (state: GlobalState): Csv => {
-  const inKg: boolean = state.meet.inKg;
-  const unit: string = inKg ? "Kg" : "LBS";
-
-  let csv = new Csv();
-
-  let squatFieldnames = [];
-  for (let i = 0; i < MAX_ATTEMPTS; i++) {
-    squatFieldnames.push("Squat" + (i + 1) + unit);
-  }
-  squatFieldnames.push("Best3Squat" + unit);
-
-  let benchFieldnames = [];
-  for (let i = 0; i < MAX_ATTEMPTS; i++) {
-    benchFieldnames.push("Bench" + (i + 1) + unit);
-  }
-  benchFieldnames.push("Best3Bench" + unit);
-
-  let deadliftFieldnames = [];
-  for (let i = 0; i < MAX_ATTEMPTS; i++) {
-    deadliftFieldnames.push("Deadlift" + (i + 1) + unit);
-  }
-  deadliftFieldnames.push("Best3Deadlift" + unit);
-
-  csv.fieldnames = Array.prototype.concat(
-    ["Place", "Name", "Instagram", "Sex", "BirthDate", "Age", "Country", "State"],
-    ["Equipment", "Division", "Bodyweight" + unit, "WeightClass" + unit],
-    squatFieldnames,
-    benchFieldnames,
-    deadliftFieldnames,
-    ["Total" + unit, "Event", "Team"]
-  );
-
-  const results: Array<CategoryResults> = getFinalResults(
-    state.registration.entries,
-    state.meet.weightClassesKgMen,
-    state.meet.weightClassesKgWomen,
-    state.meet.weightClassesKgMx,
-    state.meet.combineSleevesAndWraps
-  );
-
-  for (let i = 0; i < results.length; i++) {
-    const { category, orderedEntries } = results[i];
-
-    for (let j = 0; j < orderedEntries.length; j++) {
-      addEntriesRow(csv, category, inKg, state.meet.date, orderedEntries[j], j);
-    }
   }
 
   return csv;
@@ -144,7 +92,7 @@ const addEntriesRow = (csv: Csv, category: Category, inKg: boolean, meetDate: st
   };
 
   // Initialize an empty row with all columns available.
-  let row: Array<string> = Array(csv.fieldnames.length).fill("");
+  const row: Array<string> = Array(csv.fieldnames.length).fill("");
 
   if (!entryHasLifted(entry)) {
     row[csv.index("Place")] = "NS"; // No-Show.
@@ -197,10 +145,62 @@ const addEntriesRow = (csv: Csv, category: Category, inKg: boolean, meetDate: st
   csv.rows.push(row);
 };
 
+const makeEntriesCsv = (state: GlobalState): Csv => {
+  const inKg: boolean = state.meet.inKg;
+  const unit: string = inKg ? "Kg" : "LBS";
+
+  const csv = new Csv();
+
+  const squatFieldnames = [];
+  for (let i = 0; i < MAX_ATTEMPTS; i++) {
+    squatFieldnames.push("Squat" + (i + 1) + unit);
+  }
+  squatFieldnames.push("Best3Squat" + unit);
+
+  const benchFieldnames = [];
+  for (let i = 0; i < MAX_ATTEMPTS; i++) {
+    benchFieldnames.push("Bench" + (i + 1) + unit);
+  }
+  benchFieldnames.push("Best3Bench" + unit);
+
+  const deadliftFieldnames = [];
+  for (let i = 0; i < MAX_ATTEMPTS; i++) {
+    deadliftFieldnames.push("Deadlift" + (i + 1) + unit);
+  }
+  deadliftFieldnames.push("Best3Deadlift" + unit);
+
+  csv.fieldnames = Array.prototype.concat(
+    ["Place", "Name", "Instagram", "Sex", "BirthDate", "Age", "Country", "State"],
+    ["Equipment", "Division", "Bodyweight" + unit, "WeightClass" + unit],
+    squatFieldnames,
+    benchFieldnames,
+    deadliftFieldnames,
+    ["Total" + unit, "Event", "Team"]
+  );
+
+  const results: Array<CategoryResults> = getFinalResults(
+    state.registration.entries,
+    state.meet.weightClassesKgMen,
+    state.meet.weightClassesKgWomen,
+    state.meet.weightClassesKgMx,
+    state.meet.combineSleevesAndWraps
+  );
+
+  for (let i = 0; i < results.length; i++) {
+    const { category, orderedEntries } = results[i];
+
+    for (let j = 0; j < orderedEntries.length; j++) {
+      addEntriesRow(csv, category, inKg, state.meet.date, orderedEntries[j], j);
+    }
+  }
+
+  return csv;
+};
+
 export const exportAsOplCsv = (state: GlobalState): string => {
   const meetCsv: Csv = makeMeetCsv(state.meet);
 
-  let entriesCsv: Csv = makeEntriesCsv(state);
+  const entriesCsv: Csv = makeEntriesCsv(state);
   entriesCsv.removeEmptyColumns();
 
   const versionStr = "OPL Format v1,Submit by email:,issues@openpowerlifting.org";

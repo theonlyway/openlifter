@@ -91,11 +91,11 @@ type ColumnType =
 //
 // This works because the LiftingTable is always re-rendered when one of
 // those buttons is clicked, and because there's only one LiftingTable.
-export var globalFocusAttemptInputId: string | null = null;
+export let globalFocusAttemptInputId: string | null = null;
 
 // The logic for globalFocusAttemptInputId is looking for the AttemptInput
 // that's all the way on the right, and as far down the table as possible.
-var globalHighestAttemptInputAttempt: number = 0;
+let globalHighestAttemptInputAttempt: number = 0;
 
 class LiftingTable extends React.Component<Props> {
   constructor(props: Props) {
@@ -197,7 +197,7 @@ class LiftingTable extends React.Component<Props> {
 
     // Was any previous attempt taken?
     let anyPreviousAttemptTaken = false;
-    for (var i = 1; i < attemptOneIndexed; i++) {
+    for (let i = 1; i < attemptOneIndexed; i++) {
       if (entry[fieldStatus][i - 1] !== 0) {
         anyPreviousAttemptTaken = true;
         break;
@@ -404,12 +404,12 @@ class LiftingTable extends React.Component<Props> {
     const orderedEntries = this.props.orderedEntries;
     const currentEntryId = this.props.currentEntryId;
 
-    let rows = [];
+    const rows = [];
     for (let i = 0; i < orderedEntries.length; i++) {
       const entry = orderedEntries[i];
 
       // Iterate over each columnType, handling each.
-      let cells = [];
+      const cells = [];
       for (let col = 0; col < columns.length; col++) {
         const columnType = columns[col];
         cells.push(this.renderCell(entry, columnType, categoryResults));
@@ -494,7 +494,7 @@ class LiftingTable extends React.Component<Props> {
     globalHighestAttemptInputAttempt = 0;
 
     // Select the columns for display.
-    let columns: Array<ColumnType> = ["Lifter"];
+    const columns: Array<ColumnType> = ["Lifter"];
     // If the score table set the division column with to zero, hide it.
     if (this.props.lifting.columnDivisionWidthPx !== 0) {
       columns.push("Division");
@@ -541,8 +541,8 @@ class LiftingTable extends React.Component<Props> {
     columns.push("Place");
 
     // Build headers.
-    let headers = [];
-    let highlightColumn = this.props.lifting.lift + String(this.props.attemptOneIndexed);
+    const headers = [];
+    const highlightColumn = this.props.lifting.lift + String(this.props.attemptOneIndexed);
     for (let i = 0; i < columns.length; i++) {
       const column = columns[i];
       let className = styles.smallCell;

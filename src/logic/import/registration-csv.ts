@@ -36,7 +36,7 @@ import { GlobalState } from "../../types/stateTypes";
 // This is in code so that it can live right next to loadRegistrations()
 // for easier long-term maintenance.
 export const makeExampleRegistrationsCsv = (language: Language): string => {
-  let csv = new Csv();
+  const csv = new Csv();
   csv.rows = [[]]; // appendColumns() will resize the dummy row correctly.
 
   const day = getString("import.column-day", language);
@@ -207,24 +207,24 @@ export const loadRegistrations = (state: GlobalState, csv: Csv, language: Langua
 
   // The caller needs to update this field on the state later, if successful.
   let nextEntryId = state.registration.nextEntryId;
-  let entries: Array<Entry> = [];
+  const entries: Array<Entry> = [];
 
   const errprefix_template = getString("error.csv-field-prefix", language);
 
   // The fieldnames are valid! Now we can start building Entries.
   for (let i = 0; i < csv.rows.length; ++i) {
-    let entry: Entry = newDefaultEntry(nextEntryId++);
+    const entry: Entry = newDefaultEntry(nextEntryId++);
     entries.push(entry);
 
     // Iterate over each field and integrate it into the Entry object.
-    let row: Array<string> = csv.rows[i];
+    const row: Array<string> = csv.rows[i];
     for (let j = 0; j < row.length; ++j) {
-      let fieldname = csv.fieldnames[j];
-      let val = row[j];
+      const fieldname = csv.fieldnames[j];
+      const val = row[j];
 
       // User-visible row number, for error messages.
       // The first row is for the fieldnames, and spreadsheet programs are 1-indexed.
-      let rowstr = displayNumber(i + 2, language);
+      const rowstr = displayNumber(i + 2, language);
 
       // Start building the error string early, since it's repeated a lot.
       const errprefix = errprefix_template
