@@ -339,7 +339,11 @@ class LifterRow extends React.Component<Props, InternalState> {
       <Card style={{ overflow: "visible", marginBottom: "17px" }}>
         <Card.Header style={{ display: "flex" }}>
           <Form.Control type="text" placeholder="" defaultValue={entry.name} onBlur={this.updateRegistrationName} />
-          <Button onClick={this.deleteRegistrationClick} variant="danger" style={{ marginLeft: "15px" }}>
+          <Button
+            onClick={this.deleteRegistrationClick}
+            variant="danger"
+            style={{ marginLeft: "15px", minWidth: "100px" }}
+          >
             <LocalizedString id="registration.button-delete" />
           </Button>
         </Card.Header>
