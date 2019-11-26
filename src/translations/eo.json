@@ -114,7 +114,7 @@
   "home.button-support": "Apogado oficiala",
   "home.button-switch-version": "Ŝanĝu al OpenLifter {otherVersion}",
   "home.error-load-popup-title": "Dosiero-ŝarĝada eraro",
-  "home.new-meet-popup-message-clear": "La komenco de nova konkurso vakigos ĉiujn nekonservitajn ŝanĝojn.",
+  "home.new-meet-popup-message-clear": "La komenco de nova konkurso vakigos ĉiujn nekonservitajn ŝanĝojn de {meetName}.",
   "home.new-meet-popup-message-sure": "Ĉu vi certas, ke vi volas daŭri?",
   "home.new-meet-popup-title": "Ĉu ĝustas vakigi na {meetName}?",
   "home.version-date": "La {releaseVersion} versio, kreita {releaseDate}.",

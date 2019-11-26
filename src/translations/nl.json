@@ -59,7 +59,7 @@
   "error.csv-unknown-header": "Onbekende kop {name} in kolom {ABC}. Hier is een lijst van geaccepteerde kolomnamen: {validList}.",
   "error.internal-error": "Er gebeurde een onverwachte interne error.",
   "error.invalid-openlifter": "Dat lijkt geen valide OpenLifter bestand te zijn!",
-  "error.meetname-mismatch": "Deze wedstrijd is '{thisName}' genoemd, maar het geselecteerde bestand is voor een wedstrjd genaamd {'otherName}'. Als beveiliging moeten de namen matchen om samenvoegen toe te laten.",
+  "error.meetname-mismatch": "Deze wedstrijd is '{thisName}' genoemd, maar het geselecteerde bestand is voor een wedstrjd genaamd '{otherName}'. Als beveiliging moeten de namen matchen om samenvoegen toe te laten.",
   "error.no-platform-data": "Het geselecteerde bestand heeft geen informatie voor dag {day} plankier {platform}",
   "error.not-json": "Kon het bestand niet verwerken als JSON",
   "error.version-mismatch": "Deze wedstrijd gebruikt versie {thisVersion}, maar het geselecteerde bestand gebruikt versie {otherVersion}",

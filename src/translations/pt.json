@@ -39,7 +39,7 @@
   "error.csv-day-platform-order": "A coluna {day} deve anteceder a coluna {platform}.",
   "error.csv-duplicate-header": "O cabeçalho {name} aparece duas vezes, nas colunas {firstABC} e {secondABC}.",
   "error.csv-field-empty-or-positive": "uma célula vazia ou um número inteiro positivo eram esperados.",
-  "error.csv-field-prefix": "{CellType} '{cellValue} inválido na linha {rowNumber}: ",
+  "error.csv-field-prefix": "{cellType} '{cellValue}' inválido na linha {rowNumber}: ",
   "error.csv-field-suffix-date-format": "a data deve estar no padrão internacional sem ambiguidade: AAAA-MM-DD.",
   "error.csv-field-suffix-day-overflow": "a página Configuração especifica apenas {numDays} dias.",
   "error.csv-field-suffix-division-blank": "a primeira divisão é obrigatória.",
