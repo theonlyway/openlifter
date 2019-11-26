@@ -32,7 +32,7 @@ interface OwnProps {
 }
 
 interface StateProps {
-  platformsOnDays: Array<number>;
+  platformsOnDays: ReadonlyArray<number>;
 }
 
 interface DispatchProps {

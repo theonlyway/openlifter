@@ -48,12 +48,12 @@ const createOption = (label: string): OptionType => ({
 });
 
 interface StateProps {
-  divisions: Array<string>;
+  divisions: ReadonlyArray<string>;
   language: Language;
 }
 
 interface DispatchProps {
-  setDivisions: (divisions: Array<string>) => void;
+  setDivisions: (divisions: ReadonlyArray<string>) => void;
 }
 
 type Props = StateProps & DispatchProps;

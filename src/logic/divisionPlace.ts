@@ -124,7 +124,7 @@ const getLastSuccessfulAttempt = (lift: Lift, entry: Entry): number => {
 
 // Returns a copy of the entries array sorted by Place.
 // All entries are assumed to be part of the same category.
-const sortByPlaceInCategory = (entries: Array<Entry>, category: Category, type: ResultsType): Array<Entry> => {
+const sortByPlaceInCategory = (entries: ReadonlyArray<Entry>, category: Category, type: ResultsType): Array<Entry> => {
   const event = category.event;
 
   // Clone the entries array to avoid modifying the original.
@@ -221,7 +221,7 @@ const getSexSortOrder = (sex: Sex): number => {
 
 // Determines the sort (and therefore presentation) order for the Category Results.
 // The input array is sorted in-place; nothing is returned.
-export const sortCategoryResults = (results: Array<CategoryResults>) => {
+export const sortCategoryResults = (results: Array<CategoryResults>): void => {
   results.sort((a, b) => {
     const catA = a.category;
     const catB = b.category;
@@ -258,7 +258,12 @@ export const sortCategoryResults = (results: Array<CategoryResults>) => {
   });
 };
 
-const mapSexToClasses = (sex: Sex, men: Array<number>, women: Array<number>, mx: Array<number>): Array<number> => {
+const mapSexToClasses = (
+  sex: Sex,
+  men: ReadonlyArray<number>,
+  women: ReadonlyArray<number>,
+  mx: ReadonlyArray<number>
+): ReadonlyArray<number> => {
   switch (sex) {
     case "M":
       return men;
@@ -277,10 +282,10 @@ const mapSexToClasses = (sex: Sex, men: Array<number>, women: Array<number>, mx:
 //
 // The returned objects are sorted in intended order of presentation.
 const getAllResults = (
-  entries: Array<Entry>,
-  weightClassesKgMen: Array<number>,
-  weightClassesKgWomen: Array<number>,
-  weightClassesKgMx: Array<number>,
+  entries: ReadonlyArray<Entry>,
+  weightClassesKgMen: ReadonlyArray<number>,
+  weightClassesKgWomen: ReadonlyArray<number>,
+  weightClassesKgMx: ReadonlyArray<number>,
   combineSleevesAndWraps: boolean,
   type: ResultsType
 ): Array<CategoryResults> => {

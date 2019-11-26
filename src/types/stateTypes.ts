@@ -37,11 +37,11 @@ export type MeetState = {
   readonly federation: string;
   readonly date: string;
   readonly lengthDays: number;
-  readonly platformsOnDays: Array<number>;
+  readonly platformsOnDays: ReadonlyArray<number>;
   readonly ageCoefficients: AgeCoefficients;
 
   // Competition Rules.
-  readonly divisions: Array<string>;
+  readonly divisions: ReadonlyArray<string>;
   readonly weightClassesKgMen: Array<number>;
   readonly weightClassesKgWomen: Array<number>;
   readonly weightClassesKgMx: Array<number>;
@@ -54,7 +54,7 @@ export type MeetState = {
   readonly squatBarAndCollarsWeightKg: number;
   readonly benchBarAndCollarsWeightKg: number;
   readonly deadliftBarAndCollarsWeightKg: number;
-  readonly plates: Array<Plate>;
+  readonly plates: ReadonlyArray<Plate>;
   readonly showAlternateUnits: boolean;
 };
 

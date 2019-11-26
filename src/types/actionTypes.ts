@@ -60,7 +60,7 @@ export interface SetFederationAction {
 
 export interface SetDivisionsAction {
   type: "SET_DIVISIONS";
-  divisions: Array<string>;
+  divisions: ReadonlyArray<string>;
 }
 
 export interface SetMeetDateAction {

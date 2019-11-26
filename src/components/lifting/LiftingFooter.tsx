@@ -43,16 +43,16 @@ import { FormControlTypeHack, assertFlight, assertString, assertLift } from "../
 
 interface OwnProps {
   attemptOneIndexed: number;
-  orderedEntries: Array<Entry>;
+  orderedEntries: ReadonlyArray<Readonly<Entry>>;
   currentEntryId: number | null;
-  flightsOnPlatform: Array<Flight>;
+  flightsOnPlatform: ReadonlyArray<Flight>;
   toggleReplaceTableWithWeighins: () => void;
 }
 
 interface StateProps {
   lifting: LiftingState;
   lengthDays: number;
-  platformsOnDays: Array<number>;
+  platformsOnDays: ReadonlyArray<number>;
   allow4thAttempts: boolean;
   language: Language;
 }

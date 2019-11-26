@@ -54,7 +54,7 @@ export const setFederation = (federation: string): SetFederationAction => {
   };
 };
 
-export const setDivisions = (divisions: Array<string>): SetDivisionsAction => {
+export const setDivisions = (divisions: ReadonlyArray<string>): SetDivisionsAction => {
   return {
     type: "SET_DIVISIONS",
     divisions

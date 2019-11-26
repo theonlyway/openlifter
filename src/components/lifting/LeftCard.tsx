@@ -49,7 +49,7 @@ interface StateProps {
   squatBarAndCollarsWeightKg: number;
   benchBarAndCollarsWeightKg: number;
   deadliftBarAndCollarsWeightKg: number;
-  plates: Array<Plate>;
+  plates: ReadonlyArray<Plate>;
   registration: RegistrationState;
   lifting: LiftingState;
   language: Language;

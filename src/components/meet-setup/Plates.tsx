@@ -39,7 +39,7 @@ import PlateInput from "./PlateInput";
 
 interface StateProps {
   inKg: boolean;
-  plates: Array<Plate>;
+  plates: ReadonlyArray<Plate>;
   language: Language;
 }
 

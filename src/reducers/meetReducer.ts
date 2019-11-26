@@ -31,7 +31,7 @@ const defaultBarAndCollarsWeightKg = 25; // Assuming metal 2.5kg collars.
 const defaultBarAndCollarsWeightLbs = 45; // Assuming plastic collars.
 
 // Default kg plates, allowing for increments of 0.5kg.
-const defaultPlatesKg: Array<Plate> = [
+const defaultPlatesKg: ReadonlyArray<Plate> = [
   { weightKg: 50, pairCount: 0, color: PlateColors.PLATE_DEFAULT_GREEN },
   { weightKg: 25, pairCount: 8, color: PlateColors.PLATE_DEFAULT_RED },
   { weightKg: 20, pairCount: 1, color: PlateColors.PLATE_DEFAULT_BLUE },
@@ -47,7 +47,7 @@ const defaultPlatesKg: Array<Plate> = [
 ];
 
 // Default lbs plates, allowing for increments of 1lb.
-const defaultPlatesLbs: Array<Plate> = [
+const defaultPlatesLbs: ReadonlyArray<Plate> = [
   { weightKg: lbs2kg(100), pairCount: 0, color: PlateColors.PLATE_DEFAULT_GREEN },
   { weightKg: lbs2kg(55), pairCount: 0, color: PlateColors.PLATE_DEFAULT_RED },
   { weightKg: lbs2kg(45), pairCount: 8, color: PlateColors.PLATE_DEFAULT_GRAY },
@@ -92,7 +92,11 @@ const initialState: MeetState = {
 
 // Given a sorted list of weight classes (in kg) and a bodyweight (in kg),
 // return a string describing the weight class.
-export const getWeightClassStr = (classes: Array<number>, bodyweightKg: number, language?: Language): string => {
+export const getWeightClassStr = (
+  classes: ReadonlyArray<number>,
+  bodyweightKg: number,
+  language?: Language
+): string => {
   if (bodyweightKg === 0) return "";
   if (classes.length === 0) return "";
 
@@ -130,7 +134,7 @@ export const wtclsStrKg2Lbs = (kgcls: string): string => {
 // This is a separate method because it turns out that many exact translations
 // of kilo values are not what the audience expects for traditionally-reported
 // pounds classes. So a bunch of rounding must occur.
-export const getWeightClassLbsStr = (classes: Array<number>, bodyweightKg: number): string => {
+export const getWeightClassLbsStr = (classes: ReadonlyArray<number>, bodyweightKg: number): string => {
   if (bodyweightKg === 0) return "";
   if (classes.length === 0) return "";
 

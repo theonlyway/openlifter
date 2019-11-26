@@ -271,7 +271,7 @@ export const getFinalEventTotalKg = (entry: Entry, event: Event): number => {
 };
 
 // Filter entries to only get lifters that are lifting on a given day
-export const getLiftersOnDay = (entries: Array<Entry>, day: number): Array<Entry> => {
+export const getLiftersOnDay = (entries: ReadonlyArray<Entry>, day: number): Array<Entry> => {
   if (!entries) {
     return [];
   }
@@ -319,7 +319,7 @@ export const entryHasLifted = (entry: Entry): boolean => {
 };
 
 // Whether any Entry has taken any attempts on the given (day, platform). O(n).
-export const liftingPresentOnPlatform = (entries: Array<Entry>, day: number, platform: number): boolean => {
+export const liftingPresentOnPlatform = (entries: ReadonlyArray<Entry>, day: number, platform: number): boolean => {
   for (let i = 0; i < entries.length; i++) {
     const entry = entries[i];
     if (entry.day !== day || entry.platform !== platform) continue;
@@ -333,8 +333,8 @@ export const liftingPresentOnPlatform = (entries: Array<Entry>, day: number, pla
 // true iff at least one Entry corresponding to that (day, platform) has
 // taken an attempt.
 export const getWhetherPlatformsHaveLifted = (
-  platformsOnDays: Array<number>,
-  entries: Array<Entry>
+  platformsOnDays: ReadonlyArray<number>,
+  entries: ReadonlyArray<Entry>
 ): Array<Array<boolean>> => {
   const ret = [];
   for (let day = 1; day <= platformsOnDays.length; day++) {
