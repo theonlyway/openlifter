@@ -105,10 +105,13 @@ class WeightClassesSelect extends React.Component<Props, InternalState> {
     this.props.setWeightClasses(this.props.sex, classes);
   };
 
-  handleChange = (value: ValueType<OptionType>, actionMeta: ActionMeta): void => {
+  handleChange = (value: ValueType<OptionType> | null, actionMeta: ActionMeta): void => {
     if (value instanceof Array) {
       this.setState({ value: value });
       this.maybeUpdateRedux(value);
+    } else if (value === null) {
+      this.setState({ value: [] });
+      this.maybeUpdateRedux([]);
     }
   };
 

@@ -32,7 +32,7 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
 
-import Select, { ActionMeta } from "react-select";
+import Select, { ActionMeta, ValueType } from "react-select";
 
 import { getString, localizeEvent } from "../../logic/strings";
 import { displayNumber, string2number } from "../../logic/units";
@@ -47,6 +47,11 @@ import { FormControlTypeHack, checkExhausted, assertString, assertFlight, assert
 import { Entry, Equipment, Language, Validation } from "../../types/dataTypes";
 import { Dispatch } from "redux";
 import { GlobalState, MeetState } from "../../types/stateTypes";
+
+type OptionType = {
+  label: string;
+  value: string;
+};
 
 interface OwnProps {
   id: number;
@@ -186,27 +191,39 @@ class LifterRow extends React.Component<Props, InternalState> {
     }
   };
 
-  updateRegistrationDivisions(value: any, actionMeta: ActionMeta) {
-    // Value is an array of { value, label } objects.
-    // Since updates are synchronous, we can just compare lengths.
-    if (value.length !== this.props.entry.divisions.length) {
-      const divisions = [];
-      for (let i = 0; i < value.length; i++) {
-        divisions.push(value[i].value);
+  updateRegistrationDivisions(value: ValueType<OptionType> | null, actionMeta: ActionMeta) {
+    if (value instanceof Array) {
+      // Since updates are synchronous, we can just compare lengths.
+      if (value.length !== this.props.entry.divisions.length) {
+        const divisions = [];
+        for (let i = 0; i < value.length; i++) {
+          divisions.push(value[i].value);
+        }
+        this.props.updateRegistration(this.props.id, { divisions: divisions });
       }
-      this.props.updateRegistration(this.props.id, { divisions: divisions });
+    } else if (value === null) {
+      // Null happens when the list has been cleared fully.
+      if (this.props.entry.divisions.length > 0) {
+        this.props.updateRegistration(this.props.id, { divisions: [] });
+      }
     }
   }
 
-  updateRegistrationEvents(value: any, actionMeta: ActionMeta) {
-    // Value is an array of { value, label } objects.
-    // Since updates are synchronous, we can just compare lengths.
-    if (value.length !== this.props.entry.events.length) {
-      const events = [];
-      for (let i = 0; i < value.length; i++) {
-        events.push(value[i].value);
+  updateRegistrationEvents(value: ValueType<OptionType> | null, actionMeta: ActionMeta) {
+    if (value instanceof Array) {
+      // Since updates are synchronous, we can just compare lengths.
+      if (value.length !== this.props.entry.events.length) {
+        const events = [];
+        for (let i = 0; i < value.length; i++) {
+          events.push(value[i].value);
+        }
+        this.props.updateRegistration(this.props.id, { events: events });
       }
-      this.props.updateRegistration(this.props.id, { events: events });
+    } else if (value === null) {
+      // Null happens when the list has been cleared fully.
+      if (this.props.entry.events.length > 0) {
+        this.props.updateRegistration(this.props.id, { events: [] });
+      }
     }
   }
 
