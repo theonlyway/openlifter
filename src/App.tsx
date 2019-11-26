@@ -19,9 +19,8 @@
 import React from "react";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
-import configureStore from "./store";
-import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
 import OpenLifterIntlProvider from "./components/translations/OpenLifterIntlProvider";
 
 import RootContainer from "./containers/RootContainer";
@@ -34,6 +33,8 @@ import ResultsContainer from "./containers/ResultsContainer";
 import DebugContainer from "./containers/DebugContainer";
 import AboutContainer from "./containers/AboutContainer";
 import Navigation from "./components/Navigation";
+
+import configureStore from "./store";
 
 import { getDefaultLanguage } from "./logic/strings";
 
