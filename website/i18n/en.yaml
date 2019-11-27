@@ -185,7 +185,7 @@ guide.faq-changing-registration-later-answer:
 guide.faq-rack-heights-question:
   other: How do I mark bench safety heights? What about squat rack in/out?
 guide.faq-rack-heights-answer:
-  other: On the Weigh-ins page, the "Squat Rack" and "Bench Rack" inputs accept freeform text, not just numbers. Most commonly, a bench rack height of 5 with a safety weight of 3 is written as "5/3", but you can use whatever notation your loading crew prefers. Similarly for the squat rack, you can enter "15in".
+  other: On the Weigh-ins page, the "Squat Rack" and "Bench Rack" inputs accept freeform text, not just numbers. Most commonly, a bench rack height of 5 with a safety height of 3 is written as "5/3", but you can use whatever notation your loading crew prefers. Similarly for the squat rack, you can enter "15in".
 guide.faq-fixing-lifts-question:
   other: How do I fix a lift that was marked incorrectly?
 guide.faq-fixing-lifts-answer:
