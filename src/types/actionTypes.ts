@@ -26,8 +26,8 @@ import { GlobalState, MeetState, LiftingState } from "./stateTypes";
 //////////////////////////////////////////////////////////
 
 export interface OverwriteStoreAction {
-  type: "OVERWRITE_STORE";
-  store: GlobalState;
+  readonly type: "OVERWRITE_STORE";
+  readonly store: GlobalState;
 }
 
 //////////////////////////////////////////////////////////
@@ -35,8 +35,8 @@ export interface OverwriteStoreAction {
 //////////////////////////////////////////////////////////
 
 export interface ChangeLanguageAction {
-  type: "CHANGE_LANGUAGE";
-  language: Language;
+  readonly type: "CHANGE_LANGUAGE";
+  readonly language: Language;
 }
 
 //////////////////////////////////////////////////////////
@@ -44,68 +44,68 @@ export interface ChangeLanguageAction {
 //////////////////////////////////////////////////////////
 
 export interface SetMeetNameAction {
-  type: "SET_MEET_NAME";
-  name: string;
+  readonly type: "SET_MEET_NAME";
+  readonly name: string;
 }
 
 export interface SetFormulaAction {
-  type: "SET_FORMULA";
-  formula: Formula;
+  readonly type: "SET_FORMULA";
+  readonly formula: Formula;
 }
 
 export interface SetFederationAction {
-  type: "SET_FEDERATION";
-  federation: string;
+  readonly type: "SET_FEDERATION";
+  readonly federation: string;
 }
 
 export interface SetDivisionsAction {
-  type: "SET_DIVISIONS";
-  divisions: ReadonlyArray<string>;
+  readonly type: "SET_DIVISIONS";
+  readonly divisions: ReadonlyArray<string>;
 }
 
 export interface SetMeetDateAction {
-  type: "SET_MEET_DATE";
-  date: string;
+  readonly type: "SET_MEET_DATE";
+  readonly date: string;
 }
 
 export interface SetLengthDaysAction {
-  type: "SET_LENGTH_DAYS";
-  length: number;
+  readonly type: "SET_LENGTH_DAYS";
+  readonly length: number;
 }
 
 export interface SetPlatformsOnDaysAction {
-  type: "SET_PLATFORM_COUNT";
-  day: number;
-  count: number;
+  readonly type: "SET_PLATFORM_COUNT";
+  readonly day: number;
+  readonly count: number;
 }
 
 export interface SetInKgAction {
-  type: "SET_IN_KG";
-  inKg: boolean;
+  readonly type: "SET_IN_KG";
+  readonly inKg: boolean;
 }
 
 export interface SetWeightClassesAction {
-  type: "SET_WEIGHTCLASSES";
-  sex: Sex;
-  classesKg: ReadonlyArray<number>;
+  readonly type: "SET_WEIGHTCLASSES";
+  readonly sex: Sex;
+  readonly classesKg: ReadonlyArray<number>;
 }
 
 export interface SetBarAndCollarsWeightKgAction {
-  type: "SET_BAR_AND_COLLARS_WEIGHT_KG";
-  lift: Lift;
-  weightKg: number;
+  readonly type: "SET_BAR_AND_COLLARS_WEIGHT_KG";
+  readonly lift: Lift;
+  readonly weightKg: number;
 }
 
 export interface SetPlateConfigAction {
-  type: "SET_PLATE_CONFIG";
-  weightKg: number;
-  pairCount: number;
-  color: string;
+  readonly type: "SET_PLATE_CONFIG";
+  readonly weightKg: number;
+  readonly pairCount: number;
+  readonly color: string;
 }
 
 export interface UpdateMeetAction {
-  type: "UPDATE_MEET";
-  changes: Partial<MeetState>;
+  readonly type: "UPDATE_MEET";
+  readonly changes: Partial<MeetState>;
 }
 
 export type MeetSetupAction =
@@ -127,26 +127,26 @@ export type MeetSetupAction =
 //////////////////////////////////////////////////////////
 
 export interface NewRegistrationAction {
-  type: "NEW_REGISTRATION";
-  overwriteDefaults: Partial<Entry>;
+  readonly type: "NEW_REGISTRATION";
+  readonly overwriteDefaults: Partial<Entry>;
 }
 
 export interface DeleteRegistrationAction {
-  type: "DELETE_REGISTRATION";
-  entryId: number;
+  readonly type: "DELETE_REGISTRATION";
+  readonly entryId: number;
 }
 
 export interface UpdateRegistrationAction {
-  type: "UPDATE_REGISTRATION";
-  entryId: number;
-  changes: Partial<Entry>;
+  readonly type: "UPDATE_REGISTRATION";
+  readonly entryId: number;
+  readonly changes: Partial<Entry>;
 }
 
 export interface MergePlatformAction {
-  type: "MERGE_PLATFORM";
-  day: number;
-  platform: number;
-  platformEntries: Array<Entry>;
+  readonly type: "MERGE_PLATFORM";
+  readonly day: number;
+  readonly platform: number;
+  readonly platformEntries: ReadonlyArray<Entry>;
 }
 
 export type RegistrationAction =
@@ -160,40 +160,40 @@ export type RegistrationAction =
 //////////////////////////////////////////////////////////
 
 export interface EnterAttemptAction {
-  type: "ENTER_ATTEMPT";
-  entryId: number;
-  lift: Lift;
-  attemptOneIndexed: number;
-  weightKg: number;
+  readonly type: "ENTER_ATTEMPT";
+  readonly entryId: number;
+  readonly lift: Lift;
+  readonly attemptOneIndexed: number;
+  readonly weightKg: number;
 }
 
 export interface MarkLiftAction {
-  type: "MARK_LIFT";
-  entryId: number;
-  lift: Lift;
-  attemptOneIndexed: number;
-  success: boolean;
+  readonly type: "MARK_LIFT";
+  readonly entryId: number;
+  readonly lift: Lift;
+  readonly attemptOneIndexed: number;
+  readonly success: boolean;
 }
 
 export interface SetLiftingGroupAction {
-  type: "SET_LIFTING_GROUP";
-  day: number;
-  platform: number;
-  flight: Flight;
-  lift: Lift;
+  readonly type: "SET_LIFTING_GROUP";
+  readonly day: number;
+  readonly platform: number;
+  readonly flight: Flight;
+  readonly lift: Lift;
 }
 
 export interface OverrideAttemptAction {
-  type: "OVERRIDE_ATTEMPT";
-  attempt: number;
+  readonly type: "OVERRIDE_ATTEMPT";
+  readonly attempt: number;
 }
 
 export interface OverrideEntryIdAction {
-  type: "OVERRIDE_ENTRY_ID";
-  entryId: number;
+  readonly type: "OVERRIDE_ENTRY_ID";
+  readonly entryId: number;
 }
 
 export interface SetTableInfoAction {
-  type: "SET_TABLE_INFO";
-  changes: Partial<LiftingState>;
+  readonly type: "SET_TABLE_INFO";
+  readonly changes: Partial<LiftingState>;
 }

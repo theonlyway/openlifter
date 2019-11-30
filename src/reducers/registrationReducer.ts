@@ -201,7 +201,7 @@ export default (state: RegistrationState = initialState, action: Action): Regist
     case "MERGE_PLATFORM": {
       const day: number = action.day;
       const platform: number = action.platform;
-      const platformEntries: Array<Entry> = action.platformEntries;
+      const platformEntries: ReadonlyArray<Entry> = action.platformEntries;
 
       // Filter out state entries assigned to the merged (day, platform).
       const newEntries = state.entries.filter(e => {
