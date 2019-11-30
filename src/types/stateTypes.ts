@@ -42,9 +42,9 @@ export type MeetState = {
 
   // Competition Rules.
   readonly divisions: ReadonlyArray<string>;
-  readonly weightClassesKgMen: Array<number>;
-  readonly weightClassesKgWomen: Array<number>;
-  readonly weightClassesKgMx: Array<number>;
+  readonly weightClassesKgMen: ReadonlyArray<number>;
+  readonly weightClassesKgWomen: ReadonlyArray<number>;
+  readonly weightClassesKgMx: ReadonlyArray<number>;
   readonly formula: Formula;
   readonly combineSleevesAndWraps: boolean;
   readonly allow4thAttempts: boolean;
@@ -60,7 +60,7 @@ export type MeetState = {
 
 export type RegistrationState = {
   readonly nextEntryId: number;
-  readonly entries: Array<Entry>;
+  readonly entries: ReadonlyArray<Entry>;
   readonly lookup: {
     readonly [id: number]: number;
   };

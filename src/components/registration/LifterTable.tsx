@@ -28,7 +28,7 @@ import React from "react";
 import { Entry } from "../../types/dataTypes";
 
 interface OwnProps {
-  entries: Array<Entry>;
+  entries: ReadonlyArray<Entry>;
   rowRenderer: any;
 }
 

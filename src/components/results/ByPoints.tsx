@@ -51,11 +51,11 @@ interface StateProps {
   formula: Formula;
   combineSleevesAndWraps: boolean;
   lengthDays: number;
-  weightClassesKgMen: Array<number>;
-  weightClassesKgWomen: Array<number>;
-  weightClassesKgMx: Array<number>;
+  weightClassesKgMen: ReadonlyArray<number>;
+  weightClassesKgWomen: ReadonlyArray<number>;
+  weightClassesKgMx: ReadonlyArray<number>;
   language: Language;
-  entries: Array<Entry>;
+  entries: ReadonlyArray<Entry>;
 }
 
 // Overloads this component so it can render different types of "Best Lifter" categories.
@@ -69,7 +69,7 @@ interface OwnProps {
 
 type Props = StateProps & OwnProps;
 
-const mapSexToClasses = (sex: Sex, props: Props): Array<number> => {
+const mapSexToClasses = (sex: Sex, props: Props): ReadonlyArray<number> => {
   switch (sex) {
     case "M":
       return props.weightClassesKgMen;

@@ -54,12 +54,12 @@ interface OwnProps {
 }
 
 interface StateProps {
-  classes: Array<number>;
+  classes: ReadonlyArray<number>;
   language: Language;
 }
 
 interface DispatchProps {
-  setWeightClasses: (sex: Sex, classesKg: Array<number>) => void;
+  setWeightClasses: (sex: Sex, classesKg: ReadonlyArray<number>) => void;
 }
 
 type Props = OwnProps & StateProps & DispatchProps;
@@ -188,7 +188,7 @@ class WeightClassesSelect extends React.Component<Props, InternalState> {
   }
 }
 
-const selectClassesBySex = (sex: Sex, state: GlobalState): Array<number> => {
+const selectClassesBySex = (sex: Sex, state: GlobalState): ReadonlyArray<number> => {
   switch (sex) {
     case "M":
       return state.meet.weightClassesKgMen;

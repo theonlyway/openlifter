@@ -90,7 +90,7 @@ export const setInKg = (inKg: boolean): SetInKgAction => {
   };
 };
 
-export const setWeightClasses = (sex: Sex, classesKg: Array<number>): SetWeightClassesAction => {
+export const setWeightClasses = (sex: Sex, classesKg: ReadonlyArray<number>): SetWeightClassesAction => {
   return {
     type: "SET_WEIGHTCLASSES",
     sex: sex,

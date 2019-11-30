@@ -160,7 +160,7 @@ export const sortPointsCategoryResults = (results: Array<PointsCategoryResults>)
 // Generates objects representing the various ByPoints categories.
 // The returned objects are sorted in intended order of presentation.
 export const getAllRankings = (
-  entries: Array<Entry>,
+  entries: ReadonlyArray<Entry>,
   formula: Formula,
   ageCoefficients: AgeCoefficients,
   combineSleevesAndWraps: boolean,

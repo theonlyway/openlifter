@@ -40,7 +40,7 @@ interface OwnProps {
 }
 
 interface StateProps {
-  entries: Array<Entry>;
+  entries: ReadonlyArray<Entry>;
 }
 
 type Props = Readonly<OwnProps> & Readonly<StateProps>;

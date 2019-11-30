@@ -231,7 +231,7 @@ class LiftingTable extends React.Component<Props> {
     return <td key={columnType}>{displayStr}</td>;
   };
 
-  mapSexToClasses = (sex: Sex, meetState: MeetState): Array<number> => {
+  mapSexToClasses = (sex: Sex, meetState: MeetState): ReadonlyArray<number> => {
     switch (sex) {
       case "M":
         return meetState.weightClassesKgMen;

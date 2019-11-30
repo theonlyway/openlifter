@@ -335,10 +335,10 @@ const getAllResults = (
 };
 
 export const getProjectedResults = (
-  entries: Array<Entry>,
-  weightClassesKgMen: Array<number>,
-  weightClassesKgWomen: Array<number>,
-  weightClassesKgMx: Array<number>,
+  entries: ReadonlyArray<Entry>,
+  weightClassesKgMen: ReadonlyArray<number>,
+  weightClassesKgWomen: ReadonlyArray<number>,
+  weightClassesKgMx: ReadonlyArray<number>,
   combineSleevesAndWraps: boolean
 ): Array<CategoryResults> => {
   return getAllResults(
@@ -352,10 +352,10 @@ export const getProjectedResults = (
 };
 
 export const getFinalResults = (
-  entries: Array<Entry>,
-  weightClassesKgMen: Array<number>,
-  weightClassesKgWomen: Array<number>,
-  weightClassesKgMx: Array<number>,
+  entries: ReadonlyArray<Entry>,
+  weightClassesKgMen: ReadonlyArray<number>,
+  weightClassesKgWomen: ReadonlyArray<number>,
+  weightClassesKgMx: ReadonlyArray<number>,
   combineSleevesAndWraps: boolean
 ): Array<CategoryResults> => {
   return getAllResults(

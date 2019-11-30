@@ -87,7 +87,7 @@ export interface SetInKgAction {
 export interface SetWeightClassesAction {
   type: "SET_WEIGHTCLASSES";
   sex: Sex;
-  classesKg: Array<number>;
+  classesKg: ReadonlyArray<number>;
 }
 
 export interface SetBarAndCollarsWeightKgAction {

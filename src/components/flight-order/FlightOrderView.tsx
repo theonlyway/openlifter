@@ -37,7 +37,7 @@ import { FormControlTypeHack } from "../../types/utils";
 
 interface StateProps {
   meet: MeetState;
-  entries: Array<Entry>;
+  entries: ReadonlyArray<Entry>;
   language: Language;
 }
 
