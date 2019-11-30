@@ -54,13 +54,13 @@ export type MeetState = {
   readonly squatBarAndCollarsWeightKg: number;
   readonly benchBarAndCollarsWeightKg: number;
   readonly deadliftBarAndCollarsWeightKg: number;
-  readonly plates: ReadonlyArray<Plate>;
+  readonly plates: ReadonlyArray<Readonly<Plate>>;
   readonly showAlternateUnits: boolean;
 };
 
 export type RegistrationState = {
   readonly nextEntryId: number;
-  readonly entries: ReadonlyArray<Entry>;
+  readonly entries: ReadonlyArray<Readonly<Entry>>;
   readonly lookup: {
     readonly [id: number]: number;
   };
