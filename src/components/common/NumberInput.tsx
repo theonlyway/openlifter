@@ -133,6 +133,7 @@ class NumberInput extends React.Component<Props, InternalState> {
           <Form.Control
             value={this.state.value}
             onChange={this.handleChange}
+            onBlur={this.handleBlur}
             isValid={validation === "success"}
             isInvalid={validation === "error"}
             className={validation === "warning" ? "is-warning" : undefined}
