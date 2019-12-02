@@ -22,7 +22,7 @@ index.main-pitch:
   other: <b>OpenLifter</b> ist ein Kraftdreikampf Wettkampfsoftware Programm, das unglaublich schnell ausgeführt wird, überall anwendbar ist und Spaß macht.
 index.run-button:
   # The <span>{{ .Count }}</span> will show the version number.
-  other: OpenPowerlifter ausführen
+  other: OpenLifter <span>{{ .Count }}</span> ausführen
 index.all-releases:
   other: Alle Veröffentlichungen
 index.feature-list-introduction:
@@ -204,7 +204,7 @@ guide.faq-changing-rack-heights-question:
   other: Wie ändere ich die Rack-Höhe? Wie ändere ich Startgewichte im nächsten Durchlauf?
 guide.faq-changing-rack-heights-answer:
   # I didn´t see this button in the translation and a search came up empty, we gotta make sure the button will have the same name as "toggle" is a bit of a fuzzy translation in German. I´ll translate it as edit
-  other: Auf der Wettkampfseite gehen sie auf den Button "Körpergewichte ändern". Diese Aktion öffnet die Seite mit den Gewichten auf der Wettkampfseite, sodass Sie alle diese Einstellungen ändern können während die Wettkampfseite weiterhin normal angezeigt wird. Wenn Sie alle Änderungen vorgenommen haben, klicken Sie abermals auf den Button "Körpergewicht ändern" um das Fenster zu schließen.
+  other: Auf der Wettkampfseite gehen sie auf den Button "Körpergewichte ändern". Diese Aktion öffnet die Seite zum Wiegen auf der Wettkampfseite, sodass Sie alle diese Einstellungen ändern können während die Wettkampfseite weiterhin normal angezeigt wird. Wenn Sie alle Änderungen vorgenommen haben, klicken Sie abermals auf den Button "Körpergewicht ändern" um das Fenster zu schließen.
 guide.faq-saving-frequency-question:
   other: Wie oft sollte ich die Datei speichern?
 guide.faq-saving-frequency-answer:
