@@ -47,7 +47,7 @@ export const csvString = (x?: number | string): string => {
 // Prepending a single-quote character to the date string stops the reformatting.
 export const csvDate = (iso8601?: string): string => {
   if (iso8601 === undefined || iso8601 === "") return "";
-  return "'" + csvString(iso8601);
+  return csvString("'" + iso8601);
 };
 
 // Returns the in-spreadsheet name of a column. In standard spreadsheet software,
