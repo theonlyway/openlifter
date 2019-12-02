@@ -38,6 +38,18 @@ export const csvString = (x?: number | string): string => {
   return s;
 };
 
+// Makes a string of a Date object.
+//
+// By default, Excel will reformat our pretty ISO8601 dates (2019-11-30) into
+// a localized, ambiguous variant (11/30/2019). This happens sufficiently often
+// in submitted meet results that it's worth a workaround.
+//
+// Prepending a single-quote character to the date string stops the reformatting.
+export const csvDate = (iso8601?: string): string => {
+  if (iso8601 === undefined || iso8601 === "") return "";
+  return "'" + csvString(iso8601);
+};
+
 // Returns the in-spreadsheet name of a column. In standard spreadsheet software,
 // rows are numeric (1, 2, 3, ...) and columns are alphabetic (A, B, C, ...).
 // For errors, we'd like to report the column that's wrong.

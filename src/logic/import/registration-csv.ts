@@ -20,7 +20,7 @@
 // The CSV format is very strict: no double-quotes allowed, commas are always
 // separators, and the format of each field must exactly match our internal format.
 
-import { Csv, getSpreadsheetColumnName } from "../export/csv";
+import { csvDate, Csv, getSpreadsheetColumnName } from "../export/csv";
 import { newDefaultEntry } from "../entry";
 
 import { parseInteger, parseDate } from "../parsers";
@@ -78,7 +78,7 @@ export const makeExampleRegistrationsCsv = (language: Language): string => {
   csv.rows[0][csv.index(event1)] = getString("event.sbd", language);
   csv.rows[0][csv.index(event2)] = getString("event.bd", language);
   // Intentionally blank: csv.rows[0][csv.index(event3)]
-  csv.rows[0][csv.index(birthdate)] = getString("import.example-birthdate", language);
+  csv.rows[0][csv.index(birthdate)] = csvDate(getString("import.example-birthdate", language));
   // Intentionally blank: csv.rows[0][csv.index(age)]
   // Intentionally blank: csv.rows[0][csv.index(memberid)]
   csv.rows[0][csv.index(country)] = getString("import.example-country", language);

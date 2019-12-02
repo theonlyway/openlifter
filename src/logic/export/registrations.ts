@@ -18,7 +18,7 @@
 
 // Exports registration data to a CSV file.
 
-import { csvString, Csv } from "./csv";
+import { csvDate, csvString, Csv } from "./csv";
 import { getString, localizeEquipment, localizeEvent, localizeFlight, localizeSex } from "../strings";
 
 import { Language } from "../../types/dataTypes";
@@ -63,7 +63,7 @@ export const makeRegistrationsCsv = (registration: RegistrationState, language: 
     row[csv.index(col_name)] = csvString(entry.name);
     row[csv.index(col_sex)] = csvString(localizeSex(entry.sex, language));
     row[csv.index(col_equipment)] = csvString(localizeEquipment(entry.equipment, language));
-    row[csv.index(col_birthdate)] = csvString(entry.birthDate);
+    row[csv.index(col_birthdate)] = csvDate(entry.birthDate);
     row[csv.index(col_age)] = csvString(entry.age);
     row[csv.index(col_memberid)] = csvString(entry.memberId);
     row[csv.index(col_country)] = csvString(entry.country);

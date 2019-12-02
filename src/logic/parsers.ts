@@ -98,6 +98,11 @@ export const parseEvent = (s: string): Event | undefined => {
 
 // Strictly parse a YYYY-MM-DD date.
 export const parseDate = (s: string): string | undefined => {
+  // Allow a prepended single-quote, inserted for purposes of preventing
+  // Excel auto-localization.
+  s = s.replace("'", "");
+
+  // "YYYY-MM-DD".length === 10.
   if (s.length !== 10) {
     return;
   }

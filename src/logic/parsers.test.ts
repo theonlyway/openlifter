@@ -84,4 +84,10 @@ describe("parseDate", () => {
     expect(typeof parseDate("1999-1-52")).toEqual("undefined");
     expect(typeof parseDate("1999-01-5")).toEqual("undefined");
   });
+
+  // Dates of this kind are emitted by csvDate() in CSV files.
+  it("parses dates formatted to avoid Excel stupidity", () => {
+    expect(typeof parseDate("'1999-01-05")).toEqual("string");
+    expect(typeof parseDate("'2012-12-31")).toEqual("string");
+  });
 });

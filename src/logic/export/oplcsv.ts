@@ -18,7 +18,7 @@
 
 // Exports data to a CSV format easily importable by OpenPowerlifting.
 
-import { csvString, Csv } from "./csv";
+import { csvDate, csvString, Csv } from "./csv";
 import { getFinalResults } from "../divisionPlace";
 import { wtclsStrKg2Lbs } from "../../reducers/meetReducer";
 import {
@@ -43,7 +43,7 @@ const makeMeetCsv = (meet: MeetState): Csv => {
 
   const row: Array<string> = [
     csvString(meet.federation),
-    csvString(meet.date),
+    csvDate(meet.date),
     csvString(meet.country),
     csvString(meet.state),
     csvString(meet.city),
@@ -103,7 +103,7 @@ const addEntriesRow = (csv: Csv, category: Category, inKg: boolean, meetDate: st
   row[csv.index("Name")] = csvString(entry.name);
   row[csv.index("Instagram")] = csvString(entry.instagram);
   row[csv.index("Sex")] = csvString(entry.sex);
-  row[csv.index("BirthDate")] = csvString(entry.birthDate);
+  row[csv.index("BirthDate")] = csvDate(entry.birthDate);
   row[csv.index("Age")] = csvString(getAge(entry, meetDate));
   row[csv.index("Country")] = csvString(entry.country);
   row[csv.index("State")] = csvString(entry.state);
