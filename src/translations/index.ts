@@ -21,6 +21,7 @@ import eo from "./eo.json";
 import en from "./en.json";
 import es from "./es.json";
 import hr from "./hr.json";
+import it from "./it.json";
 import lt from "./lt.json";
 import nl from "./nl.json";
 import pt from "./pt.json";
@@ -28,4 +29,4 @@ import ru from "./ru.json";
 import tr from "./tr.json";
 import zh_Hans from "./zh-Hans.json";
 
-export default { de, eo, en, es, hr, lt, nl, pt, ru, tr, "zh-Hans": zh_Hans };
+export default { de, eo, en, es, hr, it, lt, nl, pt, ru, tr, "zh-Hans": zh_Hans };

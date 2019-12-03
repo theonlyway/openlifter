@@ -54,6 +54,9 @@ const languageOptions = [
   <option key="hr" value="hr">
     Hrvatski (hr)
   </option>,
+  <option key="it" value="it">
+    Italiano (it)
+  </option>,
   <option key="lt" value="lt">
     Lietuvių (lt)
   </option>,
