@@ -64,6 +64,8 @@ class AboutContainer extends React.Component<{}> {
                   <FormattedMessage id="about.credits-intro" defaultMessage="Thanks to:" />
                   <ul>
                     <li>Irene Aguilar &mdash; Spanish localization</li>
+                    <li>Baptiste Appel &mdash; French localization</li>
+                    <li>Baptiste Marchais &mdash; French localization</li>
                     <li>Romina Basting &mdash; German localization</li>
                     <li>Mike Beelen &mdash; Dutch localization</li>
                     <li>Sean Berlin &mdash; Patron</li>
@@ -76,6 +78,7 @@ class AboutContainer extends React.Component<{}> {
                     <li>Boris Lerner &mdash; Russian localization</li>
                     <li>Kai Ma &mdash; Simplified Chinese localization</li>
                     <li>Rodney Marsh &mdash; Programming</li>
+                    <li>Giulio Maschi &mdash; Italian localization</li>
                     <li>Trystan Oakley &mdash; Testing</li>
                     <li>Matt Pearce &mdash; Coefficient calculations</li>
                     <li>David Sacras &mdash; Portuguese localization</li>

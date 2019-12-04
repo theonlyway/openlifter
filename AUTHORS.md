@@ -14,6 +14,8 @@ Please also add yourself to the in-program credits in `src/containers/AboutConta
 ## Contributors
 
 * Irene Aguilar
+* Baptiste Appel
+* Baptiste Marchais
 * Romina Basting
 * Mike Beelen
 * Jerônimo Cavalcante
@@ -24,6 +26,7 @@ Please also add yourself to the in-program credits in `src/containers/AboutConta
 * Boris Lerner
 * Kai Ma
 * Rodney Marsh
+* Giulio Maschi
 * Trystan Oakley
 * Matt Pearce
 * David Sacras
