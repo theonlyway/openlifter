@@ -52,7 +52,7 @@ interface OwnProps {
 
 type Props = StateProps & DispatchProps & OwnProps;
 
-type AutoFillOption = "Traditional" | "GPC" | "SPF" | "UPA" | "USAPL" | "USPA" | "WABDL" | "WPC" | "WRPF";
+type AutoFillOption = "Traditional" | "BP" | "GPC" | "SPF" | "UPA" | "USAPL" | "USPA" | "WABDL" | "WPC" | "WRPF";
 
 interface InternalState {
   selectedOption: AutoFillOption;
@@ -84,6 +84,54 @@ const traditionalDefaults: Partial<MeetState> = {
   ageCoefficients: "FosterMcCulloch",
   combineSleevesAndWraps: false,
   allow4thAttempts: true
+};
+
+const bpDefaults: Partial<MeetState> = {
+  divisions: [
+    "MR-O",
+    "MR-Sj",
+    "MR-Jr",
+    "MR-M1",
+    "MR-M2",
+    "MR-M3",
+    "MR-M4",
+    "MR-M5",
+    "MR-G",
+    "FR-O",
+    "FR-Sj",
+    "FR-Jr",
+    "FR-M1",
+    "FR-M2",
+    "FR-M3",
+    "FR-M4",
+    "FR-M5",
+    "FR-G",
+    "M-O",
+    "M-Sj",
+    "M-Jr",
+    "M-M1",
+    "M-M2",
+    "M-M3",
+    "M-M4",
+    "M-M5",
+    "M-G",
+    "F-O",
+    "F-Sj",
+    "F-Jr",
+    "F-M1",
+    "F-M2",
+    "F-M3",
+    "F-M4",
+    "F-M5",
+    "F-G"
+  ],
+  weightClassesKgMen: [53, 59, 66, 74, 83, 93, 105, 120],
+  weightClassesKgWomen: [43, 47, 52, 57, 63, 72, 84],
+  weightClassesKgMx: [53, 59, 66, 74, 83, 93, 105, 120],
+  formula: "IPF Points",
+  ageCoefficients: "FosterMcCulloch",
+  combineSleevesAndWraps: false,
+  allow4thAttempts: false
 };
 
 const gpcDefaults: Partial<MeetState> = {
@@ -942,6 +990,7 @@ class AutoFillRules extends React.Component<Props, InternalState> {
     // Only handle any valid values & assist the compiler in giving us a compile error if AutoFillOption has more values added
     switch (value) {
       case "Traditional":
+      case "BP":
       case "GPC":
       case "SPF":
       case "UPA":
@@ -963,6 +1012,10 @@ class AutoFillRules extends React.Component<Props, InternalState> {
     switch (this.state.selectedOption) {
       case "Traditional":
         this.props.updateMeet(traditionalDefaults);
+        this.props.onChange();
+        return;
+      case "BP":
+        this.props.updateMeet(bpDefaults);
         this.props.onChange();
         return;
       case "GPC":
@@ -1007,6 +1060,7 @@ class AutoFillRules extends React.Component<Props, InternalState> {
     const lang = this.props.language;
 
     const stringTraditional = getString("meet-setup.rules-traditional", lang);
+    const stringBP = getString("meet-setup.rules-bp", lang);
     const stringGPC = getString("meet-setup.rules-gpc", lang);
     const stringSPF = getString("meet-setup.rules-spf", lang);
     const stringUPA = getString("meet-setup.rules-upa", lang);
@@ -1032,6 +1086,9 @@ class AutoFillRules extends React.Component<Props, InternalState> {
             >
               <option key="Traditional" value="Traditional">
                 {stringTraditional}
+              </option>
+              <option key="BP" value="BP">
+                {stringBP}
               </option>
               <option key="GPC" value="GPC">
                 {stringGPC}
