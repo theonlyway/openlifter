@@ -103,17 +103,24 @@ class AttemptInput extends React.Component<Props, InternalState> {
       const fieldStatus = liftToStatusFieldName(this.props.lift);
 
       const prevAttemptOneIndexed = this.props.attemptOneIndexed - 1;
-      const prevKg = entry[fieldKg][prevAttemptOneIndexed - 1];
-      const prevStatus = entry[fieldStatus][prevAttemptOneIndexed - 1];
 
-      // The previous weight cannot be greater than the current weight.
-      if (prevKg > asKg) return "error";
+      // Check for validity against all previous attempts.
+      for (let i = 0; i < prevAttemptOneIndexed; ++i) {
+        const prevWeightKg = entry[fieldKg][i];
 
-      // The current weight cannot repeat a successful attempt.
-      if (prevKg === asKg && prevStatus === 1) return "error";
+        // Disallow this weight if it's a decrease from a previous attempt.
+        if (prevWeightKg > asKg) return "error";
 
-      // However, they can be equal if the previous attempt was failed.
-      if (prevKg === asKg && prevStatus !== -1) return "warning";
+        if (prevWeightKg === asKg) {
+          const prevStatus = entry[fieldStatus][i];
+
+          // Disallow this weight if it was already successfully lifted.
+          if (prevStatus === 1) return "error";
+
+          // If the weight is a repeat but has no status, allow it, but complain.
+          if (prevStatus === 0) return "warning";
+        }
+      }
     }
 
     if (asNumber % 2.5 !== 0) return "warning";
