@@ -34,21 +34,14 @@ interface OwnProps {
 
 type Props = OwnProps;
 
-class LifterTable extends React.Component<Props> {
-  constructor(props: Props) {
-    super(props);
-    this.renderRows = this.renderRows.bind(this);
-  }
-
-  renderRows = () => {
-    const LifterRow = this.props.rowRenderer;
-    const { entries } = this.props;
+const LifterTable: React.FC<Props> = props => {
+  const renderRows = () => {
+    const LifterRow = props.rowRenderer;
+    const { entries } = props;
     return entries.map(entry => <LifterRow key={entry.id} id={entry.id} />);
   };
 
-  render() {
-    return <div>{this.renderRows()}</div>;
-  }
-}
+  return <div>{renderRows()}</div>;
+};
 
 export default LifterTable;

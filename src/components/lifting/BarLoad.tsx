@@ -31,6 +31,139 @@ import { GlobalState } from "../../types/stateTypes";
 
 import styles from "./BarLoad.module.scss";
 
+const kgToStyleMap = new Map<number, string>([
+  [50, styles.kg50],
+  [25, styles.kg25],
+  [20, styles.kg20],
+  [15, styles.kg15],
+  [10, styles.kg10],
+  [5, styles.kg5],
+  [2.5, styles.kg2p5],
+  [1.25, styles.kg1p25],
+  [1, styles.kg1],
+  [0.75, styles.kg0p75],
+  [0.5, styles.kg0p5],
+  [0.25, styles.kg0p25]
+]);
+
+const weightKgToStyle = (weightKg: number): string => kgToStyleMap.get(weightKg) || styles.error;
+
+const lbsToStyleMap = new Map<number, string>([
+  [100, styles.lbs100],
+  [55, styles.lbs55],
+  [45, styles.lbs45],
+  [35, styles.lbs35],
+  [25, styles.lbs25],
+  [10, styles.lbs10],
+  [5, styles.lbs5],
+  [2.5, styles.lbs2p5],
+  [1.25, styles.lbs1p25],
+  [0.5, styles.lbs0p5]
+]);
+
+const weightLbsToStyle = (weightLbs: number): string => lbsToStyleMap.get(weightLbs) || styles.error;
+
+const weightTextMap = new Map<number, string>([
+  [1.25, "1¼"],
+  [0.75, "¾"],
+  [0.5, "½"],
+  [0.25, "¼"]
+]);
+
+const weightAnyToText = (weightAny: number, language: Language): string =>
+  weightTextMap.get(weightAny) || displayWeight(weightAny, language);
+
+interface PlateInfoProps {
+  loading: LoadedPlate[];
+  inKg: boolean;
+  language: Language;
+}
+
+// Turns the selectPlates() array into divs.
+const PlatesDiv: React.FC<PlateInfoProps> = ({ loading, inKg, language }) => {
+  const divs = [];
+  let i = 0;
+
+  // Iterate on a group of plates of the same weight at a time.
+  while (i < loading.length) {
+    const weightAny = loading[i].weightAny;
+
+    // If the weight is negative, it's an error report.
+    if (weightAny < 0) {
+      divs.push(
+        <div key={"error"} className={styles.error}>
+          ?{displayWeight(-1 * weightAny, language)}
+        </div>
+      );
+      break;
+    }
+
+    // Count how many times this same plate kind appears consecutively.
+    let plateCount = 1;
+    for (let j = i + 1; j < loading.length && loading[j].weightAny === weightAny; j++) {
+      plateCount++;
+    }
+
+    // If that plate is large and occurs a bunch, show a counter.
+    const showCounter = plateCount >= 3;
+
+    // Push each of the plates individually.
+    for (let j = 0; j < plateCount; j++) {
+      const plate = loading[i + j];
+      const counter = String(j + 1);
+
+      // Light backgrounds need dark text.
+      const is_light =
+        plate.color === PlateColors.PLATE_DEFAULT_WHITE || plate.color === PlateColors.PLATE_DEFAULT_YELLOW;
+
+      const style = {
+        backgroundColor: plate.color,
+        opacity: plate.isAlreadyLoaded ? 0.25 : undefined,
+        color: is_light ? "#232323" : "#FFFFFF",
+        // White plates need a border.
+        border: plate.color === PlateColors.PLATE_DEFAULT_WHITE ? "1.5px solid #232323" : undefined
+      };
+
+      divs.push(
+        <div
+          key={weightAny + "-" + counter}
+          className={inKg ? weightKgToStyle(weightAny) : weightLbsToStyle(weightAny)}
+          style={style}
+        >
+          <div>{weightAnyToText(weightAny, language)}</div>
+          {showCounter ? <div>{counter}</div> : null}
+        </div>
+      );
+    }
+
+    i += plateCount;
+  }
+
+  return <>{divs}</>;
+};
+
+interface RackInfoProps {
+  lift: Lift;
+  rackInfo: string;
+}
+
+const RackInfoDiv: React.FC<RackInfoProps> = ({ lift, rackInfo }) => {
+  // Only show rack info for lifts that use a rack.
+  if (lift === "D") return null;
+
+  return (
+    <div key={rackInfo} className={styles.rackInfo}>
+      <FormattedMessage
+        id="lifting.rack-info"
+        defaultMessage="Rack {rackInfo}"
+        values={{
+          rackInfo: rackInfo
+        }}
+      />
+    </div>
+  );
+};
+
 interface OwnProps {
   loading: Array<LoadedPlate>;
   rackInfo: string;
@@ -44,179 +177,19 @@ interface StateProps {
 
 type Props = OwnProps & StateProps;
 
-class BarLoad extends React.Component<Props> {
-  weightKgToStyle = (weightKg: number): string => {
-    switch (weightKg) {
-      case 50:
-        return styles.kg50;
-      case 25:
-        return styles.kg25;
-      case 20:
-        return styles.kg20;
-      case 15:
-        return styles.kg15;
-      case 10:
-        return styles.kg10;
-      case 5:
-        return styles.kg5;
-      case 2.5:
-        return styles.kg2p5;
-      case 1.25:
-        return styles.kg1p25;
-      case 1:
-        return styles.kg1;
-      case 0.75:
-        return styles.kg0p75;
-      case 0.5:
-        return styles.kg0p5;
-      case 0.25:
-        return styles.kg0p25;
-      default:
-        return styles.error;
-    }
-  };
+const BarLoad: React.FC<Props> = ({ lift, loading, inKg, language, rackInfo }) => (
+  <div className={styles.container}>
+    <div className={styles.bar} />
+    <PlatesDiv loading={loading} inKg={inKg} language={language} />
+    <div className={styles.collar} />
+    <div className={styles.bar} />
+    <RackInfoDiv lift={lift} rackInfo={rackInfo} />
+  </div>
+);
 
-  weightLbsToStyle = (weightLbs: number): string => {
-    switch (weightLbs) {
-      case 100:
-        return styles.lbs100;
-      case 55:
-        return styles.lbs55;
-      case 45:
-        return styles.lbs45;
-      case 35:
-        return styles.lbs35;
-      case 25:
-        return styles.lbs25;
-      case 10:
-        return styles.lbs10;
-      case 5:
-        return styles.lbs5;
-      case 2.5:
-        return styles.lbs2p5;
-      case 1.25:
-        return styles.lbs1p25;
-      case 0.5:
-        return styles.lbs0p5;
-      default:
-        return styles.error;
-    }
-  };
-
-  weightAnyToText = (weightAny: number, language: Language): string => {
-    switch (weightAny) {
-      case 1.25:
-        return "1¼";
-      case 0.75:
-        return "¾";
-      case 0.5:
-        return "½";
-      case 0.25:
-        return "¼";
-      default:
-        return displayWeight(weightAny, language);
-    }
-  };
-
-  // Turns the selectPlates() array into divs.
-  renderPlates = () => {
-    const plates: Array<LoadedPlate> = this.props.loading;
-    const inKg: boolean = this.props.inKg;
-
-    const divs = [];
-    let i = 0;
-
-    // Iterate on a group of plates of the same weight at a time.
-    while (i < plates.length) {
-      const weightAny = plates[i].weightAny;
-
-      // If the weight is negative, it's an error report.
-      if (weightAny < 0) {
-        divs.push(
-          <div key={"error"} className={styles.error}>
-            ?{displayWeight(-1 * weightAny, this.props.language)}
-          </div>
-        );
-        break;
-      }
-
-      // Count how many times this same plate kind appears consecutively.
-      let plateCount = 1;
-      for (let j = i + 1; j < plates.length && plates[j].weightAny === weightAny; j++) {
-        plateCount++;
-      }
-
-      // If that plate is large and occurs a bunch, show a counter.
-      const showCounter = plateCount >= 3;
-
-      // Push each of the plates individually.
-      for (let j = 0; j < plateCount; j++) {
-        const plate = plates[i + j];
-        const counter = String(j + 1);
-
-        // Light backgrounds need dark text.
-        const is_light =
-          plate.color === PlateColors.PLATE_DEFAULT_WHITE || plate.color === PlateColors.PLATE_DEFAULT_YELLOW;
-
-        const style = {
-          backgroundColor: plate.color,
-          opacity: plate.isAlreadyLoaded ? 0.25 : undefined,
-          color: is_light ? "#232323" : "#FFFFFF",
-          // White plates need a border.
-          border: plate.color === PlateColors.PLATE_DEFAULT_WHITE ? "1.5px solid #232323" : undefined
-        };
-        divs.push(
-          <div
-            key={weightAny + "-" + counter}
-            className={inKg ? this.weightKgToStyle(weightAny) : this.weightLbsToStyle(weightAny)}
-            style={style}
-          >
-            <div>{this.weightAnyToText(weightAny, this.props.language)}</div>
-            {showCounter ? <div>{counter}</div> : null}
-          </div>
-        );
-      }
-
-      i += plateCount;
-    }
-
-    return divs;
-  };
-
-  render() {
-    // Only show rack info for lifts that use a rack.
-    let rackInfo = null;
-    if (this.props.lift !== "D") {
-      rackInfo = (
-        <div key={this.props.rackInfo} className={styles.rackInfo}>
-          <FormattedMessage
-            id="lifting.rack-info"
-            defaultMessage="Rack {rackInfo}"
-            values={{
-              rackInfo: this.props.rackInfo
-            }}
-          />
-        </div>
-      );
-    }
-
-    return (
-      <div className={styles.container}>
-        <div className={styles.bar} />
-        {this.renderPlates()}
-        <div className={styles.collar} />
-        <div className={styles.bar} />
-        {rackInfo}
-      </div>
-    );
-  }
-}
-
-const mapStateToProps = (state: GlobalState): StateProps => {
-  return {
-    lift: state.lifting.lift,
-    language: state.language
-  };
-};
+const mapStateToProps = (state: GlobalState): StateProps => ({
+  lift: state.lifting.lift,
+  language: state.language
+});
 
 export default connect(mapStateToProps)(BarLoad);
