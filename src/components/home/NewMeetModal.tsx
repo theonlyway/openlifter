@@ -46,7 +46,7 @@ interface StateProps {
 }
 
 interface DispatchProps {
-  overwriteStore: () => void;
+  overwriteStore: (language: Language) => void;
 }
 
 type Props = OwnProps & StateProps & DispatchProps;
@@ -84,7 +84,7 @@ class NewMeetModal extends React.Component<Props> {
             {getString("common.button-close", this.props.language)}
           </Button>
           <LinkContainer to="/meet-setup">
-            <Button onClick={this.props.overwriteStore} variant="primary">
+            <Button onClick={() => this.props.overwriteStore(this.props.language)} variant="primary">
               {getString("common.button-continue", this.props.language)}
             </Button>
           </LinkContainer>
@@ -103,11 +103,11 @@ const mapStateToProps = (state: GlobalState): StateProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   return {
-    overwriteStore: () => {
+    overwriteStore: (language: Language) => {
       // Calling the combined root reducer with an empty object results in the child reducers
       // being invoked with no argument, so they return their default states.
       // We cast here since this is not how the reducer is really intended to work
-      const defaultStore = rootReducer({} as GlobalState, "OVERWRITE_STORE" as any);
+      const defaultStore = rootReducer({ language: language } as GlobalState, "OVERWRITE_STORE" as any);
       dispatch(overwriteStore(defaultStore));
     }
   };
