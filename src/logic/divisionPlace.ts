@@ -308,8 +308,17 @@ const getAllResults = (
     }
 
     // Iterate over every combination of division and event, adding to the map.
-    for (let dividx = 0; dividx < e.divisions.length; dividx++) {
-      const division = e.divisions[dividx];
+    //
+    // This code also intentionally executes if `e.divisions.length === 0`.
+    // This is used to handle an exceptional case where a meet director expects
+    // all lifters to compete Open, but has failed to specify any division
+    // on the registration page, believing that to be unneeded.
+    //
+    // If that special case were not handled, the lifter would disappear from results.
+    const numDivisions = e.divisions.length;
+    let dividx: number = 0;
+    do {
+      const division = numDivisions > 0 ? e.divisions[dividx] : "";
 
       for (let evidx = 0; evidx < e.events.length; evidx++) {
         const event = e.events[evidx];
@@ -319,7 +328,7 @@ const getAllResults = (
         const catEntries = categoryMap.get(key);
         catEntries === undefined ? categoryMap.set(key, [e]) : catEntries.push(e);
       }
-    }
+    } while (++dividx < numDivisions);
   }
 
   // Iterate over each category and assign a Place to the entries therein.
