@@ -21,7 +21,7 @@
 //
 // For consistency purposes, weights are always stored in kg.
 
-import React, { FormEvent } from "react";
+import React, { ChangeEvent } from "react";
 import { connect } from "react-redux";
 
 import FormControl from "react-bootstrap/FormControl";
@@ -35,7 +35,7 @@ import { kg2lbs, lbs2kg, string2number, displayWeight } from "../../logic/units"
 
 import { Entry, Language, Lift, Validation } from "../../types/dataTypes";
 import { GlobalState } from "../../types/stateTypes";
-import { FormControlTypeHack, assertString } from "../../types/utils";
+import { assertString } from "../../types/utils";
 import { Dispatch } from "redux";
 
 interface OwnProps {
@@ -102,7 +102,7 @@ class WeightInput extends React.Component<Props, InternalState> {
   };
 
   // Update the internal state, used for validation.
-  handleChange = (event: FormEvent<FormControlTypeHack>) => {
+  handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const weightStr = event.currentTarget.value;
     if (assertString(weightStr)) {
       this.setState({ weightStr: weightStr });

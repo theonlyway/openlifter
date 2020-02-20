@@ -20,12 +20,12 @@
 // function passed in OwnProps. On blur, an onSuccess() callback is called
 // if validation passes; otherwise, the text input reverts to the initial state.
 
-import React from "react";
+import React, { ChangeEvent } from "react";
 
 import Form from "react-bootstrap/Form";
 
 import { Validation } from "../types/dataTypes";
-import { FormControlTypeHack, assertString } from "../types/utils";
+import { assertString } from "../types/utils";
 
 interface OwnProps {
   type?: string; // The type of input, such as "text" or "number". Defaults to "text".
@@ -71,7 +71,7 @@ class BirthDateInput extends React.Component<Props, InternalState> {
     }
   };
 
-  handleChange = (event: React.FormEvent<FormControlTypeHack>) => {
+  handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (assertString(event.currentTarget.value)) {
       this.setState({ value: event.currentTarget.value });
     }

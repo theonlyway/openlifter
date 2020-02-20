@@ -23,7 +23,7 @@
 // here as (pixels / 9) to make it look nicer. 9 is used because most columns
 // are set to 72px, which is divisible by 9.
 
-import React from "react";
+import React, { ChangeEvent } from "react";
 import { connect } from "react-redux";
 
 import Form from "react-bootstrap/Form";
@@ -32,7 +32,7 @@ import { setTableInfo } from "../../actions/liftingActions";
 
 import { Validation } from "../../types/dataTypes";
 import { GlobalState, LiftingState } from "../../types/stateTypes";
-import { FormControlTypeHack, isString } from "../../types/utils";
+import { isString } from "../../types/utils";
 import { Dispatch } from "redux";
 import { isNumber } from "util";
 
@@ -82,7 +82,7 @@ class ColumnWidth extends React.Component<Props, InternalState> {
     return "success";
   };
 
-  handleChange = (event: React.FormEvent<FormControlTypeHack>) => {
+  handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.currentTarget.value;
     if (!isNumber(value) && !isString(value)) {
       throw new Error(`Expected either a number or a string, but got "${value}"`);

@@ -18,7 +18,7 @@
 
 // Provides widgets that overwrite rules with federation defaults.
 
-import React, { FormEvent } from "react";
+import React, { ChangeEvent } from "react";
 import { connect } from "react-redux";
 import { FormattedMessage } from "react-intl";
 
@@ -33,7 +33,7 @@ import { updateMeet } from "../../actions/meetSetupActions";
 
 import { GlobalState, MeetState } from "../../types/stateTypes";
 import { Language } from "../../types/dataTypes";
-import { checkExhausted, FormControlTypeHack } from "../../types/utils";
+import { checkExhausted } from "../../types/utils";
 import { Dispatch } from "redux";
 
 interface StateProps {
@@ -985,7 +985,7 @@ class AutoFillRules extends React.Component<Props, InternalState> {
     };
   }
 
-  handleSelectChange = (event: FormEvent<FormControlTypeHack>) => {
+  handleSelectChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.currentTarget.value as AutoFillOption;
     // Only handle any valid values & assist the compiler in giving us a compile error if AutoFillOption has more values added
     switch (value) {

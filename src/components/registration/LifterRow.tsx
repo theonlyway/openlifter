@@ -20,7 +20,7 @@
 // This provides a bunch of widgets, each of which correspond to
 // the state of a single entry.
 
-import React from "react";
+import React, { ChangeEvent } from "react";
 import { connect } from "react-redux";
 import { FormattedMessage } from "react-intl";
 
@@ -43,7 +43,7 @@ import { validateIso8601Date } from "../../validation/iso8601Date";
 import { validatePositiveInteger } from "../../validation/positiveInteger";
 
 import { deleteRegistration, updateRegistration } from "../../actions/registrationActions";
-import { FormControlTypeHack, checkExhausted, assertString, assertFlight, assertSex } from "../../types/utils";
+import { checkExhausted, assertString, assertFlight, assertSex } from "../../types/utils";
 import { Entry, Equipment, Language, Validation } from "../../types/dataTypes";
 import { Dispatch } from "redux";
 import { GlobalState, MeetState } from "../../types/stateTypes";
@@ -108,7 +108,7 @@ class LifterRow extends React.Component<Props, InternalState> {
     this.props.deleteRegistration(this.props.id);
   }
 
-  updateRegistrationDay(event: React.FormEvent<FormControlTypeHack>) {
+  updateRegistrationDay(event: ChangeEvent<HTMLInputElement>) {
     const day = Number(event.currentTarget.value);
     const entry = this.props.entry;
 
@@ -124,14 +124,14 @@ class LifterRow extends React.Component<Props, InternalState> {
     }
   }
 
-  updateRegistrationPlatform(event: React.FormEvent<FormControlTypeHack>) {
+  updateRegistrationPlatform(event: ChangeEvent<HTMLInputElement>) {
     const platform = Number(event.currentTarget.value);
     if (this.props.entry.platform !== platform) {
       this.props.updateRegistration(this.props.id, { platform: platform });
     }
   }
 
-  updateRegistrationFlight(event: React.FormEvent<FormControlTypeHack>) {
+  updateRegistrationFlight(event: ChangeEvent<HTMLInputElement>) {
     const value = event.currentTarget.value;
     if (this.props.entry.flight !== value && assertString(value) && assertFlight(value)) {
       this.props.updateRegistration(this.props.id, { flight: value });
@@ -145,7 +145,7 @@ class LifterRow extends React.Component<Props, InternalState> {
     }
   }
 
-  updateRegistrationSex(event: React.FormEvent<FormControlTypeHack>) {
+  updateRegistrationSex(event: ChangeEvent<HTMLInputElement>) {
     const sex = event.currentTarget.value;
     if (this.props.entry.sex !== sex && assertString(sex) && assertSex(sex)) {
       this.props.updateRegistration(this.props.id, { sex: sex });
@@ -227,7 +227,7 @@ class LifterRow extends React.Component<Props, InternalState> {
     }
   }
 
-  updateRegistrationEquipment(event: React.FormEvent<FormControlTypeHack>) {
+  updateRegistrationEquipment(event: ChangeEvent<HTMLInputElement>) {
     const equipment = event.currentTarget.value as Equipment;
     if (this.props.entry.equipment !== equipment) {
       // Ensure value is something we expect & assist the compiler in helping us
@@ -578,7 +578,7 @@ class LifterRow extends React.Component<Props, InternalState> {
                     onBlur={(event: { currentTarget: { value: string } }) =>
                       this.updateRegistrationLot(event.currentTarget.value)
                     }
-                    onChange={(event: React.FormEvent<FormControlTypeHack> & { currentTarget: { value: string } }) =>
+                    onChange={(event: ChangeEvent<HTMLInputElement> & { currentTarget: { value: string } }) =>
                       this.updateRegistrationLot(event.currentTarget.value)
                     }
                   />

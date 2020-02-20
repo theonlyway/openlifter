@@ -15,7 +15,7 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import React from "react";
+import React, { ChangeEvent } from "react";
 import { connect } from "react-redux";
 
 import FormControl from "react-bootstrap/FormControl";
@@ -25,14 +25,13 @@ import { Language } from "../../types/dataTypes";
 import { GlobalState } from "../../types/stateTypes";
 
 import { Dispatch } from "redux";
-import { FormControlTypeHack } from "../../types/utils";
 
 interface StateProps {
   language: Language;
 }
 
 interface DispatchProps {
-  changeLanguage: (event: React.FormEvent<FormControlTypeHack>) => any;
+  changeLanguage: (event: ChangeEvent<HTMLInputElement>) => any;
 }
 
 type Props = StateProps & DispatchProps;
@@ -103,7 +102,7 @@ const mapStateToProps = (state: GlobalState): StateProps => ({
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   return {
     // TODO: Can we make this more type safe and avoid the cast?
-    changeLanguage: (event: React.FormEvent<FormControlTypeHack>) =>
+    changeLanguage: (event: ChangeEvent<HTMLInputElement>) =>
       dispatch(changeLanguage(event.currentTarget.value as Language))
   };
 };

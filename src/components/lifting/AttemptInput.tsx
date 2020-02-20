@@ -18,7 +18,7 @@
 
 // An editable component for attempt manipulation in the LiftingContent.
 
-import React, { FormEvent } from "react";
+import React, { ChangeEvent } from "react";
 import { connect } from "react-redux";
 
 import Form from "react-bootstrap/Form";
@@ -31,7 +31,6 @@ import { Entry, Language, Lift, Validation } from "../../types/dataTypes";
 import { GlobalState } from "../../types/stateTypes";
 
 import styles from "./LiftingTable.module.scss";
-import { FormControlTypeHack } from "../../types/utils";
 import { Dispatch } from "redux";
 
 interface StateProps {
@@ -133,7 +132,7 @@ class AttemptInput extends React.Component<Props, InternalState> {
     }
   };
 
-  handleChange = (event: FormEvent<FormControlTypeHack>) => {
+  handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.currentTarget.value;
     if (typeof value === "string") {
       let fixups = value.replace(" ", "");

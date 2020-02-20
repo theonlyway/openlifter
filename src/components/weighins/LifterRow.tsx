@@ -20,7 +20,7 @@
 // This provides a bunch of widgets, each of which correspond to
 // the state of a single entry.
 
-import React from "react";
+import React, { ChangeEvent } from "react";
 import { connect } from "react-redux";
 
 import FormControl from "react-bootstrap/FormControl";
@@ -38,7 +38,7 @@ import { updateRegistration } from "../../actions/registrationActions";
 import { Entry, Language, Validation } from "../../types/dataTypes";
 import { GlobalState, MeetState } from "../../types/stateTypes";
 import { Dispatch } from "redux";
-import { FormControlTypeHack, assertFlight, assertString } from "../../types/utils";
+import { assertFlight, assertString } from "../../types/utils";
 
 interface OwnProps {
   id: number;
@@ -66,7 +66,7 @@ class LifterRow extends React.Component<Props> {
     this.updateRegistrationAge = this.updateRegistrationAge.bind(this);
   }
 
-  updateRegistrationFlight = (event: React.FormEvent<FormControlTypeHack>) => {
+  updateRegistrationFlight = (event: ChangeEvent<HTMLInputElement>) => {
     const flight = event.currentTarget.value;
     if (this.props.entry.flight !== flight && assertString(flight) && assertFlight(flight)) {
       this.props.updateRegistration(this.props.id, { flight: flight });

@@ -19,7 +19,7 @@
 // The footer of the Lifting page, contained by the LiftingView.
 // This is the parent element of the controls that affect present lifting state.
 
-import React, { FormEvent } from "react";
+import React, { ChangeEvent } from "react";
 import { connect } from "react-redux";
 import { FormattedMessage } from "react-intl";
 
@@ -39,7 +39,7 @@ import { GlobalState, LiftingState } from "../../types/stateTypes";
 
 import styles from "./LiftingFooter.module.scss";
 import { Dispatch } from "redux";
-import { FormControlTypeHack, assertFlight, assertString, assertLift } from "../../types/utils";
+import { assertFlight, assertString, assertLift } from "../../types/utils";
 
 interface OwnProps {
   attemptOneIndexed: number;
@@ -87,7 +87,7 @@ class LiftingFooter extends React.Component<Props> {
     this.makeLifterOptions = this.makeLifterOptions.bind(this);
   }
 
-  handleDayChange = (event: FormEvent<FormControlTypeHack>) => {
+  handleDayChange = (event: ChangeEvent<HTMLInputElement>) => {
     const day = Number(event.currentTarget.value);
     const flight = this.props.lifting.flight;
     const lift = this.props.lifting.lift;
@@ -101,7 +101,7 @@ class LiftingFooter extends React.Component<Props> {
     this.props.setLiftingGroup(day, platform, flight, lift);
   };
 
-  handlePlatformChange = (event: FormEvent<FormControlTypeHack>) => {
+  handlePlatformChange = (event: ChangeEvent<HTMLInputElement>) => {
     const day = this.props.lifting.day;
     const platform = Number(event.currentTarget.value);
     const flight = this.props.lifting.flight;
@@ -109,7 +109,7 @@ class LiftingFooter extends React.Component<Props> {
     this.props.setLiftingGroup(day, platform, flight, lift);
   };
 
-  handleFlightChange = (event: FormEvent<FormControlTypeHack>) => {
+  handleFlightChange = (event: ChangeEvent<HTMLInputElement>) => {
     const day = this.props.lifting.day;
     const platform = this.props.lifting.platform;
     const flight = event.currentTarget.value;
@@ -119,7 +119,7 @@ class LiftingFooter extends React.Component<Props> {
     }
   };
 
-  handleLiftChange = (event: FormEvent<FormControlTypeHack>) => {
+  handleLiftChange = (event: ChangeEvent<HTMLInputElement>) => {
     const day = this.props.lifting.day;
     const platform = this.props.lifting.platform;
     const flight = "A"; // Always reset to Flight A.
@@ -129,12 +129,12 @@ class LiftingFooter extends React.Component<Props> {
     }
   };
 
-  handleAttemptChange = (event: FormEvent<FormControlTypeHack>) => {
+  handleAttemptChange = (event: ChangeEvent<HTMLInputElement>) => {
     const attempt = Number(event.currentTarget.value);
     this.props.overrideAttempt(attempt);
   };
 
-  handleLifterChange = (event: FormEvent<FormControlTypeHack>) => {
+  handleLifterChange = (event: ChangeEvent<HTMLInputElement>) => {
     const entryId = Number(event.currentTarget.value);
     this.props.overrideEntryId(entryId);
   };

@@ -18,7 +18,7 @@
 
 // The parent component of the Results page, contained by the ResultsContainer.
 
-import React from "react";
+import React, { ChangeEvent } from "react";
 import { connect } from "react-redux";
 import { FormattedMessage } from "react-intl";
 
@@ -44,7 +44,7 @@ import { Entry, Language } from "../../types/dataTypes";
 import { GlobalState } from "../../types/stateTypes";
 
 import styles from "./ResultsView.module.scss";
-import { FormControlTypeHack, checkExhausted, assertString } from "../../types/utils";
+import { checkExhausted, assertString } from "../../types/utils";
 import { Dispatch } from "redux";
 
 type ResultsBy = "Division" | "Points" | "BestMastersLifter" | "BestJuniorsLifter";
@@ -127,14 +127,14 @@ class ResultsView extends React.Component<Props, InternalState> {
     return options;
   };
 
-  handleDayChange = (event: React.FormEvent<FormControlTypeHack>) => {
+  handleDayChange = (event: ChangeEvent<HTMLInputElement>) => {
     const day = Number(event.currentTarget.value);
     if (this.state.day !== day) {
       this.setState({ day: day });
     }
   };
 
-  handleByChange = (event: React.FormEvent<FormControlTypeHack>) => {
+  handleByChange = (event: ChangeEvent<HTMLInputElement>) => {
     const by = event.currentTarget.value;
     if (this.state.by !== by && assertString(by) && assertValidResultsBy(by)) {
       this.setState({ by: by });
