@@ -48,10 +48,10 @@ import { Entry, Equipment, Language, Validation } from "../../types/dataTypes";
 import { Dispatch } from "redux";
 import { GlobalState, MeetState } from "../../types/stateTypes";
 
-type OptionType = {
+interface OptionType {
   label: string;
   value: string;
-};
+}
 
 interface OwnProps {
   id: number;
