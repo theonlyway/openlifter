@@ -76,6 +76,7 @@ export type Entry = {
   memberId: string;
   paid: boolean;
   team: string;
+  guest: boolean;
   instagram?: string; // Optional to maintain dataVersion compat.
   notes: string;
   bodyweightKg: number;

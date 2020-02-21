@@ -51,6 +51,7 @@ export const newDefaultEntry = (id: number): Entry => {
     memberId: "", // Optional federation MemberID, for reporting in results.
     paid: false, // Used by the meet director for tracking whether the lifter paid.
     team: "", // Optional. Only used in the final results export.
+    guest: false, // Optional. Marks the lifter as a guest, who cannot place in rankings.
     notes: "", // Free-form text for the meet director to use as a scratchpad.
 
     // Information added on the "Weigh-ins" page.

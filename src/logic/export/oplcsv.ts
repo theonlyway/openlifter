@@ -107,6 +107,8 @@ const addEntriesRow = (
 
   if (!entryHasLifted(entry)) {
     row[csv.index("Place")] = "NS"; // No-Show.
+  } else if (entry.guest) {
+    row[csv.index("Place")] = "G"; // Guest
   } else {
     row[csv.index("Place")] = finalEventTotalKg === 0 ? "DQ" : csvString(index + 1);
   }

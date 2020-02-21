@@ -90,11 +90,10 @@ class ByDivision extends React.Component<Props> {
     const inKg = this.props.inKg;
     const language = this.props.language;
 
-    // The place proceeds in order by key, except for DQ entries.
-    const place =
-      totalKg === 0
-        ? getString("results.lifter-disqualified", language)
-        : displayPlaceOrdinal(key + 1, entry, this.props.language);
+    // The place proceeds in order by key, except for guests
+    const place = entry.guest
+      ? getString("results.lifter-guest", language)
+      : displayPlaceOrdinal(key + 1, entry, this.props.language);
 
     const points: number = getPoints(this.props.formula, entry, category.event, totalKg, inKg);
 

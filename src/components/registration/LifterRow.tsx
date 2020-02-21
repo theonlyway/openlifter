@@ -99,6 +99,7 @@ class LifterRow extends React.Component<Props, InternalState> {
     this.updateRegistrationDivisions = this.updateRegistrationDivisions.bind(this);
     this.updateRegistrationEvents = this.updateRegistrationEvents.bind(this);
     this.updateRegistrationEquipment = this.updateRegistrationEquipment.bind(this);
+    this.updateRegistrationGuest = this.updateRegistrationGuest.bind(this);
     this.updateRegistrationTeam = this.updateRegistrationTeam.bind(this);
     this.updateRegistrationInstagram = this.updateRegistrationInstagram.bind(this);
     this.updateRegistrationNotes = this.updateRegistrationNotes.bind(this);
@@ -246,6 +247,14 @@ class LifterRow extends React.Component<Props, InternalState> {
       }
     }
   }
+
+  updateRegistrationGuest = (event: React.FocusEvent<FormControlTypeHack>) => {
+    if (event.currentTarget.value === "true") {
+      this.props.updateRegistration(this.props.id, { guest: true });
+    } else {
+      this.props.updateRegistration(this.props.id, { guest: false });
+    }
+  };
 
   updateRegistrationTeam = (event: React.FocusEvent<FormControlTypeHack>) => {
     if (assertString(event.currentTarget.value)) {
@@ -582,8 +591,26 @@ class LifterRow extends React.Component<Props, InternalState> {
                 </Form.Group>
               </Col>
 
-              {/* Notes */}
-              <Col md={3}>
+              {/* Guest */}
+              <Col md={1}>
+                <Form.Group>
+                  <Form.Label>
+                    <FormattedMessage id="registration.guest-label" defaultMessage="Guest" />
+                  </Form.Label>
+                  <Form.Control
+                    value={entry.guest ? entry.guest.toString() : "false"}
+                    as="select"
+                    onChange={this.updateRegistrationGuest}
+                    className="custom-select"
+                  >
+                    <option value="false">{getString("common.response-no", language)}</option>
+                    <option value="true">{getString("common.response-yes", language)}</option>
+                  </Form.Control>
+                </Form.Group>
+              </Col>
+
+              {/* Team */}
+              <Col md={2}>
                 <Form.Group>
                   <Form.Label>
                     <FormattedMessage id="registration.team-label" defaultMessage="Team" />

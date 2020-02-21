@@ -96,11 +96,10 @@ class ByPoints extends React.Component<Props> {
     const inKg = this.props.inKg;
     const language = this.props.language;
 
-    // The place proceeds in order by key, except for DQ entries.
-    const rank =
-      totalKg === 0
-        ? getString("results.lifter-disqualified", language)
-        : displayPlaceOrdinal(key + 1, entry, language);
+    // The place proceeds in order by key, except for guests
+    const rank = entry.guest
+      ? getString("results.lifter-guest", language)
+      : displayPlaceOrdinal(key + 1, entry, language);
 
     const points: number = getAgeAdjustedPoints(
       this.props.ageCoefficients,

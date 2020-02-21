@@ -220,6 +220,10 @@ class RandomizeRegistrationButton extends React.Component<Props> {
       const sexes: Sex[] = ["M", "F", "Mx"];
       const sex: Sex = sexes[randomInt(0, sexes.length - 1)];
 
+      // 10% chance they're a guest.
+      // ==========================================
+      const isGuest: boolean = randomInt(1, 10) === 1;
+
       // Assign a random Team.
       // ==========================================
       const teams: string[] = ["Team Red", "Team Green", "Team Blue"];
@@ -303,6 +307,7 @@ class RandomizeRegistrationButton extends React.Component<Props> {
         events: events,
         equipment: equipment,
         divisions: divisions,
+        guest: isGuest,
       });
     }
   }

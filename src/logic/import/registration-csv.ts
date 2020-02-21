@@ -57,6 +57,7 @@ export const makeExampleRegistrationsCsv = (language: Language): string => {
   const country = getString("import.column-country", language);
   const state = getString("import.column-state", language);
   const lot = getString("import.column-lot", language);
+  const guest = getString("import.column-guest", language);
   const team = getString("import.column-team", language);
   const instagram = getString("import.column-instagram", language);
   const notes = getString("import.column-notes", language);
@@ -64,7 +65,7 @@ export const makeExampleRegistrationsCsv = (language: Language): string => {
   csv.appendColumns([day, platform, flight, name, sex, equipment]);
   csv.appendColumns([division1, division2, division3, event1, event2, event3]);
   csv.appendColumns([birthdate, age, memberid, country, state]);
-  csv.appendColumns([lot, team, instagram, notes]);
+  csv.appendColumns([lot, team, guest, instagram, notes]);
 
   csv.rows[0][csv.index(day)] = "1";
   csv.rows[0][csv.index(platform)] = "1";
@@ -84,6 +85,8 @@ export const makeExampleRegistrationsCsv = (language: Language): string => {
   csv.rows[0][csv.index(country)] = getString("import.example-country", language);
   csv.rows[0][csv.index(state)] = getString("import.example-state", language);
   // Intentionally blank: csv.rows[0][csv.index(lot)]
+  csv.rows[0][csv.index(guest)] = getString("common.response-yes", language);
+  // Intentionally blank: csv.rows[0][csv.index(team)]
   // Intentionally blank: csv.rows[0][csv.index(team)]
   csv.rows[0][csv.index(instagram)] = getString("import.example-instagram", language);
   csv.rows[0][csv.index(notes)] = getString("import.example-notes", language);
@@ -123,6 +126,7 @@ export const loadRegistrations = (state: GlobalState, csv: Csv, language: Langua
   const col_country = getString("import.column-country", language);
   const col_state = getString("import.column-state", language);
   const col_lot = getString("import.column-lot", language);
+  const col_guest = getString("import.column-guest", language);
   const col_team = getString("import.column-team", language);
   const col_instagram = getString("import.column-instagram", language);
   const col_notes = getString("import.column-notes", language);
@@ -153,6 +157,7 @@ export const loadRegistrations = (state: GlobalState, csv: Csv, language: Langua
     col_country,
     col_state,
     col_lot,
+    col_guest,
     col_team,
     col_instagram,
     col_notes,
@@ -434,6 +439,19 @@ export const loadRegistrations = (state: GlobalState, csv: Csv, language: Langua
 
           // All checks passed!
           entry.lot = integer;
+        }
+      } else if (fieldname === col_guest) {
+        if (val === getString("common.response-yes", language)) {
+          entry.guest = true;
+        } else if (val === getString("common.response-no", language)) {
+          entry.guest = false;
+        } else if (val === "") {
+          entry.guest = false;
+        } else {
+          const e = getString("error.csv-field-unknown-boolean", language);
+          const yes = getString("common.response-yes", language);
+          const no = getString("common.response-no", language);
+          return errprefix + e.replace("{Yes}", yes).replace("{No}", no);
         }
       } else if (fieldname === col_team) {
         entry.team = val;

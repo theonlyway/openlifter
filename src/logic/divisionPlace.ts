@@ -132,6 +132,11 @@ const sortByPlaceInCategory = (entries: ReadonlyArray<Entry>, category: Category
 
   // Sort in the given category, first place having the lowest index.
   clonedEntries.sort((a, b) => {
+    // If either of the lifters are guests, sort the guest last
+    if (a.guest !== b.guest) {
+      return Number(a.guest) - Number(b.guest);
+    }
+    // Otherwise, both lifters are non-guests or guests, so sort as per usual
     let aTotal = 0;
 
     // First sort by Total, higher sorting lower.
@@ -292,7 +297,7 @@ const getAllResults = (
   // Generate a map from category to the entries within that category.
   // The map is populated by iterating over each entry and having the entry
   // append itself to per-category lists.
-  const categoryMap = new Map();
+  const categoryMap = new Map<string, Entry[]>();
   for (let i = 0; i < entries.length; i++) {
     const e = entries[i];
 

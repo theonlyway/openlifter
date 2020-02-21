@@ -90,6 +90,13 @@ const sortByFormulaPlaceInCategory = (
     // Appease the type checker even though this can't happen.
     if (aIndex === undefined || bIndex === undefined) return 0;
 
+    // Guests always sort higher than non-guests.
+    // This is phrased a little strangely to also handle undefined.
+    if (a.guest !== b.guest) {
+      if (a.guest) return 1;
+      if (b.guest) return -1;
+    }
+
     // First sort by points, higher sorting lower.
     const aPoints = memoizedPoints[aIndex];
     const bPoints = memoizedPoints[bIndex];

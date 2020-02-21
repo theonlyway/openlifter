@@ -24,6 +24,13 @@ import { getString, localizeEquipment, localizeEvent, localizeFlight, localizeSe
 import { Language } from "../../types/dataTypes";
 import { RegistrationState } from "../../types/stateTypes";
 
+const boolToYesNo = (b: boolean, language: Language): string => {
+  if (b === true) {
+    return getString("common.response-yes", language);
+  }
+  return getString("common.response-no", language);
+};
+
 export const makeRegistrationsCsv = (registration: RegistrationState, language: Language): string => {
   const csv = new Csv();
 
@@ -44,6 +51,7 @@ export const makeRegistrationsCsv = (registration: RegistrationState, language: 
   const col_country = getString("import.column-country", language);
   const col_state = getString("import.column-state", language);
   const col_lot = getString("import.column-lot", language);
+  const col_guest = getString("import.column-guest", language);
   const col_team = getString("import.column-team", language);
   const col_instagram = getString("import.column-instagram", language);
   const col_notes = getString("import.column-notes", language);
@@ -51,7 +59,7 @@ export const makeRegistrationsCsv = (registration: RegistrationState, language: 
   csv.appendColumns([col_day, col_platform, col_flight, col_name, col_sex, col_equipment]);
   csv.appendColumns([col_division1, col_event1]); // Base cases. Others inserted by need.
   csv.appendColumns([col_birthdate, col_age, col_memberid, col_country, col_state]);
-  csv.appendColumns([col_lot, col_team, col_instagram, col_notes]);
+  csv.appendColumns([col_lot, col_guest, col_team, col_instagram, col_notes]);
 
   for (let i = 0; i < registration.entries.length; ++i) {
     const entry = registration.entries[i];
@@ -69,6 +77,7 @@ export const makeRegistrationsCsv = (registration: RegistrationState, language: 
     row[csv.index(col_country)] = csvString(entry.country);
     row[csv.index(col_state)] = csvString(entry.state);
     row[csv.index(col_lot)] = csvString(entry.lot);
+    row[csv.index(col_guest)] = csvString(boolToYesNo(entry.guest, language));
     row[csv.index(col_team)] = csvString(entry.team);
     row[csv.index(col_instagram)] = csvString(entry.instagram);
     row[csv.index(col_notes)] = csvString(entry.notes);

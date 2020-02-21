@@ -37,6 +37,7 @@ import { GlobalState, MeetState, LiftingState } from "../../types/stateTypes";
 
 import styles from "./LiftingTable.module.scss";
 import { checkExhausted } from "../../types/utils";
+import { getString } from "../../logic/strings";
 
 interface OwnProps {
   attemptOneIndexed: number;
@@ -367,6 +368,9 @@ class LiftingTable extends React.Component<Props> {
         // If the lifter has no total, then don't report a place.
         if (getFinalTotalKg(entry) === 0) return <td key={columnType} />;
 
+        // If the lifter is a guest, they cannot place, so just display the guest symbol.
+        if (entry.guest) return <td key={columnType}>{getString("results.lifter-guest", this.props.language)}</td>;
+
         // Just show the Place from the first division in the list.
         // This is the same division as shown in the "Division" column.
         if (entry.divisions.length === 0) return <td key={columnType} />;
@@ -386,6 +390,7 @@ class LiftingTable extends React.Component<Props> {
             const catEntry = catEntries[j];
 
             if (catEntry.id === entry.id) {
+              // We can use the index into the array as their place, since it sorted and guests will be last in the array
               const ordinal = displayPlaceOrdinal(j + 1, entry, this.props.language);
               return <td key={columnType}>{ordinal}</td>;
             }
