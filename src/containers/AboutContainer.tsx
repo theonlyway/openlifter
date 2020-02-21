@@ -84,6 +84,7 @@ class AboutContainer extends React.Component<{}> {
                     <li>David Sacras &mdash; Portuguese localization</li>
                     <li>Alan Sambol &mdash; Croatian localization</li>
                     <li>Milena Schaefer &mdash; German localization</li>
+                    <li>Vitaliy Shvarz &mdash; Ukrainian localization</li>
                     <li>Sean Stangl &mdash; Programming and maintenance</li>
                     <li>Michael Vessia &mdash; Programming and maintenance</li>
                     <li>Andrius Virbičianskas &mdash; Lithuanian localization</li>

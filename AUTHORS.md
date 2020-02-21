@@ -32,6 +32,7 @@ Please also add yourself to the in-program credits in `src/containers/AboutConta
 * David Sacras
 * Alan Sambol
 * Milena Schaefer
+* Vitaliy Shvarz
 * Andrius Virbičianskas
 * Sarah Wellberg
 * Jo Whiteley

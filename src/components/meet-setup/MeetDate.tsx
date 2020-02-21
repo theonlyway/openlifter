@@ -48,6 +48,7 @@ import nl from "date-fns/locale/nl";
 import pt from "date-fns/locale/pt";
 import ru from "date-fns/locale/ru";
 import tr from "date-fns/locale/tr";
+import uk from "date-fns/locale/uk";
 import zh_CN from "date-fns/locale/zh-CN";
 
 // Register the date-fns/locales with the DatePicker.
@@ -62,6 +63,7 @@ registerLocale("nl", nl);
 registerLocale("pt", pt);
 registerLocale("ru", ru);
 registerLocale("tr", tr);
+registerLocale("uk", uk);
 registerLocale("zh-Hans", zh_CN);
 
 interface StateProps {
