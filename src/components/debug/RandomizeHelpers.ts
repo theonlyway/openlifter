@@ -41,3 +41,20 @@ export const randomFixedPoint = (min: number, max: number, fixedPoints: number) 
   // Translate it back to normal space.
   return k / power + min;
 };
+
+// Randomly shuffle an array in-place using the Fisher-Yates algorithm.
+//
+// For each element, swap it with a randomly-chosen element of greater or equal index.
+export const shuffle = <T>(array: Array<Readonly<T>>): void => {
+  const numElements = array.length;
+
+  for (let i = 0; i < numElements - 1; i++) {
+    // Randomly select an element of greater or equal index.
+    const switchIndex = randomInt(i, numElements - 1);
+
+    // Swap the two elements.
+    const temp = array[i];
+    array[i] = array[switchIndex];
+    array[switchIndex] = temp;
+  }
+};

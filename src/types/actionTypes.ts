@@ -149,10 +149,18 @@ export interface MergePlatformAction {
   readonly platformEntries: ReadonlyArray<Entry>;
 }
 
+export type LotNumberManipulation = "AssignSequentially" | "AssignRandomly" | "RemoveAll";
+
+export interface AssignLotNumbersAction {
+  readonly type: "ASSIGN_LOT_NUMBERS";
+  readonly manipulation: LotNumberManipulation;
+}
+
 export type RegistrationAction =
   | NewRegistrationAction
   | DeleteRegistrationAction
   | UpdateRegistrationAction
+  | AssignLotNumbersAction
   | MergePlatformAction;
 
 //////////////////////////////////////////////////////////

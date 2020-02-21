@@ -26,7 +26,14 @@ import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Card from "react-bootstrap/Card";
 
-import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import {
+  faSpinner,
+  faTimes,
+  faRandom,
+  faSortNumericUp,
+  faSortAlphaUp,
+  faSort
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import LifterTable from "./LifterTable";
@@ -39,13 +46,15 @@ import { makeExampleRegistrationsCsv, loadRegistrations } from "../../logic/impo
 import { makeRegistrationsCsv } from "../../logic/export/registrations";
 import { getString } from "../../logic/strings";
 
-import { newRegistration, deleteRegistration } from "../../actions/registrationActions";
+import { newRegistration, deleteRegistration, assignLotNumbers } from "../../actions/registrationActions";
 
 import { saveAs } from "file-saver";
 
+import { LotNumberManipulation } from "../../types/actionTypes";
 import { GlobalState } from "../../types/stateTypes";
 import { Entry } from "../../types/dataTypes";
 import { Dispatch } from "redux";
+import { DropdownButton, Dropdown } from "react-bootstrap";
 
 interface StateProps {
   global: GlobalState;
@@ -54,6 +63,7 @@ interface StateProps {
 interface DispatchProps {
   newRegistration: (obj: Partial<Entry>) => void;
   deleteRegistration: (id: number) => void;
+  assignLotNumbers: (manipulation: LotNumberManipulation) => void;
 }
 
 type Props = StateProps & DispatchProps;
@@ -76,6 +86,9 @@ class RegistrationView extends React.Component<Props, InternalState> {
     this.handleOverwriteClick = this.handleOverwriteClick.bind(this);
     this.handleAppendClick = this.handleAppendClick.bind(this);
     this.handleLoadFileInput = this.handleLoadFileInput.bind(this);
+    this.handleSequentialLotNumbersClick = this.handleSequentialLotNumbersClick.bind(this);
+    this.handleRandomLotNumbersClick = this.handleRandomLotNumbersClick.bind(this);
+    this.handleRemoveLotNumbersClick = this.handleRemoveLotNumbersClick.bind(this);
     this.closeErrorModal = this.closeErrorModal.bind(this);
 
     this.state = { error: "", isLoadingFiles: false };
@@ -110,6 +123,18 @@ class RegistrationView extends React.Component<Props, InternalState> {
     if (loadhelper !== null) {
       loadhelper.click();
     }
+  };
+
+  handleSequentialLotNumbersClick = () => {
+    this.props.assignLotNumbers("AssignSequentially");
+  };
+
+  handleRandomLotNumbersClick = () => {
+    this.props.assignLotNumbers("AssignRandomly");
+  };
+
+  handleRemoveLotNumbersClick = () => {
+    this.props.assignLotNumbers("RemoveAll");
   };
 
   handleAppendClick = () => {
@@ -192,6 +217,7 @@ class RegistrationView extends React.Component<Props, InternalState> {
 
   render() {
     const numEntries = this.props.global.registration.entries.length;
+    const dropdownIconStyle = { width: "16px", marginRight: "6px" };
 
     return (
       <div>
@@ -238,6 +264,42 @@ class RegistrationView extends React.Component<Props, InternalState> {
           </Card.Body>
         </Card>
 
+        <Card style={{ marginBottom: "17px" }}>
+          <Card.Header>
+            <FormattedMessage id="registration.tools-header" defaultMessage="Tools" />
+          </Card.Header>
+          <Card.Body>
+            <ButtonGroup vertical>
+              <DropdownButton
+                as={ButtonGroup}
+                title={
+                  <FormattedMessage id="registration.dropdown-manage-lot-numbers" defaultMessage="Manage Lot Numbers" />
+                }
+                id="registration.button-assign-lot-numbers"
+              >
+                <Dropdown.Item onClick={this.handleSequentialLotNumbersClick}>
+                  <FontAwesomeIcon icon={faSort} style={dropdownIconStyle} />
+                  <FormattedMessage
+                    id="registration.button-assign-lot-numbers-sequentially"
+                    defaultMessage="Assign Sequentially"
+                  />
+                </Dropdown.Item>
+                <Dropdown.Item onClick={this.handleRandomLotNumbersClick}>
+                  <FontAwesomeIcon icon={faRandom} style={dropdownIconStyle} />
+                  <FormattedMessage
+                    id="registration.button-assign-lot-numbers-randomly"
+                    defaultMessage="Assign Randomly"
+                  />
+                </Dropdown.Item>
+                <Dropdown.Item onClick={this.handleRemoveLotNumbersClick}>
+                  <FontAwesomeIcon icon={faTimes} style={dropdownIconStyle} />
+                  <FormattedMessage id="registration.button-remove-lot-numbers" defaultMessage="Remove Lot Numbers" />
+                </Dropdown.Item>
+              </DropdownButton>
+            </ButtonGroup>
+          </Card.Body>
+        </Card>
+
         <LifterTable entries={this.props.global.registration.entries} rowRenderer={LifterRow} />
         <NewButton />
 
@@ -260,7 +322,8 @@ const mapStateToProps = (state: GlobalState): StateProps => ({
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   return {
     newRegistration: (obj: Partial<Entry>) => dispatch(newRegistration(obj)),
-    deleteRegistration: (id: number) => dispatch(deleteRegistration(id))
+    deleteRegistration: (id: number) => dispatch(deleteRegistration(id)),
+    assignLotNumbers: (m: LotNumberManipulation) => dispatch(assignLotNumbers(m))
   };
 };
 
