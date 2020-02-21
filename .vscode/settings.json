@@ -3,10 +3,8 @@
   "typescript.tsdk": "node_modules\\typescript\\lib",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.codeActionsOnSave": {
-    "source.fixAll.tslint": true
+    "source.fixAll.eslint": true
   },
-  "eslint.autoFixOnSave": true,
-  "editor.formatOnSave": true,
   "files.autoSave": "onFocusChange",
   "npm.packageManager": "yarn",
   "eslint.packageManager": "yarn"
