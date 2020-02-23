@@ -1,4 +1,4 @@
-.PHONY: build-deps dev-electron dev-web package test check less gitlab-pages clean veryclean
+.PHONY: build-deps dev-electron dev-web package test check less build clean veryclean
 
 all: dev-web
 
@@ -27,15 +27,16 @@ package: build-deps
 test: build-deps
 	CI="yes" yarn run test
 
-release: gitlab-pages
-	echo "Built into public/. Don't forget to set a git tag!"
-
 # Builds the project into public/. Overwrites git files -- need to reset after.
-gitlab-pages:
-	make less
-	yarn run build
+release: build
 	rm -rf public/
 	cp --dereference -r build/ public
+	echo "Built into public/. Don't forget to set a git tag!"
+
+# Builds the project into build/.
+build:
+	make less
+	yarn run build
 
 # A simple target to run all the CI server tests.
 check:
