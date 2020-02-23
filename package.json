@@ -73,6 +73,7 @@
     "eslint-config-react-app": "^5.0.2",
     "eslint-plugin-prettier": "^3.0.0",
     "prettier": "^1.15.2",
+    "redux-devtools-extension": "^2.13.8",
     "react-bootstrap": "^1.0.0-beta.10",
     "react-intl-translations-manager": "^5.0.3",
     "react-router-bootstrap": "^0.25.0",
