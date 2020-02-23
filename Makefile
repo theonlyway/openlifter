@@ -1,4 +1,4 @@
-.PHONY: build-deps dev-electron dev-web package test check less build clean veryclean
+.PHONY: build-deps dev-electron dev-web package test check less build clean veryclean apply-beta-basename
 
 all: dev-web
 
@@ -37,6 +37,12 @@ release: build
 build:
 	make less
 	yarn run build
+
+# Overwrites settings in package.json to allow the Beta site's Router
+# to function correctly when deployed in production.
+apply-beta-basename:
+	sed -i 's;"homepage": "./";"homepage": "https://www.openlifter.com/releases/beta/";' package.json
+	sed -i 's;"router_basename": "/";"router_basename": "/releases/beta/";' package.json
 
 # A simple target to run all the CI server tests.
 check:
