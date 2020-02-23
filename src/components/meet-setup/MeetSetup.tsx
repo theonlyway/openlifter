@@ -201,7 +201,7 @@ class MeetSetup extends React.Component<Props, InternalState> {
                   </Form.Label>
                   <FormControl
                     as="select"
-                    defaultValue={this.props.meet.formula}
+                    value={this.props.meet.formula}
                     onChange={this.props.setFormula}
                     className="custom-select"
                   >
@@ -226,7 +226,7 @@ class MeetSetup extends React.Component<Props, InternalState> {
                   </Form.Label>
                   <FormControl
                     as="select"
-                    defaultValue={this.props.meet.ageCoefficients}
+                    value={this.props.meet.ageCoefficients}
                     onChange={this.props.setAgeCoefficients}
                     className="custom-select"
                   >

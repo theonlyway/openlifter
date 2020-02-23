@@ -358,7 +358,7 @@ class ResultsView extends React.Component<Props, InternalState> {
     if (this.props.global.meet.lengthDays > 1) {
       daySelector = (
         <FormControl
-          defaultValue={this.state.day.toString()}
+          value={this.state.day.toString()}
           as="select"
           onChange={this.handleDayChange}
           className={`custom-select ${styles.dropdown}`}
@@ -422,7 +422,7 @@ class ResultsView extends React.Component<Props, InternalState> {
             {daySelector}
 
             <FormControl
-              defaultValue={this.state.by}
+              value={this.state.by}
               as="select"
               onChange={this.handleByChange}
               className={`custom-select ${styles.dropdown}`}

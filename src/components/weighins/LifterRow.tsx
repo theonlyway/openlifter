@@ -141,7 +141,7 @@ class LifterRow extends React.Component<Props> {
       // Can be undefined.
       flight = (
         <FormControl
-          defaultValue={entry.flight}
+          value={entry.flight}
           as="select"
           onChange={this.updateRegistrationFlight}
           className="custom-select"

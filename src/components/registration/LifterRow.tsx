@@ -138,7 +138,7 @@ class LifterRow extends React.Component<Props, InternalState> {
     }
   }
 
-  updateRegistrationName(event: React.FocusEvent<HTMLInputElement>) {
+  updateRegistrationName(event: React.FocusEvent<FormControlTypeHack>) {
     const name = event.currentTarget.value;
     if (this.props.entry.name !== name && assertString(name)) {
       this.props.updateRegistration(this.props.id, { name: name });
@@ -152,15 +152,15 @@ class LifterRow extends React.Component<Props, InternalState> {
     }
   }
 
-  updateRegistrationLot = (lot: string) => {
-    const asNumber = string2number(lot);
+  updateRegistrationLot(event: React.FormEvent<FormControlTypeHack> & { currentTarget: { value: string } }) {
+    const asNumber = string2number(event.currentTarget.value);
     if (asNumber >= 0 && asNumber !== this.props.entry.lot) {
       this.props.updateRegistration(this.props.id, { lot: asNumber });
     }
-  };
+  }
 
-  updateRegistrationMemberId = (event: React.FocusEvent<HTMLInputElement>) => {
-    const memberId = event.target.value;
+  updateRegistrationMemberId = (event: React.FormEvent<FormControlTypeHack>) => {
+    const memberId = event.currentTarget.value;
     if (this.props.entry.memberId !== memberId && typeof memberId === "string") {
       this.props.updateRegistration(this.props.id, { memberId: memberId });
     }
@@ -246,21 +246,21 @@ class LifterRow extends React.Component<Props, InternalState> {
     }
   }
 
-  updateRegistrationTeam = (event: React.FocusEvent<HTMLInputElement>) => {
-    if (assertString(event.target.value)) {
-      this.props.updateRegistration(this.props.id, { team: event.target.value });
+  updateRegistrationTeam = (event: React.FocusEvent<FormControlTypeHack>) => {
+    if (assertString(event.currentTarget.value)) {
+      this.props.updateRegistration(this.props.id, { team: event.currentTarget.value });
     }
   };
 
-  updateRegistrationInstagram = (event: React.FocusEvent<HTMLInputElement>) => {
-    if (assertString(event.target.value)) {
-      this.props.updateRegistration(this.props.id, { instagram: event.target.value });
+  updateRegistrationInstagram = (event: React.FocusEvent<FormControlTypeHack>) => {
+    if (assertString(event.currentTarget.value)) {
+      this.props.updateRegistration(this.props.id, { instagram: event.currentTarget.value });
     }
   };
 
-  updateRegistrationNotes = (event: React.FocusEvent<HTMLInputElement>) => {
-    if (assertString(event.target.value)) {
-      this.props.updateRegistration(this.props.id, { notes: event.target.value });
+  updateRegistrationNotes = (event: React.FocusEvent<FormControlTypeHack>) => {
+    if (assertString(event.currentTarget.value)) {
+      this.props.updateRegistration(this.props.id, { notes: event.currentTarget.value });
     }
   };
 
@@ -338,7 +338,7 @@ class LifterRow extends React.Component<Props, InternalState> {
     return (
       <Card style={{ overflow: "visible", marginBottom: "17px" }}>
         <Card.Header style={{ display: "flex" }}>
-          <Form.Control type="text" placeholder="" defaultValue={entry.name} onBlur={this.updateRegistrationName} />
+          <Form.Control type="text" placeholder="" value={entry.name} onChange={this.updateRegistrationName} />
           <Button
             onClick={this.deleteRegistrationClick}
             variant="danger"
@@ -357,7 +357,7 @@ class LifterRow extends React.Component<Props, InternalState> {
                     <FormattedMessage id="registration.day-label" defaultMessage="Day" />
                   </Form.Label>
                   <Form.Control
-                    defaultValue={this.state.selectedDay}
+                    value={this.state.selectedDay.toString()}
                     as="select"
                     onChange={this.updateRegistrationDay}
                     className="custom-select"
@@ -374,7 +374,7 @@ class LifterRow extends React.Component<Props, InternalState> {
                     <FormattedMessage id="registration.platform-label" defaultMessage="Platform" />
                   </Form.Label>
                   <Form.Control
-                    defaultValue={entry.platform}
+                    value={entry.platform.toString()}
                     as="select"
                     onChange={this.updateRegistrationPlatform}
                     className="custom-select"
@@ -391,7 +391,7 @@ class LifterRow extends React.Component<Props, InternalState> {
                     <FormattedMessage id="registration.flight-label" defaultMessage="Flight" />
                   </Form.Label>
                   <Form.Control
-                    defaultValue={entry.flight}
+                    value={entry.flight}
                     as="select"
                     onChange={this.updateRegistrationFlight}
                     className="custom-select"
@@ -423,7 +423,7 @@ class LifterRow extends React.Component<Props, InternalState> {
                     <FormattedMessage id="registration.sex-label" defaultMessage="Sex" />
                   </Form.Label>
                   <Form.Control
-                    defaultValue={entry.sex}
+                    value={entry.sex}
                     as="select"
                     onChange={this.updateRegistrationSex}
                     className="custom-select"
@@ -442,7 +442,7 @@ class LifterRow extends React.Component<Props, InternalState> {
                     <FormattedMessage id="registration.equipment-label" defaultMessage="Equipment" />
                   </Form.Label>
                   <Form.Control
-                    defaultValue={entry.equipment}
+                    value={entry.equipment}
                     as="select"
                     onChange={this.updateRegistrationEquipment}
                     className="custom-select"
@@ -469,7 +469,7 @@ class LifterRow extends React.Component<Props, InternalState> {
                     isClearable={false}
                     isMulti={true}
                     onChange={this.updateRegistrationDivisions}
-                    defaultValue={selectedDivisions}
+                    value={selectedDivisions}
                   />
                 </Form.Group>
               </Col>
@@ -487,7 +487,7 @@ class LifterRow extends React.Component<Props, InternalState> {
                     isClearable={false}
                     isMulti={true}
                     onChange={this.updateRegistrationEvents}
-                    defaultValue={selectedEvents}
+                    value={selectedEvents}
                   />
                 </Form.Group>
               </Col>
@@ -533,8 +533,8 @@ class LifterRow extends React.Component<Props, InternalState> {
                   <Form.Control
                     type="text"
                     placeholder={stringMemberIdPlaceholder}
-                    defaultValue={entry.memberId}
-                    onBlur={this.updateRegistrationMemberId}
+                    value={entry.memberId}
+                    onChange={this.updateRegistrationMemberId}
                   />
                 </Form.Group>
               </Col>
@@ -574,13 +574,8 @@ class LifterRow extends React.Component<Props, InternalState> {
                   <Form.Control
                     type="number"
                     min="0"
-                    defaultValue={entry.lot === 0 ? "" : entry.lot.toString()}
-                    onBlur={(event: { currentTarget: { value: string } }) =>
-                      this.updateRegistrationLot(event.currentTarget.value)
-                    }
-                    onChange={(event: React.FormEvent<FormControlTypeHack> & { currentTarget: { value: string } }) =>
-                      this.updateRegistrationLot(event.currentTarget.value)
-                    }
+                    value={entry.lot === 0 ? "" : entry.lot.toString()}
+                    onChange={this.updateRegistrationLot}
                   />
                 </Form.Group>
               </Col>
@@ -591,12 +586,7 @@ class LifterRow extends React.Component<Props, InternalState> {
                   <Form.Label>
                     <FormattedMessage id="registration.team-label" defaultMessage="Team" />
                   </Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder=""
-                    defaultValue={entry.team}
-                    onBlur={this.updateRegistrationTeam}
-                  />
+                  <Form.Control type="text" placeholder="" value={entry.team} onChange={this.updateRegistrationTeam} />
                 </Form.Group>
               </Col>
             </Row>
@@ -617,8 +607,8 @@ class LifterRow extends React.Component<Props, InternalState> {
                     <Form.Control
                       type="text"
                       placeholder=""
-                      defaultValue={entry.instagram}
-                      onBlur={this.updateRegistrationInstagram}
+                      value={entry.instagram}
+                      onChange={this.updateRegistrationInstagram}
                     />
                   </InputGroup>
                 </Form.Group>
@@ -633,8 +623,8 @@ class LifterRow extends React.Component<Props, InternalState> {
                   <Form.Control
                     type="text"
                     placeholder=""
-                    defaultValue={entry.notes}
-                    onBlur={this.updateRegistrationNotes}
+                    value={entry.notes}
+                    onChange={this.updateRegistrationNotes}
                   />
                 </Form.Group>
               </Col>

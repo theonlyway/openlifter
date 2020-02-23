@@ -160,7 +160,7 @@ class FlightOrderView extends React.Component<Props, InternalState> {
         <Card style={{ marginBottom: "17px" }}>
           <Card.Body style={{ display: "flex" }}>
             <FormControl
-              defaultValue={this.state.day}
+              value={this.state.day.toString()}
               as="select"
               onChange={this.updateDay}
               style={selectorStyle}
@@ -170,7 +170,7 @@ class FlightOrderView extends React.Component<Props, InternalState> {
             </FormControl>
 
             <FormControl
-              defaultValue={this.state.platform.toString()}
+              value={this.state.platform.toString()}
               as="select"
               onChange={this.updatePlatform}
               style={selectorStyle}

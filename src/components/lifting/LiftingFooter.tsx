@@ -345,7 +345,7 @@ class LiftingFooter extends React.Component<Props> {
         <div className={styles.leftControls}>
           <Form.Control
             as="select"
-            defaultValue={this.props.lifting.day.toString()}
+            value={this.props.lifting.day.toString()}
             onChange={this.handleDayChange}
             className={`custom-select ${styles.selector}`}
           >
@@ -353,7 +353,7 @@ class LiftingFooter extends React.Component<Props> {
           </Form.Control>
           <Form.Control
             as="select"
-            defaultValue={this.props.lifting.platform.toString()}
+            value={this.props.lifting.platform.toString()}
             onChange={this.handlePlatformChange}
             className={`custom-select ${styles.selector}`}
           >
@@ -361,7 +361,7 @@ class LiftingFooter extends React.Component<Props> {
           </Form.Control>
           <Form.Control
             as="select"
-            defaultValue={this.props.lifting.lift}
+            value={this.props.lifting.lift}
             onChange={this.handleLiftChange}
             className={`custom-select ${styles.selector}`}
           >
@@ -370,7 +370,7 @@ class LiftingFooter extends React.Component<Props> {
           <Form.Control
             key={"flight-" + this.props.lifting.flight}
             as="select"
-            defaultValue={this.props.lifting.flight}
+            value={this.props.lifting.flight}
             onChange={this.handleFlightChange}
             className={`custom-select ${styles.selector}`}
           >

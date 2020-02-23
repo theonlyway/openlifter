@@ -88,7 +88,7 @@ class LanguageSelector extends React.Component<Props> {
     return (
       <FormControl
         as="select"
-        defaultValue={this.props.language}
+        value={this.props.language}
         onChange={this.props.changeLanguage}
         className="custom-select"
       >
