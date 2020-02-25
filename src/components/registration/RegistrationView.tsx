@@ -43,11 +43,11 @@ import { newRegistration, deleteRegistration, assignLotNumbers } from "../../act
 
 import { saveAs } from "file-saver";
 
-import { LotNumberManipulation } from "../../types/actionTypes";
 import { GlobalState } from "../../types/stateTypes";
 import { Entry } from "../../types/dataTypes";
 import { Dispatch } from "redux";
 import { DropdownButton, Dropdown } from "react-bootstrap";
+import { shuffle } from "../debug/RandomizeHelpers";
 
 interface StateProps {
   global: GlobalState;
@@ -56,7 +56,7 @@ interface StateProps {
 interface DispatchProps {
   newRegistration: (obj: Partial<Entry>) => void;
   deleteRegistration: (id: number) => void;
-  assignLotNumbers: (manipulation: LotNumberManipulation) => void;
+  assignLotNumbers: (lotNumbers: number[]) => void;
 }
 
 type Props = StateProps & DispatchProps;
@@ -119,15 +119,36 @@ class RegistrationView extends React.Component<Props, InternalState> {
   };
 
   handleSequentialLotNumbersClick = () => {
-    this.props.assignLotNumbers("AssignSequentially");
+    this.updateLotNumbers("AssignSequentially");
   };
 
   handleRandomLotNumbersClick = () => {
-    this.props.assignLotNumbers("AssignRandomly");
+    this.updateLotNumbers("AssignRandomly");
   };
 
   handleRemoveLotNumbersClick = () => {
-    this.props.assignLotNumbers("RemoveAll");
+    this.updateLotNumbers("RemoveAll");
+  };
+
+  updateLotNumbers = (manipulation: "AssignSequentially" | "AssignRandomly" | "RemoveAll"): void => {
+    const entries = this.props.global.registration.entries;
+    let lotNumbers: number[];
+
+    // Removing lot numbers is as simple as setting the number to 0
+    if (manipulation === "RemoveAll") {
+      lotNumbers = entries.map(() => 0);
+    } else {
+      // If not removing, generate a set of sequential lot numbers for all lifters.
+      lotNumbers = entries.map((_entry, index) => index + 1);
+    }
+
+    // If randomization was requested, shuffle the lot number array in-place.
+    if (manipulation === "AssignRandomly") {
+      shuffle(lotNumbers);
+    }
+
+    // Finally, update the lot numbers in the state
+    this.props.assignLotNumbers(lotNumbers);
   };
 
   handleAppendClick = () => {
@@ -316,7 +337,7 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   return {
     newRegistration: (obj: Partial<Entry>) => dispatch(newRegistration(obj)),
     deleteRegistration: (id: number) => dispatch(deleteRegistration(id)),
-    assignLotNumbers: (m: LotNumberManipulation) => dispatch(assignLotNumbers(m)),
+    assignLotNumbers: (lotNumbers: number[]) => dispatch(assignLotNumbers(lotNumbers)),
   };
 };
 

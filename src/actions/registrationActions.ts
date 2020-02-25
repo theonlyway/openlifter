@@ -21,7 +21,6 @@ import {
   DeleteRegistrationAction,
   UpdateRegistrationAction,
   MergePlatformAction,
-  LotNumberManipulation,
   AssignLotNumbersAction,
 } from "../types/actionTypes";
 import { Entry } from "../types/dataTypes";
@@ -74,9 +73,9 @@ export const mergePlatform = (day: number, platform: number, platformEntries: Ar
   };
 };
 
-export const assignLotNumbers = (m: LotNumberManipulation): AssignLotNumbersAction => {
+export const assignLotNumbers = (lotNumbers: number[]): AssignLotNumbersAction => {
   return {
     type: "ASSIGN_LOT_NUMBERS",
-    manipulation: m,
+    lotNumbers,
   };
 };

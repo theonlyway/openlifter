@@ -21,7 +21,6 @@ import { RegistrationAction, OverwriteStoreAction, EnterAttemptAction, MarkLiftA
 import { Entry, Lift, FieldKg } from "../types/dataTypes";
 import { RegistrationState } from "../types/stateTypes";
 import { checkExhausted } from "../types/utils";
-import { shuffle } from "../components/debug/RandomizeHelpers";
 
 const initialState: RegistrationState = {
   // The next unique ID to assign.
@@ -239,38 +238,13 @@ export default (state: RegistrationState = initialState, action: Action): Regist
       return action.store.registration;
 
     case "ASSIGN_LOT_NUMBERS":
-      switch (action.manipulation) {
-        case "AssignSequentially": // Fallthrough.
-        case "AssignRandomly": {
-          // Generate a set of sequential lot numbers for all lifters.
-          const lotNumbers = Array.from(Array(state.entries.length).keys(), (v, i) => i + 1);
+      // Clone & assign entry with its new lot number.
+      const updatedEntries = state.entries.map((entry, index) => ({ ...entry, lot: action.lotNumbers[index] }));
 
-          // If randomization was requested, shuffle the lot number array in-place.
-          if (action.manipulation === "AssignRandomly") {
-            shuffle(lotNumbers);
-          }
-
-          // Clone & assign entry with its new lot number.
-          const updatedEntries = state.entries.map((entry, index) => ({ ...entry, lot: lotNumbers[index] }));
-
-          return {
-            ...state,
-            entries: updatedEntries,
-          };
-        }
-
-        case "RemoveAll": {
-          // "Removing" a lot number is just setting the number to zero.
-          return {
-            ...state,
-            entries: state.entries.map((entry) => ({ ...entry, lot: 0 })),
-          };
-        }
-
-        default:
-          checkExhausted(action.manipulation);
-          return state;
-      }
+      return {
+        ...state,
+        entries: updatedEntries,
+      };
 
     default:
       checkExhausted(action);
