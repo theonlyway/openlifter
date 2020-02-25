@@ -146,7 +146,7 @@ class AttemptInput extends React.Component<Props, InternalState> {
     }
   };
 
-  handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+  handleBlur = () => {
     if (this.validate() === "error") {
       this.setState({ value: this.state.lastGoodValue });
       return;

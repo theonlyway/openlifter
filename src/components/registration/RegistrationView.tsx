@@ -26,14 +26,7 @@ import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Card from "react-bootstrap/Card";
 
-import {
-  faSpinner,
-  faTimes,
-  faRandom,
-  faSortNumericUp,
-  faSortAlphaUp,
-  faSort,
-} from "@fortawesome/free-solid-svg-icons";
+import { faSpinner, faTimes, faRandom, faSort } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import LifterTable from "./LifterTable";
@@ -156,7 +149,7 @@ class RegistrationView extends React.Component<Props, InternalState> {
 
     const reader = new FileReader();
 
-    reader.onload = function (event) {
+    reader.onload = function () {
       // If this occurs, we've introduced a bug when initiating the file reader, or the read failed.
       // Add this check as a guard so the typing is narrowed
       if (typeof reader.result !== "string") {
@@ -200,11 +193,11 @@ class RegistrationView extends React.Component<Props, InternalState> {
       }
     };
 
-    reader.onloadstart = function (event) {
+    reader.onloadstart = function () {
       rememberThis.setState({ isLoadingFiles: true });
     };
 
-    reader.onloadend = function (event) {
+    reader.onloadend = function () {
       rememberThis.setState({ isLoadingFiles: false });
     };
 

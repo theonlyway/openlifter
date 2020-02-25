@@ -1010,7 +1010,7 @@ class AutoFillRules extends React.Component<Props, InternalState> {
     }
   };
 
-  handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  handleClick = () => {
     switch (this.state.selectedOption) {
       case "Traditional":
         this.props.updateMeet(traditionalDefaults);

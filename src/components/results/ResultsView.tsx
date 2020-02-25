@@ -141,7 +141,7 @@ class ResultsView extends React.Component<Props, InternalState> {
     }
   };
 
-  handleExportAsOplCsvClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  handleExportAsOplCsvClick = () => {
     // TODO: Share this logic with HomeContainer.
     let meetname = this.props.global.meet.name;
     if (meetname === "") {
@@ -154,7 +154,7 @@ class ResultsView extends React.Component<Props, InternalState> {
     saveAs(blob, meetname + ".opl.csv");
   };
 
-  handleExportAsUSAPLCsvClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  handleExportAsUSAPLCsvClick = () => {
     // TODO: Share this logic with handleExportAsOplCsvClick.
     let meetname = this.props.global.meet.name;
     if (meetname === "") {
@@ -167,7 +167,7 @@ class ResultsView extends React.Component<Props, InternalState> {
     saveAs(blob, meetname + ".USAPL.csv");
   };
 
-  handleExportPlatformClick = (day: number, platform: number, event: Record<string, any>) => {
+  handleExportPlatformClick = (day: number, platform: number) => {
     // TODO: Share this logic with handleExportAsOplCsvClick.
     const language = this.props.language;
     let meetname = this.props.global.meet.name;
@@ -189,7 +189,7 @@ class ResultsView extends React.Component<Props, InternalState> {
 
   // The file input is hidden, and we want to use a button to activate it.
   // This event handler makes a proxy call to the *real* event handler.
-  handleMergePlatformClick = (day: number, platform: number, event: Record<string, any>) => {
+  handleMergePlatformClick = (day: number, platform: number) => {
     const loadHelper = document.getElementById("loadhelper");
     if (loadHelper !== null) {
       globalMergeDay = day;
@@ -295,10 +295,10 @@ class ResultsView extends React.Component<Props, InternalState> {
             key={i + "-" + j}
             variant={variant}
             style={marginStyle}
-            onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+            onClick={() => {
               lifted === true
-                ? this.handleExportPlatformClick(i + 1, j + 1, e)
-                : this.handleMergePlatformClick(i + 1, j + 1, e);
+                ? this.handleExportPlatformClick(i + 1, j + 1)
+                : this.handleMergePlatformClick(i + 1, j + 1);
             }}
           >
             {actionTemplate.replace("{day}", String(i + 1)).replace("{platform}", String(j + 1))}

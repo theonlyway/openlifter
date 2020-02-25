@@ -32,7 +32,7 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
 
-import Select, { ActionMeta, ValueType } from "react-select";
+import Select, { ValueType } from "react-select";
 
 import { getString, localizeEvent } from "../../logic/strings";
 import { displayNumber, string2number } from "../../logic/units";
@@ -105,7 +105,7 @@ class LifterRow extends React.Component<Props, InternalState> {
     this.updateRegistrationNotes = this.updateRegistrationNotes.bind(this);
   }
 
-  deleteRegistrationClick(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+  deleteRegistrationClick() {
     this.props.deleteRegistration(this.props.id);
   }
 
@@ -192,7 +192,7 @@ class LifterRow extends React.Component<Props, InternalState> {
     }
   };
 
-  updateRegistrationDivisions(value: ValueType<OptionType> | null, actionMeta: ActionMeta) {
+  updateRegistrationDivisions(value: ValueType<OptionType> | null) {
     if (value instanceof Array) {
       // Since updates are synchronous, we can just compare lengths.
       if (value.length !== this.props.entry.divisions.length) {
@@ -210,7 +210,7 @@ class LifterRow extends React.Component<Props, InternalState> {
     }
   }
 
-  updateRegistrationEvents(value: ValueType<OptionType> | null, actionMeta: ActionMeta) {
+  updateRegistrationEvents(value: ValueType<OptionType> | null) {
     if (value instanceof Array) {
       // Since updates are synchronous, we can just compare lengths.
       if (value.length !== this.props.entry.events.length) {

@@ -41,7 +41,7 @@ class NewButton extends React.Component<Props> {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  handleClick = () => {
     this.props.newRegistration({});
   };
 

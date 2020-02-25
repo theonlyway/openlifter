@@ -96,7 +96,7 @@ export default (state: RegistrationState = initialState, action: Action): Regist
       const entryId = action.entryId;
 
       // Generate an entries array without the given item.
-      const entries: Array<Entry> = state.entries.filter((item, index) => item.id !== entryId);
+      const entries: Array<Entry> = state.entries.filter((item) => item.id !== entryId);
 
       // Since the entry was deleted from anywhere in the array,
       // construct a new lookup table from scratch.

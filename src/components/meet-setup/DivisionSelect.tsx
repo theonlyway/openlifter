@@ -31,7 +31,7 @@ import { setDivisions } from "../../actions/meetSetupActions";
 import { GlobalState } from "../../types/stateTypes";
 import { Language } from "../../types/dataTypes";
 import { Dispatch } from "redux";
-import { ActionMeta, ValueType } from "react-select";
+import { ValueType } from "react-select";
 
 const components = {
   DropdownIndicator: null,
@@ -101,7 +101,7 @@ class DivisionSelect extends React.Component<Props, InternalState> {
   };
 
   // Handles the case of deleting an existing division.
-  handleChange = (value: ValueType<OptionType> | null, actionMeta: ActionMeta): void => {
+  handleChange = (value: ValueType<OptionType> | null): void => {
     if (value instanceof Array) {
       this.setState({ value: value });
       this.maybeUpdateRedux(value);

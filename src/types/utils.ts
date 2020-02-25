@@ -27,6 +27,7 @@ import { AgeCoefficients, Flight, Formula, Lift, Sex } from "./dataTypes";
 // This is purely used by the type system to raise a compile error when
 // we are trying to perform an exhaustive check (eg in a switch).
 // This allows us to have a compile time error, but also have graceful runtime fallback.
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function checkExhausted(value: never): void {}
 
 // A workaround for bad typing of react-bootstrap. Open to better suggestions.
