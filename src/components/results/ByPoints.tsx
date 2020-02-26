@@ -194,7 +194,7 @@ class ByPoints extends React.Component<Props> {
     }
 
     let eqpstr: string = localizeEquipment(category.equipment, language);
-    if (this.props.combineSleevesAndWraps) {
+    if (this.props.combineSleevesAndWraps && (category.equipment === "Sleeves" || category.equipment === "Wraps")) {
       eqpstr = getString("results.combined-sleeves-wraps", language);
     }
 
