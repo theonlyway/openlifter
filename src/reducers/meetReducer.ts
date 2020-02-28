@@ -82,7 +82,8 @@ const initialState: MeetState = {
   allow4thAttempts: true,
 
   // Weights and Loading Setup.
-  inKg: true,
+  bodyweightsInKg: true,
+  attemptsInKg: true,
   showAlternateUnits: true,
   squatBarAndCollarsWeightKg: defaultBarAndCollarsWeightKg,
   benchBarAndCollarsWeightKg: defaultBarAndCollarsWeightKg,
@@ -190,13 +191,13 @@ export default (state: MeetState = initialState, action: Action): MeetState => {
       return { ...state, platformsOnDays: newPlatformsOnDays };
     }
 
-    case "SET_IN_KG": {
+    case "SET_ATTEMPTS_IN_KG": {
       // Changing the units also changes the loading, so re-initialize from defaults.
-      const defaultPlates = action.inKg ? defaultPlatesKg : defaultPlatesLbs;
-      const defaultBar = action.inKg ? defaultBarAndCollarsWeightKg : lbs2kg(defaultBarAndCollarsWeightLbs);
+      const defaultPlates = action.attemptsInKg ? defaultPlatesKg : defaultPlatesLbs;
+      const defaultBar = action.attemptsInKg ? defaultBarAndCollarsWeightKg : lbs2kg(defaultBarAndCollarsWeightLbs);
       return {
         ...state,
-        inKg: action.inKg,
+        attemptsInKg: action.attemptsInKg,
         plates: defaultPlates,
         squatBarAndCollarsWeightKg: defaultBar,
         benchBarAndCollarsWeightKg: defaultBar,

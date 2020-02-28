@@ -126,7 +126,7 @@ class LiftingTable extends React.Component<Props> {
 
     // Render cells using attempt coloring.
     if (best3 !== 0) {
-      const asNumber = this.props.meet.inKg ? best3 : kg2lbs(best3);
+      const asNumber = this.props.meet.attemptsInKg ? best3 : kg2lbs(best3);
       return (
         <td key={columnType} className={styles.goodlift}>
           {displayWeight(asNumber, this.props.language)}
@@ -134,7 +134,7 @@ class LiftingTable extends React.Component<Props> {
       );
     }
     if (lightestFailed !== 0) {
-      const asNumber = this.props.meet.inKg ? lightestFailed : kg2lbs(lightestFailed);
+      const asNumber = this.props.meet.attemptsInKg ? lightestFailed : kg2lbs(lightestFailed);
       return (
         <td key={columnType} className={styles.nolift}>
           {displayWeight(asNumber, this.props.language)}
@@ -152,7 +152,7 @@ class LiftingTable extends React.Component<Props> {
 
     const kg = entry[fieldKg][attemptOneIndexed - 1];
     const status = entry[fieldStatus][attemptOneIndexed - 1];
-    const wStr = displayWeight(this.props.meet.inKg ? kg : kg2lbs(kg), this.props.language);
+    const wStr = displayWeight(this.props.meet.attemptsInKg ? kg : kg2lbs(kg), this.props.language);
     const displayStr = kg === 0 ? "" : wStr;
 
     // Get a unique ID for each AttemptInput.
@@ -263,13 +263,13 @@ class LiftingTable extends React.Component<Props> {
       }
       case "Bodyweight": {
         const bw = entry.bodyweightKg;
-        const bwStr = displayWeight(this.props.meet.inKg ? bw : kg2lbs(bw), this.props.language);
+        const bwStr = displayWeight(this.props.meet.bodyweightsInKg ? bw : kg2lbs(bw), this.props.language);
         return <td key={columnType}>{bw === 0 ? null : bwStr}</td>;
       }
       case "WeightClass": {
         const bw = entry.bodyweightKg;
         const classesForSex = this.mapSexToClasses(entry.sex, this.props.meet);
-        const weightClass = this.props.meet.inKg
+        const weightClass = this.props.meet.bodyweightsInKg
           ? getWeightClassStr(classesForSex, bw, this.props.language)
           : getWeightClassLbsStr(classesForSex, bw);
         return <td key={columnType}>{bw === 0 ? null : weightClass}</td>;
@@ -333,13 +333,13 @@ class LiftingTable extends React.Component<Props> {
         return <td key={columnType} className={styles.spacerCell} />;
       case "ProjectedTotal": {
         const totalKg = getProjectedTotalKg(entry);
-        const asNumber = this.props.meet.inKg ? totalKg : kg2lbs(totalKg);
+        const asNumber = this.props.meet.attemptsInKg ? totalKg : kg2lbs(totalKg);
         return <td key={columnType}>{totalKg === 0 ? null : displayWeight(asNumber, this.props.language)}</td>;
       }
       case "ProjectedPoints": {
         const totalKg: number = getProjectedTotalKg(entry);
         const event = entry.events.length > 0 ? entry.events[0] : "SBD";
-        const points: number = getPoints(this.props.meet.formula, entry, event, totalKg, this.props.meet.inKg);
+        const points: number = getPoints(this.props.meet.formula, entry, event, totalKg, this.props.meet.attemptsInKg);
 
         // Normally this column is hidden for "Total", but it's handled just in case.
         if (this.props.meet.formula === "Total") {
@@ -349,13 +349,13 @@ class LiftingTable extends React.Component<Props> {
       }
       case "FinalTotal": {
         const totalKg = getFinalTotalKg(entry);
-        const asNumber = this.props.meet.inKg ? totalKg : kg2lbs(totalKg);
+        const asNumber = this.props.meet.attemptsInKg ? totalKg : kg2lbs(totalKg);
         return <td key={columnType}>{totalKg === 0 ? null : displayWeight(asNumber, this.props.language)}</td>;
       }
       case "FinalPoints": {
         const totalKg: number = getFinalTotalKg(entry);
         const event = entry.events.length > 0 ? entry.events[0] : "SBD";
-        const points: number = getPoints(this.props.meet.formula, entry, event, totalKg, this.props.meet.inKg);
+        const points: number = getPoints(this.props.meet.formula, entry, event, totalKg, this.props.meet.attemptsInKg);
 
         // Normally this column is hidden for "Total", but it's handled just in case.
         if (this.props.meet.formula === "Total") {

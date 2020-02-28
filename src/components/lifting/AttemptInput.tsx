@@ -35,7 +35,7 @@ import { FormControlTypeHack } from "../../types/utils";
 import { Dispatch } from "redux";
 
 interface StateProps {
-  inKg: boolean;
+  attemptsInKg: boolean;
   language: Language;
 }
 
@@ -71,7 +71,7 @@ class AttemptInput extends React.Component<Props, InternalState> {
 
     let weightStr = "";
     if (weightKg !== 0) {
-      weightStr = displayWeight(this.props.inKg ? weightKg : kg2lbs(weightKg), this.props.language);
+      weightStr = displayWeight(this.props.attemptsInKg ? weightKg : kg2lbs(weightKg), this.props.language);
     }
 
     this.state = {
@@ -96,7 +96,7 @@ class AttemptInput extends React.Component<Props, InternalState> {
 
     // The bar weight must be monotonically increasing between attempts.
     if (this.props.attemptOneIndexed > 1) {
-      const asKg = this.props.inKg ? asNumber : lbs2kg(asNumber);
+      const asKg = this.props.attemptsInKg ? asNumber : lbs2kg(asNumber);
 
       const entry = this.props.entry;
       const fieldKg = liftToAttemptFieldName(this.props.lift);
@@ -156,7 +156,7 @@ class AttemptInput extends React.Component<Props, InternalState> {
     const lift = this.props.lift;
     const attemptOneIndexed = this.props.attemptOneIndexed;
     const asNumber = string2number(this.state.value);
-    const weightKg = this.props.inKg ? asNumber : lbs2kg(asNumber);
+    const weightKg = this.props.attemptsInKg ? asNumber : lbs2kg(asNumber);
 
     this.props.enterAttempt(entryId, lift, attemptOneIndexed, weightKg);
     this.setState({ lastGoodValue: this.state.value });
@@ -187,7 +187,7 @@ class AttemptInput extends React.Component<Props, InternalState> {
 }
 
 const mapStateToProps = (state: GlobalState): StateProps => ({
-  inKg: state.meet.inKg,
+  attemptsInKg: state.meet.attemptsInKg,
   language: state.language
 });
 

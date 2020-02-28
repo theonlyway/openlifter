@@ -55,7 +55,7 @@ interface OwnProps {
 }
 
 interface StateProps {
-  inKg: boolean;
+  attemptsInKg: boolean;
   weightKg: number;
   language: Language;
 }
@@ -79,7 +79,7 @@ class WeightInput extends React.Component<Props, InternalState> {
     this.handleBlur = this.handleBlur.bind(this);
 
     let weight = this.props.weightKg;
-    if (!this.props.inKg) {
+    if (!this.props.attemptsInKg) {
       weight = kg2lbs(weight);
     }
 
@@ -117,7 +117,7 @@ class WeightInput extends React.Component<Props, InternalState> {
       return;
     }
 
-    const weightKg = this.props.inKg ? weightNum : lbs2kg(weightNum);
+    const weightKg = this.props.attemptsInKg ? weightNum : lbs2kg(weightNum);
     if (this.props.weightKg === weightKg) {
       return;
     }
@@ -177,7 +177,7 @@ const mapStateToProps = (state: GlobalState, ownProps: OwnProps): StateProps => 
   }
 
   return {
-    inKg: state.meet.inKg,
+    attemptsInKg: state.meet.attemptsInKg,
     weightKg: weightKg,
     language: state.language
   };

@@ -79,16 +79,16 @@ const standardizeEquipment = (eq: Equipment): string => {
   }
 };
 
-const addEntriesRow = (csv: Csv, category: Category, inKg: boolean, meetDate: string, entry: Entry, index: number) => {
-  const unit: string = inKg ? "Kg" : "LBS";
+const addEntriesRow = (csv: Csv, category: Category, attemptsInKg: boolean, bodyweightsInKg: boolean, meetDate: string, entry: Entry, index: number) => {
+  const unit: string = attemptsInKg ? "Kg" : "LBS";
   const finalEventTotalKg = getFinalEventTotalKg(entry, category.event);
 
   // Helper functions to keep things one-liners below. Handles Kg/Lbs conversion.
   const weight = (kg: number): string => {
-    return displayWeight(inKg ? kg : kg2lbs(kg));
+    return displayWeight(attemptsInKg ? kg : kg2lbs(kg));
   };
   const wtcls = (cls: string): string => {
-    return inKg ? cls : wtclsStrKg2Lbs(cls);
+    return bodyweightsInKg ? cls : wtclsStrKg2Lbs(cls);
   };
 
   // Initialize an empty row with all columns available.
@@ -146,8 +146,9 @@ const addEntriesRow = (csv: Csv, category: Category, inKg: boolean, meetDate: st
 };
 
 const makeEntriesCsv = (state: GlobalState): Csv => {
-  const inKg: boolean = state.meet.inKg;
-  const unit: string = inKg ? "Kg" : "LBS";
+  const attemptsInKg: boolean = state.meet.attemptsInKg;
+  const bodyweightsInKg: boolean = state.meet.bodyweightsInKg;
+  const unit: string = attemptsInKg ? "Kg" : "LBS";
 
   const csv = new Csv();
 
@@ -190,7 +191,7 @@ const makeEntriesCsv = (state: GlobalState): Csv => {
     const { category, orderedEntries } = results[i];
 
     for (let j = 0; j < orderedEntries.length; j++) {
-      addEntriesRow(csv, category, inKg, state.meet.date, orderedEntries[j], j);
+      addEntriesRow(csv, category, attemptsInKg, bodyweightsInKg, state.meet.date, orderedEntries[j], j);
     }
   }
 

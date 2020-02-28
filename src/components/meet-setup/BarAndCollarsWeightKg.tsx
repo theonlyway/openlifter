@@ -35,7 +35,7 @@ interface OwnProps {
 }
 
 interface StateProps {
-  inKg: boolean;
+  attemptsInKg: boolean;
   squatBarAndCollarsWeightKg: number;
   benchBarAndCollarsWeightKg: number;
   deadliftBarAndCollarsWeightKg: number;
@@ -62,7 +62,7 @@ class BarAndCollarsWeightKg extends React.Component<Props, InternalState> {
     const weight = this.getInitialBarAndCollarsWeightKg(this.props.lift);
 
     this.state = {
-      initialValue: this.props.inKg ? weight : kg2lbs(weight)
+      initialValue: this.props.attemptsInKg ? weight : kg2lbs(weight)
     };
   }
 
@@ -90,27 +90,27 @@ class BarAndCollarsWeightKg extends React.Component<Props, InternalState> {
 
   handleChange = (n: number) => {
     if (this.validate(n) === "success") {
-      const weight = this.props.inKg ? n : lbs2kg(n);
+      const weight = this.props.attemptsInKg ? n : lbs2kg(n);
       this.props.setBarAndCollarsWeightKg(this.props.lift, weight);
     }
   };
 
-  getLiftLabel = (lift: Lift, inKg: boolean, language: Language): string => {
+  getLiftLabel = (lift: Lift, attemptsInKg: boolean, language: Language): string => {
     switch (lift) {
       case "S":
-        if (inKg) {
+        if (attemptsInKg) {
           return getString("meet-setup.bar-weight-squat-kg", language);
         } else {
           return getString("meet-setup.bar-weight-squat-lbs", language);
         }
       case "B":
-        if (inKg) {
+        if (attemptsInKg) {
           return getString("meet-setup.bar-weight-bench-kg", language);
         } else {
           return getString("meet-setup.bar-weight-bench-lbs", language);
         }
       case "D":
-        if (inKg) {
+        if (attemptsInKg) {
           return getString("meet-setup.bar-weight-deadlift-kg", language);
         } else {
           return getString("meet-setup.bar-weight-deadlift-lbs", language);
@@ -128,14 +128,14 @@ class BarAndCollarsWeightKg extends React.Component<Props, InternalState> {
         step={2.5}
         validate={this.validate}
         onChange={this.handleChange}
-        label={this.getLiftLabel(this.props.lift, this.props.inKg, this.props.language)}
+        label={this.getLiftLabel(this.props.lift, this.props.attemptsInKg, this.props.language)}
       />
     );
   }
 }
 
 const mapStateToProps = (state: GlobalState): StateProps => ({
-  inKg: state.meet.inKg,
+  attemptsInKg: state.meet.attemptsInKg,
   squatBarAndCollarsWeightKg: state.meet.squatBarAndCollarsWeightKg,
   benchBarAndCollarsWeightKg: state.meet.benchBarAndCollarsWeightKg,
   deadliftBarAndCollarsWeightKg: state.meet.deadliftBarAndCollarsWeightKg,

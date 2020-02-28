@@ -55,7 +55,7 @@ interface OwnProps {
 }
 
 interface StateProps {
-  inKg: boolean;
+  attemptsInKg: boolean;
   showAlternateUnits: boolean;
   language: Language;
 }
@@ -122,9 +122,9 @@ class OneFlightOrder extends React.Component<Props> {
     const columns: Array<Column> = [];
     if (hasSquat) {
       columns.push("SquatName");
-      columns.push(this.props.inKg ? "SquatKg" : "SquatLbs");
+      columns.push(this.props.attemptsInKg ? "SquatKg" : "SquatLbs");
       if (this.props.showAlternateUnits) {
-        columns.push(this.props.inKg ? "SquatLbs" : "SquatKg");
+        columns.push(this.props.attemptsInKg ? "SquatLbs" : "SquatKg");
       }
     }
     if (hasBench) {
@@ -132,9 +132,9 @@ class OneFlightOrder extends React.Component<Props> {
         columns.push("BenchSeparator");
       }
       columns.push("BenchName");
-      columns.push(this.props.inKg ? "BenchKg" : "BenchLbs");
+      columns.push(this.props.attemptsInKg ? "BenchKg" : "BenchLbs");
       if (this.props.showAlternateUnits) {
-        columns.push(this.props.inKg ? "BenchLbs" : "BenchKg");
+        columns.push(this.props.attemptsInKg ? "BenchLbs" : "BenchKg");
       }
     }
     if (hasDeadlift) {
@@ -142,9 +142,9 @@ class OneFlightOrder extends React.Component<Props> {
         columns.push("DeadliftSeparator");
       }
       columns.push("DeadliftName");
-      columns.push(this.props.inKg ? "DeadliftKg" : "DeadliftLbs");
+      columns.push(this.props.attemptsInKg ? "DeadliftKg" : "DeadliftLbs");
       if (this.props.showAlternateUnits) {
-        columns.push(this.props.inKg ? "DeadliftLbs" : "DeadliftKg");
+        columns.push(this.props.attemptsInKg ? "DeadliftLbs" : "DeadliftKg");
       }
     }
 
@@ -274,7 +274,7 @@ class OneFlightOrder extends React.Component<Props> {
 
 const mapStateToProps = (state: GlobalState): StateProps => {
   return {
-    inKg: state.meet.inKg,
+    attemptsInKg: state.meet.attemptsInKg,
     showAlternateUnits: state.meet.showAlternateUnits,
     language: state.language
   };

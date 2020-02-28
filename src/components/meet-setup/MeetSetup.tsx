@@ -61,7 +61,8 @@ interface DispatchProps {
   setFederation: (fed: string) => void;
   setCombineSleevesAndWraps: (bool: boolean) => void;
   setAllow4thAttempts: (bool: boolean) => void;
-  setInKg: (bool: boolean) => void;
+  setAttemptsInKg: (bool: boolean) => void;
+  setBodyweightsInKg: (bool: boolean) => void;
   setShowAlternateUnits: (bool: boolean) => void;
   setFormula: (event: FormEvent<FormControlTypeHack>) => void;
   setAgeCoefficients: (event: FormEvent<FormControlTypeHack>) => void;
@@ -93,7 +94,8 @@ class MeetSetup extends React.Component<Props, InternalState> {
 
   render() {
     // This is used as a key to force unit-dependent components to re-initialize state.
-    const inKg = String(this.props.meet.inKg);
+    const attemptsInKg = String(this.props.meet.attemptsInKg);
+    const bodyweightsInKg = String(this.props.meet.bodyweightsInKg);
     const language = this.props.language;
 
     const stringMeetName = getString("meet-setup.meet-name", language);
@@ -282,12 +284,12 @@ class MeetSetup extends React.Component<Props, InternalState> {
                   <YesNoButton
                     label={
                       <FormattedMessage
-                        id="meet-setup.units"
-                        defaultMessage="In what units are attempts and bodyweights?"
+                        id="meet-setup.bodyweight-units"
+                        defaultMessage="In what units are bodyweights?"
                       />
                     }
-                    value={this.props.meet.inKg}
-                    setValue={this.props.setInKg}
+                    value={this.props.meet.bodyweightsInKg}
+                    setValue={this.props.setBodyweightsInKg}
                     yes={stringKilograms}
                     no={stringPounds}
                   />
@@ -295,7 +297,22 @@ class MeetSetup extends React.Component<Props, InternalState> {
 
                 <FormGroup>
                   <YesNoButton
-                    label={this.props.meet.inKg ? stringAlsoPounds : stringAlsoKilograms}
+                    label={
+                      <FormattedMessage
+                        id="meet-setup.attempt-units"
+                        defaultMessage="In what units are attempts?"
+                      />
+                    }
+                    value={this.props.meet.attemptsInKg}
+                    setValue={this.props.setAttemptsInKg}
+                    yes={stringKilograms}
+                    no={stringPounds}
+                  />
+                </FormGroup>
+
+                <FormGroup>
+                  <YesNoButton
+                    label={this.props.meet.attemptsInKg ? stringAlsoPounds : stringAlsoKilograms}
                     value={this.props.meet.showAlternateUnits}
                     setValue={this.props.setShowAlternateUnits}
                     yes={stringYes}
@@ -303,9 +320,9 @@ class MeetSetup extends React.Component<Props, InternalState> {
                   />
                 </FormGroup>
 
-                <BarAndCollarsWeightKg key={"S" + inKg} lift="S" />
-                <BarAndCollarsWeightKg key={"B" + inKg} lift="B" />
-                <BarAndCollarsWeightKg key={"D" + inKg} lift="D" />
+                <BarAndCollarsWeightKg key={"S" + attemptsInKg} lift="S" />
+                <BarAndCollarsWeightKg key={"B" + attemptsInKg} lift="B" />
+                <BarAndCollarsWeightKg key={"D" + attemptsInKg} lift="D" />
                 <Plates />
               </Card.Body>
             </Card>

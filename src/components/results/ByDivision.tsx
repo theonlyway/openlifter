@@ -44,7 +44,8 @@ import { GlobalState } from "../../types/stateTypes";
 import { checkExhausted } from "../../types/utils";
 
 interface StateProps {
-  inKg: boolean;
+  attemptsInKg: boolean;
+  bodyweightsInKg: boolean;
   showAlternateUnits: boolean;
   meetName: string;
   formula: Formula;
@@ -87,7 +88,8 @@ class ByDivision extends React.Component<Props> {
     const totalKg = getFinalEventTotalKg(entry, category.event);
     if (totalKg === 0) return null;
 
-    const inKg = this.props.inKg;
+    const attemptsInKg = this.props.attemptsInKg;
+    const bodyweightsInKg = this.props.bodyweightsInKg;
     const language = this.props.language;
 
     // The place proceeds in order by key, except for DQ entries.
@@ -96,7 +98,7 @@ class ByDivision extends React.Component<Props> {
         ? getString("results.lifter-disqualified", language)
         : displayPlaceOrdinal(key + 1, entry, this.props.language);
 
-    const points: number = getPoints(this.props.formula, entry, category.event, totalKg, inKg);
+    const points: number = getPoints(this.props.formula, entry, category.event, totalKg, attemptsInKg);
 
     let pointsStr = "";
     if (totalKg !== 0 && points === 0) {
@@ -106,22 +108,22 @@ class ByDivision extends React.Component<Props> {
     }
 
     const classes = mapSexToClasses(entry.sex, this.props);
-    const wtcls = inKg
+    const wtcls = bodyweightsInKg
       ? getWeightClassStr(classes, entry.bodyweightKg, language)
       : getWeightClassLbsStr(classes, entry.bodyweightKg);
-    const bw = inKg ? entry.bodyweightKg : kg2lbs(entry.bodyweightKg);
+    const bw = bodyweightsInKg ? entry.bodyweightKg : kg2lbs(entry.bodyweightKg);
 
     const squatKg = getBest5SquatKg(entry);
-    const squat = inKg ? squatKg : kg2lbs(squatKg);
+    const squat = attemptsInKg ? squatKg : kg2lbs(squatKg);
 
     const benchKg = getBest5BenchKg(entry);
-    const bench = inKg ? benchKg : kg2lbs(benchKg);
+    const bench = attemptsInKg ? benchKg : kg2lbs(benchKg);
 
     const deadliftKg = getBest5DeadliftKg(entry);
-    const deadlift = inKg ? deadliftKg : kg2lbs(deadliftKg);
+    const deadlift = attemptsInKg ? deadliftKg : kg2lbs(deadliftKg);
 
     let weightTemplate = "";
-    if (inKg) {
+    if (bodyweightsInKg) {
       if (this.props.showAlternateUnits === true) {
         weightTemplate = getString("lifting.current-weight-kg-lbs", language);
       } else {
@@ -196,13 +198,13 @@ class ByDivision extends React.Component<Props> {
       eqpstr = getString("results.combined-sleeves-wraps", language);
     }
 
-    const units = this.props.inKg
+    const units = this.props.attemptsInKg
       ? getString("results.spoken-unit-kilo", language)
       : getString("results.spoken-unit-pound", language);
 
     // Convert the category.weightClassStr to pounds.
     let wtcls = localizeWeightClassStr(category.weightClassStr, language);
-    if (category.weightClassStr !== "" && !this.props.inKg) {
+    if (category.weightClassStr !== "" && !this.props.bodyweightsInKg) {
       wtcls = wtclsStrKg2Lbs(category.weightClassStr);
     }
 
@@ -270,7 +272,8 @@ const mapStateToProps = (state: GlobalState, ownProps: OwnProps): StateProps => 
   }
 
   return {
-    inKg: state.meet.inKg,
+    attemptsInKg: state.meet.attemptsInKg,
+    bodyweightsInKg: state.meet.bodyweightsInKg,
     showAlternateUnits: state.meet.showAlternateUnits,
     meetName: state.meet.name,
     formula: state.meet.formula,

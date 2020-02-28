@@ -24,7 +24,8 @@ import {
   SetMeetDateAction,
   SetLengthDaysAction,
   SetPlatformsOnDaysAction,
-  SetInKgAction,
+  SetAttemptsInKgAction,
+  SetBodyweightsInKgAction,
   SetWeightClassesAction,
   SetBarAndCollarsWeightKgAction,
   SetPlateConfigAction,
@@ -83,10 +84,17 @@ export const setPlatformsOnDays = (day: number, count: number): SetPlatformsOnDa
   };
 };
 
-export const setInKg = (inKg: boolean): SetInKgAction => {
+export const setAttemptsInKg = (attemptsInKg: boolean): SetAttemptsInKgAction => {
   return {
-    type: "SET_IN_KG",
-    inKg
+    type: "SET_ATTEMPTS_IN_KG",
+    attemptsInKg
+  };
+};
+
+export const setBodyweightsInKg = (bodyweightsInKg: boolean): SetBodyweightsInKgAction => {
+  return {
+    type: "SET_BODYWEIGHTS_IN_KG",
+    bodyweightsInKg
   };
 };
 

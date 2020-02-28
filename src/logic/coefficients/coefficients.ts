@@ -35,7 +35,7 @@ import { kg2lbs } from "../units";
 import { AgeCoefficients, Entry, Event, Equipment, Formula, Sex } from "../../types/dataTypes";
 import { checkExhausted } from "../../types/utils";
 
-export const getPoints = (formula: Formula, entry: Entry, event: Event, totalKg: number, inKg: boolean): number => {
+export const getPoints = (formula: Formula, entry: Entry, event: Event, totalKg: number, attemptsInKg: boolean): number => {
   // Some of the data are singular properties of the entry.
   const sex: Sex = entry.sex;
   const equipment: Equipment = entry.equipment;
@@ -59,7 +59,7 @@ export const getPoints = (formula: Formula, entry: Entry, event: Event, totalKg:
     case "Schwartz/Malone":
       return schwartzmalone(sex, bodyweightKg, totalKg);
     case "Total":
-      return inKg ? totalKg : kg2lbs(totalKg);
+      return attemptsInKg ? totalKg : kg2lbs(totalKg);
     case "Wilks":
       return wilks(sex, bodyweightKg, totalKg);
     default:
@@ -75,9 +75,9 @@ export const getAgeAdjustedPoints = (
   entry: Entry,
   event: Event,
   totalKg: number,
-  inKg: boolean
+  attemptsInKg: boolean
 ): number => {
-  const points = getPoints(formula, entry, event, totalKg, inKg);
+  const points = getPoints(formula, entry, event, totalKg, attemptsInKg);
 
   switch (ageCoefficients) {
     case "None":

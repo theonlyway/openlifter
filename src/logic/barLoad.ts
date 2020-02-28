@@ -34,7 +34,7 @@ export const selectPlates = (
   loadingKg: number,
   barAndCollarsWeightKg: number,
   plates: ReadonlyArray<Plate>,
-  inKg: boolean
+  attemptsInKg: boolean
 ): Array<LoadedPlate> => {
   // Flow doesn't like it when arguments get redefined.
   let loadingAny = loadingKg;
@@ -42,7 +42,7 @@ export const selectPlates = (
   let platesAny = plates;
 
   // Convert to pounds, avoiding floating point errors.
-  if (inKg === false) {
+  if (attemptsInKg === false) {
     loadingAny = safeKg2Lbs(loadingKg);
     barAndCollarsWeightAny = safeKg2Lbs(barAndCollarsWeightKg);
     platesAny = plates.map(x => ({ ...x, weightKg: safeKg2Lbs(x.weightKg) }));

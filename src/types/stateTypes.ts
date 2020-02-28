@@ -50,7 +50,8 @@ export type MeetState = {
   readonly allow4thAttempts: boolean;
 
   // Weights and Loading Setup.
-  readonly inKg: boolean;
+  readonly attemptsInKg: boolean;
+  readonly bodyweightsInKg: boolean;
   readonly squatBarAndCollarsWeightKg: number;
   readonly benchBarAndCollarsWeightKg: number;
   readonly deadliftBarAndCollarsWeightKg: number;

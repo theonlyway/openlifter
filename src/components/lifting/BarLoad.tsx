@@ -75,12 +75,12 @@ const weightAnyToText = (weightAny: number, language: Language): string =>
 
 interface PlateInfoProps {
   loading: LoadedPlate[];
-  inKg: boolean;
+  attemptsInKg: boolean;
   language: Language;
 }
 
 // Turns the selectPlates() array into divs.
-const PlatesDiv: React.FC<PlateInfoProps> = ({ loading, inKg, language }) => {
+const PlatesDiv: React.FC<PlateInfoProps> = ({ loading, attemptsInKg, language }) => {
   const divs = [];
   let i = 0;
 
@@ -127,7 +127,7 @@ const PlatesDiv: React.FC<PlateInfoProps> = ({ loading, inKg, language }) => {
       divs.push(
         <div
           key={weightAny + "-" + counter}
-          className={inKg ? weightKgToStyle(weightAny) : weightLbsToStyle(weightAny)}
+          className={attemptsInKg ? weightKgToStyle(weightAny) : weightLbsToStyle(weightAny)}
           style={style}
         >
           <div>{weightAnyToText(weightAny, language)}</div>
@@ -167,7 +167,7 @@ const RackInfoDiv: React.FC<RackInfoProps> = ({ lift, rackInfo }) => {
 interface OwnProps {
   loading: Array<LoadedPlate>;
   rackInfo: string;
-  inKg: boolean;
+  attemptsInKg: boolean;
 }
 
 interface StateProps {
@@ -177,10 +177,10 @@ interface StateProps {
 
 type Props = OwnProps & StateProps;
 
-const BarLoad: React.FC<Props> = ({ lift, loading, inKg, language, rackInfo }) => (
+const BarLoad: React.FC<Props> = ({ lift, loading, attemptsInKg, language, rackInfo }) => (
   <div className={styles.container}>
     <div className={styles.bar} />
-    <PlatesDiv loading={loading} inKg={inKg} language={language} />
+    <PlatesDiv loading={loading} attemptsInKg={attemptsInKg} language={language} />
     <div className={styles.collar} />
     <div className={styles.bar} />
     <RackInfoDiv lift={lift} rackInfo={rackInfo} />

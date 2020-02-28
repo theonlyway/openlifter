@@ -38,7 +38,7 @@ import { isNumber } from "util";
 import PlateInput from "./PlateInput";
 
 interface StateProps {
-  inKg: boolean;
+  attemptsInKg: boolean;
   plates: ReadonlyArray<Plate>;
   language: Language;
 }
@@ -93,7 +93,7 @@ class Plates extends React.Component<Props> {
     // The input event value isn't passed by the event, so we assign a unique ID
     // and then just search the whole document for it.
     const id = "weight" + String(weightKg);
-    const weight = this.props.inKg ? weightKg : kg2lbs(weightKg);
+    const weight = this.props.attemptsInKg ? weightKg : kg2lbs(weightKg);
 
     return (
       <PlateInput
@@ -112,7 +112,7 @@ class Plates extends React.Component<Props> {
     const plateRows = this.props.plates.map((obj: Plate) =>
       this.renderWeightRow(obj.weightKg, obj.pairCount, obj.color)
     );
-    const unitId = this.props.inKg ? "meet-setup.plates-kg" : "meet-setup.plates-lbs";
+    const unitId = this.props.attemptsInKg ? "meet-setup.plates-kg" : "meet-setup.plates-lbs";
     const stringPlate = getString(unitId, this.props.language);
 
     return (
@@ -137,7 +137,7 @@ class Plates extends React.Component<Props> {
 }
 
 const mapStateToProps = (state: GlobalState): StateProps => ({
-  inKg: state.meet.inKg,
+  attemptsInKg: state.meet.attemptsInKg,
   plates: state.meet.plates,
   language: state.language
 });

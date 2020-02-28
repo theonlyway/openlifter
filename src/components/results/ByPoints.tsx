@@ -45,7 +45,8 @@ import { checkExhausted } from "../../types/utils";
 import { fosterMcCulloch } from "../../logic/coefficients/foster-mcculloch";
 
 interface StateProps {
-  inKg: boolean;
+  attemptsInKg: boolean;
+  bodyweightsInKg: boolean;
   meetName: string;
   meetDate: string;
   formula: Formula;
@@ -93,7 +94,7 @@ class ByPoints extends React.Component<Props> {
     const totalKg = getFinalEventTotalKg(entry, category.event);
     if (totalKg === 0) return null;
 
-    const inKg = this.props.inKg;
+    const attemptsInKg = this.props.attemptsInKg;
     const language = this.props.language;
 
     // The place proceeds in order by key, except for DQ entries.
@@ -109,7 +110,7 @@ class ByPoints extends React.Component<Props> {
       entry,
       category.event,
       totalKg,
-      inKg
+      attemptsInKg
     );
 
     let pointsStr = "";
@@ -123,21 +124,21 @@ class ByPoints extends React.Component<Props> {
     const numDivisions = entry.divisions.length;
 
     const classes = mapSexToClasses(entry.sex, this.props);
-    const wtcls = inKg
+    const wtcls = bodyweightsInKg
       ? getWeightClassStr(classes, entry.bodyweightKg, language)
       : getWeightClassLbsStr(classes, entry.bodyweightKg);
-    const bw = inKg ? entry.bodyweightKg : kg2lbs(entry.bodyweightKg);
+    const bw = bodyweightsInKg ? entry.bodyweightKg : kg2lbs(entry.bodyweightKg);
 
     const squatKg = getBest5SquatKg(entry);
-    const squat = inKg ? squatKg : kg2lbs(squatKg);
+    const squat = attemptsInKg ? squatKg : kg2lbs(squatKg);
 
     const benchKg = getBest5BenchKg(entry);
-    const bench = inKg ? benchKg : kg2lbs(benchKg);
+    const bench = attemptsInKg ? benchKg : kg2lbs(benchKg);
 
     const deadliftKg = getBest5DeadliftKg(entry);
-    const deadlift = inKg ? deadliftKg : kg2lbs(deadliftKg);
+    const deadlift = attemptsInKg ? deadliftKg : kg2lbs(deadliftKg);
 
-    const total = inKg ? totalKg : kg2lbs(totalKg);
+    const total = attemptsInKg ? totalKg : kg2lbs(totalKg);
 
     return (
       <tr key={key}>
@@ -284,7 +285,7 @@ class ByPoints extends React.Component<Props> {
       this.props.formula,
       this.props.ageCoefficients,
       this.props.combineSleevesAndWraps,
-      this.props.inKg,
+      this.props.attemptsInKg,
       this.props.meetDate
     );
 
@@ -308,7 +309,8 @@ const mapStateToProps = (state: GlobalState, ownProps: OwnProps): StateProps => 
   }
 
   return {
-    inKg: state.meet.inKg,
+    attemptsInKg: state.meet.attemptsInKg,
+    bodyweightsInKg: state.meet.bodyweightsInKg,
     meetName: state.meet.name,
     meetDate: state.meet.date,
     formula: state.meet.formula,

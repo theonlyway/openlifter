@@ -79,9 +79,14 @@ export interface SetPlatformsOnDaysAction {
   readonly count: number;
 }
 
-export interface SetInKgAction {
-  readonly type: "SET_IN_KG";
-  readonly inKg: boolean;
+export interface SetAttemptsInKgAction {
+  readonly type: "SET_ATTEMPTS_IN_KG";
+  readonly attemptsInKg: boolean;
+}
+
+export interface SetBodyweightsInKgAction {
+  readonly type: "SET_BODYWEIGHTS_IN_KG";
+  readonly bodyweightsInKg: boolean;
 }
 
 export interface SetWeightClassesAction {

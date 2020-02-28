@@ -44,7 +44,7 @@ interface OwnProps {
 }
 
 interface StateProps {
-  inKg: boolean;
+  attemptsInKg: boolean;
   showAlternateUnits: boolean;
   squatBarAndCollarsWeightKg: number;
   benchBarAndCollarsWeightKg: number;
@@ -115,13 +115,13 @@ class LeftCard extends React.Component<Props> {
       current.weightKg,
       barAndCollarsWeightKg,
       this.props.plates,
-      this.props.inKg
+      this.props.attemptsInKg
     );
     const nextLoading: Array<LoadedPlate> = selectPlates(
       next.weightKg,
       barAndCollarsWeightKg,
       this.props.plates,
-      this.props.inKg
+      this.props.attemptsInKg
     );
 
     // Set the next loading relative to the current loading.
@@ -154,14 +154,14 @@ class LeftCard extends React.Component<Props> {
               key={String(next.weightKg) + next.rackInfo}
               loading={nextLoading}
               rackInfo={next.rackInfo}
-              inKg={this.props.inKg}
+              attemptsInKg={this.props.attemptsInKg}
             />
           </div>
         </div>
       );
 
     let attemptTemplate = "";
-    if (this.props.inKg) {
+    if (this.props.attemptsInKg) {
       if (this.props.showAlternateUnits) {
         attemptTemplate = getString("lifting.current-weight-kg-lbs", language);
       } else {
@@ -187,7 +187,7 @@ class LeftCard extends React.Component<Props> {
                 key={String(current.weightKg) + current.rackInfo}
                 loading={currentLoading}
                 rackInfo={current.rackInfo}
-                inKg={this.props.inKg}
+                attemptsInKg={this.props.attemptsInKg}
               />
             </div>
           </div>
@@ -200,7 +200,7 @@ class LeftCard extends React.Component<Props> {
 
 const mapStateToProps = (state: GlobalState): StateProps => {
   return {
-    inKg: state.meet.inKg,
+    attemptsInKg: state.meet.attemptsInKg,
     showAlternateUnits: state.meet.showAlternateUnits,
     squatBarAndCollarsWeightKg: state.meet.squatBarAndCollarsWeightKg,
     benchBarAndCollarsWeightKg: state.meet.benchBarAndCollarsWeightKg,
