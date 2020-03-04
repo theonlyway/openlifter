@@ -34,6 +34,7 @@ interface OwnProps {
 }
 
 interface StateProps {
+  attemptsInKg: boolean;
   bodyweightsInKg: boolean;
   language: Language;
 }
@@ -59,12 +60,13 @@ class LifterTable extends React.Component<Props> {
     // Styling for small, single-character selector columns.
     const shortStyle = { width: "85px" };
 
+    const attemptsInKg = this.props.attemptsInKg;
     const bodyweightsInKg = this.props.bodyweightsInKg;
 
     const bodyweightId = bodyweightsInKg ? "weigh-ins.bodyweight-header-kg" : "weigh-ins.bodyweight-header-lbs";
-    const squatId = bodyweightsInKg ? "weigh-ins.squat-header-kg" : "weigh-ins.squat-header-lbs";
-    const benchId = bodyweightsInKg ? "weigh-ins.bench-header-kg" : "weigh-ins.bench-header-lbs";
-    const deadliftId = bodyweightsInKg ? "weigh-ins.deadlift-header-kg" : "weigh-ins.deadlift-header-lbs";
+    const squatId = attemptsInKg ? "weigh-ins.squat-header-kg" : "weigh-ins.squat-header-lbs";
+    const benchId = attemptsInKg ? "weigh-ins.bench-header-kg" : "weigh-ins.bench-header-lbs";
+    const deadliftId = attemptsInKg ? "weigh-ins.deadlift-header-kg" : "weigh-ins.deadlift-header-lbs";
 
     return (
       <tr>
@@ -102,6 +104,7 @@ class LifterTable extends React.Component<Props> {
 }
 
 const mapStateToProps = (state: GlobalState): StateProps => ({
+  attemptsInKg: state.meet.attemptsInKg,
   bodyweightsInKg: state.meet.bodyweightsInKg,
   language: state.language
 });
