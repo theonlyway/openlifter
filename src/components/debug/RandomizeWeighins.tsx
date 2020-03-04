@@ -55,7 +55,7 @@ class RandomizeWeighinsButton extends React.Component<Props> {
 
   randomAttempt = () => {
     const multiple = 2.5;
-    if (this.props.meet.bodyweightsInKg) {
+    if (this.props.meet.attemptsInKg) {
       return Math.floor(randomFixedPoint(25, 360, 1) / multiple) * multiple;
     } else {
       return lbs2kg(Math.floor(randomFixedPoint(55, 800, 1) / multiple) * multiple);
