@@ -169,6 +169,9 @@ class LifterRow extends React.Component<Props> {
     const age = getAge(entry, this.props.meet.date);
     const ageStr = age === 0 ? getString("common.age", language) : displayNumber(age, language);
 
+    const attemptsInKg = this.props.meet.attemptsInKg;
+    const bodyweightsInKg = this.props.meet.bodyweightsInKg;
+
     return (
       <tr>
         <td>{entry.platform}</td>
@@ -190,6 +193,7 @@ class LifterRow extends React.Component<Props> {
             field="bodyweightKg"
             placeholder={getString("weigh-ins.bodyweight-placeholder", language)}
             disabled={false}
+            inKg={bodyweightsInKg}
           />
         </td>
 
@@ -211,6 +215,7 @@ class LifterRow extends React.Component<Props> {
             attemptOneIndexed={1}
             placeholder={hasSquat ? getString("weigh-ins.squat-placeholder", language) : undefined}
             disabled={disableSquatWeight}
+            inKg={attemptsInKg}
           />
         </td>
 
@@ -232,6 +237,7 @@ class LifterRow extends React.Component<Props> {
             attemptOneIndexed={1}
             placeholder={hasBench ? getString("weigh-ins.bench-placeholder", language) : undefined}
             disabled={disableBenchWeight}
+            inKg={attemptsInKg}
           />
         </td>
 
@@ -243,6 +249,7 @@ class LifterRow extends React.Component<Props> {
             attemptOneIndexed={1}
             placeholder={hasDeadlift ? getString("weigh-ins.deadlift-placeholder", language) : undefined}
             disabled={disableDeadliftWeight}
+            inKg={attemptsInKg}
           />
         </td>
       </tr>

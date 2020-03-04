@@ -82,21 +82,39 @@ const standardizeEquipment = (eq: Equipment): string => {
 const addEntriesRow = (
   csv: Csv,
   category: Category,
+  unit: string,
   attemptsInKg: boolean,
   bodyweightsInKg: boolean,
   meetDate: string,
   entry: Entry,
   index: number
 ) => {
-  const unit: string = attemptsInKg ? "Kg" : "LBS";
   const finalEventTotalKg = getFinalEventTotalKg(entry, category.event);
 
   // Helper functions to keep things one-liners below. Handles Kg/Lbs conversion.
-  const weight = (kg: number): string => {
-    return displayWeight(attemptsInKg ? kg : kg2lbs(kg));
+  const convertKg = (kg: number, unitInKg: boolean): string => {
+    return displayWeight(unitInKg ? kg : kg2lbs(kg));
+  };
+  const convertLbs = (lbs: number, unitInLbs: boolean): string => {
+    return displayWeight(unitInLbs ? lbs : lbs2kg(lbs));
   };
   const wtcls = (cls: string): string => {
     return bodyweightsInKg ? cls : wtclsStrKg2Lbs(cls);
+  };
+  const convertBodyweight = (bodyweightKg: number): string => {
+    if (attemptsInKg && bodyweightsInKg) {
+      // Both are in kg, just format for display
+      return convertKg(bodyweightKg, true);
+    } else if (attemptsInKg && !bodyweightsInKg) {
+      // Attempts are in kg and bw is in lbs, convert bw to kg
+      return convertKg(bodyweightKg, false)
+    } else if (!attemptsInKg && bodyweightsInKg) {
+      // Attempts are in lbs but bw is in kg, convert bw to lbs
+      return convertKg(bodyweightKg, false);
+    } else {
+      // Both are in lbs, just show lbs
+      return convertKg(bodyweightKg, false);
+    }
   };
 
   // Initialize an empty row with all columns available.
@@ -117,36 +135,36 @@ const addEntriesRow = (
   row[csv.index("State")] = csvString(entry.state);
   row[csv.index("Equipment")] = csvString(standardizeEquipment(entry.equipment));
   row[csv.index("Division")] = csvString(category.division);
-  row[csv.index("Bodyweight" + unit)] = csvString(weight(entry.bodyweightKg));
+  row[csv.index("Bodyweight" + unit)] = csvString(convertBodyweight(entry.bodyweightKg));
   row[csv.index("WeightClass" + unit)] = csvString(wtcls(category.weightClassStr));
-  row[csv.index("Total" + unit)] = csvString(weight(finalEventTotalKg));
+  row[csv.index("Total" + unit)] = csvString(convertKg(finalEventTotalKg, attemptsInKg));
   row[csv.index("Event")] = csvString(category.event);
   row[csv.index("Team")] = csvString(entry.team);
 
   // Squat.
   if (category.event.includes("S")) {
-    row[csv.index("Best3Squat" + unit)] = csvString(weight(getBest3SquatKg(entry)));
+    row[csv.index("Best3Squat" + unit)] = csvString(convertKg(getBest3SquatKg(entry), attemptsInKg));
     for (let i = 0; i < MAX_ATTEMPTS; i++) {
       const field = "Squat" + (i + 1) + unit;
-      row[csv.index(field)] = csvString(weight(entry.squatKg[i] * entry.squatStatus[i]));
+      row[csv.index(field)] = csvString(convertKg(entry.squatKg[i] * entry.squatStatus[i], attemptsInKg));
     }
   }
 
   // Bench.
   if (category.event.includes("B")) {
-    row[csv.index("Best3Bench" + unit)] = csvString(weight(getBest3BenchKg(entry)));
+    row[csv.index("Best3Bench" + unit)] = csvString(convertKg(getBest3BenchKg(entry), attemptsInKg));
     for (let i = 0; i < MAX_ATTEMPTS; i++) {
       const field = "Bench" + (i + 1) + unit;
-      row[csv.index(field)] = csvString(weight(entry.benchKg[i] * entry.benchStatus[i]));
+      row[csv.index(field)] = csvString(convertKg(entry.benchKg[i] * entry.benchStatus[i], attemptsInKg));
     }
   }
 
   // Deadlift.
   if (category.event.includes("D")) {
-    row[csv.index("Best3Deadlift" + unit)] = csvString(weight(getBest3DeadliftKg(entry)));
+    row[csv.index("Best3Deadlift" + unit)] = csvString(convertKg(getBest3DeadliftKg(entry), attemptsInKg));
     for (let i = 0; i < MAX_ATTEMPTS; i++) {
       const field = "Deadlift" + (i + 1) + unit;
-      row[csv.index(field)] = csvString(weight(entry.deadliftKg[i] * entry.deadliftStatus[i]));
+      row[csv.index(field)] = csvString(convertKg(entry.deadliftKg[i] * entry.deadliftStatus[i], attemptsInKg));
     }
   }
 
@@ -156,6 +174,7 @@ const addEntriesRow = (
 const makeEntriesCsv = (state: GlobalState): Csv => {
   const attemptsInKg: boolean = state.meet.attemptsInKg;
   const bodyweightsInKg: boolean = state.meet.bodyweightsInKg;
+  // The whole sheet will match the unit of the attempts.
   const unit: string = attemptsInKg ? "Kg" : "LBS";
 
   const csv = new Csv();
@@ -199,7 +218,7 @@ const makeEntriesCsv = (state: GlobalState): Csv => {
     const { category, orderedEntries } = results[i];
 
     for (let j = 0; j < orderedEntries.length; j++) {
-      addEntriesRow(csv, category, attemptsInKg, bodyweightsInKg, state.meet.date, orderedEntries[j], j);
+      addEntriesRow(csv, category, unit, attemptsInKg, bodyweightsInKg, state.meet.date, orderedEntries[j], j);
     }
   }
 
