@@ -205,6 +205,13 @@ export default (state: MeetState = initialState, action: Action): MeetState => {
       };
     }
 
+    case "SET_BODYWEIGHTS_IN_KG": {
+      return {
+        ...state,
+        bodyweightsInKg: action.bodyweightsInKg
+      };
+    }
+
     case "SET_WEIGHTCLASSES": {
       const sex = action.sex;
       const classesKg = action.classesKg;
