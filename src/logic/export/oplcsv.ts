@@ -95,9 +95,6 @@ const addEntriesRow = (
   const convertKg = (kg: number, unitInKg: boolean): string => {
     return displayWeight(unitInKg ? kg : kg2lbs(kg));
   };
-  const convertLbs = (lbs: number, unitInLbs: boolean): string => {
-    return displayWeight(unitInLbs ? lbs : lbs2kg(lbs));
-  };
   const wtcls = (cls: string): string => {
     return bodyweightsInKg ? cls : wtclsStrKg2Lbs(cls);
   };
@@ -106,13 +103,13 @@ const addEntriesRow = (
       // Both are in kg, just format for display
       return convertKg(bodyweightKg, true);
     } else if (attemptsInKg && !bodyweightsInKg) {
-      // Attempts are in kg and bw is in lbs, convert bw to kg
-      return convertKg(bodyweightKg, false)
+      // Attempts are in kg and bw is in lbs, we will show bw in kg so just format
+      return convertKg(bodyweightKg, true)
     } else if (!attemptsInKg && bodyweightsInKg) {
       // Attempts are in lbs but bw is in kg, convert bw to lbs
       return convertKg(bodyweightKg, false);
     } else {
-      // Both are in lbs, just show lbs
+      // Both are in lbs, convert bw to lbs
       return convertKg(bodyweightKg, false);
     }
   };
