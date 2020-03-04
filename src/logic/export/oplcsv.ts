@@ -104,7 +104,7 @@ const addEntriesRow = (
       return convertKg(bodyweightKg, true);
     } else if (attemptsInKg && !bodyweightsInKg) {
       // Attempts are in kg and bw is in lbs, we will show bw in kg so just format
-      return convertKg(bodyweightKg, true)
+      return convertKg(bodyweightKg, true);
     } else if (!attemptsInKg && bodyweightsInKg) {
       // Attempts are in lbs but bw is in kg, convert bw to lbs
       return convertKg(bodyweightKg, false);
