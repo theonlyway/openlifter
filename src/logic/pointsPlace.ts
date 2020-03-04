@@ -76,7 +76,15 @@ const sortByFormulaPlaceInCategory = (
     const entry = entries[i];
     const totalKg = getFinalEventTotalKg(entry, category.event);
 
-    memoizedPoints[i] = getAgeAdjustedPoints(ageCoefficients, meetDate, formula, entry, category.event, totalKg, attemptsInKg);
+    memoizedPoints[i] = getAgeAdjustedPoints(
+      ageCoefficients,
+      meetDate,
+      formula,
+      entry,
+      category.event,
+      totalKg,
+      attemptsInKg
+    );
   }
 
   // Clone the entries array to avoid modifying the original.
@@ -198,7 +206,14 @@ export const getAllRankings = (
   const results = [];
   for (const [key, catEntries] of categoryMap) {
     const category = keyToCategory(key);
-    const orderedEntries = sortByFormulaPlaceInCategory(catEntries, category, formula, ageCoefficients, attemptsInKg, meetDate);
+    const orderedEntries = sortByFormulaPlaceInCategory(
+      catEntries,
+      category,
+      formula,
+      ageCoefficients,
+      attemptsInKg,
+      meetDate
+    );
     results.push({ category, orderedEntries });
   }
 

@@ -35,7 +35,13 @@ import { kg2lbs } from "../units";
 import { AgeCoefficients, Entry, Event, Equipment, Formula, Sex } from "../../types/dataTypes";
 import { checkExhausted } from "../../types/utils";
 
-export const getPoints = (formula: Formula, entry: Entry, event: Event, totalKg: number, attemptsInKg: boolean): number => {
+export const getPoints = (
+  formula: Formula,
+  entry: Entry,
+  event: Event,
+  totalKg: number,
+  attemptsInKg: boolean
+): number => {
   // Some of the data are singular properties of the entry.
   const sex: Sex = entry.sex;
   const equipment: Equipment = entry.equipment;

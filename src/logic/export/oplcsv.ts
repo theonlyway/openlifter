@@ -79,7 +79,15 @@ const standardizeEquipment = (eq: Equipment): string => {
   }
 };
 
-const addEntriesRow = (csv: Csv, category: Category, attemptsInKg: boolean, bodyweightsInKg: boolean, meetDate: string, entry: Entry, index: number) => {
+const addEntriesRow = (
+  csv: Csv,
+  category: Category,
+  attemptsInKg: boolean,
+  bodyweightsInKg: boolean,
+  meetDate: string,
+  entry: Entry,
+  index: number
+) => {
   const unit: string = attemptsInKg ? "Kg" : "LBS";
   const finalEventTotalKg = getFinalEventTotalKg(entry, category.event);
 
