@@ -124,21 +124,21 @@ class ByPoints extends React.Component<Props> {
     const numDivisions = entry.divisions.length;
 
     const classes = mapSexToClasses(entry.sex, this.props);
-    const wtcls = bodyweightsInKg
+    const wtcls = this.props.bodyweightsInKg
       ? getWeightClassStr(classes, entry.bodyweightKg, language)
       : getWeightClassLbsStr(classes, entry.bodyweightKg);
-    const bw = bodyweightsInKg ? entry.bodyweightKg : kg2lbs(entry.bodyweightKg);
+    const bw = this.props.bodyweightsInKg ? entry.bodyweightKg : kg2lbs(entry.bodyweightKg);
 
     const squatKg = getBest5SquatKg(entry);
     const squat = attemptsInKg ? squatKg : kg2lbs(squatKg);
 
     const benchKg = getBest5BenchKg(entry);
-    const bench = attemptsInKg ? benchKg : kg2lbs(benchKg);
+    const bench = this.props.attemptsInKg ? benchKg : kg2lbs(benchKg);
 
     const deadliftKg = getBest5DeadliftKg(entry);
-    const deadlift = attemptsInKg ? deadliftKg : kg2lbs(deadliftKg);
+    const deadlift = this.props.attemptsInKg ? deadliftKg : kg2lbs(deadliftKg);
 
-    const total = attemptsInKg ? totalKg : kg2lbs(totalKg);
+    const total = this.props.attemptsInKg ? totalKg : kg2lbs(totalKg);
 
     return (
       <tr key={key}>

@@ -41,7 +41,7 @@ import Plates from "./Plates";
 import YesNoButton from "../common/YesNoButton";
 
 import { getString } from "../../logic/strings";
-import { updateMeet, setInKg } from "../../actions/meetSetupActions";
+import { updateMeet, setAttemptsInKg, setBodyweightsInKg } from "../../actions/meetSetupActions";
 
 import { GlobalState, MeetState } from "../../types/stateTypes";
 import { Dispatch } from "redux";
@@ -298,10 +298,7 @@ class MeetSetup extends React.Component<Props, InternalState> {
                 <FormGroup>
                   <YesNoButton
                     label={
-                      <FormattedMessage
-                        id="meet-setup.attempt-units"
-                        defaultMessage="In what units are attempts?"
-                      />
+                      <FormattedMessage id="meet-setup.attempt-units" defaultMessage="In what units are attempts?" />
                     }
                     value={this.props.meet.attemptsInKg}
                     setValue={this.props.setAttemptsInKg}
@@ -346,7 +343,8 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
   setFederation: (fed: string) => dispatch(updateMeet({ federation: fed })),
   setCombineSleevesAndWraps: bool => dispatch(updateMeet({ combineSleevesAndWraps: bool })),
   setAllow4thAttempts: bool => dispatch(updateMeet({ allow4thAttempts: bool })),
-  setInKg: bool => dispatch(setInKg(bool)),
+  setAttemptsInKg: bool => dispatch(setAttemptsInKg(bool)),
+  setBodyweightsInKg: bool => dispatch(setBodyweightsInKg(bool)),
   setShowAlternateUnits: bool => dispatch(updateMeet({ showAlternateUnits: bool })),
   setFormula: event =>
     assertString(event.currentTarget.value) &&
