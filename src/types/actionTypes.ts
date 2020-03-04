@@ -121,7 +121,8 @@ export type MeetSetupAction =
   | SetMeetDateAction
   | SetLengthDaysAction
   | SetPlatformsOnDaysAction
-  | SetInKgAction
+  | SetAttemptsInKgAction
+  | SetBodyweightsInKgAction
   | SetWeightClassesAction
   | SetBarAndCollarsWeightKgAction
   | SetPlateConfigAction
