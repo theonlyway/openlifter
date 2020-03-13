@@ -223,7 +223,9 @@ const spfDefaults: Partial<MeetState> = {
     "M65-69",
     "M70-74",
     "M75-79",
-    "G80+"
+    "G80+",
+    "FPM",
+    "Crossfit"
   ],
   weightClassesKgMen: [44, 48, 52, 56, 60, 67.5, 75, 82.5, 90, 100, 110, 118, 125, 140],
   weightClassesKgWomen: [44, 48, 52, 56, 60, 67.5, 75, 82.5, 90, 100, 110],
