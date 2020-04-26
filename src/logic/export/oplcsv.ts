@@ -20,6 +20,7 @@
 
 import { csvDate, csvString, Csv } from "./csv";
 import { getFinalResults } from "../divisionPlace";
+import { getPoints } from "../coefficients/coefficients";
 import { wtclsStrKg2Lbs } from "../../reducers/meetReducer";
 import {
   getAge,
@@ -30,10 +31,10 @@ import {
   entryHasLifted,
   MAX_ATTEMPTS
 } from "../entry";
-import { displayWeight, kg2lbs } from "../units";
+import { displayPoints, displayWeight, kg2lbs } from "../units";
 
 import { Category, CategoryResults } from "../divisionPlace";
-import { Entry, Equipment } from "../../types/dataTypes";
+import { Entry, Equipment, Formula } from "../../types/dataTypes";
 import { GlobalState, MeetState } from "../../types/stateTypes";
 import { checkExhausted } from "../../types/utils";
 
@@ -79,7 +80,15 @@ const standardizeEquipment = (eq: Equipment): string => {
   }
 };
 
-const addEntriesRow = (csv: Csv, category: Category, inKg: boolean, meetDate: string, entry: Entry, index: number) => {
+const addEntriesRow = (
+  csv: Csv,
+  category: Category,
+  inKg: boolean,
+  meetDate: string,
+  formula: Formula,
+  entry: Entry,
+  index: number
+) => {
   const unit: string = inKg ? "Kg" : "LBS";
   const finalEventTotalKg = getFinalEventTotalKg(entry, category.event);
 
@@ -142,6 +151,10 @@ const addEntriesRow = (csv: Csv, category: Category, inKg: boolean, meetDate: st
     }
   }
 
+  // Points. OpenPowerlifting does not use this column, but people have asked for it.
+  const points = getPoints(formula, entry, category.event, finalEventTotalKg, inKg);
+  row[csv.index("Points")] = csvString(points === 0 ? "" : displayPoints(points, "en"));
+
   csv.rows.push(row);
 };
 
@@ -175,7 +188,7 @@ const makeEntriesCsv = (state: GlobalState): Csv => {
     squatFieldnames,
     benchFieldnames,
     deadliftFieldnames,
-    ["Total" + unit, "Event", "Team"]
+    ["Total" + unit, "Points", "Event", "Team"]
   );
 
   const results: Array<CategoryResults> = getFinalResults(
@@ -186,11 +199,14 @@ const makeEntriesCsv = (state: GlobalState): Csv => {
     state.meet.combineSleevesAndWraps
   );
 
+  const meet_date = state.meet.date;
+  const formula: Formula = state.meet.formula;
+
   for (let i = 0; i < results.length; i++) {
     const { category, orderedEntries } = results[i];
 
     for (let j = 0; j < orderedEntries.length; j++) {
-      addEntriesRow(csv, category, inKg, state.meet.date, orderedEntries[j], j);
+      addEntriesRow(csv, category, inKg, meet_date, formula, orderedEntries[j], j);
     }
   }
 
