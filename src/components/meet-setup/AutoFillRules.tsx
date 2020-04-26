@@ -128,7 +128,7 @@ const bpDefaults: Partial<MeetState> = {
   weightClassesKgMen: [53, 59, 66, 74, 83, 93, 105, 120],
   weightClassesKgWomen: [43, 47, 52, 57, 63, 72, 84],
   weightClassesKgMx: [53, 59, 66, 74, 83, 93, 105, 120],
-  formula: "IPF Points",
+  formula: "IPF GL Points",
   ageCoefficients: "FosterMcCulloch",
   combineSleevesAndWraps: false,
   allow4thAttempts: false
@@ -558,7 +558,7 @@ const usaplDefaults: Partial<MeetState> = {
   weightClassesKgMen: [53, 59, 66, 74, 83, 93, 105, 120],
   weightClassesKgWomen: [43, 47, 52, 57, 63, 72, 84],
   weightClassesKgMx: [53, 59, 66, 74, 83, 93, 105, 120],
-  formula: "IPF Points",
+  formula: "IPF GL Points",
   ageCoefficients: "FosterMcCulloch",
   combineSleevesAndWraps: false,
   allow4thAttempts: false

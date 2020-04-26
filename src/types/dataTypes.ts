@@ -30,6 +30,7 @@ export type Formula =
   | "Bodyweight Multiple"
   | "Dots"
   | "Glossbrenner"
+  | "IPF GL Points"
   | "IPF Points"
   | "NASA Points"
   | "Reshel"

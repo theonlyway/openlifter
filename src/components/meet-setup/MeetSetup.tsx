@@ -113,6 +113,7 @@ class MeetSetup extends React.Component<Props, InternalState> {
     const stringBodyweightMultiple = getString("formula.bodyweight-multiple", language);
     const stringDots = getString("formula.dots", language);
     const stringGlossbrenner = getString("formula.glossbrenner", language);
+    const stringIPFGLPoints = getString("formula.ipf-gl-points", language);
     const stringIPFPoints = getString("formula.ipf-points", language);
     const stringNASAPoints = getString("formula.nasa-points", language);
     // const stringReshel = getString("formula.reshel", language);
@@ -209,6 +210,7 @@ class MeetSetup extends React.Component<Props, InternalState> {
                     <option value="Bodyweight Multiple">{stringBodyweightMultiple}</option>
                     <option value="Dots">{stringDots}</option>
                     <option value="Glossbrenner">{stringGlossbrenner}</option>
+                    <option value="IPF GL Points">{stringIPFGLPoints}</option>
                     <option value="IPF Points">{stringIPFPoints}</option>
                     <option value="NASA Points">{stringNASAPoints}</option>
                     <option value="Schwartz/Malone">{stringSchwartzMalone}</option>

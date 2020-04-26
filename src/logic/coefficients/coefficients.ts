@@ -23,6 +23,7 @@ import { bodyweight_multiple } from "./bodyweight-multiple";
 import { dots } from "./dots";
 import { fosterMcCulloch } from "./foster-mcculloch";
 import { glossbrenner } from "./glossbrenner";
+import { goodlift } from "./goodlift";
 import { ipfpoints } from "./ipf";
 import { nasapoints } from "./nasa";
 import { reshel } from "./reshel";
@@ -50,6 +51,8 @@ export const getPoints = (formula: Formula, entry: Entry, event: Event, totalKg:
       return dots(sex, bodyweightKg, totalKg);
     case "Glossbrenner":
       return glossbrenner(sex, bodyweightKg, totalKg);
+    case "IPF GL Points":
+      return goodlift(totalKg, bodyweightKg, sex, equipment, event);
     case "IPF Points":
       return ipfpoints(totalKg, bodyweightKg, sex, equipment, event);
     case "NASA Points":

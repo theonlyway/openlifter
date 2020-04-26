@@ -91,6 +91,7 @@ strings = strings.concat([
   { id: "formula.bodyweight-multiple", defaultMessage: "Bodyweight Multiple" },
   { id: "formula.dots", defaultMessage: "Dots" },
   { id: "formula.glossbrenner", defaultMessage: "Glossbrenner" },
+  { id: "formula.ipf-gl-points", defaultMessage: "IPF GL Points" },
   { id: "formula.ipf-points", defaultMessage: "IPF Points" },
   { id: "formula.nasa-points", defaultMessage: "NASA Points" },
   { id: "formula.reshel", defaultMessage: "Reshel" },
