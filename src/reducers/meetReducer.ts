@@ -39,6 +39,8 @@ const defaultPlatesKg: ReadonlyArray<Plate> = [
   { weightKg: 10, pairCount: 1, color: PlateColors.PLATE_DEFAULT_GREEN },
   { weightKg: 5, pairCount: 1, color: PlateColors.PLATE_DEFAULT_BLACK },
   { weightKg: 2.5, pairCount: 1, color: PlateColors.PLATE_DEFAULT_BLACK },
+  { weightKg: 2, pairCount: 0, color: PlateColors.PLATE_DEFAULT_BLUE },
+  { weightKg: 1.5, pairCount: 0, color: PlateColors.PLATE_DEFAULT_YELLOW },
   { weightKg: 1.25, pairCount: 1, color: PlateColors.PLATE_DEFAULT_BLACK },
   { weightKg: 1, pairCount: 1, color: PlateColors.PLATE_DEFAULT_BLUE },
   { weightKg: 0.75, pairCount: 1, color: PlateColors.PLATE_DEFAULT_RED },
