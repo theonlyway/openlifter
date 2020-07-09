@@ -52,6 +52,7 @@ strings = strings.concat([
   { id: "equipment.wraps", defaultMessage: "Wraps" },
   { id: "equipment.single-ply", defaultMessage: "Single-ply" },
   { id: "equipment.multi-ply", defaultMessage: "Multi-ply" },
+  { id: "equipment.unlimited", defaultMessage: "Unlimited" },
 ]);
 
 // Strings for the Event type.

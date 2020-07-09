@@ -74,6 +74,8 @@ const standardizeEquipment = (eq: Equipment): string => {
       return "Single-ply";
     case "Multi-ply":
       return "Multi-ply";
+    case "Unlimited":
+      return "Unlimited";
     default:
       checkExhausted(eq);
       return "Raw";

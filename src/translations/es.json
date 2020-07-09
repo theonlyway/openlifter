@@ -35,6 +35,7 @@
   "equipment.multi-ply": "Multicapa",
   "equipment.single-ply": "Monocapa",
   "equipment.sleeves": "Rodilleras",
+  "equipment.unlimited": "Unlimited",
   "equipment.wraps": "Vendas",
   "error.csv-day-platform-order": "La columna {day} debe preceder a la columna {platform}.",
   "error.csv-duplicate-header": "El encabezado {name} aparece duplicado, en las columnas {firstABC} y {secondABC}.",

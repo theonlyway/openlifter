@@ -35,6 +35,7 @@
   "equipment.multi-ply": "Multi-ply",
   "equipment.single-ply": "Simple ply",
   "equipment.sleeves": "Genouillères",
+  "equipment.unlimited": "Unlimited",
   "equipment.wraps": "Bandes de genoux",
   "error.csv-day-platform-order": "La colonne {day} doit précéder la colonne {platform}",
   "error.csv-duplicate-header": "L'entête {name} apparaît deux fois, en colonne {firstABC} et {secondABC}",

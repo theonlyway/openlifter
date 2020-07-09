@@ -35,6 +35,7 @@
   "equipment.multi-ply": "Daugiasluoksnė",
   "equipment.single-ply": "Vienasluokstė",
   "equipment.sleeves": "Antkeliai",
+  "equipment.unlimited": "Unlimited",
   "equipment.wraps": "Bintai",
   "error.csv-day-platform-order": "{day} stulpelis turi būti prieš {platform} stulpelį.",
   "error.csv-duplicate-header": "Antraštė {name} rodoma du kartus, stulpeliuose {firstABC} ir {secondABC}.",

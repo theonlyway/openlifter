@@ -63,6 +63,7 @@ export const parseEquipment = (s: string): Equipment | undefined => {
   if (lower === "bare") return "Bare";
   if (lower === "sleeves") return "Sleeves";
   if (lower === "wraps") return "Wraps";
+  if (lower === "unlimited") return "Unlimited";
 
   // Be more forgiving on these ones: nobody remembers the dash.
   if (lower.startsWith("single")) return "Single-ply";

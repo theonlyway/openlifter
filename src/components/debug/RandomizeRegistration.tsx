@@ -268,8 +268,10 @@ class RandomizeRegistrationButton extends React.Component<Props> {
         }
       } else if (equipmentSelect < 0.95) {
         equipment = "Single-ply";
-      } else {
+      } else if (equipmentSelect < 0.98) {
         equipment = "Multi-ply";
+      } else {
+        equipment = "Unlimited";
       }
 
       // File into random divisions.

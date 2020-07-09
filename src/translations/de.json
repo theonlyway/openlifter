@@ -35,6 +35,7 @@
   "equipment.multi-ply": "mehrlagig",
   "equipment.single-ply": "einlagig",
   "equipment.sleeves": "Kniestulpen",
+  "equipment.unlimited": "Unlimited",
   "equipment.wraps": "Kniebandagen",
   "error.csv-day-platform-order": "Die {day} Spalte muss vor der {platform} Spalte stehen.",
   "error.csv-duplicate-header": "Die Überschrift {name} erscheint doppelt in den Spalten {firstABC} und {secondABC}.",

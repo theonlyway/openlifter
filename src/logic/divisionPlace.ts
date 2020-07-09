@@ -201,7 +201,7 @@ const getEventSortOrder = (ev: Event): number => {
 
 // Determines the sort order by Equipment.
 const getEquipmentSortOrder = (eq: Equipment): number => {
-  return ["Bare", "Sleeves", "Wraps", "Single-ply", "Multi-ply"].indexOf(eq);
+  return ["Bare", "Sleeves", "Wraps", "Single-ply", "Multi-ply", "Unlimited"].indexOf(eq);
 };
 
 // Determines the sort order by Sex.

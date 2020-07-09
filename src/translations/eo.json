@@ -35,6 +35,7 @@
   "equipment.multi-ply": "Plurŝtofo",
   "equipment.single-ply": "Unuŝtofo",
   "equipment.sleeves": "Manikoj",
+  "equipment.unlimited": "Unlimited",
   "equipment.wraps": "Rulaĵoj",
   "error.csv-day-platform-order": "La {day} vertikalo devas aperi antaŭ ol la vertikalo {platform}.",
   "error.csv-duplicate-header": "La rubriko {name} aperas dufoje, en la vertikaloj {firstABC} kaj {secondABC}.",

@@ -45,6 +45,8 @@ export const localizeEquipment = (equipment: Equipment, language: Language): str
       return getString("equipment.single-ply", language);
     case "Multi-ply":
       return getString("equipment.multi-ply", language);
+    case "Unlimited":
+      return getString("equipment.unlimited", language);
     default:
       checkExhausted(equipment);
       return "";
@@ -58,6 +60,7 @@ export const delocalizeEquipment = (text: string, language: Language): Equipment
   if (text === getString("equipment.wraps", language)) return "Wraps";
   if (text === getString("equipment.single-ply", language)) return "Single-ply";
   if (text === getString("equipment.multi-ply", language)) return "Multi-ply";
+  if (text === getString("equipment.unlimited", language)) return "Unlimited";
   throw new Error("Failed to delocalize Equipment: " + text);
 };
 

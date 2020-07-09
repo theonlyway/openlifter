@@ -35,6 +35,7 @@
   "equipment.multi-ply": "Багатошарова",
   "equipment.single-ply": "Одношарова",
   "equipment.sleeves": "Наколінники",
+  "equipment.unlimited": "Unlimited",
   "equipment.wraps": "Бинти",
   "error.csv-day-platform-order": "Колонка {day} має знаходитись перед колонкою {platform}.",
   "error.csv-duplicate-header": "Заголовок {name} повторюється, в колонках {firstABC} і {secondABC}. ",

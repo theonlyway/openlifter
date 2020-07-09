@@ -237,6 +237,7 @@ class LifterRow extends React.Component<Props, InternalState> {
         case "Wraps":
         case "Single-ply":
         case "Multi-ply":
+        case "Unlimited":
           this.props.updateRegistration(this.props.id, { equipment: equipment });
           break;
         default:
@@ -452,6 +453,7 @@ class LifterRow extends React.Component<Props, InternalState> {
                     <option value="Wraps">{getString("equipment.wraps", language)}</option>
                     <option value="Single-ply">{getString("equipment.single-ply", language)}</option>
                     <option value="Multi-ply">{getString("equipment.multi-ply", language)}</option>
+                    <option value="Unlimited">{getString("equipment.unlimited", language)}</option>
                   </Form.Control>
                 </Form.Group>
               </Col>

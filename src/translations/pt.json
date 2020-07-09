@@ -35,6 +35,7 @@
   "equipment.multi-ply": "Equipado multicamada",
   "equipment.single-ply": "Equipado camada única",
   "equipment.sleeves": "Joelheiras",
+  "equipment.unlimited": "Unlimited",
   "equipment.wraps": "Faixas",
   "error.csv-day-platform-order": "A coluna {day} deve anteceder a coluna {platform}.",
   "error.csv-duplicate-header": "O cabeçalho {name} aparece duas vezes, nas colunas {firstABC} e {secondABC}.",

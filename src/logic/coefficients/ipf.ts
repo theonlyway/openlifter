@@ -82,7 +82,7 @@ export const ipfpoints = (
   let normalizedEquipment = equipment;
   if (equipment === "Bare" || equipment === "Wraps") {
     normalizedEquipment = "Sleeves";
-  } else if (equipment === "Multi-ply") {
+  } else if (equipment === "Multi-ply" || equipment === "Unlimited") {
     normalizedEquipment = "Single-ply";
   }
   if (normalizedEquipment !== "Sleeves" && normalizedEquipment !== "Single-ply") {

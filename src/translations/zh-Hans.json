@@ -35,6 +35,7 @@
   "equipment.multi-ply": "多层装备",
   "equipment.single-ply": "单层装备",
   "equipment.sleeves": "套膝",
+  "equipment.unlimited": "Unlimited",
   "equipment.wraps": "绑膝",
   "error.csv-day-platform-order": "{day}一栏必须放在{platform}一栏之前。",
   "error.csv-duplicate-header": "标题{name}出现了两次，分别在{firstABC}和{secondABC}里。",
