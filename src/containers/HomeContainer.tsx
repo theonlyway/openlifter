@@ -117,7 +117,7 @@ class HomeContainer extends React.Component<Props, InternalState> {
     const rememberThis = this;
 
     const reader = new FileReader();
-    reader.onload = function(event: any) {
+    reader.onload = function (event: any) {
       let errored = false;
       try {
         const obj = JSON.parse(event.target.result);
@@ -316,7 +316,7 @@ class HomeContainer extends React.Component<Props, InternalState> {
               defaultMessage="Version {releaseVersion}, {releaseDate}."
               values={{
                 releaseVersion: releaseVersion,
-                releaseDate: releaseDate
+                releaseDate: releaseDate,
               }}
             />
           </h4>
@@ -338,13 +338,13 @@ class HomeContainer extends React.Component<Props, InternalState> {
 // into a "redux" prop. Otherwise it gets contaminated by other props.
 const mapStateToProps = (state: GlobalState): StateProps => ({
   redux: {
-    ...state
-  }
+    ...state,
+  },
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   return {
-    overwriteStore: store => dispatch(overwriteStore(store))
+    overwriteStore: (store) => dispatch(overwriteStore(store)),
   };
 };
 

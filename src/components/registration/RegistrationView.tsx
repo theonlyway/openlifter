@@ -32,7 +32,7 @@ import {
   faRandom,
   faSortNumericUp,
   faSortAlphaUp,
-  faSort
+  faSort,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -156,7 +156,7 @@ class RegistrationView extends React.Component<Props, InternalState> {
 
     const reader = new FileReader();
 
-    reader.onload = function(event) {
+    reader.onload = function (event) {
       // If this occurs, we've introduced a bug when initiating the file reader, or the read failed.
       // Add this check as a guard so the typing is narrowed
       if (typeof reader.result !== "string") {
@@ -186,7 +186,7 @@ class RegistrationView extends React.Component<Props, InternalState> {
 
       // If the mode is "Overwrite", delete all existing Entries.
       if (globalImportKind === "Overwrite") {
-        const entryIds = rememberThis.props.global.registration.entries.map(e => e.id);
+        const entryIds = rememberThis.props.global.registration.entries.map((e) => e.id);
         for (let i = 0; i < entryIds.length; ++i) {
           rememberThis.props.deleteRegistration(entryIds[i]);
         }
@@ -200,11 +200,11 @@ class RegistrationView extends React.Component<Props, InternalState> {
       }
     };
 
-    reader.onloadstart = function(event) {
+    reader.onloadstart = function (event) {
       rememberThis.setState({ isLoadingFiles: true });
     };
 
-    reader.onloadend = function(event) {
+    reader.onloadend = function (event) {
       rememberThis.setState({ isLoadingFiles: false });
     };
 
@@ -316,14 +316,14 @@ class RegistrationView extends React.Component<Props, InternalState> {
 }
 
 const mapStateToProps = (state: GlobalState): StateProps => ({
-  global: state
+  global: state,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   return {
     newRegistration: (obj: Partial<Entry>) => dispatch(newRegistration(obj)),
     deleteRegistration: (id: number) => dispatch(deleteRegistration(id)),
-    assignLotNumbers: (m: LotNumberManipulation) => dispatch(assignLotNumbers(m))
+    assignLotNumbers: (m: LotNumberManipulation) => dispatch(assignLotNumbers(m)),
   };
 };
 

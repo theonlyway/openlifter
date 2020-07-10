@@ -34,11 +34,11 @@ interface OwnProps {
 
 type Props = OwnProps;
 
-const LifterTable: React.FC<Props> = props => {
+const LifterTable: React.FC<Props> = (props) => {
   const renderRows = () => {
     const LifterRow = props.rowRenderer;
     const { entries } = props;
-    return entries.map(entry => <LifterRow key={entry.id} id={entry.id} />);
+    return entries.map((entry) => <LifterRow key={entry.id} id={entry.id} />);
   };
 
   return <div>{renderRows()}</div>;

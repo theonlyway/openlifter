@@ -28,7 +28,7 @@ import {
   SetWeightClassesAction,
   SetBarAndCollarsWeightKgAction,
   SetPlateConfigAction,
-  UpdateMeetAction
+  UpdateMeetAction,
 } from "../types/actionTypes";
 import { Formula, Lift, Sex } from "../types/dataTypes";
 import { MeetState } from "../types/stateTypes";
@@ -36,42 +36,42 @@ import { MeetState } from "../types/stateTypes";
 export const setMeetName = (name: string): SetMeetNameAction => {
   return {
     type: "SET_MEET_NAME",
-    name
+    name,
   };
 };
 
 export const setFormula = (formula: Formula): SetFormulaAction => {
   return {
     type: "SET_FORMULA",
-    formula
+    formula,
   };
 };
 
 export const setFederation = (federation: string): SetFederationAction => {
   return {
     type: "SET_FEDERATION",
-    federation
+    federation,
   };
 };
 
 export const setDivisions = (divisions: ReadonlyArray<string>): SetDivisionsAction => {
   return {
     type: "SET_DIVISIONS",
-    divisions
+    divisions,
   };
 };
 
 export const setMeetDate = (date: string): SetMeetDateAction => {
   return {
     type: "SET_MEET_DATE",
-    date
+    date,
   };
 };
 
 export const setLengthDays = (length: number): SetLengthDaysAction => {
   return {
     type: "SET_LENGTH_DAYS",
-    length
+    length,
   };
 };
 
@@ -79,14 +79,14 @@ export const setPlatformsOnDays = (day: number, count: number): SetPlatformsOnDa
   return {
     type: "SET_PLATFORM_COUNT",
     day: day,
-    count: count
+    count: count,
   };
 };
 
 export const setInKg = (inKg: boolean): SetInKgAction => {
   return {
     type: "SET_IN_KG",
-    inKg
+    inKg,
   };
 };
 
@@ -94,7 +94,7 @@ export const setWeightClasses = (sex: Sex, classesKg: ReadonlyArray<number>): Se
   return {
     type: "SET_WEIGHTCLASSES",
     sex: sex,
-    classesKg: classesKg
+    classesKg: classesKg,
   };
 };
 
@@ -102,7 +102,7 @@ export const setBarAndCollarsWeightKg = (lift: Lift, weightKg: number): SetBarAn
   return {
     type: "SET_BAR_AND_COLLARS_WEIGHT_KG",
     lift: lift,
-    weightKg: weightKg
+    weightKg: weightKg,
   };
 };
 
@@ -111,13 +111,13 @@ export const setPlateConfig = (weightKg: number, pairCount: number, color: strin
     type: "SET_PLATE_CONFIG",
     weightKg,
     pairCount,
-    color
+    color,
   };
 };
 
 export const updateMeet = (obj: Partial<MeetState>): UpdateMeetAction => {
   return {
     type: "UPDATE_MEET",
-    changes: obj
+    changes: obj,
   };
 };

@@ -67,13 +67,13 @@ class LiftingView extends React.Component<Props, InternalState> {
     super(props);
     this.toggleReplaceTableWithWeighins = this.toggleReplaceTableWithWeighins.bind(this);
     this.state = {
-      replaceTableWithWeighins: false
+      replaceTableWithWeighins: false,
     };
   }
 
   toggleReplaceTableWithWeighins = (): void => {
     this.setState({
-      replaceTableWithWeighins: !this.state.replaceTableWithWeighins
+      replaceTableWithWeighins: !this.state.replaceTableWithWeighins,
     });
   };
 
@@ -153,7 +153,7 @@ const mapStateToProps = (state: GlobalState): StateProps => {
   const flight = state.lifting.flight;
 
   const entriesOnPlatform = state.registration.entries.filter(
-    entry => entry.day === day && entry.platform === platform
+    (entry) => entry.day === day && entry.platform === platform
   );
 
   // Determine available flights from the entries themselves.
@@ -167,14 +167,14 @@ const mapStateToProps = (state: GlobalState): StateProps => {
   flights.sort();
 
   // Only receive entries that are in the currently-lifting group.
-  const entriesInFlight = entriesOnPlatform.filter(entry => entry.flight === flight);
+  const entriesInFlight = entriesOnPlatform.filter((entry) => entry.flight === flight);
 
   return {
     meet: state.meet,
     lifting: state.lifting,
     flightsOnPlatform: flights,
     entriesInFlight: entriesInFlight,
-    language: state.language
+    language: state.language,
   };
 };
 

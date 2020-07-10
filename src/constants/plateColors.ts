@@ -27,7 +27,7 @@ export const PlateColors = {
   PLATE_DEFAULT_YELLOW: "#FFEF2A",
   PLATE_DEFAULT_ORANGE: "#F25A1D",
   PLATE_DEFAULT_PINK: "#E81FA5",
-  PLATE_DEFAULT_PURPLE: "#9B16F2"
+  PLATE_DEFAULT_PURPLE: "#9B16F2",
 };
 
 export type PlateColorsType = keyof typeof PlateColors;

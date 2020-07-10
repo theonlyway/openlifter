@@ -108,7 +108,7 @@ const NonsenseFirstNames = [
   "Vana",
   "Varda",
   "William",
-  "Yavanna"
+  "Yavanna",
 ];
 
 const NonsenseLastNames = [
@@ -178,7 +178,7 @@ const NonsenseLastNames = [
   "Weasley",
   "Wood",
   "Yaxley",
-  "Zabini"
+  "Zabini",
 ];
 
 interface DispatchProps {
@@ -197,7 +197,7 @@ class RandomizeRegistrationButton extends React.Component<Props> {
   }
 
   deleteExistingRegistrations() {
-    const entryIds = this.props.registration.entries.map(e => e.id);
+    const entryIds = this.props.registration.entries.map((e) => e.id);
     for (let i = 0; i < entryIds.length; i++) {
       this.props.deleteRegistration(entryIds[i]);
     }
@@ -302,7 +302,7 @@ class RandomizeRegistrationButton extends React.Component<Props> {
         team: team,
         events: events,
         equipment: equipment,
-        divisions: divisions
+        divisions: divisions,
       });
     }
   }
@@ -332,13 +332,13 @@ class RandomizeRegistrationButton extends React.Component<Props> {
 }
 
 const mapStateToProps = (state: GlobalState): GlobalState => ({
-  ...state
+  ...state,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   return {
     newRegistration: (obj: Partial<Entry>) => dispatch(newRegistration(obj)),
-    deleteRegistration: (entryId: number) => dispatch(deleteRegistration(entryId))
+    deleteRegistration: (entryId: number) => dispatch(deleteRegistration(entryId)),
   };
 };
 

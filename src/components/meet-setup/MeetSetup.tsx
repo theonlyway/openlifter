@@ -81,7 +81,7 @@ class MeetSetup extends React.Component<Props, InternalState> {
     super(props);
 
     this.state = {
-      ticker: 0
+      ticker: 0,
     };
   }
 
@@ -320,7 +320,7 @@ class MeetSetup extends React.Component<Props, InternalState> {
 
 const mapStateToProps = (state: GlobalState): StateProps => ({
   meet: state.meet,
-  language: state.language
+  language: state.language,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
@@ -329,18 +329,18 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
   setState: (state: string) => dispatch(updateMeet({ state: state })),
   setCity: (city: string) => dispatch(updateMeet({ city: city })),
   setFederation: (fed: string) => dispatch(updateMeet({ federation: fed })),
-  setCombineSleevesAndWraps: bool => dispatch(updateMeet({ combineSleevesAndWraps: bool })),
-  setAllow4thAttempts: bool => dispatch(updateMeet({ allow4thAttempts: bool })),
-  setInKg: bool => dispatch(setInKg(bool)),
-  setShowAlternateUnits: bool => dispatch(updateMeet({ showAlternateUnits: bool })),
-  setFormula: event =>
+  setCombineSleevesAndWraps: (bool) => dispatch(updateMeet({ combineSleevesAndWraps: bool })),
+  setAllow4thAttempts: (bool) => dispatch(updateMeet({ allow4thAttempts: bool })),
+  setInKg: (bool) => dispatch(setInKg(bool)),
+  setShowAlternateUnits: (bool) => dispatch(updateMeet({ showAlternateUnits: bool })),
+  setFormula: (event) =>
     assertString(event.currentTarget.value) &&
     assertFormula(event.currentTarget.value) &&
     dispatch(updateMeet({ formula: event.currentTarget.value })),
-  setAgeCoefficients: event =>
+  setAgeCoefficients: (event) =>
     assertString(event.currentTarget.value) &&
     assertAgeCoefficients(event.currentTarget.value) &&
-    dispatch(updateMeet({ ageCoefficients: event.currentTarget.value }))
+    dispatch(updateMeet({ ageCoefficients: event.currentTarget.value })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MeetSetup);

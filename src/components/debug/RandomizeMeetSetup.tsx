@@ -33,7 +33,7 @@ import {
   setLengthDays,
   setMeetName,
   setPlatformsOnDays,
-  setWeightClasses
+  setWeightClasses,
 } from "../../actions/meetSetupActions";
 
 import { GlobalState } from "../../types/stateTypes";
@@ -60,7 +60,7 @@ const NonsenseFederations = [
   "TODDLERS",
   "COFFEE",
   "THEBORG",
-  "LETITSNOW"
+  "LETITSNOW",
 ];
 
 const NonsenseDivisions = ["Masters", "Juniors", "Lawyers", "Infants", "Turtles", "Rabbits"];
@@ -149,7 +149,7 @@ class RandomizeMeetSetupButton extends React.Component<Props> {
 }
 
 const mapStateToProps = (state: GlobalState): GlobalState => ({
-  ...state
+  ...state,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
@@ -159,7 +159,7 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
     setLengthDays: (length: number) => dispatch(setLengthDays(length)),
     setMeetName: (name: string) => dispatch(setMeetName(name)),
     setPlatformsOnDays: (day: number, count: number) => dispatch(setPlatformsOnDays(day, count)),
-    setWeightClasses: (sex: Sex, classesKg: number[]) => dispatch(setWeightClasses(sex, classesKg))
+    setWeightClasses: (sex: Sex, classesKg: number[]) => dispatch(setWeightClasses(sex, classesKg)),
   };
 };
 

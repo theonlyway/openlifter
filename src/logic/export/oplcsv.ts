@@ -29,7 +29,7 @@ import {
   getBest3DeadliftKg,
   getFinalEventTotalKg,
   entryHasLifted,
-  MAX_ATTEMPTS
+  MAX_ATTEMPTS,
 } from "../entry";
 import { displayPoints, displayWeight, kg2lbs } from "../units";
 
@@ -49,7 +49,7 @@ const makeMeetCsv = (meet: MeetState): Csv => {
     csvString(meet.state),
     csvString(meet.city),
     csvString(meet.name),
-    csvString(meet.formula)
+    csvString(meet.formula),
   ];
   csv.rows = [row];
 

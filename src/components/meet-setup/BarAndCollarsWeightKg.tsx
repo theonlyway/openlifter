@@ -62,7 +62,7 @@ class BarAndCollarsWeightKg extends React.Component<Props, InternalState> {
     const weight = this.getInitialBarAndCollarsWeightKg(this.props.lift);
 
     this.state = {
-      initialValue: this.props.inKg ? weight : kg2lbs(weight)
+      initialValue: this.props.inKg ? weight : kg2lbs(weight),
     };
   }
 
@@ -139,12 +139,12 @@ const mapStateToProps = (state: GlobalState): StateProps => ({
   squatBarAndCollarsWeightKg: state.meet.squatBarAndCollarsWeightKg,
   benchBarAndCollarsWeightKg: state.meet.benchBarAndCollarsWeightKg,
   deadliftBarAndCollarsWeightKg: state.meet.deadliftBarAndCollarsWeightKg,
-  language: state.language
+  language: state.language,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   return {
-    setBarAndCollarsWeightKg: (lift: Lift, weightKg: number) => dispatch(setBarAndCollarsWeightKg(lift, weightKg))
+    setBarAndCollarsWeightKg: (lift: Lift, weightKg: number) => dispatch(setBarAndCollarsWeightKg(lift, weightKg)),
   };
 };
 

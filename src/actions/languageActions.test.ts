@@ -23,7 +23,7 @@ describe("actions", () => {
     const text = "eo";
     const expectedAction = {
       type: "CHANGE_LANGUAGE",
-      language: text
+      language: text,
     };
     expect(actions.changeLanguage(text)).toEqual(expectedAction);
   });

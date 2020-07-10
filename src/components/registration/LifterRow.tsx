@@ -81,7 +81,7 @@ class LifterRow extends React.Component<Props, InternalState> {
     // Store the Day in state to update the Platform options when the Day changes.
     // Store the Birth Date in state to re-render when a new date is selected
     this.state = {
-      selectedDay: props.entry.day
+      selectedDay: props.entry.day,
     };
 
     this.deleteRegistrationClick = this.deleteRegistrationClick.bind(this);
@@ -333,7 +333,7 @@ class LifterRow extends React.Component<Props, InternalState> {
       { value: "BD", label: getString("event.bd", language) },
       { value: "SBD", label: getString("event.sbd", language) },
       { value: "SB", label: getString("event.sb", language) },
-      { value: "SD", label: getString("event.sd", language) }
+      { value: "SD", label: getString("event.sd", language) },
     ];
 
     return (
@@ -548,7 +548,7 @@ class LifterRow extends React.Component<Props, InternalState> {
                   <ValidatedInput
                     initialValue={entry.country}
                     placeholder={stringCountry}
-                    validate={s => (s === "" ? null : "success")}
+                    validate={(s) => (s === "" ? null : "success")}
                     onSuccess={this.updateRegistrationCountry}
                   />
                 </Form.Group>
@@ -561,7 +561,7 @@ class LifterRow extends React.Component<Props, InternalState> {
                   <ValidatedInput
                     initialValue={entry.state}
                     placeholder={stringState}
-                    validate={s => (s === "" ? null : "success")}
+                    validate={(s) => (s === "" ? null : "success")}
                     onSuccess={this.updateRegistrationState}
                   />
                 </Form.Group>
@@ -646,14 +646,14 @@ const mapStateToProps = (state: GlobalState, ownProps: OwnProps): StateProps => 
   return {
     meet: state.meet,
     entry: entry,
-    language: state.language
+    language: state.language,
   };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   return {
     deleteRegistration: (entryId: number) => dispatch(deleteRegistration(entryId)),
-    updateRegistration: (entryId: number, obj: Partial<Entry>) => dispatch(updateRegistration(entryId, obj))
+    updateRegistration: (entryId: number, obj: Partial<Entry>) => dispatch(updateRegistration(entryId, obj)),
   };
 };
 

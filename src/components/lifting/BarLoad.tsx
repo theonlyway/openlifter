@@ -43,7 +43,7 @@ const kgToStyleMap = new Map<number, string>([
   [1, styles.kg1],
   [0.75, styles.kg0p75],
   [0.5, styles.kg0p5],
-  [0.25, styles.kg0p25]
+  [0.25, styles.kg0p25],
 ]);
 
 const weightKgToStyle = (weightKg: number): string => kgToStyleMap.get(weightKg) || styles.error;
@@ -58,7 +58,7 @@ const lbsToStyleMap = new Map<number, string>([
   [5, styles.lbs5],
   [2.5, styles.lbs2p5],
   [1.25, styles.lbs1p25],
-  [0.5, styles.lbs0p5]
+  [0.5, styles.lbs0p5],
 ]);
 
 const weightLbsToStyle = (weightLbs: number): string => lbsToStyleMap.get(weightLbs) || styles.error;
@@ -67,7 +67,7 @@ const weightTextMap = new Map<number, string>([
   [1.25, "1¼"],
   [0.75, "¾"],
   [0.5, "½"],
-  [0.25, "¼"]
+  [0.25, "¼"],
 ]);
 
 const weightAnyToText = (weightAny: number, language: Language): string =>
@@ -121,7 +121,7 @@ const PlatesDiv: React.FC<PlateInfoProps> = ({ loading, inKg, language }) => {
         opacity: plate.isAlreadyLoaded ? 0.25 : undefined,
         color: is_light ? "#232323" : "#FFFFFF",
         // White plates need a border.
-        border: plate.color === PlateColors.PLATE_DEFAULT_WHITE ? "1.5px solid #232323" : undefined
+        border: plate.color === PlateColors.PLATE_DEFAULT_WHITE ? "1.5px solid #232323" : undefined,
       };
 
       divs.push(
@@ -157,7 +157,7 @@ const RackInfoDiv: React.FC<RackInfoProps> = ({ lift, rackInfo }) => {
         id="lifting.rack-info"
         defaultMessage="Rack {rackInfo}"
         values={{
-          rackInfo: rackInfo
+          rackInfo: rackInfo,
         }}
       />
     </div>
@@ -189,7 +189,7 @@ const BarLoad: React.FC<Props> = ({ lift, loading, inKg, language, rackInfo }) =
 
 const mapStateToProps = (state: GlobalState): StateProps => ({
   lift: state.lifting.lift,
-  language: state.language
+  language: state.language,
 });
 
 export default connect(mapStateToProps)(BarLoad);

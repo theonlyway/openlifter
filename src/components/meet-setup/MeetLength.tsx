@@ -50,7 +50,7 @@ class MeetLength extends React.Component<Props, InternalState> {
     this.handleChange = this.handleChange.bind(this);
 
     this.state = {
-      initialValue: this.props.lengthDays
+      initialValue: this.props.lengthDays,
     };
   }
 
@@ -81,12 +81,12 @@ class MeetLength extends React.Component<Props, InternalState> {
 }
 
 const mapStateToProps = (state: GlobalState): StateProps => ({
-  lengthDays: state.meet.lengthDays
+  lengthDays: state.meet.lengthDays,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   return {
-    setLengthDays: days => dispatch(setLengthDays(days))
+    setLengthDays: (days) => dispatch(setLengthDays(days)),
   };
 };
 

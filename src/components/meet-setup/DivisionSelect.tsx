@@ -34,7 +34,7 @@ import { Dispatch } from "redux";
 import { ActionMeta, ValueType } from "react-select";
 
 const components = {
-  DropdownIndicator: null
+  DropdownIndicator: null,
 };
 
 interface OptionType {
@@ -44,7 +44,7 @@ interface OptionType {
 
 const createOption = (label: string): OptionType => ({
   label,
-  value: label
+  value: label,
 });
 
 interface StateProps {
@@ -75,7 +75,7 @@ class DivisionSelect extends React.Component<Props, InternalState> {
 
     this.state = {
       inputValue: "",
-      value: objarray
+      value: objarray,
     };
 
     this.maybeUpdateRedux = this.maybeUpdateRedux.bind(this);
@@ -134,7 +134,7 @@ class DivisionSelect extends React.Component<Props, InternalState> {
       const newValue = [...value, createOption(inputValue)];
       this.setState({
         inputValue: "",
-        value: newValue
+        value: newValue,
       });
       this.maybeUpdateRedux(newValue);
       event.preventDefault();
@@ -167,12 +167,12 @@ class DivisionSelect extends React.Component<Props, InternalState> {
 
 const mapStateToProps = (state: GlobalState): StateProps => ({
   divisions: state.meet.divisions,
-  language: state.language
+  language: state.language,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   return {
-    setDivisions: divisions => dispatch(setDivisions(divisions))
+    setDivisions: (divisions) => dispatch(setDivisions(divisions)),
   };
 };
 

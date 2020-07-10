@@ -136,16 +136,14 @@ class LeftCard extends React.Component<Props> {
     }
 
     const nextBarLoad =
-      next.weightKg === 0 ? (
-        undefined
-      ) : (
+      next.weightKg === 0 ? undefined : (
         <div className={styles.loadingBar}>
           <div className={styles.nextText}>
             <FormattedMessage
               id="lifting.next-up"
               defaultMessage="NEXT UP – {lifter}"
               values={{
-                lifter: nextEntryName
+                lifter: nextEntryName,
               }}
             />
           </div>
@@ -208,7 +206,7 @@ const mapStateToProps = (state: GlobalState): StateProps => {
     plates: state.meet.plates,
     registration: state.registration,
     lifting: state.lifting,
-    language: state.language
+    language: state.language,
   };
 };
 

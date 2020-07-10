@@ -37,5 +37,5 @@ export default combineReducers({
   language: languageReducer,
   meet: meetReducer,
   registration: registrationReducer,
-  lifting: liftingReducer
+  lifting: liftingReducer,
 });

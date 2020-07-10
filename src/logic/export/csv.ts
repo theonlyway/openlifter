@@ -173,12 +173,12 @@ export class Csv {
     const lines = s.trim().split("\n");
 
     // The first row contains fieldnames.
-    const fieldnames = lines[0].split(",").map(x => x.trim());
+    const fieldnames = lines[0].split(",").map((x) => x.trim());
 
     // Any rows after the first contain data.
     const rows = [];
     for (let i = 1; i < lines.length; ++i) {
-      const row = lines[i].split(",").map(x => x.trim());
+      const row = lines[i].split(",").map((x) => x.trim());
       rows.push(row);
     }
 

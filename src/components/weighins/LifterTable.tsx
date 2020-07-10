@@ -52,7 +52,7 @@ class LifterTable extends React.Component<Props> {
     const { entries } = this.props;
     const inLiftingPage = this.props.inLiftingPage === true;
 
-    return entries.map(entry => <LifterRow key={entry.id} id={entry.id} inLiftingPage={inLiftingPage} />);
+    return entries.map((entry) => <LifterRow key={entry.id} id={entry.id} inLiftingPage={inLiftingPage} />);
   };
 
   renderHeader = () => {
@@ -103,7 +103,7 @@ class LifterTable extends React.Component<Props> {
 
 const mapStateToProps = (state: GlobalState): StateProps => ({
   inKg: state.meet.inKg,
-  language: state.language
+  language: state.language,
 });
 
 export default connect(mapStateToProps)(LifterTable);

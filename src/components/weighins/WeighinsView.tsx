@@ -137,7 +137,7 @@ const mapStateToProps = (state: GlobalState, ownProps: OwnProps): StateProps => 
 
   // Filter if requested by the OwnProps.
   if (typeof day === "number" && typeof platform === "number") {
-    entries = entries.filter(e => e.day === day && e.platform === platform);
+    entries = entries.filter((e) => e.day === day && e.platform === platform);
   }
 
   return { entries };

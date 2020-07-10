@@ -76,7 +76,7 @@ class AttemptInput extends React.Component<Props, InternalState> {
 
     this.state = {
       lastGoodValue: weightStr,
-      value: weightStr
+      value: weightStr,
     };
   }
 
@@ -188,12 +188,12 @@ class AttemptInput extends React.Component<Props, InternalState> {
 
 const mapStateToProps = (state: GlobalState): StateProps => ({
   inKg: state.meet.inKg,
-  language: state.language
+  language: state.language,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
   enterAttempt: (entryId, lift, attemptOneIndexed, weightKg) =>
-    dispatch(enterAttempt(entryId, lift, attemptOneIndexed, weightKg))
+    dispatch(enterAttempt(entryId, lift, attemptOneIndexed, weightKg)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AttemptInput);

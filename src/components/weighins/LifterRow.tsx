@@ -258,13 +258,13 @@ const mapStateToProps = (state: GlobalState, ownProps: OwnProps): StateProps => 
   return {
     meet: state.meet,
     entry: entry,
-    language: state.language
+    language: state.language,
   };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   return {
-    updateRegistration: (entryId: number, obj: Partial<Entry>) => dispatch(updateRegistration(entryId, obj))
+    updateRegistration: (entryId: number, obj: Partial<Entry>) => dispatch(updateRegistration(entryId, obj)),
   };
 };
 

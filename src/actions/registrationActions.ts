@@ -22,7 +22,7 @@ import {
   UpdateRegistrationAction,
   MergePlatformAction,
   LotNumberManipulation,
-  AssignLotNumbersAction
+  AssignLotNumbersAction,
 } from "../types/actionTypes";
 import { Entry } from "../types/dataTypes";
 
@@ -30,7 +30,7 @@ import { Entry } from "../types/dataTypes";
 export const newRegistration = (obj: Partial<Entry>): NewRegistrationAction => {
   return {
     type: "NEW_REGISTRATION",
-    overwriteDefaults: obj
+    overwriteDefaults: obj,
   };
 };
 
@@ -45,7 +45,7 @@ export const newRegistration = (obj: Partial<Entry>): NewRegistrationAction => {
 export const deleteRegistration = (entryId: number): DeleteRegistrationAction => {
   return {
     type: "DELETE_REGISTRATION",
-    entryId: entryId
+    entryId: entryId,
   };
 };
 
@@ -59,7 +59,7 @@ export const updateRegistration = (entryId: number, obj: Partial<Entry>): Update
   return {
     type: "UPDATE_REGISTRATION",
     entryId: entryId,
-    changes: obj
+    changes: obj,
   };
 };
 
@@ -70,13 +70,13 @@ export const mergePlatform = (day: number, platform: number, platformEntries: Ar
     type: "MERGE_PLATFORM",
     day: day,
     platform: platform,
-    platformEntries: platformEntries
+    platformEntries: platformEntries,
   };
 };
 
 export const assignLotNumbers = (m: LotNumberManipulation): AssignLotNumbersAction => {
   return {
     type: "ASSIGN_LOT_NUMBERS",
-    manipulation: m
+    manipulation: m,
   };
 };

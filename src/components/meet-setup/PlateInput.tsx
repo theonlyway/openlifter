@@ -42,7 +42,7 @@ const validate = (n: number): Validation => {
   return "success";
 };
 
-const PlateInput: FunctionComponent<Props> = props => {
+const PlateInput: FunctionComponent<Props> = (props) => {
   return (
     <tr key={props.id}>
       <td>{props.displayWeight}</td>
@@ -52,7 +52,7 @@ const PlateInput: FunctionComponent<Props> = props => {
             initialValue={props.pairCount}
             step={1}
             validate={validate}
-            onChange={count => props.onChange(props.weightKg, props.id, count, props.color)}
+            onChange={(count) => props.onChange(props.weightKg, props.id, count, props.color)}
             marginBottom="0px"
           />
         </div>
@@ -60,7 +60,7 @@ const PlateInput: FunctionComponent<Props> = props => {
       <td>
         <ColorPicker
           color={props.color}
-          onChange={color => props.onChange(props.weightKg, props.id, props.pairCount, color)}
+          onChange={(color) => props.onChange(props.weightKg, props.id, props.pairCount, color)}
         />
       </td>
     </tr>

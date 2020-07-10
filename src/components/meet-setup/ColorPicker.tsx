@@ -49,7 +49,7 @@ class ColorPicker extends React.Component<Props, InternalState> {
     this.state = {
       displayColorPicker: false,
       color: props.color,
-      timeoutId: null
+      timeoutId: null,
     };
 
     this.handleClick = this.handleClick.bind(this);

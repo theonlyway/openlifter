@@ -58,7 +58,7 @@ class FlightOrderView extends React.Component<Props, InternalState> {
 
     this.state = {
       day: 1,
-      platform: 1
+      platform: 1,
     };
   }
 
@@ -113,7 +113,7 @@ class FlightOrderView extends React.Component<Props, InternalState> {
     }
 
     // Get all the entries under the current (day, platform) selection.
-    const shownEntries = this.props.entries.filter(e => {
+    const shownEntries = this.props.entries.filter((e) => {
       return e.day === this.state.day && e.platform === this.state.platform;
     });
 
@@ -131,7 +131,7 @@ class FlightOrderView extends React.Component<Props, InternalState> {
     const flightOrders = [];
     for (let i = 0; i < knownFlights.length; i++) {
       const flight = knownFlights[i];
-      const entriesInFlight = shownEntries.filter(e => e.flight === flight);
+      const entriesInFlight = shownEntries.filter((e) => e.flight === flight);
       const id = "" + this.state.day + "-" + this.state.platform + "-" + flight;
       flightOrders.push(<OneFlightOrder key={id} flight={flight} entriesInFlight={entriesInFlight} />);
     }
@@ -195,7 +195,7 @@ const mapStateToProps = (state: GlobalState): StateProps => {
   return {
     meet: state.meet,
     entries: state.registration.entries,
-    language: state.language
+    language: state.language,
   };
 };
 

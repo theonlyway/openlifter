@@ -38,7 +38,7 @@ class LocalizedString extends React.Component<Props> {
   render() {
     return (
       <IntlContext.Consumer>
-        {intl => {
+        {(intl) => {
           return intl.messages[this.props.id];
         }}
       </IntlContext.Consumer>

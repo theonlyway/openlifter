@@ -600,7 +600,7 @@ const mapStateToProps = (state: GlobalState): StateProps => {
   return {
     meet: state.meet,
     lifting: state.lifting,
-    language: state.language
+    language: state.language,
   };
 };
 

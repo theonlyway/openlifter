@@ -86,7 +86,7 @@ export const displayPoints = (points: number, lang: Language): string => {
   return new Intl.NumberFormat(lang, {
     useGrouping: false,
     minimumFractionDigits: 2,
-    maximumFractionDigits: 2
+    maximumFractionDigits: 2,
   }).format(points);
 };
 

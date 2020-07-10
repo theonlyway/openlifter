@@ -22,11 +22,11 @@ import { getString } from "../strings";
 
 import rootReducer from "../../reducers/rootReducer";
 
-const makeState = language => {
+const makeState = (language) => {
   const state = rootReducer({}, "OVERWRITE_STORE"); // Get a default global state.
   state.meet.divisions = [
     getString("import.example-division1", language),
-    getString("import.example-division2", language)
+    getString("import.example-division2", language),
   ];
   return state;
 };

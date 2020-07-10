@@ -67,7 +67,7 @@ class OneFlightOrder extends React.Component<Props> {
     const fieldKg = liftToAttemptFieldName(lift);
 
     // Only consider entries that registered a first attempt.
-    const entriesForLift = this.props.entriesInFlight.filter(e => {
+    const entriesForLift = this.props.entriesInFlight.filter((e) => {
       return e[fieldKg][0] !== 0;
     });
 
@@ -276,7 +276,7 @@ const mapStateToProps = (state: GlobalState): StateProps => {
   return {
     inKg: state.meet.inKg,
     showAlternateUnits: state.meet.showAlternateUnits,
-    language: state.language
+    language: state.language,
   };
 };
 

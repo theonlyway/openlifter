@@ -31,7 +31,7 @@ import {
   OverrideAttemptAction,
   OverrideEntryIdAction,
   OverwriteStoreAction,
-  SetTableInfoAction
+  SetTableInfoAction,
 } from "../types/actionTypes";
 import { LiftingState } from "../types/stateTypes";
 import { checkExhausted } from "../types/utils";
@@ -51,7 +51,7 @@ const initialState: LiftingState = {
   overrideEntryId: null, // Allows selecting a lifter, even if they've already gone.
 
   // Presentational configuration.
-  columnDivisionWidthPx: 90
+  columnDivisionWidthPx: 90,
 };
 
 type Action =
@@ -82,7 +82,7 @@ export default (state: LiftingState = initialState, action: Action): LiftingStat
 
         // If the group changes, unset any overrides.
         overrideAttempt: null,
-        overrideEntryId: null
+        overrideEntryId: null,
       };
 
     case "OVERRIDE_ATTEMPT":
@@ -120,7 +120,7 @@ export default (state: LiftingState = initialState, action: Action): LiftingStat
         lift: state.lift,
 
         overrideAttempt: state.overrideAttempt,
-        overrideEntryId: state.overrideEntryId
+        overrideEntryId: state.overrideEntryId,
       };
     }
 

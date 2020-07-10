@@ -139,7 +139,7 @@ const AGE_COEFFICIENTS = [
   2.962, // 97
   3.025, // 98
   3.089, // 99
-  3.154 // 100
+  3.154, // 100
 ];
 
 // Maps the given age into the table above.

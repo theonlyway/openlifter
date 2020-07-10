@@ -31,7 +31,7 @@ import {
   getBest5BenchKg,
   getBest5DeadliftKg,
   getFinalEventTotalKg,
-  entryHasLifted
+  entryHasLifted,
 } from "../../logic/entry";
 import { kg2lbs, displayWeight, displayPoints, displayPlaceOrdinal } from "../../logic/units";
 
@@ -266,7 +266,7 @@ const mapStateToProps = (state: GlobalState, ownProps: OwnProps): StateProps => 
   const day = Number(ownProps.day);
   let entries = state.registration.entries;
   if (day > 0) {
-    entries = entries.filter(e => e.day === day);
+    entries = entries.filter((e) => e.day === day);
   }
 
   return {
@@ -280,7 +280,7 @@ const mapStateToProps = (state: GlobalState, ownProps: OwnProps): StateProps => 
     weightClassesKgWomen: state.meet.weightClassesKgWomen,
     weightClassesKgMx: state.meet.weightClassesKgMx,
     language: state.language,
-    entries: entries
+    entries: entries,
   };
 };
 

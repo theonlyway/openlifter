@@ -136,7 +136,7 @@ export const loadRegistrations = (state: GlobalState, csv: Csv, language: Langua
     col_sex,
     col_equipment,
     col_division1,
-    col_event1
+    col_event1,
   ];
   const OPTIONAL_FIELDNAMES = [
     col_division2,
@@ -155,7 +155,7 @@ export const loadRegistrations = (state: GlobalState, csv: Csv, language: Langua
     col_lot,
     col_team,
     col_instagram,
-    col_notes
+    col_notes,
   ];
 
   // Check the existent fieldnames for sanity.
@@ -168,10 +168,7 @@ export const loadRegistrations = (state: GlobalState, csv: Csv, language: Langua
       const allfields: string = MANDATORY_FIELDNAMES.join(", ") + ", " + OPTIONAL_FIELDNAMES.join(", ");
 
       const e = getString("error.csv-unknown-header", language);
-      return e
-        .replace("{name}", name)
-        .replace("{ABC}", colname)
-        .replace("{validList}", allfields);
+      return e.replace("{name}", name).replace("{ABC}", colname).replace("{validList}", allfields);
     }
 
     // Fieldnames cannot be repeated.
@@ -181,10 +178,7 @@ export const loadRegistrations = (state: GlobalState, csv: Csv, language: Langua
         const jname = getSpreadsheetColumnName(j);
 
         const e = getString("error.csv-duplicate-header", language);
-        return e
-          .replace("{name}", csv.fieldnames[i])
-          .replace("{firstABC}", iname)
-          .replace("{secondABC}", jname);
+        return e.replace("{name}", csv.fieldnames[i]).replace("{firstABC}", iname).replace("{secondABC}", jname);
       }
     }
   }
@@ -313,13 +307,7 @@ export const loadRegistrations = (state: GlobalState, csv: Csv, language: Langua
           const m = getString("sex.m", language);
           const f = getString("sex.f", language);
           const mx = getString("sex.mx", language);
-          return (
-            errprefix +
-            e
-              .replace("{M}", m)
-              .replace("{F}", f)
-              .replace("{Mx}", mx)
-          );
+          return errprefix + e.replace("{M}", m).replace("{F}", f).replace("{Mx}", mx);
         }
       } else if (fieldname === col_equipment) {
         try {

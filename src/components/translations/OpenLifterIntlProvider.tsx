@@ -51,7 +51,7 @@ class OpenLifterIntlProvider extends React.Component<Props> {
 }
 
 const mapStateToProps = (state: GlobalState): StateProps => ({
-  language: state.language
+  language: state.language,
 });
 
 export default connect(mapStateToProps)(OpenLifterIntlProvider);

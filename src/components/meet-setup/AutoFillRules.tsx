@@ -75,7 +75,7 @@ const traditionalDefaults: Partial<MeetState> = {
     "M65-69",
     "M70-74",
     "M75-79",
-    "M80+"
+    "M80+",
   ],
   weightClassesKgMen: [52, 56, 60, 67.5, 75, 82.5, 90, 100, 110, 125, 140],
   weightClassesKgWomen: [44, 48, 52, 56, 60, 67.5, 75, 82.5, 90],
@@ -83,7 +83,7 @@ const traditionalDefaults: Partial<MeetState> = {
   formula: "Wilks",
   ageCoefficients: "FosterMcCulloch",
   combineSleevesAndWraps: false,
-  allow4thAttempts: true
+  allow4thAttempts: true,
 };
 
 const bpDefaults: Partial<MeetState> = {
@@ -123,7 +123,7 @@ const bpDefaults: Partial<MeetState> = {
     "F-M3",
     "F-M4",
     "F-M5",
-    "F-G"
+    "F-G",
   ],
   weightClassesKgMen: [53, 59, 66, 74, 83, 93, 105, 120],
   weightClassesKgWomen: [43, 47, 52, 57, 63, 72, 84],
@@ -131,7 +131,7 @@ const bpDefaults: Partial<MeetState> = {
   formula: "IPF GL Points",
   ageCoefficients: "FosterMcCulloch",
   combineSleevesAndWraps: false,
-  allow4thAttempts: false
+  allow4thAttempts: false,
 };
 
 const gpcDefaults: Partial<MeetState> = {
@@ -195,7 +195,7 @@ const gpcDefaults: Partial<MeetState> = {
     "M-T2E",
     "M-T2R",
     "M-T3E",
-    "M-T3R"
+    "M-T3R",
   ],
   weightClassesKgMen: [56, 60, 67.5, 75, 82.5, 90, 100, 110, 125, 140],
   weightClassesKgWomen: [44, 48, 52, 56, 60, 67.5, 75, 82.5, 90, 110],
@@ -203,7 +203,7 @@ const gpcDefaults: Partial<MeetState> = {
   formula: "Glossbrenner",
   ageCoefficients: "FosterMcCulloch",
   combineSleevesAndWraps: true,
-  allow4thAttempts: true
+  allow4thAttempts: true,
 };
 
 const spfDefaults: Partial<MeetState> = {
@@ -225,7 +225,7 @@ const spfDefaults: Partial<MeetState> = {
     "M75-79",
     "G80+",
     "FPM",
-    "Crossfit"
+    "Crossfit",
   ],
   weightClassesKgMen: [44, 48, 52, 56, 60, 67.5, 75, 82.5, 90, 100, 110, 118, 125, 140],
   weightClassesKgWomen: [44, 48, 52, 56, 60, 67.5, 75, 82.5, 90, 100, 110],
@@ -233,7 +233,7 @@ const spfDefaults: Partial<MeetState> = {
   formula: "Schwartz/Malone",
   ageCoefficients: "FosterMcCulloch",
   combineSleevesAndWraps: false,
-  allow4thAttempts: true
+  allow4thAttempts: true,
 };
 
 const upaDefaults: Partial<MeetState> = {
@@ -453,7 +453,7 @@ const upaDefaults: Partial<MeetState> = {
     "MTXR",
     "MTXR-AD",
     "MTXRE",
-    "MTXRE-AD"
+    "MTXRE-AD",
   ],
   weightClassesKgMen: [52, 56, 60, 67.5, 75, 82.5, 90, 100, 110, 125, 140],
   weightClassesKgWomen: [44, 48, 52, 56, 60, 67.5, 75, 82.5, 90],
@@ -461,7 +461,7 @@ const upaDefaults: Partial<MeetState> = {
   formula: "Schwartz/Malone",
   ageCoefficients: "FosterMcCulloch",
   combineSleevesAndWraps: true,
-  allow4thAttempts: true
+  allow4thAttempts: true,
 };
 
 const usaplDefaults: Partial<MeetState> = {
@@ -553,7 +553,7 @@ const usaplDefaults: Partial<MeetState> = {
     "F-M5b",
     "F-M6a",
     "F-M6b",
-    "F-G"
+    "F-G",
   ],
   weightClassesKgMen: [53, 59, 66, 74, 83, 93, 105, 120],
   weightClassesKgWomen: [43, 47, 52, 57, 63, 72, 84],
@@ -561,7 +561,7 @@ const usaplDefaults: Partial<MeetState> = {
   formula: "IPF GL Points",
   ageCoefficients: "FosterMcCulloch",
   combineSleevesAndWraps: false,
-  allow4thAttempts: false
+  allow4thAttempts: false,
 };
 
 const uspaDefaults: Partial<MeetState> = {
@@ -581,7 +581,7 @@ const uspaDefaults: Partial<MeetState> = {
     "M65-69",
     "M70-74",
     "M75-79",
-    "M80+"
+    "M80+",
   ],
   weightClassesKgMen: [52, 56, 60, 67.5, 75, 82.5, 90, 100, 110, 125, 140],
   weightClassesKgWomen: [44, 48, 52, 56, 60, 67.5, 75, 82.5, 90],
@@ -589,7 +589,7 @@ const uspaDefaults: Partial<MeetState> = {
   formula: "Wilks",
   ageCoefficients: "FosterMcCulloch",
   combineSleevesAndWraps: false,
-  allow4thAttempts: true
+  allow4thAttempts: true,
 };
 
 const wabdlDefaults: Partial<MeetState> = {
@@ -609,7 +609,7 @@ const wabdlDefaults: Partial<MeetState> = {
     "M75-79",
     "M80-84",
     "M85-89",
-    "M90+"
+    "M90+",
   ],
   weightClassesKgMen: [44, 48, 52, 56, 60, 67.5, 75, 82.5, 90, 100, 110, 117.5, 125, 140],
   weightClassesKgWomen: [44, 48, 52, 56, 60, 67.5, 75, 82.5, 90, 100],
@@ -617,7 +617,7 @@ const wabdlDefaults: Partial<MeetState> = {
   formula: "Schwartz/Malone",
   ageCoefficients: "FosterMcCulloch",
   combineSleevesAndWraps: false,
-  allow4thAttempts: true
+  allow4thAttempts: true,
 };
 
 const wpcDefaults: Partial<MeetState> = {
@@ -938,7 +938,7 @@ const wpcDefaults: Partial<MeetState> = {
     "M_YEM",
     "M_YEM_A",
     "M_YR",
-    "M_YR_A"
+    "M_YR_A",
   ],
   weightClassesKgMen: [52, 56, 60, 67.5, 75, 82.5, 90, 100, 110, 125, 140],
   weightClassesKgWomen: [44, 48, 52, 56, 60, 67.5, 75, 82.5, 90],
@@ -946,7 +946,7 @@ const wpcDefaults: Partial<MeetState> = {
   formula: "Glossbrenner",
   ageCoefficients: "FosterMcCulloch",
   combineSleevesAndWraps: true,
-  allow4thAttempts: true
+  allow4thAttempts: true,
 };
 
 const wrpfDefaults: Partial<MeetState> = {
@@ -964,7 +964,7 @@ const wrpfDefaults: Partial<MeetState> = {
     "M65-69",
     "M70-74",
     "M75-79",
-    "M80+"
+    "M80+",
   ],
   weightClassesKgMen: [52, 56, 60, 67.5, 75, 82.5, 90, 100, 110, 125, 140],
   weightClassesKgWomen: [44, 48, 52, 56, 60, 67.5, 75, 82.5, 90],
@@ -972,7 +972,7 @@ const wrpfDefaults: Partial<MeetState> = {
   formula: "Wilks",
   ageCoefficients: "FosterMcCulloch",
   combineSleevesAndWraps: false,
-  allow4thAttempts: true
+  allow4thAttempts: true,
 };
 
 class AutoFillRules extends React.Component<Props, InternalState> {
@@ -983,7 +983,7 @@ class AutoFillRules extends React.Component<Props, InternalState> {
     this.handleClick = this.handleClick.bind(this);
 
     this.state = {
-      selectedOption: "Traditional"
+      selectedOption: "Traditional",
     };
   }
 
@@ -1130,12 +1130,12 @@ class AutoFillRules extends React.Component<Props, InternalState> {
 
 const mapStateToProps = (state: GlobalState): StateProps => ({
   federation: state.meet.federation,
-  language: state.language
+  language: state.language,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   return {
-    updateMeet: changes => dispatch(updateMeet(changes))
+    updateMeet: (changes) => dispatch(updateMeet(changes)),
   };
 };
 

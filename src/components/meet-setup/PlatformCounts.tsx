@@ -50,7 +50,7 @@ class PlatformCounts extends React.Component<Props> {
 }
 
 const mapStateToProps = (state: GlobalState): StateProps => ({
-  lengthDays: state.meet.lengthDays
+  lengthDays: state.meet.lengthDays,
 });
 
 export default connect(mapStateToProps)(PlatformCounts);

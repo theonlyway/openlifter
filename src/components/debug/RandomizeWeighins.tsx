@@ -73,13 +73,13 @@ class RandomizeWeighinsButton extends React.Component<Props> {
       // ==========================================
       const bodyweightKg = inKg ? randomFixedPoint(20, 150, 1) : lbs2kg(randomFixedPoint(40, 320, 1));
       this.props.updateRegistration(entry.id, {
-        bodyweightKg: bodyweightKg
+        bodyweightKg: bodyweightKg,
       });
 
       // Get a random age.
       const age = randomInt(5, 79);
       this.props.updateRegistration(entry.id, {
-        age: age
+        age: age,
       });
 
       // Figure out which events we're generating information for.
@@ -118,7 +118,7 @@ class RandomizeWeighinsButton extends React.Component<Props> {
         const height = String(randomInt(2, 18));
         const pos = Math.random() < 0.9 ? "out" : "in";
         this.props.updateRegistration(entry.id, {
-          squatRackInfo: height + pos
+          squatRackInfo: height + pos,
         });
       }
 
@@ -126,7 +126,7 @@ class RandomizeWeighinsButton extends React.Component<Props> {
         const height = String(randomInt(0, 12));
         const safety = String(randomInt(0, 4));
         this.props.updateRegistration(entry.id, {
-          benchRackInfo: height + "/" + safety
+          benchRackInfo: height + "/" + safety,
         });
       }
     }
@@ -143,13 +143,13 @@ class RandomizeWeighinsButton extends React.Component<Props> {
 
 const mapStateToProps = (state: GlobalState): StateProps => ({
   meet: state.meet,
-  registration: state.registration
+  registration: state.registration,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
   updateRegistration: (entryId, obj) => dispatch(updateRegistration(entryId, obj)),
   enterAttempt: (entryId, lift, attemptOneIndexed, weightKg) =>
-    dispatch(enterAttempt(entryId, lift, attemptOneIndexed, weightKg))
+    dispatch(enterAttempt(entryId, lift, attemptOneIndexed, weightKg)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RandomizeWeighinsButton);

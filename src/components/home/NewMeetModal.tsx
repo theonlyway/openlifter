@@ -97,7 +97,7 @@ class NewMeetModal extends React.Component<Props> {
 const mapStateToProps = (state: GlobalState): StateProps => {
   return {
     name: state.meet.name,
-    language: state.language
+    language: state.language,
   };
 };
 
@@ -109,7 +109,7 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
       // We cast here since this is not how the reducer is really intended to work
       const defaultStore = rootReducer({ language: language } as GlobalState, "OVERWRITE_STORE" as any);
       dispatch(overwriteStore(defaultStore));
-    }
+    },
   };
 };
 

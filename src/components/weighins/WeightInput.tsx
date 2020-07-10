@@ -87,7 +87,7 @@ class WeightInput extends React.Component<Props, InternalState> {
     // To avoid confusion (auto-rounding) when typing, just store a String.
     this.state = {
       // Prefer displaying an empty string to 0.0.
-      weightStr: weight === 0.0 ? "" : displayWeight(weight, props.language)
+      weightStr: weight === 0.0 ? "" : displayWeight(weight, props.language),
     };
   }
 
@@ -179,7 +179,7 @@ const mapStateToProps = (state: GlobalState, ownProps: OwnProps): StateProps => 
   return {
     inKg: state.meet.inKg,
     weightKg: weightKg,
-    language: state.language
+    language: state.language,
   };
 };
 
@@ -187,7 +187,7 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   return {
     updateRegistration: (entryId, obj) => dispatch(updateRegistration(entryId, obj)),
     enterAttempt: (entryId, lift, attemptOneIndexed, weightKg) =>
-      dispatch(enterAttempt(entryId, lift, attemptOneIndexed, weightKg))
+      dispatch(enterAttempt(entryId, lift, attemptOneIndexed, weightKg)),
   };
 };
 

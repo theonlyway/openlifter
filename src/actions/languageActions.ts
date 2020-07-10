@@ -22,6 +22,6 @@ import { Language } from "../types/dataTypes";
 export const changeLanguage = (language: Language): ChangeLanguageAction => {
   return {
     type: "CHANGE_LANGUAGE",
-    language
+    language,
   };
 };

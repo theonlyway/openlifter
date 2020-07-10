@@ -103,14 +103,14 @@ class MeetDate extends React.Component<Props> {
 
 const mapStateToProps = (state: GlobalState): StateProps => ({
   date: state.meet.date,
-  language: state.language
+  language: state.language,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   return {
-    setMeetDate: date => {
+    setMeetDate: (date) => {
       dispatch(setMeetDate(localDateToIso8601(date)));
-    }
+    },
   };
 };
 

@@ -45,7 +45,7 @@ export const selectPlates = (
   if (inKg === false) {
     loadingAny = safeKg2Lbs(loadingKg);
     barAndCollarsWeightAny = safeKg2Lbs(barAndCollarsWeightKg);
-    platesAny = plates.map(x => ({ ...x, weightKg: safeKg2Lbs(x.weightKg) }));
+    platesAny = plates.map((x) => ({ ...x, weightKg: safeKg2Lbs(x.weightKg) }));
   }
 
   // Sort a copy of the platesAny array by descending weight.

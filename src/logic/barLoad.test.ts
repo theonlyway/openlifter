@@ -30,17 +30,17 @@ const typicalPlatesKg: Array<Plate> = [
   { weightKg: 2.5, pairCount: 1, color: PlateColors.PLATE_DEFAULT_BLACK },
   { weightKg: 1.25, pairCount: 1, color: PlateColors.PLATE_DEFAULT_BLACK },
   { weightKg: 0.5, pairCount: 1, color: PlateColors.PLATE_DEFAULT_GREEN },
-  { weightKg: 0.25, pairCount: 1, color: PlateColors.PLATE_DEFAULT_BLUE }
+  { weightKg: 0.25, pairCount: 1, color: PlateColors.PLATE_DEFAULT_BLUE },
 ];
 
 // Helper function: Converts Array<LoadedPlate> to Array<LoadedPlate.weightAny>.
 const asWeights = (plates: Array<LoadedPlate>): Array<number> => {
-  return plates.map(x => x.weightAny);
+  return plates.map((x) => x.weightAny);
 };
 
 // Helper function: Converts Array<LoadedPlate> to Array<LoadedPlate.isAlreadyLoaded>.
 const asIsAlreadyLoaded = (plates: Array<LoadedPlate>): Array<boolean> => {
-  return plates.map(x => x.isAlreadyLoaded);
+  return plates.map((x) => x.isAlreadyLoaded);
 };
 
 const IS_KG = true;

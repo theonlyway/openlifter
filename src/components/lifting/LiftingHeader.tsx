@@ -85,7 +85,7 @@ class LiftingHeader extends React.Component<Props> {
 const mapStateToProps = (state: GlobalState): StateProps => {
   return {
     registration: state.registration,
-    language: state.language
+    language: state.language,
   };
 };
 

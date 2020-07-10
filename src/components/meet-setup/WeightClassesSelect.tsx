@@ -35,7 +35,7 @@ import { Dispatch } from "redux";
 import { ActionMeta, ValueType } from "react-select";
 
 const components = {
-  DropdownIndicator: null
+  DropdownIndicator: null,
 };
 
 type OptionType = {
@@ -45,7 +45,7 @@ type OptionType = {
 
 const createOption = (label: string): OptionType => ({
   label,
-  value: label.replace(",", ".")
+  value: label.replace(",", "."),
 });
 
 interface OwnProps {
@@ -81,7 +81,7 @@ class WeightClassesSelect extends React.Component<Props, InternalState> {
 
     this.state = {
       inputValue: "",
-      value: objarray
+      value: objarray,
     };
 
     this.maybeUpdateRedux = this.maybeUpdateRedux.bind(this);
@@ -158,7 +158,7 @@ class WeightClassesSelect extends React.Component<Props, InternalState> {
 
       this.setState({
         inputValue: "",
-        value: newValue
+        value: newValue,
       });
       this.maybeUpdateRedux(newValue);
       event.preventDefault();
@@ -205,13 +205,13 @@ const selectClassesBySex = (sex: Sex, state: GlobalState): ReadonlyArray<number>
 const mapStateToProps = (state: GlobalState, ownProps: OwnProps): StateProps => {
   return {
     classes: selectClassesBySex(ownProps.sex, state),
-    language: state.language
+    language: state.language,
   };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   return {
-    setWeightClasses: (sex, classesKg) => dispatch(setWeightClasses(sex, classesKg))
+    setWeightClasses: (sex, classesKg) => dispatch(setWeightClasses(sex, classesKg)),
   };
 };
 

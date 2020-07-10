@@ -24,7 +24,7 @@ import { VersionsState } from "../types/stateTypes";
 
 const initialState: VersionsState = {
   stateVersion,
-  releaseVersion
+  releaseVersion,
 };
 
 type Action = OverwriteStoreAction;

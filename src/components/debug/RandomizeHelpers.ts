@@ -21,9 +21,7 @@
 // Generate a gibberish string, between 0-11 characters.
 export const randomString = (): string => {
   // Converts each digit to a value in base 36.
-  return Math.random()
-    .toString(36)
-    .substr(2);
+  return Math.random().toString(36).substr(2);
 };
 
 // Generate a random integer between max and min, inclusive.

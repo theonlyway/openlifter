@@ -73,7 +73,7 @@ export const newDefaultEntry = (id: number): Entry => {
     // produces the SquatXKg as expected by the main OpenPowerlifting CSV format.
     squatStatus: [0, 0, 0, 0, 0],
     benchStatus: [0, 0, 0, 0, 0],
-    deadliftStatus: [0, 0, 0, 0, 0]
+    deadliftStatus: [0, 0, 0, 0, 0],
   };
 };
 
@@ -87,8 +87,8 @@ export const getAge = (entry: Entry, meetDate: string): number => {
   if (entry.birthDate === "") return 0;
 
   // Infer the age given {meetDate, birthDate, day}.
-  let [my, mm, md] = meetDate.split("-").map(s => Number(s));
-  const [by, bm, bd] = entry.birthDate.split("-").map(s => Number(s));
+  let [my, mm, md] = meetDate.split("-").map((s) => Number(s));
+  const [by, bm, bd] = entry.birthDate.split("-").map((s) => Number(s));
 
   // Advance the day counter if necessary.
   // FIXME: This logic assumes that each month has exactly 31 days.
@@ -275,7 +275,7 @@ export const getLiftersOnDay = (entries: ReadonlyArray<Entry>, day: number): Arr
   if (!entries) {
     return [];
   }
-  return entries.filter(entry => {
+  return entries.filter((entry) => {
     return entry.day === day;
   });
 };

@@ -53,7 +53,7 @@ class PlatformCount extends React.Component<Props, InternalState> {
     this.handleChange = this.handleChange.bind(this);
 
     this.state = {
-      initialValue: this.props.platformsOnDays[this.props.day - 1]
+      initialValue: this.props.platformsOnDays[this.props.day - 1],
     };
   }
 
@@ -82,7 +82,7 @@ class PlatformCount extends React.Component<Props, InternalState> {
             id="meet-setup.platforms-on-day"
             defaultMessage="Platforms on Day {number}"
             values={{
-              number: this.props.day
+              number: this.props.day,
             }}
           />
         }
@@ -92,12 +92,12 @@ class PlatformCount extends React.Component<Props, InternalState> {
 }
 
 const mapStateToProps = (state: GlobalState): StateProps => ({
-  platformsOnDays: state.meet.platformsOnDays
+  platformsOnDays: state.meet.platformsOnDays,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   return {
-    setPlatformsOnDays: (day, count) => dispatch(setPlatformsOnDays(day, count))
+    setPlatformsOnDays: (day, count) => dispatch(setPlatformsOnDays(day, count)),
   };
 };
 

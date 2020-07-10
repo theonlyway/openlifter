@@ -22,7 +22,7 @@ import {
   SetLiftingGroupAction,
   OverrideAttemptAction,
   OverrideEntryIdAction,
-  SetTableInfoAction
+  SetTableInfoAction,
 } from "../types/actionTypes";
 import { Flight, Lift } from "../types/dataTypes";
 import { LiftingState } from "../types/stateTypes";
@@ -39,7 +39,7 @@ export const enterAttempt = (
     entryId: entryId,
     lift: lift,
     attemptOneIndexed: attemptOneIndexed,
-    weightKg: weightKg
+    weightKg: weightKg,
   };
 };
 
@@ -55,7 +55,7 @@ export const markLift = (entryId: number, lift: Lift, attemptOneIndexed: number,
     entryId: entryId,
     lift: lift,
     attemptOneIndexed: attemptOneIndexed,
-    success: success
+    success: success,
   };
 };
 
@@ -67,7 +67,7 @@ export const setLiftingGroup = (day: number, platform: number, flight: Flight, l
     day: day,
     platform: platform,
     flight: flight,
-    lift: lift
+    lift: lift,
   };
 };
 
@@ -76,7 +76,7 @@ export const setLiftingGroup = (day: number, platform: number, flight: Flight, l
 export const overrideAttempt = (attempt: number): OverrideAttemptAction => {
   return {
     type: "OVERRIDE_ATTEMPT",
-    attempt: attempt
+    attempt: attempt,
   };
 };
 
@@ -85,7 +85,7 @@ export const overrideAttempt = (attempt: number): OverrideAttemptAction => {
 export const overrideEntryId = (entryId: number): OverrideEntryIdAction => {
   return {
     type: "OVERRIDE_ENTRY_ID",
-    entryId: entryId
+    entryId: entryId,
   };
 };
 
@@ -99,6 +99,6 @@ export const overrideEntryId = (entryId: number): OverrideEntryIdAction => {
 export const setTableInfo = (obj: Partial<LiftingState>): SetTableInfoAction => {
   return {
     type: "SET_TABLE_INFO",
-    changes: obj
+    changes: obj,
   };
 };

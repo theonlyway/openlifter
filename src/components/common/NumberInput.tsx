@@ -73,7 +73,7 @@ class NumberInput extends React.Component<Props, InternalState> {
     // Internal state, for purposes of validation.
     // To avoid confusion (auto-rounding) when typing, just store a string.
     this.state = {
-      value: displayNumber(props.initialValue, props.language)
+      value: displayNumber(props.initialValue, props.language),
     };
   }
 
@@ -151,7 +151,7 @@ class NumberInput extends React.Component<Props, InternalState> {
 
 const mapStateToProps = (state: GlobalState): StateProps => {
   return {
-    language: state.language
+    language: state.language,
   };
 };
 

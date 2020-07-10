@@ -23,7 +23,7 @@ import { MAX_ATTEMPTS, newDefaultEntry } from "./entry";
 const categoryFactory = (sex: Sex, event: Event, equipment: Equipment): PointsCategoryResults => {
   return {
     category: { sex, event, equipment },
-    orderedEntries: []
+    orderedEntries: [],
   };
 };
 
@@ -41,7 +41,7 @@ describe("getAllRankings", () => {
       bodyweightKg,
       squatKg,
       squatStatus,
-      age
+      age,
     };
   };
 
@@ -52,7 +52,7 @@ describe("getAllRankings", () => {
     entryFactory("Sleeves", 298, 80, 25),
     entryFactory("Sleeves", 299, 100, 15),
     entryFactory("Sleeves", 305, 100, 25),
-    entryFactory("Wraps", 301, 100, 25)
+    entryFactory("Wraps", 301, 100, 25),
   ];
 
   it("get sleeves only total rankings", () => {
@@ -66,13 +66,13 @@ describe("getAllRankings", () => {
           entryFactory("Sleeves", 300, 100, 25),
           entryFactory("Sleeves", 299, 100, 15),
           entryFactory("Sleeves", 298, 80, 25),
-          entryFactory("Sleeves", 0, 100, 25)
-        ]
+          entryFactory("Sleeves", 0, 100, 25),
+        ],
       },
       {
         ...categoryFactory("M", "S", "Wraps"),
-        orderedEntries: [entryFactory("Wraps", 301, 100, 25)]
-      }
+        orderedEntries: [entryFactory("Wraps", 301, 100, 25)],
+      },
     ]);
   });
 
@@ -88,9 +88,9 @@ describe("getAllRankings", () => {
           entryFactory("Sleeves", 300, 100, 25),
           entryFactory("Sleeves", 299, 100, 15),
           entryFactory("Sleeves", 298, 80, 25),
-          entryFactory("Sleeves", 0, 100, 25)
-        ]
-      }
+          entryFactory("Sleeves", 0, 100, 25),
+        ],
+      },
     ]);
   });
 
@@ -105,13 +105,13 @@ describe("getAllRankings", () => {
           entryFactory("Sleeves", 300, 99, 25),
           entryFactory("Sleeves", 300, 100, 25),
           entryFactory("Sleeves", 298, 80, 25),
-          entryFactory("Sleeves", 0, 100, 25)
-        ]
+          entryFactory("Sleeves", 0, 100, 25),
+        ],
       },
       {
         ...categoryFactory("M", "S", "Wraps"),
-        orderedEntries: [entryFactory("Wraps", 301, 100, 25)]
-      }
+        orderedEntries: [entryFactory("Wraps", 301, 100, 25)],
+      },
     ]);
   });
 
@@ -126,13 +126,13 @@ describe("getAllRankings", () => {
           entryFactory("Sleeves", 300, 99, 25),
           entryFactory("Sleeves", 300, 100, 25),
           entryFactory("Sleeves", 299, 100, 15),
-          entryFactory("Sleeves", 0, 100, 25)
-        ]
+          entryFactory("Sleeves", 0, 100, 25),
+        ],
       },
       {
         ...categoryFactory("M", "S", "Wraps"),
-        orderedEntries: [entryFactory("Wraps", 301, 100, 25)]
-      }
+        orderedEntries: [entryFactory("Wraps", 301, 100, 25)],
+      },
     ]);
   });
 });
@@ -143,7 +143,7 @@ describe("sortPointsCategoryResults", () => {
       categoryFactory("M", "SBD", "Bare"),
       categoryFactory("F", "BD", "Bare"),
       categoryFactory("F", "SBD", "Sleeves"),
-      categoryFactory("F", "SBD", "Bare")
+      categoryFactory("F", "SBD", "Bare"),
     ];
 
     sortPointsCategoryResults(results);
@@ -152,7 +152,7 @@ describe("sortPointsCategoryResults", () => {
       categoryFactory("F", "SBD", "Bare"),
       categoryFactory("F", "SBD", "Sleeves"),
       categoryFactory("F", "BD", "Bare"),
-      categoryFactory("M", "SBD", "Bare")
+      categoryFactory("M", "SBD", "Bare"),
     ]);
   });
 });

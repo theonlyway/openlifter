@@ -57,7 +57,7 @@ class BirthDateInput extends React.Component<Props, InternalState> {
     this.handleBlur = this.handleBlur.bind(this);
 
     this.state = {
-      value: props.initialValue
+      value: props.initialValue,
     };
   }
 

@@ -68,7 +68,7 @@ class ColumnWidth extends React.Component<Props, InternalState> {
     this.handleChange = this.handleChange.bind(this);
 
     this.state = {
-      value: Math.ceil(this.props.lifting[this.props.fieldName] / MULTIPLE)
+      value: Math.ceil(this.props.lifting[this.props.fieldName] / MULTIPLE),
     };
   }
 
@@ -122,12 +122,12 @@ class ColumnWidth extends React.Component<Props, InternalState> {
 }
 
 const mapStateToProps = (state: GlobalState): StateProps => ({
-  lifting: state.lifting
+  lifting: state.lifting,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   return {
-    setTableInfo: (changes: Partial<LiftingState>) => dispatch(setTableInfo(changes))
+    setTableInfo: (changes: Partial<LiftingState>) => dispatch(setTableInfo(changes)),
   };
 };
 

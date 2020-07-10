@@ -151,7 +151,7 @@ class LiftingFooter extends React.Component<Props> {
       return;
     }
 
-    setTimeout(function() {
+    setTimeout(function () {
       if (globalFocusAttemptInputId === null) {
         return;
       }
@@ -303,7 +303,7 @@ class LiftingFooter extends React.Component<Props> {
       </option>,
       <option key={"D"} value={"D"}>
         {getString("lifting.footer-deadlift", language)}
-      </option>
+      </option>,
     ];
 
     const flightOptions = [];
@@ -431,7 +431,7 @@ const mapStateToProps = (state: GlobalState) => {
     platformsOnDays: state.meet.platformsOnDays,
     allow4thAttempts: state.meet.allow4thAttempts,
     lifting: state.lifting,
-    language: state.language
+    language: state.language,
   };
 };
 
@@ -442,7 +442,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     overrideAttempt: (attempt: number) => dispatch(overrideAttempt(attempt)),
     overrideEntryId: (entryId: number) => dispatch(overrideEntryId(entryId)),
     markLift: (entryId: number, lift: Lift, attempt: number, success: boolean) =>
-      dispatch(markLift(entryId, lift, attempt, success))
+      dispatch(markLift(entryId, lift, attempt, success)),
   };
 };
 

@@ -72,7 +72,7 @@ class StateTools extends React.Component<GlobalState> {
 }
 
 const mapStateToProps = (state: GlobalState): GlobalState => ({
-  ...state
+  ...state,
 });
 
 export default connect(mapStateToProps)(StateTools);

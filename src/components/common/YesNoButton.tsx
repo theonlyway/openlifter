@@ -31,7 +31,7 @@ interface Props {
   no: string;
 }
 
-const YesNoButton: FunctionComponent<Props> = props => {
+const YesNoButton: FunctionComponent<Props> = (props) => {
   return (
     <Form.Group>
       <Form.Label>{props.label}</Form.Label>

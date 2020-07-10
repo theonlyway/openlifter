@@ -57,7 +57,7 @@ class Plates extends React.Component<Props> {
     this.updateHandler = this.updateHandler.bind(this);
   }
 
-  validateAmountInput: (id: string) => "error" | null | undefined = id => {
+  validateAmountInput: (id: string) => "error" | null | undefined = (id) => {
     const widget: any = document.getElementById(id);
 
     // This can happen because the FormGroup is created before the widget exists.
@@ -139,12 +139,12 @@ class Plates extends React.Component<Props> {
 const mapStateToProps = (state: GlobalState): StateProps => ({
   inKg: state.meet.inKg,
   plates: state.meet.plates,
-  language: state.language
+  language: state.language,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   return {
-    setPlateConfig: (weightKg, amount, color) => dispatch(setPlateConfig(weightKg, amount, color))
+    setPlateConfig: (weightKg, amount, color) => dispatch(setPlateConfig(weightKg, amount, color)),
   };
 };
 

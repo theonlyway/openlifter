@@ -45,7 +45,7 @@ const defaultPlatesKg: ReadonlyArray<Plate> = [
   { weightKg: 1, pairCount: 1, color: PlateColors.PLATE_DEFAULT_BLUE },
   { weightKg: 0.75, pairCount: 1, color: PlateColors.PLATE_DEFAULT_RED },
   { weightKg: 0.5, pairCount: 1, color: PlateColors.PLATE_DEFAULT_GREEN },
-  { weightKg: 0.25, pairCount: 1, color: PlateColors.PLATE_DEFAULT_BLUE }
+  { weightKg: 0.25, pairCount: 1, color: PlateColors.PLATE_DEFAULT_BLUE },
 ];
 
 // Default lbs plates, allowing for increments of 1lb.
@@ -59,7 +59,7 @@ const defaultPlatesLbs: ReadonlyArray<Plate> = [
   { weightKg: lbs2kg(5), pairCount: 1, color: PlateColors.PLATE_DEFAULT_GRAY },
   { weightKg: lbs2kg(2.5), pairCount: 1, color: PlateColors.PLATE_DEFAULT_GRAY },
   { weightKg: lbs2kg(1.25), pairCount: 1, color: PlateColors.PLATE_DEFAULT_GRAY },
-  { weightKg: lbs2kg(0.5), pairCount: 2, color: PlateColors.PLATE_DEFAULT_GRAY }
+  { weightKg: lbs2kg(0.5), pairCount: 2, color: PlateColors.PLATE_DEFAULT_GRAY },
 ];
 
 const initialState: MeetState = {
@@ -89,7 +89,7 @@ const initialState: MeetState = {
   squatBarAndCollarsWeightKg: defaultBarAndCollarsWeightKg,
   benchBarAndCollarsWeightKg: defaultBarAndCollarsWeightKg,
   deadliftBarAndCollarsWeightKg: defaultBarAndCollarsWeightKg,
-  plates: defaultPlatesKg
+  plates: defaultPlatesKg,
 };
 
 // Given a sorted list of weight classes (in kg) and a bodyweight (in kg),
@@ -202,7 +202,7 @@ export default (state: MeetState = initialState, action: Action): MeetState => {
         plates: defaultPlates,
         squatBarAndCollarsWeightKg: defaultBar,
         benchBarAndCollarsWeightKg: defaultBar,
-        deadliftBarAndCollarsWeightKg: defaultBar
+        deadliftBarAndCollarsWeightKg: defaultBar,
       };
     }
 
@@ -240,7 +240,7 @@ export default (state: MeetState = initialState, action: Action): MeetState => {
       const { weightKg, pairCount, color } = action;
 
       // Find the index of the object in the platesOnSide array by comparing weights.
-      const index = state.plates.findIndex(p => p.weightKg === weightKg);
+      const index = state.plates.findIndex((p) => p.weightKg === weightKg);
 
       // Clone the array.
       const newPlates: Array<Plate> = state.plates.slice();

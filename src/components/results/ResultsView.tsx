@@ -104,7 +104,7 @@ class ResultsView extends React.Component<Props, InternalState> {
     this.state = {
       day: 0, // Meaning "all". Flow complained about mixing numbers and strings.
       by: "Division",
-      error: ""
+      error: "",
     };
   }
 
@@ -113,7 +113,7 @@ class ResultsView extends React.Component<Props, InternalState> {
     const options = [
       <option key={"all"} value={0}>
         {getString("results.all-days-together", language)}
-      </option>
+      </option>,
     ];
 
     const justDayTemplate = getString("results.just-day-n", language);
@@ -245,7 +245,7 @@ class ResultsView extends React.Component<Props, InternalState> {
           error = e.replace("{day}", String(day)).replace("{platform}", String(platform));
         } else {
           // Sanity checks passed: fire off a mergePlatform action!
-          const platformEntries = obj.registration.entries.filter(e => {
+          const platformEntries = obj.registration.entries.filter((e) => {
             return e.day === day && e.platform === platform;
           });
           props.mergePlatform(day, platform, platformEntries);
@@ -456,13 +456,13 @@ class ResultsView extends React.Component<Props, InternalState> {
 const mapStateToProps = (state: GlobalState): StateProps => {
   return {
     global: state,
-    language: state.language
+    language: state.language,
   };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   return {
-    mergePlatform: (day, platform, platformEntries) => dispatch(mergePlatform(day, platform, platformEntries))
+    mergePlatform: (day, platform, platformEntries) => dispatch(mergePlatform(day, platform, platformEntries)),
   };
 };
 

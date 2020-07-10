@@ -116,7 +116,7 @@ export const exportAsUSAPLCsv = (state: GlobalState): string => {
     "Event", // In NextLifter format (PL, BO, etc.).
     "State", // USA state of residence of the lifter, as abbreviation.
     "MemberID",
-    "Drug Test" // "Y" if a test was performed, blank otherwise.
+    "Drug Test", // "Y" if a test was performed, blank otherwise.
   ];
 
   const results: Array<CategoryResults> = getFinalResults(

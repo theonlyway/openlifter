@@ -24,6 +24,6 @@ import { GlobalState } from "../types/stateTypes";
 export const overwriteStore = (store: GlobalState): OverwriteStoreAction => {
   return {
     type: "OVERWRITE_STORE",
-    store: store
+    store: store,
   };
 };

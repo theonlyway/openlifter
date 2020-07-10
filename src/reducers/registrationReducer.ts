@@ -46,7 +46,7 @@ const initialState: RegistrationState = {
   //
   // This lookup table allows mapping those identifiers to whatever
   // the current location of that data is in the canonical `entries` store.
-  lookup: {}
+  lookup: {},
 };
 
 type Action = RegistrationAction | EnterAttemptAction | MarkLiftAction | OverwriteStoreAction;
@@ -88,7 +88,7 @@ export default (state: RegistrationState = initialState, action: Action): Regist
         ...state,
         nextEntryId: state.nextEntryId + 1,
         entries: entries,
-        lookup: lookup
+        lookup: lookup,
       };
     }
 
@@ -110,7 +110,7 @@ export default (state: RegistrationState = initialState, action: Action): Regist
       return {
         ...state,
         entries: entries,
-        lookup: lookup
+        lookup: lookup,
       };
     }
 
@@ -123,13 +123,13 @@ export default (state: RegistrationState = initialState, action: Action): Regist
 
       // Make a new object with just the changes overwritten,
       // and reference that object from the new array.
-      const index = entries.findIndex(obj => obj.id === entryId);
+      const index = entries.findIndex((obj) => obj.id === entryId);
       const newEntry = Object.assign({}, entries[index]);
       entries[index] = Object.assign(newEntry, changes);
 
       return {
         ...state,
-        entries: entries
+        entries: entries,
       };
     }
 
@@ -144,7 +144,7 @@ export default (state: RegistrationState = initialState, action: Action): Regist
 
       // Clone the entries array, since one slot will reference a new object.
       const newEntries: Array<Entry> = state.entries.slice();
-      const index = newEntries.findIndex(obj => obj.id === entryId);
+      const index = newEntries.findIndex((obj) => obj.id === entryId);
       const oldEntry = newEntries[index];
 
       // Make a copy of the attempts array containing the new attempt.
@@ -160,7 +160,7 @@ export default (state: RegistrationState = initialState, action: Action): Regist
 
       return {
         ...state,
-        entries: newEntries
+        entries: newEntries,
       };
     }
 
@@ -177,7 +177,7 @@ export default (state: RegistrationState = initialState, action: Action): Regist
 
       // Clone the entries array, since one slot will reference a new object.
       const newEntries: Array<Entry> = state.entries.slice();
-      const index = newEntries.findIndex(obj => obj.id === entryId);
+      const index = newEntries.findIndex((obj) => obj.id === entryId);
       const oldEntry = newEntries[index];
 
       // Make a copy of the status array containing the new status.
@@ -194,7 +194,7 @@ export default (state: RegistrationState = initialState, action: Action): Regist
 
       return {
         ...state,
-        entries: newEntries
+        entries: newEntries,
       };
     }
 
@@ -205,7 +205,7 @@ export default (state: RegistrationState = initialState, action: Action): Regist
       const platformEntries: ReadonlyArray<Entry> = action.platformEntries;
 
       // Filter out state entries assigned to the merged (day, platform).
-      const newEntries = state.entries.filter(e => {
+      const newEntries = state.entries.filter((e) => {
         return !(e.day === day && e.platform === platform);
       });
 
@@ -231,7 +231,7 @@ export default (state: RegistrationState = initialState, action: Action): Regist
         ...state,
         nextEntryId: nextEntryId,
         entries: newEntries,
-        lookup: lookup
+        lookup: lookup,
       };
     }
 
@@ -255,7 +255,7 @@ export default (state: RegistrationState = initialState, action: Action): Regist
 
           return {
             ...state,
-            entries: updatedEntries
+            entries: updatedEntries,
           };
         }
 
@@ -263,7 +263,7 @@ export default (state: RegistrationState = initialState, action: Action): Regist
           // "Removing" a lot number is just setting the number to zero.
           return {
             ...state,
-            entries: state.entries.map(entry => ({ ...entry, lot: 0 }))
+            entries: state.entries.map((entry) => ({ ...entry, lot: 0 })),
           };
         }
 

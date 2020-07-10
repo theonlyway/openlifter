@@ -80,7 +80,7 @@ const languageOptions = [
   </option>,
   <option key="zh-Hans" value="zh-Hans">
     简体中文 (zh-Hans)
-  </option>
+  </option>,
 ];
 
 class LanguageSelector extends React.Component<Props> {
@@ -100,14 +100,14 @@ class LanguageSelector extends React.Component<Props> {
 
 // Allows react component to subscribe to redux state updates
 const mapStateToProps = (state: GlobalState): StateProps => ({
-  language: state.language
+  language: state.language,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   return {
     // TODO: Can we make this more type safe and avoid the cast?
     changeLanguage: (event: React.FormEvent<FormControlTypeHack>) =>
-      dispatch(changeLanguage(event.currentTarget.value as Language))
+      dispatch(changeLanguage(event.currentTarget.value as Language)),
   };
 };
 

@@ -56,7 +56,7 @@ class NewButton extends React.Component<Props> {
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   return {
-    newRegistration: (obj: Partial<Entry>) => dispatch(newRegistration(obj))
+    newRegistration: (obj: Partial<Entry>) => dispatch(newRegistration(obj)),
   };
 };
 

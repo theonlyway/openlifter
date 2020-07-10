@@ -31,7 +31,7 @@ import {
   getBest5BenchKg,
   getBest5DeadliftKg,
   getFinalEventTotalKg,
-  entryHasLifted
+  entryHasLifted,
 } from "../../logic/entry";
 import { getString, localizeEquipment, localizeEvent, localizeSex } from "../../logic/strings";
 import { kg2lbs, displayNumber, displayPoints, displayWeight, displayPlaceOrdinal } from "../../logic/units";
@@ -242,7 +242,7 @@ class ByPoints extends React.Component<Props> {
 
     // If this is for Best Masters lifter, just include non-standard-aged lifters.
     if (this.props.agePointsCategory !== "BestLifter") {
-      entries = entries.filter(e => {
+      entries = entries.filter((e) => {
         // Filter out based on age.
         switch (this.props.agePointsCategory) {
           case "BestLifter":
@@ -304,7 +304,7 @@ const mapStateToProps = (state: GlobalState, ownProps: OwnProps): StateProps => 
   const day = Number(ownProps.day);
   let entries = state.registration.entries;
   if (day > 0) {
-    entries = entries.filter(e => e.day === day);
+    entries = entries.filter((e) => e.day === day);
   }
 
   return {
@@ -318,7 +318,7 @@ const mapStateToProps = (state: GlobalState, ownProps: OwnProps): StateProps => 
     weightClassesKgWomen: state.meet.weightClassesKgWomen,
     weightClassesKgMx: state.meet.weightClassesKgMx,
     language: state.language,
-    entries: entries
+    entries: entries,
   };
 };
 

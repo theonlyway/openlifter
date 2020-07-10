@@ -250,7 +250,7 @@ const getNextEntryInfo = (
   }
 
   // Find the index of the currentEntryId in the orderedEntries.
-  const currentEntryIndex = orderedEntries.findIndex(e => e.id === currentEntryId);
+  const currentEntryIndex = orderedEntries.findIndex((e) => e.id === currentEntryId);
   if (currentEntryIndex === -1) {
     return null;
   }
@@ -263,7 +263,7 @@ const getNextEntryInfo = (
     if (hasAttempt && notTaken) {
       return {
         entryId: orderedEntries[i].id,
-        attemptOneIndexed: attemptOneIndexed
+        attemptOneIndexed: attemptOneIndexed,
       };
     }
   }
@@ -281,7 +281,7 @@ const getNextEntryInfo = (
     if (hasAttempt && notTaken) {
       return {
         entryId: orderedEntries[i].id,
-        attemptOneIndexed: nextAttemptOneIndexed
+        attemptOneIndexed: nextAttemptOneIndexed,
       };
     }
   }
@@ -301,6 +301,6 @@ export const getLiftingOrder = (entriesInFlight: Array<Entry>, lifting: LiftingS
     attemptOneIndexed: attemptOneIndexed,
     currentEntryId: currentEntryId,
     nextAttemptOneIndexed: nextEntryInfo ? nextEntryInfo.attemptOneIndexed : null,
-    nextEntryId: nextEntryInfo ? nextEntryInfo.entryId : null
+    nextEntryId: nextEntryInfo ? nextEntryInfo.entryId : null,
   };
 };
