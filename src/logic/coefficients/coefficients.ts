@@ -29,6 +29,7 @@ import { nasapoints } from "./nasa";
 import { reshel } from "./reshel";
 import { schwartzmalone } from "./schwartzmalone";
 import { wilks } from "./wilks";
+import { wilks2020 } from "./wilks2020";
 
 import { getAge } from "../entry";
 import { kg2lbs } from "../units";
@@ -65,6 +66,8 @@ export const getPoints = (formula: Formula, entry: Entry, event: Event, totalKg:
       return inKg ? totalKg : kg2lbs(totalKg);
     case "Wilks":
       return wilks(sex, bodyweightKg, totalKg);
+    case "Wilks2020":
+      return wilks2020(sex, bodyweightKg, totalKg);
     default:
       checkExhausted(formula);
       return 0;

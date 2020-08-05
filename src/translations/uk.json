@@ -106,6 +106,7 @@
   "formula.schwartz-malone": "Шварц/Малон",
   "formula.total": "Сума",
   "formula.wilks": "Вілкс",
+  "formula.wilks2020": "Wilks2020",
   "home.beta-warning": "Програма в стадії розробки для нової версії OpenLifter. Внутрішний формат данних не стабільний. Не використовуйте програму для змагань!",
   "home.button-continue": "Продовжити {meetName}",
   "home.button-credits": "Подяка та ліцензія",

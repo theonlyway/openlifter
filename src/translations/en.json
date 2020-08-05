@@ -106,6 +106,7 @@
   "formula.schwartz-malone": "Schwartz/Malone",
   "formula.total": "Total",
   "formula.wilks": "Wilks",
+  "formula.wilks2020": "Wilks2020",
   "home.beta-warning": "This is the in-development, next version of OpenLifter. The internal data format is unstable. Do not use this to run competitions!",
   "home.button-continue": "Continue {meetName}",
   "home.button-credits": "Credits and License",

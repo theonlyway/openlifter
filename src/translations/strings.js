@@ -99,6 +99,7 @@ strings = strings.concat([
   { id: "formula.schwartz-malone", defaultMessage: "Schwartz/Malone" },
   { id: "formula.total", defaultMessage: "Total" },
   { id: "formula.wilks", defaultMessage: "Wilks" },
+  { id: "formula.wilks2020", defaultMessage: "Wilks2020" },
 ]);
 
 // Strings for the AgeCoefficients type.

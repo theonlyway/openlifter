@@ -36,7 +36,8 @@ export type Formula =
   | "Reshel"
   | "Schwartz/Malone"
   | "Total"
-  | "Wilks";
+  | "Wilks"
+  | "Wilks2020";
 export type AgeCoefficients = "None" | "FosterMcCulloch";
 export type Lift = "S" | "B" | "D";
 

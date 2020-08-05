@@ -120,6 +120,7 @@ class MeetSetup extends React.Component<Props, InternalState> {
     const stringSchwartzMalone = getString("formula.schwartz-malone", language);
     const stringTotal = getString("formula.total", language);
     const stringWilks = getString("formula.wilks", language);
+    const stringWilks2020 = getString("formula.wilks2020", language);
     const stringNone = getString("age-coefficients.none", language);
     const stringFosterMcCulloch = getString("age-coefficients.foster-mcculloch", language);
     const stringNo = getString("common.response-no", language);
@@ -216,6 +217,7 @@ class MeetSetup extends React.Component<Props, InternalState> {
                     <option value="Schwartz/Malone">{stringSchwartzMalone}</option>
                     <option value="Total">{stringTotal}</option>
                     <option value="Wilks">{stringWilks}</option>
+                    <option value="Wilks2020">{stringWilks2020}</option>
                   </FormControl>
                 </FormGroup>
 

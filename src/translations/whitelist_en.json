@@ -79,6 +79,7 @@
   "error.csv-field-suffix-event-invalid",
   "error.csv-field-suffix-date-format",
   "error.csv-field-empty-or-positive",
+  "error.csv-field-unknown-boolean",
   "error.internal-error",
   "error.version-mismatch",
   "error.meetname-mismatch",

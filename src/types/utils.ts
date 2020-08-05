@@ -136,6 +136,7 @@ export function assertFormula(value: string): value is Formula {
     case "Schwartz/Malone":
     case "Total":
     case "Wilks":
+    case "Wilks2020":
       return true;
     default:
       checkExhausted(formula);
