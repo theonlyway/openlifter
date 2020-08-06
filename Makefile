@@ -1,6 +1,4 @@
-.PHONY: build-deps dev-electron dev-web package test check less build clean veryclean apply-beta-basename
-
-all: dev-web
+all: web
 
 ############################################
 # Real build targets.
@@ -13,46 +11,57 @@ node_modules:
 # Helpers.
 ############################################
 
+.PHONY: build-deps
 build-deps: node_modules
 
-dev-electron: build-deps
+.PHONY: electron
+electron: build-deps
 	yarn run electron-dev
 
-dev-web: build-deps
+web: build-deps
 	yarn run start
 
-package: build-deps
+.PHONY: release-electron
+release-electron: build-deps
 	yarn run electron-pack
 
-test: build-deps
-	CI="yes" yarn run test
-
 # Builds the project into public/. Overwrites git files -- need to reset after.
-release: build
+.PHONY: release-web
+release-web: build
 	rm -rf public/
 	cp --dereference -r build/ public
 	echo "Built into public/. Don't forget to set a git tag!"
 
 # Builds the project into build/.
+.PHONY: build
 build:
 	make less
 	yarn run build
 
 # Overwrites settings in package.json to allow the Beta site's Router
 # to function correctly when deployed in production.
+.PHONY: apply-beta-basename
 apply-beta-basename:
 	sed -i 's;"homepage": "./";"homepage": "https://www.openlifter.com/releases/beta/";' package.json
 	sed -i 's;"router_basename": "/";"router_basename": "/releases/beta/";' package.json
 
+# Runs JS tests.
+.PHONY: test
+test: build-deps
+	CI="yes" yarn run test
+
 # A simple target to run all the CI server tests.
+.PHONY: check
 check:
 	yarn run tsc --noEmit
 	yarn run lint
 	CI="yes" yarn run test
 
+.PHONY: clean
 clean:
 	rm -rf build
 	$(MAKE) -C website clean
 
+.PHONY: veryclean
 veryclean: clean
 	rm -rf node_modules
