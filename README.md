@@ -12,7 +12,7 @@ OpenLifter is a single-page webapp built with TypeScript, React, Redux, and Boot
 
 ## Development Setup
 
-### Fedora 30
+### Fedora 31
 
 Install Yarn from the Yarn RPM package repository:
 
@@ -38,21 +38,14 @@ Second, navigate to your local project's root directory and run the `yarn instal
 Once the command finishes then you can run the make commands below: 
 
 ```bash
-# Opens an Electron app with hot reload.
-make dev-electron
+# Opens a development browser with hot reload at localhost:3000.
+make
 
-# Opens a browser with hot reload at localhost:3000.
-make dev-web
+# Opens a development Electron app with hot reload.
+make electron
 
 # Runs unit tests.
-make test
-```
-
-## Build Setup
-
-```bash
-# Packages a release into `dist/`.
-make package
+make check
 ```
 
 ## Translations
@@ -74,7 +67,7 @@ Official builds are permanently stored at https://www.openlifter.com/releases/ i
 1. Tag the release in git.
 2. Edit `package.json` to set the `version`, `homepage`, and `router_basename` variables. These are used by the `.env` file to create JS environment variables. In our example, set `"version": "x.y"`, `"homepage": "https://www.openlifter.com/releases/x.y/"`, and `"router_basename": "/releases/x.y/"`.
 3. Edit `src/versions.js` to fix the `releaseDate` using ISO-8601 notation (YYYY-MM-DD). Hopefully in the future we can just automate this, but I couldn't think of a platform-independent way at this hour.
-4. Run `make release`. This will build into `public/`, but mess up the state of the repo.
+4. Run `make release-web`. This will build into `public/`, but mess up the state of the repo.
 5. Move the `public/` folder into `releases/` for permanent archival, using the version. For example, `mv public releases/x.y`.
 6. Fully reset the repo: `make clean && rm -rf public &&  git reset --hard HEAD`
 7. `git add releases/x.y && git commit`
