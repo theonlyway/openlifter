@@ -29,6 +29,7 @@ import { getWeightClassStr } from "../reducers/meetReducer";
 
 import { Sex, Event, Equipment, Entry, Lift } from "../types/dataTypes";
 import { checkExhausted } from "../types/utils";
+import { mapSexToClasses } from "./records";
 
 export type Place = number | "DQ";
 
@@ -261,25 +262,6 @@ export const sortCategoryResults = (results: Array<CategoryResults>): void => {
     const bWeightClass = catB.weightClassStr === "" ? 0 : parseInt(catB.weightClassStr);
     return aWeightClass - bWeightClass;
   });
-};
-
-const mapSexToClasses = (
-  sex: Sex,
-  men: ReadonlyArray<number>,
-  women: ReadonlyArray<number>,
-  mx: ReadonlyArray<number>
-): ReadonlyArray<number> => {
-  switch (sex) {
-    case "M":
-      return men;
-    case "F":
-      return women;
-    case "Mx":
-      return mx;
-    default:
-      checkExhausted(sex);
-      return men;
-  }
 };
 
 // Generates objects representing every present category of competition,

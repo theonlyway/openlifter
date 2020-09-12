@@ -50,6 +50,11 @@ const Navigation = () => {
               <FormattedMessage id="nav.meet-setup" defaultMessage="Meet Setup" />
             </Nav.Link>
           </LinkContainer>
+          <LinkContainer to="/records">
+            <Nav.Link>
+              <FormattedMessage id="nav.records" defaultMessage="Records" />
+            </Nav.Link>
+          </LinkContainer>
           <LinkContainer to="/registration">
             <Nav.Link>
               <FormattedMessage id="nav.registration" defaultMessage="Registration" />

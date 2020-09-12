@@ -20,15 +20,16 @@
 // The CSV format is very strict: no double-quotes allowed, commas are always
 // separators, and the format of each field must exactly match our internal format.
 
-import { csvDate, Csv, getSpreadsheetColumnName } from "../export/csv";
+import { csvDate, Csv, validateCsvColumns } from "../export/csv";
 import { newDefaultEntry } from "../entry";
 
 import { parseInteger, parseDate } from "../parsers";
-import { getString, delocalizeEquipment, delocalizeEvent, delocalizeFlight, delocalizeSex } from "../strings";
+import { getString, delocalizeFlight } from "../strings";
 import { displayNumber } from "../units";
 
 import { Entry, Language } from "../../types/dataTypes";
 import { GlobalState } from "../../types/stateTypes";
+import { validateSex, validateEquipment, validateEvent } from "./validation";
 
 // Generates a string representing a downloadable CSV file, for use as an example
 // of the registration format.
@@ -163,37 +164,9 @@ export const loadRegistrations = (state: GlobalState, csv: Csv, language: Langua
     col_notes,
   ];
 
-  // Check the existent fieldnames for sanity.
-  for (let i = 0; i < csv.fieldnames.length; ++i) {
-    const name: string = csv.fieldnames[i];
-
-    // Every fieldname that appears must be known.
-    if (!MANDATORY_FIELDNAMES.includes(name) && !OPTIONAL_FIELDNAMES.includes(name)) {
-      const colname = getSpreadsheetColumnName(i);
-      const allfields: string = MANDATORY_FIELDNAMES.join(", ") + ", " + OPTIONAL_FIELDNAMES.join(", ");
-
-      const e = getString("error.csv-unknown-header", language);
-      return e.replace("{name}", name).replace("{ABC}", colname).replace("{validList}", allfields);
-    }
-
-    // Fieldnames cannot be repeated.
-    for (let j = i + 1; j < csv.fieldnames.length; ++j) {
-      if (csv.fieldnames[j] === csv.fieldnames[i]) {
-        const iname = getSpreadsheetColumnName(i);
-        const jname = getSpreadsheetColumnName(j);
-
-        const e = getString("error.csv-duplicate-header", language);
-        return e.replace("{name}", csv.fieldnames[i]).replace("{firstABC}", iname).replace("{secondABC}", jname);
-      }
-    }
-  }
-
-  // Check that all of the MANDATORY_FIELDNAMES are included.
-  for (let i = 0; i < MANDATORY_FIELDNAMES.length; ++i) {
-    if (!csv.fieldnames.includes(MANDATORY_FIELDNAMES[i])) {
-      const e = getString("error.csv-missing-header", language);
-      return e.replace("{name}", MANDATORY_FIELDNAMES[i]);
-    }
+  const csvValidationError = validateCsvColumns(csv, language, MANDATORY_FIELDNAMES, OPTIONAL_FIELDNAMES);
+  if (csvValidationError !== null) {
+    return csvValidationError;
   }
 
   // The "Platform" column" must occur after the "Day" column: the parsing
@@ -305,34 +278,18 @@ export const loadRegistrations = (state: GlobalState, csv: Csv, language: Langua
         }
         entry.name = val;
       } else if (fieldname === col_sex) {
-        try {
-          entry.sex = delocalizeSex(val, language);
-        } catch (err) {
-          const e = getString("error.csv-field-suffix-sex-invalid", language);
-          const m = getString("sex.m", language);
-          const f = getString("sex.f", language);
-          const mx = getString("sex.mx", language);
-          return errprefix + e.replace("{M}", m).replace("{F}", f).replace("{Mx}", mx);
+        const validationResult = validateSex(val, language, errprefix);
+        if (validationResult.result !== null) {
+          entry.sex = validationResult.result;
+        } else {
+          return validationResult.errorMessage;
         }
       } else if (fieldname === col_equipment) {
-        try {
-          entry.equipment = delocalizeEquipment(val, language);
-        } catch (err) {
-          const e = getString("error.csv-field-suffix-equipment-invalid", language);
-          const bare = getString("equipment.bare", language);
-          const sleeves = getString("equipment.sleeves", language);
-          const wraps = getString("equipment.wraps", language);
-          const single = getString("equipment.single-ply", language);
-          const multi = getString("equipment.multi-ply", language);
-          return (
-            errprefix +
-            e
-              .replace("{bare}", bare)
-              .replace("{sleeves}", sleeves)
-              .replace("{wraps}", wraps)
-              .replace("{single}", single)
-              .replace("{multi}", multi)
-          );
+        const validationResult = validateEquipment(val, language, errprefix);
+        if (validationResult.result !== null) {
+          entry.equipment = validationResult.result;
+        } else {
+          return validationResult.errorMessage;
         }
       } else if (
         fieldname === col_division1 ||
@@ -372,34 +329,16 @@ export const loadRegistrations = (state: GlobalState, csv: Csv, language: Langua
             return errprefix + getString("error.csv-field-suffix-event-blank", language);
           }
         } else {
-          try {
-            const evt = delocalizeEvent(val, language);
+          const validationResult = validateEvent(val, language, errprefix);
+          if (validationResult.result !== null) {
+            const evt = validationResult.result;
 
-            // Check for duplicates.
             if (entry.events.includes(evt)) {
               return errprefix + getString("error.csv-field-suffix-event-duplicate", language);
             }
             entry.events.push(evt);
-          } catch (err) {
-            const e = getString("error.csv-field-suffix-event-invalid", language);
-            const sbd = getString("event.sbd", language);
-            const bd = getString("event.bd", language);
-            const sb = getString("event.sb", language);
-            const sd = getString("event.sd", language);
-            const s = getString("event.s", language);
-            const b = getString("event.b", language);
-            const d = getString("event.d", language);
-            return (
-              errprefix +
-              e
-                .replace("{SBD}", sbd)
-                .replace("{BD}", bd)
-                .replace("{SB}", sb)
-                .replace("{SD}", sd)
-                .replace("{S}", s)
-                .replace("{B}", b)
-                .replace("{D}", d)
-            );
+          } else {
+            return validationResult.errorMessage;
           }
         }
       } else if (fieldname === col_birthdate) {

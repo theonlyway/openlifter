@@ -38,6 +38,7 @@ import { GlobalState, MeetState, LiftingState } from "../../types/stateTypes";
 import styles from "./LiftingTable.module.scss";
 import { checkExhausted } from "../../types/utils";
 import { getString } from "../../logic/strings";
+import { mapSexToClasses } from "../../logic/records";
 
 interface OwnProps {
   attemptOneIndexed: number;
@@ -232,20 +233,6 @@ class LiftingTable extends React.Component<Props> {
     return <td key={columnType}>{displayStr}</td>;
   };
 
-  mapSexToClasses = (sex: Sex, meetState: MeetState): ReadonlyArray<number> => {
-    switch (sex) {
-      case "M":
-        return meetState.weightClassesKgMen;
-      case "F":
-        return meetState.weightClassesKgWomen;
-      case "Mx":
-        return meetState.weightClassesKgMx;
-      default:
-        checkExhausted(sex);
-        return meetState.weightClassesKgMen;
-    }
-  };
-
   renderCell = (entry: Entry, columnType: ColumnType, categoryResults: Array<CategoryResults>): JSX.Element => {
     switch (columnType) {
       case "Lifter": {
@@ -269,7 +256,12 @@ class LiftingTable extends React.Component<Props> {
       }
       case "WeightClass": {
         const bw = entry.bodyweightKg;
-        const classesForSex = this.mapSexToClasses(entry.sex, this.props.meet);
+        const classesForSex = mapSexToClasses(
+          entry.sex,
+          this.props.meet.weightClassesKgMen,
+          this.props.meet.weightClassesKgWomen,
+          this.props.meet.weightClassesKgMx
+        );
         const weightClass = this.props.meet.inKg
           ? getWeightClassStr(classesForSex, bw, this.props.language)
           : getWeightClassLbsStr(classesForSex, bw);

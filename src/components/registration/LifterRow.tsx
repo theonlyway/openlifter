@@ -43,7 +43,7 @@ import { validateIso8601Date } from "../../validation/iso8601Date";
 import { validatePositiveInteger } from "../../validation/positiveInteger";
 
 import { deleteRegistration, updateRegistration } from "../../actions/registrationActions";
-import { FormControlTypeHack, checkExhausted, assertString, assertFlight, assertSex } from "../../types/utils";
+import { FormControlTypeHack, assertString, assertFlight, assertSex, assertEquipment } from "../../types/utils";
 import { Entry, Equipment, Language, Validation } from "../../types/dataTypes";
 import { Dispatch } from "redux";
 import { GlobalState, MeetState } from "../../types/stateTypes";
@@ -100,6 +100,7 @@ class LifterRow extends React.Component<Props, InternalState> {
     this.updateRegistrationEvents = this.updateRegistrationEvents.bind(this);
     this.updateRegistrationEquipment = this.updateRegistrationEquipment.bind(this);
     this.updateRegistrationGuest = this.updateRegistrationGuest.bind(this);
+    this.updateRegistrationCanBreakRecords = this.updateRegistrationCanBreakRecords.bind(this);
     this.updateRegistrationTeam = this.updateRegistrationTeam.bind(this);
     this.updateRegistrationInstagram = this.updateRegistrationInstagram.bind(this);
     this.updateRegistrationNotes = this.updateRegistrationNotes.bind(this);
@@ -230,21 +231,8 @@ class LifterRow extends React.Component<Props, InternalState> {
 
   updateRegistrationEquipment(event: React.FormEvent<FormControlTypeHack>) {
     const equipment = event.currentTarget.value as Equipment;
-    if (this.props.entry.equipment !== equipment) {
-      // Ensure value is something we expect & assist the compiler in helping us
-      switch (equipment) {
-        case "Bare":
-        case "Sleeves":
-        case "Wraps":
-        case "Single-ply":
-        case "Multi-ply":
-        case "Unlimited":
-          this.props.updateRegistration(this.props.id, { equipment: equipment });
-          break;
-        default:
-          checkExhausted(equipment);
-          break;
-      }
+    if (this.props.entry.equipment !== equipment && assertEquipment(equipment)) {
+      this.props.updateRegistration(this.props.id, { equipment: equipment });
     }
   }
 
@@ -253,6 +241,14 @@ class LifterRow extends React.Component<Props, InternalState> {
       this.props.updateRegistration(this.props.id, { guest: true });
     } else {
       this.props.updateRegistration(this.props.id, { guest: false });
+    }
+  };
+
+  updateRegistrationCanBreakRecords = (event: React.FocusEvent<FormControlTypeHack>) => {
+    if (event.currentTarget.value === "true") {
+      this.props.updateRegistration(this.props.id, { canBreakRecords: true });
+    } else {
+      this.props.updateRegistration(this.props.id, { canBreakRecords: false });
     }
   };
 
@@ -309,23 +305,9 @@ class LifterRow extends React.Component<Props, InternalState> {
       );
     }
 
-    const divisionOptions = [];
-    for (let i = 0; i < this.props.meet.divisions.length; i++) {
-      const division = this.props.meet.divisions[i];
-      divisionOptions.push({ value: division, label: division });
-    }
-
-    const selectedDivisions = [];
-    for (let i = 0; i < entry.divisions.length; i++) {
-      const division = entry.divisions[i];
-      selectedDivisions.push({ value: division, label: division });
-    }
-
-    const selectedEvents = [];
-    for (let i = 0; i < entry.events.length; i++) {
-      const event = entry.events[i];
-      selectedEvents.push({ value: event, label: localizeEvent(event, language) });
-    }
+    const divisionOptions = this.props.meet.divisions.map((division) => ({ value: division, label: division }));
+    const selectedDivisions = entry.divisions.map((division) => ({ value: division, label: division }));
+    const selectedEvents = entry.events.map((event) => ({ value: event, label: localizeEvent(event, language) }));
 
     const gridStyle = { padding: "0px", margin: "0px" };
 
@@ -609,13 +591,21 @@ class LifterRow extends React.Component<Props, InternalState> {
                 </Form.Group>
               </Col>
 
-              {/* Team */}
+              {/* Can Break Records */}
               <Col md={2}>
                 <Form.Group>
                   <Form.Label>
-                    <FormattedMessage id="registration.team-label" defaultMessage="Team" />
+                    <FormattedMessage id="registration.record-eligible-label" defaultMessage="Can Break Records" />
                   </Form.Label>
-                  <Form.Control type="text" placeholder="" value={entry.team} onChange={this.updateRegistrationTeam} />
+                  <Form.Control
+                    value={entry.canBreakRecords ? entry.canBreakRecords.toString() : "false"}
+                    as="select"
+                    onChange={this.updateRegistrationCanBreakRecords}
+                    className="custom-select"
+                  >
+                    <option value="false">{getString("common.response-no", language)}</option>
+                    <option value="true">{getString("common.response-yes", language)}</option>
+                  </Form.Control>
                 </Form.Group>
               </Col>
             </Row>
@@ -623,7 +613,7 @@ class LifterRow extends React.Component<Props, InternalState> {
 
           <Container style={gridStyle}>
             <Row>
-              {/* Notes */}
+              {/* Instagram */}
               <Col md={2}>
                 <Form.Group>
                   <Form.Label>
@@ -643,8 +633,18 @@ class LifterRow extends React.Component<Props, InternalState> {
                 </Form.Group>
               </Col>
 
+              {/* Team */}
+              <Col md={2}>
+                <Form.Group>
+                  <Form.Label>
+                    <FormattedMessage id="registration.team-label" defaultMessage="Team" />
+                  </Form.Label>
+                  <Form.Control type="text" placeholder="" value={entry.team} onChange={this.updateRegistrationTeam} />
+                </Form.Group>
+              </Col>
+
               {/* Notes */}
-              <Col md={10}>
+              <Col md={8}>
                 <Form.Group>
                   <Form.Label>
                     <FormattedMessage id="registration.notes-label" defaultMessage="Notes (for your personal use)" />

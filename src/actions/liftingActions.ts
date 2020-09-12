@@ -24,7 +24,7 @@ import {
   OverrideEntryIdAction,
   SetTableInfoAction,
 } from "../types/actionTypes";
-import { Flight, Lift } from "../types/dataTypes";
+import { Flight, Lift, Entry } from "../types/dataTypes";
 import { LiftingState } from "../types/stateTypes";
 
 // Sets a weightKg that doesn't have a good/failed value, for entering in attempts.
@@ -45,17 +45,24 @@ export const enterAttempt = (
 
 // Marks a lift "good" or "failed".
 //
-// entryId is the ID of the affected entry, a Number.
+// entry is the lifter who performed the lift
 // lift is "S", "B", or "D".
 // attempt is 1,2,3, etc., up to MAX_ATTEMPTS.
 // success is a bool for whether to mark the lift as a success or as a failure.
-export const markLift = (entryId: number, lift: Lift, attemptOneIndexed: number, success: boolean): MarkLiftAction => {
+export const markLift = (
+  entry: Entry,
+  weightClass: string,
+  lift: Lift,
+  attemptOneIndexed: number,
+  success: boolean
+): MarkLiftAction => {
   return {
     type: "MARK_LIFT",
-    entryId: entryId,
-    lift: lift,
-    attemptOneIndexed: attemptOneIndexed,
-    success: success,
+    entry,
+    weightClass,
+    lift,
+    attemptOneIndexed,
+    success,
   };
 };
 

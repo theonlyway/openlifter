@@ -223,6 +223,8 @@ class RegistrationView extends React.Component<Props, InternalState> {
     };
 
     reader.readAsText(selectedFile);
+    // this will reset the input field so the same file can be selected again. Without this picking the same file for import silently does nothing
+    loadHelper.value = "";
   };
 
   closeErrorModal = () => {
@@ -237,7 +239,7 @@ class RegistrationView extends React.Component<Props, InternalState> {
       <div>
         <ErrorModal
           error={this.state.error}
-          title={getString("registration.importation-error", this.props.global.language)}
+          title={getString("common.importation-error", this.props.global.language)}
           show={this.state.error !== ""}
           close={this.closeErrorModal}
         />

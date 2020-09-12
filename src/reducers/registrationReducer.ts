@@ -164,7 +164,7 @@ export default (state: RegistrationState = initialState, action: Action): Regist
     }
 
     case "MARK_LIFT": {
-      const entryId = Number(action.entryId);
+      const entryId = action.entry.id;
       const lift: Lift = action.lift;
       const attemptOneIndexed = Number(action.attemptOneIndexed);
       const success = Boolean(action.success);

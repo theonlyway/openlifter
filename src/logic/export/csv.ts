@@ -16,6 +16,9 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import { Language } from "../../types/dataTypes";
+import { getString } from "../strings";
+
 // Defines a general CSV manipulation class.
 // This is a JS port of the Python "oplcsv.py" library used by the OpenPowerlifting
 // main data project.
@@ -78,6 +81,52 @@ export const getSpreadsheetColumnName = (index: number): string => {
 
   return alphabet[n] + acc;
 };
+
+// Performs basic column level validate
+// - Ensure all mandatory columns are present
+// - Ensure there are no unrecognized/invalid columns
+// - Ensure there are no duplicate columns
+export function validateCsvColumns(
+  csv: Csv,
+  language: Language,
+  MANDATORY_FIELDNAMES: string[],
+  OPTIONAL_FIELDNAMES: string[]
+): string | null {
+  // Check the existent fieldnames for sanity.
+  for (let i = 0; i < csv.fieldnames.length; ++i) {
+    const name: string = csv.fieldnames[i];
+
+    // Every fieldname that appears must be known.
+    if (!MANDATORY_FIELDNAMES.includes(name) && !OPTIONAL_FIELDNAMES.includes(name)) {
+      const colname = getSpreadsheetColumnName(i);
+      const allfields: string = MANDATORY_FIELDNAMES.join(", ") + ", " + OPTIONAL_FIELDNAMES.join(", ");
+
+      const e = getString("error.csv-unknown-header", language);
+      return e.replace("{name}", name).replace("{ABC}", colname).replace("{validList}", allfields);
+    }
+
+    // Fieldnames cannot be repeated.
+    for (let j = i + 1; j < csv.fieldnames.length; ++j) {
+      if (csv.fieldnames[j] === csv.fieldnames[i]) {
+        const iname = getSpreadsheetColumnName(i);
+        const jname = getSpreadsheetColumnName(j);
+
+        const e = getString("error.csv-duplicate-header", language);
+        return e.replace("{name}", csv.fieldnames[i]).replace("{firstABC}", iname).replace("{secondABC}", jname);
+      }
+    }
+  }
+
+  // Check that all of the MANDATORY_FIELDNAMES are included.
+  for (let i = 0; i < MANDATORY_FIELDNAMES.length; ++i) {
+    if (!csv.fieldnames.includes(MANDATORY_FIELDNAMES[i])) {
+      const e = getString("error.csv-missing-header", language);
+      return e.replace("{name}", MANDATORY_FIELDNAMES[i]);
+    }
+  }
+
+  return null;
+}
 
 // A class for managing simple CSV files. Double-quotes and commas are disallowed.
 export class Csv {

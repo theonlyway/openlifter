@@ -31,11 +31,13 @@ let strings = [];
 // Generic strings for common nouns that aren't really particular to a context.
 strings = strings.concat([
   { id: "common.age", defaultMessage: "Age" },
+  { id: "common.any", defaultMessage: "Any" },
   { id: "common.button-close", defaultMessage: "Close" },
   { id: "common.button-continue", defaultMessage: "Continue" },
   { id: "common.country", defaultMessage: "Country" },
   { id: "common.danger-allcaps", defaultMessage: "DANGER!!!" },
   { id: "common.federation", defaultMessage: "Federation" },
+  { id: "common.importation-error", defaultMessage: "Importation Error" },
   { id: "common.kilograms", defaultMessage: "Kilograms" },
   { id: "common.name", defaultMessage: "Name" },
   { id: "common.pounds", defaultMessage: "Pounds" },
@@ -188,7 +190,6 @@ strings = strings.concat([
 strings = strings.concat([
   { id: "registration.birthdate-placeholder", defaultMessage: "YYYY-MM-DD" },
   { id: "registration.button-delete", defaultMessage: "Delete" },
-  { id: "registration.importation-error", defaultMessage: "Importation Error" },
   { id: "registration.member-id-placeholder", defaultMessage: "ID" },
   { id: "registration.state-province", defaultMessage: "State" },
 ]);
@@ -296,6 +297,40 @@ strings = strings.concat([
   { id: "lifting.footer-no-flights", defaultMessage: "No Flights" },
   { id: "lifting.footer-no-lifters", defaultMessage: "No Lifters" },
   { id: "lifting.division-column-width-label", defaultMessage: "Division Column Width" },
+]);
+
+// Strings for the Records page.
+strings = strings.concat([
+  { id: "records.csv.name", defaultMessage: "Full Name" },
+  { id: "records.csv.weight", defaultMessage: "Weight" },
+  { id: "records.csv.date", defaultMessage: "Date" },
+  { id: "records.csv.location", defaultMessage: "Location" },
+  { id: "records.csv.division", defaultMessage: "Division" },
+  { id: "records.csv.sex", defaultMessage: "Sex" },
+  { id: "records.csv.class", defaultMessage: "Class" },
+  { id: "records.csv.equipment", defaultMessage: "Equipment" },
+  { id: "records.csv.record-lift", defaultMessage: "Lift" },
+  { id: "records.csv.record-type", defaultMessage: "Record Type" },
+  { id: "records.example-1.name", defaultMessage: "Elijah Example" },
+  { id: "records.example.location", defaultMessage: "Elite Raw Imaginary Powerlifting Fed Worlds 2035" },
+  { id: "records.example.date", defaultMessage: "2035-04-05" },
+  { id: "records.example.division", defaultMessage: "Open" },
+  { id: "records.example-1.sex", defaultMessage: "M" },
+  { id: "records.example-1.class", defaultMessage: "66kg" },
+  { id: "records.example-1.equipment", defaultMessage: "Sleeves" },
+  { id: "records.example-1.record-lift", defaultMessage: "Total" },
+  { id: "records.example-1.record-type", defaultMessage: "FullPower" },
+  { id: "records.example-2.name", defaultMessage: "Elsie Example" },
+  { id: "records.example-2.sex", defaultMessage: "F" },
+  { id: "records.example-2.class", defaultMessage: "84kg+" },
+  { id: "records.example-2.equipment", defaultMessage: "Single-Ply" },
+  { id: "records.example-2.record-lift", defaultMessage: "Bench" },
+  { id: "records.example-2.record-type", defaultMessage: "Single Lift" },
+  { id: "records.export-filename", defaultMessage: "{MeetName}-Records" },
+  { id: "records.total", defaultMessage: "Total" },
+  { id: "records.record-type.full-power", defaultMessage: "Full Power" },
+  { id: "records.record-type.single-lift", defaultMessage: "Single Lift" },
+  { id: "records.template-filename", defaultMessage: "records-template" },
 ]);
 
 // Strings for the Results page.

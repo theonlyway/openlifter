@@ -18,8 +18,10 @@
 
 // Defines logic for creating and working with Entry objects.
 
-import { Entry, Lift, Event, FieldKg, FieldStatus } from "../types/dataTypes";
+import { Entry, Lift, Event, FieldKg, FieldStatus, Language } from "../types/dataTypes";
 import { checkExhausted } from "../types/utils";
+import { mapSexToClasses } from "./records";
+import { getWeightClassStr } from "../reducers/meetReducer";
 
 // Length of {squat,bench,deadlift}{Kg,Status} in each Entry.
 export const MAX_ATTEMPTS = 5;
@@ -347,4 +349,17 @@ export const getWhetherPlatformsHaveLifted = (
     ret.push(acc);
   }
   return ret;
+};
+
+export const getWeightClassForEntry = (
+  entry: Readonly<Entry>,
+  weightClassesKgMen: readonly number[],
+  weightClassesKgWomen: readonly number[],
+  weightClassesKgMx: readonly number[],
+  language: Language
+) => {
+  const weightClassesForSex = mapSexToClasses(entry.sex, weightClassesKgMen, weightClassesKgWomen, weightClassesKgMx);
+
+  const weightClass = getWeightClassStr(weightClassesForSex, entry.bodyweightKg, language);
+  return weightClass;
 };

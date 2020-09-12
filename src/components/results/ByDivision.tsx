@@ -42,6 +42,7 @@ import { Category, CategoryResults } from "../../logic/divisionPlace";
 import { Entry, Formula, Language, Sex } from "../../types/dataTypes";
 import { GlobalState } from "../../types/stateTypes";
 import { checkExhausted } from "../../types/utils";
+import { mapSexToClasses } from "../../logic/records";
 
 interface StateProps {
   inKg: boolean;
@@ -62,20 +63,6 @@ interface OwnProps {
 }
 
 type Props = StateProps & OwnProps;
-
-const mapSexToClasses = (sex: Sex, props: Props): ReadonlyArray<number> => {
-  switch (sex) {
-    case "M":
-      return props.weightClassesKgMen;
-    case "F":
-      return props.weightClassesKgWomen;
-    case "Mx":
-      return props.weightClassesKgMx;
-    default:
-      checkExhausted(sex);
-      return props.weightClassesKgMen;
-  }
-};
 
 class ByDivision extends React.Component<Props> {
   renderEntryRow = (entry: Entry, category: Category, key: number): JSX.Element | null => {
@@ -104,7 +91,12 @@ class ByDivision extends React.Component<Props> {
       pointsStr = displayPoints(points, language);
     }
 
-    const classes = mapSexToClasses(entry.sex, this.props);
+    const classes = mapSexToClasses(
+      entry.sex,
+      this.props.weightClassesKgMen,
+      this.props.weightClassesKgWomen,
+      this.props.weightClassesKgMx
+    );
     const wtcls = inKg
       ? getWeightClassStr(classes, entry.bodyweightKg, language)
       : getWeightClassLbsStr(classes, entry.bodyweightKg);

@@ -18,7 +18,7 @@
 
 // Defines shared types produced by Redux actions.
 
-import { Entry, Flight, Formula, Language, Lift, Sex } from "./dataTypes";
+import { Entry, Flight, Formula, Language, Lift, Sex, LiftingRecord, UnconfirmedLiftingRecord } from "./dataTypes";
 import { GlobalState, MeetState, LiftingState } from "./stateTypes";
 
 //////////////////////////////////////////////////////////
@@ -175,10 +175,12 @@ export interface EnterAttemptAction {
 
 export interface MarkLiftAction {
   readonly type: "MARK_LIFT";
-  readonly entryId: number;
+  readonly entry: Entry;
+  readonly weightClass: string;
   readonly lift: Lift;
   readonly attemptOneIndexed: number;
   readonly success: boolean;
+  readonly meetName: string;
 }
 
 export interface SetLiftingGroupAction {
@@ -202,4 +204,38 @@ export interface OverrideEntryIdAction {
 export interface SetTableInfoAction {
   readonly type: "SET_TABLE_INFO";
   readonly changes: Partial<LiftingState>;
+}
+
+//////////////////////////////////////////////////////////
+// Record Actions.
+//////////////////////////////////////////////////////////
+
+export interface ImportRecordsAction {
+  readonly type: "IMPORT_RECORDS";
+  readonly records: LiftingRecord[];
+}
+
+export interface UpsertConfirmedRecordAction {
+  readonly type: "UPSERT_CONFIRMED_RECORD";
+  readonly record: LiftingRecord;
+}
+
+export interface DeleteRecordAction {
+  readonly type: "DELETE_CONFIRMED_RECORD";
+  readonly record: LiftingRecord;
+}
+
+export interface InsertUnconfirmedRecordAction {
+  readonly type: "INSERT_UNCONFIRMED_RECORD";
+  readonly record: UnconfirmedLiftingRecord;
+}
+
+export interface MarkRecordAsConfirmedAction {
+  readonly type: "MARK_RECORD_AS_CONFIRMED";
+  readonly record: UnconfirmedLiftingRecord;
+}
+
+export interface DeleteUncofirmedRecordAction {
+  readonly type: "DELETE_UNCONFIRMED_RECORD";
+  readonly record: UnconfirmedLiftingRecord;
 }

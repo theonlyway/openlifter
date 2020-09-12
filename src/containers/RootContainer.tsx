@@ -40,6 +40,7 @@ import FlightOrderContainer from "./FlightOrderContainer";
 import ResultsContainer from "./ResultsContainer";
 import DebugContainer from "./DebugContainer";
 import AboutContainer from "./AboutContainer";
+import RecordsContainer from "./RecordsContainer";
 
 class RootContainer extends React.Component {
   render() {
@@ -64,6 +65,8 @@ class RootContainer extends React.Component {
         return <DebugContainer />;
       case "?about":
         return <AboutContainer />;
+      case "?records":
+        return <RecordsContainer />;
       default:
         return <HomeContainer />;
     }

@@ -40,6 +40,8 @@ export type Formula =
   | "Wilks2020";
 export type AgeCoefficients = "None" | "FosterMcCulloch";
 export type Lift = "S" | "B" | "D";
+export type RecordLift = Lift | "Total";
+export type RecordType = "FullPower" | "SingleLift";
 
 // Mx (pronounced "Muks" or "Miks") is an honorific that does not indicate gender.
 //
@@ -78,6 +80,7 @@ export type Entry = {
   paid: boolean;
   team: string;
   guest: boolean;
+  canBreakRecords?: boolean; // Optional to maintain dataVersion compat.
   instagram?: string; // Optional to maintain dataVersion compat.
   notes: string;
   bodyweightKg: number;
@@ -111,6 +114,25 @@ export type LiftingOrder = {
   currentEntryId: number | null;
   nextAttemptOneIndexed: number | null;
   nextEntryId: number | null;
+};
+
+export type RecordKeyComponents = {
+  division: string;
+  sex: Sex;
+  weightClass: string;
+  equipment: Equipment;
+  recordLift: RecordLift;
+  recordType: RecordType;
+};
+
+export type PotentialLiftingRecord = RecordKeyComponents & { weight: number };
+
+export type UnconfirmedLiftingRecord = RecordKeyComponents & { entryId: number };
+
+export type LiftingRecord = PotentialLiftingRecord & {
+  fullName: string;
+  date: string;
+  location: string;
 };
 
 // Type used for FormGroup validation.

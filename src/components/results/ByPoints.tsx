@@ -43,6 +43,7 @@ import { AgeCoefficients, Entry, Formula, Language, Sex } from "../../types/data
 import { GlobalState } from "../../types/stateTypes";
 import { checkExhausted } from "../../types/utils";
 import { fosterMcCulloch } from "../../logic/coefficients/foster-mcculloch";
+import { mapSexToClasses } from "../../logic/records";
 
 interface StateProps {
   inKg: boolean;
@@ -68,20 +69,6 @@ interface OwnProps {
 }
 
 type Props = StateProps & OwnProps;
-
-const mapSexToClasses = (sex: Sex, props: Props): ReadonlyArray<number> => {
-  switch (sex) {
-    case "M":
-      return props.weightClassesKgMen;
-    case "F":
-      return props.weightClassesKgWomen;
-    case "Mx":
-      return props.weightClassesKgMx;
-    default:
-      checkExhausted(sex);
-      return props.weightClassesKgMen;
-  }
-};
 
 class ByPoints extends React.Component<Props> {
   renderEntryRow = (entry: Entry, category: PointsCategory, key: number): JSX.Element | null => {
@@ -121,7 +108,12 @@ class ByPoints extends React.Component<Props> {
     const firstDivision = entry.divisions.length > 0 ? entry.divisions[0] : "";
     const numDivisions = entry.divisions.length;
 
-    const classes = mapSexToClasses(entry.sex, this.props);
+    const classes = mapSexToClasses(
+      entry.sex,
+      this.props.weightClassesKgMen,
+      this.props.weightClassesKgWomen,
+      this.props.weightClassesKgMx
+    );
     const wtcls = inKg
       ? getWeightClassStr(classes, entry.bodyweightKg, language)
       : getWeightClassLbsStr(classes, entry.bodyweightKg);

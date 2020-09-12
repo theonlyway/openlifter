@@ -37,6 +37,7 @@ import Navigation from "./components/Navigation";
 import configureStore from "./store";
 
 import { getDefaultLanguage } from "./logic/strings";
+import RecordsContainer from "./containers/RecordsContainer";
 
 class App extends React.Component {
   render() {
@@ -66,6 +67,7 @@ class App extends React.Component {
                   <Route path="/results" component={ResultsContainer} />
                   <Route path="/debug" component={DebugContainer} />
                   <Route path="/about" component={AboutContainer} />
+                  <Route path="/records" component={RecordsContainer} />
                 </Switch>
               </div>
             </Router>

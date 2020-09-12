@@ -22,7 +22,7 @@
 // with the "readonly " covariant type, which makes them immutable.
 
 import { FormControl, FormControlProps } from "react-bootstrap";
-import { AgeCoefficients, Flight, Formula, Lift, Sex } from "./dataTypes";
+import { AgeCoefficients, Flight, Formula, Lift, Sex, Equipment, Event, RecordLift, RecordType } from "./dataTypes";
 
 // This is purely used by the type system to raise a compile error when
 // we are trying to perform an exhaustive check (eg in a switch).
@@ -55,6 +55,11 @@ export function assertNumber(value: any): value is number {
     throw new Error(`Expected a number, but got ${value}`);
   }
   return result;
+}
+
+// Useful for checking for undefined & convincing the compiler that it can safely narrow the type
+export function isNotUndefined<T>(value: T | undefined): value is T {
+  return value !== undefined;
 }
 
 // Throws an error if value isn't a a valid flight, narrows the type if it is.
@@ -120,6 +125,65 @@ export function assertAgeCoefficients(value: string): value is AgeCoefficients {
     default:
       checkExhausted(coefficient);
       throw new Error(`Expected a string which corresponds to a valid AgeCoefficients, got "${value}"`);
+  }
+}
+
+export function assertEvent(value: string): value is Event {
+  const event = value as Event;
+  switch (event) {
+    case "S":
+    case "B":
+    case "D":
+    case "SB":
+    case "SD":
+    case "BD":
+    case "SBD":
+      return true;
+    default:
+      checkExhausted(event);
+      throw new Error(`Expected a string which corresponds to a valid Event, got "${value}"`);
+  }
+}
+
+export function assertRecordType(value: string): value is RecordType {
+  const recordType = value as RecordType;
+  switch (recordType) {
+    case "FullPower":
+    case "SingleLift":
+      return true;
+    default:
+      checkExhausted(recordType);
+      throw new Error(`Expected a string which corresponds to a valid RecordType, got "${value}"`);
+  }
+}
+
+export function assertRecordLift(value: string): value is RecordLift {
+  const recordLift = value as RecordLift;
+  switch (recordLift) {
+    case "S":
+    case "B":
+    case "D":
+    case "Total":
+      return true;
+    default:
+      checkExhausted(recordLift);
+      throw new Error(`Expected a string which corresponds to a valid RecordLift, got "${value}"`);
+  }
+}
+
+export function assertEquipment(value: string): value is Equipment {
+  const equipment = value as Equipment;
+  switch (equipment) {
+    case "Bare":
+    case "Sleeves":
+    case "Wraps":
+    case "Single-ply":
+    case "Multi-ply":
+    case "Unlimited":
+      return true;
+    default:
+      checkExhausted(equipment);
+      throw new Error(`Expected a string which corresponds to a valid Equipment, got "${value}"`);
   }
 }
 

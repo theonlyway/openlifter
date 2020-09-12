@@ -40,6 +40,8 @@ import { GlobalState, LiftingState } from "../../types/stateTypes";
 import styles from "./LiftingFooter.module.scss";
 import { Dispatch } from "redux";
 import { FormControlTypeHack, assertFlight, assertString, assertLift } from "../../types/utils";
+import { mapSexToClasses } from "../../logic/records";
+import { getWeightClassStr } from "../../reducers/meetReducer";
 
 interface OwnProps {
   attemptOneIndexed: number;
@@ -54,14 +56,18 @@ interface StateProps {
   lengthDays: number;
   platformsOnDays: ReadonlyArray<number>;
   allow4thAttempts: boolean;
+  weightClassesKgMen: ReadonlyArray<number>;
+  weightClassesKgWomen: ReadonlyArray<number>;
+  weightClassesKgMx: ReadonlyArray<number>;
   language: Language;
+  entries: readonly Readonly<Entry>[];
 }
 
 interface DispatchProps {
   setLiftingGroup: (day: number, platform: number, flight: Flight, lift: Lift) => void;
   overrideAttempt: (attempt: number) => void;
   overrideEntryId: (entryId: number) => void;
-  markLift: (entryId: number, lift: Lift, attempt: number, success: boolean) => void;
+  markLift: (entry: Entry, potentialRecordWeightClass: string, lift: Lift, attempt: number, success: boolean) => void;
 }
 
 type Props = OwnProps & StateProps & DispatchProps;
@@ -180,31 +186,22 @@ class LiftingFooter extends React.Component<Props> {
     }
   };
 
-  handleGoodLift = () => {
+  handleGoodLift = () => this.handleLiftResult(false);
+  handleNoLift = () => this.handleLiftResult(false);
+
+  handleLiftResult(success: boolean) {
     // If there's no active entry, there's nothing to set.
     if (this.props.currentEntryId === null) {
       return;
     }
 
-    const entryId = Number(this.props.currentEntryId);
+    const entry = this.getCurrentEntry();
     const lift = this.props.lifting.lift;
     const attempt = this.props.attemptOneIndexed;
-    this.props.markLift(entryId, lift, attempt, true);
+    const weightClass = this.getWeightClassForEntry(entry);
+    this.props.markLift(entry, weightClass, lift, attempt, success);
     this.setFocusAttemptInputTimeout();
-  };
-
-  handleNoLift = () => {
-    // If there's no active entry, there's nothing to set.
-    if (this.props.currentEntryId === null) {
-      return;
-    }
-
-    const entryId = Number(this.props.currentEntryId);
-    const lift = this.props.lifting.lift;
-    const attempt = this.props.attemptOneIndexed;
-    this.props.markLift(entryId, lift, attempt, false);
-    this.setFocusAttemptInputTimeout();
-  };
+  }
 
   // Check whether "document.fullscreenElement" exists, including prefixes.
   hasFullscreenElement = (): boolean => {
@@ -269,6 +266,27 @@ class LiftingFooter extends React.Component<Props> {
     }
     return lifterOptions;
   };
+
+  getWeightClassForEntry(entry: Readonly<Entry>) {
+    const weightClassesForSex = mapSexToClasses(
+      entry.sex,
+      this.props.weightClassesKgMen,
+      this.props.weightClassesKgWomen,
+      this.props.weightClassesKgMx
+    );
+
+    const weightClass = getWeightClassStr(weightClassesForSex, entry.bodyweightKg, this.props.language);
+    return weightClass;
+  }
+
+  getCurrentEntry() {
+    const entryId = this.props.currentEntryId;
+    const entry = this.props.entries.find((e) => e.id === entryId);
+    if (entry === undefined) {
+      throw new Error(`Could not find entry of id ${entryId} in the state. Critical issue with application state`);
+    }
+    return entry;
+  }
 
   render() {
     const language = this.props.language;
@@ -430,8 +448,12 @@ const mapStateToProps = (state: GlobalState) => {
     lengthDays: state.meet.lengthDays,
     platformsOnDays: state.meet.platformsOnDays,
     allow4thAttempts: state.meet.allow4thAttempts,
+    weightClassesKgMen: state.meet.weightClassesKgMen,
+    weightClassesKgWomen: state.meet.weightClassesKgWomen,
+    weightClassesKgMx: state.meet.weightClassesKgMx,
     lifting: state.lifting,
     language: state.language,
+    entries: state.registration.entries,
   };
 };
 
@@ -441,8 +463,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
       dispatch(setLiftingGroup(day, platform, flight, lift)),
     overrideAttempt: (attempt: number) => dispatch(overrideAttempt(attempt)),
     overrideEntryId: (entryId: number) => dispatch(overrideEntryId(entryId)),
-    markLift: (entryId: number, lift: Lift, attempt: number, success: boolean) =>
-      dispatch(markLift(entryId, lift, attempt, success)),
+    markLift: (entry: Entry, potentialRecordWeightClass: string, lift: Lift, attempt: number, success: boolean) =>
+      dispatch(markLift(entry, potentialRecordWeightClass, lift, attempt, success)),
   };
 };
 

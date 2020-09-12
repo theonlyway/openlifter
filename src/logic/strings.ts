@@ -23,7 +23,7 @@
 // to in the React context.
 
 import translations from "../translations";
-import { Equipment, Event, Flight, Language, Sex, TranslationId } from "../types/dataTypes";
+import { Equipment, Event, Flight, Language, Sex, TranslationId, RecordLift, RecordType } from "../types/dataTypes";
 import { checkExhausted } from "../types/utils";
 import { displayWeight } from "./units";
 
@@ -85,6 +85,49 @@ export const localizeEvent = (event: Event, language: Language): string => {
       checkExhausted(event);
       return "";
   }
+};
+
+export const localizeRecordLift = (recordLift: RecordLift, language: Language): string => {
+  switch (recordLift) {
+    case "S":
+      return getString("event.s", language);
+    case "B":
+      return getString("event.b", language);
+    case "D":
+      return getString("event.d", language);
+    case "Total":
+      return getString("records.total", language);
+    default:
+      checkExhausted(recordLift);
+      return "";
+  }
+};
+
+export const delocalizeRecordLift = (text: string, language: Language): RecordLift => {
+  if (text === getString("event.s", language)) return "S";
+  if (text === getString("event.b", language)) return "B";
+  if (text === getString("event.d", language)) return "D";
+  if (text === getString("records.total", language)) return "Total";
+  throw new Error(`Failed to delocalise RecordLift ${text}`);
+};
+
+export const localizeRecordType = (recordType: RecordType, language: Language): string => {
+  switch (recordType) {
+    case "FullPower":
+      return getString("records.full-power", language);
+    case "SingleLift":
+      return getString("records.single-lift", language);
+    default:
+      checkExhausted(recordType);
+      return "";
+  }
+};
+
+// TODO - actual localisation
+export const delocaliseRecordType = (text: string, language: Language): RecordType => {
+  if (text === getString("records.full-power", language)) return "FullPower";
+  if (text === getString("records.single-lift", language)) return "SingleLift";
+  throw new Error(`Failed to delocalise RecordType ${text}`);
 };
 
 // Delocalizes an Event value.
