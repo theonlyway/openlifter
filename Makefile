@@ -34,8 +34,7 @@ release-web: build
 
 # Builds the project into build/.
 .PHONY: build
-build:
-	make less
+build: build-deps
 	yarn run build
 
 # Overwrites settings in package.json to allow the Beta site's Router
