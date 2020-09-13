@@ -16,11 +16,12 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { ImportRecordsAction } from "../types/actionTypes";
+import { ImportRecordsAction, OverwriteStoreAction } from "../types/actionTypes";
 import { RecordsState } from "../types/stateTypes";
 import { LiftingRecord, RecordKeyComponents } from "../types/dataTypes";
+import { checkExhausted } from "../types/utils";
 
-type Action = ImportRecordsAction;
+type Action = ImportRecordsAction | OverwriteStoreAction;
 
 const initialState: RecordsState = {
   confirmedRecords: {},
@@ -52,7 +53,13 @@ export default (state: RecordsState = initialState, action: Action): RecordsStat
 
       return { ...state, confirmedRecords: recordLookup };
     }
-  }
 
-  return state;
+    case "OVERWRITE_STORE": {
+      return action.store.records || state;
+    }
+
+    default:
+      checkExhausted(action);
+      return state;
+  }
 };

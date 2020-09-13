@@ -20,7 +20,7 @@ import { GlobalState, MeetState, RecordsState, RegistrationState } from "../../t
 import React from "react";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
-import { LiftingRecord, Language, Sex, Equipment, RecordLift, RecordType, Lift } from "../../types/dataTypes";
+import { LiftingRecord, Language, Sex, Equipment, RecordLift, RecordType } from "../../types/dataTypes";
 import { importRecords } from "../../actions/recordActions";
 import ErrorModal from "../ErrorModal";
 import {
@@ -108,7 +108,9 @@ class RecordsView extends React.Component<Props, State> {
     saveAs(blob, filename);
   }
 
-  handleExportWebPageClick() {}
+  handleExportWebPageClick() {
+    // TODO: Implement me!!
+  }
 
   handleDownloadCsvTemplateClick = () => {
     const text = makeExampleRecordsCsv(this.props.language);

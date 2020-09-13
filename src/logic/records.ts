@@ -36,6 +36,7 @@ import {
   getWeightClassForEntry,
   liftToAttemptFieldName,
   getProjectedTotalKg,
+  getAttemptWeight,
 } from "./entry";
 import { checkExhausted } from "../types/utils";
 
@@ -93,8 +94,8 @@ export function isOfficialRecordAttempt(
     language
   );
 
-  // If they cannot break records, its not a record attempt
-  if (!entry.canBreakRecords) {
+  // If they cannot break records, or have no divisions, it cannot be a record attempt
+  if (!entry.canBreakRecords || entry.divisions.length === 0) {
     return false;
   }
 
@@ -104,10 +105,10 @@ export function isOfficialRecordAttempt(
   // Calculate the weight for the type of record requested
   let weight: number;
   if (recordLift === "Total") {
-    weight = getProjectedTotalKg(entry);
+    // Total records only get announced during deadlifts, take the sum of the best S + B and the current attempted deadlift
+    weight = getBest3SquatKg(entry) + getBest3BenchKg(entry) + getAttemptWeight(entry, "D", attemptOneIndexed);
   } else {
-    const attemptWeightField = liftToAttemptFieldName(recordLift);
-    weight = entry[attemptWeightField][attemptOneIndexed - 1];
+    weight = getAttemptWeight(entry, recordLift, attemptOneIndexed);
   }
 
   const potentialRecord: PotentialLiftingRecord = {
@@ -156,7 +157,7 @@ function addPotentialRecordIfRelevant(
   },
   entry: Readonly<Entry>
 ) {
-  if (entry.events[0].indexOf(event) !== -1) {
+  if (entry.events.length > 0 && entry.events[0].indexOf(event) !== -1) {
     const weightLifted = getWeightForUnconfirmedRecord(event, entry);
     // Ensure they've actually lifted something in this event
     if (weightLifted > 0) {
@@ -194,7 +195,7 @@ export function getUpdatedRecordState(
     // Can only set a record in a fullpower meet if you've set a total, or are on track to set one
     const canSetRecords = entry.canBreakRecords && (recordType !== "FullPower" || getFinalTotalKg(entry) > 0);
 
-    if (canSetRecords) {
+    if (canSetRecords && entry.divisions.length > 0) {
       const potentialRecords: LiftingRecord[] = [];
       const basePotentialRecord = {
         date: meet.date,

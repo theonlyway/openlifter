@@ -143,6 +143,9 @@ class HomeContainer extends React.Component<Props, InternalState> {
       }
     };
     reader.readAsText(selectedFile);
+
+    // this will reset the input field so the same file can be selected again. Without this picking the same file for import silently does nothing
+    loadHelper.value = "";
   };
 
   handleSaveClick = () => {

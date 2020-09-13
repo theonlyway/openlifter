@@ -313,6 +313,11 @@ export const liftToStatusFieldName = (lift: Lift): FieldStatus => {
   }
 };
 
+export const getAttemptWeight = (entry: Entry, lift: Lift, attemptOneIndexed: number): number => {
+  const attemptWeightField = liftToAttemptFieldName(lift);
+  return entry[attemptWeightField][attemptOneIndexed - 1];
+};
+
 // Whether the Entry has taken any attempts.
 export const entryHasLifted = (entry: Entry): boolean => {
   if (entry.squatStatus[0] !== 0) return true;
