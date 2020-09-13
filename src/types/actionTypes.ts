@@ -175,12 +175,10 @@ export interface EnterAttemptAction {
 
 export interface MarkLiftAction {
   readonly type: "MARK_LIFT";
-  readonly entry: Entry;
+  readonly entryId: number;
   readonly lift: Lift;
   readonly attemptOneIndexed: number;
   readonly success: boolean;
-  /*   readonly meetName: string;
-  readonly weightClass: string; */
 }
 
 export interface SetLiftingGroupAction {

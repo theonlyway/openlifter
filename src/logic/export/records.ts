@@ -18,13 +18,7 @@
 
 import { RecordsState } from "../../types/stateTypes";
 import { Csv, csvString } from "./csv";
-import {
-  localizeSex,
-  localizeEquipment,
-  localizeWeightClassStr,
-  localizeRecordType,
-  localizeRecordLift,
-} from "../strings";
+import { localizeSex, localizeEquipment, localizeRecordType, localizeRecordLift } from "../strings";
 import { Language } from "../../types/dataTypes";
 import { getRecordCsvMetadata } from "../import/records-csv";
 

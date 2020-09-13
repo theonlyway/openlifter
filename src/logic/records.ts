@@ -34,8 +34,6 @@ import {
   getBest3BenchKg,
   getBest3DeadliftKg,
   getWeightClassForEntry,
-  liftToAttemptFieldName,
-  getProjectedTotalKg,
   getAttemptWeight,
 } from "./entry";
 import { checkExhausted } from "../types/utils";
@@ -126,7 +124,7 @@ export function isOfficialRecordAttempt(
     // This assumes normal SBD order of lifts. If things are done out of order, the official records will still end up correct, but the on-screen notices won't work
     if (recordType === "FullPower") {
       // Cannot set a bench, deadlift or total record if you've bombed on squats
-      if ((recordLift === "B" || recordLift === "D" || recordLift == "Total") && getBest3SquatKg(entry) === 0) {
+      if (recordLift !== "S" && getBest3SquatKg(entry) === 0) {
         return false;
       }
 

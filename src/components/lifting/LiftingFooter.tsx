@@ -449,7 +449,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     overrideAttempt: (attempt: number) => dispatch(overrideAttempt(attempt)),
     overrideEntryId: (entryId: number) => dispatch(overrideEntryId(entryId)),
     markLift: (entry: Entry, lift: Lift, attempt: number, success: boolean) =>
-      dispatch(markLift(entry, lift, attempt, success)),
+      dispatch(markLift(entry.id, lift, attempt, success)),
   };
 };
 
