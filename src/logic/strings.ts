@@ -114,19 +114,18 @@ export const delocalizeRecordLift = (text: string, language: Language): RecordLi
 export const localizeRecordType = (recordType: RecordType, language: Language): string => {
   switch (recordType) {
     case "FullPower":
-      return getString("records.full-power", language);
+      return getString("records.record-type.full-power", language);
     case "SingleLift":
-      return getString("records.single-lift", language);
+      return getString("records.record-type.single-lift", language);
     default:
       checkExhausted(recordType);
       return "";
   }
 };
 
-// TODO - actual localisation
 export const delocaliseRecordType = (text: string, language: Language): RecordType => {
-  if (text === getString("records.full-power", language)) return "FullPower";
-  if (text === getString("records.single-lift", language)) return "SingleLift";
+  if (text === getString("records.record-type.full-power", language)) return "FullPower";
+  if (text === getString("records.record-type.single-lift", language)) return "SingleLift";
   throw new Error(`Failed to delocalise RecordType ${text}`);
 };
 
@@ -231,7 +230,7 @@ export const delocalizeSex = (text: string, language: Language): Sex => {
 };
 
 // Localizes a Category weightclass string.
-// This is used by the Flight Order and Results pages.
+// This is used by the Flight Order, Results and Records pages.
 export const localizeWeightClassStr = (wtcls: string, language: Language): string => {
   const isSHW = wtcls.endsWith("+");
   const asNumber = Number(wtcls.replace("+", ""));

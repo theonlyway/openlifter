@@ -20,24 +20,17 @@ import { GlobalState, MeetState, RecordsState, RegistrationState } from "../../t
 import React from "react";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
-import {
-  LiftingRecord,
-  Language,
-  Sex,
-  Equipment,
-  RecordLift,
-  RecordType,
-  UnconfirmedLiftingRecord,
-} from "../../types/dataTypes";
-import {
-  deleteConfirmedRecord,
-  upsertConfirmedRecord,
-  importRecords,
-  deleteUnconfirmedRecord,
-  markRecordAsConfirmed,
-} from "../../actions/recordActions";
+import { LiftingRecord, Language, Sex, Equipment, RecordLift, RecordType, Lift } from "../../types/dataTypes";
+import { importRecords } from "../../actions/recordActions";
 import ErrorModal from "../ErrorModal";
-import { getString } from "../../logic/strings";
+import {
+  getString,
+  localizeEquipment,
+  localizeRecordLift,
+  localizeRecordType,
+  localizeSex,
+  localizeWeightClassStr,
+} from "../../logic/strings";
 import { Card, Button, Form, Row, Col, Table } from "react-bootstrap";
 import { FormattedMessage } from "react-intl";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -56,7 +49,8 @@ import {
   isNotUndefined,
 } from "../../types/utils";
 import { makeRecordsCsv } from "../../logic/export/records";
-import { confirmRecords } from "../../logic/records";
+import { getUpdatedRecordState } from "../../logic/records";
+import { displayNumber } from "../../logic/units";
 
 type AnyOptionType = "Any";
 const AnyOption: AnyOptionType = "Any";
@@ -64,16 +58,12 @@ const AnyOption: AnyOptionType = "Any";
 interface StateProps {
   meet: MeetState;
   language: Language;
-  records: RecordsState;
+  updatedRecords: RecordsState;
   registration: RegistrationState;
 }
 
 interface DispatchProps {
   importRecords: (records: LiftingRecord[]) => void;
-  deleteRecord: (record: LiftingRecord) => void;
-  upsertRecord: (record: LiftingRecord) => void;
-  markRecordAsConfirmed: (record: UnconfirmedLiftingRecord) => void;
-  deleteUnconfirmedRecord: (record: UnconfirmedLiftingRecord) => void;
 }
 
 interface State {
@@ -109,17 +99,8 @@ class RecordsView extends React.Component<Props, State> {
   }
 
   handleExportCsvClick() {
-    // When performing an export, we confirm all pending records.
-    // This is assumed to be the point at the meet which the director isn't going to retroactively go back and alter a lifts status, as they're saving the records for later
-    confirmRecords(
-      this.props.records,
-      this.props.registration,
-      this.props.markRecordAsConfirmed,
-      this.props.deleteUnconfirmedRecord
-    );
-
     const language = this.props.language;
-    const text = makeRecordsCsv(this.props.records, language);
+    const text = makeRecordsCsv(this.props.updatedRecords, language);
     const blob = new Blob([text], { type: "application/text;charset=utf-8" });
 
     const basename = getString("records.export-filename", this.props.language);
@@ -225,7 +206,7 @@ class RecordsView extends React.Component<Props, State> {
       }
 
       // Try to parse the CSV into records
-      const maybeRecords = loadRecordsFromCsv(csv, this.props.language);
+      const maybeRecords = loadRecordsFromCsv(csv, this.props.meet, this.props.language);
       if (typeof maybeRecords === "string") {
         this.setState({ error: maybeRecords });
         return;
@@ -280,7 +261,7 @@ class RecordsView extends React.Component<Props, State> {
   }
 
   render() {
-    const filteredRecords = Object.entries(this.props.records.confirmedRecords)
+    const filteredRecords = Object.entries(this.props.updatedRecords.confirmedRecords)
       .map((kvp) => kvp[1])
       .filter(isNotUndefined)
       .filter((record) => {
@@ -299,7 +280,6 @@ class RecordsView extends React.Component<Props, State> {
       <div>
         <ErrorModal
           error={this.state.error}
-          // Should be a different string?
           title={getString("common.importation-error", this.props.language)}
           show={this.state.error !== ""}
           close={() => this.closeErrorModal()}
@@ -317,20 +297,10 @@ class RecordsView extends React.Component<Props, State> {
               {this.state.isLoadingFiles && <FontAwesomeIcon style={{ marginRight: "5px" }} icon={faSpinner} spin />}
               <FormattedMessage id="records.button-overwrite-from-csv" defaultMessage="Overwrite Records from CSV" />
             </Button>
-            <Button
-              variant="success"
-              disabled={Object.entries(this.props.records.confirmedRecords).length === 0}
-              onClick={() => this.handleExportCsvClick()}
-              style={{ marginLeft: "14px" }}
-            >
+            <Button variant="success" onClick={() => this.handleExportCsvClick()} style={{ marginLeft: "14px" }}>
               <FormattedMessage id="registration.button-export-to-csv" defaultMessage="Export to CSV" />
             </Button>
-            <Button
-              variant="primary"
-              disabled={Object.entries(this.props.records.confirmedRecords).length === 0}
-              onClick={() => this.handleExportWebPageClick()}
-              style={{ marginLeft: "14px" }}
-            >
+            <Button variant="primary" onClick={() => this.handleExportWebPageClick()} style={{ marginLeft: "14px" }}>
               <FormattedMessage id="records.export-as-web-page" defaultMessage="Export to CSV" />
             </Button>
           </Card.Body>
@@ -507,19 +477,18 @@ class RecordsView extends React.Component<Props, State> {
   }
 
   renderRow(record: LiftingRecord, index: number) {
-    // TODO: localise this
     return (
       <tr key={index}>
         <td>{record.fullName}</td>
-        <td>{record.weight}</td>
+        <td>{displayNumber(record.weight, this.props.language)}</td>
         <td>{record.date}</td>
         <td>{record.location}</td>
         <td>{record.division}</td>
-        <td>{record.sex}</td>
-        <td>{record.weightClass}</td>
-        <td>{record.equipment}</td>
-        <td>{record.recordLift}</td>
-        <td>{record.recordType}</td>
+        <td>{localizeSex(record.sex, this.props.language)}</td>
+        <td>{localizeWeightClassStr(record.weightClass, this.props.language)}</td>
+        <td>{localizeEquipment(record.equipment, this.props.language)}</td>
+        <td>{localizeRecordLift(record.recordLift, this.props.language)}</td>
+        <td>{localizeRecordType(record.recordType, this.props.language)}</td>
       </tr>
     );
   }
@@ -527,18 +496,14 @@ class RecordsView extends React.Component<Props, State> {
 
 const mapStateToProps = (state: GlobalState): StateProps => ({
   meet: state.meet,
-  records: state.records,
+  updatedRecords: getUpdatedRecordState(state.records, state.meet, state.registration, state.language),
   registration: state.registration,
   language: state.language,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   return {
-    deleteRecord: (record) => dispatch(deleteConfirmedRecord(record)),
-    upsertRecord: (record) => dispatch(upsertConfirmedRecord(record)),
     importRecords: (records) => dispatch(importRecords(records)),
-    markRecordAsConfirmed: (record) => dispatch(markRecordAsConfirmed(record)),
-    deleteUnconfirmedRecord: (record) => dispatch(deleteUnconfirmedRecord(record)),
   };
 };
 

@@ -21,6 +21,7 @@ import { Csv, validateCsvColumns } from "../export/csv";
 import { getString } from "../strings";
 import { validateSex, validateEquipment, validateRecordType, validateRecordLift } from "./validation";
 import { displayNumber } from "../units";
+import { MeetState } from "../../types/stateTypes";
 
 interface RecordsCsvMetadata {
   allColumns: string[];
@@ -126,7 +127,7 @@ export const makeExampleRecordsCsv = (language: Language): string => {
   return csv.toString();
 };
 
-export const loadRecordsFromCsv = (csv: Csv, language: Language): LiftingRecord[] | string => {
+export const loadRecordsFromCsv = (csv: Csv, meet: MeetState, language: Language): LiftingRecord[] | string => {
   const metadata = getRecordCsvMetadata(language);
   const columnNames = metadata.columnNames;
 
@@ -170,7 +171,7 @@ export const loadRecordsFromCsv = (csv: Csv, language: Language): LiftingRecord[
 
       if (fieldname === columnNames.name) {
         if (cell.trim() === "") {
-          return "Name must be provided"; // TODO: localise
+          return errprefix + getString("records.import.error-name-missing", language);
         } else {
           fullName = cell;
         }
@@ -179,8 +180,8 @@ export const loadRecordsFromCsv = (csv: Csv, language: Language): LiftingRecord[
         if (Number.isNaN(parsedFloat)) {
           return errprefix + getString("error.csv-field-suffix-integer", language);
         } else if (parsedFloat < 0) {
-          // Can't be negative, but allow 0 to specify an empty record
-          return "Cant be negative"; // localise
+          // Can't be negative, but allow 0 to specify an empty/standard record
+          return errprefix + getString("records.import.error-weight-not-negative", language);
         }
         weight = parsedFloat;
       } else if (fieldname === columnNames.date) {
@@ -188,8 +189,17 @@ export const loadRecordsFromCsv = (csv: Csv, language: Language): LiftingRecord[
       } else if (fieldname === columnNames.location) {
         location = cell;
       } else if (fieldname === columnNames.division) {
-        if (cell.trim() === "") {
-          return "Division must be provided"; // TODO: localise
+        const rawDiv = cell.trim();
+        if (rawDiv === "") {
+          return errprefix + getString("records.import.error-division-missing", language);
+        } else if (meet.divisions.indexOf(rawDiv) === -1) {
+          return (
+            errprefix +
+            getString("records.import.error-division-invalid", language).replace(
+              "{Divisions}",
+              meet.divisions.join(", ")
+            )
+          );
         } else {
           division = cell;
         }
@@ -198,34 +208,35 @@ export const loadRecordsFromCsv = (csv: Csv, language: Language): LiftingRecord[
         if (validationResult.result !== null) {
           sex = validationResult.result;
         } else {
-          return validationResult.errorMessage;
+          return errprefix + validationResult.errorMessage;
         }
       } else if (fieldname === columnNames.class) {
-        // Compare against classes defined for sex in the state?
         weightClass = cell;
       } else if (fieldname === columnNames.equipment) {
         const validationResult = validateEquipment(cell, language, errprefix);
         if (validationResult.result !== null) {
           equipment = validationResult.result;
         } else {
-          return validationResult.errorMessage;
+          return errprefix + validationResult.errorMessage;
         }
       } else if (fieldname === columnNames.recordLift) {
         const validationResult = validateRecordLift(cell, language, errprefix);
         if (validationResult.result !== null) {
           recordLift = validationResult.result;
         } else {
-          return validationResult.errorMessage;
+          return errprefix + validationResult.errorMessage;
         }
       } else if (fieldname === columnNames.recordType) {
         const validationResult = validateRecordType(cell, language, errprefix);
         if (validationResult.result !== null) {
           recordType = validationResult.result;
         } else {
-          return validationResult.errorMessage;
+          return errprefix + validationResult.errorMessage;
         }
       }
     }
+
+    //TODO: Validate weight class against sex of record & allowed weight classes in meet
 
     records.push({
       fullName,

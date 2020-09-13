@@ -26,6 +26,7 @@ import {
   localizeRecordLift,
 } from "../strings";
 import { Language } from "../../types/dataTypes";
+import { getRecordCsvMetadata } from "../import/records-csv";
 
 // Exports record data to a CSV file.
 
@@ -47,7 +48,7 @@ export function makeRecordsCsv(recordState: RecordsState, language: Language): s
       row[csv.index(columnNames.location)] = csvString(record.location);
       row[csv.index(columnNames.division)] = csvString(record.division);
       row[csv.index(columnNames.sex)] = csvString(localizeSex(record.sex, language));
-      row[csv.index(columnNames.class)] = csvString(localizeWeightClassStr(record.weightClass, language));
+      row[csv.index(columnNames.class)] = csvString(record.weightClass);
       row[csv.index(columnNames.equipment)] = csvString(localizeEquipment(record.equipment, language));
       row[csv.index(columnNames.recordLift)] = csvString(localizeRecordLift(record.recordLift, language));
       row[csv.index(columnNames.recordType)] = csvString(localizeRecordType(record.recordType, language));

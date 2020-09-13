@@ -32,8 +32,10 @@ import BarLoad from "./BarLoad";
 
 import styles from "./LeftCard.module.scss";
 
-import { Entry, Language, LoadedPlate, Plate } from "../../types/dataTypes";
-import { GlobalState, LiftingState, RegistrationState } from "../../types/stateTypes";
+import { Entry, Language, LoadedPlate, RecordLift } from "../../types/dataTypes";
+import { GlobalState, LiftingState, RegistrationState, MeetState, RecordsState } from "../../types/stateTypes";
+import { isOfficialRecordAttempt, getRecordTypeForEntry, getUpdatedRecordState } from "../../logic/records";
+import { checkExhausted } from "../../types/utils";
 
 interface OwnProps {
   attemptOneIndexed: number;
@@ -44,13 +46,10 @@ interface OwnProps {
 }
 
 interface StateProps {
-  inKg: boolean;
-  showAlternateUnits: boolean;
-  squatBarAndCollarsWeightKg: number;
-  benchBarAndCollarsWeightKg: number;
-  deadliftBarAndCollarsWeightKg: number;
-  plates: ReadonlyArray<Plate>;
   registration: RegistrationState;
+  meet: MeetState;
+  updatedRecordState: RecordsState;
+
   lifting: LiftingState;
   language: Language;
 }
@@ -73,8 +72,7 @@ class LeftCard extends React.Component<Props> {
       return { weightKg: 0, weightLbs: 0, rackInfo: "" };
     }
 
-    const idx = this.props.registration.lookup[entryId];
-    const entry = this.props.registration.entries[idx];
+    const entry = this.getEntryById(entryId);
 
     const weightKg = entry[fieldKg][attemptOneIndexed - 1];
     const weightLbs = kg2lbs(weightKg);
@@ -89,15 +87,21 @@ class LeftCard extends React.Component<Props> {
   getBarAndCollarsWeightKg = (): number => {
     switch (this.props.lifting.lift) {
       case "S":
-        return this.props.squatBarAndCollarsWeightKg;
+        return this.props.meet.squatBarAndCollarsWeightKg;
       case "B":
-        return this.props.benchBarAndCollarsWeightKg;
+        return this.props.meet.benchBarAndCollarsWeightKg;
       case "D":
-        return this.props.deadliftBarAndCollarsWeightKg;
+        return this.props.meet.deadliftBarAndCollarsWeightKg;
       default:
         return 0;
     }
   };
+
+  private getEntryById(entryId: number) {
+    const idx = this.props.registration.lookup[entryId];
+    const entry = this.props.registration.entries[idx];
+    return entry;
+  }
 
   render() {
     const current = this.getBarLoadProps(this.props.currentEntryId, this.props.attemptOneIndexed);
@@ -114,14 +118,14 @@ class LeftCard extends React.Component<Props> {
     const currentLoading: Array<LoadedPlate> = selectPlates(
       current.weightKg,
       barAndCollarsWeightKg,
-      this.props.plates,
-      this.props.inKg
+      this.props.meet.plates,
+      this.props.meet.inKg
     );
     const nextLoading: Array<LoadedPlate> = selectPlates(
       next.weightKg,
       barAndCollarsWeightKg,
-      this.props.plates,
-      this.props.inKg
+      this.props.meet.plates,
+      this.props.meet.inKg
     );
 
     // Set the next loading relative to the current loading.
@@ -152,26 +156,28 @@ class LeftCard extends React.Component<Props> {
               key={String(next.weightKg) + next.rackInfo}
               loading={nextLoading}
               rackInfo={next.rackInfo}
-              inKg={this.props.inKg}
+              inKg={this.props.meet.inKg}
             />
           </div>
         </div>
       );
 
     let attemptTemplate = "";
-    if (this.props.inKg) {
-      if (this.props.showAlternateUnits) {
+    if (this.props.meet.inKg) {
+      if (this.props.meet.showAlternateUnits) {
         attemptTemplate = getString("lifting.current-weight-kg-lbs", language);
       } else {
         attemptTemplate = getString("lifting.current-weight-kg", language);
       }
     } else {
-      if (this.props.showAlternateUnits) {
+      if (this.props.meet.showAlternateUnits) {
         attemptTemplate = getString("lifting.current-weight-lbs-kg", language);
       } else {
         attemptTemplate = getString("lifting.current-weight-lbs", language);
       }
     }
+
+    const recordAttemptText: JSX.Element | undefined = this.getRecordAttemptDiv();
 
     return (
       <div className={styles.container}>
@@ -180,12 +186,13 @@ class LeftCard extends React.Component<Props> {
             <div className={styles.attemptText}>
               {attemptTemplate.replace("{kg}", weightKgText).replace("{lbs}", weightLbsText)}
             </div>
+            {recordAttemptText}
             <div className={styles.barArea}>
               <BarLoad
                 key={String(current.weightKg) + current.rackInfo}
                 loading={currentLoading}
                 rackInfo={current.rackInfo}
-                inKg={this.props.inKg}
+                inKg={this.props.meet.inKg}
               />
             </div>
           </div>
@@ -194,18 +201,75 @@ class LeftCard extends React.Component<Props> {
       </div>
     );
   }
+
+  getRecordAttemptDiv(): JSX.Element | undefined {
+    if (this.props.currentEntryId === null || this.props.attemptOneIndexed === null) {
+      return undefined;
+    }
+    const lift = this.props.lifting.lift;
+    const recordTypesBroken: string[] = [];
+    const currentEntry = this.getEntryById(this.props.currentEntryId);
+    const canSetTotalRecords = getRecordTypeForEntry(currentEntry) === "FullPower" && lift === "D";
+
+    const isLiftRecordAttempt = this.isOfficialRecordAttempt(currentEntry, lift);
+    // Is it a record attempt for the lift?
+    if (isLiftRecordAttempt) {
+      let localizedLift: string = "";
+      if (lift === "S") localizedLift = getString("lifting.records-squat", this.props.language);
+      else if (lift === "B") localizedLift = getString("lifting.records-bench", this.props.language);
+      else if (lift === "D") localizedLift = getString("lifting.records-deadlift", this.props.language);
+      else {
+        checkExhausted(lift);
+      }
+
+      recordTypesBroken.push(localizedLift);
+    }
+
+    // Total records are only announced during deadlifts in full power meets
+    const isTotalRecordAttempt = canSetTotalRecords && this.isOfficialRecordAttempt(currentEntry, "Total");
+    if (isTotalRecordAttempt) {
+      recordTypesBroken.push(getString("lifting.records-total", this.props.language));
+    }
+
+    // If any records are being attempted, announce them
+    if (recordTypesBroken.length > 0) {
+      const messageTemplate =
+        recordTypesBroken.length == 1
+          ? getString("lifting.records-attempt-1-record-notice", this.props.language).replace(
+              "{Lift}",
+              recordTypesBroken[0]
+            )
+          : getString("lifting.records-attempt-2-records-notice", this.props.language)
+              .replace("{Lift1}", recordTypesBroken[0])
+              .replace("{Lift2}", recordTypesBroken[1]);
+
+      return (
+        <div>
+          <div className={styles.recordText}>{messageTemplate}</div>
+        </div>
+      );
+    }
+  }
+
+  private isOfficialRecordAttempt(entry: Entry, lift: RecordLift): boolean {
+    return isOfficialRecordAttempt(
+      this.props.updatedRecordState,
+      this.props.registration,
+      this.props.meet,
+      entry,
+      lift,
+      this.props.attemptOneIndexed,
+      this.props.language
+    );
+  }
 }
 
 const mapStateToProps = (state: GlobalState): StateProps => {
   return {
-    inKg: state.meet.inKg,
-    showAlternateUnits: state.meet.showAlternateUnits,
-    squatBarAndCollarsWeightKg: state.meet.squatBarAndCollarsWeightKg,
-    benchBarAndCollarsWeightKg: state.meet.benchBarAndCollarsWeightKg,
-    deadliftBarAndCollarsWeightKg: state.meet.deadliftBarAndCollarsWeightKg,
-    plates: state.meet.plates,
     registration: state.registration,
     lifting: state.lifting,
+    updatedRecordState: getUpdatedRecordState(state.records, state.meet, state.registration, state.language),
+    meet: state.meet,
     language: state.language,
   };
 };

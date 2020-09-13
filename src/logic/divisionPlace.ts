@@ -29,7 +29,7 @@ import { getWeightClassStr } from "../reducers/meetReducer";
 
 import { Sex, Event, Equipment, Entry, Lift } from "../types/dataTypes";
 import { checkExhausted } from "../types/utils";
-import { mapSexToClasses } from "./records";
+import { mapSexToClasses } from "./entry";
 
 export type Place = number | "DQ";
 

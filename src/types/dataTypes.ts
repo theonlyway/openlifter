@@ -127,8 +127,6 @@ export type RecordKeyComponents = {
 
 export type PotentialLiftingRecord = RecordKeyComponents & { weight: number };
 
-export type UnconfirmedLiftingRecord = RecordKeyComponents & { entryId: number };
-
 export type LiftingRecord = PotentialLiftingRecord & {
   fullName: string;
   date: string;

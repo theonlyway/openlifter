@@ -18,9 +18,8 @@
 
 // Defines logic for creating and working with Entry objects.
 
-import { Entry, Lift, Event, FieldKg, FieldStatus, Language } from "../types/dataTypes";
+import { Entry, Lift, Event, FieldKg, FieldStatus, Language, Sex } from "../types/dataTypes";
 import { checkExhausted } from "../types/utils";
-import { mapSexToClasses } from "./records";
 import { getWeightClassStr } from "../reducers/meetReducer";
 
 // Length of {squat,bench,deadlift}{Kg,Status} in each Entry.
@@ -54,6 +53,7 @@ export const newDefaultEntry = (id: number): Entry => {
     paid: false, // Used by the meet director for tracking whether the lifter paid.
     team: "", // Optional. Only used in the final results export.
     guest: false, // Optional. Marks the lifter as a guest, who cannot place in rankings.
+    canBreakRecords: true, // Optional. Allows the lifter to break records,
     notes: "", // Free-form text for the meet director to use as a scratchpad.
 
     // Information added on the "Weigh-ins" page.
@@ -350,6 +350,25 @@ export const getWhetherPlatformsHaveLifted = (
   }
   return ret;
 };
+
+export function mapSexToClasses(
+  sex: Sex,
+  weightClassesKgMen: readonly number[],
+  weightClassesKgWomen: readonly number[],
+  weightClassesKgMx: readonly number[]
+): ReadonlyArray<number> {
+  switch (sex) {
+    case "M":
+      return weightClassesKgMen;
+    case "F":
+      return weightClassesKgWomen;
+    case "Mx":
+      return weightClassesKgMx;
+    default:
+      checkExhausted(sex);
+      return weightClassesKgMen;
+  }
+}
 
 export const getWeightClassForEntry = (
   entry: Readonly<Entry>,

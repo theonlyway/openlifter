@@ -20,7 +20,7 @@
 
 $color-dark: #232323;
 $color-light: #ffffff;
-
+$color-red: #FF0000;
 $border-rounding: 8px;
 
 
@@ -63,6 +63,16 @@ div.attemptText {
 
   border-top-left-radius: $border-rounding;
   border-top-right-radius: $border-rounding;
+}
+
+div.recordText {
+  width: 100%;
+  padding: 5px 10px 5px 20px;
+
+  background-color: $color-dark;
+  color: $color-red;
+
+  font-size: 36px;
 }
 
 // Restricts the area available for the bar, for padding purposes.

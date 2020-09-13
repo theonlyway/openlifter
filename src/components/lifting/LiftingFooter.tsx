@@ -40,8 +40,6 @@ import { GlobalState, LiftingState } from "../../types/stateTypes";
 import styles from "./LiftingFooter.module.scss";
 import { Dispatch } from "redux";
 import { FormControlTypeHack, assertFlight, assertString, assertLift } from "../../types/utils";
-import { mapSexToClasses } from "../../logic/records";
-import { getWeightClassStr } from "../../reducers/meetReducer";
 
 interface OwnProps {
   attemptOneIndexed: number;
@@ -67,7 +65,7 @@ interface DispatchProps {
   setLiftingGroup: (day: number, platform: number, flight: Flight, lift: Lift) => void;
   overrideAttempt: (attempt: number) => void;
   overrideEntryId: (entryId: number) => void;
-  markLift: (entry: Entry, potentialRecordWeightClass: string, lift: Lift, attempt: number, success: boolean) => void;
+  markLift: (entry: Entry, lift: Lift, attempt: number, success: boolean) => void;
 }
 
 type Props = OwnProps & StateProps & DispatchProps;
@@ -186,7 +184,7 @@ class LiftingFooter extends React.Component<Props> {
     }
   };
 
-  handleGoodLift = () => this.handleLiftResult(false);
+  handleGoodLift = () => this.handleLiftResult(true);
   handleNoLift = () => this.handleLiftResult(false);
 
   handleLiftResult(success: boolean) {
@@ -198,8 +196,7 @@ class LiftingFooter extends React.Component<Props> {
     const entry = this.getCurrentEntry();
     const lift = this.props.lifting.lift;
     const attempt = this.props.attemptOneIndexed;
-    const weightClass = this.getWeightClassForEntry(entry);
-    this.props.markLift(entry, weightClass, lift, attempt, success);
+    this.props.markLift(entry, lift, attempt, success);
     this.setFocusAttemptInputTimeout();
   }
 
@@ -266,18 +263,6 @@ class LiftingFooter extends React.Component<Props> {
     }
     return lifterOptions;
   };
-
-  getWeightClassForEntry(entry: Readonly<Entry>) {
-    const weightClassesForSex = mapSexToClasses(
-      entry.sex,
-      this.props.weightClassesKgMen,
-      this.props.weightClassesKgWomen,
-      this.props.weightClassesKgMx
-    );
-
-    const weightClass = getWeightClassStr(weightClassesForSex, entry.bodyweightKg, this.props.language);
-    return weightClass;
-  }
 
   getCurrentEntry() {
     const entryId = this.props.currentEntryId;
@@ -463,8 +448,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
       dispatch(setLiftingGroup(day, platform, flight, lift)),
     overrideAttempt: (attempt: number) => dispatch(overrideAttempt(attempt)),
     overrideEntryId: (entryId: number) => dispatch(overrideEntryId(entryId)),
-    markLift: (entry: Entry, potentialRecordWeightClass: string, lift: Lift, attempt: number, success: boolean) =>
-      dispatch(markLift(entry, potentialRecordWeightClass, lift, attempt, success)),
+    markLift: (entry: Entry, lift: Lift, attempt: number, success: boolean) =>
+      dispatch(markLift(entry, lift, attempt, success)),
   };
 };
 

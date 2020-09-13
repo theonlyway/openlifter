@@ -22,12 +22,12 @@ import {
   Equipment,
   RecordLift,
   RecordType,
-  PotentialLiftingRecord,
   Entry,
   Language,
   LiftingRecord,
+  PotentialLiftingRecord,
 } from "../types/dataTypes";
-import { calculateRecordKey } from "../reducers/recordsReducer";
+import { calculateRecordKey, upsertRecord } from "../reducers/recordsReducer";
 import {
   getFinalTotalKg,
   getBest3SquatKg,
@@ -39,8 +39,7 @@ import {
 } from "./entry";
 import { checkExhausted } from "../types/utils";
 
-// Determines if the attempt would break the current confirmed records. Does not check if it breaks an existing unconfirmed record
-// This is used so that any successful lifts higher then the current confirmed record are stored as unconfirmed records for later
+// Determines if the attempt would break the current record in the state.
 export function wouldBreakConfirmedRecord(state: RecordsState, potentialRecord: PotentialLiftingRecord): boolean {
   const key = calculateRecordKey(potentialRecord);
   const confirmedRecord = state.confirmedRecords[key];
@@ -53,7 +52,7 @@ export function wouldBreakConfirmedRecord(state: RecordsState, potentialRecord: 
   }
 }
 
-function getRecordTypeForEntry(entry: Readonly<Entry>): RecordType {
+export function getRecordTypeForEntry(entry: Readonly<Entry>): RecordType {
   return entry.events[0] === "SBD" ? "FullPower" : "SingleLift";
 }
 
@@ -73,11 +72,12 @@ export function getWeightForUnconfirmedRecord(recordLift: RecordLift, entry: Ent
   }
 }
 
-// Determines if the attempt is higher then any other successful attempt for the record type.
-// Considers both confirmed & unconfirmed records.
+// Determines if the attempt is higher then any other successful attempt for the record type
 // This is used to determine if we should display the record attempt notification
+// NOTE: This assume that the RecordState being passed in is the most up to date version.
+// - Ensure you call getUpdatedState first.
 export function isOfficialRecordAttempt(
-  state: RecordsState,
+  updatedRecordState: RecordsState,
   registrationState: RegistrationState,
   meet: MeetState,
   entry: Entry,
@@ -93,7 +93,12 @@ export function isOfficialRecordAttempt(
     language
   );
 
-  // Work out if they're competing in a 3 lift event, or any other event
+  // If they cannot break records, its not a record attempt
+  if (!entry.canBreakRecords) {
+    return false;
+  }
+
+  // Work out if they're competing in a full power event, or single lift, wrt to records
   const recordType = getRecordTypeForEntry(entry);
 
   // Calculate the weight for the type of record requested
@@ -105,7 +110,7 @@ export function isOfficialRecordAttempt(
     weight = entry[attemptWeightField][attemptOneIndexed - 1];
   }
 
-  const potentialRecord = {
+  const potentialRecord: PotentialLiftingRecord = {
     division: entry.divisions[0],
     sex: entry.sex,
     weightClass,
@@ -115,72 +120,34 @@ export function isOfficialRecordAttempt(
     weight,
   };
 
-  if (wouldBreakConfirmedRecord(state, potentialRecord)) {
+  if (wouldBreakConfirmedRecord(updatedRecordState, potentialRecord)) {
     // Check to see if they've already bombed out. This prevents falsely advertising a bench/deadlift record if the participant has bombed out.
     // This assumes normal SBD order of lifts. If things are done out of order, the official records will still end up correct, but the on-screen notices won't work
     if (recordType === "FullPower") {
-      // Cannot set a bench or deadlift record if you've bombed on squats
-      if ((recordLift === "B" || recordLift === "D") && getBest3SquatKg(entry) === 0) {
+      // Cannot set a bench, deadlift or total record if you've bombed on squats
+      if ((recordLift === "B" || recordLift === "D" || recordLift == "Total") && getBest3SquatKg(entry) === 0) {
         return false;
       }
 
-      // Cannot set a deadlift record if you've bombed on bench.
-      if (recordLift === "D" && getBest3DeadliftKg(entry) === 0) {
+      // Cannot set a deadlift or total record if you've bombed on bench.
+      if ((recordLift === "D" || recordLift === "Total") && getBest3BenchKg(entry) === 0) {
         return false;
       }
     }
 
-    // Check if anybody else has lifted the same or more
-    const hasAnyoneLiftedMore = registrationState.entries.some((otherEntry) => {
-      const otherEntryWeightClass = getWeightClassForEntry(
-        otherEntry,
-        meet.weightClassesKgMen,
-        meet.weightClassesKgWomen,
-        meet.weightClassesKgMx,
-        language
-      );
-
-      // Is this entry competing for the same record?
-      if (
-        otherEntry.sex === entry.sex &&
-        otherEntry.divisions[0] === entry.divisions[0] &&
-        otherEntry.equipment === entry.equipment &&
-        weightClass === otherEntryWeightClass &&
-        getRecordTypeForEntry(otherEntry) === recordType
-      ) {
-        // Was their weight the same, or equal?
-        return getWeightForUnconfirmedRecord(recordLift, otherEntry) >= weight;
-      }
-
-      return false;
-    });
-
-    // If we're attempting more then the confirmed record, and nobody has lifted the same or higher already, this is an official record attempt
-    return !hasAnyoneLiftedMore;
+    return true;
   } else {
     return false;
   }
-
-  /*
-  const key = calculateRecordKey(potentialRecord);
-     const unconfirmedRecordsForKey = state.unconfirmedRecords[key];
-  if (unconfirmedRecordsForKey !== undefined) {
-    // If every unconfirmed record is less then the attempt, its an official one. Don't check confirmed records since by definition, they will be less
-    return (
-      // Figure this shit out later
-      unconfirmedRecordsForKey.every((record) => getWeightForUnconfirmedRecord(record) < weight) &&
-      wouldBreakConfirmedRecord(state, potentialRecord)
-    );
-  } else {
-    // No unconfirmed records, check if it beats the current confirmed record
-    return wouldBreakConfirmedRecord(state, potentialRecord);
-  } */
 }
 
 function addPotentialRecordIfRelevant(
   event: RecordLift,
-  potentialRecords: PotentialLiftingRecord[],
+  potentialRecords: LiftingRecord[],
   basePotentialRecord: {
+    date: string;
+    fullName: string;
+    location: string;
     division: string;
     equipment: Equipment;
     recordType: RecordType;
@@ -190,25 +157,29 @@ function addPotentialRecordIfRelevant(
   entry: Readonly<Entry>
 ) {
   if (entry.events[0].indexOf(event) !== -1) {
-    potentialRecords.push({
-      ...basePotentialRecord,
-      recordLift: event,
-      weight: getWeightForUnconfirmedRecord(event, entry),
-    });
+    const weightLifted = getWeightForUnconfirmedRecord(event, entry);
+    // Ensure they've actually lifted something in this event
+    if (weightLifted > 0) {
+      potentialRecords.push({
+        ...basePotentialRecord,
+        recordLift: event,
+        weight: weightLifted,
+      });
+    }
   }
 }
 
-export function confirmRecords(
-  recordState: RecordsState,
+// Go over every entry & all their lifts and see if they break any records.
+// If they do, update the records state with the new values
+// Finally, return the updated state of the records.
+// This is used to view the current pending records, and to confirm them prior to export
+export function getUpdatedRecordState(
+  initialRecordState: RecordsState,
   meet: MeetState,
   registrationState: RegistrationState,
-  language: Language,
-  upsertConfirmedRecord: (
-    record: LiftingRecord
-  ) => void /* ,
-  markRecordsAsConfirmed: (record: UnconfirmedLiftingRecord) => void,
-  deleteUnconfirmedRecord: (record: UnconfirmedLiftingRecord) => void */
-) {
+  language: Language
+): RecordsState {
+  let newRecordState: RecordsState = { ...initialRecordState };
   registrationState.entries.forEach((entry) => {
     const weightClass = getWeightClassForEntry(
       entry,
@@ -218,13 +189,17 @@ export function confirmRecords(
       language
     );
 
-    // Todo, think about this again
     const recordType: RecordType = getRecordTypeForEntry(entry);
+
+    // Can only set a record in a fullpower meet if you've set a total, or are on track to set one
     const canSetRecords = entry.canBreakRecords && (recordType !== "FullPower" || getFinalTotalKg(entry) > 0);
 
     if (canSetRecords) {
-      const potentialRecords: PotentialLiftingRecord[] = [];
+      const potentialRecords: LiftingRecord[] = [];
       const basePotentialRecord = {
+        date: meet.date,
+        fullName: entry.name,
+        location: meet.name,
         division: entry.divisions[0],
         equipment: entry.equipment,
         recordType: recordType,
@@ -232,6 +207,7 @@ export function confirmRecords(
         weightClass,
       };
 
+      // Iterate through the various events and create a potential record if they've lifted in them
       addPotentialRecordIfRelevant("S", potentialRecords, basePotentialRecord, entry);
       addPotentialRecordIfRelevant("B", potentialRecords, basePotentialRecord, entry);
       addPotentialRecordIfRelevant("D", potentialRecords, basePotentialRecord, entry);
@@ -239,67 +215,20 @@ export function confirmRecords(
         addPotentialRecordIfRelevant("Total", potentialRecords, basePotentialRecord, entry);
       }
 
+      // This is where any custom logic for cross division/equipment/record type logic would go
+
+      // For all potential records, check if they break the existing imported record. If so, update the state with them
+      // NOTE: This should be expanded to consider who achieved the record first.
+      // To do that we probably need to do a two pass loop, firstly identifying lifts which break existing records and adding them to a list.
+      // Then looping over the list and sorting out ties based on who achieved it first.
+      // For now, I can just live with this limitation and sort it out later
       potentialRecords.forEach((potentialRecord) => {
-        if (wouldBreakConfirmedRecord(recordState, potentialRecord)) {
-          const liftingRecord: LiftingRecord = {
-            date: meet.date,
-            fullName: entry.name,
-            location: meet.name,
-            division: potentialRecord.division,
-            equipment: potentialRecord.equipment,
-            recordLift: potentialRecord.recordLift,
-            recordType: potentialRecord.recordType,
-            sex: potentialRecord.sex,
-            weight: potentialRecord.weight,
-            weightClass: potentialRecord.weightClass,
-          };
-          upsertConfirmedRecord(liftingRecord);
+        if (wouldBreakConfirmedRecord(newRecordState, potentialRecord)) {
+          newRecordState = upsertRecord(potentialRecord, newRecordState);
         }
       });
     }
   });
-}
 
-/*   for (const [recordKey, unconfirmedRecords] of Object.entries(recordState.unconfirmedRecords)) {
-    if (unconfirmedRecords) {
-      unconfirmedRecords.forEach((unconfirmedRecord) => {
-        const entry = registrationState.entries[unconfirmedRecord.entryId];
-        // If they didn't get a total their record is invalid
-        if (unconfirmedRecord.recordType === "FullPower" && getFinalTotalKg(entry) === 0.0) {
-          deleteUnconfirmedRecord(unconfirmedRecord);
-        } else {
-          // Ensure the record currently beats the confirmed record.
-          // We have to check this as we may have recently confirmed a higher record then when this record was initially broken
-          const currentRecord = recordState.confirmedRecords[recordKey];
-
-          // Calculate the weight this potential record is for. We do this now rather then at the time of the lift, as weights of lifts can be altered, and its tricky to track.
-          const unconfirmedRecordWeight = getWeightForUnconfirmedRecord(unconfirmedRecord, entry);
-
-          // If the current confirmed record is less then the unconfirmed record, we can confirm the new record
-          if (currentRecord && currentRecord.weight < unconfirmedRecordWeight) {
-            markRecordsAsConfirmed(unconfirmedRecord);
-          }
-        }
-      });
-    }
-  } */
-
-// TODO: Put this somewhere more logical?
-export function mapSexToClasses(
-  sex: Sex,
-  weightClassesKgMen: readonly number[],
-  weightClassesKgWomen: readonly number[],
-  weightClassesKgMx: readonly number[]
-): ReadonlyArray<number> {
-  switch (sex) {
-    case "M":
-      return weightClassesKgMen;
-    case "F":
-      return weightClassesKgWomen;
-    case "Mx":
-      return weightClassesKgMx;
-    default:
-      checkExhausted(sex);
-      return weightClassesKgMen;
-  }
+  return newRecordState;
 }

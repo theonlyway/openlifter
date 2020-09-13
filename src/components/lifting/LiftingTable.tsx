@@ -26,19 +26,24 @@ import LocalizedString from "../translations/LocalizedString";
 
 import { getWeightClassStr, getWeightClassLbsStr } from "../../reducers/meetReducer";
 import { getPoints } from "../../logic/coefficients/coefficients";
-import { getProjectedTotalKg, getFinalTotalKg, liftToAttemptFieldName, liftToStatusFieldName } from "../../logic/entry";
+import {
+  getProjectedTotalKg,
+  getFinalTotalKg,
+  liftToAttemptFieldName,
+  liftToStatusFieldName,
+  mapSexToClasses,
+} from "../../logic/entry";
 
 import { getProjectedResults, getFinalResults } from "../../logic/divisionPlace";
 import { kg2lbs, displayWeight, displayPoints, displayPlaceOrdinal } from "../../logic/units";
 
 import { CategoryResults } from "../../logic/divisionPlace";
-import { Entry, Equipment, Language, Lift, Sex } from "../../types/dataTypes";
+import { Entry, Equipment, Language, Lift } from "../../types/dataTypes";
 import { GlobalState, MeetState, LiftingState } from "../../types/stateTypes";
 
 import styles from "./LiftingTable.module.scss";
 import { checkExhausted } from "../../types/utils";
 import { getString } from "../../logic/strings";
-import { mapSexToClasses } from "../../logic/records";
 
 interface OwnProps {
   attemptOneIndexed: number;

@@ -49,17 +49,10 @@ export const enterAttempt = (
 // lift is "S", "B", or "D".
 // attempt is 1,2,3, etc., up to MAX_ATTEMPTS.
 // success is a bool for whether to mark the lift as a success or as a failure.
-export const markLift = (
-  entry: Entry,
-  weightClass: string,
-  lift: Lift,
-  attemptOneIndexed: number,
-  success: boolean
-): MarkLiftAction => {
+export const markLift = (entry: Entry, lift: Lift, attemptOneIndexed: number, success: boolean): MarkLiftAction => {
   return {
     type: "MARK_LIFT",
     entry,
-    weightClass,
     lift,
     attemptOneIndexed,
     success,

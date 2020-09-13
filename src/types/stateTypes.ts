@@ -21,17 +21,7 @@
 // Because the Redux store is immutable, all types are internally prefixed
 // with the "readonly " covariant type, which makes them immutable.
 
-import {
-  Entry,
-  Flight,
-  Formula,
-  Language,
-  Lift,
-  Plate,
-  AgeCoefficients,
-  LiftingRecord,
-  UnconfirmedLiftingRecord,
-} from "./dataTypes";
+import { Entry, Flight, Formula, Language, Lift, Plate, AgeCoefficients, LiftingRecord } from "./dataTypes";
 
 export type VersionsState = {
   readonly stateVersion: string;
@@ -96,12 +86,8 @@ export type GlobalState = {
 };
 
 export type RecordsState = {
+  // This is effectively imported records
   readonly confirmedRecords: {
     readonly [recordKey: string]: LiftingRecord | undefined;
-  };
-  // Records which have been broken in the meet, but a total has not been secured. If the competitor bombs out, the record will be revoked.
-  // Once a total has been secured, these records are moved into the confirmed store
-  readonly unconfirmedRecords: {
-    readonly [recordKey: string]: UnconfirmedLiftingRecord[] | undefined;
   };
 };

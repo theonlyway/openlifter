@@ -224,6 +224,10 @@ class RandomizeRegistrationButton extends React.Component<Props> {
       // ==========================================
       const isGuest: boolean = randomInt(1, 10) === 1;
 
+      // 90% chance they're able to break records.
+      // ==========================================
+      const canBreakRecords: boolean = randomInt(1, 10) > 1;
+
       // Assign a random Team.
       // ==========================================
       const teams: string[] = ["Team Red", "Team Green", "Team Blue"];
@@ -308,6 +312,7 @@ class RandomizeRegistrationButton extends React.Component<Props> {
         equipment: equipment,
         divisions: divisions,
         guest: isGuest,
+        canBreakRecords: canBreakRecords,
       });
     }
   }

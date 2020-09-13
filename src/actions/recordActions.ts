@@ -15,46 +15,12 @@
 //
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
-import {
-  ImportRecordsAction,
-  DeleteRecordAction,
-  UpsertConfirmedRecordAction,
-  MarkRecordAsConfirmedAction,
-  DeleteUncofirmedRecordAction,
-} from "../types/actionTypes";
-import { LiftingRecord, UnconfirmedLiftingRecord } from "../types/dataTypes";
+import { ImportRecordsAction } from "../types/actionTypes";
+import { LiftingRecord } from "../types/dataTypes";
 
 export function importRecords(records: LiftingRecord[]): ImportRecordsAction {
   return {
     type: "IMPORT_RECORDS",
     records,
-  };
-}
-
-export function deleteConfirmedRecord(record: LiftingRecord): DeleteRecordAction {
-  return {
-    type: "DELETE_CONFIRMED_RECORD",
-    record,
-  };
-}
-
-export function upsertConfirmedRecord(record: LiftingRecord): UpsertConfirmedRecordAction {
-  return {
-    type: "UPSERT_CONFIRMED_RECORD",
-    record,
-  };
-}
-
-export function markRecordAsConfirmed(record: UnconfirmedLiftingRecord): MarkRecordAsConfirmedAction {
-  return {
-    type: "MARK_RECORD_AS_CONFIRMED",
-    record,
-  };
-}
-
-export function deleteUnconfirmedRecord(record: UnconfirmedLiftingRecord): DeleteUncofirmedRecordAction {
-  return {
-    type: "DELETE_UNCONFIRMED_RECORD",
-    record,
   };
 }

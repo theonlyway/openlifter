@@ -43,7 +43,7 @@ import { AgeCoefficients, Entry, Formula, Language, Sex } from "../../types/data
 import { GlobalState } from "../../types/stateTypes";
 import { checkExhausted } from "../../types/utils";
 import { fosterMcCulloch } from "../../logic/coefficients/foster-mcculloch";
-import { mapSexToClasses } from "../../logic/records";
+import { mapSexToClasses } from "../../logic/entry";
 
 interface StateProps {
   inKg: boolean;
