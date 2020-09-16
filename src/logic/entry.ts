@@ -54,6 +54,7 @@ export const newDefaultEntry = (id: number): Entry => {
     team: "", // Optional. Only used in the final results export.
     guest: false, // Optional. Marks the lifter as a guest, who cannot place in rankings.
     canBreakRecords: true, // Optional. Allows the lifter to break records,
+    novice: false, // Optional. Novices are ranked against other novices. This is basically another form of division.
     notes: "", // Free-form text for the meet director to use as a scratchpad.
 
     // Information added on the "Weigh-ins" page.

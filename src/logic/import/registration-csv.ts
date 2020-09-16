@@ -130,6 +130,7 @@ export const loadRegistrations = (state: GlobalState, csv: Csv, language: Langua
   const col_state = getString("import.column-state", language);
   const col_lot = getString("import.column-lot", language);
   const col_guest = getString("import.column-guest", language);
+  const col_novice = getString("import.column-novice", language);
   const col_canBreakRecords = getString("import.column-can-break-records", language);
   const col_team = getString("import.column-team", language);
   const col_instagram = getString("import.column-instagram", language);
@@ -162,6 +163,7 @@ export const loadRegistrations = (state: GlobalState, csv: Csv, language: Langua
     col_state,
     col_lot,
     col_guest,
+    col_novice,
     col_canBreakRecords,
     col_team,
     col_instagram,
@@ -403,6 +405,19 @@ export const loadRegistrations = (state: GlobalState, csv: Csv, language: Langua
           entry.canBreakRecords = false;
         } else if (val === "") {
           entry.canBreakRecords = true; // Default to true
+        } else {
+          const e = getString("error.csv-field-unknown-boolean", language);
+          const yes = getString("common.response-yes", language);
+          const no = getString("common.response-no", language);
+          return errprefix + e.replace("{Yes}", yes).replace("{No}", no);
+        }
+      } else if (fieldname === col_novice) {
+        if (val === getString("common.response-yes", language)) {
+          entry.novice = true;
+        } else if (val === getString("common.response-no", language)) {
+          entry.novice = false;
+        } else if (val === "") {
+          entry.guest = false;
         } else {
           const e = getString("error.csv-field-unknown-boolean", language);
           const yes = getString("common.response-yes", language);

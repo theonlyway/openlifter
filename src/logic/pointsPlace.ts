@@ -37,6 +37,7 @@ export type PointsCategory = {
   sex: Sex;
   event: Event;
   equipment: Equipment;
+  isNovice: boolean;
 };
 
 // Wraps up all the entries in a category with the category's descriptors.
@@ -193,7 +194,7 @@ export const getAllRankings = (
     // Iterate over each event, adding to the map.
     for (let evidx = 0; evidx < e.events.length; evidx++) {
       const event = e.events[evidx];
-      const category = { sex, event, equipment };
+      const category = { sex, event, equipment, isNovice: e.novice || false };
       const key = categoryToKey(category);
 
       const catEntries = categoryMap.get(key);

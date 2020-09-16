@@ -197,9 +197,14 @@ class ByDivision extends React.Component<Props> {
       wtcls = wtclsStrKg2Lbs(category.weightClassStr);
     }
 
+    const noviceOrMember = category.isNovice
+      ? getString("results.novice", language)
+      : getString("results.member", language);
+
     const template = getString("results.division-template", language);
     const division = template
       .replace("{sex}", sex)
+      .replace("{noviceOrMember}", noviceOrMember)
       .replace("{weightClass}", wtcls)
       .replace("{spokenUnits}", category.weightClassStr !== "" ? units : "")
       .replace("{equipment}", eqpstr)

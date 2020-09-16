@@ -100,6 +100,7 @@ class LifterRow extends React.Component<Props, InternalState> {
     this.updateRegistrationEvents = this.updateRegistrationEvents.bind(this);
     this.updateRegistrationEquipment = this.updateRegistrationEquipment.bind(this);
     this.updateRegistrationGuest = this.updateRegistrationGuest.bind(this);
+    this.updateRegistrationNovice = this.updateRegistrationNovice.bind(this);
     this.updateRegistrationCanBreakRecords = this.updateRegistrationCanBreakRecords.bind(this);
     this.updateRegistrationTeam = this.updateRegistrationTeam.bind(this);
     this.updateRegistrationInstagram = this.updateRegistrationInstagram.bind(this);
@@ -241,6 +242,14 @@ class LifterRow extends React.Component<Props, InternalState> {
       this.props.updateRegistration(this.props.id, { guest: true });
     } else {
       this.props.updateRegistration(this.props.id, { guest: false });
+    }
+  };
+
+  updateRegistrationNovice = (event: React.FocusEvent<FormControlTypeHack>) => {
+    if (event.currentTarget.value === "true") {
+      this.props.updateRegistration(this.props.id, { novice: true });
+    } else {
+      this.props.updateRegistration(this.props.id, { novice: false });
     }
   };
 
@@ -533,7 +542,7 @@ class LifterRow extends React.Component<Props, InternalState> {
               </Col>
 
               {/* Country */}
-              <Col md={2}>
+              <Col md={1}>
                 <Form.Group>
                   <Form.Label>{stringCountry}</Form.Label>
                   <ValidatedInput
@@ -583,6 +592,24 @@ class LifterRow extends React.Component<Props, InternalState> {
                     value={entry.guest ? entry.guest.toString() : "false"}
                     as="select"
                     onChange={this.updateRegistrationGuest}
+                    className="custom-select"
+                  >
+                    <option value="false">{getString("common.response-no", language)}</option>
+                    <option value="true">{getString("common.response-yes", language)}</option>
+                  </Form.Control>
+                </Form.Group>
+              </Col>
+
+              {/* Novice */}
+              <Col md={1}>
+                <Form.Group>
+                  <Form.Label>
+                    <FormattedMessage id="registration.novice-label" defaultMessage="Novice" />
+                  </Form.Label>
+                  <Form.Control
+                    value={entry.novice ? entry.novice.toString() : "false"}
+                    as="select"
+                    onChange={this.updateRegistrationNovice}
                     className="custom-select"
                   >
                     <option value="false">{getString("common.response-no", language)}</option>

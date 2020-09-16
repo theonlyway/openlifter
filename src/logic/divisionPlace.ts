@@ -43,6 +43,7 @@ export type Category = {
   equipment: Equipment;
   division: string;
   weightClassStr: string;
+  isNovice: boolean;
 };
 
 // Wraps up all the entries in a category with the category's descriptors.
@@ -309,7 +310,7 @@ const getAllResults = (
 
       for (let evidx = 0; evidx < e.events.length; evidx++) {
         const event = e.events[evidx];
-        const category = { sex, event, equipment, division, weightClassStr };
+        const category = { sex, event, equipment, division, weightClassStr, isNovice: e.novice || false };
         const key = categoryToKey(category);
 
         const catEntries = categoryMap.get(key);

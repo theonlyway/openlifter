@@ -189,9 +189,14 @@ class ByPoints extends React.Component<Props> {
       eqpstr = getString("results.combined-sleeves-wraps", language);
     }
 
+    const noviceOrMember = category.isNovice
+      ? getString("results.novice", language)
+      : getString("results.member", language);
+
     const template = getString("results.category-template", language);
     const categoryString = template
       .replace("{sex}", sex)
+      .replace("{noviceOrMember}", noviceOrMember)
       .replace("{equipment}", eqpstr)
       .replace("{event}", localizeEvent(category.event, language));
 

@@ -80,6 +80,7 @@ export type Entry = {
   paid: boolean;
   team: string;
   guest: boolean;
+  novice?: boolean; // Optional to maintain dataVersion compat.
   canBreakRecords?: boolean; // Optional to maintain dataVersion compat.
   instagram?: string; // Optional to maintain dataVersion compat.
   notes: string;
