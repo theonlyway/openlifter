@@ -53,6 +53,7 @@ export const makeRegistrationsCsv = (registration: RegistrationState, language: 
   const col_lot = getString("import.column-lot", language);
   const col_guest = getString("import.column-guest", language);
   const col_novice = getString("import.column-novice", language);
+  const col_canBreakRecords = getString("import.column-can-break-records", language);
   const col_team = getString("import.column-team", language);
   const col_instagram = getString("import.column-instagram", language);
   const col_notes = getString("import.column-notes", language);
@@ -60,7 +61,7 @@ export const makeRegistrationsCsv = (registration: RegistrationState, language: 
   csv.appendColumns([col_day, col_platform, col_flight, col_name, col_sex, col_equipment]);
   csv.appendColumns([col_division1, col_event1]); // Base cases. Others inserted by need.
   csv.appendColumns([col_birthdate, col_age, col_memberid, col_country, col_state]);
-  csv.appendColumns([col_lot, col_guest, col_novice, col_team, col_instagram, col_notes]);
+  csv.appendColumns([col_lot, col_guest, col_canBreakRecords, col_novice, col_team, col_instagram, col_notes]);
 
   for (let i = 0; i < registration.entries.length; ++i) {
     const entry = registration.entries[i];
@@ -80,6 +81,7 @@ export const makeRegistrationsCsv = (registration: RegistrationState, language: 
     row[csv.index(col_lot)] = csvString(entry.lot);
     row[csv.index(col_guest)] = csvString(boolToYesNo(entry.guest, language));
     row[csv.index(col_novice)] = csvString(boolToYesNo(entry.novice || false, language));
+    row[csv.index(col_canBreakRecords)] = csvString(boolToYesNo(entry.canBreakRecords || false, language));
     row[csv.index(col_team)] = csvString(entry.team);
     row[csv.index(col_instagram)] = csvString(entry.instagram);
     row[csv.index(col_notes)] = csvString(entry.notes);
