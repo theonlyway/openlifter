@@ -127,7 +127,7 @@
   "home.wrong-version-warning": "The loaded meet was made in OpenLifter {oldVersion}. That format is incompatible with OpenLifter {thisVersion}.",
   "import.column-age": "Age",
   "import.column-birthdate": "BirthDate",
-  "import.column-can-break-records": "Can Break Records",
+  "import.column-can-break-records": "CanBreakRecords",
   "import.column-country": "Country",
   "import.column-day": "Day",
   "import.column-division-n": "Division{N}",
