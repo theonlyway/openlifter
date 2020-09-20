@@ -34,7 +34,7 @@ import styles from "./LeftCard.module.scss";
 
 import { Entry, Language, LoadedPlate, RecordLift } from "../../types/dataTypes";
 import { GlobalState, LiftingState, RegistrationState, MeetState, RecordsState } from "../../types/stateTypes";
-import { isOfficialRecordAttempt, getRecordTypeForEntry, getUpdatedRecordState } from "../../logic/records";
+import { isOfficialRecordAttempt, getRecordTypeForEntry, getUpdatedRecordState } from "../../logic/records/records";
 import { checkExhausted } from "../../types/utils";
 
 interface OwnProps {

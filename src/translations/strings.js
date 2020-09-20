@@ -344,6 +344,17 @@ strings = strings.concat([
   { id: "records.template-filename", defaultMessage: "records-template" },
 ]);
 
+// Strings for the exports records page
+strings = strings.concat([
+  { id: "records.export.page.column-date", defaultMessage: "Date"},
+  { id: "records.export.page.column-location", defaultMessage: "Location"},
+  { id: "records.export.page.column-name", defaultMessage: "Name"},
+  { id: "records.export.page.column-record-lift", defaultMessage: "Lift"},
+  { id: "records.export.page.column-record-type", defaultMessage: "Record Type"},
+  { id: "records.export.page.title", defaultMessage: "Powerlifting Records"},
+  { id: "records.export.page.column-weight", defaultMessage: "Weight"},
+  ]);
+
 // Strings for the Results page.
 strings = strings.concat([
   { id: "results.combine-platforms-header", defaultMessage: "Combine Platforms for Day {N}" },

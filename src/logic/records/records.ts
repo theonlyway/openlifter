@@ -16,7 +16,7 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { RecordsState, RegistrationState, MeetState } from "../types/stateTypes";
+import { RecordsState, RegistrationState, MeetState } from "../../types/stateTypes";
 import {
   Sex,
   Equipment,
@@ -26,8 +26,8 @@ import {
   Language,
   LiftingRecord,
   PotentialLiftingRecord,
-} from "../types/dataTypes";
-import { calculateRecordKey, upsertRecord } from "../reducers/recordsReducer";
+} from "../../types/dataTypes";
+import { calculateRecordKey, upsertRecord } from "../../reducers/recordsReducer";
 import {
   getFinalTotalKg,
   getBest3SquatKg,
@@ -35,8 +35,8 @@ import {
   getBest3DeadliftKg,
   getWeightClassForEntry,
   getAttemptWeight,
-} from "./entry";
-import { checkExhausted } from "../types/utils";
+} from "../entry";
+import { checkExhausted } from "../../types/utils";
 
 // Determines if the attempt would break the current record in the state.
 export function wouldBreakConfirmedRecord(state: RecordsState, potentialRecord: PotentialLiftingRecord): boolean {
