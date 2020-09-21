@@ -206,6 +206,20 @@ export const delocalizeFlight = (text: string, language: Language): Flight => {
   throw new Error("Failed to delocalize Flight: " + text);
 };
 
+export const localizeSexPlural = (sex: Sex, language: Language): string => {
+  switch (sex) {
+    case "M":
+      return getString("results.mens", language);
+    case "F":
+      return getString("results.womens", language);
+    case "Mx":
+      return getString("results.mxs", language);
+    default:
+      checkExhausted(sex);
+      return "";
+  }
+};
+
 // Localizes a Sex value.
 export const localizeSex = (sex: Sex, language: Language): string => {
   switch (sex) {

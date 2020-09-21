@@ -33,13 +33,13 @@ import {
   getFinalEventTotalKg,
   entryHasLifted,
 } from "../../logic/entry";
-import { getString, localizeEquipment, localizeEvent, localizeSex } from "../../logic/strings";
+import { getString, localizeEquipment, localizeEvent, localizeSex, localizeSexPlural } from "../../logic/strings";
 import { kg2lbs, displayNumber, displayPoints, displayWeight, displayPlaceOrdinal } from "../../logic/units";
 
 import { getAgeAdjustedPoints } from "../../logic/coefficients/coefficients";
 
 import { PointsCategory, PointsCategoryResults } from "../../logic/pointsPlace";
-import { AgeCoefficients, Entry, Formula, Language, Sex } from "../../types/dataTypes";
+import { AgeCoefficients, Entry, Formula, Language } from "../../types/dataTypes";
 import { GlobalState } from "../../types/stateTypes";
 import { checkExhausted } from "../../types/utils";
 import { fosterMcCulloch } from "../../logic/coefficients/foster-mcculloch";
@@ -151,24 +151,10 @@ class ByPoints extends React.Component<Props> {
     );
   };
 
-  mapSexToLabel = (sex: Sex, language: Language): string => {
-    switch (sex) {
-      case "M":
-        return getString("results.mens", language);
-      case "F":
-        return getString("results.womens", language);
-      case "Mx":
-        return getString("results.mxs", language);
-      default:
-        checkExhausted(sex);
-        return "";
-    }
-  };
-
   renderCategoryResults = (results: PointsCategoryResults, key: number): JSX.Element | null => {
     const { category, orderedEntries } = results;
     const language = this.props.language;
-    const sex: string = this.mapSexToLabel(category.sex, language);
+    const sex: string = localizeSexPlural(category.sex, language);
 
     // Gather rows.
     const rows = [];

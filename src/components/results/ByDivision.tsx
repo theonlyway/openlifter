@@ -35,13 +35,18 @@ import {
 } from "../../logic/entry";
 import { kg2lbs, displayWeight, displayPoints, displayPlaceOrdinal } from "../../logic/units";
 
-import { getString, localizeEquipment, localizeEvent, localizeWeightClassStr } from "../../logic/strings";
+import {
+  getString,
+  localizeEquipment,
+  localizeEvent,
+  localizeWeightClassStr,
+  localizeSexPlural,
+} from "../../logic/strings";
 import { getPoints } from "../../logic/coefficients/coefficients";
 
 import { Category, CategoryResults } from "../../logic/divisionPlace";
-import { Entry, Formula, Language, Sex } from "../../types/dataTypes";
+import { Entry, Formula, Language } from "../../types/dataTypes";
 import { GlobalState } from "../../types/stateTypes";
-import { checkExhausted } from "../../types/utils";
 import { mapSexToClasses } from "../../logic/entry";
 
 interface StateProps {
@@ -149,24 +154,10 @@ class ByDivision extends React.Component<Props> {
     );
   };
 
-  mapSexToLabel = (sex: Sex, language: Language): string => {
-    switch (sex) {
-      case "M":
-        return getString("results.mens", language);
-      case "F":
-        return getString("results.womens", language);
-      case "Mx":
-        return getString("results.mxs", language);
-      default:
-        checkExhausted(sex);
-        return "";
-    }
-  };
-
   renderCategoryResults = (results: CategoryResults, key: number): JSX.Element | null => {
     const { category, orderedEntries } = results;
     const language = this.props.language;
-    const sex: string = this.mapSexToLabel(category.sex, language);
+    const sex: string = localizeSexPlural(category.sex, language);
 
     // Gather rows.
     const rows = [];

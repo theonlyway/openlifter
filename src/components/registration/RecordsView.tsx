@@ -49,8 +49,9 @@ import {
   isNotUndefined,
 } from "../../types/utils";
 import { makeRecordsCsv } from "../../logic/export/records";
-import { getUpdatedRecordState } from "../../logic/records";
+import { getUpdatedRecordState } from "../../logic/records/records";
 import { displayNumber } from "../../logic/units";
+import { generateRecordsPageHtml } from "../../logic/records/htmlExport";
 
 type AnyOptionType = "Any";
 const AnyOption: AnyOptionType = "Any";
@@ -109,7 +110,13 @@ class RecordsView extends React.Component<Props, State> {
   }
 
   handleExportWebPageClick() {
-    // TODO: Implement me!!
+    const html = generateRecordsPageHtml(this.props.updatedRecords, this.props.meet, this.props.language);
+    const blob = new Blob([html], { type: "application/html;charset=utf-8" });
+
+    const basename = getString("records.export-filename", this.props.language);
+
+    const filename = basename.replace("{MeetName}", this.props.meet.name) + ".html";
+    saveAs(blob, filename);
   }
 
   handleDownloadCsvTemplateClick = () => {
