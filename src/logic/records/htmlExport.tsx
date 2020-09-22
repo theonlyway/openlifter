@@ -155,8 +155,16 @@ function groupRecordsIntoCategories(records: LiftingRecord[], meetState: MeetSta
     });
   });
 
+  //GPC-NZ - Sort the synthetic sub-master div after Open
+  const openIndex = Math.max(0, meetState.divisions.indexOf("Open") + 1);
+  const gpcDivisions = [
+    ...meetState.divisions.slice(0, openIndex),
+    "Sub Masters",
+    ...meetState.divisions.slice(openIndex),
+  ];
+
   // Now sort the categories
-  categories.sort((a, b) => compareCategory(a.category, b.category, meetState.divisions));
+  categories.sort((a, b) => compareCategory(a.category, b.category, gpcDivisions));
 
   return categories;
 }
