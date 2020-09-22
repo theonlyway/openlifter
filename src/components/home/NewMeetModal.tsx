@@ -34,6 +34,8 @@ import rootReducer from "../../reducers/rootReducer";
 import { Language } from "../../types/dataTypes";
 import { GlobalState } from "../../types/stateTypes";
 import { Dispatch } from "redux";
+import { updateMeet } from "../../actions/meetSetupActions";
+import { gpcDefaults } from "../meet-setup/AutoFillRules";
 
 interface OwnProps {
   show: boolean;
@@ -109,6 +111,8 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
       // We cast here since this is not how the reducer is really intended to work
       const defaultStore = rootReducer({ language: language } as GlobalState, "OVERWRITE_STORE" as any);
       dispatch(overwriteStore(defaultStore));
+      // GPC-NZ - Load the GPC defaults for all new meets.
+      dispatch(updateMeet(gpcDefaults));
     },
   };
 };

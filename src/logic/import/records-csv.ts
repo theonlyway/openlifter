@@ -192,7 +192,8 @@ export const loadRecordsFromCsv = (csv: Csv, meet: MeetState, language: Language
         const rawDiv = cell.trim();
         if (rawDiv === "") {
           return errprefix + getString("records.import.error-division-missing", language);
-        } else if (meet.divisions.indexOf(rawDiv) === -1) {
+          // GPC-NZ - Also allow import of the synthetic "Sub Masters" record division, which isn't a real division
+        } else if (meet.divisions.indexOf(rawDiv) === -1 && rawDiv !== "Sub Masters") {
           return (
             errprefix +
             getString("records.import.error-division-invalid", language).replace(

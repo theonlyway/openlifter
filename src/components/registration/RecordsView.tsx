@@ -340,7 +340,7 @@ class RecordsView extends React.Component<Props, State> {
                     className="custom-select"
                   >
                     <option value={AnyOption}>{getString("common.any", this.props.language)}</option>
-                    {this.props.meet.divisions.map((division, i) => {
+                    {this.props.meet.divisions.concat(["Sub Masters"]).map((division, i) => {
                       return (
                         <option key={i} value={division}>
                           {division}

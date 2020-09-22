@@ -150,6 +150,8 @@ class DivisionSelect extends React.Component<Props, InternalState> {
           <FormattedMessage id="meet-setup.divisions-label" defaultMessage="Divisions (prefer short codes!)" />
         </Form.Label>
         <CreatableSelect
+          /* Lock this control, this version will use hardcoded divisions so that the records logic around divisions works */
+          isDisabled={true}
           components={components}
           inputValue={inputValue}
           isMulti

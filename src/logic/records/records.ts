@@ -35,6 +35,7 @@ import {
   getBest3DeadliftKg,
   getWeightClassForEntry,
   getAttemptWeight,
+  getAge,
 } from "../entry";
 import { checkExhausted } from "../../types/utils";
 
@@ -168,6 +169,46 @@ function addPotentialRecordIfRelevant(
   }
 }
 
+// GPC-NZ specific records logic
+function addCustomPotentialRecords(
+  potentialRecords: LiftingRecord[],
+  basePotentialRecord: {
+    date: string;
+    fullName: string;
+    location: string;
+    division: string;
+    equipment: Equipment;
+    recordType: RecordType;
+    sex: Sex;
+    weightClass: string;
+  },
+  entry: Readonly<Entry>,
+  meetDate: string
+) {
+  let candidateDiv: string | null = null;
+  const age = getAge(entry, meetDate);
+
+  // If you're in the open div and aged between 33-39 inclusive, you can also set Sub-Masters records
+  if (entry.divisions[0] === "Open" && age > 32 && age < 40) {
+    candidateDiv = "Sub Masters";
+  } else {
+    // Otherwise, every div can set open records
+    candidateDiv = "Open";
+  }
+
+  if (candidateDiv !== null) {
+    const divisionUpdate = { division: candidateDiv };
+    const updatedPotentialRecord = { ...basePotentialRecord, thing: divisionUpdate };
+
+    addPotentialRecordIfRelevant("S", potentialRecords, updatedPotentialRecord, entry);
+    addPotentialRecordIfRelevant("B", potentialRecords, updatedPotentialRecord, entry);
+    addPotentialRecordIfRelevant("D", potentialRecords, updatedPotentialRecord, entry);
+    if (getRecordTypeForEntry(entry) === "FullPower") {
+      addPotentialRecordIfRelevant("Total", potentialRecords, updatedPotentialRecord, entry);
+    }
+  }
+}
+
 // Go over every entry & all their lifts and see if they break any records.
 // If they do, update the records state with the new values
 // Finally, return the updated state of the records.
@@ -215,6 +256,7 @@ export function getUpdatedRecordState(
       }
 
       // This is where any custom logic for cross division/equipment/record type logic would go
+      addCustomPotentialRecords(potentialRecords, basePotentialRecord, entry, meet.date);
 
       // For all potential records, check if they break the existing imported record. If so, update the state with them
       // NOTE: This should be expanded to consider who achieved the record first.
