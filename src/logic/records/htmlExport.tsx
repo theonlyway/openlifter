@@ -96,7 +96,7 @@ function getWeightClassSortOrder(weightClassString: string): number {
   return asNumber;
 }
 
-function compareCategory(a: RecordCategory, b: RecordCategory, meetState: MeetState): number {
+function compareCategory(a: RecordCategory, b: RecordCategory, divisions: readonly string[]): number {
   if (a.sex !== b.sex) {
     return getSexSortOrder(a.sex) - getSexSortOrder(b.sex);
   }
@@ -104,7 +104,7 @@ function compareCategory(a: RecordCategory, b: RecordCategory, meetState: MeetSt
     return getEquipmentSortOrder(a.equipment) - getEquipmentSortOrder(b.equipment);
   }
   if (a.division !== b.division) {
-    return meetState.divisions.indexOf(a.division) - meetState.divisions.indexOf(b.division);
+    return divisions.indexOf(a.division) - divisions.indexOf(b.division);
   }
   if (a.weightClass !== b.weightClass) {
     return getWeightClassSortOrder(a.weightClass) - getWeightClassSortOrder(b.weightClass);
@@ -156,7 +156,7 @@ function groupRecordsIntoCategories(records: LiftingRecord[], meetState: MeetSta
   });
 
   // Now sort the categories
-  categories.sort((a, b) => compareCategory(a.category, b.category, meetState));
+  categories.sort((a, b) => compareCategory(a.category, b.category, meetState.divisions));
 
   return categories;
 }
