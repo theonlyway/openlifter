@@ -208,7 +208,7 @@ export const loadRecordsFromCsv = (csv: Csv, meet: MeetState, language: Language
         if (validationResult.result !== null) {
           sex = validationResult.result;
         } else {
-          return errprefix + validationResult.errorMessage;
+          return validationResult.errorMessage;
         }
       } else if (fieldname === columnNames.class) {
         weightClass = cell;
@@ -217,21 +217,21 @@ export const loadRecordsFromCsv = (csv: Csv, meet: MeetState, language: Language
         if (validationResult.result !== null) {
           equipment = validationResult.result;
         } else {
-          return errprefix + validationResult.errorMessage;
+          return validationResult.errorMessage;
         }
       } else if (fieldname === columnNames.recordLift) {
         const validationResult = validateRecordLift(cell, language, errprefix);
         if (validationResult.result !== null) {
           recordLift = validationResult.result;
         } else {
-          return errprefix + validationResult.errorMessage;
+          return validationResult.errorMessage;
         }
       } else if (fieldname === columnNames.recordType) {
         const validationResult = validateRecordType(cell, language, errprefix);
         if (validationResult.result !== null) {
           recordType = validationResult.result;
         } else {
-          return errprefix + validationResult.errorMessage;
+          return validationResult.errorMessage;
         }
       }
     }
