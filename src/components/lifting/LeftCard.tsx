@@ -34,7 +34,7 @@ import styles from "./LeftCard.module.scss";
 
 import { Entry, Language, LoadedPlate, RecordLift } from "../../types/dataTypes";
 import { GlobalState, LiftingState, RegistrationState, MeetState, RecordsState } from "../../types/stateTypes";
-import { isOfficialRecordAttempt, getRecordTypeForEntry, getUpdatedRecordState } from "../../logic/records/records";
+import { isRecordAttempt, getRecordTypeForEntry, getUpdatedRecordState } from "../../logic/records/records";
 import { checkExhausted } from "../../types/utils";
 
 interface OwnProps {
@@ -211,7 +211,7 @@ class LeftCard extends React.Component<Props> {
     const currentEntry = this.getEntryById(this.props.currentEntryId);
     const canSetTotalRecords = getRecordTypeForEntry(currentEntry) === "FullPower" && lift === "D";
 
-    const isLiftRecordAttempt = this.isOfficialRecordAttempt(currentEntry, lift);
+    const isLiftRecordAttempt = this.isRecordAttempt(currentEntry, lift);
     // Is it a record attempt for the lift?
     if (isLiftRecordAttempt) {
       let localizedLift: string = "";
@@ -226,14 +226,17 @@ class LeftCard extends React.Component<Props> {
     }
 
     // Total records are only announced during deadlifts in full power meets
-    const isTotalRecordAttempt = canSetTotalRecords && this.isOfficialRecordAttempt(currentEntry, "Total");
+    const isTotalRecordAttempt = canSetTotalRecords && this.isRecordAttempt(currentEntry, "Total");
     if (isTotalRecordAttempt) {
       recordTypesBroken.push(getString("lifting.records-total", this.props.language));
     }
 
     // If any records are being attempted, announce them
     if (recordTypesBroken.length > 0) {
-      const messageTemplate =
+      const officialOrUnOfficial = currentEntry.canBreakRecords
+        ? getString("lifting.records-official", this.props.language)
+        : getString("lifting.records-unofficial", this.props.language);
+      let messageTemplate =
         recordTypesBroken.length == 1
           ? getString("lifting.records-attempt-1-record-notice", this.props.language).replace(
               "{Lift}",
@@ -243,6 +246,7 @@ class LeftCard extends React.Component<Props> {
               .replace("{Lift1}", recordTypesBroken[0])
               .replace("{Lift2}", recordTypesBroken[1]);
 
+      messageTemplate = messageTemplate.replace("{OfficialOrUnofficial}", officialOrUnOfficial);
       return (
         <div>
           <div className={styles.recordText}>{messageTemplate}</div>
@@ -251,10 +255,9 @@ class LeftCard extends React.Component<Props> {
     }
   }
 
-  private isOfficialRecordAttempt(entry: Entry, lift: RecordLift): boolean {
-    return isOfficialRecordAttempt(
+  private isRecordAttempt(entry: Entry, lift: RecordLift): boolean {
+    return isRecordAttempt(
       this.props.updatedRecordState,
-      this.props.registration,
       this.props.meet,
       entry,
       lift,
