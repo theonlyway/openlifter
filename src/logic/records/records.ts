@@ -74,11 +74,11 @@ export function getWeightForUnconfirmedRecord(recordLift: RecordLift, entry: Ent
 
 // Determines if the attempt is higher then any other successful attempt for the record type
 // This is used to determine if we should display the record attempt notification
+// NOTE: Does not consider if the entry is eligible to break records. This is useful so we can display official/unoffocial attempt info
 // NOTE: This assume that the RecordState being passed in is the most up to date version.
 // - Ensure you call getUpdatedState first.
-export function isOfficialRecordAttempt(
+export function isRecordAttempt(
   updatedRecordState: RecordsState,
-  registrationState: RegistrationState,
   meet: MeetState,
   entry: Entry,
   recordLift: RecordLift,
@@ -93,8 +93,8 @@ export function isOfficialRecordAttempt(
     language
   );
 
-  // If they cannot break records, or have no divisions, it cannot be a record attempt
-  if (!entry.canBreakRecords || entry.divisions.length === 0) {
+  // If they have no divisions, it cannot be a record attempt
+  if (entry.divisions.length === 0) {
     return false;
   }
 

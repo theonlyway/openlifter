@@ -299,12 +299,14 @@ strings = strings.concat([
   { id: "lifting.footer-no-flights", defaultMessage: "No Flights" },
   { id: "lifting.footer-no-lifters", defaultMessage: "No Lifters" },
   { id: "lifting.division-column-width-label", defaultMessage: "Division Column Width" },
-  { id: "lifting.records-total", defaultMessage: "Total" },
-  { id: "lifting.records-squat", defaultMessage: "Squat" },
-  { id: "lifting.records-bench", defaultMessage: "Bench" },
-  { id: "lifting.records-deadlift", defaultMessage: "Deadlift" },
   { id: "lifting.records-attempt-1-record-notice", defaultMessage: "{Lift} Record Attempt"},
-  { id: "lifting.records-attempt-2-records-notice", defaultMessage: "{Lift1} & {Lift2} Record Attempt"}
+  { id: "lifting.records-attempt-2-records-notice", defaultMessage: "{Lift1} & {Lift2} Record Attempt"},
+  { id: "lifting.records-bench", defaultMessage: "Bench" },
+  { id: "lifting.records-official", defaultMessage: "Official" },
+  { id: "lifting.records-squat", defaultMessage: "Squat" },
+  { id: "lifting.records-total", defaultMessage: "Total" },
+  { id: "lifting.records-unofficial", defaultMessage: "Unofficial" },
+  { id: "lifting.records-deadlift", defaultMessage: "Deadlift" }
 ]);
 
 // Strings for the Records page.
