@@ -24,7 +24,7 @@ import { connect } from "react-redux";
 import { FormattedMessage } from "react-intl";
 
 import { selectPlates, makeLoadingRelative } from "../../logic/barLoad";
-import { liftToAttemptFieldName } from "../../logic/entry";
+import { liftToAttemptFieldName, getWeightClassForEntry } from "../../logic/entry";
 import { getString } from "../../logic/strings";
 import { kg2lbs, displayWeightOnePlace } from "../../logic/units";
 
@@ -36,6 +36,7 @@ import { Entry, Language, LoadedPlate, RecordLift } from "../../types/dataTypes"
 import { GlobalState, LiftingState, RegistrationState, MeetState, RecordsState } from "../../types/stateTypes";
 import { isRecordAttempt, getRecordTypeForEntry, getUpdatedRecordState } from "../../logic/records/records";
 import { checkExhausted } from "../../types/utils";
+import { getProjectedResults, getFinalResults } from "../../logic/divisionPlace";
 
 interface OwnProps {
   attemptOneIndexed: number;
@@ -162,31 +163,11 @@ class LeftCard extends React.Component<Props> {
         </div>
       );
 
-    let attemptTemplate = "";
-    if (this.props.meet.inKg) {
-      if (this.props.meet.showAlternateUnits) {
-        attemptTemplate = getString("lifting.current-weight-kg-lbs", language);
-      } else {
-        attemptTemplate = getString("lifting.current-weight-kg", language);
-      }
-    } else {
-      if (this.props.meet.showAlternateUnits) {
-        attemptTemplate = getString("lifting.current-weight-lbs-kg", language);
-      } else {
-        attemptTemplate = getString("lifting.current-weight-lbs", language);
-      }
-    }
-
-    const recordAttemptText: JSX.Element | undefined = this.getRecordAttemptDiv();
-
     return (
       <div className={styles.container}>
         <div className={styles.activeCard}>
           <div className={styles.loadingBar}>
-            <div className={styles.attemptText}>
-              {attemptTemplate.replace("{kg}", weightKgText).replace("{lbs}", weightLbsText)}
-            </div>
-            {recordAttemptText}
+            {this.renderStreamOverlayCard(current)}
             <div className={styles.barArea}>
               <BarLoad
                 key={String(current.weightKg) + current.rackInfo}
@@ -202,9 +183,9 @@ class LeftCard extends React.Component<Props> {
     );
   }
 
-  getRecordAttemptDiv(): JSX.Element | undefined {
+  getRecordAttemptText(): string | null {
     if (this.props.currentEntryId === null || this.props.attemptOneIndexed === null) {
-      return undefined;
+      return null;
     }
     const lift = this.props.lifting.lift;
     const recordTypesBroken: string[] = [];
@@ -247,12 +228,56 @@ class LeftCard extends React.Component<Props> {
               .replace("{Lift2}", recordTypesBroken[1]);
 
       messageTemplate = messageTemplate.replace("{OfficialOrUnofficial}", officialOrUnOfficial);
-      return (
-        <div>
-          <div className={styles.recordText}>{messageTemplate}</div>
-        </div>
-      );
+      return messageTemplate;
     }
+    return null;
+  }
+
+  renderStreamOverlayCard(barLoadProps: BarLoadOptions) {
+    const useProjected = this.props.lifting.lift !== "D" || this.props.attemptOneIndexed < 2;
+    const categoryResults = useProjected
+      ? getProjectedResults(
+          this.props.orderedEntries,
+          this.props.meet.weightClassesKgMen,
+          this.props.meet.weightClassesKgWomen,
+          this.props.meet.weightClassesKgMx,
+          this.props.meet.combineSleevesAndWraps
+        )
+      : getFinalResults(
+          this.props.orderedEntries,
+          this.props.meet.weightClassesKgMen,
+          this.props.meet.weightClassesKgWomen,
+          this.props.meet.weightClassesKgMx,
+          this.props.meet.combineSleevesAndWraps
+        );
+
+    if (this.props.currentEntryId === null) {
+      return null;
+    }
+
+    const entry = this.getEntryById(this.props.currentEntryId);
+    const weightClass = getWeightClassForEntry(
+      entry,
+      this.props.meet.weightClassesKgMen,
+      this.props.meet.weightClassesKgWomen,
+      this.props.meet.weightClassesKgMx,
+      this.props.language
+    );
+
+    const weightClassPrefix = weightClass.endsWith("+") ? "" : "u";
+
+    return (
+      <div>
+        <div className={styles.overlayWeight}>{entry.name}</div>
+        <div className={styles.overlaySubTitle}>
+          {entry.divisions[0]} - <span className={styles.weightClassPrefix}>{weightClassPrefix}</span>
+          {weightClass}kg
+        </div>
+        <div className={styles.overlayWeight}>
+          {barLoadProps.weightKg}KG <span className={styles.overlayRecordText}>{this.getRecordAttemptText()}</span>
+        </div>
+      </div>
+    );
   }
 
   private isRecordAttempt(entry: Entry, lift: RecordLift): boolean {

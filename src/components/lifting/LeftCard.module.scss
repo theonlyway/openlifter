@@ -20,7 +20,7 @@
 
 $color-dark: #232323;
 $color-light: #ffffff;
-$color-red: #FF0000;
+$color-red: #c70c0c;
 $border-rounding: 8px;
 
 
@@ -65,14 +65,32 @@ div.attemptText {
   border-top-right-radius: $border-rounding;
 }
 
-div.recordText {
+div.overlaySubTitle {
+  background-color: black;
+  font-size: 30px;
+  color: white;
+  font-weight: bold;
+  padding-left: 20px;
+}
+
+.weightClassPrefix {
+  font-size: 15px;
+}
+
+.overlayWeight {
   width: 100%;
   padding: 5px 10px 5px 20px;
 
   background-color: $color-dark;
-  color: $color-red;
+  color: $color-light;
 
-  font-size: 30px;
+  font-size: 44px;
+  font-weight: bold;
+}
+
+.overlayRecordText {
+  font-size: 25px;
+  color: $color-red;
 }
 
 // Restricts the area available for the bar, for padding purposes.
