@@ -33,7 +33,7 @@ import { kg2lbs, displayWeight, displayPoints, displayPlaceOrdinal } from "../..
 
 import { CategoryResults } from "../../logic/divisionPlace";
 import { Entry, Equipment, Language, Lift, Sex } from "../../types/dataTypes";
-import { GlobalState, MeetState, LiftingState } from "../../types/stateTypes";
+import { GlobalState, MeetState, LiftingState, RegistrationState } from "../../types/stateTypes";
 
 import styles from "./LiftingTable.module.scss";
 import { checkExhausted } from "../../types/utils";
@@ -47,6 +47,7 @@ interface OwnProps {
 
 interface StateProps {
   meet: MeetState;
+  registration: RegistrationState;
   lifting: LiftingState;
   language: Language;
 }
@@ -576,14 +577,14 @@ class LiftingTable extends React.Component<Props> {
     // Calculate the Division placings for each of the lifters.
     const categoryResults = useProjected
       ? getProjectedResults(
-          this.props.orderedEntries,
+          this.props.registration.entries,
           this.props.meet.weightClassesKgMen,
           this.props.meet.weightClassesKgWomen,
           this.props.meet.weightClassesKgMx,
           this.props.meet.combineSleevesAndWraps
         )
       : getFinalResults(
-          this.props.orderedEntries,
+          this.props.registration.entries,
           this.props.meet.weightClassesKgMen,
           this.props.meet.weightClassesKgWomen,
           this.props.meet.weightClassesKgMx,
@@ -604,6 +605,7 @@ class LiftingTable extends React.Component<Props> {
 const mapStateToProps = (state: GlobalState): StateProps => {
   return {
     meet: state.meet,
+    registration: state.registration,
     lifting: state.lifting,
     language: state.language,
   };
