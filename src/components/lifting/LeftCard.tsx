@@ -36,7 +36,7 @@ import { Entry, Language, LoadedPlate, RecordLift } from "../../types/dataTypes"
 import { GlobalState, LiftingState, RegistrationState, MeetState, RecordsState } from "../../types/stateTypes";
 import { isRecordAttempt, getRecordTypeForEntry, getUpdatedRecordState } from "../../logic/records/records";
 import { checkExhausted } from "../../types/utils";
-import { getProjectedResults, getFinalResults } from "../../logic/divisionPlace";
+import { getProjectedResults, getFinalResults, getPlaceOrdinal } from "../../logic/divisionPlace";
 
 interface OwnProps {
   attemptOneIndexed: number;
@@ -61,6 +61,22 @@ interface BarLoadOptions {
   weightKg: number;
   weightLbs: number;
   rackInfo: string;
+}
+
+// Scuffed ordinal suffix calculation
+function getOrdinalSuffix(i: number): string {
+  const j = i % 10;
+  const k = i % 100;
+  if (j === 1 && k !== 11) {
+    return "st";
+  }
+  if (j === 2 && k !== 12) {
+    return "nd";
+  }
+  if (j === 3 && k !== 13) {
+    return "rd";
+  }
+  return "th";
 }
 
 class LeftCard extends React.Component<Props> {
@@ -234,6 +250,10 @@ class LeftCard extends React.Component<Props> {
   }
 
   renderStreamOverlayCard(barLoadProps: BarLoadOptions) {
+    if (this.props.currentEntryId === null) {
+      return null;
+    }
+
     const useProjected = this.props.lifting.lift !== "D" || this.props.attemptOneIndexed < 2;
     const categoryResults = useProjected
       ? getProjectedResults(
@@ -251,11 +271,9 @@ class LeftCard extends React.Component<Props> {
           this.props.meet.combineSleevesAndWraps
         );
 
-    if (this.props.currentEntryId === null) {
-      return null;
-    }
-
     const entry = this.getEntryById(this.props.currentEntryId);
+    const placeOrdinal = getPlaceOrdinal(entry, categoryResults);
+    const placeOrdinalStr = placeOrdinal !== null ? ` · ${placeOrdinal}${getOrdinalSuffix(placeOrdinal)} place` : null;
     const weightClass = getWeightClassForEntry(
       entry,
       this.props.meet.weightClassesKgMen,
@@ -268,10 +286,11 @@ class LeftCard extends React.Component<Props> {
 
     return (
       <div>
-        <div className={styles.overlayWeight}>{entry.name}</div>
+        <div className={styles.attemptText}>{entry.name}</div>
         <div className={styles.overlaySubTitle}>
-          {entry.divisions[0]} - <span className={styles.weightClassPrefix}>{weightClassPrefix}</span>
+          {entry.divisions[0]} · <span className={styles.weightClassPrefix}>{weightClassPrefix}</span>
           {weightClass}kg
+          {placeOrdinalStr}
         </div>
         <div className={styles.overlayWeight}>
           {barLoadProps.weightKg}KG <span className={styles.overlayRecordText}>{this.getRecordAttemptText()}</span>

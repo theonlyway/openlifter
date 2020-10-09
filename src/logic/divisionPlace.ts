@@ -27,9 +27,10 @@ import { getProjectedEventTotalKg, getFinalEventTotalKg, liftToAttemptFieldName 
 import { compareEntriesByAttempt } from "./liftingOrder";
 import { getWeightClassStr } from "../reducers/meetReducer";
 
-import { Sex, Event, Equipment, Entry, Lift } from "../types/dataTypes";
+import { Sex, Event, Equipment, Entry, Lift, Language } from "../types/dataTypes";
 import { checkExhausted } from "../types/utils";
 import { mapSexToClasses } from "./entry";
+import { displayPlaceOrdinal } from "./units";
 
 export type Place = number | "DQ";
 
@@ -363,4 +364,35 @@ export const getFinalResults = (
     combineSleevesAndWraps,
     "Final"
   );
+};
+
+export const getPlaceOrdinal = (entry: Entry, categoryResults: CategoryResults[]): number | null => {
+  if (entry.divisions.length === 0) return null;
+  if (entry.guest) return null;
+  // Just show the Place from the first division in the list.
+  // This is the same division as shown in the "Division" column.
+  const firstDiv = entry.divisions[0];
+
+  // Look at all the categories, and find the first one including this division
+  // and entry. Because the categories are in sorted order, SBD takes priority
+  // over B by default.
+  for (let i = 0; i < categoryResults.length; i++) {
+    const result = categoryResults[i];
+    if (result.category.division !== firstDiv) {
+      continue;
+    }
+
+    const catEntries = result.orderedEntries;
+    for (let j = 0; j < catEntries.length; j++) {
+      const catEntry = catEntries[j];
+
+      if (catEntry.id === entry.id) {
+        // We can use the index into the array as their place, since it sorted and guests will be last in the array
+        return j + 1;
+        //const ordinal = displayPlaceOrdinal(j + 1, entry, language);
+        //return ordinal;
+      }
+    }
+  }
+  return null;
 };

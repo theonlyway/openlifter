@@ -34,7 +34,7 @@ import {
   mapSexToClasses,
 } from "../../logic/entry";
 
-import { getProjectedResults, getFinalResults } from "../../logic/divisionPlace";
+import { getProjectedResults, getFinalResults, getPlaceOrdinal } from "../../logic/divisionPlace";
 import { kg2lbs, displayWeight, displayPoints, displayPlaceOrdinal } from "../../logic/units";
 
 import { CategoryResults } from "../../logic/divisionPlace";
@@ -368,33 +368,12 @@ class LiftingTable extends React.Component<Props> {
         // If the lifter is a guest, they cannot place, so just display the guest symbol.
         if (entry.guest) return <td key={columnType}>{getString("results.lifter-guest", this.props.language)}</td>;
 
-        // Just show the Place from the first division in the list.
-        // This is the same division as shown in the "Division" column.
-        if (entry.divisions.length === 0) return <td key={columnType} />;
-        const firstDiv = entry.divisions[0];
-
-        // Look at all the categories, and find the first one including this division
-        // and entry. Because the categories are in sorted order, SBD takes priority
-        // over B by default.
-        for (let i = 0; i < categoryResults.length; i++) {
-          const result = categoryResults[i];
-          if (result.category.division !== firstDiv) {
-            continue;
-          }
-
-          const catEntries = result.orderedEntries;
-          for (let j = 0; j < catEntries.length; j++) {
-            const catEntry = catEntries[j];
-
-            if (catEntry.id === entry.id) {
-              // We can use the index into the array as their place, since it sorted and guests will be last in the array
-              const ordinal = displayPlaceOrdinal(j + 1, entry, this.props.language);
-              return <td key={columnType}>{ordinal}</td>;
-            }
-          }
-        }
-
-        return <td key={columnType} />; // Shouldn't happen.
+        const placeOrdinal = getPlaceOrdinal(entry, categoryResults);
+        return (
+          <td key={columnType}>
+            {placeOrdinal !== null ? displayPlaceOrdinal(placeOrdinal, entry, this.props.language) : undefined}
+          </td>
+        );
       }
       default:
         checkExhausted(columnType);
