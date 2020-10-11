@@ -32,7 +32,7 @@ import BarLoad from "./BarLoad";
 
 import styles from "./LeftCard.module.scss";
 
-import Logo from "./gpc-nz-square2.png";
+import Logo from "./gpc-nz-square.png";
 
 import { Entry, Language, LoadedPlate, RecordLift } from "../../types/dataTypes";
 import { GlobalState, LiftingState, RegistrationState, MeetState, RecordsState } from "../../types/stateTypes";
