@@ -32,6 +32,8 @@ import BarLoad from "./BarLoad";
 
 import styles from "./LeftCard.module.scss";
 
+import Logo from "./gpc-nz-square2.png";
+
 import { Entry, Language, LoadedPlate, RecordLift } from "../../types/dataTypes";
 import { GlobalState, LiftingState, RegistrationState, MeetState, RecordsState } from "../../types/stateTypes";
 import { isRecordAttempt, getRecordTypeForEntry, getUpdatedRecordState } from "../../logic/records/records";
@@ -195,6 +197,7 @@ class LeftCard extends React.Component<Props> {
           </div>
         </div>
         {nextBarLoad}
+        <img className={styles.logo} src={Logo}></img>
       </div>
     );
   }

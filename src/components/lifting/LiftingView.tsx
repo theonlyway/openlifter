@@ -97,22 +97,6 @@ class LiftingView extends React.Component<Props, InternalState> {
 
     return (
       <div>
-        <Card style={{ margin: "12px 20px" }}>
-          <Card.Body>
-            <div style={{ width: "160px" }}>
-              <ColumnWidth
-                label={getString("lifting.division-column-width-label", this.props.language)}
-                fieldName="columnDivisionWidthPx"
-              />
-            </div>
-            <h3>
-              <FormattedMessage
-                id="lifting.garish-instructions"
-                defaultMessage="To fit to the screen, zoom the browser in or out and then press Toggle Fullscreen."
-              />
-            </h3>
-          </Card.Body>
-        </Card>
         <div id="liftingView" className={styles.liftingView}>
           <LiftingHeader
             attemptOneIndexed={now.attemptOneIndexed}

@@ -27,10 +27,11 @@ $border-rounding: 8px;
 div.header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
 
   margin-bottom: 10px;
   width: 100%;
-  height: 84px;
+  height: 120px;
 
   padding: 10px 20px 10px 20px;
 
@@ -42,6 +43,10 @@ div.header {
   box-shadow: 0 0 20px 0 hsla(0, 0%, 64%, .45);
 
   white-space: nowrap;
+}
+
+img.logo {
+  height: 100%;
 }
 
 // The call-out for the lifter name.
