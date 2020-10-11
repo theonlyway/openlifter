@@ -26,7 +26,7 @@ $cell-left-padding: 8px;
 $row-font-size: 20px;
 $header-font-size: 20px;
 
-$color-dark: #232323;
+$color-dark: black;
 $color-light: #ffffff;
 $color-alternating-stripe: #f4f4f4;
 
@@ -37,7 +37,7 @@ $color-light-red-tint-stripe: #ffe3e3;
 $color-light-green-tint: #eeffee;
 $color-light-green-tint-stripe: #e3ffe3;
 
-$border-rounding: 8px;
+$border-rounding: 0px;
 
 
 // Set the default colors.
@@ -48,8 +48,9 @@ table.liftingtable {
   background-color: $color-light;
 
   font-size: $row-font-size;
-  box-shadow: 0 0 20px 0 hsla(0, 0%, 64%, .45);
   border-radius: $border-rounding;
+  border-style: solid;
+  border-color: $color-dark;
 }
 
 // A cell helper to prevent text wrapping.

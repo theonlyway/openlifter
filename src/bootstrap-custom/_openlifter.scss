@@ -11,7 +11,7 @@ $font-size-navbar: 0.875rem;
 $enable-validation-icons: false;
 
 // Configuration of the color system.
-$body-bg: #dfe4e6; // A darker white (~87%) to make the foreground pop.
+$body-bg: white;
 
 // Buttons and highlights and such.
 $primary: #007bff; // $blue.
@@ -21,7 +21,7 @@ $info: #5bc0de; // The info color from version 1.0 (using Bootstrap 3).
 $warning: #ffc107; // $yellow.
 $danger: #dc3545; // $red.
 $light: #f8f9fa; // $gray-100.
-$dark: #343a40; // $gray-800.
+$dark: black; //
 
 // Bootstrap button logic determines the text color from the background color
 // by deciding whether the background is "light" or "dark". We want it to always

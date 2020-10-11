@@ -4,6 +4,7 @@ import { LiftingRecord, Language } from "../../types/dataTypes";
 import { exportedRecordsPageCss } from "./ExportedRecordsPage.css";
 import { localizeEquipment, localizeRecordType, localizeRecordLift, localizeSexPlural } from "../strings";
 import { FormattedMessage } from "react-intl";
+import { logoData } from "./ExportedRecordsPageLogo";
 
 interface Props {
   recordCategories: RecordCategoryGrouping[];
@@ -22,6 +23,10 @@ export class ExportedRecordsPage extends React.Component<Props, {}> {
         </head>
         <body>
           <div className="recordsPage">
+            <div className="logoContainer">
+              <img src={logoData}></img>
+            </div>
+
             <p className="recordsPageTitle">
               <FormattedMessage id="records.export.page.title" defaultMessage="Powerlifting Records" />
             </p>
@@ -38,7 +43,7 @@ export class ExportedRecordsPage extends React.Component<Props, {}> {
     const localizedSex = localizeSexPlural(category.sex, language);
     const localizedEquipment = localizeEquipment(category.equipment, language);
     return (
-      <div key={index}>
+      <div key={index} className="recordCategory">
         <p className="categoryHeading">
           {localizedSex} {localizedEquipment} - {category.division} {category.weightClass}
         </p>

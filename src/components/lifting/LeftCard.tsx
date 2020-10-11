@@ -26,7 +26,7 @@ import { FormattedMessage } from "react-intl";
 import { selectPlates, makeLoadingRelative } from "../../logic/barLoad";
 import { liftToAttemptFieldName, getWeightClassForEntry } from "../../logic/entry";
 import { getString } from "../../logic/strings";
-import { kg2lbs, displayWeightOnePlace } from "../../logic/units";
+import { kg2lbs } from "../../logic/units";
 
 import BarLoad from "./BarLoad";
 
@@ -126,11 +126,6 @@ class LeftCard extends React.Component<Props> {
     const current = this.getBarLoadProps(this.props.currentEntryId, this.props.attemptOneIndexed);
     const next = this.getBarLoadProps(this.props.nextEntryId, this.props.nextAttemptOneIndexed);
 
-    // Show one decimal point, and omit it if possible.
-    const language = this.props.language;
-    const weightKgText = displayWeightOnePlace(current.weightKg, language);
-    const weightLbsText = displayWeightOnePlace(current.weightLbs, language);
-
     const barAndCollarsWeightKg = this.getBarAndCollarsWeightKg();
 
     // Calculate both loadings.
@@ -197,7 +192,9 @@ class LeftCard extends React.Component<Props> {
           </div>
         </div>
         {nextBarLoad}
-        <img className={styles.logo} src={Logo}></img>
+        <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+          <img className={styles.logo} src={Logo}></img>
+        </div>
       </div>
     );
   }
@@ -260,14 +257,14 @@ class LeftCard extends React.Component<Props> {
     const useProjected = this.props.lifting.lift !== "D" || this.props.attemptOneIndexed < 2;
     const categoryResults = useProjected
       ? getProjectedResults(
-          this.props.orderedEntries,
+          this.props.registration.entries,
           this.props.meet.weightClassesKgMen,
           this.props.meet.weightClassesKgWomen,
           this.props.meet.weightClassesKgMx,
           this.props.meet.combineSleevesAndWraps
         )
       : getFinalResults(
-          this.props.orderedEntries,
+          this.props.registration.entries,
           this.props.meet.weightClassesKgMen,
           this.props.meet.weightClassesKgWomen,
           this.props.meet.weightClassesKgMx,

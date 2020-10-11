@@ -28,6 +28,8 @@ import { LinkContainer } from "react-router-bootstrap";
 
 import { saveAs } from "file-saver";
 
+import Logo from "../components/lifting/gpc-nz-horizontal.png";
+
 import { FormattedMessage } from "react-intl";
 import LanguageSelector from "../components/translations/LanguageSelector";
 import { overwriteStore } from "../actions/globalActions";
@@ -45,7 +47,13 @@ import { GlobalState } from "../types/stateTypes";
 import { Dispatch } from "redux";
 
 // Temporary CSS, just for prototyping.
-const centerConsole = { maxWidth: 700, marginRight: "auto", marginLeft: "auto" };
+const centerConsole = {
+  maxWidth: 700,
+  marginRight: "auto",
+  marginLeft: "auto",
+  backgroundColor: "black",
+  color: "gray",
+};
 
 interface StateProps {
   redux: GlobalState;
@@ -191,21 +199,6 @@ class HomeContainer extends React.Component<Props, InternalState> {
       newMeetButton = <LinkContainer to="/meet-setup">{newMeetButton}</LinkContainer>;
     }
 
-    const isBeta: boolean = releaseVersion.includes("eta");
-    let betaWarning = null;
-    if (isBeta === true) {
-      betaWarning = (
-        <h3>
-          <p>
-            <FormattedMessage
-              id="home.beta-warning"
-              defaultMessage="This is the in-development, next version of OpenLifter. The internal data format is unstable. Do not use this to run competitions!"
-            />
-          </p>
-        </h3>
-      );
-    }
-
     const wrongVersion: boolean = this.props.redux.versions.stateVersion !== stateVersion;
     const dataReleaseVersion = this.props.redux.versions.releaseVersion;
 
@@ -240,8 +233,7 @@ class HomeContainer extends React.Component<Props, InternalState> {
         />
 
         <Card.Header>
-          <img alt="OpenLifter" src="openlifter.svg" />
-          {betaWarning}
+          <img alt="GPC-NZ" src={Logo} style={{ width: "100%", backgroundColor: "black" }} />
         </Card.Header>
 
         <Card.Body>

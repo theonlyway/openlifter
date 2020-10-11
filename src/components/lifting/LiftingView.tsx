@@ -24,19 +24,12 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import { FormattedMessage } from "react-intl";
-
-import Card from "react-bootstrap/Card";
 
 import LeftCard from "./LeftCard";
 import LiftingFooter from "./LiftingFooter";
 import LiftingHeader from "./LiftingHeader";
 import LiftingTable from "./LiftingTable";
 import WeighinsView from "../weighins/WeighinsView";
-
-import ColumnWidth from "./ColumnWidth";
-
-import { getString } from "../../logic/strings";
 
 import styles from "./LiftingView.module.scss";
 

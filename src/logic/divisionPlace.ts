@@ -27,10 +27,9 @@ import { getProjectedEventTotalKg, getFinalEventTotalKg, liftToAttemptFieldName 
 import { compareEntriesByAttempt } from "./liftingOrder";
 import { getWeightClassStr } from "../reducers/meetReducer";
 
-import { Sex, Event, Equipment, Entry, Lift, Language } from "../types/dataTypes";
+import { Sex, Event, Equipment, Entry, Lift } from "../types/dataTypes";
 import { checkExhausted } from "../types/utils";
 import { mapSexToClasses } from "./entry";
-import { displayPlaceOrdinal } from "./units";
 
 export type Place = number | "DQ";
 
@@ -389,8 +388,6 @@ export const getPlaceOrdinal = (entry: Entry, categoryResults: CategoryResults[]
       if (catEntry.id === entry.id) {
         // We can use the index into the array as their place, since it sorted and guests will be last in the array
         return j + 1;
-        //const ordinal = displayPlaceOrdinal(j + 1, entry, language);
-        //return ordinal;
       }
     }
   }

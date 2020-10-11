@@ -1,8 +1,8 @@
-const borderRadius = "8px";
+const borderRadius = "0px";
 
 export const exportedRecordsPageCss = `
 body {
-    background-color: #dfe4e6;
+    background-color: white;
 }
 
 th, td {
@@ -16,7 +16,7 @@ tr {
 
 table {
     font-size: 18px;
-    background-color: lightgray;
+    background-color: white;
     border-bottom-left-radius: ${borderRadius};
     border-bottom-right-radius: ${borderRadius};
 }
@@ -51,12 +51,25 @@ table {
 
 .categoryHeading {
     font-size: 30px;
-    background-color: #232323;
-    color: #FFFFFF;
+    background-color: black;
+    color: white;
     font-weight: bold;
     padding: 4px;
-    margin: 10px 0px 0px 0px;
+    margin: 0px;
     border-top-left-radius: ${borderRadius};
     border-top-right-radius: ${borderRadius};
 }
+
+.recordCategory {
+    border-style: solid;
+    margin-bottom: 10px;
+}
+
+.logoContainer {
+    background-color: black;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
 `;
