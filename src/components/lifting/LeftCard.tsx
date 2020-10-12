@@ -24,7 +24,7 @@ import { connect } from "react-redux";
 import { FormattedMessage } from "react-intl";
 
 import { selectPlates, makeLoadingRelative } from "../../logic/barLoad";
-import { liftToAttemptFieldName, getWeightClassForEntry } from "../../logic/entry";
+import { liftToAttemptFieldName, getWeightClassForEntry, getFinalTotalKg } from "../../logic/entry";
 import { getString } from "../../logic/strings";
 import { kg2lbs } from "../../logic/units";
 
@@ -272,7 +272,10 @@ class LeftCard extends React.Component<Props> {
         );
 
     const entry = this.getEntryById(this.props.currentEntryId);
-    const placeOrdinal = getPlaceOrdinal(entry, categoryResults);
+    let placeOrdinal = null;
+    if (getFinalTotalKg(entry) !== 0) {
+      placeOrdinal = getPlaceOrdinal(entry, categoryResults);
+    }
     const placeOrdinalStr = placeOrdinal !== null ? ` · ${placeOrdinal}${getOrdinalSuffix(placeOrdinal)} place` : null;
     const weightClass = getWeightClassForEntry(
       entry,
