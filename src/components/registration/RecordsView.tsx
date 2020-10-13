@@ -49,7 +49,7 @@ import {
   isNotUndefined,
 } from "../../types/utils";
 import { makeRecordsCsv } from "../../logic/export/records";
-import { getUpdatedRecordState } from "../../logic/records/records";
+import { getUpdatedRecordState, groupAndSortRecordsIntoCategories } from "../../logic/records/records";
 import { displayNumber } from "../../logic/units";
 import { generateRecordsPageHtml } from "../../logic/records/htmlExport";
 
@@ -101,7 +101,7 @@ class RecordsView extends React.Component<Props, State> {
 
   handleExportCsvClick() {
     const language = this.props.language;
-    const text = makeRecordsCsv(this.props.updatedRecords, language);
+    const text = makeRecordsCsv(this.props.updatedRecords, this.props.meet, language);
     const blob = new Blob([text], { type: "application/text;charset=utf-8" });
 
     const basename = getString("records.export-filename", this.props.language);
@@ -285,6 +285,10 @@ class RecordsView extends React.Component<Props, State> {
         );
       });
 
+    const filteredSortedRecords = groupAndSortRecordsIntoCategories(filteredRecords, this.props.meet).flatMap(
+      (cat) => cat.records
+    );
+
     return (
       <div>
         <ErrorModal
@@ -464,19 +468,19 @@ class RecordsView extends React.Component<Props, State> {
               <Table>
                 <thead>
                   <tr>
-                    <th>Full Name</th>
-                    <th>Weight</th>
-                    <th>Date</th>
-                    <th>Location</th>
                     <th>Division</th>
                     <th>Sex</th>
                     <th>Weight Class</th>
                     <th>Equipment</th>
                     <th>Lift</th>
                     <th>Record Type</th>
+                    <th>Full Name</th>
+                    <th>Weight</th>
+                    <th>Date</th>
+                    <th>Location</th>
                   </tr>
                 </thead>
-                <tbody>{filteredRecords.map((record, index) => this.renderRow(record, index))}</tbody>
+                <tbody>{filteredSortedRecords.map((record, index) => this.renderRow(record, index))}</tbody>
               </Table>
             </Row>
           </Card.Body>
@@ -488,16 +492,16 @@ class RecordsView extends React.Component<Props, State> {
   renderRow(record: LiftingRecord, index: number) {
     return (
       <tr key={index}>
-        <td>{record.fullName}</td>
-        <td>{displayNumber(record.weight, this.props.language)}</td>
-        <td>{record.date}</td>
-        <td>{record.location}</td>
         <td>{record.division}</td>
         <td>{localizeSex(record.sex, this.props.language)}</td>
         <td>{localizeWeightClassStr(record.weightClass, this.props.language)}</td>
         <td>{localizeEquipment(record.equipment, this.props.language)}</td>
         <td>{localizeRecordLift(record.recordLift, this.props.language)}</td>
         <td>{localizeRecordType(record.recordType, this.props.language)}</td>
+        <td>{record.fullName}</td>
+        <td>{displayNumber(record.weight, this.props.language)}</td>
+        <td>{record.date}</td>
+        <td>{record.location}</td>
       </tr>
     );
   }
