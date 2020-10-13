@@ -37,7 +37,7 @@ import {
   getAttemptWeight,
   getAge,
 } from "../entry";
-import { checkExhausted, isNotUndefined } from "../../types/utils";
+import { checkExhausted } from "../../types/utils";
 
 // Determines if the attempt would break the current record in the state.
 export function wouldBreakConfirmedRecord(state: RecordsState, potentialRecord: PotentialLiftingRecord): boolean {
