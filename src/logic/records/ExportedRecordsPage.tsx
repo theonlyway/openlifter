@@ -1,9 +1,9 @@
 import React from "react";
-import { RecordCategoryGrouping } from "./htmlExport";
 import { LiftingRecord, Language } from "../../types/dataTypes";
 import { exportedRecordsPageCss } from "./ExportedRecordsPage.css";
 import { localizeEquipment, localizeRecordType, localizeRecordLift, localizeSexPlural } from "../strings";
 import { FormattedMessage } from "react-intl";
+import { RecordCategoryGrouping } from "./records";
 
 interface Props {
   recordCategories: RecordCategoryGrouping[];

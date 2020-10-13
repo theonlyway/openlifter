@@ -16,40 +16,46 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { RecordsState } from "../../types/stateTypes";
+import { MeetState, RecordsState } from "../../types/stateTypes";
 import { Csv, csvString } from "./csv";
 import { localizeSex, localizeEquipment, localizeRecordType, localizeRecordLift } from "../strings";
 import { Language } from "../../types/dataTypes";
 import { getRecordCsvMetadata } from "../import/records-csv";
+import { groupAndSortRecordsIntoCategories } from "../records/records";
+import { isNotUndefined } from "../../types/utils";
 
 // Exports record data to a CSV file.
-
-export function makeRecordsCsv(recordState: RecordsState, language: Language): string {
+export function makeRecordsCsv(recordState: RecordsState, meetState: MeetState, language: Language): string {
   const metadata = getRecordCsvMetadata(language);
   const columnNames = metadata.columnNames;
   const csv = new Csv();
 
+  const records = Object.entries(recordState.confirmedRecords)
+    .map((entry) => entry[1])
+    .filter(isNotUndefined);
+  const sortedAndGroupedRecords = groupAndSortRecordsIntoCategories(records, meetState);
+
   csv.appendColumns(metadata.allColumns);
+  sortedAndGroupedRecords
+    .flatMap((group) => group.records)
+    .forEach((record) => {
+      if (record !== undefined) {
+        const row: Array<string> = new Array(csv.fieldnames.length).fill("");
 
-  Object.entries(recordState.confirmedRecords).forEach((kvp) => {
-    const record = kvp[1];
-    if (record !== undefined) {
-      const row: Array<string> = new Array(csv.fieldnames.length).fill("");
+        row[csv.index(columnNames.name)] = csvString(record.fullName);
+        row[csv.index(columnNames.weight)] = csvString(record.weight);
+        row[csv.index(columnNames.date)] = csvString(record.date);
+        row[csv.index(columnNames.location)] = csvString(record.location);
+        row[csv.index(columnNames.division)] = csvString(record.division);
+        row[csv.index(columnNames.sex)] = csvString(localizeSex(record.sex, language));
+        row[csv.index(columnNames.class)] = csvString(record.weightClass);
+        row[csv.index(columnNames.equipment)] = csvString(localizeEquipment(record.equipment, language));
+        row[csv.index(columnNames.recordLift)] = csvString(localizeRecordLift(record.recordLift, language));
+        row[csv.index(columnNames.recordType)] = csvString(localizeRecordType(record.recordType, language));
 
-      row[csv.index(columnNames.name)] = csvString(record.fullName);
-      row[csv.index(columnNames.weight)] = csvString(record.weight);
-      row[csv.index(columnNames.date)] = csvString(record.date);
-      row[csv.index(columnNames.location)] = csvString(record.location);
-      row[csv.index(columnNames.division)] = csvString(record.division);
-      row[csv.index(columnNames.sex)] = csvString(localizeSex(record.sex, language));
-      row[csv.index(columnNames.class)] = csvString(record.weightClass);
-      row[csv.index(columnNames.equipment)] = csvString(localizeEquipment(record.equipment, language));
-      row[csv.index(columnNames.recordLift)] = csvString(localizeRecordLift(record.recordLift, language));
-      row[csv.index(columnNames.recordType)] = csvString(localizeRecordType(record.recordType, language));
-
-      csv.rows.push(row);
-    }
-  });
+        csv.rows.push(row);
+      }
+    });
 
   return csv.toString();
 }
