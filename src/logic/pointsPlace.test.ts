@@ -22,7 +22,7 @@ import { MAX_ATTEMPTS, newDefaultEntry } from "./entry";
 
 const categoryFactory = (sex: Sex, event: Event, equipment: Equipment): PointsCategoryResults => {
   return {
-    category: { sex, event, equipment },
+    category: { sex, event, equipment, isNovice: false },
     orderedEntries: [],
   };
 };
