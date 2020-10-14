@@ -1,7 +1,7 @@
 // vim: set ts=2 sts=2 sw=2 et:
 //
 // This file is part of OpenLifter, simple Powerlifting meet software.
-// Copyright (C) 2019 The OpenPowerlifting Project.
+// Copyright (C) 2020 The OpenPowerlifting Project.
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as
@@ -20,7 +20,7 @@
 // It was copied from here: https://github.com/bang88/typescript-react-intl/issues/19
 
 const DEFAULT_LANGUAGE = "en";
-const LANGUAGES = ["de", "eo", "es", "fr", "hr", "it", "lt", "nl", "pt", "ru", "tr", "uk", "zh-Hans"];
+const LANGUAGES = ["de", "el", "eo", "es", "fr", "hr", "it", "lt", "nl", "pt", "ru", "tr", "uk", "zh-Hans"];
 const TARGET_DIRECTORY = "src/translations";
 const EXTRACT_MESSAGE_FILE_PATTERN = "src/**/*.@(tsx|ts)";
 

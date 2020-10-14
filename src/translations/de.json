@@ -1,6 +1,6 @@
 {
   "about.agpl-short-english-intro": "Hier ist der kurze Englische Werbetext:",
-  "about.copyright": "OpenLifter Copyright (C) 2018-2019 The OpenPowerlifting Project.",
+  "about.copyright": "OpenLifter Copyright (C) 2018-2020 The OpenPowerlifting Project.",
   "about.credits-header": "Credits",
   "about.credits-intro": "Danksagung an:",
   "about.freedom-0": "Die Freiheit, das Programm auszuführen wie man möchte, für jeden Zweck.",
@@ -109,7 +109,6 @@
   "formula.total": "Total",
   "formula.wilks": "Wilks",
   "formula.wilks2020": "Wilks2020",
-  "home.beta-warning": "Dies ist die nächste Version von OpenLifter, die noch in der Entwicklung ist. Das interne Dateiformat ist unstabil. Bitte nicht für Wettkämpfe nutzen!",
   "home.button-continue": "Weiter {meetName}",
   "home.button-credits": "Herausgeber und Lizenz",
   "home.button-load-from-file": "Aus Datei laden",
@@ -201,7 +200,6 @@
   "lifting.footer-no-lifters": "Keine Teilnehmer",
   "lifting.footer-platform-template": "Plattform {N}",
   "lifting.footer-squat": "Kniebeuge",
-  "lifting.garish-instructions": "Um an den Bilschirm anzupassen im Browser ran- oder rauszoomen und dann zu Vollbilschirm wechseln drücken.",
   "lifting.next-up": "Als nächstes – {lifter}",
   "lifting.rack-info": "Gestell {rackInfo}",
   "lifting.records-attempt-1-record-notice": "{OfficialOrUnofficial} {Lift} Record Attempt",

@@ -42,6 +42,9 @@ const languageOptions = [
   <option key="de" value="de">
     Deutsch (de)
   </option>,
+  <option key="el" value="el">
+    Ελληνικά (el)
+  </option>,
   <option key="en" value="en">
     English (en)
   </option>,

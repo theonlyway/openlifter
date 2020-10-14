@@ -1,6 +1,6 @@
 {
   "about.agpl-short-english-intro": "Jen la angla, malgranda licenco-resumo:",
-  "about.copyright": "OpenLifter kopirajtas de la projekto OpenPowerlifting 2018-2019.",
+  "about.copyright": "OpenLifter kopirajtas de la projekto OpenPowerlifting 2018-2020.",
   "about.credits-header": "Agnosko",
   "about.credits-intro": "Dankojn al:",
   "about.freedom-0": "La libereco ruli la programaron, por iu ajn celo.",
@@ -109,7 +109,6 @@
   "formula.total": "Totalo",
   "formula.wilks": "Vilkso",
   "formula.wilks2020": "Wilks2020",
-  "home.beta-warning": "Ĉi-tiu estas la sekvanta versio de OpenLifter. Ni ankoraŭ ellaboras ĝin. La interna datumstrukturo estas nestabila. Ne uzu tiu-ĉi por viaj konkursoj!",
   "home.button-continue": "Daŭrigu na {meetName}",
   "home.button-credits": "Agnoskoj kaj licenco",
   "home.button-load-from-file": "Rekomencu per dosiero",
@@ -201,7 +200,6 @@
   "lifting.footer-no-lifters": "Neniu",
   "lifting.footer-platform-template": "Estrado {N}",
   "lifting.footer-squat": "Kaŭro",
-  "lifting.garish-instructions": "Por plenuzi la ekranon, zomigu aŭ malzomigu la retumilon, kaj infre premu la plenekranan butonon.",
   "lifting.next-up": "SEKVANTA – {lifter}",
   "lifting.rack-info": "Alto {rackInfo}",
   "lifting.records-attempt-1-record-notice": "{OfficialOrUnofficial} {Lift} Record Attempt",

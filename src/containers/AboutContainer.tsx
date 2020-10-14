@@ -1,7 +1,7 @@
 // vim: set ts=2 sts=2 sw=2 et:
 //
 // This file is part of OpenLifter, simple Powerlifting meet software.
-// Copyright (C) 2019 The OpenPowerlifting Project.
+// Copyright (C) 2020 The OpenPowerlifting Project.
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as
@@ -75,6 +75,7 @@ class AboutContainer extends React.Component<{}> {
                     <li>Alper Dokucu &mdash; Turkish localization</li>
                     <li>David Jasiulewicz &mdash; Patron</li>
                     <li>Jared Klopper &mdash; Programming</li>
+                    <li>Andreas Kolettis &mdash; Greek localization</li>
                     <li>Boris Lerner &mdash; Russian localization</li>
                     <li>Kai Ma &mdash; Simplified Chinese localization</li>
                     <li>Rodney Marsh &mdash; Programming</li>
@@ -105,7 +106,7 @@ class AboutContainer extends React.Component<{}> {
                 <p>
                   <FormattedMessage
                     id="about.copyright"
-                    defaultMessage="OpenLifter is Copyright (C) 2018-2019 The OpenPowerlifting Project."
+                    defaultMessage="OpenLifter is Copyright (C) 2018-2020 The OpenPowerlifting Project."
                   />
                 </p>
                 <p>

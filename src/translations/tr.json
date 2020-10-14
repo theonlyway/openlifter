@@ -1,6 +1,6 @@
 {
   "about.agpl-short-english-intro": "Teşekkürlerin İngilizce'si burda:",
-  "about.copyright": "OpenLifter, Telif Hakkı (C) 2018-2019 The OpenPowerlifting Project.\n",
+  "about.copyright": "OpenLifter, Telif Hakkı (C) 2018-2020 The OpenPowerlifting Project.\n",
   "about.credits-header": "Teşekkürler",
   "about.credits-intro": "Teşekkürler:",
   "about.freedom-0": "Herhangi bir amaç için, istediğiniz şekilde yazılımı çalıştırma özgürlüğü.",
@@ -109,7 +109,6 @@
   "formula.total": "Toplam",
   "formula.wilks": "Wilks Puanı",
   "formula.wilks2020": "Wilks2020",
-  "home.beta-warning": "Bu OpenLifter'ın geliştirme sürecinde olan gelecek versiyonudur. İç bilgi formatında sorunlar olabilir. Lütfen bu versiyonla yarışma yönetmeyin!",
   "home.button-continue": "Devam Et {meetName}",
   "home.button-credits": "Teşekkürler ve Lisans",
   "home.button-load-from-file": "Dosyadan Yükle",
@@ -201,7 +200,6 @@
   "lifting.footer-no-lifters": "Yarışmacı Yok",
   "lifting.footer-platform-template": "Platform {N}",
   "lifting.footer-squat": "Squat",
-  "lifting.garish-instructions": "Ekran boyutunu ayarlamak için tarayıcıdan yakınlığı ayarlayınız ve tam ekrana geçiniz.",
   "lifting.next-up": "SIRADAKİ – {lifter}",
   "lifting.rack-info": "Rack {rackInfo}",
   "lifting.records-attempt-1-record-notice": "{OfficialOrUnofficial} {Lift} Record Attempt",
