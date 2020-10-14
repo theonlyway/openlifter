@@ -107,7 +107,7 @@ const addEntriesRow = (
 
   if (!entryHasLifted(entry)) {
     row[csv.index("Place")] = "NS"; // No-Show.
-  } else if (entry.guest || entry.novice) {
+  } else if (entry.guest) {
     row[csv.index("Place")] = "G"; // Guest
   } else {
     row[csv.index("Place")] = finalEventTotalKg === 0 ? "DQ" : csvString(index + 1);
@@ -210,7 +210,10 @@ const makeEntriesCsv = (state: GlobalState): Csv => {
     const { category, orderedEntries } = results[i];
 
     for (let j = 0; j < orderedEntries.length; j++) {
-      addEntriesRow(csv, category, inKg, meet_date, formula, orderedEntries[j], j);
+      const entry = orderedEntries[j];
+      if (!entry.novice) {
+        addEntriesRow(csv, category, inKg, meet_date, formula, entry, j);
+      }
     }
   }
 
