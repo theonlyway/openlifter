@@ -5,7 +5,7 @@ title = "OpenLifter"
 theme = "rusty"
 
 [params]
-  releaseVersion = "1.1"
+  releaseVersion = "1.2"
 
 [languages]
   [languages.de]

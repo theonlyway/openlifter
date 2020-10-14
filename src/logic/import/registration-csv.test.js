@@ -45,6 +45,19 @@ describe("loadRegistrations", () => {
 });
 
 describe("loadRegistrations", () => {
+  it("can load the example in Greek", () => {
+    const example = makeExampleRegistrationsCsv("el");
+    expect(typeof example).toEqual("string");
+
+    const csv = new Csv();
+    expect(typeof csv.fromString(example)).toEqual("object");
+
+    const entries = loadRegistrations(makeState("el"), csv, "el");
+    expect(typeof entries).toEqual("object");
+  });
+});
+
+describe("loadRegistrations", () => {
   it("can load the example in English", () => {
     const example = makeExampleRegistrationsCsv("en");
     expect(typeof example).toEqual("string");
