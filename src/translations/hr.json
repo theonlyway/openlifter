@@ -204,7 +204,7 @@
   "lifting.next-up": "Sljedeći – {lifter}",
   "lifting.rack-info": "Stalak {rackInfo}",
   "lifting.records-attempt-1-record-notice": "{OfficialOrUnofficial} {Lift} Record Attempt",
-  "lifting.records-attempt-2-records-notice": "{OfficialOrUnofficial} {Lift} & Total Record Attempt",
+  "lifting.records-attempt-2-records-notice": "{OfficialOrUnofficial} {Lift1} & {Lift2} Record Attempt",
   "lifting.records-bench": "Bench",
   "lifting.records-deadlift": "Deadlift",
   "lifting.records-official": "Official",
