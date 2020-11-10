@@ -156,7 +156,7 @@ function addPotentialRecordIfRelevant(
   },
   entry: Readonly<Entry>
 ) {
-  if (entry.events.length > 0 && entry.events[0].indexOf(event) !== -1) {
+  if (event === "Total" || (entry.events.length > 0 && entry.events[0].indexOf(event) !== -1)) {
     const weightLifted = getWeightForUnconfirmedRecord(event, entry);
     // Ensure they've actually lifted something in this event
     if (weightLifted > 0) {
