@@ -187,18 +187,52 @@ function addCustomPotentialRecords(
 ) {
   let candidateDiv: string | null = null;
   const age = getAge(entry, meetDate);
+  // If age is 0, it means no data is available. In which case we won't try do any division smarts
+  if (age > 0) {
+    if (age < 16) {
+      candidateDiv = "Teen-1";
+    } else if (age < 18) {
+      candidateDiv = "Teen-2";
+    } else if (age < 20) {
+      candidateDiv = "Teen-3";
+    } else if (age < 24) {
+      candidateDiv = "Junior";
+      // Older then 32 - Eligible for masters divisions
+    } else if (age > 32) {
+      if (age < 40) {
+        candidateDiv = "Sub Masters";
+      } else if (age < 45) {
+        candidateDiv = "Masters-1";
+      } else if (age < 50) {
+        candidateDiv = "Masters-2";
+      } else if (age < 55) {
+        candidateDiv = "Masters-3";
+      } else if (age < 60) {
+        candidateDiv = "Masters-4";
+      } else if (age < 65) {
+        candidateDiv = "Masters-5";
+      } else if (age < 70) {
+        candidateDiv = "Masters-6";
+      } else if (age < 75) {
+        candidateDiv = "Masters-7";
+      } else if (age < 80) {
+        candidateDiv = "Masters-8";
+      } else if (age > 80) {
+        candidateDiv = "Masters-9";
+      }
+    }
+  }
 
-  // If you're in the open div and aged between 33-39 inclusive, you can also set Sub-Masters records
-  if (entry.divisions[0] === "Open" && age > 32 && age < 40) {
-    candidateDiv = "Sub Masters";
-  } else {
-    // Otherwise, every div can set open records
+  // If you're already entered into an age division, then you can also set open records
+  if (entry.divisions[0] !== "Open") {
     candidateDiv = "Open";
   }
 
   if (candidateDiv !== null) {
-    const divisionUpdate = { division: candidateDiv };
-    const updatedPotentialRecord = { ...basePotentialRecord, thing: divisionUpdate };
+    const updatedPotentialRecord = {
+      ...basePotentialRecord,
+      division: candidateDiv,
+    };
 
     addPotentialRecordIfRelevant("S", potentialRecords, updatedPotentialRecord, entry);
     addPotentialRecordIfRelevant("B", potentialRecords, updatedPotentialRecord, entry);
