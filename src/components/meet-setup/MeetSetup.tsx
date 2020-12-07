@@ -60,6 +60,7 @@ interface DispatchProps {
   setCity: (city: string) => void;
   setFederation: (fed: string) => void;
   setCombineSleevesAndWraps: (bool: boolean) => void;
+  setCombineSingleAndMulti: (bool: boolean) => void;
   setAllow4thAttempts: (bool: boolean) => void;
   setInKg: (bool: boolean) => void;
   setShowAlternateUnits: (bool: boolean) => void;
@@ -258,6 +259,21 @@ class MeetSetup extends React.Component<Props, InternalState> {
                   />
                 </FormGroup>
 
+                <FormGroup key={this.state.ticker + "-single-multi"}>
+                  <YesNoButton
+                    label={
+                      <FormattedMessage
+                        id="meet-setup.combine-single-multi"
+                        defaultMessage="Should Single-ply and Multi-ply be combined for placing?"
+                      />
+                    }
+                    value={this.props.meet.combineSingleAndMulti}
+                    setValue={this.props.setCombineSingleAndMulti}
+                    yes={stringYes}
+                    no={stringNo}
+                  />
+                </FormGroup>
+
                 <FormGroup key={this.state.ticker + "-4th-attempts"}>
                   <YesNoButton
                     label={
@@ -332,6 +348,7 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
   setCity: (city: string) => dispatch(updateMeet({ city: city })),
   setFederation: (fed: string) => dispatch(updateMeet({ federation: fed })),
   setCombineSleevesAndWraps: (bool) => dispatch(updateMeet({ combineSleevesAndWraps: bool })),
+  setCombineSingleAndMulti: (bool) => dispatch(updateMeet({ combineSingleAndMulti: bool })),
   setAllow4thAttempts: (bool) => dispatch(updateMeet({ allow4thAttempts: bool })),
   setInKg: (bool) => dispatch(setInKg(bool)),
   setShowAlternateUnits: (bool) => dispatch(updateMeet({ showAlternateUnits: bool })),

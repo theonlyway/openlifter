@@ -171,6 +171,7 @@ export const getAllRankings = (
   formula: Formula,
   ageCoefficients: AgeCoefficients,
   combineSleevesAndWraps: boolean,
+  combineSingleAndMulti: boolean,
   inKg: boolean,
   meetDate: string
 ): Array<PointsCategoryResults> => {
@@ -188,6 +189,11 @@ export const getAllRankings = (
     // If the results combine Sleeves and Wraps, promote Sleeves to Wraps.
     if (combineSleevesAndWraps && equipment === "Sleeves") {
       equipment = "Wraps";
+    }
+
+    // If the results combine Sleeves and Wraps, promote Sleeves to Wraps.
+    if (combineSingleAndMulti && equipment === "Single-ply") {
+      equipment = "Multi-ply";
     }
 
     // Iterate over each event, adding to the map.

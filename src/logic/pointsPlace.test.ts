@@ -56,7 +56,7 @@ describe("getAllRankings", () => {
   ];
 
   it("get sleeves only total rankings", () => {
-    const rankings = getAllRankings(entries, "Total", "None", false, true, "2019-01-01");
+    const rankings = getAllRankings(entries, "Total", "None", false, true, true, "2019-01-01");
     expect(rankings).toEqual([
       {
         ...categoryFactory("M", "S", "Sleeves"),
@@ -77,7 +77,7 @@ describe("getAllRankings", () => {
   });
 
   it("get combined sleeves & wraps total rankings", () => {
-    const rankings = getAllRankings(entries, "Total", "None", true, true, "2019-01-01");
+    const rankings = getAllRankings(entries, "Total", "None", true, true, true, "2019-01-01");
     expect(rankings).toEqual([
       {
         ...categoryFactory("M", "S", "Wraps"),
@@ -95,7 +95,7 @@ describe("getAllRankings", () => {
   });
 
   it("get FosterMcCulloch total rankings", () => {
-    const rankings = getAllRankings(entries, "Total", "FosterMcCulloch", false, true, "2019-01-01");
+    const rankings = getAllRankings(entries, "Total", "FosterMcCulloch", false, true, true, "2019-01-01");
     expect(rankings).toEqual([
       {
         ...categoryFactory("M", "S", "Sleeves"),
@@ -116,7 +116,7 @@ describe("getAllRankings", () => {
   });
 
   it("get wilks rankings", () => {
-    const rankings = getAllRankings(entries, "Wilks", "None", false, true, "2019-01-01");
+    const rankings = getAllRankings(entries, "Wilks", "None", false, true, true, "2019-01-01");
     expect(rankings).toEqual([
       {
         ...categoryFactory("M", "S", "Sleeves"),

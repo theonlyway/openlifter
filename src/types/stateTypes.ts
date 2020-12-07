@@ -47,6 +47,7 @@ export type MeetState = {
   readonly weightClassesKgMx: ReadonlyArray<number>;
   readonly formula: Formula;
   readonly combineSleevesAndWraps: boolean;
+  readonly combineSingleAndMulti: boolean;
   readonly allow4thAttempts: boolean;
 
   // Weights and Loading Setup.

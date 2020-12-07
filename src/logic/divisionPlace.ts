@@ -292,6 +292,7 @@ const getAllResults = (
   weightClassesKgWomen: ReadonlyArray<number>,
   weightClassesKgMx: ReadonlyArray<number>,
   combineSleevesAndWraps: boolean,
+  combineSingleAndMulti: boolean,
   type: ResultsType
 ): Array<CategoryResults> => {
   // Generate a map from category to the entries within that category.
@@ -310,6 +311,8 @@ const getAllResults = (
     let equipment = e.equipment;
     if (combineSleevesAndWraps && equipment === "Sleeves") {
       equipment = "Wraps";
+    } else if (combineSingleAndMulti && equipment === "Single-ply") {
+      equipment = "Multi-ply";
     }
 
     // Iterate over every combination of division and event, adding to the map.
@@ -353,7 +356,8 @@ export const getProjectedResults = (
   weightClassesKgMen: ReadonlyArray<number>,
   weightClassesKgWomen: ReadonlyArray<number>,
   weightClassesKgMx: ReadonlyArray<number>,
-  combineSleevesAndWraps: boolean
+  combineSleevesAndWraps: boolean,
+  combineSingleAndMulti: boolean
 ): Array<CategoryResults> => {
   return getAllResults(
     entries,
@@ -361,6 +365,7 @@ export const getProjectedResults = (
     weightClassesKgWomen,
     weightClassesKgMx,
     combineSleevesAndWraps,
+    combineSingleAndMulti,
     "Projected"
   );
 };
@@ -370,7 +375,8 @@ export const getFinalResults = (
   weightClassesKgMen: ReadonlyArray<number>,
   weightClassesKgWomen: ReadonlyArray<number>,
   weightClassesKgMx: ReadonlyArray<number>,
-  combineSleevesAndWraps: boolean
+  combineSleevesAndWraps: boolean,
+  combineSingleAndMulti: boolean
 ): Array<CategoryResults> => {
   return getAllResults(
     entries,
@@ -378,6 +384,7 @@ export const getFinalResults = (
     weightClassesKgWomen,
     weightClassesKgMx,
     combineSleevesAndWraps,
+    combineSingleAndMulti,
     "Final"
   );
 };

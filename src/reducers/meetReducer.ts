@@ -81,6 +81,7 @@ const initialState: MeetState = {
   formula: "Wilks",
   ageCoefficients: "FosterMcCulloch",
   combineSleevesAndWraps: false,
+  combineSingleAndMulti: false,
   allow4thAttempts: true,
 
   // Weights and Loading Setup.

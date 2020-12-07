@@ -53,10 +53,17 @@ const makeMeetCsv = (meet: MeetState): Csv => {
   ];
   csv.rows = [row];
 
-  // An optional RuleSet column may be provided.
+  // An optionalRuleSet column may be provided.
+  let rules = "";
   if (meet.combineSleevesAndWraps === true) {
+    rules += "CombineRawAndWraps ";
+  }
+  if (meet.combineSleevesAndWraps === true) {
+    rules += "CombineSingleAndMulti ";
+  }
+  if (rules !== "") {
     csv.fieldnames.push("RuleSet");
-    csv.rows[0].push("CombineRawAndWraps");
+    csv.rows[0].push(rules.trim());
   }
 
   return csv;
@@ -200,7 +207,8 @@ const makeEntriesCsv = (state: GlobalState): Csv => {
     state.meet.weightClassesKgMen,
     state.meet.weightClassesKgWomen,
     state.meet.weightClassesKgMx,
-    state.meet.combineSleevesAndWraps
+    state.meet.combineSleevesAndWraps,
+    state.meet.combineSingleAndMulti
   );
 
   const meet_date = state.meet.date;

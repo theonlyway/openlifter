@@ -95,6 +95,7 @@ const traditionalDefaults: Partial<MeetState> = {
   formula: "Wilks",
   ageCoefficients: "FosterMcCulloch",
   combineSleevesAndWraps: false,
+  combineSingleAndMulti: false,
   allow4thAttempts: true,
 };
 
@@ -143,6 +144,7 @@ const bpDefaults: Partial<MeetState> = {
   formula: "IPF GL Points",
   ageCoefficients: "FosterMcCulloch",
   combineSleevesAndWraps: false,
+  combineSingleAndMulti: false,
   allow4thAttempts: false,
 };
 
@@ -215,6 +217,7 @@ const gpcDefaults: Partial<MeetState> = {
   formula: "Glossbrenner",
   ageCoefficients: "FosterMcCulloch",
   combineSleevesAndWraps: true,
+  combineSingleAndMulti: true,
   allow4thAttempts: true,
 };
 
@@ -245,6 +248,7 @@ const spfDefaults: Partial<MeetState> = {
   formula: "Schwartz/Malone",
   ageCoefficients: "FosterMcCulloch",
   combineSleevesAndWraps: false,
+  combineSingleAndMulti: false,
   allow4thAttempts: true,
 };
 
@@ -473,6 +477,7 @@ const upaDefaults: Partial<MeetState> = {
   formula: "Schwartz/Malone",
   ageCoefficients: "FosterMcCulloch",
   combineSleevesAndWraps: true,
+  combineSingleAndMulti: true,
   allow4thAttempts: true,
 };
 
@@ -573,6 +578,7 @@ const usaplDefaults: Partial<MeetState> = {
   formula: "IPF GL Points",
   ageCoefficients: "FosterMcCulloch",
   combineSleevesAndWraps: false,
+  combineSingleAndMulti: false,
   allow4thAttempts: false,
 };
 
@@ -601,6 +607,7 @@ const uspaDefaults: Partial<MeetState> = {
   formula: "Dots",
   ageCoefficients: "FosterMcCulloch",
   combineSleevesAndWraps: false,
+  combineSingleAndMulti: false,
   allow4thAttempts: true,
 };
 
@@ -629,6 +636,7 @@ const uspcDefaults: Partial<MeetState> = {
   formula: "Wilks2020",
   ageCoefficients: "FosterMcCulloch",
   combineSleevesAndWraps: false,
+  combineSingleAndMulti: false,
   allow4thAttempts: true,
 };
 
@@ -657,6 +665,7 @@ const wabdlDefaults: Partial<MeetState> = {
   formula: "Schwartz/Malone",
   ageCoefficients: "FosterMcCulloch",
   combineSleevesAndWraps: false,
+  combineSingleAndMulti: false,
   allow4thAttempts: true,
 };
 
@@ -682,6 +691,7 @@ const wpDefaults: Partial<MeetState> = {
   formula: "Wilks2020",
   ageCoefficients: "FosterMcCulloch",
   combineSleevesAndWraps: false,
+  combineSingleAndMulti: false,
   allow4thAttempts: true,
 };
 
@@ -1011,6 +1021,7 @@ const wpcDefaults: Partial<MeetState> = {
   formula: "Glossbrenner",
   ageCoefficients: "FosterMcCulloch",
   combineSleevesAndWraps: true,
+  combineSingleAndMulti: true,
   allow4thAttempts: true,
 };
 
@@ -1037,6 +1048,7 @@ const wrpfDefaults: Partial<MeetState> = {
   formula: "Wilks",
   ageCoefficients: "FosterMcCulloch",
   combineSleevesAndWraps: false,
+  combineSingleAndMulti: false,
   allow4thAttempts: true,
 };
 

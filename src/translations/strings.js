@@ -324,6 +324,7 @@ strings = strings.concat([
   { id: "results.womens", defaultMessage: "Women's" },
   { id: "results.mxs", defaultMessage: "Mx" },
   { id: "results.combined-sleeves-wraps", defaultMessage: "Sleeves + Wraps" },
+  { id: "results.combined-single-multi", defaultMessage: "Single-ply + Multi-ply" },
   { id: "results.spoken-unit-kilo", defaultMessage: "kilo" },
   { id: "results.spoken-unit-pound", defaultMessage: "pound" },
   { id: "results.division-template", defaultMessage: "{sex} {weightClass} {spokenUnits} {equipment} {division} {event}" },

@@ -581,14 +581,16 @@ class LiftingTable extends React.Component<Props> {
           this.props.meet.weightClassesKgMen,
           this.props.meet.weightClassesKgWomen,
           this.props.meet.weightClassesKgMx,
-          this.props.meet.combineSleevesAndWraps
+          this.props.meet.combineSleevesAndWraps,
+          this.props.meet.combineSingleAndMulti
         )
       : getFinalResults(
           this.props.registration.entries,
           this.props.meet.weightClassesKgMen,
           this.props.meet.weightClassesKgWomen,
           this.props.meet.weightClassesKgMx,
-          this.props.meet.combineSleevesAndWraps
+          this.props.meet.combineSleevesAndWraps,
+          this.props.meet.combineSingleAndMulti
         );
 
     return (

@@ -49,6 +49,7 @@ interface StateProps {
   meetName: string;
   formula: Formula;
   combineSleevesAndWraps: boolean;
+  combineSingleAndMulti: boolean;
   lengthDays: number;
   weightClassesKgMen: ReadonlyArray<number>;
   weightClassesKgWomen: ReadonlyArray<number>;
@@ -193,6 +194,11 @@ class ByDivision extends React.Component<Props> {
     let eqpstr: string = localizeEquipment(category.equipment, language);
     if (this.props.combineSleevesAndWraps && (category.equipment === "Sleeves" || category.equipment === "Wraps")) {
       eqpstr = getString("results.combined-sleeves-wraps", language);
+    } else if (
+      this.props.combineSingleAndMulti &&
+      (category.equipment === "Single-ply" || category.equipment === "Multi-ply")
+    ) {
+      eqpstr = getString("results.combined-single-multi", language);
     }
 
     const units = this.props.inKg
@@ -246,7 +252,8 @@ class ByDivision extends React.Component<Props> {
       this.props.weightClassesKgMen,
       this.props.weightClassesKgWomen,
       this.props.weightClassesKgMx,
-      this.props.combineSleevesAndWraps
+      this.props.combineSleevesAndWraps,
+      this.props.combineSingleAndMulti
     );
 
     const categoryCards = [];
@@ -274,6 +281,7 @@ const mapStateToProps = (state: GlobalState, ownProps: OwnProps): StateProps => 
     meetName: state.meet.name,
     formula: state.meet.formula,
     combineSleevesAndWraps: state.meet.combineSleevesAndWraps,
+    combineSingleAndMulti: state.meet.combineSingleAndMulti,
     lengthDays: state.meet.lengthDays,
     weightClassesKgMen: state.meet.weightClassesKgMen,
     weightClassesKgWomen: state.meet.weightClassesKgWomen,

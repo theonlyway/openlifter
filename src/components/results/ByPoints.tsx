@@ -50,6 +50,7 @@ interface StateProps {
   meetDate: string;
   formula: Formula;
   combineSleevesAndWraps: boolean;
+  combineSingleAndMulti: boolean;
   lengthDays: number;
   weightClassesKgMen: ReadonlyArray<number>;
   weightClassesKgWomen: ReadonlyArray<number>;
@@ -195,6 +196,11 @@ class ByPoints extends React.Component<Props> {
     let eqpstr: string = localizeEquipment(category.equipment, language);
     if (this.props.combineSleevesAndWraps && (category.equipment === "Sleeves" || category.equipment === "Wraps")) {
       eqpstr = getString("results.combined-sleeves-wraps", language);
+    } else if (
+      this.props.combineSingleAndMulti &&
+      (category.equipment === "Single-ply" || category.equipment === "Multi-ply")
+    ) {
+      eqpstr = getString("results.combined-single-multi", language);
     }
 
     const template = getString("results.category-template", language);
@@ -283,6 +289,7 @@ class ByPoints extends React.Component<Props> {
       this.props.formula,
       this.props.ageCoefficients,
       this.props.combineSleevesAndWraps,
+      this.props.combineSingleAndMulti,
       this.props.inKg,
       this.props.meetDate
     );
@@ -312,6 +319,7 @@ const mapStateToProps = (state: GlobalState, ownProps: OwnProps): StateProps => 
     meetDate: state.meet.date,
     formula: state.meet.formula,
     combineSleevesAndWraps: state.meet.combineSleevesAndWraps,
+    combineSingleAndMulti: state.meet.combineSingleAndMulti,
     lengthDays: state.meet.lengthDays,
     weightClassesKgMen: state.meet.weightClassesKgMen,
     weightClassesKgWomen: state.meet.weightClassesKgWomen,
