@@ -178,6 +178,7 @@ strings = strings.concat([
   { id: "meet-setup.rules-upa", defaultMessage: "UPA Rules" },
   { id: "meet-setup.rules-usapl", defaultMessage: "USAPL Rules" },
   { id: "meet-setup.rules-uspa", defaultMessage: "USPA Rules" },
+  { id: "meet-setup.rules-uspc", defaultMessage: "USPC Rules" },
   { id: "meet-setup.rules-wabdl", defaultMessage: "WABDL Rules" },
   { id: "meet-setup.rules-wpc", defaultMessage: "WPC Rules" },
   { id: "meet-setup.rules-wrpf", defaultMessage: "WRPF Rules" },

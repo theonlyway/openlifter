@@ -52,7 +52,18 @@ interface OwnProps {
 
 type Props = StateProps & DispatchProps & OwnProps;
 
-type AutoFillOption = "Traditional" | "BP" | "GPC" | "SPF" | "UPA" | "USAPL" | "USPA" | "WABDL" | "WPC" | "WRPF";
+type AutoFillOption =
+  | "Traditional"
+  | "BP"
+  | "GPC"
+  | "SPF"
+  | "UPA"
+  | "USAPL"
+  | "USPA"
+  | "USPC"
+  | "WABDL"
+  | "WPC"
+  | "WRPF";
 
 interface InternalState {
   selectedOption: AutoFillOption;
@@ -586,6 +597,34 @@ const uspaDefaults: Partial<MeetState> = {
   weightClassesKgMen: [52, 56, 60, 67.5, 75, 82.5, 90, 100, 110, 125, 140],
   weightClassesKgWomen: [44, 48, 52, 56, 60, 67.5, 75, 82.5, 90],
   weightClassesKgMx: [52, 56, 60, 67.5, 75, 82.5, 90, 100, 110, 125, 140],
+  formula: "Dots",
+  ageCoefficients: "FosterMcCulloch",
+  combineSleevesAndWraps: false,
+  allow4thAttempts: true,
+};
+
+const uspcDefaults: Partial<MeetState> = {
+  divisions: [
+    "Open",
+    "J10-12",
+    "J13-15",
+    "J16-17",
+    "J18-19",
+    "J20-23",
+    "S35-39",
+    "M40-44",
+    "M45-49",
+    "M50-54",
+    "M55-59",
+    "M60-64",
+    "M65-69",
+    "M70-74",
+    "M75-79",
+    "M80+",
+  ],
+  weightClassesKgMen: [52, 56, 60, 67.5, 75, 82.5, 90, 100, 110, 125, 140],
+  weightClassesKgWomen: [44, 48, 52, 56, 60, 67.5, 75, 82.5, 90, 100, 110],
+  weightClassesKgMx: [52, 56, 60, 67.5, 75, 82.5, 90, 100, 110, 125, 140],
   formula: "Wilks2020",
   ageCoefficients: "FosterMcCulloch",
   combineSleevesAndWraps: false,
@@ -997,6 +1036,7 @@ class AutoFillRules extends React.Component<Props, InternalState> {
       case "SPF":
       case "UPA":
       case "USPA":
+      case "USPC":
       case "USAPL":
       case "WABDL":
       case "WPC":
@@ -1040,6 +1080,10 @@ class AutoFillRules extends React.Component<Props, InternalState> {
         this.props.updateMeet(uspaDefaults);
         this.props.onChange();
         return;
+      case "USPC":
+        this.props.updateMeet(uspcDefaults);
+        this.props.onChange();
+        return;
       case "WABDL":
         this.props.updateMeet(wabdlDefaults);
         this.props.onChange();
@@ -1068,6 +1112,7 @@ class AutoFillRules extends React.Component<Props, InternalState> {
     const stringUPA = getString("meet-setup.rules-upa", lang);
     const stringUSAPL = getString("meet-setup.rules-usapl", lang);
     const stringUSPA = getString("meet-setup.rules-uspa", lang);
+    const stringUSPC = getString("meet-setup.rules-uspc", lang);
     const stringWABDL = getString("meet-setup.rules-wabdl", lang);
     const stringWPC = getString("meet-setup.rules-wpc", lang);
     const stringWRPF = getString("meet-setup.rules-wrpf", lang);
@@ -1106,6 +1151,9 @@ class AutoFillRules extends React.Component<Props, InternalState> {
               </option>
               <option key="USPA" value="USPA">
                 {stringUSPA}
+              </option>
+              <option key="USPC" value="USPC">
+                {stringUSPC}
               </option>
               <option key="WABDL" value="WABDL">
                 {stringWABDL}
