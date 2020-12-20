@@ -62,6 +62,7 @@ type AutoFillOption =
   | "USPA"
   | "USPC"
   | "WABDL"
+  | "WP"
   | "WPC"
   | "WRPF";
 
@@ -659,6 +660,31 @@ const wabdlDefaults: Partial<MeetState> = {
   allow4thAttempts: true,
 };
 
+const wpDefaults: Partial<MeetState> = {
+  divisions: [
+    "Open",
+    "Y14-17",
+    "J18-23",
+    "S33-39",
+    "M40-46",
+    "M47-53",
+    "M54-60",
+    "M61-67",
+    "M68-74",
+    "M75-79",
+    "M80-84",
+    "M85-89",
+    "M90+",
+  ],
+  weightClassesKgMen: [62, 69, 77, 85, 94, 105, 120],
+  weightClassesKgWomen: [48, 53, 58, 64, 72, 84, 100],
+  weightClassesKgMx: [62, 69, 77, 85, 94, 105, 120],
+  formula: "Wilks2020",
+  ageCoefficients: "FosterMcCulloch",
+  combineSleevesAndWraps: false,
+  allow4thAttempts: true,
+};
+
 const wpcDefaults: Partial<MeetState> = {
   divisions: [
     "F_GCR",
@@ -1039,6 +1065,7 @@ class AutoFillRules extends React.Component<Props, InternalState> {
       case "USPC":
       case "USAPL":
       case "WABDL":
+      case "WP":
       case "WPC":
       case "WRPF":
         this.setState({ selectedOption: value });
@@ -1088,6 +1115,10 @@ class AutoFillRules extends React.Component<Props, InternalState> {
         this.props.updateMeet(wabdlDefaults);
         this.props.onChange();
         return;
+      case "WP":
+        this.props.updateMeet(wpDefaults);
+        this.props.onChange();
+        return;
       case "WPC":
         this.props.updateMeet(wpcDefaults);
         this.props.onChange();
@@ -1114,6 +1145,7 @@ class AutoFillRules extends React.Component<Props, InternalState> {
     const stringUSPA = getString("meet-setup.rules-uspa", lang);
     const stringUSPC = getString("meet-setup.rules-uspc", lang);
     const stringWABDL = getString("meet-setup.rules-wabdl", lang);
+    const stringWP = getString("meet-setup.rules-wp", lang);
     const stringWPC = getString("meet-setup.rules-wpc", lang);
     const stringWRPF = getString("meet-setup.rules-wrpf", lang);
 
@@ -1157,6 +1189,9 @@ class AutoFillRules extends React.Component<Props, InternalState> {
               </option>
               <option key="WABDL" value="WABDL">
                 {stringWABDL}
+              </option>
+              <option key="WP" value="WP">
+                {stringWP}
               </option>
               <option key="WPC" value="WPC">
                 {stringWPC}
