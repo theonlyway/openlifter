@@ -215,8 +215,14 @@ const getCurrentEntryId = (
   const fieldKg = liftToAttemptFieldName(lift);
   const fieldStatus = liftToStatusFieldName(lift);
 
+  // Only respect an overridden EntryId if it appears in the entry list.
+  // The EntryId may have been deleted in the meantime.
   if (lifting.overrideEntryId !== null) {
-    return Number(lifting.overrideEntryId);
+    for (let i = 0; i < orderedEntries.length; i++) {
+      if (orderedEntries[i].id === lifting.overrideEntryId) {
+        return Number(lifting.overrideEntryId);
+      }
+    }
   }
 
   for (let i = 0; i < orderedEntries.length; i++) {
