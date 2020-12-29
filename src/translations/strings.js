@@ -173,6 +173,7 @@ strings = strings.concat([
   { id: "meet-setup.plates-lbs", defaultMessage: "Weight (lbs)" },
   { id: "meet-setup.rules-bp", defaultMessage: "BP Rules" },
   { id: "meet-setup.rules-gpc", defaultMessage: "GPC Rules" },
+  { id: "meet-setup.rules-rps", defaultMessage: "RPS Rules" },
   { id: "meet-setup.rules-spf", defaultMessage: "SPF Rules" },
   { id: "meet-setup.rules-traditional", defaultMessage: "Traditional Rules" },
   { id: "meet-setup.rules-upa", defaultMessage: "UPA Rules" },

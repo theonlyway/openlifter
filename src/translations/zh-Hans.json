@@ -234,6 +234,7 @@
   "meet-setup.platforms-on-day": "第 {number} 天比赛台号",
   "meet-setup.rules-bp": "BP 规则",
   "meet-setup.rules-gpc": "GPC 规则",
+  "meet-setup.rules-rps": "RPS 规则",
   "meet-setup.rules-spf": "SPF 规则",
   "meet-setup.rules-traditional": "传统规则",
   "meet-setup.rules-upa": "UPA 规则",

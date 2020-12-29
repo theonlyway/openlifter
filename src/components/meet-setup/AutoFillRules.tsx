@@ -56,6 +56,7 @@ type AutoFillOption =
   | "Traditional"
   | "BP"
   | "GPC"
+  | "RPS"
   | "SPF"
   | "UPA"
   | "USAPL"
@@ -218,6 +219,330 @@ const gpcDefaults: Partial<MeetState> = {
   ageCoefficients: "FosterMcCulloch",
   combineSleevesAndWraps: true,
   combineSingleAndMulti: true,
+  allow4thAttempts: true,
+};
+
+const rpsDefaults: Partial<MeetState> = {
+  divisions: [
+    // Raw Classic (Bare), Amateur.
+    "RC-Y-A",
+    "RC-T14-A",
+    "RC-T16-A",
+    "RC-T18-A",
+    "RC-J20-A",
+    "RC-O-A",
+    "RC-S33-A",
+    "RC-M40-A",
+    "RC-M45-A",
+    "RC-M50-A",
+    "RC-M55-A",
+    "RC-M60-A",
+    "RC-M65-A",
+    "RC-M70-A",
+    "RC-M75-A",
+    "RC-M80-A",
+    "RC-M85-A",
+    "RC-M90-A",
+    "RC-M95-A",
+    "RC-M100-A",
+    "RC-PF-A",
+    "RC-MIL-A",
+    "RC-CF-A",
+    "RC-AA-A",
+
+    // Raw Classic (Bare), Pro.
+    "RC-Y-P",
+    "RC-T14-P",
+    "RC-T16-P",
+    "RC-T18-P",
+    "RC-J20-P",
+    "RC-O-P",
+    "RC-S33-P",
+    "RC-M40-P",
+    "RC-M45-P",
+    "RC-M50-P",
+    "RC-M55-P",
+    "RC-M60-P",
+    "RC-M65-P",
+    "RC-M70-P",
+    "RC-M75-P",
+    "RC-M80-P",
+    "RC-M85-P",
+    "RC-M90-P",
+    "RC-M95-P",
+    "RC-M100-P",
+    "RC-PF-P",
+    "RC-MIL-P",
+    "RC-CF-P",
+    "RC-AA-P",
+
+    // Raw Classic (Bare), Elite.
+    "RC-Y-E",
+    "RC-T14-E",
+    "RC-T16-E",
+    "RC-T18-E",
+    "RC-J20-E",
+    "RC-O-E",
+    "RC-S33-E",
+    "RC-M40-E",
+    "RC-M45-E",
+    "RC-M50-E",
+    "RC-M55-E",
+    "RC-M60-E",
+    "RC-M65-E",
+    "RC-M70-E",
+    "RC-M75-E",
+    "RC-M80-E",
+    "RC-M85-E",
+    "RC-M90-E",
+    "RC-M95-E",
+    "RC-M100-E",
+    "RC-PF-E",
+    "RC-MIL-E",
+    "RC-CF-E",
+    "RC-AA-E",
+
+    // Raw Modern (Sleeves + Wraps), Amateur.
+    "RM-Y-A",
+    "RM-T14-A",
+    "RM-T16-A",
+    "RM-T18-A",
+    "RM-J20-A",
+    "RM-O-A",
+    "RM-S33-A",
+    "RM-M40-A",
+    "RM-M45-A",
+    "RM-M50-A",
+    "RM-M55-A",
+    "RM-M60-A",
+    "RM-M65-A",
+    "RM-M70-A",
+    "RM-M75-A",
+    "RM-M80-A",
+    "RM-M85-A",
+    "RM-M90-A",
+    "RM-M95-A",
+    "RM-M100-A",
+    "RM-PF-A",
+    "RM-MIL-A",
+    "RM-CF-A",
+    "RM-AA-A",
+
+    // Raw Modern (Sleeves + Wraps), Pro.
+    "RM-Y-P",
+    "RM-T14-P",
+    "RM-T16-P",
+    "RM-T18-P",
+    "RM-J20-P",
+    "RM-O-P",
+    "RM-S33-P",
+    "RM-M40-P",
+    "RM-M45-P",
+    "RM-M50-P",
+    "RM-M55-P",
+    "RM-M60-P",
+    "RM-M65-P",
+    "RM-M70-P",
+    "RM-M75-P",
+    "RM-M80-P",
+    "RM-M85-P",
+    "RM-M90-P",
+    "RM-M95-P",
+    "RM-M100-P",
+    "RM-PF-P",
+    "RM-MIL-P",
+    "RM-CF-P",
+    "RM-AA-P",
+
+    // Raw Modern (Sleeves + Wraps), Elite.
+    "RM-Y-E",
+    "RM-T14-E",
+    "RM-T16-E",
+    "RM-T18-E",
+    "RM-J20-E",
+    "RM-O-E",
+    "RM-S33-E",
+    "RM-M40-E",
+    "RM-M45-E",
+    "RM-M50-E",
+    "RM-M55-E",
+    "RM-M60-E",
+    "RM-M65-E",
+    "RM-M70-E",
+    "RM-M75-E",
+    "RM-M80-E",
+    "RM-M85-E",
+    "RM-M90-E",
+    "RM-M95-E",
+    "RM-M100-E",
+    "RM-PF-E",
+    "RM-MIL-E",
+    "RM-CF-E",
+    "RM-AA-E",
+
+    // Single-ply, Amateur.
+    "SP-Y-A",
+    "SP-T14-A",
+    "SP-T16-A",
+    "SP-T18-A",
+    "SP-J20-A",
+    "SP-O-A",
+    "SP-S33-A",
+    "SP-M40-A",
+    "SP-M45-A",
+    "SP-M50-A",
+    "SP-M55-A",
+    "SP-M60-A",
+    "SP-M65-A",
+    "SP-M70-A",
+    "SP-M75-A",
+    "SP-M80-A",
+    "SP-M85-A",
+    "SP-M90-A",
+    "SP-M95-A",
+    "SP-M100-A",
+    "SP-PF-A",
+    "SP-MIL-A",
+    "SP-CF-A",
+    "SP-AA-A",
+
+    // Single-ply, Pro.
+    "SP-Y-P",
+    "SP-T14-P",
+    "SP-T16-P",
+    "SP-T18-P",
+    "SP-J20-P",
+    "SP-O-P",
+    "SP-S33-P",
+    "SP-M40-P",
+    "SP-M45-P",
+    "SP-M50-P",
+    "SP-M55-P",
+    "SP-M60-P",
+    "SP-M65-P",
+    "SP-M70-P",
+    "SP-M75-P",
+    "SP-M80-P",
+    "SP-M85-P",
+    "SP-M90-P",
+    "SP-M95-P",
+    "SP-M100-P",
+    "SP-PF-P",
+    "SP-MIL-P",
+    "SP-CF-P",
+    "SP-AA-P",
+
+    // Single-ply, Elite.
+    "SP-Y-E",
+    "SP-T14-E",
+    "SP-T16-E",
+    "SP-T18-E",
+    "SP-J20-E",
+    "SP-O-E",
+    "SP-S33-E",
+    "SP-M40-E",
+    "SP-M45-E",
+    "SP-M50-E",
+    "SP-M55-E",
+    "SP-M60-E",
+    "SP-M65-E",
+    "SP-M70-E",
+    "SP-M75-E",
+    "SP-M80-E",
+    "SP-M85-E",
+    "SP-M90-E",
+    "SP-M95-E",
+    "SP-M100-E",
+    "SP-PF-E",
+    "SP-MIL-E",
+    "SP-CF-E",
+    "SP-AA-E",
+
+    // Multi-ply, Amateur.
+    "MP-Y-A",
+    "MP-T14-A",
+    "MP-T16-A",
+    "MP-T18-A",
+    "MP-J20-A",
+    "MP-O-A",
+    "MP-S33-A",
+    "MP-M40-A",
+    "MP-M45-A",
+    "MP-M50-A",
+    "MP-M55-A",
+    "MP-M60-A",
+    "MP-M65-A",
+    "MP-M70-A",
+    "MP-M75-A",
+    "MP-M80-A",
+    "MP-M85-A",
+    "MP-M90-A",
+    "MP-M95-A",
+    "MP-M100-A",
+    "MP-PF-A",
+    "MP-MIL-A",
+    "MP-CF-A",
+    "MP-AA-A",
+
+    // Multi-ply, Pro.
+    "MP-Y-P",
+    "MP-T14-P",
+    "MP-T16-P",
+    "MP-T18-P",
+    "MP-J20-P",
+    "MP-O-P",
+    "MP-S33-P",
+    "MP-M40-P",
+    "MP-M45-P",
+    "MP-M50-P",
+    "MP-M55-P",
+    "MP-M60-P",
+    "MP-M65-P",
+    "MP-M70-P",
+    "MP-M75-P",
+    "MP-M80-P",
+    "MP-M85-P",
+    "MP-M90-P",
+    "MP-M95-P",
+    "MP-M100-P",
+    "MP-PF-P",
+    "MP-MIL-P",
+    "MP-CF-P",
+    "MP-AA-P",
+
+    // Multi-ply, Elite.
+    "MP-Y-E",
+    "MP-T14-E",
+    "MP-T16-E",
+    "MP-T18-E",
+    "MP-J20-E",
+    "MP-O-E",
+    "MP-S33-E",
+    "MP-M40-E",
+    "MP-M45-E",
+    "MP-M50-E",
+    "MP-M55-E",
+    "MP-M60-E",
+    "MP-M65-E",
+    "MP-M70-E",
+    "MP-M75-E",
+    "MP-M80-E",
+    "MP-M85-E",
+    "MP-M90-E",
+    "MP-M95-E",
+    "MP-M100-E",
+    "MP-PF-E",
+    "MP-MIL-E",
+    "MP-CF-E",
+    "MP-AA-E",
+  ],
+  weightClassesKgMen: [52, 56, 60, 67.5, 75, 82.5, 90, 100, 110, 118, 125, 140],
+  weightClassesKgWomen: [44, 48, 52, 56, 60, 67.5, 75, 82.5, 90, 100, 110],
+  weightClassesKgMx: [52, 56, 60, 67.5, 75, 82.5, 90, 100, 110, 118, 125, 140],
+  formula: "Wilks",
+  ageCoefficients: "FosterMcCulloch",
+  combineSleevesAndWraps: true,
+  combineSingleAndMulti: false,
   allow4thAttempts: true,
 };
 
@@ -1071,6 +1396,7 @@ class AutoFillRules extends React.Component<Props, InternalState> {
       case "Traditional":
       case "BP":
       case "GPC":
+      case "RPS":
       case "SPF":
       case "UPA":
       case "USPA":
@@ -1101,6 +1427,10 @@ class AutoFillRules extends React.Component<Props, InternalState> {
         return;
       case "GPC":
         this.props.updateMeet(gpcDefaults);
+        this.props.onChange();
+        return;
+      case "RPS":
+        this.props.updateMeet(rpsDefaults);
         this.props.onChange();
         return;
       case "SPF":
@@ -1151,6 +1481,7 @@ class AutoFillRules extends React.Component<Props, InternalState> {
     const stringTraditional = getString("meet-setup.rules-traditional", lang);
     const stringBP = getString("meet-setup.rules-bp", lang);
     const stringGPC = getString("meet-setup.rules-gpc", lang);
+    const stringRPS = getString("meet-setup.rules-rps", lang);
     const stringSPF = getString("meet-setup.rules-spf", lang);
     const stringUPA = getString("meet-setup.rules-upa", lang);
     const stringUSAPL = getString("meet-setup.rules-usapl", lang);
@@ -1183,6 +1514,9 @@ class AutoFillRules extends React.Component<Props, InternalState> {
               </option>
               <option key="GPC" value="GPC">
                 {stringGPC}
+              </option>
+              <option key="RPS" value="RPS">
+                {stringRPS}
               </option>
               <option key="SPF" value="SPF">
                 {stringSPF}
