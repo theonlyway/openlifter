@@ -1,6 +1,6 @@
 {
   "about.agpl-short-english-intro": "Hier is de korte Engelse licentie flaptekst:",
-  "about.copyright": "OpenLifter is Copyright (C) 2018-2020 The OpenPowerlifting Project.",
+  "about.copyright": "OpenLifter is Copyright (C) 2018-2021 The OpenPowerlifting Project.",
   "about.credits-header": "Credits",
   "about.credits-intro": "Dankzij:",
   "about.freedom-0": "De vrijheid om het programma te gebruiken zoals je wilt, voor welk doel dan ook.",
@@ -210,7 +210,7 @@
   "meet-setup.bar-weight-squat-lbs": "Squat stang + sluitingen gewicht (lbs)",
   "meet-setup.button-autofill": "Automatisch invullen",
   "meet-setup.city-town": "Stad/Dorp",
-  "meet-setup.combine-single-multi": "Should Single-ply and Multi-ply be combined for placing?",
+  "meet-setup.combine-single-multi": "Moet Single-ply en Multi-ply gecombineerd worden bij de plaatsing?",
   "meet-setup.combine-sleeves-wraps": "Mogen knee sleeves en wraps gecombineerd worden voor de plaatsing?",
   "meet-setup.divisions-label": "Divisies (prefereren korte afkortingen)",
   "meet-setup.divisions-placeholder": "Type een divisie en druk op enter...",
