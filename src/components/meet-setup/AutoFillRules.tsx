@@ -65,6 +65,7 @@ type AutoFillOption =
   | "WABDL"
   | "WP"
   | "WPC"
+  | "WPPO"
   | "WRPF";
 
 interface InternalState {
@@ -1350,6 +1351,20 @@ const wpcDefaults: Partial<MeetState> = {
   allow4thAttempts: true,
 };
 
+const wppoDefaults: Partial<MeetState> = {
+  divisions: ["Open", "J15-20"],
+  weightClassesKgMen: [49, 54, 59, 65, 72, 80, 88, 97, 107],
+  weightClassesKgWomen: [41, 45, 50, 55, 61, 67, 73, 79, 86],
+  weightClassesKgMx: [49, 54, 59, 65, 72, 80, 88, 97, 107],
+  formula: "AH",
+  ageCoefficients: "None",
+  combineSleevesAndWraps: false,
+  combineSingleAndMulti: false,
+  allow4thAttempts: true,
+
+  showAlternateUnits: false,
+};
+
 const wrpfDefaults: Partial<MeetState> = {
   divisions: [
     "Open",
@@ -1405,6 +1420,7 @@ class AutoFillRules extends React.Component<Props, InternalState> {
       case "WABDL":
       case "WP":
       case "WPC":
+      case "WPPO":
       case "WRPF":
         this.setState({ selectedOption: value });
         break;
@@ -1465,6 +1481,10 @@ class AutoFillRules extends React.Component<Props, InternalState> {
         this.props.updateMeet(wpcDefaults);
         this.props.onChange();
         return;
+      case "WPPO":
+        this.props.updateMeet(wppoDefaults);
+        this.props.onChange();
+        return;
       case "WRPF":
         this.props.updateMeet(wrpfDefaults);
         this.props.onChange();
@@ -1490,6 +1510,7 @@ class AutoFillRules extends React.Component<Props, InternalState> {
     const stringWABDL = getString("meet-setup.rules-wabdl", lang);
     const stringWP = getString("meet-setup.rules-wp", lang);
     const stringWPC = getString("meet-setup.rules-wpc", lang);
+    const stringWPPO = getString("meet-setup.rules-wppo", lang);
     const stringWRPF = getString("meet-setup.rules-wrpf", lang);
 
     return (
@@ -1541,6 +1562,9 @@ class AutoFillRules extends React.Component<Props, InternalState> {
               </option>
               <option key="WPC" value="WPC">
                 {stringWPC}
+              </option>
+              <option key="WPPO" value="WPPO">
+                {stringWPPO}
               </option>
               <option key="WRPF" value="WRPF">
                 {stringWRPF}
