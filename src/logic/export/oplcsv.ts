@@ -56,7 +56,7 @@ const makeMeetCsv = (meet: MeetState): Csv => {
   // An optionalRuleSet column may be provided.
   let rules = "";
   if (meet.combineSleevesAndWraps === true) {
-    rules += "CombineRawAndWraps ";
+    rules += "CombineSleevesAndWraps ";
   }
   if (meet.combineSleevesAndWraps === true) {
     rules += "CombineSingleAndMulti ";
@@ -72,9 +72,9 @@ const makeMeetCsv = (meet: MeetState): Csv => {
 const standardizeEquipment = (eq: Equipment): string => {
   switch (eq) {
     case "Bare":
-      return "Raw";
+      return "Bare";
     case "Sleeves":
-      return "Raw";
+      return "Sleeves";
     case "Wraps":
       return "Wraps";
     case "Single-ply":
