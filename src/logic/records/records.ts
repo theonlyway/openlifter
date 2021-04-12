@@ -32,10 +32,12 @@ import {
   getFinalTotalKg,
   getBest3SquatKg,
   getBest3BenchKg,
-  getBest3DeadliftKg,
   getWeightClassForEntry,
   getAttemptWeight,
   getAge,
+  getBest5BenchKg,
+  getBest5SquatKg,
+  getBest5DeadliftKg,
 } from "../entry";
 import { checkExhausted } from "../../types/utils";
 
@@ -59,11 +61,11 @@ export function getRecordTypeForEntry(entry: Readonly<Entry>): RecordType {
 export function getWeightForUnconfirmedRecord(recordLift: RecordLift, entry: Entry): number {
   switch (recordLift) {
     case "S":
-      return getBest3SquatKg(entry);
+      return getBest5SquatKg(entry);
     case "B":
-      return getBest3BenchKg(entry);
+      return getBest5BenchKg(entry);
     case "D":
-      return getBest3DeadliftKg(entry);
+      return getBest5DeadliftKg(entry);
     case "Total":
       return getFinalTotalKg(entry);
     default:
