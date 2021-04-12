@@ -24,7 +24,7 @@ export class ExportedRecordsPage extends React.Component<Props, {}> {
         <body>
           <div className="recordsPage">
             <div className="logoContainer">
-              <img src={logoData}></img>
+              <img src={logoData} className="responsiveImage"></img>
             </div>
 
             <p className="recordsPageTitle">

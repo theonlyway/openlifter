@@ -42,6 +42,7 @@ table {
     display: flex;
     justify-content: center;
     flex-direction: column;
+    color: black;
 }
 
 .recordsPageTitle {
@@ -63,6 +64,7 @@ table {
 .recordCategory {
     border-style: solid;
     margin-bottom: 10px;
+    max-width: 100%;
 }
 
 .logoContainer {
@@ -70,6 +72,10 @@ table {
     width: 100%;
     display: flex;
     justify-content: space-around;
+}
+
+.responsiveImage {
+    max-width: 100%;
 }
 
 `;
