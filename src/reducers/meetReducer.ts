@@ -82,6 +82,7 @@ const initialState: MeetState = {
   ageCoefficients: "FosterMcCulloch",
   combineSleevesAndWraps: false,
   allow4thAttempts: true,
+  recordsEnabled: true,
 
   // Weights and Loading Setup.
   inKg: true,

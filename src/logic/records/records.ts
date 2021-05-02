@@ -49,8 +49,9 @@ export function wouldBreakConfirmedRecord(state: RecordsState, potentialRecord: 
   if (confirmedRecord !== undefined) {
     return potentialRecord.weight > confirmedRecord.weight;
   } else {
-    // Otherwise, there is no record for this class, so by definition it is a record attempt
-    return true;
+    // Otherwise, there is no record for this class. Turns out this most likely means someone has messed up and there isn't meant to be a record in this category.
+    // So, we do nothing and state it isn't a record.
+    return false;
   }
 }
 
@@ -74,6 +75,11 @@ export function getWeightForUnconfirmedRecord(recordLift: RecordLift, entry: Ent
   }
 }
 
+// If they're lifting in sleeves, but wraps & sleeves are combined, upgrade the record to wraps as there won't be a seperate category
+function getEquipmentForEntry(entry: Entry, meet: MeetState): Equipment {
+  return meet.combineSleevesAndWraps && entry.equipment === "Sleeves" ? "Wraps" : entry.equipment;
+}
+
 // Determines if the attempt is higher then any other successful attempt for the record type
 // This is used to determine if we should display the record attempt notification
 // NOTE: Does not consider if the entry is eligible to break records. This is useful so we can display official/unoffocial attempt info
@@ -94,6 +100,10 @@ export function isRecordAttempt(
     meet.weightClassesKgMx,
     language
   );
+
+  if (!meet.recordsEnabled) {
+    return false;
+  }
 
   // If they have no divisions, it cannot be a record attempt
   if (entry.divisions.length === 0) {
@@ -116,7 +126,7 @@ export function isRecordAttempt(
     division: entry.divisions[0],
     sex: entry.sex,
     weightClass,
-    equipment: entry.equipment,
+    equipment: getEquipmentForEntry(entry, meet),
     recordLift,
     recordType,
     weight,
@@ -255,6 +265,10 @@ export function getUpdatedRecordState(
   registrationState: RegistrationState,
   language: Language
 ): RecordsState {
+  // If records aren't enabled, theres no work to be done. Return early
+  if (!meet.recordsEnabled) {
+    return initialRecordState;
+  }
   let newRecordState: RecordsState = { ...initialRecordState };
   registrationState.entries.forEach((entry) => {
     const weightClass = getWeightClassForEntry(
@@ -277,7 +291,7 @@ export function getUpdatedRecordState(
         fullName: entry.name,
         location: meet.name,
         division: entry.divisions[0],
-        equipment: entry.equipment,
+        equipment: getEquipmentForEntry(entry, meet),
         recordType: recordType,
         sex: entry.sex,
         weightClass,

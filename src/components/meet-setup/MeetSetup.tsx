@@ -61,6 +61,7 @@ interface DispatchProps {
   setFederation: (fed: string) => void;
   setCombineSleevesAndWraps: (bool: boolean) => void;
   setAllow4thAttempts: (bool: boolean) => void;
+  setRecordsEnabled: (bool: boolean) => void;
   setInKg: (bool: boolean) => void;
   setShowAlternateUnits: (bool: boolean) => void;
   setFormula: (event: FormEvent<FormControlTypeHack>) => void;
@@ -248,7 +249,7 @@ class MeetSetup extends React.Component<Props, InternalState> {
                     label={
                       <FormattedMessage
                         id="meet-setup.combine-sleeves-wraps"
-                        defaultMessage="Should Sleeves and Wraps be combined for placing?"
+                        defaultMessage="Combine Sleeves and Wraps for placing and records?"
                       />
                     }
                     value={this.props.meet.combineSleevesAndWraps}
@@ -268,6 +269,21 @@ class MeetSetup extends React.Component<Props, InternalState> {
                     }
                     value={this.props.meet.allow4thAttempts}
                     setValue={this.props.setAllow4thAttempts}
+                    yes={stringYes}
+                    no={stringNo}
+                  />
+                </FormGroup>
+
+                <FormGroup key={this.state.ticker + "-records-enabled"}>
+                  <YesNoButton
+                    label={
+                      <FormattedMessage
+                        id="meet-setup.can-lifters-set-records"
+                        defaultMessage="Allows records to be set at the meet"
+                      />
+                    }
+                    value={this.props.meet.recordsEnabled || false}
+                    setValue={this.props.setRecordsEnabled}
                     yes={stringYes}
                     no={stringNo}
                   />
@@ -333,6 +349,7 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
   setFederation: (fed: string) => dispatch(updateMeet({ federation: fed })),
   setCombineSleevesAndWraps: (bool) => dispatch(updateMeet({ combineSleevesAndWraps: bool })),
   setAllow4thAttempts: (bool) => dispatch(updateMeet({ allow4thAttempts: bool })),
+  setRecordsEnabled: (bool) => dispatch(updateMeet({ recordsEnabled: bool })),
   setInKg: (bool) => dispatch(setInKg(bool)),
   setShowAlternateUnits: (bool) => dispatch(updateMeet({ showAlternateUnits: bool })),
   setFormula: (event) =>
