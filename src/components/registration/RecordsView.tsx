@@ -31,12 +31,12 @@ import {
   localizeSex,
   localizeWeightClassStr,
 } from "../../logic/strings";
-import { Card, Button, Form, Row, Col, Table } from "react-bootstrap";
+import { Card, Button, Form, Row, Col, Table, Alert } from "react-bootstrap";
 import { FormattedMessage } from "react-intl";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Csv } from "../../logic/export/csv";
 import { loadRecordsFromCsv, makeExampleRecordsCsv } from "../../logic/import/records-csv";
-import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { faExclamationTriangle, faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 import {
   FormControlTypeHack,
@@ -269,6 +269,20 @@ class RecordsView extends React.Component<Props, State> {
     return allOptions;
   }
 
+  renderRecordsDisabledWarning() {
+    if (!this.props.meet.recordsEnabled) {
+      return (
+        <Alert variant="warning" style={{ marginTop: "16px" }}>
+          <FontAwesomeIcon style={{ marginRight: "5px" }} icon={faExclamationTriangle} />
+          <FormattedMessage
+            id="records.records-disabled-warning"
+            defaultMessage="Records cannot be set at this meet. This is configured on the meet setup page"
+          ></FormattedMessage>
+        </Alert>
+      );
+    }
+  }
+
   render() {
     const filteredRecords = Object.entries(this.props.updatedRecords.confirmedRecords)
       .map((kvp) => kvp[1])
@@ -297,6 +311,8 @@ class RecordsView extends React.Component<Props, State> {
           show={this.state.error !== ""}
           close={() => this.closeErrorModal()}
         />
+
+        {this.renderRecordsDisabledWarning()}
 
         <Card style={{ marginBottom: "17px" }}>
           <Card.Header>
