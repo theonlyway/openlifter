@@ -1018,7 +1018,7 @@ const wpDefaults: Partial<MeetState> = {
   ageCoefficients: "FosterMcCulloch",
   combineSleevesAndWraps: false,
   combineSingleAndMulti: false,
-  allow4thAttempts: true,
+  allow4thAttempts: false,
 };
 
 const wpcDefaults: Partial<MeetState> = {
