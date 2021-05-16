@@ -9,6 +9,9 @@ npm-debug.log.*
 thumbs.db
 !.gitkeep
 
+# Tauri (Rust) build artifacts.
+src-tauri/target
+
 # CSS build artifacts (to be removed when we upgrade to Bootstrap 4).
 src/bootstrap-custom/bootstrap-custom.css
 

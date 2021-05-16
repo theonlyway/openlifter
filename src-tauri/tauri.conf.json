@@ -1,0 +1,67 @@
+{
+  "package": {
+    "productName": "OpenLifter",
+    "version": "0.1.0"
+  },
+  "build": {
+    "distDir": "../public",
+    "devPath": "https://beta.openlifter.com/releases/beta/",
+    "beforeDevCommand": "",
+    "beforeBuildCommand": ""
+  },
+  "tauri": {
+    "bundle": {
+      "active": true,
+      "targets": "all",
+      "identifier": "com.tauri.dev",
+      "icon": [
+        "../website/static/favicon-16x16.png",
+        "../website/static/favicon-32x32.png",
+        "../website/static/android-chrome-192x192.png",
+        "../website/static/android-chrome-512x512.png",
+        "../website/static/apple-touch-icon.png"
+      ],
+      "resources": [],
+      "externalBin": [],
+      "copyright": "",
+      "category": "DeveloperTool",
+      "shortDescription": "",
+      "longDescription": "",
+      "deb": {
+        "depends": [],
+        "useBootstrapper": false
+      },
+      "macOS": {
+        "frameworks": [],
+        "minimumSystemVersion": "",
+        "useBootstrapper": false,
+        "exceptionDomain": "",
+        "signingIdentity": null,
+        "entitlements": null
+      },
+      "windows": {
+        "certificateThumbprint": null,
+        "digestAlgorithm": "sha256",
+        "timestampUrl": ""
+      }
+    },
+    "updater": {
+      "active": false
+    },
+    "allowlist": {
+      "all": true
+    },
+    "windows": [
+      {
+        "title": "OpenLifter",
+        "width": 800,
+        "height": 600,
+        "resizable": true,
+        "fullscreen": false
+      }
+    ],
+    "security": {
+      "csp": "default-src blob: data: filesystem: ws: http: https: 'unsafe-eval' 'unsafe-inline' 'self' img-src: 'self'"
+    }
+  }
+}
