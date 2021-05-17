@@ -1367,11 +1367,14 @@ const wppoDefaults: Partial<MeetState> = {
 
 const wrpfDefaults: Partial<MeetState> = {
   divisions: [
-    "Open",
-    "Y5-13",
-    "T14-16",
-    "S17-19",
+    "J8-9",
+    "J10-11",
+    "J12-13",
+    "J14-16",
+    "J17-19",
     "J20-23",
+    "Open",
+    "S35-39",
     "M40-44",
     "M45-49",
     "M50-54",
