@@ -46,4 +46,4 @@ export const releaseVersion: string =
 // Strictly-presentational representation of when the releaseVersion was changed.
 // Update this concurrently with modifying the releaseVersion.
 // This value is not stored in the state: it's purely informational.
-export const releaseDate: string = "2020-10-11";
+export const releaseDate: string = "2021-05-16";

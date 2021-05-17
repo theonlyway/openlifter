@@ -1,8 +1,8 @@
 {
   "name": "openlifter",
   "version": "gpc-nz",
-  "homepage": "./",
-  "router_basename": "/",
+  "homepage": "https://custom.openlifter.com/releases/gpc-nz/",
+  "router_basename": "/releases/gpc-nz/",
   "author": "Sean Stangl <sean.stangl@gmail.com>",
   "description": "Simple software for running a local powerlifting competition",
   "license": "AGPL-3.0-or-later",
