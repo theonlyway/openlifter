@@ -230,12 +230,12 @@ guide.faq-third-sex-question:
   other: Ich sehe M, W, und Mx Gewichtsklassen. Was ist Mx?
 guide.faq-third-sex-answer:
   # don´t know if the references will work like this with the translation
-  other: Mx (<i>Muks</i> ausgesprochen) ist <a href="https://en.wikipedia.org/wiki/Mx_(title)">eine geschlechtsneutrale Ansprache</a> &mdash; wie z.B. Mr. und Ms. &mdash; die in England enstanden ist.</p><p>Die meisten Verbände schreiben vor, dass Teilnehmer in den Klassen männlich und weiblich antreten müssen. Manche Verbände erlauben es Teilnehmern in einer dritten Klasse anzutreten. Mx ist inklusiv. In der Klasse können nicht-binäre Teilnehmer eingetragen werden ohne Sie auf die Standard-Zweispaltung zu beschränken.</p><p>Wenn Sie einen Wettkampf veranstalten auf dem Männer und Frauen alle zusammen in einer Klasse antreten, können Sie alle Teilnehmer in die Mx Klasse eintragen.
+  other: Mx (<i>Muks</i> ausgesprochen) ist <a href="https://en.wikipedia.org/wiki/Mx_(title)">eine geschlechtsneutrale Ansprache</a> &mdash; wie z.B. Mr. und Ms. &mdash; die in England enstanden ist.</p><p>Die meisten Verbände schreiben vor, dass Teilnehmer in den Klassen männlich und weiblich antreten müssen. Manche Verbände erlauben es Teilnehmern in einer dritten Klasse anzutreten. Mx ist inklusiv. In der Klasse können nicht-binäre Teilnehmer eingetragen werden ohne sie auf die Standard-Zweispaltung zu beschränken.</p><p>Wenn Sie einen Wettkampf veranstalten auf dem Männer und Frauen alle zusammen in einer Klasse antreten, können Sie alle Teilnehmer in die Mx Klasse eintragen.
 guide.faq-openpowerlifting-results-question:
   other: Werden die Ergebnisse automatisch auf OpenPowerlifting hochgeladen?
 guide.faq-openpowerlifting-results-answer:
   # not sure if References copied right
-  other: Nein. Damit Ergebnisse auf OpenPowerlifting erscheinen können, müssen sie zuerst von dem Verband zertifiziert werden. Ergebnisse können also nicht direkt weitergeleitet werden. Wenn Sie aber den "Export for OpenPowerlifting" button auf der Ergebnisseite klicken, dann werden die Ergebnisse in einem Format das <i>sehr</i> hilfreich für uns ist heruntergeladen. Wenn Sie unsere Arbeit also erleichtern wollen <a href="https://www.openpowerlifting.org/contact">schicken Sie uns diese Datein</a>. Wir können sie dann leichter hochladen nachdem Sie von dem Verband bestätigt wurden.
+  other: Nein. Damit Ergebnisse auf OpenPowerlifting erscheinen können, müssen sie zuerst von dem Verband zertifiziert werden. Ergebnisse können also nicht direkt weitergeleitet werden. Wenn Sie aber den "Export for OpenPowerlifting"-Button auf der Ergebnisseite klicken, dann werden die Ergebnisse in einem Format, das <i>sehr</i> hilfreich für uns ist, heruntergeladen. Wenn Sie unsere Arbeit also erleichtern wollen <a href="https://www.openpowerlifting.org/contact">schicken Sie uns diese Dateien</a>. Wir können sie dann leichter hochladen nachdem sie von dem Verband bestätigt wurden.
 guide.faq-warmup-room-question:
   other: Wie richte ich Monitore im Aufwärmbereich ein?
 guide.faq-warmup-room-answer:
@@ -315,6 +315,6 @@ releases.changelog-initial-public-release:
   other: Erste öffentliche Veröffentlichung
 guide.faq-lot-numbers-question:
   # Lot Number doesn´t translate well, might have to see what it´s called in the software or leave it as the Englisch Term?
-  other: Wofür gibt es dei Teilnehmer-Nummern
+  other: Wofür gibt es die Teilnehmer-Nummern
 guide.faq-lot-numbers-answer:
   other: Die Teilnehmer-Nummern helfen zu Entscheiden wer zuerst antritt wenn zwei Teilnehmer mit dem gleichen Gewicht starten. Der Teilnehmer mit der niedrigeren Nummer startet zuerst. Manche Verbände schreiben dieses Vorgehen vor.  Normalerweise wird die Reihenfolge der Nummern vom Organisator in der Riehenfolge der Registrierungen vergeben.</p><p>Die Nutzung der Teilnehmer-Nummern ist nicht dringend nötig. Wenn Sie keine Nummern vergeben, wird OpenLifter bei gleichem Gewicht die gleiche Reihenfolge wie im vorherigen Versuch nutzen. Diese Vorgehensweise funktioniert gut und wird von den Teilnehmern erwartet. Wenn Ihr Verband keine Teilnehmer-Nummern vorschreibt empfehlen wir diese nicht zu nutzen.
