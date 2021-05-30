@@ -28,6 +28,8 @@ import { LinkContainer } from "react-router-bootstrap";
 
 import { saveAs } from "file-saver";
 
+import Logo_padded from "../components/lifting/burley-horizontal-padded.png";
+
 import { FormattedMessage } from "react-intl";
 import LanguageSelector from "../components/translations/LanguageSelector";
 import { overwriteStore } from "../actions/globalActions";
@@ -237,8 +239,7 @@ class HomeContainer extends React.Component<Props, InternalState> {
         />
 
         <Card.Header>
-          <img alt="OpenLifter" src="openlifter.svg" />
-          {betaWarning}
+          <img alt="Burley" src={Logo_padded} style={{ width: "100%", backgroundColor: "black" }} />
         </Card.Header>
 
         <Card.Body>

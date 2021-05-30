@@ -51,6 +51,9 @@ export const makeExampleRegistrationsCsv = (language: Language): string => {
   const event1 = getString("import.column-event-n", language).replace("{N}", "1");
   const event2 = getString("import.column-event-n", language).replace("{N}", "2");
   const event3 = getString("import.column-event-n", language).replace("{N}", "3");
+  const squat1 = getString("flight-order.squat-column-header", language);
+  const bench1 = getString("flight-order.bench-column-header", language);
+  const deadlift1 = getString("flight-order.deadlift-column-header", language);
   const birthdate = getString("import.column-birthdate", language);
   const age = getString("import.column-age", language);
   const memberid = getString("import.column-memberid", language);
@@ -64,6 +67,7 @@ export const makeExampleRegistrationsCsv = (language: Language): string => {
 
   csv.appendColumns([day, platform, flight, name, sex, equipment]);
   csv.appendColumns([division1, division2, division3, event1, event2, event3]);
+  csv.appendColumns([squat1,bench1,deadlift1]);  
   csv.appendColumns([birthdate, age, memberid, country, state]);
   csv.appendColumns([lot, team, guest, instagram, notes]);
 
@@ -79,6 +83,9 @@ export const makeExampleRegistrationsCsv = (language: Language): string => {
   csv.rows[0][csv.index(event1)] = getString("event.sbd", language);
   csv.rows[0][csv.index(event2)] = getString("event.bd", language);
   // Intentionally blank: csv.rows[0][csv.index(event3)]
+  csv.rows[0][csv.index(squat1)] = getString("flight-order.squat-column-header", language);
+  csv.rows[0][csv.index(bench1)] = getString("flight-order.bench-column-header", language);
+  csv.rows[0][csv.index(deadlift1)] = getString("flight-order.deadlift-column-header", language);
   csv.rows[0][csv.index(birthdate)] = csvDate(getString("import.example-birthdate", language));
   // Intentionally blank: csv.rows[0][csv.index(age)]
   // Intentionally blank: csv.rows[0][csv.index(memberid)]
@@ -120,6 +127,9 @@ export const loadRegistrations = (state: GlobalState, csv: Csv, language: Langua
   const col_event3 = event_template.replace("{N}", "3");
   const col_event4 = event_template.replace("{N}", "4");
   const col_event5 = event_template.replace("{N}", "5");
+  const col_squat1 = getString("flight-order.squat-column-header", language);
+  const col_bench1 = getString("flight-order.bench-column-header", language);
+  const col_deadlift1 = getString("flight-order.deadlift-column-header", language);
   const col_birthdate = getString("import.column-birthdate", language);
   const col_age = getString("import.column-age", language);
   const col_memberid = getString("import.column-memberid", language);
@@ -151,6 +161,9 @@ export const loadRegistrations = (state: GlobalState, csv: Csv, language: Langua
     col_event3,
     col_event4,
     col_event5,
+    col_squat1,
+    col_bench1,
+    col_deadlift1,
     col_birthdate,
     col_age,
     col_memberid,
@@ -402,6 +415,28 @@ export const loadRegistrations = (state: GlobalState, csv: Csv, language: Langua
             );
           }
         }
+
+      } else if (fieldname == col_squat1) {
+        // Opener squat is optional.
+        if (val !== "") {
+        }
+
+        entry.squatKg[0] = parseFloat(val);
+
+      } else if (fieldname == col_bench1) {
+        // Opener bench is optional.
+        if (val !== "") {
+        }
+
+        entry.benchKg[0] = parseFloat(val);
+
+      } else if (fieldname == col_deadlift1) {
+        // Opener deadlift is optional.
+        if (val !== "") {
+        }
+
+        entry.deadliftKg[0] = parseFloat(val);
+
       } else if (fieldname === col_birthdate) {
         // BirthDate is optional.
         if (val !== "") {

@@ -28,6 +28,8 @@ import { displayNumber } from "../../logic/units";
 import { Entry, Language } from "../../types/dataTypes";
 import { GlobalState, RegistrationState } from "../../types/stateTypes";
 
+import Logo from "./burley-horizontal.png";
+
 import styles from "./LiftingHeader.module.scss";
 
 interface OwnProps {
@@ -77,6 +79,7 @@ class LiftingHeader extends React.Component<Props> {
       <div className={styles.header}>
         <div className={styles.lifterName}>{lifterName}</div>
         <div className={styles.info}>{info}</div>
+        <img className={styles.logo} src={Logo}></img>
       </div>
     );
   }

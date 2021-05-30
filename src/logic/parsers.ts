@@ -48,6 +48,43 @@ export const parseInteger = (s: string): number | undefined => {
   return parseInt(s, 10);
 };
 
+// Strictly parse a string to an float. Negatives are allowed.
+export const parseFloat = (s: string): number | undefined => {
+  // Characters will be compared to ASCII charcodes.
+  const ascii_0 = 0x30;
+  const ascii_9 = 0x39;
+  const ascii_minus = 0x2d;
+  const ascii_dot = 0x2e;
+  const pieces = s.split(".");
+
+  // Disallow empty strings and strings with more than one dot
+  if (pieces.length != 1 && pieces.length != 2) {
+    return;
+  }
+
+  // Check the string character-by-character.
+  for (let i = 0; i < s.length; ++i) {
+    const charcode = s.charCodeAt(i);
+
+    // A single negative is allowed at the front.
+    if (i === 0 && charcode === ascii_minus){ 
+      continue;
+    } else if (charcode == ascii_dot){
+      if (i == 0){
+        return;
+      } else {
+        continue;
+      }
+
+    } else if (charcode < ascii_0 || charcode > ascii_9) {
+      return;
+    }
+  }
+
+  return parseFloat(s);
+};
+
+
 // Loosely parse a string to a Sex.
 export const parseSex = (s: string): Sex | undefined => {
   const lower = s.toLowerCase();

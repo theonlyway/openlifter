@@ -43,7 +43,7 @@ const defaultPlatesKg: ReadonlyArray<Plate> = [
   { weightKg: 1.5, pairCount: 0, color: PlateColors.PLATE_DEFAULT_YELLOW },
   { weightKg: 1.25, pairCount: 1, color: PlateColors.PLATE_DEFAULT_BLACK },
   { weightKg: 1, pairCount: 1, color: PlateColors.PLATE_DEFAULT_BLUE },
-  { weightKg: 0.75, pairCount: 1, color: PlateColors.PLATE_DEFAULT_RED },
+  { weightKg: 0.75, pairCount: 0, color: PlateColors.PLATE_DEFAULT_RED },
   { weightKg: 0.5, pairCount: 1, color: PlateColors.PLATE_DEFAULT_GREEN },
   { weightKg: 0.25, pairCount: 1, color: PlateColors.PLATE_DEFAULT_BLUE },
 ];
@@ -86,8 +86,8 @@ const initialState: MeetState = {
 
   // Weights and Loading Setup.
   inKg: true,
-  showAlternateUnits: true,
-  squatBarAndCollarsWeightKg: defaultBarAndCollarsWeightKg,
+  showAlternateUnits: false,
+  squatBarAndCollarsWeightKg: 30,
   benchBarAndCollarsWeightKg: defaultBarAndCollarsWeightKg,
   deadliftBarAndCollarsWeightKg: defaultBarAndCollarsWeightKg,
   plates: defaultPlatesKg,
@@ -201,7 +201,7 @@ export default (state: MeetState = initialState, action: Action): MeetState => {
         ...state,
         inKg: action.inKg,
         plates: defaultPlates,
-        squatBarAndCollarsWeightKg: defaultBar,
+        squatBarAndCollarsWeightKg: 30,
         benchBarAndCollarsWeightKg: defaultBar,
         deadliftBarAndCollarsWeightKg: defaultBar,
       };

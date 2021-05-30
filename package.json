@@ -1,6 +1,6 @@
 {
   "name": "openlifter",
-  "version": "beta",
+  "version": "burley-strength",
   "homepage": "./",
   "router_basename": "/",
   "author": "Sean Stangl <sean.stangl@gmail.com>",
