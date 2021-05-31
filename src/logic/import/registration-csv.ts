@@ -53,6 +53,8 @@ export const makeExampleRegistrationsCsv = (language: Language): string => {
   const event3 = getString("import.column-event-n", language).replace("{N}", "3");
   const birthdate = getString("import.column-birthdate", language);
   const age = getString("import.column-age", language);
+  const squatRackInfo = getString("import.column-squatRack", language);
+  const benchRackInfo = getString("import.column-benchRack", language);
   const memberid = getString("import.column-memberid", language);
   const country = getString("import.column-country", language);
   const state = getString("import.column-state", language);
@@ -64,7 +66,7 @@ export const makeExampleRegistrationsCsv = (language: Language): string => {
 
   csv.appendColumns([day, platform, flight, name, sex, equipment]);
   csv.appendColumns([division1, division2, division3, event1, event2, event3]);
-  csv.appendColumns([birthdate, age, memberid, country, state]);
+  csv.appendColumns([birthdate, age, squatRackInfo, benchRackInfo, memberid, country, state]);
   csv.appendColumns([lot, team, guest, instagram, notes]);
 
   csv.rows[0][csv.index(day)] = "1";
@@ -81,6 +83,8 @@ export const makeExampleRegistrationsCsv = (language: Language): string => {
   // Intentionally blank: csv.rows[0][csv.index(event3)]
   csv.rows[0][csv.index(birthdate)] = csvDate(getString("import.example-birthdate", language));
   // Intentionally blank: csv.rows[0][csv.index(age)]
+  csv.rows[0][csv.index(squatRackInfo)] = "13";
+  csv.rows[0][csv.index(benchRackInfo)] = "7/16";
   // Intentionally blank: csv.rows[0][csv.index(memberid)]
   csv.rows[0][csv.index(country)] = getString("import.example-country", language);
   csv.rows[0][csv.index(state)] = getString("import.example-state", language);
@@ -122,6 +126,8 @@ export const loadRegistrations = (state: GlobalState, csv: Csv, language: Langua
   const col_event5 = event_template.replace("{N}", "5");
   const col_birthdate = getString("import.column-birthdate", language);
   const col_age = getString("import.column-age", language);
+  const col_squatRackInfo = getString("import.column-squatRack", language);
+  const col_benchRackInfo = getString("import.column-benchRack", language);
   const col_memberid = getString("import.column-memberid", language);
   const col_country = getString("import.column-country", language);
   const col_state = getString("import.column-state", language);
@@ -153,6 +159,8 @@ export const loadRegistrations = (state: GlobalState, csv: Csv, language: Langua
     col_event5,
     col_birthdate,
     col_age,
+    col_squatRackInfo,
+    col_benchRackInfo,
     col_memberid,
     col_country,
     col_state,
@@ -423,6 +431,10 @@ export const loadRegistrations = (state: GlobalState, csv: Csv, language: Langua
           // All checks passed!
           entry.age = integer;
         }
+      } else if (fieldname === col_squatRackInfo) {
+        entry.squatRackInfo = val;
+      } else if (fieldname === col_benchRackInfo) {
+        entry.benchRackInfo = val;
       } else if (fieldname === col_memberid) {
         entry.memberId = val;
       } else if (fieldname === col_country) {
