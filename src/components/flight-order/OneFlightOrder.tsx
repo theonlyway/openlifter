@@ -105,6 +105,10 @@ class OneFlightOrder extends React.Component<Props> {
     }
   }
 
+  renderName(position: number, entry: Entry, language: Language): string {
+    return `${displayNumber(position + 1, language)}. ${entry.name} (${entry.divisions.join(", ")})`;
+  }
+
   render() {
     const language = this.props.language;
 
@@ -164,7 +168,7 @@ class OneFlightOrder extends React.Component<Props> {
           case "SquatName": {
             if (i < bySquat.length) {
               const entry = bySquat[i];
-              content = displayNumber(i + 1, language) + ". " + entry.name;
+              content = this.renderName(i, entry, language);
             }
             break;
           }
@@ -188,7 +192,7 @@ class OneFlightOrder extends React.Component<Props> {
           case "BenchName": {
             if (i < byBench.length) {
               const entry = byBench[i];
-              content = displayNumber(i + 1, language) + ". " + entry.name;
+              content = this.renderName(i, entry, language);
             }
             break;
           }
@@ -212,7 +216,7 @@ class OneFlightOrder extends React.Component<Props> {
           case "DeadliftName": {
             if (i < byDeadlift.length) {
               const entry = byDeadlift[i];
-              content = displayNumber(i + 1, language) + ". " + entry.name;
+              content = this.renderName(i, entry, language);
             }
             break;
           }

@@ -29,6 +29,7 @@ import Card from "react-bootstrap/Card";
 import RandomizeMeetSetupButton from "./RandomizeMeetSetup";
 import RandomizeRegistrationButton from "./RandomizeRegistration";
 import RandomizeWeighinsButton from "./RandomizeWeighins";
+import RandomizeLiftingButton from "./RandomizeLifting";
 
 import { GlobalState } from "../../types/stateTypes";
 
@@ -54,6 +55,7 @@ class StateTools extends React.Component<GlobalState> {
               <RandomizeMeetSetupButton />
               <RandomizeRegistrationButton />
               <RandomizeWeighinsButton />
+              <RandomizeLiftingButton />
             </ButtonGroup>
           </Card.Body>
         </Card>

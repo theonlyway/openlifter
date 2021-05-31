@@ -19,6 +19,8 @@
 // Common functions shared by the Randomize feature.
 
 // Generate a gibberish string, between 0-11 characters.
+import { lbs2kg } from "../../logic/units";
+
 export const randomString = (): string => {
   // Converts each digit to a value in base 36.
   return Math.random().toString(36).substr(2);
@@ -38,6 +40,20 @@ export const randomFixedPoint = (min: number, max: number, fixedPoints: number) 
 
   // Translate it back to normal space.
   return k / power + min;
+};
+
+export const randomAttemptWithMin = (inKg: boolean, min: number) => {
+  const multiple = 2.5;
+  if (inKg) {
+    return Math.floor(randomFixedPoint(min, 360, 1) / multiple) * multiple;
+  } else {
+    return lbs2kg(Math.floor(randomFixedPoint(min, 800, 1) / multiple) * multiple);
+  }
+};
+
+export const randomAttempt = (inKg: boolean) => {
+  const min = inKg ? 25 : 55;
+  return randomAttemptWithMin(inKg, min);
 };
 
 // Randomly shuffle an array in-place using the Fisher-Yates algorithm.

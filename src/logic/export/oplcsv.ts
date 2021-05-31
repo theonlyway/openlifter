@@ -37,6 +37,7 @@ import { Category, CategoryResults } from "../divisionPlace";
 import { Entry, Equipment, Formula } from "../../types/dataTypes";
 import { GlobalState, MeetState } from "../../types/stateTypes";
 import { checkExhausted } from "../../types/utils";
+import { releaseVersion } from "../../versions";
 
 const makeMeetCsv = (meet: MeetState): Csv => {
   const csv = new Csv();
@@ -231,7 +232,7 @@ export const exportAsOplCsv = (state: GlobalState): string => {
   const entriesCsv: Csv = makeEntriesCsv(state);
   entriesCsv.removeEmptyColumns();
 
-  const versionStr = "OPL Format v1,Submit by email:,issues@openpowerlifting.org";
+  const versionStr = `OPL Format v1 (OpenLifter ${releaseVersion}),Submit by email:,issues@openpowerlifting.org`;
 
   return versionStr + "\n\n" + meetCsv.toString() + "\n" + entriesCsv.toString();
 };
