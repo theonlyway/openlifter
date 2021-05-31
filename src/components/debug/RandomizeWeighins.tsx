@@ -26,7 +26,7 @@ import Button from "react-bootstrap/Button";
 
 import LocalizedString from "../translations/LocalizedString";
 
-import { randomInt, randomFixedPoint } from "./RandomizeHelpers";
+import { randomAttempt, randomInt, randomFixedPoint } from "./RandomizeHelpers";
 import { lbs2kg } from "../../logic/units";
 
 import { updateRegistration } from "../../actions/registrationActions";
@@ -54,12 +54,7 @@ class RandomizeWeighinsButton extends React.Component<Props> {
   }
 
   randomAttempt = () => {
-    const multiple = 2.5;
-    if (this.props.meet.inKg) {
-      return Math.floor(randomFixedPoint(25, 360, 1) / multiple) * multiple;
-    } else {
-      return lbs2kg(Math.floor(randomFixedPoint(55, 800, 1) / multiple) * multiple);
-    }
+    return randomAttempt(this.props.meet.inKg);
   };
 
   randomizeWeighins = () => {
