@@ -261,7 +261,7 @@
   "nav.weigh-ins": "Kaalumine",
   "registration.auto-import-card-header": "Registreeringute automaatne importimine",
   "registration.birthdate-label": "Sünniaeg",
-  "registration.birthdate-placeholder": "AAAA-KK-PP",
+  "registration.birthdate-placeholder": "PP-KK-AAAA",
   "registration.button-append-from-csv": "Lisage registreerimised CSV-st",
   "registration.button-assign-lot-numbers-randomly": "Määra suvaliselt",
   "registration.button-assign-lot-numbers-sequentially": "Määra järjest",

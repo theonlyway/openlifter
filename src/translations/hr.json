@@ -261,7 +261,7 @@
   "nav.weigh-ins": "Vaganje",
   "registration.auto-import-card-header": "Automatski uvoz registracija",
   "registration.birthdate-label": "Datum rođenja",
-  "registration.birthdate-placeholder": "YYYY-MM-DD",
+  "registration.birthdate-placeholder": "DD-MM-YYYY",
   "registration.button-append-from-csv": "Dodaj registracije iz CSV-a",
   "registration.button-assign-lot-numbers-randomly": "Dodijeli nasumično",
   "registration.button-assign-lot-numbers-sequentially": "Dodijeli slijedno",

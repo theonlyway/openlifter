@@ -261,7 +261,7 @@
   "nav.weigh-ins": "Зважування",
   "registration.auto-import-card-header": "Авто-імпортування реєстрацій",
   "registration.birthdate-label": "Дата народження",
-  "registration.birthdate-placeholder": "РРРР-ММ-ДД",
+  "registration.birthdate-placeholder": "ДД-ММ-РРРР",
   "registration.button-append-from-csv": "Додати реєстрації з CSV",
   "registration.button-assign-lot-numbers-randomly": "Призначити випадковим чином",
   "registration.button-assign-lot-numbers-sequentially": "Призначити послідовно",

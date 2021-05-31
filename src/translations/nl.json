@@ -261,7 +261,7 @@
   "nav.weigh-ins": "Inwegen",
   "registration.auto-import-card-header": "Automatische import van registraties",
   "registration.birthdate-label": "Geboortedatum",
-  "registration.birthdate-placeholder": "YYYY-MM-DD",
+  "registration.birthdate-placeholder": "DD-MM-YYYY",
   "registration.button-append-from-csv": "Voeg registratie toe vanuit CSV-bestand",
   "registration.button-assign-lot-numbers-randomly": "Willekeurig toewijzen",
   "registration.button-assign-lot-numbers-sequentially": "Na elkaar toewijzen",

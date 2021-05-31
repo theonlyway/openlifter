@@ -261,7 +261,7 @@
   "nav.weigh-ins": "Tartı",
   "registration.auto-import-card-header": "Kayıtları Otomatik İçeri Aktar",
   "registration.birthdate-label": "Doğum Tarihi",
-  "registration.birthdate-placeholder": "YYYY-AA-GG",
+  "registration.birthdate-placeholder": "GG-AA-YYYY",
   "registration.button-append-from-csv": "Kayıtları CSV'den ekle",
   "registration.button-assign-lot-numbers-randomly": "Assign Randomly",
   "registration.button-assign-lot-numbers-sequentially": "Assign Sequentially",

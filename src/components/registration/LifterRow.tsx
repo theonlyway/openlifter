@@ -39,7 +39,7 @@ import { displayNumber, string2number } from "../../logic/units";
 import LocalizedString from "../translations/LocalizedString";
 import ValidatedInput from "../ValidatedInput";
 
-import { validateIso8601Date } from "../../validation/iso8601Date";
+import { validateIso8601Date, validateEuropeanDate } from "../../validation/iso8601Date";
 import { validatePositiveInteger } from "../../validation/positiveInteger";
 
 import { deleteRegistration, updateRegistration } from "../../actions/registrationActions";
@@ -511,7 +511,7 @@ class LifterRow extends React.Component<Props, InternalState> {
                   <ValidatedInput
                     initialValue={entry.birthDate}
                     placeholder={stringBirthDatePlaceholder}
-                    validate={validateIso8601Date}
+                    validate={validateEuropeanDate}
                     onSuccess={this.updateRegistrationBirthDate}
                   />
                 </Form.Group>

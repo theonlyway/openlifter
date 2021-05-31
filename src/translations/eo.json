@@ -261,7 +261,7 @@
   "nav.weigh-ins": "Komencpezoj",
   "registration.auto-import-card-header": "Aŭtomata importo por registriĝon",
   "registration.birthdate-label": "Naskiĝtago",
-  "registration.birthdate-placeholder": "JJJJ-MM-TT",
+  "registration.birthdate-placeholder": "TT-MM-JJJJ",
   "registration.button-append-from-csv": "Alpendigu registriĝaĵojn el CSV",
   "registration.button-assign-lot-numbers-randomly": "Assign Randomly",
   "registration.button-assign-lot-numbers-sequentially": "Assign Sequentially",

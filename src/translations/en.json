@@ -261,7 +261,7 @@
   "nav.weigh-ins": "Weigh-ins",
   "registration.auto-import-card-header": "Auto-Import Registrations",
   "registration.birthdate-label": "Date of Birth",
-  "registration.birthdate-placeholder": "YYYY-MM-DD",
+  "registration.birthdate-placeholder": "DD-MM-YYYY",
   "registration.button-append-from-csv": "Append Registrations from CSV",
   "registration.button-assign-lot-numbers-randomly": "Assign Randomly",
   "registration.button-assign-lot-numbers-sequentially": "Assign Sequentially",
