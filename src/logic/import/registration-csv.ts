@@ -23,7 +23,7 @@
 import { csvDate, Csv, getSpreadsheetColumnName } from "../export/csv";
 import { newDefaultEntry } from "../entry";
 
-import { parseInteger, parseDate } from "../parsers";
+import { parseInteger, parseEuropeanDate } from "../parsers";
 import { getString, delocalizeEquipment, delocalizeEvent, delocalizeFlight, delocalizeSex } from "../strings";
 import { displayNumber } from "../units";
 
@@ -413,7 +413,7 @@ export const loadRegistrations = (state: GlobalState, csv: Csv, language: Langua
       } else if (fieldname === col_birthdate) {
         // BirthDate is optional.
         if (val !== "") {
-          const bd = parseDate(val);
+          const bd = parseEuropeanDate(val);
           if (typeof bd !== "string") {
             return errprefix + getString("error.csv-field-suffix-date-format", language);
           }

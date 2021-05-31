@@ -127,3 +127,34 @@ export const parseDate = (s: string): string | undefined => {
 
   return s;
 };
+
+// Strictly parse a DD-MM-YYYY date.
+export const parseEuropeanDate = (s: string): string | undefined => {
+  // Allow a prepended single-quote, inserted for purposes of preventing
+  // Excel auto-localization.
+  s = s.replace("'", "");
+
+  // "DD-MM-YYYY".length === 10.
+  if (s.length !== 10) {
+    return;
+  }
+
+  const pieces = s.split("-");
+  if (pieces.length !== 3) {
+    return;
+  }
+
+  if (pieces[0].length !== 2 || pieces[1].length !== 2 || pieces[2].length !== 4) {
+    return;
+  }
+
+  const day = parseInteger(pieces[0]);
+  const month = parseInteger(pieces[1]);
+  const year = parseInteger(pieces[2]);
+
+  if (typeof day !== "number" || day < 1 || day > 31) return;
+  if (typeof month !== "number" || month < 1 || month > 12) return;
+  if (typeof year !== "number" || year < 1920) return;
+
+  return s;
+};
