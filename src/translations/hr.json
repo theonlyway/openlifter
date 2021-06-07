@@ -265,6 +265,7 @@
   "registration.birthdate-placeholder": "YYYY-MM-DD",
   "registration.button-append-from-csv": "Dodaj registracije iz CSV-a",
   "registration.button-assign-lot-numbers-randomly": "Dodijeli nasumično",
+  "registration.button-assign-lot-numbers-randomly-by-flight": "Assign Randomly By Flight",
   "registration.button-assign-lot-numbers-sequentially": "Dodijeli slijedno",
   "registration.button-delete": "Izbriši",
   "registration.button-download-template": "Preuzmi predložak",

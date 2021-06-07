@@ -265,6 +265,7 @@
   "registration.birthdate-placeholder": "YYYY-AA-GG",
   "registration.button-append-from-csv": "Kayıtları CSV'den ekle",
   "registration.button-assign-lot-numbers-randomly": "Assign Randomly",
+  "registration.button-assign-lot-numbers-randomly-by-flight": "Assign Randomly By Flight",
   "registration.button-assign-lot-numbers-sequentially": "Assign Sequentially",
   "registration.button-delete": "Sil",
   "registration.button-download-template": "Şablonu İndir",

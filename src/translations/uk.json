@@ -265,6 +265,7 @@
   "registration.birthdate-placeholder": "РРРР-ММ-ДД",
   "registration.button-append-from-csv": "Додати реєстрації з CSV",
   "registration.button-assign-lot-numbers-randomly": "Призначити випадковим чином",
+  "registration.button-assign-lot-numbers-randomly-by-flight": "Assign Randomly By Flight",
   "registration.button-assign-lot-numbers-sequentially": "Призначити послідовно",
   "registration.button-delete": "Видалити",
   "registration.button-download-template": "Викачати форму",

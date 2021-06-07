@@ -265,6 +265,7 @@
   "registration.birthdate-placeholder": "YYYY-MM-DD",
   "registration.button-append-from-csv": "Voeg registratie toe vanuit CSV-bestand",
   "registration.button-assign-lot-numbers-randomly": "Willekeurig toewijzen",
+  "registration.button-assign-lot-numbers-randomly-by-flight": "Assign Randomly By Flight",
   "registration.button-assign-lot-numbers-sequentially": "Na elkaar toewijzen",
   "registration.button-delete": "Verwijderen",
   "registration.button-download-template": "Download template",

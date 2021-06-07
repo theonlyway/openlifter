@@ -265,6 +265,7 @@
   "registration.birthdate-placeholder": "AAAA-KK-PP",
   "registration.button-append-from-csv": "Lisage registreerimised CSV-st",
   "registration.button-assign-lot-numbers-randomly": "Määra suvaliselt",
+  "registration.button-assign-lot-numbers-randomly-by-flight": "Assign Randomly By Flight",
   "registration.button-assign-lot-numbers-sequentially": "Määra järjest",
   "registration.button-delete": "Kustuta",
   "registration.button-download-template": "Lae alla vorm",

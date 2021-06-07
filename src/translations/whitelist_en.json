@@ -304,6 +304,7 @@
   "registration.dropdown-manage-lot-numbers",
   "registration.button-assign-lot-numbers-sequentially",
   "registration.button-assign-lot-numbers-randomly",
+  "registration.button-assign-lot-numbers-randomly-by-flight",
   "registration.button-remove-lot-numbers",
   "results.merge-platforms-card-header",
   "results.merge-platforms-warning",

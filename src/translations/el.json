@@ -265,6 +265,7 @@
   "registration.birthdate-placeholder": "Χρόνος- Μήνας- Μέρα",
   "registration.button-append-from-csv": "Προσάρτηση Εγγραφών από το CSV",
   "registration.button-assign-lot-numbers-randomly": "Assign Randomly",
+  "registration.button-assign-lot-numbers-randomly-by-flight": "Assign Randomly By Flight",
   "registration.button-assign-lot-numbers-sequentially": "Assign Sequentially",
   "registration.button-delete": "Διαγραφή",
   "registration.button-download-template": "Κατεβάστε Πρότυπο",

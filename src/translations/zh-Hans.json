@@ -265,6 +265,7 @@
   "registration.birthdate-placeholder": "（示例：2019-02-16）",
   "registration.button-append-from-csv": "从 CSV 追加注册信息",
   "registration.button-assign-lot-numbers-randomly": "Assign Randomly",
+  "registration.button-assign-lot-numbers-randomly-by-flight": "Assign Randomly By Flight",
   "registration.button-assign-lot-numbers-sequentially": "Assign Sequentially",
   "registration.button-delete": "删除",
   "registration.button-download-template": "下载范例",

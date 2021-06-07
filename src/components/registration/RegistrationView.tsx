@@ -26,7 +26,7 @@ import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Card from "react-bootstrap/Card";
 
-import { faSpinner, faTimes, faRandom, faSort } from "@fortawesome/free-solid-svg-icons";
+import { faSpinner, faTimes, faRandom, faSort, faDice } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import LifterTable from "./LifterTable";
@@ -48,6 +48,7 @@ import { Entry } from "../../types/dataTypes";
 import { Dispatch } from "redux";
 import { DropdownButton, Dropdown } from "react-bootstrap";
 import { shuffle } from "../debug/RandomizeHelpers";
+import { generateRandomLotNumbersSequencedByFlight } from "../../logic/lotNumbers";
 
 interface StateProps {
   global: GlobalState;
@@ -81,6 +82,7 @@ class RegistrationView extends React.Component<Props, InternalState> {
     this.handleLoadFileInput = this.handleLoadFileInput.bind(this);
     this.handleSequentialLotNumbersClick = this.handleSequentialLotNumbersClick.bind(this);
     this.handleRandomLotNumbersClick = this.handleRandomLotNumbersClick.bind(this);
+    this.handleRandomLotNumbersByFlightClick = this.handleRandomLotNumbersByFlightClick.bind(this);
     this.handleRemoveLotNumbersClick = this.handleRemoveLotNumbersClick.bind(this);
     this.closeErrorModal = this.closeErrorModal.bind(this);
 
@@ -126,17 +128,23 @@ class RegistrationView extends React.Component<Props, InternalState> {
     this.updateLotNumbers("AssignRandomly");
   };
 
+  handleRandomLotNumbersByFlightClick = () => {
+    this.updateLotNumbers("RandomByFlight");
+  };
+
   handleRemoveLotNumbersClick = () => {
     this.updateLotNumbers("RemoveAll");
   };
 
-  updateLotNumbers = (manipulation: "AssignSequentially" | "AssignRandomly" | "RemoveAll"): void => {
+  updateLotNumbers = (manipulation: "AssignSequentially" | "RandomByFlight" | "AssignRandomly" | "RemoveAll"): void => {
     const entries = this.props.global.registration.entries;
     let lotNumbers: number[];
 
     // Removing lot numbers is as simple as setting the number to 0
     if (manipulation === "RemoveAll") {
       lotNumbers = entries.map(() => 0);
+    } else if (manipulation === "RandomByFlight") {
+      lotNumbers = generateRandomLotNumbersSequencedByFlight(this.props.global.registration.entries);
     } else {
       // If not removing, generate a set of sequential lot numbers for all lifters.
       lotNumbers = entries.map((_entry, index) => index + 1);
@@ -303,6 +311,13 @@ class RegistrationView extends React.Component<Props, InternalState> {
                   <FormattedMessage
                     id="registration.button-assign-lot-numbers-randomly"
                     defaultMessage="Assign Randomly"
+                  />
+                </Dropdown.Item>
+                <Dropdown.Item onClick={this.handleRandomLotNumbersByFlightClick}>
+                  <FontAwesomeIcon icon={faDice} style={dropdownIconStyle} />
+                  <FormattedMessage
+                    id="registration.button-assign-lot-numbers-randomly-by-flight"
+                    defaultMessage="Assign Randomly By Flight"
                   />
                 </Dropdown.Item>
                 <Dropdown.Item onClick={this.handleRemoveLotNumbersClick}>

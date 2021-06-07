@@ -265,6 +265,7 @@
   "registration.birthdate-placeholder": "YYYY-MM-DD",
   "registration.button-append-from-csv": "Prijungti Registracijas iš CSV",
   "registration.button-assign-lot-numbers-randomly": "Priskirti atsitiktinai",
+  "registration.button-assign-lot-numbers-randomly-by-flight": "Assign Randomly By Flight",
   "registration.button-assign-lot-numbers-sequentially": "Priskirti paeiliui",
   "registration.button-delete": "Pašalinti",
   "registration.button-download-template": "Parsisiųsti Šabloną",

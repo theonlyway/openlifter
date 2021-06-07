@@ -265,6 +265,7 @@
   "registration.birthdate-placeholder": "JJJJ-MM-TT",
   "registration.button-append-from-csv": "Registrierungen aus CSV anfügen",
   "registration.button-assign-lot-numbers-randomly": "Zufällig zuweisen",
+  "registration.button-assign-lot-numbers-randomly-by-flight": "Assign Randomly By Flight",
   "registration.button-assign-lot-numbers-sequentially": "In Reihenfolge zuweisen",
   "registration.button-delete": "Löschen",
   "registration.button-download-template": "Liste herunterladen",
