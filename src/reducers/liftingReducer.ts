@@ -62,7 +62,7 @@ type Action =
   | OverwriteStoreAction
   | SetTableInfoAction;
 
-export default (state: LiftingState = initialState, action: Action): LiftingState => {
+export default function liftingReducer(state: LiftingState = initialState, action: Action): LiftingState {
   switch (action.type) {
     case "MARK_LIFT": {
       // Unset any overrides, returning to normal lifting flow.
@@ -128,4 +128,4 @@ export default (state: LiftingState = initialState, action: Action): LiftingStat
       checkExhausted(action);
       return state;
   }
-};
+}

@@ -16,7 +16,7 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import React, { FormEvent } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { FormattedMessage } from "react-intl";
 
@@ -45,7 +45,7 @@ import { updateMeet, setInKg } from "../../actions/meetSetupActions";
 
 import { GlobalState, MeetState } from "../../types/stateTypes";
 import { Dispatch } from "redux";
-import { FormControlTypeHack, assertString, assertFormula, assertAgeCoefficients } from "../../types/utils";
+import { assertString, assertFormula, assertAgeCoefficients } from "../../types/utils";
 import { Language, Validation } from "../../types/dataTypes";
 
 interface StateProps {
@@ -64,8 +64,8 @@ interface DispatchProps {
   setAllow4thAttempts: (bool: boolean) => void;
   setInKg: (bool: boolean) => void;
   setShowAlternateUnits: (bool: boolean) => void;
-  setFormula: (event: FormEvent<FormControlTypeHack>) => void;
-  setAgeCoefficients: (event: FormEvent<FormControlTypeHack>) => void;
+  setFormula: (event: React.BaseSyntheticEvent) => void;
+  setAgeCoefficients: (event: React.BaseSyntheticEvent) => void;
 }
 
 type Props = StateProps & DispatchProps;

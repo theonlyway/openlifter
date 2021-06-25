@@ -18,7 +18,7 @@
 
 // This is a generic number input with a minus and a plus surrounding it.
 
-import React, { FormEvent } from "react";
+import React from "react";
 import { connect } from "react-redux";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -30,7 +30,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 
 import { string2number, displayNumber } from "../../logic/units";
 
-import { FormControlTypeHack, assertString } from "../../types/utils";
+import { assertString } from "../../types/utils";
 import { Language, Validation } from "../../types/dataTypes";
 import { GlobalState } from "../../types/stateTypes";
 
@@ -78,7 +78,7 @@ class NumberInput extends React.Component<Props, InternalState> {
   }
 
   // Used when the user manually types into the input box.
-  handleChange = (event: FormEvent<FormControlTypeHack>): void => {
+  handleChange = (event: React.BaseSyntheticEvent): void => {
     const value = event.currentTarget.value;
     if (assertString(value)) {
       this.setState({ value: value });

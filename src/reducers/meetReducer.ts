@@ -151,7 +151,7 @@ export const getWeightClassLbsStr = (classes: ReadonlyArray<number>, bodyweightK
 
 type Action = MeetSetupAction | OverwriteStoreAction;
 
-export default (state: MeetState = initialState, action: Action): MeetState => {
+export default function meetReducer(state: MeetState = initialState, action: Action): MeetState {
   switch (action.type) {
     case "SET_MEET_NAME":
       return { ...state, name: action.name };
@@ -267,4 +267,4 @@ export default (state: MeetState = initialState, action: Action): MeetState => {
       checkExhausted(action);
       return state;
   }
-};
+}

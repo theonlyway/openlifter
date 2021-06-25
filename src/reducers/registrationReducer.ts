@@ -54,7 +54,10 @@ type NumberLookup = {
   [id: number]: number;
 };
 
-export default (state: RegistrationState = initialState, action: Action): RegistrationState => {
+export default function registrationReducer(
+  state: RegistrationState = initialState,
+  action: Action
+): RegistrationState {
   switch (action.type) {
     case "NEW_REGISTRATION": {
       // The object provides optional properties that can overwrite the default.
@@ -250,4 +253,4 @@ export default (state: RegistrationState = initialState, action: Action): Regist
       checkExhausted(action);
       return state;
   }
-};
+}

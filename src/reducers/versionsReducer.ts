@@ -29,7 +29,7 @@ const initialState: VersionsState = {
 
 type Action = OverwriteStoreAction;
 
-export default (state: VersionsState = initialState, action: Action): VersionsState => {
+export default function versionReducer(state: VersionsState = initialState, action: Action): VersionsState {
   switch (action.type) {
     case "OVERWRITE_STORE":
       return action.store.versions;
@@ -37,4 +37,4 @@ export default (state: VersionsState = initialState, action: Action): VersionsSt
     default:
       return state;
   }
-};
+}

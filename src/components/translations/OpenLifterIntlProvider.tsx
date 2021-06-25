@@ -27,7 +27,7 @@ interface StateProps {
   language: Language;
 }
 
-type Props = StateProps;
+type Props = StateProps & { children?: React.ReactNode };
 
 class OpenLifterIntlProvider extends React.Component<Props> {
   render() {
@@ -54,4 +54,4 @@ const mapStateToProps = (state: GlobalState): StateProps => ({
   language: state.language,
 });
 
-export default connect(mapStateToProps)(OpenLifterIntlProvider);
+export default connect(mapStateToProps, () => {})(OpenLifterIntlProvider);

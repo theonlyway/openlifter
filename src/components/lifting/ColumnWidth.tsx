@@ -32,7 +32,7 @@ import { setTableInfo } from "../../actions/liftingActions";
 
 import { Validation } from "../../types/dataTypes";
 import { GlobalState, LiftingState } from "../../types/stateTypes";
-import { FormControlTypeHack, isString } from "../../types/utils";
+import { isString } from "../../types/utils";
 import { Dispatch } from "redux";
 import { isNumber } from "util";
 
@@ -82,7 +82,7 @@ class ColumnWidth extends React.Component<Props, InternalState> {
     return "success";
   };
 
-  handleChange = (event: React.FormEvent<FormControlTypeHack>) => {
+  handleChange = (event: React.BaseSyntheticEvent) => {
     const value = event.currentTarget.value;
     if (!isNumber(value) && !isString(value)) {
       throw new Error(`Expected either a number or a string, but got "${value}"`);

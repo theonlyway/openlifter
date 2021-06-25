@@ -25,14 +25,13 @@ import { Language } from "../../types/dataTypes";
 import { GlobalState } from "../../types/stateTypes";
 
 import { Dispatch } from "redux";
-import { FormControlTypeHack } from "../../types/utils";
 
 interface StateProps {
   language: Language;
 }
 
 interface DispatchProps {
-  changeLanguage: (event: React.FormEvent<FormControlTypeHack>) => any;
+  changeLanguage: (event: React.BaseSyntheticEvent) => any;
 }
 
 type Props = StateProps & DispatchProps;
@@ -112,7 +111,7 @@ const mapStateToProps = (state: GlobalState): StateProps => ({
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   return {
     // TODO: Can we make this more type safe and avoid the cast?
-    changeLanguage: (event: React.FormEvent<FormControlTypeHack>) =>
+    changeLanguage: (event: React.BaseSyntheticEvent) =>
       dispatch(changeLanguage(event.currentTarget.value as Language)),
   };
 };

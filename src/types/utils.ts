@@ -21,7 +21,6 @@
 // Because the Redux store is immutable, all types are internally prefixed
 // with the "readonly " covariant type, which makes them immutable.
 
-import { FormControl, FormControlProps } from "react-bootstrap";
 import { AgeCoefficients, Flight, Formula, Lift, Sex } from "./dataTypes";
 
 // This is purely used by the type system to raise a compile error when
@@ -29,10 +28,6 @@ import { AgeCoefficients, Flight, Formula, Lift, Sex } from "./dataTypes";
 // This allows us to have a compile time error, but also have graceful runtime fallback.
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function checkExhausted(value: never): void {}
-
-// A workaround for bad typing of react-bootstrap. Open to better suggestions.
-// see: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/16208 for more context
-export type FormControlTypeHack = FormControlProps & FormControl & HTMLOrSVGElement;
 
 // Convenience function to narrow a variables type down to a string
 export function isString(value: any): value is string {

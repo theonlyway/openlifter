@@ -18,7 +18,7 @@
 
 // The parent component of the FlightOrder page, contained by the FlightOrderContainer.
 
-import React, { FormEvent } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { FormattedMessage } from "react-intl";
 
@@ -33,7 +33,6 @@ import { displayNumber } from "../../logic/units";
 
 import { Entry, Flight, Language } from "../../types/dataTypes";
 import { GlobalState, MeetState } from "../../types/stateTypes";
-import { FormControlTypeHack } from "../../types/utils";
 
 interface StateProps {
   meet: MeetState;
@@ -62,7 +61,7 @@ class FlightOrderView extends React.Component<Props, InternalState> {
     };
   }
 
-  updateDay = (event: FormEvent<FormControlTypeHack>) => {
+  updateDay = (event: React.BaseSyntheticEvent) => {
     const day = Number(event.currentTarget.value);
     if (this.state.day !== day) {
       // If the currently-selected platform number becomes invalid, reset it.
@@ -74,7 +73,7 @@ class FlightOrderView extends React.Component<Props, InternalState> {
     }
   };
 
-  updatePlatform = (event: React.FormEvent<FormControlTypeHack>) => {
+  updatePlatform = (event: React.BaseSyntheticEvent) => {
     const platform = Number(event.currentTarget.value);
     if (this.state.platform !== platform) {
       this.setState({ platform: platform });

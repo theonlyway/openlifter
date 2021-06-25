@@ -22,7 +22,7 @@ import { checkExhausted } from "../types/utils";
 
 type Action = ChangeLanguageAction | OverwriteStoreAction;
 
-export default (state: Language = "en", action: Action): Language => {
+export default function languageReducer(state: Language = "en", action: Action): Language {
   switch (action.type) {
     case "CHANGE_LANGUAGE":
       return action.language;
@@ -34,4 +34,4 @@ export default (state: Language = "en", action: Action): Language => {
       checkExhausted(action);
       return state;
   }
-};
+}

@@ -32,7 +32,7 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Row from "react-bootstrap/Row";
 
-import Select, { ValueType } from "react-select";
+import Select from "react-select";
 
 import { getString, localizeEvent } from "../../logic/strings";
 import { displayNumber, string2number } from "../../logic/units";
@@ -43,15 +43,10 @@ import { validateIso8601Date } from "../../validation/iso8601Date";
 import { validatePositiveInteger } from "../../validation/positiveInteger";
 
 import { deleteRegistration, updateRegistration } from "../../actions/registrationActions";
-import { FormControlTypeHack, checkExhausted, assertString, assertFlight, assertSex } from "../../types/utils";
+import { checkExhausted, assertString, assertFlight, assertSex } from "../../types/utils";
 import { Entry, Equipment, Language, Validation } from "../../types/dataTypes";
 import { Dispatch } from "redux";
 import { GlobalState, MeetState } from "../../types/stateTypes";
-
-type OptionType = {
-  label: string;
-  value: string;
-};
 
 interface OwnProps {
   id: number;
@@ -109,7 +104,7 @@ class LifterRow extends React.Component<Props, InternalState> {
     this.props.deleteRegistration(this.props.id);
   }
 
-  updateRegistrationDay(event: React.FormEvent<FormControlTypeHack>) {
+  updateRegistrationDay(event: React.BaseSyntheticEvent) {
     const day = Number(event.currentTarget.value);
     const entry = this.props.entry;
 
@@ -125,42 +120,42 @@ class LifterRow extends React.Component<Props, InternalState> {
     }
   }
 
-  updateRegistrationPlatform(event: React.FormEvent<FormControlTypeHack>) {
+  updateRegistrationPlatform(event: React.BaseSyntheticEvent) {
     const platform = Number(event.currentTarget.value);
     if (this.props.entry.platform !== platform) {
       this.props.updateRegistration(this.props.id, { platform: platform });
     }
   }
 
-  updateRegistrationFlight(event: React.FormEvent<FormControlTypeHack>) {
+  updateRegistrationFlight(event: React.BaseSyntheticEvent) {
     const value = event.currentTarget.value;
     if (this.props.entry.flight !== value && assertString(value) && assertFlight(value)) {
       this.props.updateRegistration(this.props.id, { flight: value });
     }
   }
 
-  updateRegistrationName(event: React.FocusEvent<FormControlTypeHack>) {
+  updateRegistrationName(event: React.BaseSyntheticEvent) {
     const name = event.currentTarget.value;
     if (this.props.entry.name !== name && assertString(name)) {
       this.props.updateRegistration(this.props.id, { name: name });
     }
   }
 
-  updateRegistrationSex(event: React.FormEvent<FormControlTypeHack>) {
+  updateRegistrationSex(event: React.BaseSyntheticEvent) {
     const sex = event.currentTarget.value;
     if (this.props.entry.sex !== sex && assertString(sex) && assertSex(sex)) {
       this.props.updateRegistration(this.props.id, { sex: sex });
     }
   }
 
-  updateRegistrationLot(event: React.FormEvent<FormControlTypeHack> & { currentTarget: { value: string } }) {
+  updateRegistrationLot(event: React.BaseSyntheticEvent & { currentTarget: { value: string } }) {
     const asNumber = string2number(event.currentTarget.value);
     if (asNumber >= 0 && asNumber !== this.props.entry.lot) {
       this.props.updateRegistration(this.props.id, { lot: asNumber });
     }
   }
 
-  updateRegistrationMemberId = (event: React.FormEvent<FormControlTypeHack>) => {
+  updateRegistrationMemberId = (event: React.BaseSyntheticEvent) => {
     const memberId = event.currentTarget.value;
     if (this.props.entry.memberId !== memberId && typeof memberId === "string") {
       this.props.updateRegistration(this.props.id, { memberId: memberId });
@@ -192,7 +187,7 @@ class LifterRow extends React.Component<Props, InternalState> {
     }
   };
 
-  updateRegistrationDivisions(value: ValueType<OptionType> | null) {
+  updateRegistrationDivisions(value: any) {
     if (value instanceof Array) {
       // Since updates are synchronous, we can just compare lengths.
       if (value.length !== this.props.entry.divisions.length) {
@@ -210,7 +205,7 @@ class LifterRow extends React.Component<Props, InternalState> {
     }
   }
 
-  updateRegistrationEvents(value: ValueType<OptionType> | null) {
+  updateRegistrationEvents(value: any) {
     if (value instanceof Array) {
       // Since updates are synchronous, we can just compare lengths.
       if (value.length !== this.props.entry.events.length) {
@@ -228,7 +223,7 @@ class LifterRow extends React.Component<Props, InternalState> {
     }
   }
 
-  updateRegistrationEquipment(event: React.FormEvent<FormControlTypeHack>) {
+  updateRegistrationEquipment(event: React.BaseSyntheticEvent) {
     const equipment = event.currentTarget.value as Equipment;
     if (this.props.entry.equipment !== equipment) {
       // Ensure value is something we expect & assist the compiler in helping us
@@ -248,7 +243,7 @@ class LifterRow extends React.Component<Props, InternalState> {
     }
   }
 
-  updateRegistrationGuest = (event: React.FocusEvent<FormControlTypeHack>) => {
+  updateRegistrationGuest = (event: React.BaseSyntheticEvent) => {
     if (event.currentTarget.value === "true") {
       this.props.updateRegistration(this.props.id, { guest: true });
     } else {
@@ -256,19 +251,19 @@ class LifterRow extends React.Component<Props, InternalState> {
     }
   };
 
-  updateRegistrationTeam = (event: React.FocusEvent<FormControlTypeHack>) => {
+  updateRegistrationTeam = (event: React.BaseSyntheticEvent) => {
     if (assertString(event.currentTarget.value)) {
       this.props.updateRegistration(this.props.id, { team: event.currentTarget.value });
     }
   };
 
-  updateRegistrationInstagram = (event: React.FocusEvent<FormControlTypeHack>) => {
+  updateRegistrationInstagram = (event: React.BaseSyntheticEvent) => {
     if (assertString(event.currentTarget.value)) {
       this.props.updateRegistration(this.props.id, { instagram: event.currentTarget.value });
     }
   };
 
-  updateRegistrationNotes = (event: React.FocusEvent<FormControlTypeHack>) => {
+  updateRegistrationNotes = (event: React.BaseSyntheticEvent) => {
     if (assertString(event.currentTarget.value)) {
       this.props.updateRegistration(this.props.id, { notes: event.currentTarget.value });
     }

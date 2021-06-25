@@ -33,4 +33,5 @@ import tr from "./tr.json";
 import uk from "./uk.json";
 import zh_Hans from "./zh-Hans.json";
 
-export default { de, el, eo, en, es, et, fr, hr, it, lt, nl, pt, ru, tr, uk, "zh-Hans": zh_Hans };
+const languages = { de, el, eo, en, es, et, fr, hr, it, lt, nl, pt, ru, tr, uk, "zh-Hans": zh_Hans };
+export default languages;

@@ -196,7 +196,7 @@ class RegistrationView extends React.Component<Props, InternalState> {
       }
 
       // Successfully parsed and loaded!
-      const entries: Array<Entry> = maybeEntries;
+      const entries: Array<Partial<Entry>> = maybeEntries;
 
       // If the mode is "Overwrite", delete all existing Entries.
       if (globalImportKind === "Overwrite") {

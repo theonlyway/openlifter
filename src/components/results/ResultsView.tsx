@@ -44,7 +44,7 @@ import { Entry, Language } from "../../types/dataTypes";
 import { GlobalState } from "../../types/stateTypes";
 
 import styles from "./ResultsView.module.scss";
-import { FormControlTypeHack, checkExhausted, assertString } from "../../types/utils";
+import { checkExhausted, assertString } from "../../types/utils";
 import { Dispatch } from "redux";
 
 type ResultsBy = "Division" | "Points" | "BestMastersLifter" | "BestJuniorsLifter";
@@ -127,14 +127,14 @@ class ResultsView extends React.Component<Props, InternalState> {
     return options;
   };
 
-  handleDayChange = (event: React.FormEvent<FormControlTypeHack>) => {
+  handleDayChange = (event: React.BaseSyntheticEvent) => {
     const day = Number(event.currentTarget.value);
     if (this.state.day !== day) {
       this.setState({ day: day });
     }
   };
 
-  handleByChange = (event: React.FormEvent<FormControlTypeHack>) => {
+  handleByChange = (event: React.BaseSyntheticEvent) => {
     const by = event.currentTarget.value;
     if (this.state.by !== by && assertString(by) && assertValidResultsBy(by)) {
       this.setState({ by: by });

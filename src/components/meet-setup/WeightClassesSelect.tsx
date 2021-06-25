@@ -32,7 +32,6 @@ import { Language, Sex } from "../../types/dataTypes";
 import { GlobalState } from "../../types/stateTypes";
 import { checkExhausted } from "../../types/utils";
 import { Dispatch } from "redux";
-import { ValueType } from "react-select";
 
 const components = {
   DropdownIndicator: null,
@@ -105,7 +104,7 @@ class WeightClassesSelect extends React.Component<Props, InternalState> {
     this.props.setWeightClasses(this.props.sex, classes);
   };
 
-  handleChange = (value: ValueType<OptionType> | null): void => {
+  handleChange = (value: any): void => {
     if (value instanceof Array) {
       this.setState({ value: value });
       this.maybeUpdateRedux(value);
