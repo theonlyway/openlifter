@@ -191,7 +191,7 @@ class LeftCard extends React.Component<Props> {
           </div>
         </div>
         {nextBarLoad}
-        <img src="atc-logo.png" style={{width: "40%", display: "block", margin: "auto"}}/>
+        <img src="atc-logo.png" style={{ width: "40%", display: "block", margin: "auto" }} />
       </div>
     );
   }

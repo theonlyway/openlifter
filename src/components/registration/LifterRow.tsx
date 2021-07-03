@@ -39,7 +39,7 @@ import { displayNumber, string2number } from "../../logic/units";
 import LocalizedString from "../translations/LocalizedString";
 import ValidatedInput from "../ValidatedInput";
 
-import { validateIso8601Date, validateEuropeanDate } from "../../validation/iso8601Date";
+import { validateEuropeanDate } from "../../validation/iso8601Date";
 import { validatePositiveInteger } from "../../validation/positiveInteger";
 
 import { deleteRegistration, updateRegistration } from "../../actions/registrationActions";

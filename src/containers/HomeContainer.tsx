@@ -237,7 +237,7 @@ class HomeContainer extends React.Component<Props, InternalState> {
         />
 
         <Card.Header>
-          <img alt="ATC" src="atc-logo.png" style={{width: "50%", margin: "auto", display: "block"}} />
+          <img alt="ATC" src="atc-logo.png" style={{ width: "50%", margin: "auto", display: "block" }} />
           {betaWarning}
         </Card.Header>
 
