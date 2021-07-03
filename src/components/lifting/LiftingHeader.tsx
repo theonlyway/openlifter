@@ -77,6 +77,7 @@ class LiftingHeader extends React.Component<Props> {
       <div className={styles.header}>
         <div className={styles.lifterName}>{lifterName}</div>
         <div className={styles.info}>{info}</div>
+        <img className={styles.logo} src="atc-horizontal.png" style={{ height: "100%", marginLeft: "auto" }} />
       </div>
     );
   }
