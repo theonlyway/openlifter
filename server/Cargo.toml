@@ -1,0 +1,10 @@
+[package]
+name = "openlifter-server"
+version = "0.1.0"
+edition = "2018"
+license = "AGPL-3.0-or-later"
+
+[dependencies]
+rocket = { version = "0.5.0-rc.1", features = ["json"] }
+rocket_dyn_templates = { version = "0.1.0-rc.1", features = ["tera"] }
+mimalloc = { version = "0.1", default-features = false }
