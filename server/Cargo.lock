@@ -959,6 +959,9 @@ dependencies = [
  "mimalloc",
  "rocket",
  "rocket_dyn_templates",
+ "serde",
+ "serde_derive",
+ "serde_json",
 ]
 
 [[package]]
