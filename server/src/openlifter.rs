@@ -1,6 +1,7 @@
 //! Rust definitions for OpenLifter datatypes.
 
-// TODO(sstangl): Replace (most) uses of f64 with the OpenPowerlifting WeightKg.
+use opltypes::WeightKg;
+
 // TODO(sstangl): Do we want deny_unknown_fields?
 // TODO(sstangl): Note that we don't have to validate due to templating.
 
@@ -46,12 +47,12 @@ pub struct Entry {
     guest: bool,
     instagram: Option<String>,
     notes: String,
-    bodyweight_kg: f64,
+    bodyweight_kg: WeightKg,
     squat_rack_info: String,
     bench_rack_info: String,
-    squat_kg: Vec<f64>,
-    bench_kg: Vec<f64>,
-    deadlift_kg: Vec<f64>,
+    squat_kg: Vec<WeightKg>,
+    bench_kg: Vec<WeightKg>,
+    deadlift_kg: Vec<WeightKg>,
     squat_status: Vec<u32>,    // TODO: Vec<LiftStatus>
     bench_status: Vec<u32>,    // TODO: Vec<LiftStatus>
     deadlift_status: Vec<u32>, // TODO: Vec<LiftStatus>
@@ -61,7 +62,7 @@ pub struct Entry {
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Plate {
-    weight_kg: f64,
+    weight_kg: WeightKg,
     pair_count: u32,
     color: String,
 }
@@ -83,9 +84,9 @@ pub struct MeetState {
 
     // Competition rules.
     divisions: Vec<String>,
-    weight_classes_kg_men: Vec<f64>,
-    weight_classes_kg_women: Vec<f64>,
-    weight_classes_kg_mx: Vec<f64>,
+    weight_classes_kg_men: Vec<WeightKg>,
+    weight_classes_kg_women: Vec<WeightKg>,
+    weight_classes_kg_mx: Vec<WeightKg>,
     formula: String,
     combine_sleeves_and_wraps: bool,
     combine_single_and_multi: bool,
@@ -93,9 +94,9 @@ pub struct MeetState {
 
     // Weights and loading setup.
     in_kg: bool,
-    squat_bar_and_collars_weight_kg: f64,
-    bench_bar_and_collars_weight_kg: f64,
-    deadlift_bar_and_collars_weight_kg: f64,
+    squat_bar_and_collars_weight_kg: WeightKg,
+    bench_bar_and_collars_weight_kg: WeightKg,
+    deadlift_bar_and_collars_weight_kg: WeightKg,
     plates: Vec<Plate>,
     show_alternate_units: bool,
 }
