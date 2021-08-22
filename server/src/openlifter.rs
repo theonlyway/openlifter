@@ -1,17 +1,20 @@
 //! Rust definitions for OpenLifter datatypes.
 
-use opltypes::WeightKg;
+use opltypes::{Event, WeightKg};
 
 // TODO(sstangl): Do we want deny_unknown_fields?
 // TODO(sstangl): Note that we don't have to validate due to templating.
 
 // TODO(sstangl): Commentary.
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct VersionsState {
     pub state_version: String,
     pub release_version: String,
 }
+
+#[derive(Debug)]
+pub enum LiftStatus {}
 
 /// Information for a particular lifter.
 ///
@@ -23,7 +26,7 @@ pub struct VersionsState {
 ///
 /// TODO(sstangl): You'd better audit this!
 /// TODO(sstangl): More commentary once this is set up.
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Entry {
     pub id: u32,
@@ -38,8 +41,8 @@ pub struct Entry {
     pub state: String,
     pub intended_weight_class_kg: String,
     pub equipment: String,
-    pub divisions: Vec<String>, // TODO: Vec<Event>
-    pub events: Vec<String>,    // TODO: Vec<Event>
+    pub divisions: Vec<String>,
+    pub events: Vec<Event>,
     pub lot: u32,
     pub member_id: String,
     pub paid: bool,
@@ -53,13 +56,13 @@ pub struct Entry {
     pub squat_kg: Vec<WeightKg>,
     pub bench_kg: Vec<WeightKg>,
     pub deadlift_kg: Vec<WeightKg>,
-    pub squat_status: Vec<u32>,    // TODO: Vec<LiftStatus>
-    pub bench_status: Vec<u32>,    // TODO: Vec<LiftStatus>
-    pub deadlift_status: Vec<u32>, // TODO: Vec<LiftStatus>
+    pub squat_status: Vec<i32>,    // TODO: Vec<LiftStatus>
+    pub bench_status: Vec<i32>,    // TODO: Vec<LiftStatus>
+    pub deadlift_status: Vec<i32>, // TODO: Vec<LiftStatus>
 }
 
 // TODO(sstangl): Commentary.
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Plate {
     pub weight_kg: WeightKg,
@@ -68,7 +71,7 @@ pub struct Plate {
 }
 
 // TODO(sstangl): Commentary.
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct MeetState {
     // Sanction information.
@@ -102,7 +105,7 @@ pub struct MeetState {
 }
 
 // TODO(sstangl): Commentary.
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct RegistrationState {
     pub next_entry_id: u32,
@@ -111,7 +114,7 @@ pub struct RegistrationState {
 }
 
 // TODO(sstangl): Commentary.
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct LiftingState {
     pub day: u32,
@@ -120,11 +123,11 @@ pub struct LiftingState {
     pub lift: String,
     pub override_attempt: Option<u32>,
     pub override_entry_id: Option<u32>,
-    pub column_division_width_px: f64,
+    // pub column_division_width_px: f64, // TODO(sstangl): Probably don't care about syncing this.
 }
 
 // TODO(sstangl): Commentary.
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct GlobalState {
     pub versions: VersionsState,
