@@ -130,6 +130,7 @@ const addEntriesRow = (
   row[csv.index("State")] = csvString(entry.state);
   row[csv.index("Equipment")] = csvString(standardizeEquipment(entry.equipment));
   row[csv.index("Division")] = csvString(category.division);
+  row[csv.index("Lot")] = csvString(entry.lot == 0 ? "" : entry.lot);
   row[csv.index("Bodyweight" + unit)] = csvString(weight(entry.bodyweightKg));
   row[csv.index("WeightClass" + unit)] = csvString(wtcls(category.weightClassStr));
   row[csv.index("Total" + unit)] = csvString(weight(finalEventTotalKg));
@@ -196,7 +197,7 @@ const makeEntriesCsv = (state: GlobalState): Csv => {
 
   csv.fieldnames = Array.prototype.concat(
     ["Place", "Name", "Instagram", "Sex", "BirthDate", "Age", "Country", "State"],
-    ["Equipment", "Division", "Bodyweight" + unit, "WeightClass" + unit],
+    ["Equipment", "Division", "Lot", "Bodyweight" + unit, "WeightClass" + unit],
     squatFieldnames,
     benchFieldnames,
     deadliftFieldnames,
