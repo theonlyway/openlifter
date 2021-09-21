@@ -54,6 +54,7 @@ type Props = StateProps & DispatchProps & OwnProps;
 
 type AutoFillOption =
   | "Traditional"
+  | "365Strong"
   | "BP"
   | "GPC"
   | "RPS"
@@ -90,6 +91,48 @@ const traditionalDefaults: Partial<MeetState> = {
     "M70-74",
     "M75-79",
     "M80+",
+  ],
+  weightClassesKgMen: [52, 56, 60, 67.5, 75, 82.5, 90, 100, 110, 125, 140],
+  weightClassesKgWomen: [44, 48, 52, 56, 60, 67.5, 75, 82.5, 90],
+  weightClassesKgMx: [52, 56, 60, 67.5, 75, 82.5, 90, 100, 110, 125, 140],
+  formula: "Wilks",
+  ageCoefficients: "FosterMcCulloch",
+  combineSleevesAndWraps: false,
+  combineSingleAndMulti: false,
+  allow4thAttempts: true,
+};
+
+const _365strongDefaults: Partial<MeetState> = {
+  divisions: [
+    "J-T",
+    "J-U",
+    "M1-T",
+    "M1-U",
+    "M2-T",
+    "M2-U",
+    "M3-T",
+    "M3-U",
+    "M4-T",
+    "M4-U",
+    "M5-T",
+    "M5-U",
+    "M6-T",
+    "M6-U",
+    "M7-T",
+    "M7-U",
+    "M8-T",
+    "M8-U",
+    "MPF-T",
+    "MPF-U",
+    "N-X",
+    "O-T",
+    "O-U",
+    "S-T",
+    "S-U",
+    "T1-X",
+    "T2-X",
+    "T3-X",
+    "Y-T",
   ],
   weightClassesKgMen: [52, 56, 60, 67.5, 75, 82.5, 90, 100, 110, 125, 140],
   weightClassesKgWomen: [44, 48, 52, 56, 60, 67.5, 75, 82.5, 90],
@@ -1412,6 +1455,7 @@ class AutoFillRules extends React.Component<Props, InternalState> {
     // Only handle any valid values & assist the compiler in giving us a compile error if AutoFillOption has more values added
     switch (value) {
       case "Traditional":
+      case "365Strong":
       case "BP":
       case "GPC":
       case "RPS":
@@ -1438,6 +1482,10 @@ class AutoFillRules extends React.Component<Props, InternalState> {
     switch (this.state.selectedOption) {
       case "Traditional":
         this.props.updateMeet(traditionalDefaults);
+        this.props.onChange();
+        return;
+      case "365Strong":
+        this.props.updateMeet(_365strongDefaults);
         this.props.onChange();
         return;
       case "BP":
@@ -1502,6 +1550,7 @@ class AutoFillRules extends React.Component<Props, InternalState> {
     const lang = this.props.language;
 
     const stringTraditional = getString("meet-setup.rules-traditional", lang);
+    const string365Strong = getString("meet-setup.rules-365strong", lang);
     const stringBP = getString("meet-setup.rules-bp", lang);
     const stringGPC = getString("meet-setup.rules-gpc", lang);
     const stringRPS = getString("meet-setup.rules-rps", lang);
@@ -1532,6 +1581,9 @@ class AutoFillRules extends React.Component<Props, InternalState> {
             >
               <option key="Traditional" value="Traditional">
                 {stringTraditional}
+              </option>
+              <option key="365Strong" value="365Strong">
+                {string365Strong}
               </option>
               <option key="BP" value="BP">
                 {stringBP}
