@@ -24,14 +24,14 @@ lint:
   script:
     - yarn run lint
 
-e2e:
+ui-firefox:
   image: cypress/browsers:node16.5.0-chrome94-ff93
   stage: test
   script:
     # run the server in the background
-    - yarn run start:ci &
+    - yarn start & npx wait-on http://localhost:3000
     # run Cypress tests
-    - yarn run e2e --browser firefox
+    - npx cypress run --browser firefox --group "UI - Firefox"
 
 pages:
   stage: deploy
