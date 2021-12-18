@@ -1,4 +1,9 @@
 {
   "baseUrl": "http://localhost:3000",
-  "testFiles": ["debug_page_spec.ts", "home_page_spec.ts", "meet_setup_page_spec.ts"]
+  "testFiles": [
+    "debug_page_spec.ts",
+    "home_page_spec.ts",
+    "meet_setup_page_spec.ts"
+  ],
+  "projectId": "myqk81"
 }
