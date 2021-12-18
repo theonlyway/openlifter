@@ -32,9 +32,8 @@ import { setTableInfo } from "../../actions/liftingActions";
 
 import { Validation } from "../../types/dataTypes";
 import { GlobalState, LiftingState } from "../../types/stateTypes";
-import { isString } from "../../types/utils";
+import { isString, isNumber } from "../../types/utils";
 import { Dispatch } from "redux";
-import { isNumber } from "util";
 
 type WidthFields = "columnDivisionWidthPx";
 

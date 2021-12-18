@@ -33,8 +33,7 @@ import { displayWeight, kg2lbs } from "../../logic/units";
 import { Language, Plate } from "../../types/dataTypes";
 import { GlobalState } from "../../types/stateTypes";
 import { Dispatch } from "redux";
-import { isString } from "../../types/utils";
-import { isNumber } from "util";
+import { isString, isNumber } from "../../types/utils";
 import PlateInput from "./PlateInput";
 
 interface StateProps {

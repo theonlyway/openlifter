@@ -34,6 +34,11 @@ export function isString(value: any): value is string {
   return typeof value === "string";
 }
 
+// Convenience function to narrow a variables type down to a number
+export function isNumber(value: any): value is number {
+  return typeof value === "number";
+}
+
 // Throws an error if value isn't a string, narrows the type if it is.
 export function assertString(value: any): value is string {
   const result = isString(value);
