@@ -25,11 +25,11 @@ lint:
     - yarn run lint
 
 e2e:
-  image: node:latest
+  image: cypress/browsers:node12.14.1-chrome85-ff81
   stage: test
   script:
     # run Cypress tests
-    - yarn run e2e
+    - yarn run e2e --browser firefox
 
 pages:
   stage: deploy
