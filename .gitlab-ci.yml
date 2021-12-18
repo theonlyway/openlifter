@@ -31,7 +31,7 @@ ui-firefox:
     # run the server in the background
     - yarn start & npx wait-on http://localhost:3000
     # run Cypress tests
-    - npx cypress run --browser firefox
+    - npx cypress run
 
 pages:
   stage: deploy
