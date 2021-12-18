@@ -24,6 +24,13 @@ lint:
   script:
     - yarn run lint
 
+e2e:
+  image: node:latest
+  stage: test
+  script:
+    # run Cypress tests
+    - yarn run e2e
+
 pages:
   stage: deploy
   before_script:
