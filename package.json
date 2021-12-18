@@ -44,8 +44,7 @@
     "preelectron-pack": "yarn build",
     "manage:translations": "node ./src/translations/manage.js",
     "e2e": "cypress run",
-    "start:ci": "serve --no-clipboard --listen ${PORT:-3000}",
-    "start:ci:windows": "serve --no-clipboard --listen 3000"
+    "start:ci": "yarn start & wait-on http://localhost:3000"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -85,7 +84,6 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-mock-store": "^1.5.3",
     "rimraf": "^3.0.0",
-    "serve": "^13.0.2",
     "typescript": "^4.5.4",
     "typescript-react-intl": "^0.4.0",
     "wait-on": "^3.2.0"
