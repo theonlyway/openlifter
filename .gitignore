@@ -46,3 +46,8 @@ yarn-error.log*
 geckodriver.log
 *.retry
 .DS_Store
+
+# Testing Artifacts
+cypress/videos
+cypress/screenshots
+cypress/downloads

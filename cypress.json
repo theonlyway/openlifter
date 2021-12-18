@@ -1,0 +1,9 @@
+{
+  "baseUrl": "http://localhost:3000",
+  "experimentalStudio": true,
+  "testFiles": [
+    "debug_page_spec.ts",
+    "home_page_spec.ts",
+    "meet_setup_page_spec.ts"
+  ]
+}
