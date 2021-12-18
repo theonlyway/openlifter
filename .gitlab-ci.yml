@@ -25,7 +25,7 @@ lint:
     - yarn run lint
 
 e2e:
-  image: cypress/browsers:node12.14.1-chrome85-ff81
+  image: cypress/browsers:node16.5.0-chrome94-ff93
   stage: test
   script:
     # run Cypress tests
