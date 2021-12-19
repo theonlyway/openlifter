@@ -1,10 +1,15 @@
 
 image: node:14-buster
 
+# cache using branch name
+# https://gitlab.com/help/ci/caching/index.md
 cache:
+  key: ${CI_COMMIT_REF_SLUG}
   paths:
-    - node_modules/
     - .yarn
+    - cache/Cypress
+    - node_modules
+
 
 before_script:
   - yarn config set cache-folder .yarn
