@@ -1,3 +1,4 @@
+
 image: node:14-buster
 
 cache:
@@ -25,13 +26,15 @@ lint:
     - yarn run lint
 
 ui-chrome:
+  variables:
+    CYPRESS_DASHBOARD_KEY: $CYPRESS_DASHBOARD_KEY
   image: cypress/browsers:node16.5.0-chrome94-ff93
   stage: test
   script:
     # run the server in the background
     - yarn start & npx wait-on http://localhost:3000
     # run Cypress tests
-    - npx cypress run --record --key $CYPRESS_DASHBOARD_KEY
+    - npx cypress run --record --key "$CYPRESS_DASHBOARD_KEY"
 
 pages:
   stage: deploy
