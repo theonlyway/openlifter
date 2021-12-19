@@ -31,8 +31,9 @@ ui-chrome:
   image: cypress/browsers:node16.5.0-chrome94-ff93
   stage: test
   script:
+    - make build
     # run the server in the background
-    - yarn start & npx wait-on http://localhost:3000
+    - yarn serve -s build &
     # run Cypress tests
     - npx cypress run --record --key "$CYPRESS_DASHBOARD_KEY"
 
