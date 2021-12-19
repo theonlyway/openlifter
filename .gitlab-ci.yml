@@ -34,7 +34,7 @@ ui-chrome:
     # run the server in the background
     - yarn start & npx wait-on http://localhost:3000
     # run Cypress tests
-    - npx cypress run --record --key "$CYPRESS_DASHBOARD_KEY"
+    - npx cypress run --record --key $CYPRESS_DASHBOARD_KEY
 
 pages:
   stage: deploy
