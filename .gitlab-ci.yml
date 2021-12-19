@@ -27,7 +27,7 @@ lint:
 
 ui-chrome:
   variables:
-    CYPRESS_DASHBOARD_KEY: $CYPRESS_DASHBOARD_KEY
+    CYPRESS_DASHBOARD_KEY: "$CYPRESS_DASHBOARD_KEY"
   image: cypress/browsers:node16.5.0-chrome94-ff93
   stage: test
   script:
@@ -35,7 +35,7 @@ ui-chrome:
     # run the server in the background
     - yarn serve -s build &
     # run Cypress tests
-    - npx cypress run --record --key "$CYPRESS_DASHBOARD_KEY"
+    - npx cypress run --record --key $CYPRESS_DASHBOARD_KEY
 
 pages:
   stage: deploy
