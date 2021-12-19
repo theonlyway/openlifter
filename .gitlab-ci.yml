@@ -27,7 +27,7 @@ lint:
 
 ui-chrome:
   variables:
-    CYPRESS_DASHBOARD_KEY: $CYPRESS_DASHBOARD_KEY
+    CYPRESS_DASHBOARD_KEY: "$CYPRESS_DASHBOARD_KEY"
   image: cypress/browsers:node16.5.0-chrome94-ff93
   stage: test
   script:
