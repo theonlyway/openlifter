@@ -17,6 +17,7 @@ src/bootstrap-custom/bootstrap-custom.css
 
 # Build artifacts.
 website/themes/rusty/static/css/rusty.css
+website/themes/rusty/static/css/rusty.css.map
 website/static/releases
 
 # Build directories.
