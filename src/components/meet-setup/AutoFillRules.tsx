@@ -1002,7 +1002,7 @@ const uspcDefaults: Partial<MeetState> = {
     "M80+",
   ],
   weightClassesKgMen: [52, 56, 60, 67.5, 75, 82.5, 90, 100, 110, 125, 140],
-  weightClassesKgWomen: [44, 48, 52, 56, 60, 67.5, 75, 82.5, 90, 100, 110],
+  weightClassesKgWomen: [44, 48, 52, 56, 60, 67.5, 75, 82.5, 90, 100, 110, 125, 140],
   weightClassesKgMx: [52, 56, 60, 67.5, 75, 82.5, 90, 100, 110, 125, 140],
   formula: "Wilks2020",
   ageCoefficients: "FosterMcCulloch",
