@@ -1387,7 +1387,7 @@ const wpcDefaults: Partial<MeetState> = {
     "M_YR_A",
   ],
   weightClassesKgMen: [52, 56, 60, 67.5, 75, 82.5, 90, 100, 110, 125, 140],
-  weightClassesKgWomen: [44, 48, 52, 56, 60, 67.5, 75, 82.5, 90],
+  weightClassesKgWomen: [44, 48, 52, 56, 60, 67.5, 75, 82.5, 90, 100, 110],
   weightClassesKgMx: [52, 56, 60, 67.5, 75, 82.5, 90, 100, 110, 125, 140],
   formula: "Glossbrenner",
   ageCoefficients: "FosterMcCulloch",
