@@ -312,7 +312,7 @@ releases.in-development:
 releases.major-changes-in-the-next-version:
   other: Wesentliche Änderungen kommen in der nächsten Version
 releases.changelog-initial-public-release:
-  other: Erste öffentliche Veröffentlichung
+  other: Erste Veröffentlichung
 guide.faq-lot-numbers-question:
   # Lot Number doesn´t translate well, might have to see what it´s called in the software or leave it as the Englisch Term?
   other: Wofür gibt es die Teilnehmer-Nummern
