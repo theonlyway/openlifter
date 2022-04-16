@@ -306,7 +306,7 @@
   "results.division-template": "{sex} {weightClass} {spokenUnits} {equipment} {division} {event}",
   "results.export-openpowerlifting-button": "Für OpenPowerlifting exportieren",
   "results.export-platform": "Tag {day} Plattform {platform} exportieren",
-  "results.export-results-card-header": "Ofizielle Ergebnisse exportieren",
+  "results.export-results-card-header": "Offizielle Ergebnisse exportieren",
   "results.export-usapl-button": "Für USAPL exportieren",
   "results.just-day-n": "Nur Tag {N}",
   "results.lifter-disqualified": "Disqualifiziert",
