@@ -252,7 +252,7 @@ support.no-warranty:
   other: OpenLifter ist kostenlos und ein open source Programm. Leider gibt es keine Garantie oder Support.
 support.we-have-services:
   # Might wanna be careful offering this in other languages/countries?
-  other: Falls Sie technische Hilfe für Ihren Wettkampf benötigen, bieten wir mehrere Optionen an &mdash; von einem generellen Tutorial zur Software und Service-Optionen um zu schauen ob alles korrekt eingegeben wurde, bis hin zu Unterstützung bei der Ergebnisverwaltung und Schulung Ihrer Angestellten vor Ort.
+  other: Falls Sie technische Hilfe für Ihren Wettkampf benötigen, bieten wir mehrere Optionen an &mdash; von einem generellen Tutorial zur Software und Service-Optionen um zu schauen, ob alles korrekt eingegeben wurde, bis hin zu Unterstützung bei der Ergebnisverwaltung und Schulung Ihrer Angestellten vor Ort.
 support.contact-us-button:
   other: Kontakt
 support.customization-header:
