@@ -9,7 +9,7 @@ header.support:
   other: Support
 header.source:
   # Please use just one short word. Otherwise the site layout breaks.
-  other: Quelle
+  other: Quellcode
 footer.other-languages-intro:
   other: Unsere Seite in anderen Sprachen
 index.html-title:
