@@ -315,7 +315,7 @@
   "results.merge-error-title": "Fehler beim Zusammenfügen",
   "results.merge-platform": "Tag {day} Plattform {platform} zusammenfügen",
   "results.merge-platforms-card-header": "Plattformen zusammenfügen",
-  "results.merge-platforms-warning": "Das Zusammenführen der Plattformen überschreibt vorhandene Datein, bitte speichern Sie vor dem Zusammenfügen.",
+  "results.merge-platforms-warning": "Das Zusammenführen der Plattformen überschreibt vorhandene Dateien, bitte speichern Sie vor dem Zusammenfügen.",
   "results.mxs": "Mx",
   "results.platform-export-filename": "{meetName}-Tag-{day}-Plattform-{platform}",
   "results.results-card-header": "Ergebnisse für...",
