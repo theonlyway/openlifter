@@ -19,7 +19,7 @@ index.html-meta-description:
 index.html-meta-keywords:
   other: Wettkampfsoftware für den Kraftdreikampf, KDK Wettkampfsoftware, Kraftdreikampf Wettkampfsoftware
 index.main-pitch:
-  other: <b>OpenLifter</b> ist ein Kraftdreikampf Wettkampfsoftware Programm, das unglaublich schnell ausgeführt wird, überall anwendbar ist und Spaß macht.
+  other: <b>OpenLifter</b> ist ein Kraftdreikampf Wettkampfsoftware Programm, das unglaublich schnell ausgeführt wird, überall ausführbar ist und Spaß macht.
 index.run-button:
   # The <span>{{ .Count }}</span> will show the version number.
   other: OpenLifter <span>{{ .Count }}</span> ausführen
