@@ -122,7 +122,7 @@
   "home.new-meet-popup-message-sure": "Möchten Sie wirklich fortfahren?",
   "home.new-meet-popup-title": "Soll {meetName} gelöscht werden?",
   "home.version-date": "Version {releaseVersion}, {releaseDate}.",
-  "home.wrong-version-warning": "Der geladene Wettkamof wurde in OpenLifter {oldVersion} erstellt. Das Format ist nicht mit OpenLifter {thisVersion} kompatibel.",
+  "home.wrong-version-warning": "Der geladene Wettkampf wurde in OpenLifter {oldVersion} erstellt. Das Format ist nicht mit OpenLifter {thisVersion} kompatibel.",
   "import.column-age": "Alter",
   "import.column-benchRack": "BenchRack",
   "import.column-birthdate": "Geburtsdatum",
