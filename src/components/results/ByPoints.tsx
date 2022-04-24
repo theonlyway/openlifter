@@ -275,8 +275,8 @@ class ByPoints extends React.Component<Props> {
         switch (this.props.ageCoefficients) {
           case "None":
             return true;
-          case "FosterMcCulloch":
-            return fosterMcCulloch(e.age) !== 1.0;
+          case "FosterMcCulloch": // No bump at 40, but they're considered Masters.
+            return e.age >= 40 || fosterMcCulloch(e.age) !== 1.0;
           default:
             checkExhausted(this.props.ageCoefficients);
             return true;
