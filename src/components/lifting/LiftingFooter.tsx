@@ -132,6 +132,16 @@ class LiftingFooter extends React.Component<Props> {
   handleAttemptChange = (event: React.BaseSyntheticEvent) => {
     const attempt = Number(event.currentTarget.value);
     this.props.overrideAttempt(attempt);
+    //also override EntryId so that we stay on the current
+    //lifter when changing attempt, otherwise liftingOrder.ts:getCurrentEntryId()
+    //can't figure out the current entry based on which entries have
+    //attempt weights entered and taken or not taken, and we
+    //end up with "Flight Complete" unless the entry would be separately
+    //overridden via the lifter change control
+    if (this.props.currentEntryId !== null) {
+      const entryId = Number(this.props.currentEntryId);
+      this.props.overrideEntryId(entryId);
+    }
   };
 
   handleLifterChange = (event: React.BaseSyntheticEvent) => {
