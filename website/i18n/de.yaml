@@ -9,7 +9,7 @@ header.support:
   other: Support
 header.source:
   # Please use just one short word. Otherwise the site layout breaks.
-  other: Quelle
+  other: Quellcode
 footer.other-languages-intro:
   other: Unsere Seite in anderen Sprachen
 index.html-title:
@@ -19,7 +19,7 @@ index.html-meta-description:
 index.html-meta-keywords:
   other: Wettkampfsoftware für den Kraftdreikampf, KDK Wettkampfsoftware, Kraftdreikampf Wettkampfsoftware
 index.main-pitch:
-  other: <b>OpenLifter</b> ist ein Kraftdreikampf Wettkampfsoftware Programm, das unglaublich schnell ausgeführt wird, überall anwendbar ist und Spaß macht.
+  other: <b>OpenLifter</b> ist ein Kraftdreikampf Wettkampfsoftware Programm, das unglaublich schnell ausgeführt wird, überall ausführbar ist und Spaß macht.
 index.run-button:
   # The <span>{{ .Count }}</span> will show the version number.
   other: OpenLifter <span>{{ .Count }}</span> ausführen
@@ -128,7 +128,7 @@ about.table-row-generic-yes:
 about.table-row-multi-platform:
   other: Mehrere Plattformen
 about.table-row-multi-platform-yes-usb:
-  other: Ja (USB Stecker)
+  other: Ja (USB Stick)
 about.table-row-autosave:
   other: Automatisches Speichern
 about.table-row-training:
@@ -187,7 +187,7 @@ guide.faq-multiple-divisions-answer:
 guide.faq-multiple-platforms-question:
   other: Kann es mehrere Wettkampfplattformen geben?
 guide.faq-multiple-platforms-answer:
-  other: Ja. In diesem Fall muss eine Möglichkeit gefunden werden die Daten zwischen mehreren Computern auszutauschen, üblicherweise per USB. Erstellen Sie den Wettkampf und tragen Sie alle Teilnehmer auf einem Computer ein, dann speichern Sie auf der Startseite. Übertragen Sie dann die gespeicherte Datei auf alle Computer der einzelnen Wettkampfplattformen und laden Sie die Datei in OpenLifter hoch. Sobald die Veranstaltung beendet ist, erscheinen auf der Ergebnisseite Buttons zum exportieren und zusammenfügen aller Plattformen. Nutzen Sie den USB Stecker zum zusammenfügen und exportieren. Dann haben Sie alle Ergebnisse auf einem Computer und alle Plattformen sind in den Ergebnissen enthalten.
+  other: Ja. In diesem Fall muss eine Möglichkeit gefunden werden die Daten zwischen mehreren Computern auszutauschen, üblicherweise per USB. Erstellen Sie den Wettkampf und tragen Sie alle Teilnehmer auf einem Computer ein, dann speichern Sie auf der Startseite. Übertragen Sie dann die gespeicherte Datei auf alle Computer der einzelnen Wettkampfplattformen und laden Sie die Datei in OpenLifter hoch. Sobald die Veranstaltung beendet ist, erscheinen auf der Ergebnisseite Buttons zum exportieren und zusammenfügen aller Plattformen. Nutzen Sie den USB Stick zum zusammenfügen und exportieren. Dann haben Sie alle Ergebnisse auf einem Computer und alle Plattformen sind in den Ergebnissen enthalten.
 guide.faq-changing-registration-later-question:
   other: Geht alles kaputt wenn ich nach dem Beginn des Hebens was an der Registrierung ändere?
 guide.faq-changing-registration-later-answer:
@@ -212,7 +212,7 @@ guide.faq-saving-frequency-answer:
 guide.faq-lifting-text-question:
   other: Die Schriftgröße auf der Wettkampfseite ist viel zu groß!
 guide.faq-lifting-text-answer:
-  other: Nutzen Sie die "Zoom in" und "Zoom out" buttons Ihres Browsers um die Schriftgröße an ihren Bildschirm anzupassen. In den meisten Browsern lässt sich die Größe auch mit drücken der Strg Taste und dem Mausrädchen regeln.
+  other: Nutzen Sie die "Zoom in" und "Zoom out" buttons Ihres Browsers um die Schriftgröße an ihren Bildschirm anzupassen. In den meisten Browsern lässt sich die Größe auch mit Drücken der Strg Taste und dem Mausrädchen regeln.
 guide.faq-results-text-question:
   other: Die Schriftgröße auf der Ergebnisseite ist viel zu klein!
 guide.faq-results-text-answer:
@@ -252,7 +252,7 @@ support.no-warranty:
   other: OpenLifter ist kostenlos und ein open source Programm. Leider gibt es keine Garantie oder Support.
 support.we-have-services:
   # Might wanna be careful offering this in other languages/countries?
-  other: Falls Sie technische Hilfe für Ihren Wettkampf benötigen, bieten wir mehrere Optionen an &mdash; von einem generellen Tutorial zur Software und Service-Optionen um zu schauen ob alles korrekt eingegeben wurde, bis hin zu Unterstützung bei der Ergebnisverwaltung und Schulung Ihrer Angestellten vor Ort.
+  other: Falls Sie technische Hilfe für Ihren Wettkampf benötigen, bieten wir mehrere Optionen an &mdash; von einem generellen Tutorial zur Software und Service-Optionen um zu schauen, ob alles korrekt eingegeben wurde, bis hin zu Unterstützung bei der Ergebnisverwaltung und Schulung Ihrer Angestellten vor Ort.
 support.contact-us-button:
   other: Kontakt
 support.customization-header:
@@ -312,9 +312,9 @@ releases.in-development:
 releases.major-changes-in-the-next-version:
   other: Wesentliche Änderungen kommen in der nächsten Version
 releases.changelog-initial-public-release:
-  other: Erste öffentliche Veröffentlichung
+  other: Erste Veröffentlichung
 guide.faq-lot-numbers-question:
   # Lot Number doesn´t translate well, might have to see what it´s called in the software or leave it as the Englisch Term?
   other: Wofür gibt es die Teilnehmer-Nummern
 guide.faq-lot-numbers-answer:
-  other: Die Teilnehmer-Nummern helfen zu Entscheiden wer zuerst antritt wenn zwei Teilnehmer mit dem gleichen Gewicht starten. Der Teilnehmer mit der niedrigeren Nummer startet zuerst. Manche Verbände schreiben dieses Vorgehen vor.  Normalerweise wird die Reihenfolge der Nummern vom Organisator in der Riehenfolge der Registrierungen vergeben.</p><p>Die Nutzung der Teilnehmer-Nummern ist nicht dringend nötig. Wenn Sie keine Nummern vergeben, wird OpenLifter bei gleichem Gewicht die gleiche Reihenfolge wie im vorherigen Versuch nutzen. Diese Vorgehensweise funktioniert gut und wird von den Teilnehmern erwartet. Wenn Ihr Verband keine Teilnehmer-Nummern vorschreibt empfehlen wir diese nicht zu nutzen.
+  other: Die Teilnehmer-Nummern helfen zu Entscheiden wer zuerst antritt, wenn zwei Teilnehmer mit dem gleichen Gewicht starten. Der Teilnehmer mit der niedrigeren Nummer startet zuerst. Manche Verbände schreiben dieses Vorgehen vor.  Normalerweise wird die Reihenfolge der Nummern vom Organisator in der Reihenfolge der Registrierungen vergeben.</p><p>Die Nutzung der Teilnehmer-Nummern ist optional. Wenn Sie keine Nummern vergeben, wird OpenLifter bei gleichem Gewicht die gleiche Reihenfolge wie im vorherigen Versuch nutzen. Diese Vorgehensweise funktioniert gut und wird von den Teilnehmern erwartet. Wenn Ihr Verband keine Teilnehmer-Nummern vorschreibt, empfehlen wir diese nicht zu nutzen.
