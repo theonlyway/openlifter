@@ -57,6 +57,10 @@ class LiftingHeader extends React.Component<Props> {
 
       const infoBuilder: Array<string> = [];
 
+      if (typeof entry.pronouns === "string" && entry.pronouns !== "") {
+        infoBuilder.push("(" + entry.pronouns + ")");
+      }
+
       if (typeof entry.instagram === "string" && entry.instagram !== "") {
         infoBuilder.push("@" + entry.instagram);
       } else {

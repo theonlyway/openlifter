@@ -36,6 +36,7 @@ export const newDefaultEntry = (id: number): Entry => {
 
     // Information about the lifter themselves.
     name: "", // The lifter's name.
+    pronouns: "",
     sex: "M", // The lifter's sex.
     birthDate: "", // The lifter's birthdate (YYYY-MM-DD).
     age: 0, // The lifter's age in years

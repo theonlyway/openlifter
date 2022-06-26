@@ -64,6 +64,7 @@ export type Entry = {
   platform: number;
   flight: Flight;
   name: string;
+  pronouns: string;
   sex: Sex;
   birthDate: string;
   age: number;

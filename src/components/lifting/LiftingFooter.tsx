@@ -139,8 +139,8 @@ class LiftingFooter extends React.Component<Props> {
     //end up with "Flight Complete" unless the entry would be separately
     //overridden via the lifter change control
     if (this.props.currentEntryId !== null) {
-      const entryId = Number(this.props.currentEntryId);
-      this.props.overrideEntryId(entryId);
+     const entryId = Number(this.props.currentEntryId);
+     this.props.overrideEntryId(entryId);
     }
   };
 

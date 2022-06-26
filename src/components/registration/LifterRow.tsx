@@ -84,6 +84,7 @@ class LifterRow extends React.Component<Props, InternalState> {
     this.updateRegistrationPlatform = this.updateRegistrationPlatform.bind(this);
     this.updateRegistrationFlight = this.updateRegistrationFlight.bind(this);
     this.updateRegistrationName = this.updateRegistrationName.bind(this);
+    this.updateRegistrationPronouns = this.updateRegistrationPronouns.bind(this);
     this.updateRegistrationSex = this.updateRegistrationSex.bind(this);
     this.updateRegistrationLot = this.updateRegistrationLot.bind(this);
     this.updateRegistrationMemberId = this.updateRegistrationMemberId.bind(this);
@@ -138,6 +139,13 @@ class LifterRow extends React.Component<Props, InternalState> {
     const name = event.currentTarget.value;
     if (this.props.entry.name !== name && assertString(name)) {
       this.props.updateRegistration(this.props.id, { name: name });
+    }
+  }
+
+  updateRegistrationPronouns(event: React.BaseSyntheticEvent) {
+    const pronouns = event.currentTarget.value;
+    if (this.props.entry.pronouns !== pronouns && assertString(pronouns)) {
+      this.props.updateRegistration(this.props.id, { pronouns: pronouns });
     }
   }
 
@@ -618,7 +626,7 @@ class LifterRow extends React.Component<Props, InternalState> {
 
           <Container style={gridStyle}>
             <Row>
-              {/* Notes */}
+              {/* Instagram */}
               <Col md={2}>
                 <Form.Group>
                   <Form.Label>
@@ -638,8 +646,23 @@ class LifterRow extends React.Component<Props, InternalState> {
                 </Form.Group>
               </Col>
 
+              {/* Pronouns */}
+              <Col md={2}>
+                <Form.Group>
+                  <Form.Label>
+                    <FormattedMessage id="registration.pronouns-label" defaultMessage="Pronouns" />
+                  </Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder=""
+                    value={entry.pronouns}
+                    onChange={this.updateRegistrationPronouns}
+                  />
+                </Form.Group>
+              </Col>
+
               {/* Notes */}
-              <Col md={10}>
+              <Col md={8}>
                 <Form.Group>
                   <Form.Label>
                     <FormattedMessage id="registration.notes-label" defaultMessage="Notes (for your personal use)" />
