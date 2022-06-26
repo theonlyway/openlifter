@@ -25,7 +25,7 @@
 //
 // This string is stored on the GlobalState as the property "versions.stateVersion".
 // Each save file thereby reports its own version.
-export const stateVersion: string = "0";
+export const stateVersion: string = "1";
 
 // Versioning for the OpenLifter project as a whole.
 //
