@@ -43,6 +43,7 @@ export const makeExampleRegistrationsCsv = (language: Language): string => {
   const platform = getString("import.column-platform", language);
   const flight = getString("import.column-flight", language);
   const name = getString("import.column-name", language);
+  const pronouns = getString("import.column-pronouns", language);
   const sex = getString("import.column-sex", language);
   const equipment = getString("import.column-equipment", language);
   const division1 = getString("import.column-division-n", language).replace("{N}", "1");
@@ -64,7 +65,7 @@ export const makeExampleRegistrationsCsv = (language: Language): string => {
   const instagram = getString("import.column-instagram", language);
   const notes = getString("import.column-notes", language);
 
-  csv.appendColumns([day, platform, flight, name, sex, equipment]);
+  csv.appendColumns([day, platform, flight, name, pronouns, sex, equipment]);
   csv.appendColumns([division1, division2, division3, event1, event2, event3]);
   csv.appendColumns([birthdate, age, squatRackInfo, benchRackInfo, memberid, country, state]);
   csv.appendColumns([lot, team, guest, instagram, notes]);
@@ -73,6 +74,7 @@ export const makeExampleRegistrationsCsv = (language: Language): string => {
   csv.rows[0][csv.index(platform)] = "1";
   csv.rows[0][csv.index(flight)] = getString("flight.a", language);
   csv.rows[0][csv.index(name)] = getString("import.example-name", language);
+  csv.rows[0][csv.index(pronouns)] = getString("import.example-pronouns", language);
   csv.rows[0][csv.index(sex)] = getString("import.example-sex", language);
   csv.rows[0][csv.index(equipment)] = getString("equipment.sleeves", language);
   csv.rows[0][csv.index(division1)] = getString("import.example-division1", language);
@@ -112,6 +114,7 @@ export const loadRegistrations = (state: GlobalState, csv: Csv, language: Langua
   const col_platform = getString("import.column-platform", language);
   const col_flight = getString("import.column-flight", language);
   const col_name = getString("import.column-name", language);
+  const col_pronouns = getString("import.column-pronouns", language);
   const col_sex = getString("import.column-sex", language);
   const col_equipment = getString("import.column-equipment", language);
   const col_division1 = division_template.replace("{N}", "1");
@@ -168,6 +171,7 @@ export const loadRegistrations = (state: GlobalState, csv: Csv, language: Langua
     col_guest,
     col_team,
     col_instagram,
+    col_pronouns,
     col_notes,
   ];
 
@@ -467,6 +471,8 @@ export const loadRegistrations = (state: GlobalState, csv: Csv, language: Langua
         }
       } else if (fieldname === col_team) {
         entry.team = val;
+      } else if (fieldname === col_pronouns) {
+        entry.pronouns = val;
       } else if (fieldname === col_instagram) {
         entry.instagram = val;
       } else if (fieldname === col_notes) {
