@@ -17,7 +17,12 @@
     "node": true
   },
   "rules": {
-    "prettier/prettier": "error",
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto",
+      }
+    ],
     "react/prop-types": [0],
     "no-unused-vars": "off",
     "@typescript-eslint/camelcase": "off",
