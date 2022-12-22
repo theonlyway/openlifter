@@ -24,7 +24,6 @@ import { FormattedMessage } from "react-intl";
 
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import CardDeck from "react-bootstrap/CardDeck";
 import FormControl from "react-bootstrap/FormControl";
 
 import { saveAs } from "file-saver";
@@ -378,7 +377,7 @@ class ResultsView extends React.Component<Props, InternalState> {
           close={this.closeErrorModal}
         />
 
-        <CardDeck>
+        <Card>
           <Card style={{ marginBottom: "17px" }}>
             <Card.Header>
               <FormattedMessage id="results.merge-platforms-card-header" defaultMessage="Merge Platforms" />
@@ -412,7 +411,7 @@ class ResultsView extends React.Component<Props, InternalState> {
               </Button>
             </Card.Body>
           </Card>
-        </CardDeck>
+        </Card>
 
         <Card>
           <Card.Header>

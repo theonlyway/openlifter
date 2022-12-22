@@ -27,7 +27,7 @@ import { getString } from "../../logic/strings";
 import { string2number, displayWeight } from "../../logic/units";
 
 import { setWeightClasses } from "../../actions/meetSetupActions";
-
+import { isNumeric } from "../../types/utils";
 import { Language, Sex } from "../../types/dataTypes";
 import { GlobalState } from "../../types/stateTypes";
 import { checkExhausted } from "../../types/utils";
@@ -127,7 +127,7 @@ class WeightClassesSelect extends React.Component<Props, InternalState> {
       const asNumber = string2number(inputValue);
 
       // Disallow creating non-numeric inputs.
-      if (isNaN(asNumber) || !isFinite(asNumber)) {
+      if (isNumeric(asNumber) || !isFinite(asNumber)) {
         this.setState({ inputValue: "" });
         event.preventDefault();
         return;

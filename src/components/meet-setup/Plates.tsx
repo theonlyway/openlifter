@@ -33,8 +33,7 @@ import { displayWeight, kg2lbs } from "../../logic/units";
 import { Language, Plate } from "../../types/dataTypes";
 import { GlobalState } from "../../types/stateTypes";
 import { Dispatch } from "redux";
-import { isString } from "../../types/utils";
-import { isNumber } from "util";
+import { isString, isNumeric } from "../../types/utils";
 import PlateInput from "./PlateInput";
 
 interface StateProps {
@@ -76,7 +75,7 @@ class Plates extends React.Component<Props> {
   };
 
   updateHandler = (weightKg: number, id: string, amount: string | number | string[] | undefined, color: string) => {
-    if (!isString(amount) && !isNumber(amount)) {
+    if (!isString(amount) && !isNumeric(amount)) {
       throw new Error(`Expected either a string or a number, but got ${amount}`);
     }
 

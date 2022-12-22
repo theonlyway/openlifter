@@ -32,7 +32,7 @@ import { enterAttempt } from "../../actions/liftingActions";
 
 import { liftToAttemptFieldName } from "../../logic/entry";
 import { kg2lbs, lbs2kg, string2number, displayWeight } from "../../logic/units";
-
+import { isNumeric } from "../../types/utils";
 import { Entry, Language, Lift, Validation } from "../../types/dataTypes";
 import { GlobalState } from "../../types/stateTypes";
 import { assertString } from "../../types/utils";
@@ -93,7 +93,7 @@ class WeightInput extends React.Component<Props, InternalState> {
 
   validate = (): Validation => {
     const weightNum = string2number(this.state.weightStr);
-    if (isNaN(weightNum) || weightNum < 0) return "error";
+    if (isNumeric(weightNum) || weightNum < 0) return "error";
     if (this.props.multipleOf !== undefined && weightNum % this.props.multipleOf !== 0.0) {
       return "warning";
     }

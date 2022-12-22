@@ -625,9 +625,9 @@ class LifterRow extends React.Component<Props, InternalState> {
                     <FormattedMessage id="registration.instagram-label" defaultMessage="Instagram" />
                   </Form.Label>
                   <InputGroup>
-                    <InputGroup.Prepend>
+                    <InputGroup.Text>
                       <InputGroup.Text>@</InputGroup.Text>
-                    </InputGroup.Prepend>
+                    </InputGroup.Text>
                     <Form.Control
                       type="text"
                       placeholder=""
