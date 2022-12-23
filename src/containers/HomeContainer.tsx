@@ -247,19 +247,21 @@ class HomeContainer extends React.Component<Props, InternalState> {
             <Row>{warning}</Row>
             <Row style={buttonMargin}>
               <Col md={8}>
-                {wrongVersion === false ? (
-                  this.renderContinueButton()
-                ) : (
-                  <a href={"https://www.openlifter.com/releases/" + dataReleaseVersion}>
-                    <Button variant="success">
-                      <FormattedMessage
-                        id="home.button-switch-version"
-                        defaultMessage="Switch to OpenLifter {otherVersion}"
-                        values={{ otherVersion: dataReleaseVersion }}
-                      />
-                    </Button>
-                  </a>
-                )}
+                <div className="d-grid">
+                  {wrongVersion === false ? (
+                    this.renderContinueButton()
+                  ) : (
+                    <a href={"https://www.openlifter.com/releases/" + dataReleaseVersion}>
+                      <Button variant="success">
+                        <FormattedMessage
+                          id="home.button-switch-version"
+                          defaultMessage="Switch to OpenLifter {otherVersion}"
+                          values={{ otherVersion: dataReleaseVersion }}
+                        />
+                      </Button>
+                    </a>
+                  )}
+                </div>
               </Col>
               <Col md={4}>
                 <LanguageSelector />
@@ -268,7 +270,7 @@ class HomeContainer extends React.Component<Props, InternalState> {
 
             <Row>
               <Col md={8}>
-                <div className="d-grid gap-2">
+                <div className="d-grid">
                   {newMeetButton}
 
                   <Button variant="warning" onClick={this.handleLoadClick} style={buttonMargin}>
