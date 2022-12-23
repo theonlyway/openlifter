@@ -43,6 +43,7 @@ import styles from "../components/common/ContentArea.module.scss";
 
 import { GlobalState } from "../types/stateTypes";
 import { Dispatch } from "redux";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 // Temporary CSS, just for prototyping.
 const centerConsole = { maxWidth: 700, marginRight: "auto", marginLeft: "auto" };
@@ -267,7 +268,7 @@ class HomeContainer extends React.Component<Props, InternalState> {
 
             <Row>
               <Col md={8}>
-                <div>
+                <div className="d-grid gap-2">
                   {newMeetButton}
 
                   <Button variant="warning" onClick={this.handleLoadClick} style={buttonMargin}>
