@@ -66,6 +66,10 @@ $form-feedback-warning-background-color: #ffffc9; // Pale yellow.
   padding: 0.25rem 1rem !important; // Decrease vertical padding.
 }
 
+.navbar-dark {
+  background-color: #343a40 !important
+}
+
 // Custom styling for the link to the current page in the Navbar.
 a.nav-link {
   font-size: $font-size-navbar;
