@@ -67,6 +67,11 @@ interface InternalState {
   selectedDay: number;
 }
 
+type OptionType = {
+  value: string;
+  label: string;
+};
+
 type Props = OwnProps & StateProps & DispatchProps;
 
 class LifterRow extends React.Component<Props, InternalState> {
@@ -316,7 +321,7 @@ class LifterRow extends React.Component<Props, InternalState> {
       selectedDivisions.push({ value: division, label: division });
     }
 
-    const selectedEvents = [];
+    const selectedEvents: OptionType[] = [];
     for (let i = 0; i < entry.events.length; i++) {
       const event = entry.events[i];
       selectedEvents.push({ value: event, label: localizeEvent(event, language) });
@@ -330,7 +335,7 @@ class LifterRow extends React.Component<Props, InternalState> {
     const stringMemberIdPlaceholder = getString("registration.member-id-placeholder", language);
     const stringSelectPlaceholder = getString("common.select-placeholder", language);
 
-    const eventOptions = [
+    const eventOptions: OptionType[] = [
       { value: "S", label: getString("event.s", language) },
       { value: "B", label: getString("event.b", language) },
       { value: "D", label: getString("event.d", language) },

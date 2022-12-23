@@ -24,7 +24,7 @@
 // This enables reuse of translations, so long as the IDs are stable.
 
 import React from "react";
-import { IntlContext } from "react-intl";
+import { IntlContext, FormattedMessage } from "react-intl";
 
 import { TranslationId } from "../../types/dataTypes";
 
@@ -39,7 +39,7 @@ class LocalizedString extends React.Component<Props> {
     return (
       <IntlContext.Consumer>
         {(intl) => {
-          return intl.messages[this.props.id];
+          return <FormattedMessage id={this.props.id} defaultMessage={intl.messages[this.props.id]} />;
         }}
       </IntlContext.Consumer>
     );
