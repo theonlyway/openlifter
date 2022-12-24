@@ -29,7 +29,6 @@ import { kg2lbs, lbs2kg, string2number, displayWeight } from "../../logic/units"
 
 import { Entry, Language, Lift, Validation } from "../../types/dataTypes";
 import { GlobalState } from "../../types/stateTypes";
-import { isNumeric } from "../../types/utils";
 import styles from "./LiftingTable.module.scss";
 import { Dispatch } from "redux";
 
@@ -89,7 +88,7 @@ class AttemptInput extends React.Component<Props, InternalState> {
     // Handle all errors before all warnings.
     // Check that the input is a number.
     const asNumber = Number(value);
-    if (isNumeric(asNumber)) return "error";
+    if (isNaN(asNumber)) return "error";
     if (!isFinite(asNumber)) return "error";
     if (asNumber < 0) return "error";
 
