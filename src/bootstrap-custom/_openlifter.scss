@@ -26,10 +26,16 @@ $dark: #343a40; // $gray-800.
 // Bootstrap button logic determines the text color from the background color
 // by deciding whether the background is "light" or "dark". We want it to always
 // use a white font color, even if the background is light.
+.btn-primary {
+  color: #fff !important;
+}
 .btn-info {
   color: #fff !important;
 }
 .btn-warning {
+  color: #fff !important;
+}
+.btn-success {
   color: #fff !important;
 }
 

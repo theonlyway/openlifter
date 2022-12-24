@@ -22,7 +22,6 @@ import { connect } from "react-redux";
 import { setBarAndCollarsWeightKg } from "../../actions/meetSetupActions";
 import { getString } from "../../logic/strings";
 import { kg2lbs, lbs2kg } from "../../logic/units";
-import { isNumeric } from "../../types/utils";
 import { Language, Lift, Validation } from "../../types/dataTypes";
 import { GlobalState } from "../../types/stateTypes";
 import { checkExhausted } from "../../types/utils";
@@ -82,7 +81,7 @@ class BarAndCollarsWeightKg extends React.Component<Props, InternalState> {
 
   validate = (n: number): Validation => {
     // Don't use isInteger() since decimals are allowed.
-    if (isNumeric(n) || !isFinite(n) || n < 5 || n > 1000) {
+    if (isNaN(n) || !isFinite(n) || n < 5 || n > 1000) {
       return "error";
     }
     return "success";
