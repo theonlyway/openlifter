@@ -75,6 +75,11 @@ const Navigation = () => {
               <FormattedMessage id="nav.results" defaultMessage="Results" />
             </Nav.Link>
           </LinkContainer>
+          <LinkContainer to="/streaming">
+            <Nav.Link>
+              <FormattedMessage id="nav.streaming" defaultMessage="Streaming" />
+            </Nav.Link>
+          </LinkContainer>
           <LinkContainer to="/debug">
             <Nav.Link>
               <FormattedMessage id="nav.debug" defaultMessage="Debug" />

@@ -33,6 +33,7 @@ import ResultsContainer from "./containers/ResultsContainer";
 import DebugContainer from "./containers/DebugContainer";
 import AboutContainer from "./containers/AboutContainer";
 import Navigation from "./components/Navigation";
+import StreamingContainer from "./containers/StreamingContainer";
 
 import configureStore from "./store";
 
@@ -66,6 +67,7 @@ class App extends React.Component {
                   <Route path="/results" element={<ResultsContainer />} />
                   <Route path="/debug" element={<DebugContainer />} />
                   <Route path="/about" element={<AboutContainer />} />
+                  <Route path="/streaming" element={<StreamingContainer />} />
                 </Routes>
               </div>
             </Router>
