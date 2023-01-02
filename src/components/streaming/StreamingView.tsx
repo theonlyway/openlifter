@@ -32,6 +32,7 @@ import Form from "react-bootstrap/Form";
 import FormControl from "react-bootstrap/FormControl";
 import FormGroup from "react-bootstrap/FormGroup";
 import Row from "react-bootstrap/Row";
+import YesNoButton from "../common/YesNoButton";
 
 interface StateProps {
   global: GlobalState;
@@ -58,7 +59,17 @@ class StreamingView extends React.Component<Props> {
               <Card.Header>
                 <FormattedMessage id="streaming.settings" defaultMessage="Streaming settings" />
               </Card.Header>
-              <Card.Body>something</Card.Body>
+              <Card.Body>
+                <FormGroup>
+                  <Form.Check
+                    type="switch"
+                    id="custom-switch"
+                    label={
+                      <FormattedMessage id="streaming.settings.eable" defaultMessage="Enable streaming features" />
+                    }
+                  />
+                </FormGroup>
+              </Card.Body>
             </Card>
           </Col>
 
