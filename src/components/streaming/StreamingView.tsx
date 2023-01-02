@@ -22,18 +22,57 @@
 import React from "react";
 import { connect } from "react-redux";
 import { FormattedMessage } from "react-intl";
-import { Entry, Language } from "../../types/dataTypes";
+import { Language } from "../../types/dataTypes";
 import { GlobalState } from "../../types/stateTypes";
 import { Dispatch } from "redux";
+import Card from "react-bootstrap/Card";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import Form from "react-bootstrap/Form";
+import FormControl from "react-bootstrap/FormControl";
+import FormGroup from "react-bootstrap/FormGroup";
+import Row from "react-bootstrap/Row";
 
 interface StateProps {
   global: GlobalState;
   language: Language;
 }
 
-class StreamingView extends React.Component {
+interface StateProps {
+  language: Language;
+}
+
+type Props = StateProps;
+
+class StreamingView extends React.Component<Props> {
+  constructor(props: Props) {
+    super(props);
+  }
+
   render() {
-    return <React.Fragment></React.Fragment>;
+    return (
+      <Container>
+        <Row>
+          <Col md={6}>
+            <Card>
+              <Card.Header>
+                <FormattedMessage id="streaming.settings" defaultMessage="Streaming settings" />
+              </Card.Header>
+              <Card.Body>something</Card.Body>
+            </Card>
+          </Col>
+
+          <Col md={6}>
+            <Card>
+              <Card.Header>
+                <FormattedMessage id="streaming.database.configuration" defaultMessage="Database Configuration" />
+              </Card.Header>
+              <Card.Body>something</Card.Body>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
+    );
   }
 }
 
