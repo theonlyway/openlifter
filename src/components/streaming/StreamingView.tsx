@@ -23,7 +23,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { FormattedMessage } from "react-intl";
 import { Language } from "../../types/dataTypes";
-import { GlobalState } from "../../types/stateTypes";
+import { GlobalState, StreamingState } from "../../types/stateTypes";
 import { Dispatch } from "redux";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
@@ -33,17 +33,18 @@ import FormControl from "react-bootstrap/FormControl";
 import FormGroup from "react-bootstrap/FormGroup";
 import Row from "react-bootstrap/Row";
 import YesNoButton from "../common/YesNoButton";
+import { enableStreaming } from "../../actions/streamingActions";
 
 interface StateProps {
-  global: GlobalState;
+  streaming: StreamingState;
   language: Language;
 }
 
-interface StateProps {
-  language: Language;
+interface DispatchProps {
+  enableStreaming: (bool: boolean) => void;
 }
 
-type Props = StateProps;
+type Props = StateProps & DispatchProps;
 
 class StreamingView extends React.Component<Props> {
   constructor(props: Props) {
@@ -60,13 +61,13 @@ class StreamingView extends React.Component<Props> {
                 <FormattedMessage id="streaming.settings" defaultMessage="Streaming settings" />
               </Card.Header>
               <Card.Body>
-                <FormGroup>
-                  <Form.Check
-                    type="switch"
-                    id="custom-switch"
-                    label={
-                      <FormattedMessage id="streaming.settings.eable" defaultMessage="Enable streaming features" />
-                    }
+                <FormGroup key="streaming-enable">
+                  <YesNoButton
+                    label={<FormattedMessage id="streaming-enable.header" defaultMessage="Enable Streaming?" />}
+                    value={this.props.streaming.enabled}
+                    setValue={this.props.enableStreaming}
+                    yes="Enable"
+                    no="Disable"
                   />
                 </FormGroup>
               </Card.Body>
@@ -89,9 +90,13 @@ class StreamingView extends React.Component<Props> {
 
 const mapStateToProps = (state: GlobalState): StateProps => {
   return {
-    global: state,
+    streaming: state.streaming,
     language: state.language,
   };
 };
 
-export default connect(mapStateToProps)(StreamingView);
+const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
+  enableStreaming: (bool) => dispatch(enableStreaming(bool)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(StreamingView);

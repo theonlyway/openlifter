@@ -203,3 +203,12 @@ export interface SetTableInfoAction {
   readonly type: "SET_TABLE_INFO";
   readonly changes: Partial<LiftingState>;
 }
+
+//////////////////////////////////////////////////////////
+// Streaming Actions.
+//////////////////////////////////////////////////////////
+
+export interface EnableStreaming {
+  readonly type: "ENABLE_STREAMING";
+  readonly enabled: boolean;
+}

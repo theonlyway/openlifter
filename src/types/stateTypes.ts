@@ -77,10 +77,15 @@ export type LiftingState = {
   readonly columnDivisionWidthPx: number;
 };
 
+export type StreamingState = {
+  readonly enabled: boolean;
+};
+
 export type GlobalState = {
   readonly versions: VersionsState;
   readonly language: Language;
   readonly meet: MeetState;
   readonly registration: RegistrationState;
   readonly lifting: LiftingState;
+  readonly streaming: StreamingState;
 };
