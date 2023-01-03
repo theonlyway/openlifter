@@ -208,7 +208,19 @@ export interface SetTableInfoAction {
 // Streaming Actions.
 //////////////////////////////////////////////////////////
 
+export type StreamingAction = EnableStreaming | SetStreamingDatabaseType | SetStreamingDatabaseAddress;
+
 export interface EnableStreaming {
   readonly type: "ENABLE_STREAMING";
   readonly enabled: boolean;
+}
+
+export interface SetStreamingDatabaseType {
+  readonly type: "SET_STREAMING_DATABASE_TYPE";
+  readonly databaseType: string;
+}
+
+export interface SetStreamingDatabaseAddress {
+  readonly type: "SET_STREAMING_DATABASE_ADDRESS";
+  readonly address: string;
 }

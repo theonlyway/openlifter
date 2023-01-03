@@ -22,7 +22,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { FormattedMessage } from "react-intl";
-import { Language } from "../../types/dataTypes";
+import { Language, Validation } from "../../types/dataTypes";
 import { GlobalState, StreamingState } from "../../types/stateTypes";
 import { Dispatch } from "redux";
 import Card from "react-bootstrap/Card";
@@ -33,7 +33,9 @@ import FormControl from "react-bootstrap/FormControl";
 import FormGroup from "react-bootstrap/FormGroup";
 import Row from "react-bootstrap/Row";
 import YesNoButton from "../common/YesNoButton";
-import { enableStreaming } from "../../actions/streamingActions";
+import { enableStreaming, setStreamingDatabaseAddress, setStreamingDatabaseType } from "../../actions/streamingActions";
+import { getString } from "../../logic/strings";
+import ValidatedInput from "../ValidatedInput";
 
 interface StateProps {
   streaming: StreamingState;
@@ -42,6 +44,8 @@ interface StateProps {
 
 interface DispatchProps {
   enableStreaming: (bool: boolean) => void;
+  setStreamingDatabaseType: (event: React.BaseSyntheticEvent) => void;
+  setStreamingDatabaseAddress: (address: string) => void;
 }
 
 type Props = StateProps & DispatchProps;
@@ -51,11 +55,24 @@ class StreamingView extends React.Component<Props> {
     super(props);
   }
 
+  validateRequiredText = (value?: string): Validation => {
+    if (!value) return "warning";
+    if (value.includes('"')) return "error";
+    return "success";
+  };
+
   render() {
+    const language = this.props.language;
+    const stringStreamingEnabled = getString("streaming.enabled", language);
+    const stringStreamingDisabled = getString("streaming.disabled", language);
+    const stringStreamingDatabaseType = getString("streaming.database.type", language);
+    const stringStreamingDatabaseTypeMongoDB = getString("streaming.database.type-mongodb", language);
+    const stringStreamingDatabaseAddress = getString("streaming.database.address", language);
+
     return (
       <Container>
         <Row>
-          <Col md={6}>
+          <Col md={this.props.streaming.enabled == true ? 6 : 0}>
             <Card>
               <Card.Header>
                 <FormattedMessage id="streaming.settings" defaultMessage="Streaming settings" />
@@ -66,22 +83,45 @@ class StreamingView extends React.Component<Props> {
                     label={<FormattedMessage id="streaming-enable.header" defaultMessage="Enable Streaming?" />}
                     value={this.props.streaming.enabled}
                     setValue={this.props.enableStreaming}
-                    yes="Enable"
-                    no="Disable"
+                    yes={stringStreamingEnabled}
+                    no={stringStreamingDisabled}
                   />
                 </FormGroup>
               </Card.Body>
             </Card>
           </Col>
-
-          <Col md={6}>
-            <Card>
-              <Card.Header>
-                <FormattedMessage id="streaming.database.configuration" defaultMessage="Database Configuration" />
-              </Card.Header>
-              <Card.Body>something</Card.Body>
-            </Card>
-          </Col>
+          {this.props.streaming.enabled == true ? (
+            <Col md={6}>
+              <Card>
+                <Card.Header>
+                  <FormattedMessage id="streaming.database.configuration" defaultMessage="Database Configuration" />
+                </Card.Header>
+                <Card.Body>
+                  <FormGroup key="streaming.database.type">
+                    <Form.Label>
+                      <FormattedMessage id="streaming.database.type" defaultMessage="Database type" />
+                    </Form.Label>
+                    <FormControl
+                      as="select"
+                      value={this.props.streaming.databaseType}
+                      onChange={this.props.setStreamingDatabaseType}
+                      className="custom-select"
+                    >
+                      <option value="mongodb">{stringStreamingDatabaseTypeMongoDB}</option>
+                    </FormControl>
+                  </FormGroup>
+                  <ValidatedInput
+                    label={stringStreamingDatabaseAddress}
+                    placeholder={stringStreamingDatabaseAddress}
+                    initialValue={this.props.streaming.databaseAddress}
+                    validate={this.validateRequiredText}
+                    onSuccess={this.props.setStreamingDatabaseAddress}
+                    keepMargin={true}
+                  />
+                </Card.Body>
+              </Card>
+            </Col>
+          ) : null}
         </Row>
       </Container>
     );
@@ -97,6 +137,8 @@ const mapStateToProps = (state: GlobalState): StateProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
   enableStreaming: (bool) => dispatch(enableStreaming(bool)),
+  setStreamingDatabaseType: (event) => dispatch(setStreamingDatabaseType(event.currentTarget.value)),
+  setStreamingDatabaseAddress: (address: string) => dispatch(setStreamingDatabaseAddress(address)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(StreamingView);

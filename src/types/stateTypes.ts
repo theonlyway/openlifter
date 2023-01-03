@@ -79,6 +79,8 @@ export type LiftingState = {
 
 export type StreamingState = {
   readonly enabled: boolean;
+  readonly databaseType: string;
+  readonly databaseAddress: string;
 };
 
 export type GlobalState = {

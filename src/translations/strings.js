@@ -336,6 +336,14 @@ strings = strings.concat([
   { id: "results.category-template", defaultMessage: "{sex} {equipment} {event}" },
 ]);
 
+// Strings for S treaming page
+strings = strings.concat([
+  { id: "streaming.enabled", defaultMessage: "Enabled" },
+  { id: "streaming.disabled", defaultMessage: "Disabled" },
+  { id: "streaming.database.type-mongodb", defaultMessage: "MongoDB" },
+  { id: "streaming.database.address", defaultMessage: "Database address" },
+]);
+
 /* eslint-enable */
 
 exports.strings = strings;
