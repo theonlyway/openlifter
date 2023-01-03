@@ -72,7 +72,7 @@ class StreamingView extends React.Component<Props> {
     return (
       <Container>
         <Row>
-          <Col md={this.props.streaming.enabled == true ? 6 : 0}>
+          <Col xs md={this.props.streaming.enabled == true ? 6 : 0}>
             <Card>
               <Card.Header>
                 <FormattedMessage id="streaming.settings" defaultMessage="Streaming settings" />
