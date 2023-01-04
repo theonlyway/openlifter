@@ -342,6 +342,9 @@ strings = strings.concat([
   { id: "streaming.disabled", defaultMessage: "Disabled" },
   { id: "streaming.database.type-mongodb", defaultMessage: "MongoDB" },
   { id: "streaming.database.address", defaultMessage: "Database address" },
+  { id: "streaming.database.address.port", defaultMessage: "Database port" },
+  { id: "streaming.database.address.username", defaultMessage: "Database Username" },
+  { id: "streaming.database.address.password", defaultMessage: "Database Password" },
 ]);
 
 /* eslint-enable */

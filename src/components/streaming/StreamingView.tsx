@@ -67,6 +67,9 @@ class StreamingView extends React.Component<Props> {
     const stringStreamingDisabled = getString("streaming.disabled", language);
     const stringStreamingDatabaseTypeMongoDB = getString("streaming.database.type-mongodb", language);
     const stringStreamingDatabaseAddress = getString("streaming.database.address", language);
+    const stringStreamingDatabasePort = getString("streaming.database.address.port", language);
+    const stringStreamingDatabaseUsername = getString("streaming.database.address.username", language);
+    const stringStreamingDatabasePassword = getString("streaming.database.address.password", language);
 
     return (
       <Container>
@@ -124,16 +127,24 @@ class StreamingView extends React.Component<Props> {
                         keepMargin={true}
                       />
                       <ValidatedInput
-                        label={stringStreamingDatabaseAddress}
-                        placeholder={stringStreamingDatabaseAddress}
+                        label={stringStreamingDatabasePort}
+                        placeholder={stringStreamingDatabasePort}
                         initialValue={this.props.streaming.databaseAddress}
                         validate={this.validateRequiredText}
                         onSuccess={this.props.setStreamingDatabaseAddress}
                         keepMargin={true}
                       />
                       <ValidatedInput
-                        label={stringStreamingDatabaseAddress}
-                        placeholder={stringStreamingDatabaseAddress}
+                        label={stringStreamingDatabaseUsername}
+                        placeholder={stringStreamingDatabaseUsername}
+                        initialValue={this.props.streaming.databaseAddress}
+                        validate={this.validateRequiredText}
+                        onSuccess={this.props.setStreamingDatabaseAddress}
+                        keepMargin={true}
+                      />
+                      <ValidatedInput
+                        label={stringStreamingDatabasePassword}
+                        placeholder={stringStreamingDatabasePassword}
                         initialValue={this.props.streaming.databaseAddress}
                         validate={this.validateRequiredText}
                         onSuccess={this.props.setStreamingDatabaseAddress}
