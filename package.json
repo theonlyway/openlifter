@@ -1,7 +1,7 @@
 {
   "name": "openlifter",
   "version": "beta",
-  "homepage": "./",
+  "homepage": "https://openlifter.theonlywaye.com",
   "router_basename": "/",
   "author": "Sean Stangl <sean.stangl@gmail.com>",
   "description": "Simple software for running a local powerlifting competition",
@@ -34,6 +34,8 @@
   },
   "main": "public/electron.js",
   "scripts": {
+    "predeploy": "yarn run build && cp CNAME ./build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -69,6 +71,7 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-prettier": "^4.2.1",
+    "gh-pages": "^4.0.0",
     "prettier": "^2.8",
     "react-bootstrap": "^2.7.0",
     "react-intl-translations-manager": "^5.0.3",
