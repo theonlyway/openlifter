@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/openlifter/static/css/main.22b7bd26.css",
+    "main.js": "/openlifter/static/js/main.b2807cf0.js",
+    "static/js/496.fe08c3ff.chunk.js": "/openlifter/static/js/496.fe08c3ff.chunk.js",
+    "service-worker.js": "/openlifter/service-worker.js",
+    "index.html": "/openlifter/index.html",
+    "main.22b7bd26.css.map": "/openlifter/static/css/main.22b7bd26.css.map",
+    "main.b2807cf0.js.map": "/openlifter/static/js/main.b2807cf0.js.map",
+    "496.fe08c3ff.chunk.js.map": "/openlifter/static/js/496.fe08c3ff.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.22b7bd26.css",
+    "static/js/main.b2807cf0.js"
+  ]
+}
