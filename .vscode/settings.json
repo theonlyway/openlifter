@@ -7,5 +7,6 @@
   },
   "files.autoSave": "onFocusChange",
   "npm.packageManager": "yarn",
-  "eslint.packageManager": "yarn"
+  "eslint.packageManager": "yarn",
+  "terminal.integrated.defaultProfile.windows": "Ubuntu-20.04 (WSL)"
 }
