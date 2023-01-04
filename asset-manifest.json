@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/openlifter/static/css/main.22b7bd26.css",
-    "main.js": "/openlifter/static/js/main.78a3ea59.js",
-    "static/js/496.fe08c3ff.chunk.js": "/openlifter/static/js/496.fe08c3ff.chunk.js",
-    "service-worker.js": "/openlifter/service-worker.js",
-    "index.html": "/openlifter/index.html",
-    "main.22b7bd26.css.map": "/openlifter/static/css/main.22b7bd26.css.map",
-    "main.78a3ea59.js.map": "/openlifter/static/js/main.78a3ea59.js.map",
-    "496.fe08c3ff.chunk.js.map": "/openlifter/static/js/496.fe08c3ff.chunk.js.map"
+    "main.css": "/static/css/main.22b7bd26.css",
+    "main.js": "/static/js/main.13d1de8a.js",
+    "static/js/496.fe08c3ff.chunk.js": "/static/js/496.fe08c3ff.chunk.js",
+    "service-worker.js": "/service-worker.js",
+    "index.html": "/index.html",
+    "main.22b7bd26.css.map": "/static/css/main.22b7bd26.css.map",
+    "main.13d1de8a.js.map": "/static/js/main.13d1de8a.js.map",
+    "496.fe08c3ff.chunk.js.map": "/static/js/496.fe08c3ff.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.22b7bd26.css",
-    "static/js/main.78a3ea59.js"
+    "static/js/main.13d1de8a.js"
   ]
 }
