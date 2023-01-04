@@ -16,7 +16,7 @@ export default function streamingReducer(state: StreamingState = initialState, a
     case "SET_STREAMING_DATABASE_TYPE":
       return { ...state, databaseType: action.databaseType };
     case "SET_STREAMING_DATABASE_ADDRESS":
-      return { ...state, address: action.address };
+      return { ...state, databaseAddress: action.address };
     default:
       return state;
   }

@@ -65,7 +65,6 @@ class StreamingView extends React.Component<Props> {
     const language = this.props.language;
     const stringStreamingEnabled = getString("streaming.enabled", language);
     const stringStreamingDisabled = getString("streaming.disabled", language);
-    const stringStreamingDatabaseType = getString("streaming.database.type", language);
     const stringStreamingDatabaseTypeMongoDB = getString("streaming.database.type-mongodb", language);
     const stringStreamingDatabaseAddress = getString("streaming.database.address", language);
 
@@ -87,6 +86,10 @@ class StreamingView extends React.Component<Props> {
                     no={stringStreamingDisabled}
                   />
                 </FormGroup>
+                <FormattedMessage
+                  id="streaming.settings.notification"
+                  defaultMessage="Note: Enabling streaming will require you to configure a connection to a database"
+                />
               </Card.Body>
             </Card>
           </Col>
@@ -110,14 +113,34 @@ class StreamingView extends React.Component<Props> {
                       <option value="mongodb">{stringStreamingDatabaseTypeMongoDB}</option>
                     </FormControl>
                   </FormGroup>
-                  <ValidatedInput
-                    label={stringStreamingDatabaseAddress}
-                    placeholder={stringStreamingDatabaseAddress}
-                    initialValue={this.props.streaming.databaseAddress}
-                    validate={this.validateRequiredText}
-                    onSuccess={this.props.setStreamingDatabaseAddress}
-                    keepMargin={true}
-                  />
+                  {this.props.streaming.databaseType == "mongodb" ? (
+                    <React.Fragment>
+                      <ValidatedInput
+                        label={stringStreamingDatabaseAddress}
+                        placeholder={stringStreamingDatabaseAddress}
+                        initialValue={this.props.streaming.databaseAddress}
+                        validate={this.validateRequiredText}
+                        onSuccess={this.props.setStreamingDatabaseAddress}
+                        keepMargin={true}
+                      />
+                      <ValidatedInput
+                        label={stringStreamingDatabaseAddress}
+                        placeholder={stringStreamingDatabaseAddress}
+                        initialValue={this.props.streaming.databaseAddress}
+                        validate={this.validateRequiredText}
+                        onSuccess={this.props.setStreamingDatabaseAddress}
+                        keepMargin={true}
+                      />
+                      <ValidatedInput
+                        label={stringStreamingDatabaseAddress}
+                        placeholder={stringStreamingDatabaseAddress}
+                        initialValue={this.props.streaming.databaseAddress}
+                        validate={this.validateRequiredText}
+                        onSuccess={this.props.setStreamingDatabaseAddress}
+                        keepMargin={true}
+                      />
+                    </React.Fragment>
+                  ) : null}
                 </Card.Body>
               </Card>
             </Col>
