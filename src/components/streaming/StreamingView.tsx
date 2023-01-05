@@ -34,13 +34,10 @@ import FormGroup from "react-bootstrap/FormGroup";
 import Row from "react-bootstrap/Row";
 import YesNoButton from "../common/YesNoButton";
 import {
-  enableDatabaseAuthentication,
   enableStreaming,
-  setStreamingDatabaseAddress,
-  setStreamingDatabasePassword,
-  setStreamingDatabasePort,
-  setStreamingDatabaseType,
-  setStreamingDatabaseUsername,
+  enableStreamingApiAuthentication,
+  setStreamingApiKey,
+  setStreamingApiUrl,
 } from "../../actions/streamingActions";
 import { getString } from "../../logic/strings";
 import ValidatedInput from "../ValidatedInput";
@@ -52,12 +49,9 @@ interface StateProps {
 
 interface DispatchProps {
   enableStreaming: (bool: boolean) => void;
-  enableDatabaseAuthentication: (bool: boolean) => void;
-  setStreamingDatabaseType: (event: React.BaseSyntheticEvent) => void;
-  setStreamingDatabaseAddress: (address: string) => void;
-  setStreamingDatabasePort: (port: string) => void;
-  setStreamingDatabaseUsername: (username: string) => void;
-  setStreamingDatabasePassword: (password: string) => void;
+  setStreamingApiUrl: (url: string) => void;
+  enableStreamingApiAuthentication: (bool: boolean) => void;
+  setStreamingApiKey: (key: string) => void;
 }
 
 type Props = StateProps & DispatchProps;
@@ -77,11 +71,8 @@ class StreamingView extends React.Component<Props> {
     const language = this.props.language;
     const stringStreamingEnabled = getString("streaming.enabled", language);
     const stringStreamingDisabled = getString("streaming.disabled", language);
-    const stringStreamingDatabaseTypeMongoDB = getString("streaming.database.type-mongodb", language);
-    const stringStreamingDatabaseAddress = getString("streaming.database.address", language);
-    const stringStreamingDatabasePort = getString("streaming.database.address.port", language);
-    const stringStreamingDatabaseUsername = getString("streaming.database.address.username", language);
-    const stringStreamingDatabasePassword = getString("streaming.database.address.password", language);
+    const stringApiUrl = getString("streaming.api.url", language);
+    const stringApiKey = getString("streaming.api.key", language);
 
     return (
       <Container>
@@ -103,7 +94,7 @@ class StreamingView extends React.Component<Props> {
                 </FormGroup>
                 <FormattedMessage
                   id="streaming.settings.notification"
-                  defaultMessage="Note: Enabling streaming will require you to configure a connection to a database"
+                  defaultMessage="Note: Enabling streaming will require you to configure a connection to an API endpoint"
                 />
               </Card.Body>
             </Card>
@@ -112,75 +103,41 @@ class StreamingView extends React.Component<Props> {
             <Col md={6}>
               <Card>
                 <Card.Header>
-                  <FormattedMessage id="streaming.database.configuration" defaultMessage="Database Configuration" />
+                  <FormattedMessage id="streaming.api.configuration" defaultMessage="API configuration" />
                 </Card.Header>
                 <Card.Body>
-                  <FormGroup key="streaming.database.type">
-                    <Form.Label>
-                      <FormattedMessage id="streaming.database.type" defaultMessage="Database type" />
-                    </Form.Label>
-                    <FormControl
-                      as="select"
-                      value={this.props.streaming.databaseType}
-                      onChange={this.props.setStreamingDatabaseType}
-                      className="custom-select"
-                    >
-                      <option value="mongodb">{stringStreamingDatabaseTypeMongoDB}</option>
-                    </FormControl>
+                  <ValidatedInput
+                    label={stringApiUrl}
+                    placeholder={stringApiUrl}
+                    initialValue={this.props.streaming.apiUrl}
+                    validate={this.validateRequiredText}
+                    onSuccess={this.props.setStreamingApiUrl}
+                    keepMargin={true}
+                  />
+                  <FormGroup key="streaming.api.authentication">
+                    <YesNoButton
+                      label={
+                        <FormattedMessage
+                          id="streaming.api.authentication.setting"
+                          defaultMessage="Enable authentication?"
+                        />
+                      }
+                      value={this.props.streaming.apiAuthentication}
+                      setValue={this.props.enableStreamingApiAuthentication}
+                      yes={stringStreamingEnabled}
+                      no={stringStreamingDisabled}
+                    />
                   </FormGroup>
-                  {this.props.streaming.databaseType == "mongodb" ? (
+                  {this.props.streaming.apiAuthentication == true ? (
                     <React.Fragment>
                       <ValidatedInput
-                        label={stringStreamingDatabaseAddress}
-                        placeholder={stringStreamingDatabaseAddress}
-                        initialValue={this.props.streaming.databaseAddress}
+                        label={stringApiKey}
+                        placeholder={stringApiKey}
+                        initialValue={this.props.streaming.apiKey}
                         validate={this.validateRequiredText}
-                        onSuccess={this.props.setStreamingDatabaseAddress}
+                        onSuccess={this.props.setStreamingApiKey}
                         keepMargin={true}
                       />
-                      <ValidatedInput
-                        label={stringStreamingDatabasePort}
-                        placeholder={stringStreamingDatabasePort}
-                        initialValue={this.props.streaming.databasePort}
-                        validate={this.validateRequiredText}
-                        onSuccess={this.props.setStreamingDatabasePort}
-                        keepMargin={true}
-                      />
-                      <FormGroup key="streaming.database.authentication">
-                        <YesNoButton
-                          label={
-                            <FormattedMessage
-                              id="streaming.database.authentication.setting"
-                              defaultMessage="Enable authentication?"
-                            />
-                          }
-                          value={this.props.streaming.databaseAuthentication}
-                          setValue={this.props.enableDatabaseAuthentication}
-                          yes={stringStreamingEnabled}
-                          no={stringStreamingDisabled}
-                        />
-                      </FormGroup>
-                      {this.props.streaming.databaseAuthentication == true ? (
-                        <React.Fragment>
-                          <ValidatedInput
-                            label={stringStreamingDatabaseUsername}
-                            placeholder={stringStreamingDatabaseUsername}
-                            initialValue={this.props.streaming.databaseUsername}
-                            validate={this.validateRequiredText}
-                            onSuccess={this.props.setStreamingDatabaseUsername}
-                            keepMargin={true}
-                          />
-                          <ValidatedInput
-                            label={stringStreamingDatabasePassword}
-                            placeholder={stringStreamingDatabasePassword}
-                            initialValue={this.props.streaming.databasePassword}
-                            validate={this.validateRequiredText}
-                            onSuccess={this.props.setStreamingDatabasePassword}
-                            keepMargin={true}
-                            type="password"
-                          />
-                        </React.Fragment>
-                      ) : null}
                     </React.Fragment>
                   ) : null}
                 </Card.Body>
@@ -201,13 +158,10 @@ const mapStateToProps = (state: GlobalState): StateProps => {
 };
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
-  enableStreaming: (bool) => dispatch(enableStreaming(bool)),
-  enableDatabaseAuthentication: (bool) => dispatch(enableDatabaseAuthentication(bool)),
-  setStreamingDatabaseType: (event) => dispatch(setStreamingDatabaseType(event.currentTarget.value)),
-  setStreamingDatabaseAddress: (address: string) => dispatch(setStreamingDatabaseAddress(address)),
-  setStreamingDatabasePort: (port: string) => dispatch(setStreamingDatabasePort(port)),
-  setStreamingDatabaseUsername: (username: string) => dispatch(setStreamingDatabaseUsername(username)),
-  setStreamingDatabasePassword: (password: string) => dispatch(setStreamingDatabasePassword(password)),
+  enableStreaming: (bool: boolean) => dispatch(enableStreaming(bool)),
+  setStreamingApiUrl: (url: string) => dispatch(setStreamingApiUrl(url)),
+  enableStreamingApiAuthentication: (bool: boolean) => dispatch(enableStreamingApiAuthentication(bool)),
+  setStreamingApiKey: (key: string) => dispatch(setStreamingApiKey(key)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(StreamingView);

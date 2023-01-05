@@ -1,11 +1,8 @@
 import {
-  EnableDatabaseAuthentication,
   EnableStreaming,
-  SetStreamingDatabaseAddress,
-  SetStreamingDatabasePassword,
-  SetStreamingDatabasePort,
-  SetStreamingDatabaseType,
-  SetStreamingDatabaseUsername,
+  EnableStreamingApiAuthentication,
+  SetStreamingApiKey,
+  SetStreamingApiUrl,
 } from "../types/actionTypes";
 
 export const enableStreaming = (streamingEnabled: boolean): EnableStreaming => {
@@ -15,44 +12,23 @@ export const enableStreaming = (streamingEnabled: boolean): EnableStreaming => {
   };
 };
 
-export const setStreamingDatabaseType = (databaseType: string): SetStreamingDatabaseType => {
+export const setStreamingApiUrl = (apiUrl: string): SetStreamingApiUrl => {
   return {
-    type: "SET_STREAMING_DATABASE_TYPE",
-    databaseType,
+    type: "SET_STREAMING_API_URL",
+    apiUrl,
   };
 };
 
-export const setStreamingDatabaseAddress = (databaseAddress: string): SetStreamingDatabaseAddress => {
+export const enableStreamingApiAuthentication = (apiAuthentication: boolean): EnableStreamingApiAuthentication => {
   return {
-    type: "SET_STREAMING_DATABASE_ADDRESS",
-    databaseAddress,
+    type: "ENABLE_STREAMING_API_AUTHENTICATION",
+    apiAuthentication,
   };
 };
 
-export const setStreamingDatabasePort = (databasePort: string): SetStreamingDatabasePort => {
+export const setStreamingApiKey = (apiKey: string): SetStreamingApiKey => {
   return {
-    type: "SET_STREAMING_DATABASE_PORT",
-    databasePort,
-  };
-};
-
-export const enableDatabaseAuthentication = (databaseAuthentication: boolean): EnableDatabaseAuthentication => {
-  return {
-    type: "ENABLE_DATABASE_AUTHENTICATION",
-    databaseAuthentication,
-  };
-};
-
-export const setStreamingDatabaseUsername = (databaseUsername: string): SetStreamingDatabaseUsername => {
-  return {
-    type: "SET_STREAMING_DATABASE_USERNAME",
-    databaseUsername,
-  };
-};
-
-export const setStreamingDatabasePassword = (databasePassword: string): SetStreamingDatabasePassword => {
-  return {
-    type: "SET_STREAMING_DATABASE_PASSWORD",
-    databasePassword,
+    type: "SET_STREAMING_API_KEY",
+    apiKey,
   };
 };

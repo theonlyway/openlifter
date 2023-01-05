@@ -340,11 +340,8 @@ strings = strings.concat([
 strings = strings.concat([
   { id: "streaming.enabled", defaultMessage: "Enabled" },
   { id: "streaming.disabled", defaultMessage: "Disabled" },
-  { id: "streaming.database.type-mongodb", defaultMessage: "MongoDB" },
-  { id: "streaming.database.address", defaultMessage: "Database address" },
-  { id: "streaming.database.address.port", defaultMessage: "Database Port" },
-  { id: "streaming.database.address.username", defaultMessage: "Database Username" },
-  { id: "streaming.database.address.password", defaultMessage: "Database Password" },
+  { id: "streaming.api.url", defaultMessage: "API URL" },
+  { id: "streaming.api.key", defaultMessage: "API Key" },
 ]);
 
 /* eslint-enable */

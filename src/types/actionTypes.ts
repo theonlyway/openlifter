@@ -208,46 +208,24 @@ export interface SetTableInfoAction {
 // Streaming Actions.
 //////////////////////////////////////////////////////////
 
-export type StreamingAction =
-  | EnableStreaming
-  | SetStreamingDatabaseType
-  | SetStreamingDatabaseAddress
-  | EnableDatabaseAuthentication
-  | SetStreamingDatabaseUsername
-  | SetStreamingDatabasePassword
-  | SetStreamingDatabasePort;
+export type StreamingAction = EnableStreaming | SetStreamingApiUrl | EnableStreamingApiAuthentication | SetStreamingApiKey;
 
 export interface EnableStreaming {
   readonly type: "ENABLE_STREAMING";
   readonly streamingEnabled: boolean;
 }
 
-export interface SetStreamingDatabaseType {
-  readonly type: "SET_STREAMING_DATABASE_TYPE";
-  readonly databaseType: string;
+export interface SetStreamingApiUrl {
+  readonly type: "SET_STREAMING_API_URL";
+  readonly apiUrl: string;
 }
 
-export interface SetStreamingDatabaseAddress {
-  readonly type: "SET_STREAMING_DATABASE_ADDRESS";
-  readonly databaseAddress: string;
+export interface EnableStreamingApiAuthentication {
+  readonly type: "ENABLE_STREAMING_API_AUTHENTICATION";
+  readonly apiAuthentication: boolean;
 }
 
-export interface SetStreamingDatabasePort {
-  readonly type: "SET_STREAMING_DATABASE_PORT";
-  readonly databasePort: string;
-}
-
-export interface EnableDatabaseAuthentication {
-  readonly type: "ENABLE_DATABASE_AUTHENTICATION";
-  readonly databaseAuthentication: boolean;
-}
-
-export interface SetStreamingDatabaseUsername {
-  readonly type: "SET_STREAMING_DATABASE_USERNAME";
-  readonly databaseUsername: string;
-}
-
-export interface SetStreamingDatabasePassword {
-  readonly type: "SET_STREAMING_DATABASE_PASSWORD";
-  readonly databasePassword: string;
+export interface SetStreamingApiKey {
+  readonly type: "SET_STREAMING_API_KEY";
+  readonly apiKey: string;
 }
