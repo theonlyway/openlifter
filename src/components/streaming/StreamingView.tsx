@@ -78,6 +78,7 @@ class StreamingView extends React.Component<Props, LocalState> {
   };
 
   handleTestApiConnection = () => {
+    fetch(this.props.streaming.apiUrl + "");
     this.setState({ connectionModalShow: true });
   };
 
@@ -89,15 +90,14 @@ class StreamingView extends React.Component<Props, LocalState> {
     return (
       <Modal show={this.state.connectionModalShow} onHide={this.handleCloseConnectionModal}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>
+            <FormattedMessage id="streaming.api.test.connection.modal.title" defaultMessage="API Connection test" />
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>Something</Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={this.handleCloseConnectionModal}>
-            Close
-          </Button>
           <Button variant="primary" onClick={this.handleCloseConnectionModal}>
-            Save Changes
+            Close
           </Button>
         </Modal.Footer>
       </Modal>

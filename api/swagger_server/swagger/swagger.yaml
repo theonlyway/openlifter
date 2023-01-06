@@ -14,6 +14,8 @@ servers:
 tags:
 - name: lifters
   description: Lifter information
+- name: health
+  description: API health check
 paths:
   /lifter/current:
     get:
@@ -30,6 +32,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CurrentLifter'
+      security:
+      - api_key: []
       x-openapi-router-controller: swagger_server.controllers.lifters_controller
     post:
       tags:
@@ -68,6 +72,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CurrentLifter'
+      security:
+      - api_key: []
       x-openapi-router-controller: swagger_server.controllers.lifters_controller
     post:
       tags:
@@ -86,6 +92,24 @@ paths:
       security:
       - api_key: []
       x-openapi-router-controller: swagger_server.controllers.lifters_controller
+  /health:
+    get:
+      tags:
+      - health
+      summary: Checks the health of the API
+      description: |
+        Returns the health of the API
+      operationId: health_get
+      responses:
+        "200":
+          description: API health
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiHealth'
+      security:
+      - api_key: []
+      x-openapi-router-controller: swagger_server.controllers.health_controller
 components:
   schemas:
     CurrentLifter:
@@ -116,6 +140,16 @@ components:
         bodyweightKg: 6.02745618307040320615897144307382404804229736328125
         class: class
         age: 0.80082819046101150206595775671303272247314453125
+    ApiHealth:
+      type: object
+      properties:
+        status:
+          type: string
+        databaseStatus:
+          type: string
+      example:
+        databaseStatus: databaseStatus
+        status: status
   securitySchemes:
     api_key:
       type: apiKey

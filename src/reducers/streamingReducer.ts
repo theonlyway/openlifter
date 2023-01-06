@@ -6,7 +6,7 @@ type Action = StreamingAction;
 const initialState: StreamingState = {
   streamingEnabled: false,
   apiUrl: "http://localhost:8080/theonlyway/Openlifter/1.0.0",
-  apiAuthentication: false,
+  apiAuthentication: true,
   apiKey: "441b6244-8a4f-4e0f-8624-e5c665ecc901",
 };
 
