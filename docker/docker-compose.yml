@@ -13,6 +13,16 @@ services:
     volumes:
       - mongodb_data:/data/db
       - ./docker-entrypoint-initdb.d/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+  openlifter_api:
+    build: ../api
+    container_name: openlifter_api
+    restart: always
+    environment:
+      - API_KEY=441b6244-8a4f-4e0f-8624-e5c665ecc901
+      - MONGODB_USER=api_user
+      - MONGODB_PASSWORD=xaw!TNQ7cwp3fdr2cqf
+    ports:
+      - 8080:8080
 
 volumes:
   mongodb_data:

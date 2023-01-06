@@ -5,9 +5,9 @@ type Action = StreamingAction;
 
 const initialState: StreamingState = {
   streamingEnabled: false,
-  apiUrl: "http://localhost",
+  apiUrl: "http://localhost:8080/theonlyway/Openlifter/1.0.0",
   apiAuthentication: false,
-  apiKey: "developmentKey",
+  apiKey: "441b6244-8a4f-4e0f-8624-e5c665ecc901",
 };
 
 export default function streamingReducer(state: StreamingState = initialState, action: Action) {

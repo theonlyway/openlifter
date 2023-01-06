@@ -41,6 +41,7 @@ import {
 } from "../../actions/streamingActions";
 import { getString } from "../../logic/strings";
 import ValidatedInput from "../ValidatedInput";
+import { Button, Modal } from "react-bootstrap";
 
 interface StateProps {
   streaming: StreamingState;
@@ -56,9 +57,18 @@ interface DispatchProps {
 
 type Props = StateProps & DispatchProps;
 
-class StreamingView extends React.Component<Props> {
+interface LocalState {
+  connectionModalShow: boolean;
+  connectionStatus: string;
+}
+
+class StreamingView extends React.Component<Props, LocalState> {
   constructor(props: Props) {
     super(props);
+    this.handleTestApiConnection = this.handleTestApiConnection.bind(this);
+    this.renderConnectionModal = this.renderConnectionModal.bind(this);
+    this.handleCloseConnectionModal = this.handleCloseConnectionModal.bind(this);
+    this.state = { connectionModalShow: false, connectionStatus: "" };
   }
 
   validateRequiredText = (value?: string): Validation => {
@@ -67,6 +77,32 @@ class StreamingView extends React.Component<Props> {
     return "success";
   };
 
+  handleTestApiConnection = () => {
+    this.setState({ connectionModalShow: true });
+  };
+
+  handleCloseConnectionModal = () => {
+    this.setState({ connectionModalShow: false });
+  };
+
+  renderConnectionModal = () => {
+    return (
+      <Modal show={this.state.connectionModalShow} onHide={this.handleCloseConnectionModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Modal heading</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Something</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={this.handleCloseConnectionModal}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={this.handleCloseConnectionModal}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    );
+  };
   render() {
     const language = this.props.language;
     const stringStreamingEnabled = getString("streaming.enabled", language);
@@ -140,11 +176,17 @@ class StreamingView extends React.Component<Props> {
                       />
                     </React.Fragment>
                   ) : null}
+                  <div className="d-grid">
+                    <Button variant="primary" onClick={this.handleTestApiConnection} style={{ marginTop: "8px" }}>
+                      <FormattedMessage id="streaming.api.test.connection" defaultMessage="Test connection" />
+                    </Button>
+                  </div>
                 </Card.Body>
               </Card>
             </Col>
           ) : null}
         </Row>
+        {this.renderConnectionModal()}
       </Container>
     );
   }

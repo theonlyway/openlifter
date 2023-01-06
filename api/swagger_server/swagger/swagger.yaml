@@ -1,0 +1,125 @@
+openapi: 3.0.3
+info:
+  title: Openlifter API
+  description: API designed to expose data from Openlifter
+  contact:
+    url: https://github.com/theonlyway/openlifter
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: https://virtserver.swaggerhub.com/theonlyway/Openlifter/1.0.0
+  description: SwaggerHub API Auto Mocking
+tags:
+- name: lifters
+  description: Lifter information
+paths:
+  /lifter/current:
+    get:
+      tags:
+      - lifters
+      summary: Returns the current lifter
+      description: |
+        Returns the current lifter
+      operationId: lifter_current_get
+      responses:
+        "200":
+          description: current lifter
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrentLifter'
+      x-openapi-router-controller: swagger_server.controllers.lifters_controller
+    post:
+      tags:
+      - lifters
+      summary: Update the current lifter
+      description: |
+        Update the current lifter
+      operationId: lifter_current_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CurrentLifter'
+      responses:
+        "200":
+          description: current lifter
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrentLifter'
+      security:
+      - api_key: []
+      x-openapi-router-controller: swagger_server.controllers.lifters_controller
+  /lifter/next:
+    get:
+      tags:
+      - lifters
+      summary: Returns the next lifter
+      description: |
+        Returns the current lifter
+      operationId: lifter_next_get
+      responses:
+        "200":
+          description: current lifter
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrentLifter'
+      x-openapi-router-controller: swagger_server.controllers.lifters_controller
+    post:
+      tags:
+      - lifters
+      summary: Update the next lifter
+      description: |
+        Update the current lifter
+      operationId: lifter_next_post
+      responses:
+        "200":
+          description: current lifter
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrentLifter'
+      security:
+      - api_key: []
+      x-openapi-router-controller: swagger_server.controllers.lifters_controller
+components:
+  schemas:
+    CurrentLifter:
+      required:
+      - age
+      - bodyweightKg
+      - class
+      - name
+      - sex
+      type: object
+      properties:
+        name:
+          type: string
+        division:
+          type: string
+        class:
+          type: string
+        sex:
+          type: string
+        age:
+          type: number
+        bodyweightKg:
+          type: number
+      example:
+        division: division
+        sex: sex
+        name: name
+        bodyweightKg: 6.02745618307040320615897144307382404804229736328125
+        class: class
+        age: 0.80082819046101150206595775671303272247314453125
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: x-api-key
+      in: header
+      x-apikeyInfoFunc: swagger_server.controllers.authorization_controller.check_api_key
+

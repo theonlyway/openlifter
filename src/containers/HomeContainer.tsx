@@ -186,7 +186,11 @@ class HomeContainer extends React.Component<Props, InternalState> {
 
     // If no meet is active, make the button just a LinkContainer.
     if (!this.props.redux.meet.name) {
-      newMeetButton = <LinkContainer to="/meet-setup">{newMeetButton}</LinkContainer>;
+      newMeetButton = (
+        <LinkContainer style={buttonMargin} to="/meet-setup">
+          {newMeetButton}
+        </LinkContainer>
+      );
     }
 
     const isBeta: boolean = releaseVersion.includes("eta");
@@ -272,7 +276,6 @@ class HomeContainer extends React.Component<Props, InternalState> {
               <Col md={8}>
                 <div className="d-grid">
                   {newMeetButton}
-
                   <Button variant="warning" onClick={this.handleLoadClick} style={buttonMargin}>
                     <FormattedMessage id="home.button-load-from-file" defaultMessage="Load from File" />
                   </Button>

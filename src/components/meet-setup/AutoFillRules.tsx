@@ -1628,7 +1628,11 @@ class AutoFillRules extends React.Component<Props, InternalState> {
               </option>
             </FormControl>
 
-            <Button onClick={this.handleClick} variant="primary" style={{ width: "25%", marginLeft: "5%" }}>
+            <Button
+              onClick={this.handleClick}
+              variant="primary"
+              style={{ width: "25%", marginLeft: "5%", padding: "10px" }}
+            >
               <FormattedMessage id="meet-setup.button-autofill" defaultMessage="Auto-Fill" />
             </Button>
           </div>

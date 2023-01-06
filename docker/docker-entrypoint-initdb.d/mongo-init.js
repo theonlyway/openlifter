@@ -1,7 +1,7 @@
 db = db.getSiblingDB("openlifter");
 db.createUser({
   user: "api_user",
-  pwd: "api1234",
+  pwd: "xaw!TNQ7cwp3fdr2cqf",
   roles: [{ role: "readWrite", db: "openlifter" }],
 });
 db.createCollection("lifters");
