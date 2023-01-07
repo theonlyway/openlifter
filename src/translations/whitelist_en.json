@@ -321,6 +321,7 @@
   "streaming-enable.header",
   "streaming.settings.notification",
   "streaming.api.configuration",
+  "streaming.api.authentication.setting",
   "weigh-ins.platform-header",
   "weigh-ins.platform-flight",
   "weigh-ins.squat-rack-header",
