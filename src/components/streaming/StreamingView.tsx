@@ -62,6 +62,7 @@ interface LocalState {
   connectionStatus: {
     apiStatus: string;
     databaseStatus: string;
+    authenticationSuccessful: boolean;
   };
 }
 
@@ -71,7 +72,10 @@ class StreamingView extends React.Component<Props, LocalState> {
     this.handleTestApiConnection = this.handleTestApiConnection.bind(this);
     this.renderConnectionModal = this.renderConnectionModal.bind(this);
     this.handleCloseConnectionModal = this.handleCloseConnectionModal.bind(this);
-    this.state = { connectionModalShow: false, connectionStatus: { apiStatus: "failed", databaseStatus: "failed" } };
+    this.state = {
+      connectionModalShow: false,
+      connectionStatus: { apiStatus: "failed", databaseStatus: "failed", authenticationSuccessful: false },
+    };
   }
 
   validateRequiredText = (value?: string): Validation => {
@@ -81,21 +85,37 @@ class StreamingView extends React.Component<Props, LocalState> {
   };
 
   handleTestApiConnection = () => {
+    this.setState({
+      connectionStatus: { apiStatus: "failed", databaseStatus: "failed", authenticationSuccessful: false },
+    });
+    let fetchHeaders = {};
+    if (this.props.streaming.apiAuthentication == true) {
+      fetchHeaders = {
+        "x-api-key": this.props.streaming.apiKey,
+      };
+    }
     fetch(this.props.streaming.apiUrl + "/health", {
       method: "GET",
-      headers: {
-        "x-api-key": this.props.streaming.apiKey,
-      },
+      headers: fetchHeaders,
     })
       .then((response) => response.json())
       .then((data) => {
         if (data.databaseStatus === "ok" && data.apiStatus === "ok") {
-          this.setState({ connectionModalShow: true, connectionStatus: { apiStatus: "ok", databaseStatus: "ok" } });
+          this.setState({
+            connectionModalShow: true,
+            connectionStatus: { apiStatus: "ok", databaseStatus: "ok", authenticationSuccessful: true },
+          });
         }
         if (data.databaseStatus !== "ok" && data.apiStatus === "ok") {
           this.setState({
             connectionModalShow: true,
-            connectionStatus: { apiStatus: "ok", databaseStatus: "failed" },
+            connectionStatus: { apiStatus: "ok", databaseStatus: "failed", authenticationSuccessful: true },
+          });
+        }
+        if (data.status === 401) {
+          this.setState({
+            connectionModalShow: true,
+            connectionStatus: { apiStatus: "failed", databaseStatus: "failed", authenticationSuccessful: false },
           });
         } else {
           this.setState({
@@ -122,6 +142,15 @@ class StreamingView extends React.Component<Props, LocalState> {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          {this.state.connectionStatus.authenticationSuccessful == false ? (
+            <React.Fragment>
+              <FormattedMessage
+                id="streaming.api.test.connection.modal.database.status.failure"
+                defaultMessage="API authentication failed"
+              />
+              <br />
+            </React.Fragment>
+          ) : null}
           {this.state.connectionStatus.apiStatus === "ok" ? (
             <FormattedMessage
               id="streaming.api.test.connection.modal.api.status.success"
