@@ -1,6 +1,7 @@
 # OpenLifter
-
 > Simple software for running a local powerlifting competition.
+## Notice
+This is a fork of the original located here: https://github.com/theonlyway/openlifter the main aim of this fork is to implement some streaming functionality hosted by default locally. The code used to host the API locally can be hosted externally on dedicated infrastructure if required
 
 ## Development Chat
 
@@ -35,7 +36,7 @@ First, you need to install yarn. You can find the installation steps here https:
 
 Second, navigate to your local project's root directory and run the `yarn install` command. The command installs all packages specified in the package.json file.
 
-Once the command finishes then you can run the make commands below: 
+Once the command finishes then you can run the make commands below:
 
 ```bash
 # Opens a development browser with hot reload at localhost:3000.

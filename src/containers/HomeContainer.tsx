@@ -300,7 +300,7 @@ class HomeContainer extends React.Component<Props, InternalState> {
                     <FormattedMessage id="home.button-support" defaultMessage="Official Support" />
                   </Button>
                 </a>
-                <a href="https://gitlab.com/openpowerlifting/openlifter" rel="noopener noreferrer" target="_blank">
+                <a href="https://github.com/theonlyway/openlifter" rel="noopener noreferrer" target="_blank">
                   <Button variant="outline-secondary" style={buttonMargin}>
                     <FormattedMessage id="home.button-source" defaultMessage="Full Source Code" />
                   </Button>
