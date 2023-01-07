@@ -1,7 +1,7 @@
 # OpenLifter
 > Simple software for running a local powerlifting competition.
 ## Notice
-This is a fork of the original located here: https://github.com/theonlyway/openlifter the main aim of this fork is to implement some streaming functionality hosted by default locally. The code used to host the API locally can be hosted externally on dedicated infrastructure if required
+This is a fork of the original located here: https://gitlab.com/openpowerlifting/openlifter the main aim of this fork is to implement some streaming functionality hosted by default locally. The code used to host the API locally can be hosted externally on dedicated infrastructure if required
 
 ## Development Chat
 
