@@ -84,15 +84,11 @@ class StreamingView extends React.Component<Props, LocalState> {
         "x-api-key": this.props.streaming.apiKey,
       },
     })
-      .then((res) => res.json())
-      .then(
-        (result) => {
-          this.setState({ connectionModalShow: true });
-        },
-        (error) => {
-          this.setState({ connectionModalShow: true });
-        }
-      );
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        this.setState({ connectionModalShow: true, connectionStatus: "ok" });
+      });
   };
 
   handleCloseConnectionModal = () => {
@@ -107,7 +103,7 @@ class StreamingView extends React.Component<Props, LocalState> {
             <FormattedMessage id="streaming.api.test.connection.modal.title" defaultMessage="API Connection test" />
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body>Something</Modal.Body>
+        <Modal.Body>{this.state.connectionStatus}</Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={this.handleCloseConnectionModal}>
             Close
