@@ -59,7 +59,10 @@ type Props = StateProps & DispatchProps;
 
 interface LocalState {
   connectionModalShow: boolean;
-  connectionStatus: string;
+  connectionStatus: {
+    apiStatus: string;
+    databaseStatus: string;
+  };
 }
 
 class StreamingView extends React.Component<Props, LocalState> {
@@ -68,7 +71,7 @@ class StreamingView extends React.Component<Props, LocalState> {
     this.handleTestApiConnection = this.handleTestApiConnection.bind(this);
     this.renderConnectionModal = this.renderConnectionModal.bind(this);
     this.handleCloseConnectionModal = this.handleCloseConnectionModal.bind(this);
-    this.state = { connectionModalShow: false, connectionStatus: "" };
+    this.state = { connectionModalShow: false, connectionStatus: { apiStatus: "failed", databaseStatus: "failed" } };
   }
 
   validateRequiredText = (value?: string): Validation => {
@@ -86,12 +89,17 @@ class StreamingView extends React.Component<Props, LocalState> {
     })
       .then((response) => response.json())
       .then((data) => {
-        //console.log(data);
-        this.setState({ connectionModalShow: true, connectionStatus: data });
+        if (data.databaseStatus === "ok" && data.apiStatus === "ok") {
+          this.setState({ connectionModalShow: true, connectionStatus: { apiStatus: "ok", databaseStatus: "ok" } });
+        } else {
+          this.setState({
+            connectionModalShow: true,
+          });
+        }
       })
       .catch((error) => {
         //console.log(error);
-        this.setState({ connectionModalShow: true, connectionStatus: error.message });
+        this.setState({ connectionModalShow: true });
       });
   };
 
@@ -107,7 +115,31 @@ class StreamingView extends React.Component<Props, LocalState> {
             <FormattedMessage id="streaming.api.test.connection.modal.title" defaultMessage="API Connection test" />
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body>{this.state.connectionStatus}</Modal.Body>
+        <Modal.Body>
+          {this.state.connectionStatus.apiStatus === "ok" ? (
+            <FormattedMessage
+              id="streaming.api.test.connection.modal.api.status.success"
+              defaultMessage="Connection to API was successful"
+            />
+          ) : (
+            <FormattedMessage
+              id="streaming.api.test.connection.modal.api.status.failure"
+              defaultMessage="Connection to API failed"
+            />
+          )}
+          <br />
+          {this.state.connectionStatus.databaseStatus === "ok" ? (
+            <FormattedMessage
+              id="streaming.api.test.connection.modal.database.status.success"
+              defaultMessage="Connection to database was successful"
+            />
+          ) : (
+            <FormattedMessage
+              id="streaming.api.test.connection.modal.database.status.failure"
+              defaultMessage="Connection to database failed"
+            />
+          )}
+        </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={this.handleCloseConnectionModal}>
             Close

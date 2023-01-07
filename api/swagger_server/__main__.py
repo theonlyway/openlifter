@@ -2,10 +2,8 @@
 
 import connexion
 from flask_cors import CORS
-import logging
-
 from swagger_server import encoder
-
+from swagger_server.config import Config, logger
 
 def main():
     app = connexion.App(__name__, specification_dir='./swagger/')
@@ -16,4 +14,6 @@ def main():
 
 
 if __name__ == '__main__':
+    config = Config()
+    logger.setLevel(config.logLevel)
     main()

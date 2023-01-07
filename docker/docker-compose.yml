@@ -16,11 +16,14 @@ services:
   openlifter_api:
     build: ../api
     container_name: openlifter_api
-    restart: always
     environment:
+      - LOG_LEVEL=DEBUG
       - API_KEY=441b6244-8a4f-4e0f-8624-e5c665ecc901
+      - MONGODB_HOST=mongodb
+      - MONGODB_PORT=27017
       - MONGODB_USER=api_user
       - MONGODB_PASSWORD=xaw!TNQ7cwp3fdr2cqf
+      - MONGODB_DATABASE=openlifter
     ports:
       - 8080:8080
 
