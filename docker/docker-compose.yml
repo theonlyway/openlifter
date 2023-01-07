@@ -16,6 +16,7 @@ services:
   openlifter_api:
     build: ../api
     container_name: openlifter_api
+    restart: always
     environment:
       - LOG_LEVEL=DEBUG
       - API_KEY=441b6244-8a4f-4e0f-8624-e5c665ecc901

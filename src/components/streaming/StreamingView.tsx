@@ -91,6 +91,12 @@ class StreamingView extends React.Component<Props, LocalState> {
       .then((data) => {
         if (data.databaseStatus === "ok" && data.apiStatus === "ok") {
           this.setState({ connectionModalShow: true, connectionStatus: { apiStatus: "ok", databaseStatus: "ok" } });
+        }
+        if (data.databaseStatus !== "ok" && data.apiStatus === "ok") {
+          this.setState({
+            connectionModalShow: true,
+            connectionStatus: { apiStatus: "ok", databaseStatus: "failed" },
+          });
         } else {
           this.setState({
             connectionModalShow: true,

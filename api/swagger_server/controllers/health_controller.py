@@ -29,7 +29,11 @@ def health_get():  # noqa: E501
         collection.update_one(
             {'reason': "API health check"}, {'$set': healthCheck}, upsert=True)
     except Exception as e:
-        raise (e)
+        logger.error(e)
+        return {
+            'databaseStatus': "fail",
+            'apiStatus': "ok"
+        }
 
     return {
         'databaseStatus': "ok",
