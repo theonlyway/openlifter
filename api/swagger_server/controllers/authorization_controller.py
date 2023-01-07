@@ -10,11 +10,11 @@ config = Config()
 
 
 def check_api_key(api_key, required_scopes):
-    logger.debug(f"Checking supplied key: {api_key}")
-    logger.info("Checking supplied key")
+    logger.debug(f"API key: {api_key}")
+    logger.info("Checking supplied API key")
     if api_key == config.apiKey:
         return {'x-api_key': api_key}
     else:
         logger.debug(
-            f"Provided API key: {api_key} does not match {config.apiKey}")
+            f"Provided API key: {api_key} does not match: {config.apiKey}")
         raise OAuthProblem("Invalid API key")
