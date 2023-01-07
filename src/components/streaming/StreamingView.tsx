@@ -86,8 +86,12 @@ class StreamingView extends React.Component<Props, LocalState> {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-        this.setState({ connectionModalShow: true, connectionStatus: "ok" });
+        //console.log(data);
+        this.setState({ connectionModalShow: true, connectionStatus: data });
+      })
+      .catch((error) => {
+        //console.log(error);
+        this.setState({ connectionModalShow: true, connectionStatus: error.message });
       });
   };
 
