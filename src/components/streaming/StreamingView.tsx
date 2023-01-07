@@ -78,8 +78,21 @@ class StreamingView extends React.Component<Props, LocalState> {
   };
 
   handleTestApiConnection = () => {
-    fetch(this.props.streaming.apiUrl + "");
-    this.setState({ connectionModalShow: true });
+    fetch(this.props.streaming.apiUrl + "/health", {
+      method: "GET",
+      headers: {
+        "x-api-key": this.props.streaming.apiKey,
+      },
+    })
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          this.setState({ connectionModalShow: true });
+        },
+        (error) => {
+          this.setState({ connectionModalShow: true });
+        }
+      );
   };
 
   handleCloseConnectionModal = () => {
