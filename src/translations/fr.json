@@ -336,7 +336,7 @@
   "streaming.api.test.connection.modal.api.status.auth.failure": "API authentication failed",
   "streaming.api.test.connection.modal.api.status.failure": "Connection to API failed",
   "streaming.api.test.connection.modal.api.status.success": "Connection to API was successful",
-  "streaming.api.test.connection.modal.database.status.failure": "Connection to database failed",
+  "streaming.api.test.connection.modal.database.status.failure": "API connection to database failed",
   "streaming.api.test.connection.modal.database.status.success": "Connection to database was successful",
   "streaming.api.test.connection.modal.title": "API Connection test",
   "streaming.api.url": "API URL",
