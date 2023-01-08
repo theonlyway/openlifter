@@ -141,15 +141,21 @@ components:
         class: class
         age: 0.80082819046101150206595775671303272247314453125
     ApiHealth:
+      required:
+      - apiStatus
+      - databaseStatus
       type: object
       properties:
-        status:
+        apiStatus:
           type: string
         databaseStatus:
           type: string
+        failureMessage:
+          type: string
       example:
         databaseStatus: databaseStatus
-        status: status
+        failureMessage: failureMessage
+        apiStatus: apiStatus
   securitySchemes:
     api_key:
       type: apiKey
