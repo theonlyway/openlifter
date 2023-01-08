@@ -2,7 +2,6 @@ from dataclasses import dataclass
 import os
 import logging
 from pymongo import MongoClient
-from datetime import datetime
 
 
 logging.basicConfig(
@@ -20,13 +19,10 @@ class Config:
     mongodbPassword = os.environ.get('MONGODB_PASSWORD')
     mongodbDatabaseName = os.environ.get('MONGODB_DATABASE')
     mongodbConnectionString = f"mongodb://{mongodbUsername}:{mongodbPassword}@{mongodbHost}:{mongodbPort}/{mongodbDatabaseName}"
+    mongodbClient = MongoClient(mongodbConnectionString,
+                                serverSelectionTimeoutMS=5000)
 
 
-def Mongodb_Client():
+def mongodb_connection_failure() -> str:
     config = Config()
-    try:
-        client = MongoClient(config.mongodbConnectionString)
-    except Exception as e:
-        logger.error("Could not connect to MongoDB")
-        raise (e)
-    return client
+    return f"Connection timeout connecting to MongoDB server: mongodb://{config.mongodbUsername}:<password_redacted>@{config.mongodbHost}:{config.mongodbPort}/{config.mongodbDatabaseName}"
