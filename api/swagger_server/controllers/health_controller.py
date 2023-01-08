@@ -23,7 +23,7 @@ def health_get():  # noqa: E501
 
     try:
         database = config.mongodbClient[config.mongodbDatabaseName]
-        collection = database["lifters"]
+        collection = database["health"]
         healthCheck = {
             'reason': "API health check",
             'timestamp': datetime.now().isoformat()
