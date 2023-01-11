@@ -24,10 +24,12 @@ import { FormattedMessage } from "react-intl";
 
 import Button from "react-bootstrap/Button";
 
-import { newRegistration } from "../../actions/registrationActions";
+import { newMiddlewareRegistration } from "../../actions/registrationActions";
 
 import { Entry } from "../../types/dataTypes";
-import { Dispatch } from "redux";
+import { Action } from "redux";
+import { ThunkDispatch } from "redux-thunk";
+import { GlobalState } from "../../types/stateTypes";
 
 interface DispatchProps {
   newRegistration: (obj: Partial<Entry>) => void;
@@ -54,9 +56,9 @@ class NewButton extends React.Component<Props> {
   }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
+const mapDispatchToProps = (dispatch: ThunkDispatch<GlobalState, void, Action>): DispatchProps => {
   return {
-    newRegistration: (obj: Partial<Entry>) => dispatch(newRegistration(obj)),
+    newRegistration: (obj: Partial<Entry>) => dispatch(newMiddlewareRegistration(obj)),
   };
 };
 

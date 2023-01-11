@@ -14,17 +14,28 @@ servers:
 tags:
 - name: lifters
   description: Lifter information
+- name: registrations
+  description: Lifter information
 - name: health
   description: API health check
 paths:
-  /lifter/current:
+  /lifter/{platform}/current:
     get:
       tags:
       - lifters
       summary: Returns the current lifter
       description: |
         Returns the current lifter
-      operationId: lifter_current_get
+      operationId: lifter_platform_current_get
+      parameters:
+      - name: platform
+        in: path
+        description: id of the account to return
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
       responses:
         "200":
           description: current lifter
@@ -41,7 +52,16 @@ paths:
       summary: Update the current lifter
       description: |
         Update the current lifter
-      operationId: lifter_current_post
+      operationId: lifter_platform_current_post
+      parameters:
+      - name: platform
+        in: path
+        description: id of the account to return
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
       requestBody:
         content:
           application/json:
@@ -57,14 +77,46 @@ paths:
       security:
       - api_key: []
       x-openapi-router-controller: swagger_server.controllers.lifters_controller
-  /lifter/next:
+  /registrations:
+    post:
+      tags:
+      - registrations
+      summary: Returns the current lifter
+      description: |
+        Returns the current lifter
+      operationId: registrations_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CurrentLifter'
+      responses:
+        "200":
+          description: current lifter
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrentLifter'
+      security:
+      - api_key: []
+      x-openapi-router-controller: swagger_server.controllers.registrations_controller
+  /lifter/{platform}/next:
     get:
       tags:
       - lifters
       summary: Returns the next lifter
       description: |
         Returns the current lifter
-      operationId: lifter_next_get
+      operationId: lifter_platform_next_get
+      parameters:
+      - name: platform
+        in: path
+        description: id of the account to return
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
       responses:
         "200":
           description: current lifter
@@ -81,7 +133,16 @@ paths:
       summary: Update the next lifter
       description: |
         Update the current lifter
-      operationId: lifter_next_post
+      operationId: lifter_platform_next_post
+      parameters:
+      - name: platform
+        in: path
+        description: id of the account to return
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
       responses:
         "200":
           description: current lifter

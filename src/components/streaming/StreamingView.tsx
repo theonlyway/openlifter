@@ -28,8 +28,6 @@ import { Dispatch } from "redux";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
-import Form from "react-bootstrap/Form";
-import FormControl from "react-bootstrap/FormControl";
 import FormGroup from "react-bootstrap/FormGroup";
 import Row from "react-bootstrap/Row";
 import YesNoButton from "../common/YesNoButton";
@@ -57,7 +55,7 @@ interface DispatchProps {
 
 type Props = StateProps & DispatchProps;
 
-interface LocalState {
+interface InternalState {
   connectionModalShow: boolean;
   connectionStatus: {
     apiStatus: string;
@@ -67,7 +65,7 @@ interface LocalState {
   };
 }
 
-class StreamingView extends React.Component<Props, LocalState> {
+class StreamingView extends React.Component<Props, InternalState> {
   constructor(props: Props) {
     super(props);
     this.handleTestApiConnection = this.handleTestApiConnection.bind(this);

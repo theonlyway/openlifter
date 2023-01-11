@@ -43,13 +43,15 @@ import styles from "./LiftingView.module.scss";
 import { getLiftingOrder } from "../../logic/liftingOrder";
 
 import { Entry, Flight, Language } from "../../types/dataTypes";
-import { GlobalState, MeetState, LiftingState } from "../../types/stateTypes";
+import { GlobalState, MeetState, LiftingState, StreamingState, RegistrationState } from "../../types/stateTypes";
 
 interface StateProps {
   meet: MeetState;
   lifting: LiftingState;
+  streaming: StreamingState;
   flightsOnPlatform: Array<Flight>;
   entriesInFlight: Array<Entry>;
+  registration: RegistrationState;
   language: Language;
 }
 
@@ -69,6 +71,29 @@ class LiftingView extends React.Component<Props, InternalState> {
     this.state = {
       replaceTableWithWeighins: false,
     };
+  }
+
+  exportEntriesToApi = async () => {
+    let fetchHeaders = {};
+    if (this.props.streaming.apiAuthentication == true) {
+      fetchHeaders = {
+        "x-api-key": this.props.streaming.apiKey,
+      };
+    }
+    fetch(this.props.streaming.apiUrl + "/health", {
+      method: "GET",
+      headers: fetchHeaders,
+    })
+      .then((response) => response.json())
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  componentDidMount() {
+    if (this.props.streaming.streamingEnabled === true) {
+      this.exportEntriesToApi();
+    }
   }
 
   toggleReplaceTableWithWeighins = (): void => {
@@ -174,6 +199,8 @@ const mapStateToProps = (state: GlobalState): StateProps => {
     lifting: state.lifting,
     flightsOnPlatform: flights,
     entriesInFlight: entriesInFlight,
+    streaming: state.streaming,
+    registration: state.registration,
     language: state.language,
   };
 };

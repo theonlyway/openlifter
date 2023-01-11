@@ -39,16 +39,17 @@ import { makeExampleRegistrationsCsv, loadRegistrations } from "../../logic/impo
 import { makeRegistrationsCsv } from "../../logic/export/registrations";
 import { getString } from "../../logic/strings";
 
-import { newRegistration, deleteRegistration, assignLotNumbers } from "../../actions/registrationActions";
+import { deleteRegistration, assignLotNumbers, newMiddlewareRegistration } from "../../actions/registrationActions";
 
 import { saveAs } from "file-saver";
 
 import { GlobalState } from "../../types/stateTypes";
 import { Entry } from "../../types/dataTypes";
-import { Dispatch } from "redux";
+import { Action } from "redux";
 import { DropdownButton, Dropdown } from "react-bootstrap";
 import { shuffle } from "../debug/RandomizeHelpers";
 import { generateRandomLotNumbersSequencedByFlight } from "../../logic/lotNumbers";
+import { ThunkDispatch } from "redux-thunk";
 
 interface StateProps {
   global: GlobalState;
@@ -348,9 +349,9 @@ const mapStateToProps = (state: GlobalState): StateProps => ({
   global: state,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
+const mapDispatchToProps = (dispatch: ThunkDispatch<GlobalState, void, Action>): DispatchProps => {
   return {
-    newRegistration: (obj: Partial<Entry>) => dispatch(newRegistration(obj)),
+    newRegistration: (obj: Partial<Entry>) => dispatch(newMiddlewareRegistration(obj)),
     deleteRegistration: (id: number) => dispatch(deleteRegistration(id)),
     assignLotNumbers: (lotNumbers: number[]) => dispatch(assignLotNumbers(lotNumbers)),
   };

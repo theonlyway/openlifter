@@ -16,6 +16,8 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import { Action } from "redux";
+import { ThunkDispatch } from "redux-thunk";
 import {
   NewRegistrationAction,
   DeleteRegistrationAction,
@@ -24,15 +26,23 @@ import {
   AssignLotNumbersAction,
 } from "../types/actionTypes";
 import { Entry } from "../types/dataTypes";
+import { GlobalState } from "../types/stateTypes";
 
 // Adds a blank (or default-initalized) row to the registrations table.
 export const newRegistration = (obj: Partial<Entry>): NewRegistrationAction => {
+  console.log("redux function");
   return {
     type: "NEW_REGISTRATION",
     overwriteDefaults: obj,
   };
 };
 
+export function newMiddlewareRegistration(obj: Partial<Entry>) {
+  return async (dispatch: ThunkDispatch<GlobalState, void, Action<string>>) => {
+    console.log("redux-thunk function");
+    dispatch(newRegistration(obj));
+  };
+}
 // Deletes an existing entry from the registrations table.
 //
 // Corresponding data from the registration is *not* deleted, for example
