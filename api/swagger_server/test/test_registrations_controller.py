@@ -5,6 +5,7 @@ from __future__ import absolute_import
 from flask import json
 from six import BytesIO
 
+from swagger_server.models.any_value import AnyValue  # noqa: E501
 from swagger_server.models.current_lifter import CurrentLifter  # noqa: E501
 from swagger_server.test import BaseTestCase
 

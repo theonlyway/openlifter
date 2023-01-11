@@ -96,7 +96,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CurrentLifter'
+                $ref: '#/components/schemas/AnyValue'
       security:
       - api_key: []
       x-openapi-router-controller: swagger_server.controllers.registrations_controller
@@ -217,6 +217,7 @@ components:
         databaseStatus: databaseStatus
         failureMessage: failureMessage
         apiStatus: apiStatus
+    AnyValue: {}
   securitySchemes:
     api_key:
       type: apiKey
