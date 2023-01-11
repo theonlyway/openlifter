@@ -78,25 +78,25 @@ paths:
       - api_key: []
       x-openapi-router-controller: swagger_server.controllers.lifters_controller
   /registrations:
-    post:
+    put:
       tags:
       - registrations
       summary: Returns the current lifter
       description: |
         Returns the current lifter
-      operationId: registrations_post
+      operationId: registrations_put
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CurrentLifter'
+              $ref: '#/components/schemas/AnyValue'
       responses:
         "200":
           description: current lifter
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AnyValue'
+                $ref: '#/components/schemas/CurrentLifter'
       security:
       - api_key: []
       x-openapi-router-controller: swagger_server.controllers.registrations_controller

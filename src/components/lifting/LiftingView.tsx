@@ -78,11 +78,17 @@ class LiftingView extends React.Component<Props, InternalState> {
     if (this.props.streaming.apiAuthentication == true) {
       fetchHeaders = {
         "x-api-key": this.props.streaming.apiKey,
+        "Content-Type": "application/json",
+      };
+    } else {
+      fetchHeaders = {
+        "Content-Type": "application/json",
       };
     }
-    fetch(this.props.streaming.apiUrl + "/health", {
-      method: "GET",
+    fetch(this.props.streaming.apiUrl + "/registrations", {
+      method: "PUT",
       headers: fetchHeaders,
+      body: JSON.stringify(this.props.registration.entries),
     })
       .then((response) => response.json())
       .catch((error) => {
