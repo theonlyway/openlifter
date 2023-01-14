@@ -307,7 +307,32 @@ export const getLiftingOrder = (
   const nextEntryInfo = getNextEntryInfo(lifting, currentEntryId, orderedEntries, attemptOneIndexed);
 
   if (streaming.streamingEnabled == true) {
-    console.log("streaming enabled");
+    let fetchHeaders = {};
+    if (streaming.streamingEnabled == true) {
+      fetchHeaders = {
+        "x-api-key": streaming.apiKey,
+        "Content-Type": "application/json",
+      };
+    } else {
+      fetchHeaders = {
+        "Content-Type": "application/json",
+      };
+    }
+    fetch(streaming.apiUrl + "/lifter/" + lifting.platform + "/order", {
+      method: "POST",
+      headers: fetchHeaders,
+      body: JSON.stringify({
+        orderedEntries: orderedEntries,
+        attemptOneIndexed: attemptOneIndexed,
+        currentEntryId: currentEntryId,
+        nextAttemptOneIndexed: nextEntryInfo ? nextEntryInfo.attemptOneIndexed : null,
+        nextEntryId: nextEntryInfo ? nextEntryInfo.entryId : null,
+      }),
+    })
+      .then((response) => response.json())
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   return {

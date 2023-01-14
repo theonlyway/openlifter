@@ -14,45 +14,40 @@ class CurrentLifter(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, name: str=None, division: str=None, _class: str=None, sex: str=None, age: float=None, bodyweight_kg: float=None):  # noqa: E501
+    def __init__(self, ordered_entries: List[object]=None, attempt_one_indexed: float=None, current_entry_id: float=None, next_attempt_one_indexed: float=None, next_entry_id: float=None):  # noqa: E501
         """CurrentLifter - a model defined in Swagger
 
-        :param name: The name of this CurrentLifter.  # noqa: E501
-        :type name: str
-        :param division: The division of this CurrentLifter.  # noqa: E501
-        :type division: str
-        :param _class: The _class of this CurrentLifter.  # noqa: E501
-        :type _class: str
-        :param sex: The sex of this CurrentLifter.  # noqa: E501
-        :type sex: str
-        :param age: The age of this CurrentLifter.  # noqa: E501
-        :type age: float
-        :param bodyweight_kg: The bodyweight_kg of this CurrentLifter.  # noqa: E501
-        :type bodyweight_kg: float
+        :param ordered_entries: The ordered_entries of this CurrentLifter.  # noqa: E501
+        :type ordered_entries: List[object]
+        :param attempt_one_indexed: The attempt_one_indexed of this CurrentLifter.  # noqa: E501
+        :type attempt_one_indexed: float
+        :param current_entry_id: The current_entry_id of this CurrentLifter.  # noqa: E501
+        :type current_entry_id: float
+        :param next_attempt_one_indexed: The next_attempt_one_indexed of this CurrentLifter.  # noqa: E501
+        :type next_attempt_one_indexed: float
+        :param next_entry_id: The next_entry_id of this CurrentLifter.  # noqa: E501
+        :type next_entry_id: float
         """
         self.swagger_types = {
-            'name': str,
-            'division': str,
-            '_class': str,
-            'sex': str,
-            'age': float,
-            'bodyweight_kg': float
+            'ordered_entries': List[object],
+            'attempt_one_indexed': float,
+            'current_entry_id': float,
+            'next_attempt_one_indexed': float,
+            'next_entry_id': float
         }
 
         self.attribute_map = {
-            'name': 'name',
-            'division': 'division',
-            '_class': 'class',
-            'sex': 'sex',
-            'age': 'age',
-            'bodyweight_kg': 'bodyweightKg'
+            'ordered_entries': 'orderedEntries',
+            'attempt_one_indexed': 'attemptOneIndexed',
+            'current_entry_id': 'currentEntryId',
+            'next_attempt_one_indexed': 'nextAttemptOneIndexed',
+            'next_entry_id': 'nextEntryId'
         }
-        self._name = name
-        self._division = division
-        self.__class = _class
-        self._sex = sex
-        self._age = age
-        self._bodyweight_kg = bodyweight_kg
+        self._ordered_entries = ordered_entries
+        self._attempt_one_indexed = attempt_one_indexed
+        self._current_entry_id = current_entry_id
+        self._next_attempt_one_indexed = next_attempt_one_indexed
+        self._next_entry_id = next_entry_id
 
     @classmethod
     def from_dict(cls, dikt) -> 'CurrentLifter':
@@ -66,137 +61,106 @@ class CurrentLifter(Model):
         return util.deserialize_model(dikt, cls)
 
     @property
-    def name(self) -> str:
-        """Gets the name of this CurrentLifter.
+    def ordered_entries(self) -> List[object]:
+        """Gets the ordered_entries of this CurrentLifter.
 
 
-        :return: The name of this CurrentLifter.
-        :rtype: str
+        :return: The ordered_entries of this CurrentLifter.
+        :rtype: List[object]
         """
-        return self._name
+        return self._ordered_entries
 
-    @name.setter
-    def name(self, name: str):
-        """Sets the name of this CurrentLifter.
+    @ordered_entries.setter
+    def ordered_entries(self, ordered_entries: List[object]):
+        """Sets the ordered_entries of this CurrentLifter.
 
 
-        :param name: The name of this CurrentLifter.
-        :type name: str
+        :param ordered_entries: The ordered_entries of this CurrentLifter.
+        :type ordered_entries: List[object]
         """
-        if name is None:
-            raise ValueError("Invalid value for `name`, must not be `None`")  # noqa: E501
 
-        self._name = name
+        self._ordered_entries = ordered_entries
 
     @property
-    def division(self) -> str:
-        """Gets the division of this CurrentLifter.
+    def attempt_one_indexed(self) -> float:
+        """Gets the attempt_one_indexed of this CurrentLifter.
 
 
-        :return: The division of this CurrentLifter.
-        :rtype: str
-        """
-        return self._division
-
-    @division.setter
-    def division(self, division: str):
-        """Sets the division of this CurrentLifter.
-
-
-        :param division: The division of this CurrentLifter.
-        :type division: str
-        """
-
-        self._division = division
-
-    @property
-    def _class(self) -> str:
-        """Gets the _class of this CurrentLifter.
-
-
-        :return: The _class of this CurrentLifter.
-        :rtype: str
-        """
-        return self.__class
-
-    @_class.setter
-    def _class(self, _class: str):
-        """Sets the _class of this CurrentLifter.
-
-
-        :param _class: The _class of this CurrentLifter.
-        :type _class: str
-        """
-        if _class is None:
-            raise ValueError("Invalid value for `_class`, must not be `None`")  # noqa: E501
-
-        self.__class = _class
-
-    @property
-    def sex(self) -> str:
-        """Gets the sex of this CurrentLifter.
-
-
-        :return: The sex of this CurrentLifter.
-        :rtype: str
-        """
-        return self._sex
-
-    @sex.setter
-    def sex(self, sex: str):
-        """Sets the sex of this CurrentLifter.
-
-
-        :param sex: The sex of this CurrentLifter.
-        :type sex: str
-        """
-        if sex is None:
-            raise ValueError("Invalid value for `sex`, must not be `None`")  # noqa: E501
-
-        self._sex = sex
-
-    @property
-    def age(self) -> float:
-        """Gets the age of this CurrentLifter.
-
-
-        :return: The age of this CurrentLifter.
+        :return: The attempt_one_indexed of this CurrentLifter.
         :rtype: float
         """
-        return self._age
+        return self._attempt_one_indexed
 
-    @age.setter
-    def age(self, age: float):
-        """Sets the age of this CurrentLifter.
+    @attempt_one_indexed.setter
+    def attempt_one_indexed(self, attempt_one_indexed: float):
+        """Sets the attempt_one_indexed of this CurrentLifter.
 
 
-        :param age: The age of this CurrentLifter.
-        :type age: float
+        :param attempt_one_indexed: The attempt_one_indexed of this CurrentLifter.
+        :type attempt_one_indexed: float
         """
-        if age is None:
-            raise ValueError("Invalid value for `age`, must not be `None`")  # noqa: E501
 
-        self._age = age
+        self._attempt_one_indexed = attempt_one_indexed
 
     @property
-    def bodyweight_kg(self) -> float:
-        """Gets the bodyweight_kg of this CurrentLifter.
+    def current_entry_id(self) -> float:
+        """Gets the current_entry_id of this CurrentLifter.
 
 
-        :return: The bodyweight_kg of this CurrentLifter.
+        :return: The current_entry_id of this CurrentLifter.
         :rtype: float
         """
-        return self._bodyweight_kg
+        return self._current_entry_id
 
-    @bodyweight_kg.setter
-    def bodyweight_kg(self, bodyweight_kg: float):
-        """Sets the bodyweight_kg of this CurrentLifter.
+    @current_entry_id.setter
+    def current_entry_id(self, current_entry_id: float):
+        """Sets the current_entry_id of this CurrentLifter.
 
 
-        :param bodyweight_kg: The bodyweight_kg of this CurrentLifter.
-        :type bodyweight_kg: float
+        :param current_entry_id: The current_entry_id of this CurrentLifter.
+        :type current_entry_id: float
         """
-        if bodyweight_kg is None:
-            raise ValueError("Invalid value for `bodyweight_kg`, must not be `None`")  # noqa: E501
 
-        self._bodyweight_kg = bodyweight_kg
+        self._current_entry_id = current_entry_id
+
+    @property
+    def next_attempt_one_indexed(self) -> float:
+        """Gets the next_attempt_one_indexed of this CurrentLifter.
+
+
+        :return: The next_attempt_one_indexed of this CurrentLifter.
+        :rtype: float
+        """
+        return self._next_attempt_one_indexed
+
+    @next_attempt_one_indexed.setter
+    def next_attempt_one_indexed(self, next_attempt_one_indexed: float):
+        """Sets the next_attempt_one_indexed of this CurrentLifter.
+
+
+        :param next_attempt_one_indexed: The next_attempt_one_indexed of this CurrentLifter.
+        :type next_attempt_one_indexed: float
+        """
+
+        self._next_attempt_one_indexed = next_attempt_one_indexed
+
+    @property
+    def next_entry_id(self) -> float:
+        """Gets the next_entry_id of this CurrentLifter.
+
+
+        :return: The next_entry_id of this CurrentLifter.
+        :rtype: float
+        """
+        return self._next_entry_id
+
+    @next_entry_id.setter
+    def next_entry_id(self, next_entry_id: float):
+        """Sets the next_entry_id of this CurrentLifter.
+
+
+        :param next_entry_id: The next_entry_id of this CurrentLifter.
+        :type next_entry_id: float
+        """
+
+        self._next_entry_id = next_entry_id

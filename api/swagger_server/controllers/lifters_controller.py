@@ -3,7 +3,8 @@ import six
 
 from swagger_server.models.current_lifter import CurrentLifter  # noqa: E501
 from swagger_server import util
-
+from swagger_server.config import Config, logger
+import json
 
 def lifter_platform_current_get(platform):  # noqa: E501
     """Returns the current lifter
@@ -38,11 +39,11 @@ def lifter_platform_order_post(platform, body=None):  # noqa: E501
 
     :param platform: id of the account to return
     :type platform: str
-    :param body: 
+    :param body:
     :type body: dict | bytes
 
     :rtype: CurrentLifter
     """
     if connexion.request.is_json:
-        body = CurrentLifter.from_dict(connexion.request.get_json())  # noqa: E501
+        logger.debug(json.dumps(connexion.request.get_json()))
     return 'do some magic!'

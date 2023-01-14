@@ -149,33 +149,30 @@ paths:
 components:
   schemas:
     CurrentLifter:
-      required:
-      - age
-      - bodyweightKg
-      - class
-      - name
-      - sex
       type: object
       properties:
-        name:
-          type: string
-        division:
-          type: string
-        class:
-          type: string
-        sex:
-          type: string
-        age:
+        orderedEntries:
+          type: array
+          items:
+            type: object
+        attemptOneIndexed:
           type: number
-        bodyweightKg:
+        currentEntryId:
           type: number
+        nextAttemptOneIndexed:
+          type: number
+          nullable: true
+        nextEntryId:
+          type: number
+          nullable: true
       example:
-        division: division
-        sex: sex
-        name: name
-        bodyweightKg: 6.02745618307040320615897144307382404804229736328125
-        class: class
-        age: 0.80082819046101150206595775671303272247314453125
+        attemptOneIndexed: 0.80082819046101150206595775671303272247314453125
+        orderedEntries:
+        - {}
+        - {}
+        currentEntryId: 6.02745618307040320615897144307382404804229736328125
+        nextEntryId: 5.962133916683182377482808078639209270477294921875
+        nextAttemptOneIndexed: 1.46581298050294517310021547018550336360931396484375
     ApiHealth:
       required:
       - apiStatus
