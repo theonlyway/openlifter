@@ -19,40 +19,14 @@ tags:
 - name: health
   description: API health check
 paths:
-  /lifter/{platform}/current:
-    get:
-      tags:
-      - lifters
-      summary: Returns the current lifter
-      description: |
-        Returns the current lifter
-      operationId: lifter_platform_current_get
-      parameters:
-      - name: platform
-        in: path
-        description: id of the account to return
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: string
-      responses:
-        "200":
-          description: current lifter
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CurrentLifter'
-      security:
-      - api_key: []
-      x-openapi-router-controller: swagger_server.controllers.lifters_controller
+  /lifter/{platform}/order:
     post:
       tags:
       - lifters
-      summary: Update the current lifter
+      summary: Update the lifter order
       description: |
         Update the current lifter
-      operationId: lifter_platform_current_post
+      operationId: lifter_platform_order_post
       parameters:
       - name: platform
         in: path
@@ -100,14 +74,14 @@ paths:
       security:
       - api_key: []
       x-openapi-router-controller: swagger_server.controllers.registrations_controller
-  /lifter/{platform}/next:
+  /lifter/{platform}/current:
     get:
       tags:
       - lifters
-      summary: Returns the next lifter
+      summary: Returns the current lifter
       description: |
         Returns the current lifter
-      operationId: lifter_platform_next_get
+      operationId: lifter_platform_current_get
       parameters:
       - name: platform
         in: path
@@ -127,13 +101,14 @@ paths:
       security:
       - api_key: []
       x-openapi-router-controller: swagger_server.controllers.lifters_controller
-    post:
+  /lifter/{platform}/next:
+    get:
       tags:
       - lifters
-      summary: Update the next lifter
+      summary: Returns the next lifter
       description: |
-        Update the current lifter
-      operationId: lifter_platform_next_post
+        Returns the current lifter
+      operationId: lifter_platform_next_get
       parameters:
       - name: platform
         in: path
@@ -145,7 +120,7 @@ paths:
           type: string
       responses:
         "200":
-          description: current lifter
+          description: next lifter
           content:
             application/json:
               schema:
