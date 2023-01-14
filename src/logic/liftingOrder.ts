@@ -19,7 +19,7 @@
 import { liftToAttemptFieldName, liftToStatusFieldName, MAX_ATTEMPTS } from "./entry";
 
 import { LiftingOrder, Entry, FieldKg, FieldStatus } from "../types/dataTypes";
-import { LiftingState } from "../types/stateTypes";
+import { LiftingState, StreamingState } from "../types/stateTypes";
 
 // Helper function: for a given entry, see what attempt number would be next.
 //
@@ -296,11 +296,19 @@ const getNextEntryInfo = (
 };
 
 // Main application logic. Resolves the LiftingState to a LiftingOrder.
-export const getLiftingOrder = (entriesInFlight: Array<Entry>, lifting: LiftingState): LiftingOrder => {
+export const getLiftingOrder = (
+  entriesInFlight: Array<Entry>,
+  lifting: LiftingState,
+  streaming: StreamingState
+): LiftingOrder => {
   const attemptOneIndexed = getActiveAttemptNumber(entriesInFlight, lifting);
   const orderedEntries = orderEntriesForAttempt(entriesInFlight, lifting, attemptOneIndexed);
   const currentEntryId = getCurrentEntryId(lifting, orderedEntries, attemptOneIndexed);
   const nextEntryInfo = getNextEntryInfo(lifting, currentEntryId, orderedEntries, attemptOneIndexed);
+
+  if (streaming.streamingEnabled == true) {
+    console.log("streaming enabled");
+  }
 
   return {
     orderedEntries: orderedEntries,

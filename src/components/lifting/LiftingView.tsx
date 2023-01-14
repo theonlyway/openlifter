@@ -109,7 +109,7 @@ class LiftingView extends React.Component<Props, InternalState> {
   };
 
   render() {
-    const now = getLiftingOrder(this.props.entriesInFlight, this.props.lifting);
+    const now = getLiftingOrder(this.props.entriesInFlight, this.props.lifting, this.props.streaming);
 
     let rightElement = null;
     if (this.state.replaceTableWithWeighins === false) {

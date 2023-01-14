@@ -37,12 +37,6 @@ export const newRegistration = (obj: Partial<Entry>): NewRegistrationAction => {
   };
 };
 
-export function newMiddlewareRegistration(obj: Partial<Entry>) {
-  return async (dispatch: ThunkDispatch<GlobalState, void, Action<string>>) => {
-    console.log("redux-thunk function");
-    dispatch(newRegistration(obj));
-  };
-}
 // Deletes an existing entry from the registrations table.
 //
 // Corresponding data from the registration is *not* deleted, for example
@@ -71,6 +65,13 @@ export const updateRegistration = (entryId: number, obj: Partial<Entry>): Update
     changes: obj,
   };
 };
+
+export function middlewareUpdateRegistration(entryId: number, obj: Partial<Entry>) {
+  return async (dispatch: ThunkDispatch<GlobalState, void, Action<string>>) => {
+    console.log("redux-thunk function");
+    dispatch(updateRegistration(entryId, obj));
+  };
+}
 
 // Deletes all entries assigned to a given (day, platform), and then adds entries
 // assigned to that (day, platform) from a foreign save state.
