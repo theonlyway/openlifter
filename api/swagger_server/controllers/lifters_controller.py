@@ -21,12 +21,12 @@ def lifter_platform_current_get(platform):  # noqa: E501
 
     :rtype: CurrentLifter
     """
+    logger.info(type(platform))
     database = config.mongodbClient[config.mongodbDatabaseName]
     collection = database["order"]
     query = {"platform": platform}
-    document = collection.find(query)
-    for doc in document:
-        logger.info(json.dumps(doc))
+    document = collection.find_one(query)
+    print(document)
     return 'do some magic!'
 
 
@@ -55,6 +55,7 @@ def lifter_platform_order_post(platform, body=None):  # noqa: E501
 
     :rtype: CurrentLifter
     """
+    logger.info(type(platform))
     database = config.mongodbClient[config.mongodbDatabaseName]
     collection = database["order"]
     if connexion.request.is_json:
