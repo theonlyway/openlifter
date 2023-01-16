@@ -5,7 +5,9 @@ from __future__ import absolute_import
 from flask import json
 from six import BytesIO
 
-from swagger_server.models.current_lifter import CurrentLifter  # noqa: E501
+from swagger_server.models.any_value import AnyValue  # noqa: E501
+from swagger_server.models.lifter_order import LifterOrder  # noqa: E501
+from swagger_server.models.order_response import OrderResponse  # noqa: E501
 from swagger_server.test import BaseTestCase
 
 
@@ -39,9 +41,9 @@ class TestLiftersController(BaseTestCase):
 
         Update the lifter order
         """
-        body = CurrentLifter()
+        body = LifterOrder()
         response = self.client.open(
-            '/theonlyway/Openlifter/1.0.0/lifter/{platform}/order'.format(platform='platform_example'),
+            '/theonlyway/Openlifter/1.0.0/lifter/{platform}/order'.format(platform=1.2),
             method='POST',
             data=json.dumps(body),
             content_type='application/json')

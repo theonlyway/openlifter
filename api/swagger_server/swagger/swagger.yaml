@@ -14,8 +14,6 @@ servers:
 tags:
 - name: lifters
   description: Lifter information
-- name: registrations
-  description: Lifter information
 - name: health
   description: API health check
 paths:
@@ -30,50 +28,33 @@ paths:
       parameters:
       - name: platform
         in: path
-        description: id of the account to return
+        description: Platform number
         required: true
         style: simple
         explode: false
         schema:
-          type: string
+          type: number
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CurrentLifter'
+              $ref: '#/components/schemas/LifterOrder'
       responses:
         "200":
-          description: current lifter
+          description: Order update response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CurrentLifter'
+                $ref: '#/components/schemas/OrderResponse'
+        "503":
+          description: Order update response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderResponse'
       security:
       - api_key: []
       x-openapi-router-controller: swagger_server.controllers.lifters_controller
-  /registrations:
-    put:
-      tags:
-      - registrations
-      summary: Returns the current lifter
-      description: |
-        Returns the current lifter
-      operationId: registrations_put
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AnyValue'
-      responses:
-        "200":
-          description: current lifter
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CurrentLifter'
-      security:
-      - api_key: []
-      x-openapi-router-controller: swagger_server.controllers.registrations_controller
   /lifter/{platform}/current:
     get:
       tags:
@@ -93,11 +74,11 @@ paths:
           type: string
       responses:
         "200":
-          description: current lifter
+          description: Current lifter data
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CurrentLifter'
+                $ref: '#/components/schemas/AnyValue'
       security:
       - api_key: []
       x-openapi-router-controller: swagger_server.controllers.lifters_controller
@@ -120,11 +101,11 @@ paths:
           type: string
       responses:
         "200":
-          description: next lifter
+          description: Next lifer data
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CurrentLifter'
+                $ref: '#/components/schemas/AnyValue'
       security:
       - api_key: []
       x-openapi-router-controller: swagger_server.controllers.lifters_controller
@@ -148,7 +129,7 @@ paths:
       x-openapi-router-controller: swagger_server.controllers.health_controller
 components:
   schemas:
-    CurrentLifter:
+    LifterOrder:
       type: object
       properties:
         orderedEntries:
@@ -159,20 +140,13 @@ components:
           type: number
         currentEntryId:
           type: number
+          nullable: true
         nextAttemptOneIndexed:
           type: number
           nullable: true
         nextEntryId:
           type: number
           nullable: true
-      example:
-        attemptOneIndexed: 0.80082819046101150206595775671303272247314453125
-        orderedEntries:
-        - {}
-        - {}
-        currentEntryId: 6.02745618307040320615897144307382404804229736328125
-        nextEntryId: 5.962133916683182377482808078639209270477294921875
-        nextAttemptOneIndexed: 1.46581298050294517310021547018550336360931396484375
     ApiHealth:
       required:
       - apiStatus
@@ -189,6 +163,16 @@ components:
         databaseStatus: databaseStatus
         failureMessage: failureMessage
         apiStatus: apiStatus
+    OrderResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+      example:
+        message: message
+        status: status
     AnyValue: {}
   securitySchemes:
     api_key:

@@ -73,35 +73,6 @@ class LiftingView extends React.Component<Props, InternalState> {
     };
   }
 
-  exportEntriesToApi = async () => {
-    let fetchHeaders = {};
-    if (this.props.streaming.apiAuthentication == true) {
-      fetchHeaders = {
-        "x-api-key": this.props.streaming.apiKey,
-        "Content-Type": "application/json",
-      };
-    } else {
-      fetchHeaders = {
-        "Content-Type": "application/json",
-      };
-    }
-    fetch(this.props.streaming.apiUrl + "/registrations", {
-      method: "PUT",
-      headers: fetchHeaders,
-      body: JSON.stringify(this.props.registration.entries),
-    })
-      .then((response) => response.json())
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  componentDidMount() {
-    if (this.props.streaming.streamingEnabled === true) {
-      this.exportEntriesToApi();
-    }
-  }
-
   toggleReplaceTableWithWeighins = (): void => {
     this.setState({
       replaceTableWithWeighins: !this.state.replaceTableWithWeighins,

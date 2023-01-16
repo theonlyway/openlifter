@@ -4,4 +4,4 @@ db.createUser({
   pwd: "xaw!TNQ7cwp3fdr2cqf",
   roles: [{ role: "readWrite", db: "openlifter" }],
 });
-db.createCollection("lifters");
+db.createCollection("order");

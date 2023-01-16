@@ -5,6 +5,10 @@ from swagger_server.models.current_lifter import CurrentLifter  # noqa: E501
 from swagger_server import util
 from swagger_server.config import Config, logger
 import json
+from datetime import datetime
+
+config = Config()
+
 
 def lifter_platform_current_get(platform):  # noqa: E501
     """Returns the current lifter
@@ -44,6 +48,15 @@ def lifter_platform_order_post(platform, body=None):  # noqa: E501
 
     :rtype: CurrentLifter
     """
+    database = config.mongodbClient[config.mongodbDatabaseName]
+    collection = database["order"]
     if connexion.request.is_json:
         logger.debug(json.dumps(connexion.request.get_json()))
-    return 'do some magic!'
+        order = {
+            'platform': platform,
+            'order': connexion.request.get_json(),
+            'timestamp': datetime.now().isoformat()
+        }
+        collection.update_one(
+            {'platform': platform}, {'$set': order}, upsert=True)
+    return {'message': 'order updated'}
