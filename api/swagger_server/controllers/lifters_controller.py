@@ -5,7 +5,8 @@ from swagger_server.models.current_lifter import CurrentLifter  # noqa: E501
 from swagger_server import util
 from swagger_server.config import Config, logger
 import json
-from datetime import datetime
+import time
+
 
 config = Config()
 
@@ -55,7 +56,7 @@ def lifter_platform_order_post(platform, body=None):  # noqa: E501
         order = {
             'platform': platform,
             'order': connexion.request.get_json(),
-            'timestamp': datetime.now().isoformat()
+            'lastUpdated': time.strftime("%Y/%m/%d-%H:%M:%S", time.localtime())
         }
         collection.update_one(
             {'platform': platform}, {'$set': order}, upsert=True)

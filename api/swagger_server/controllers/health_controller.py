@@ -6,7 +6,7 @@ from swagger_server import util
 from swagger_server.config import Config, logger, mongodb_connection_failure
 from pymongo import errors, MongoClient
 import json
-from datetime import datetime
+import time
 
 
 config = Config()
@@ -26,7 +26,7 @@ def health_get():  # noqa: E501
         collection = database["health"]
         healthCheck = {
             'reason': "API health check",
-            'timestamp': datetime.now().isoformat()
+            'lastUpdated': time.strftime("%Y/%m/%d-%H:%M:%S", time.localtime())
         }
         collection.update_one(
             {'reason': "API health check"}, {'$set': healthCheck}, upsert=True)

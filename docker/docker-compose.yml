@@ -25,6 +25,7 @@ services:
       - MONGODB_USER=api_user
       - MONGODB_PASSWORD=xaw!TNQ7cwp3fdr2cqf
       - MONGODB_DATABASE=openlifter
+      - TZ=Australia/Brisbane
     ports:
       - 8080:8080
 
