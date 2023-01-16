@@ -20,7 +20,7 @@ class TestLiftersController(BaseTestCase):
         Returns the current lifter
         """
         response = self.client.open(
-            '/theonlyway/Openlifter/1.0.0/lifter/{platform}/current'.format(platform=1.2),
+            '/theonlyway/Openlifter/1.0.0/lifter/{platform}/current'.format(platform=56),
             method='GET')
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
@@ -31,7 +31,7 @@ class TestLiftersController(BaseTestCase):
         Returns the next lifter
         """
         response = self.client.open(
-            '/theonlyway/Openlifter/1.0.0/lifter/{platform}/next'.format(platform=1.2),
+            '/theonlyway/Openlifter/1.0.0/lifter/{platform}/next'.format(platform=56),
             method='GET')
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
@@ -43,7 +43,7 @@ class TestLiftersController(BaseTestCase):
         """
         body = LifterOrder()
         response = self.client.open(
-            '/theonlyway/Openlifter/1.0.0/lifter/{platform}/order'.format(platform=1.2),
+            '/theonlyway/Openlifter/1.0.0/lifter/{platform}/order'.format(platform=56),
             method='POST',
             data=json.dumps(body),
             content_type='application/json')

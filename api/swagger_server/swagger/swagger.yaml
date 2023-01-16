@@ -33,7 +33,7 @@ paths:
         style: simple
         explode: false
         schema:
-          type: number
+          type: integer
       requestBody:
         content:
           application/json:
@@ -71,7 +71,7 @@ paths:
         style: simple
         explode: false
         schema:
-          type: number
+          type: integer
       responses:
         "200":
           description: Current lifter data
@@ -98,7 +98,7 @@ paths:
         style: simple
         explode: false
         schema:
-          type: number
+          type: integer
       responses:
         "200":
           description: Next lifer data
@@ -137,15 +137,15 @@ components:
           items:
             type: object
         attemptOneIndexed:
-          type: number
+          type: integer
         currentEntryId:
-          type: number
+          type: integer
           nullable: true
         nextAttemptOneIndexed:
-          type: number
+          type: integer
           nullable: true
         nextEntryId:
-          type: number
+          type: integer
           nullable: true
     ApiHealth:
       required:

@@ -1,3 +1,4 @@
+from swagger_server.exceptions import DocumentNotFound
 import connexion
 import six
 
@@ -21,13 +22,16 @@ def lifter_platform_current_get(platform):  # noqa: E501
 
     :rtype: CurrentLifter
     """
-    logger.info(type(platform))
+    logger.debug(type(platform))
     database = config.mongodbClient[config.mongodbDatabaseName]
     collection = database["order"]
     query = {"platform": platform}
     document = collection.find_one(query)
-    print(document)
-    return 'do some magic!'
+    if document is None:
+        logger.info(f"Could not find document for platform: {platform}")
+        raise DocumentNotFound(platform, "order")
+    else:
+        logger.info(f"Found document for platform: {platform}")
 
 
 def lifter_platform_next_get(platform):  # noqa: E501
@@ -55,7 +59,7 @@ def lifter_platform_order_post(platform, body=None):  # noqa: E501
 
     :rtype: CurrentLifter
     """
-    logger.info(type(platform))
+    logger.debug(type(platform))
     database = config.mongodbClient[config.mongodbDatabaseName]
     collection = database["order"]
     if connexion.request.is_json:
