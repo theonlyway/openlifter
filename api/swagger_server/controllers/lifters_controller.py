@@ -32,6 +32,7 @@ def lifter_platform_current_get(platform):  # noqa: E501
         raise DocumentNotFound(platform, "order")
     else:
         logger.info(f"Found document for platform: {platform}")
+        return json.dumps(document, default=str)
 
 
 def lifter_platform_next_get(platform):  # noqa: E501
