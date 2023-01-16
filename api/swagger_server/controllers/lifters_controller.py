@@ -60,4 +60,5 @@ def lifter_platform_order_post(platform, body=None):  # noqa: E501
         }
         collection.update_one(
             {'platform': platform}, {'$set': order}, upsert=True)
-    return {'message': 'order updated'}
+        return {'status': 'ok', 'message': 'order updated'}
+    return {'status': 'fail', 'message': 'No JSON object detected'}
