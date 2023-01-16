@@ -71,7 +71,7 @@ paths:
         style: simple
         explode: false
         schema:
-          type: string
+          type: number
       responses:
         "200":
           description: Current lifter data
@@ -98,7 +98,7 @@ paths:
         style: simple
         explode: false
         schema:
-          type: string
+          type: number
       responses:
         "200":
           description: Next lifer data

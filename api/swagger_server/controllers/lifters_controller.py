@@ -21,6 +21,12 @@ def lifter_platform_current_get(platform):  # noqa: E501
 
     :rtype: CurrentLifter
     """
+    database = config.mongodbClient[config.mongodbDatabaseName]
+    collection = database["order"]
+    query = {"platform": platform}
+    document = collection.find(query)
+    for doc in document:
+        logger.info(json.dumps(doc))
     return 'do some magic!'
 
 
