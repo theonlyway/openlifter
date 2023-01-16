@@ -8,6 +8,7 @@ services:
       - MONGO_INITDB_DATABASE=openlifter
       - MONGO_INITDB_ROOT_USERNAME=localdevrootuser
       - MONGO_INITDB_ROOT_PASSWORD=localdevrootpassword
+      - TZ=Australia/Brisbane
     ports:
       - 27017:27017
     volumes:
