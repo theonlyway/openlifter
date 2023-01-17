@@ -1,0 +1,172 @@
+openapi: 3.0.3
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/theonlyway/Openlifter/1.0.0
+info:
+  description: API designed to expose data from Openlifter
+  version: "1.0.0"
+  title: Openlifter API
+  contact:
+    url: https://github.com/theonlyway/openlifter
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: lifters
+    description: Lifter information
+  - name: registrations
+    description: Lifter information
+  - name: health
+    description: API health check
+paths:
+  /lifter/{platform}/order:
+    post:
+      tags:
+        - lifters
+      summary: Update the lifter order
+      description: |
+        Update the current lifter
+      parameters:
+        - name: platform
+          in: path
+          description: id of the account to return
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LifterOrder"
+      responses:
+        '200':
+          description: current lifter
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrentLifter'
+      security:
+        - api_key: []
+  /lifter/{platform}/current:
+    get:
+      tags:
+        - lifters
+      summary: Returns the current lifter
+      description: |
+        Returns the current lifter
+      parameters:
+        - name: platform
+          in: path
+          description: id of the account to return
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: current lifter
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrentLifter'
+      security:
+        - api_key: []
+  /lifter/{platform}/next:
+    get:
+      tags:
+        - lifters
+      summary: Returns the next lifter
+      description: |
+        Returns the current lifter
+      parameters:
+        - name: platform
+          in: path
+          description: id of the account to return
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: next lifter
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrentLifter'
+      security:
+        - api_key: []
+  /health:
+    get:
+      tags:
+        - health
+      summary: Checks the health of the API
+      description: |
+        Returns the health of the API
+      responses:
+        '200':
+          description: API health
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiHealth'
+      security:
+        - api_key: []
+components:
+  schemas:
+    CurrentLifter:
+      type: object
+      properties:
+        orderedEntries:
+            type: array
+            items:
+              type: object
+        attemptOneIndexed:
+          type: number  
+        currentEntryId:
+          nullable: true
+          type: number 
+        nextAttemptOneIndexed:
+          type: number
+          nullable: true
+          example: null
+        nextEntryId:
+          type: number
+          nullable: true
+          example: null
+    LifterOrder:
+      type: object
+      properties:
+        orderedEntries:
+            type: array
+            items:
+              type: object
+        attemptOneIndexed:
+          type: number  
+        currentEntryId:
+          nullable: true
+          type: number 
+        nextAttemptOneIndexed:
+          type: number
+          nullable: true
+          example: null
+        nextEntryId:
+          type: number
+          nullable: true
+          example: null
+    ApiHealth:
+      type: object
+      required:
+        - apiStatus
+        - databaseStatus
+      properties:
+        apiStatus:
+          type: string
+        databaseStatus:
+          type: string
+        failureMessage:
+          type: string
+    AnyValue: {}
+  securitySchemes:
+    api_key:
+      type: "apiKey"
+      name: "x-api-key"
+      in: "header"
