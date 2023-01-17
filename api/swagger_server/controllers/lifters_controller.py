@@ -27,13 +27,22 @@ def lifter_platform_current_get(platform):  # noqa: E501
     collection = database["order"]
     query = {"platform": platform}
     document = collection.find_one(query)
+    currentEntryId = document['order']['currentEntryId']
+    currentAttemptNumber = document['order']['attemptOneIndexed']
+    platformDetails = document['order']['platformDetails']
+
     if document is None:
         logger.info(f"Could not find document for platform: {platform}")
         raise DocumentNotFound(platform, "order")
     else:
-        logger.info(f"Found document for platform: {platform}")
-        return json.dumps(document, default=str)
-
+        for order in document['order']['orderedEntries']:
+            if order['id'] == currentEntryId:
+                logger.info(f"Found entry details for id: {currentEntryId}")
+                return {
+                    'platformDetails': platformDetails,
+                    'attempt': currentAttemptNumber,
+                    'entry': order
+                }
 
 def lifter_platform_next_get(platform):  # noqa: E501
     """Returns the next lifter
@@ -45,7 +54,27 @@ def lifter_platform_next_get(platform):  # noqa: E501
 
     :rtype: CurrentLifter
     """
-    return 'do some magic!'
+    logger.debug(type(platform))
+    database = config.mongodbClient[config.mongodbDatabaseName]
+    collection = database["order"]
+    query = {"platform": platform}
+    document = collection.find_one(query)
+    nextEntryId = document['order']['nextEntryId']
+    nextAttemptNumber = document['order']['nextAttemptOneIndexed']
+    platformDetails = document['order']['platformDetails']
+
+    if document is None:
+        logger.info(f"Could not find document for platform: {platform}")
+        raise DocumentNotFound(platform, "order")
+    else:
+        for order in document['order']['orderedEntries']:
+            if order['id'] == nextEntryId:
+                logger.info(f"Found entry details for id: {nextEntryId}")
+                return {
+                    'platformDetails': platformDetails,
+                    'attempt': nextAttemptNumber,
+                    'entry': order
+                }
 
 
 def lifter_platform_order_post(platform, body=None):  # noqa: E501

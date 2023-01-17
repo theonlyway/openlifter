@@ -327,6 +327,7 @@ export const getLiftingOrder = (
         currentEntryId: currentEntryId,
         nextAttemptOneIndexed: nextEntryInfo ? nextEntryInfo.attemptOneIndexed : null,
         nextEntryId: nextEntryInfo ? nextEntryInfo.entryId : null,
+        platformDetails: lifting,
       }),
     })
       .then((response) => response.json())
