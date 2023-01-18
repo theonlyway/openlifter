@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" crossorigin="anonymous" />
+  </head>
+  <body>
+    <style>
+      .container {
+        width: auto;
+        visibility: visible;
+        opacity: 1;
+        margin: 0px;
+      }
+      .inner-container {
+        position: absolute;
+        left: 880px;
+        max-width: 800px;
+        overflow: hidden;
+        transform: translateX(0px) translateZ(0px);
+        opacity: 1;
+        top: 320px;
+      }
+      .container-content {
+        transform: translateX(0px) translateZ(0px);
+      }
+      body {
+        background: black !important;
+        overflow: hidden !important;
+      }
+
+      canvas {
+        z-index: -1;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+      }
+
+      table,
+      th,
+      td {
+        border: 1px solid white;
+        border-collapse: collapse;
+        color: white;
+        font-size: 25px;
+      }
+      th {
+        padding: 5px;
+      }
+      td {
+        font-size: 30px;
+        color: white;
+        padding: 10px;
+        text-align: center;
+      }
+    </style>
+    <script type="text/javascript">
+      const urlParams = new URLSearchParams(window.location.search);
+      const platform = urlParams.get("platform");
+      const lifterType = "current";
+      const authRequired = true;
+      const apiUrl = "http://localhost:8080/theonlyway/Openlifter/1.0.0";
+      const apiKey = "441b6244-8a4f-4e0f-8624-e5c665ecc901";
+
+      var timeInSecs;
+      var ticker;
+      var fetchHeaders = {};
+
+      function startTimer(secs) {
+        timeInSecs = parseInt(secs);
+        ticker = setInterval("tick()", 1000);
+      }
+
+      function tick() {
+        var secs = timeInSecs;
+        if (secs > 0) {
+          timeInSecs--;
+        } else {
+          clearInterval(ticker);
+        }
+
+        var days = Math.floor(secs / 86400);
+        secs %= 99999999;
+        var hours = Math.floor(secs / 3600);
+        secs %= 3600;
+        var mins = Math.floor(secs / 60);
+        secs %= 60;
+        var pretty =
+          (hours < 10 ? "0" : "") + hours + ":" + (mins < 10 ? "0" : "") + mins + ":" + (secs < 10 ? "0" : "") + secs;
+        document.getElementById("countdown").innerHTML = pretty;
+      }
+
+      function convertToPounds(kg) {
+        return Math.round(kg * 2.2046);
+      }
+
+      function getCurrentLifter() {
+        if (authRequired == true) {
+          fetchHeaders = {
+            "x-api-key": apiKey,
+            "Content-Type": "application/json",
+          };
+        } else {
+          fetchHeaders = {
+            "Content-Type": "application/json",
+          };
+        }
+        let i = 1;
+        fetch(apiUrl + "/lifter/" + platform + "/current", {
+          method: "GET",
+          headers: fetchHeaders,
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            var lift;
+
+            switch (data.platformDetails.lift) {
+              case "S":
+                lift = "Squat";
+                break;
+              case "D":
+                lift = "Deadlift";
+                break;
+              case "B":
+                lift = "Bench";
+                break;
+            }
+
+            const bodyWeight = data.entry.bodyweightKg + " KG | " + convertToPounds(data.entry.bodyweightKg) + " lbs";
+            const liftAttemptWeight =
+              data.entry.squatKg[data.attempt - 1] +
+              " KG | " +
+              convertToPounds(data.entry.squatKg[data.attempt - 1]) +
+              " lbs";
+
+            document.getElementById("lifterName").innerHTML = data.entry.name;
+            document.getElementById("lifterSex").innerHTML = data.entry.sex;
+            document.getElementById("lifterBodyWeight").innerHTML = bodyWeight;
+            document.getElementById("lifterEvent").innerHTML = lift;
+            document.getElementById("lifterAttempt").innerHTML = data.attempt;
+            document.getElementById("lifterAttemptWeight").innerHTML = liftAttemptWeight;
+          });
+      }
+
+      getCurrentLifter();
+      setInterval(getCurrentLifter, 5000);
+    </script>
+    <div class="container">
+      <div class="inner-container">
+        <div>
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Sex</th>
+                <th>Body weight</th>
+                <th>Event</th>
+                <th>Attempt</th>
+                <th>Weight</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td id="lifterName"></td>
+                <td id="lifterSex"></td>
+                <td id="lifterBodyWeight"></td>
+                <td id="lifterEvent"></td>
+                <td id="lifterAttempt"></td>
+                <td id="lifterAttemptWeight"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
