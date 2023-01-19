@@ -13,7 +13,6 @@
       }
       .inner-container {
         position: absolute;
-        left: 880px;
         max-width: 800px;
         overflow: hidden;
         transform: translateX(0px) translateZ(0px);
@@ -58,11 +57,12 @@
     </style>
     <script type="text/javascript">
       const urlParams = new URLSearchParams(window.location.search);
-      const platform = urlParams.get("platform");
-      const lifterType = "current";
-      const authRequired = true;
-      const apiUrl = "http://localhost:8080/theonlyway/Openlifter/1.0.0";
-      const apiKey = "441b6244-8a4f-4e0f-8624-e5c665ecc901";
+      const refreshTimeSeconds = parseInt(urlParams.get("refresh") || 10);
+      const platform = parseInt(urlParams.get("platform") || 1);
+      const lifterType = urlParams.get("lifter") || "current";
+      const authRequired = JSON.parse(urlParams.get("auth") || false)
+      const apiUrl = urlParams.get("apiurl") || "http://localhost:8080/theonlyway/Openlifter/1.0.0";
+      const apiKey = urlParams.get("apikey") || "441b6244-8a4f-4e0f-8624-e5c665ecc901";
 
       var timeInSecs;
       var ticker;
@@ -77,19 +77,11 @@
         var secs = timeInSecs;
         if (secs > 0) {
           timeInSecs--;
+          console.log(timeInSecs)
         } else {
-          clearInterval(ticker);
+          getCurrentLifter()
+          timeInSecs = refreshTimeSeconds
         }
-
-        var days = Math.floor(secs / 86400);
-        secs %= 99999999;
-        var hours = Math.floor(secs / 3600);
-        secs %= 3600;
-        var mins = Math.floor(secs / 60);
-        secs %= 60;
-        var pretty =
-          (hours < 10 ? "0" : "") + hours + ":" + (mins < 10 ? "0" : "") + mins + ":" + (secs < 10 ? "0" : "") + secs;
-        document.getElementById("countdown").innerHTML = pretty;
       }
 
       function convertToPounds(kg) {
@@ -108,7 +100,7 @@
           };
         }
         let i = 1;
-        fetch(apiUrl + "/lifter/" + platform + "/current", {
+        fetch(apiUrl + "/lifter/" + platform + "/" + lifterType, {
           method: "GET",
           headers: fetchHeaders,
         })
@@ -128,24 +120,19 @@
                 break;
             }
 
-            const bodyWeight = data.entry.bodyweightKg + " KG | " + convertToPounds(data.entry.bodyweightKg) + " lbs";
-            const liftAttemptWeight =
-              data.entry.squatKg[data.attempt - 1] +
-              " KG | " +
-              convertToPounds(data.entry.squatKg[data.attempt - 1]) +
-              " lbs";
-
             document.getElementById("lifterName").innerHTML = data.entry.name;
             document.getElementById("lifterSex").innerHTML = data.entry.sex;
-            document.getElementById("lifterBodyWeight").innerHTML = bodyWeight;
+            document.getElementById("lifterBodyWeightKgs").innerHTML = data.entry.bodyweightKg;
+            document.getElementById("lifterBodyWeightLbs").innerHTML = convertToPounds(data.entry.bodyweightKg);
             document.getElementById("lifterEvent").innerHTML = lift;
             document.getElementById("lifterAttempt").innerHTML = data.attempt;
-            document.getElementById("lifterAttemptWeight").innerHTML = liftAttemptWeight;
+            document.getElementById("lifterAttemptKgs").innerHTML = data.entry.squatKg[data.attempt - 1];
+            document.getElementById("lifterAttemptWeightLbs").innerHTML = convertToPounds(data.entry.squatKg[data.attempt - 1]);
           });
       }
 
       getCurrentLifter();
-      setInterval(getCurrentLifter, 10000);
+      startTimer(refreshTimeSeconds);
     </script>
     <div class="container">
       <div class="inner-container">
@@ -153,22 +140,30 @@
           <table>
             <thead>
               <tr>
-                <th>Name</th>
-                <th>Sex</th>
-                <th>Body weight</th>
-                <th>Event</th>
-                <th>Attempt</th>
-                <th>Weight</th>
+                <th rowspan="2">Name</th>
+                <th rowspan="2">Sex</th>
+                <th colspan="2">Body weight</th>
+                <th rowspan="2">Event</th>
+                <th rowspan="2">Attempt</th>
+                <th colspan="2">Weight</th>
+              </tr>
+              <tr>
+                <th>KG</th>
+                <th>Lbs</th>
+                <th>KG</th>
+                <th>Lbs</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td id="lifterName"></td>
                 <td id="lifterSex"></td>
-                <td id="lifterBodyWeight"></td>
+                <td id="lifterBodyWeightKgs"></td>
+                <td id="lifterBodyWeightLbs"></td>
                 <td id="lifterEvent"></td>
                 <td id="lifterAttempt"></td>
-                <td id="lifterAttemptWeight"></td>
+                <td id="lifterAttemptKgs"></td>
+                <td id="lifterAttemptWeightLbs"></td>
               </tr>
             </tbody>
           </table>
