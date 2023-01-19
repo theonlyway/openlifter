@@ -1,7 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lifter details</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+      crossorigin="anonymous"
+    />
   </head>
   <body>
     <style>
@@ -9,48 +17,31 @@
         width: auto;
         visibility: visible;
         opacity: 1;
-        margin: 0px;
-      }
-      .inner-container {
+        margin: 1px;
         position: absolute;
         overflow: hidden;
-        transform: translateX(0px) translateZ(0px);
-        opacity: 1;
-      }
-      .container-content {
-        transform: translateX(0px) translateZ(0px);
       }
       body {
-        background: black !important;
+
         overflow: hidden !important;
       }
-
-      canvas {
-        z-index: -1;
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        margin: auto;
-      }
-
-      table,
-      th,
-      td {
-        border: 1px solid white;
-        border-collapse: collapse;
+      table {
+        background: #34495E !important;
+        margin: 1em 0;
+        min-width: 200px;
         color: white;
-        font-size: 25px;
+        text-align: center;
+      }
+      tr {
+        border-color: lighten(#34495E, 10%);
       }
       th {
+        font-size: 16px;
         padding: 10px;
       }
       td {
-        font-size: 30px;
-        color: white;
+        font-size: 20px;
         padding: 10px;
-        text-align: center;
       }
     </style>
     <script type="text/javascript">
@@ -58,7 +49,7 @@
       const refreshTimeSeconds = parseInt(urlParams.get("refresh") || 10);
       const platform = parseInt(urlParams.get("platform") || 1);
       const lifterType = urlParams.get("lifter") || "current";
-      const authRequired = JSON.parse(urlParams.get("auth") || false)
+      const authRequired = JSON.parse(urlParams.get("auth") || false);
       const apiUrl = urlParams.get("apiurl") || "http://localhost:8080/theonlyway/Openlifter/1.0.0";
       const apiKey = urlParams.get("apikey") || "441b6244-8a4f-4e0f-8624-e5c665ecc901";
 
@@ -75,10 +66,10 @@
         var secs = timeInSecs;
         if (secs > 0) {
           timeInSecs--;
-          console.log(timeInSecs)
+          console.log(timeInSecs);
         } else {
-          getCurrentLifter()
-          timeInSecs = refreshTimeSeconds
+          getCurrentLifter();
+          timeInSecs = refreshTimeSeconds;
         }
       }
 
@@ -125,7 +116,9 @@
             document.getElementById("lifterEvent").innerHTML = lift;
             document.getElementById("lifterAttempt").innerHTML = data.attempt;
             document.getElementById("lifterAttemptKgs").innerHTML = data.entry.squatKg[data.attempt - 1];
-            document.getElementById("lifterAttemptWeightLbs").innerHTML = convertToPounds(data.entry.squatKg[data.attempt - 1]);
+            document.getElementById("lifterAttemptWeightLbs").innerHTML = convertToPounds(
+              data.entry.squatKg[data.attempt - 1]
+            );
           });
       }
 
@@ -133,39 +126,37 @@
       startTimer(refreshTimeSeconds);
     </script>
     <div class="container">
-      <div class="inner-container">
-        <div>
-          <table>
-            <thead>
-              <tr>
-                <th rowspan="2">Name</th>
-                <th rowspan="2">Sex</th>
-                <th colspan="2">Body weight</th>
-                <th rowspan="2">Event</th>
-                <th rowspan="2">Attempt</th>
-                <th colspan="2">Weight</th>
-              </tr>
-              <tr>
-                <th>KG</th>
-                <th>Lbs</th>
-                <th>KG</th>
-                <th>Lbs</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td id="lifterName"></td>
-                <td id="lifterSex"></td>
-                <td id="lifterBodyWeightKgs"></td>
-                <td id="lifterBodyWeightLbs"></td>
-                <td id="lifterEvent"></td>
-                <td id="lifterAttempt"></td>
-                <td id="lifterAttemptKgs"></td>
-                <td id="lifterAttemptWeightLbs"></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th rowspan="2">Name</th>
+              <th rowspan="2">Sex</th>
+              <th colspan="2">Body weight</th>
+              <th rowspan="2">Event</th>
+              <th rowspan="2">Attempt</th>
+              <th colspan="2">Attempt weight</th>
+            </tr>
+            <tr>
+              <th>KG</th>
+              <th>Lbs</th>
+              <th>KG</th>
+              <th>Lbs</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td id="lifterName"></td>
+              <td id="lifterSex"></td>
+              <td id="lifterBodyWeightKgs"></td>
+              <td id="lifterBodyWeightLbs"></td>
+              <td id="lifterEvent"></td>
+              <td id="lifterAttempt"></td>
+              <td id="lifterAttemptKgs"></td>
+              <td id="lifterAttemptWeightLbs"></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </body>
