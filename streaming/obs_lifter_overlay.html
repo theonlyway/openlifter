@@ -14,7 +14,7 @@
   <body>
     <style>
       .container {
-        width: auto;
+        width: 800px;
         visibility: visible;
         opacity: 1;
         margin: 1px;
@@ -22,18 +22,17 @@
         overflow: hidden;
       }
       body {
-
         overflow: hidden !important;
       }
       table {
-        background: #34495E !important;
+        background: #34495e !important;
         margin: 1em 0;
-        min-width: 200px;
+        min-width: 800px;
         color: white;
         text-align: center;
       }
       tr {
-        border-color: lighten(#34495E, 10%);
+        border-color: lighten(#34495e, 10%);
       }
       th {
         font-size: 16px;
@@ -49,7 +48,7 @@
       const refreshTimeSeconds = parseInt(urlParams.get("refresh") || 10);
       const platform = parseInt(urlParams.get("platform") || 1);
       const lifterType = urlParams.get("lifter") || "current";
-      const authRequired = JSON.parse(urlParams.get("auth") || false);
+      const authRequired = JSON.parse(urlParams.get("auth") || true);
       const apiUrl = urlParams.get("apiurl") || "http://localhost:8080/theonlyway/Openlifter/1.0.0";
       const apiKey = urlParams.get("apikey") || "441b6244-8a4f-4e0f-8624-e5c665ecc901";
 
@@ -96,16 +95,25 @@
           .then((response) => response.json())
           .then((data) => {
             var lift;
+            var lifterAttemptKgs;
+            var lifterAttemptWeightLbs;
 
             switch (data.platformDetails.lift) {
               case "S":
                 lift = "Squat";
+                lifterAttemptKgs = data.entry.squatKg[data.attempt - 1];
+                lifterAttemptWeightLbs = convertToPounds(data.entry.squatKg[data.attempt - 1]);
+
                 break;
               case "D":
                 lift = "Deadlift";
+                lifterAttemptKgs = data.entry.deadliftKg[data.attempt];
+                lifterAttemptWeightLbs = convertToPounds(data.entry.deadliftKg[data.attempt]);
                 break;
               case "B":
                 lift = "Bench";
+                lifterAttemptKgs = data.entry.benchKg[data.attempt - 1];
+                lifterAttemptWeightLbs = convertToPounds(data.entry.benchKg[data.attempt - 1]);
                 break;
             }
 
@@ -115,10 +123,8 @@
             document.getElementById("lifterBodyWeightLbs").innerHTML = convertToPounds(data.entry.bodyweightKg);
             document.getElementById("lifterEvent").innerHTML = lift;
             document.getElementById("lifterAttempt").innerHTML = data.attempt;
-            document.getElementById("lifterAttemptKgs").innerHTML = data.entry.squatKg[data.attempt - 1];
-            document.getElementById("lifterAttemptWeightLbs").innerHTML = convertToPounds(
-              data.entry.squatKg[data.attempt - 1]
-            );
+            document.getElementById("lifterAttemptKgs").innerHTML = lifterAttemptKgs;
+            document.getElementById("lifterAttemptWeightLbs").innerHTML = lifterAttemptWeightLbs;
           });
       }
 
