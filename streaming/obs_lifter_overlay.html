@@ -107,8 +107,8 @@
                 break;
               case "D":
                 lift = "Deadlift";
-                lifterAttemptKgs = data.entry.deadliftKg[data.attempt];
-                lifterAttemptWeightLbs = convertToPounds(data.entry.deadliftKg[data.attempt]);
+                lifterAttemptKgs = data.entry.deadliftKg[data.attempt - 1];
+                lifterAttemptWeightLbs = convertToPounds(data.entry.deadliftKg[data.attempt - 1]);
                 break;
               case "B":
                 lift = "Bench";
@@ -139,6 +139,7 @@
               <th rowspan="2">Name</th>
               <th rowspan="2">Sex</th>
               <th colspan="2">Body weight</th>
+              <th>Weight class</th>
               <th rowspan="2">Event</th>
               <th rowspan="2">Attempt</th>
               <th colspan="2">Attempt weight</th>
@@ -156,6 +157,7 @@
               <td id="lifterSex"></td>
               <td id="lifterBodyWeightKgs"></td>
               <td id="lifterBodyWeightLbs"></td>
+              <td id="lifterBodyWeightLbs">something</td>
               <td id="lifterEvent"></td>
               <td id="lifterAttempt"></td>
               <td id="lifterAttemptKgs"></td>
