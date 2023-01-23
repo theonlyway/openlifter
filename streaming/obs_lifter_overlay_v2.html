@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lifter details</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+  </head>
+  <body>
+    <style>
+      .container {
+        width: 800px;
+        visibility: visible;
+        opacity: 1;
+        margin: 1px;
+        position: absolute;
+        overflow: hidden;
+        font-family: "Roboto", sans-serif;
+      }
+      table {
+        background: rgb(40, 40, 40) !important;
+        color: white;
+        text-align: center;
+        empty-cells: show;
+        padding: 1px;
+      }
+      .lifterName {
+        word-wrap: break-word;
+        max-width: 30ch;
+        font-size: 20px;
+        font-weight: 700;
+        height: 50px;
+      }
+      .lifterClass {
+        word-wrap: break-word;
+        max-width: 30ch;
+        padding-bottom: 10px;
+        white-space:nowrap;
+      }
+      .lifterEvent {
+        width: 80px;
+      }
+      .lifterAttemptWeightContainer {
+        padding: 10px;
+      }
+      .lifterAttemptWeight {
+        width: 50px;
+        border-width: 2px;
+        border-style: solid;
+        border-color: white;
+        padding: 10px;
+      }
+      .emptyCell {
+        width: 100px;
+      }
+    </style>
+    <script type="text/javascript">
+      const urlParams = new URLSearchParams(window.location.search);
+      const refreshTimeSeconds = parseInt(urlParams.get("refresh") || 10);
+      const platform = parseInt(urlParams.get("platform") || 1);
+      const lifterType = urlParams.get("lifter") || "current";
+      const authRequired = JSON.parse(urlParams.get("auth") || true);
+      const apiUrl = urlParams.get("apiurl") || "http://localhost:8080/theonlyway/Openlifter/1.0.0";
+      const apiKey = urlParams.get("apikey") || "441b6244-8a4f-4e0f-8624-e5c665ecc901";
+
+      var timeInSecs;
+      var ticker;
+      var fetchHeaders = {};
+
+      function startTimer(secs) {
+        timeInSecs = parseInt(secs);
+        ticker = setInterval("tick()", 1000);
+      }
+
+      function tick() {
+        var secs = timeInSecs;
+        if (secs > 0) {
+          timeInSecs--;
+          console.log("Refresh in " + secs);
+        } else {
+          getCurrentLifter();
+          console.log("Refreshed");
+          timeInSecs = refreshTimeSeconds;
+        }
+      }
+
+      function convertToPounds(kg) {
+        return Math.round(kg * 2.2046);
+      }
+
+      function getCurrentLifter() {
+        if (authRequired == true) {
+          fetchHeaders = {
+            "x-api-key": apiKey,
+            "Content-Type": "application/json",
+          };
+        } else {
+          fetchHeaders = {
+            "Content-Type": "application/json",
+          };
+        }
+        let i = 1;
+        fetch(apiUrl + "/lifter/" + platform + "/" + lifterType, {
+          method: "GET",
+          headers: fetchHeaders,
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            var lift;
+            var lifterAttemptKgs;
+            var lifterAttemptWeightLbs;
+
+            switch (data.platformDetails.lift) {
+              case "S":
+                lift = "Squat";
+                lifterAttemptKgs1 = data.entry.squatKg[0] || "-";
+                lifterAttemptKgs2 = data.entry.squatKg[1] || "-";
+                lifterAttemptKgs3 = data.entry.squatKg[2] || "-";
+                lifterAttemptWeightLbs = convertToPounds(data.entry.squatKg[data.attempt - 1]);
+
+                break;
+              case "D":
+                lift = "Deadlift";
+                lifterAttemptKgs1 = data.entry.deadliftKg[0] || "-";
+                lifterAttemptKgs2 = data.entry.deadliftKg[1] || "-";
+                lifterAttemptKgs3 = data.entry.deadliftKg[2] || "-";
+                lifterAttemptWeightLbs = convertToPounds(data.entry.deadliftKg[data.attempt - 1]);
+                break;
+              case "B":
+                lift = "Bench";
+                lifterAttemptKgs1 = data.entry.benchKg[0] || "-";
+                lifterAttemptKgs2 = data.entry.benchKg[1] || "-";
+                lifterAttemptKgs3 = data.entry.benchKg[2] || "-";
+                lifterAttemptWeightLbs = convertToPounds(data.entry.benchKg[data.attempt - 1]);
+                break;
+            }
+
+            document.getElementById("lifterName").innerHTML = data.entry.name;
+            document.getElementById("lifterClass").innerHTML = data.entry.divisions.join(", ");
+            document.getElementById("lifterEvent").innerHTML = lift;
+            document.getElementById("lifterAttempt1").innerHTML = lifterAttemptKgs1;
+            document.getElementById("lifterAttempt2").innerHTML = lifterAttemptKgs2;
+            document.getElementById("lifterAttempt3").innerHTML = lifterAttemptKgs3;
+          });
+      }
+
+      getCurrentLifter();
+      startTimer(refreshTimeSeconds);
+    </script>
+    <div class="container">
+      <div>
+        <table>
+          <tbody>
+            <tr></tr>
+            <tr>
+              <td class="lifterName" rowspan="1" colspan="2" id="lifterName" />
+              <td class="emptyCell" rowspan="2" colspan="2" />
+              <td class="lifterEvent" rowspan="2" colspan="2" id="lifterEvent" />
+              <td class="lifterAttemptWeightContainer" rowspan="2" colspan="2">
+                <div class="lifterAttemptWeight" id="lifterAttempt1" />
+              </td>
+              <td class="lifterAttemptWeightContainer" rowspan="2" colspan="2">
+                <div class="lifterAttemptWeight" id="lifterAttempt2" />
+              </td>
+              <td class="lifterAttemptWeightContainer" rowspan="2" colspan="2">
+                <div class="lifterAttemptWeight" id="lifterAttempt3" />
+              </td>
+            </tr>
+            <tr>
+              <td class="lifterClass" colspan="2 " id="lifterClass" />
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
