@@ -9,20 +9,24 @@
   <body>
     <style>
       .container {
-        width: 800px;
+        width: 1000px;
+        height: 200px;
         visibility: visible;
         opacity: 1;
         margin: 1px;
         position: absolute;
         overflow: hidden;
         font-family: "Roboto", sans-serif;
+        text-transform: uppercase;
       }
       table {
         background: rgb(40, 40, 40) !important;
         color: white;
         text-align: center;
         empty-cells: show;
-        padding: 1px;
+        padding: 4px;
+        border-top: 4px solid white;
+        border-bottom: 4px solid white;
       }
       .lifterName {
         word-wrap: break-word;
@@ -30,12 +34,14 @@
         font-size: 20px;
         font-weight: 700;
         height: 50px;
+        padding-left: 6px;
       }
       .lifterClass {
         word-wrap: break-word;
         max-width: 30ch;
         padding-bottom: 10px;
-        white-space:nowrap;
+        padding-left: 6px;
+        font-size: 12px;
       }
       .lifterEvent {
         width: 80px;
@@ -48,10 +54,41 @@
         border-width: 2px;
         border-style: solid;
         border-color: white;
-        padding: 10px;
+        padding: 6px;
+      }
+      .lifterMaxWeight {
+        width: 50px;
+        border-width: 2px;
+        border-style: solid;
+        border-color: white;
+        margin-bottom: 6px;
+        margin-right: 10px;
+        font-size: small;
+        display: flex;
+        padding-left: 10px;
+      }
+      .lifterResultsContainer {
+        width: 180px;
+        border-width: 2px;
+        border-style: solid;
+        border-color: white;
+        margin-bottom: 20px;
+        margin-top: 10px;
+        font-size: small;
+        white-space: nowrap;
+        display: flex;
+        padding-left: 10px;
+      }
+      .lifterResultHeader {
+        width: 50%;
+      }
+      .lifterResultTotal {
+        flex: 1;
+        background-color: white;
+        color: black;
       }
       .emptyCell {
-        width: 100px;
+        width: 50px;
       }
     </style>
     <script type="text/javascript">
@@ -164,6 +201,21 @@
               </td>
               <td class="lifterAttemptWeightContainer" rowspan="2" colspan="2">
                 <div class="lifterAttemptWeight" id="lifterAttempt3" />
+              </td>
+              <td rowspan="2">
+                <div class="lifterMaxWeight">S: 123</div>
+                <div class="lifterMaxWeight">B: 123</div>
+                <div class="lifterMaxWeight">D: 123</div>
+              </td>
+              <td rowspan="2">
+                <div class="lifterResultsContainer">
+                  <div class="lifterResultHeader">Total</div>
+                  <div class="lifterResultTotal">1000</div>
+                </div>
+                <div class="lifterResultsContainer">
+                  <div class="lifterResultHeader">Placement</div>
+                  <div class="lifterResultTotal">1</div>
+                </div>
               </td>
             </tr>
             <tr>
