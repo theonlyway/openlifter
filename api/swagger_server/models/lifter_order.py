@@ -14,26 +14,26 @@ class LifterOrder(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, ordered_entries: List[object]=None, attempt_one_indexed: float=None, current_entry_id: float=None, next_attempt_one_indexed: float=None, next_entry_id: float=None):  # noqa: E501
+    def __init__(self, ordered_entries: List[object]=None, attempt_one_indexed: int=None, current_entry_id: int=None, next_attempt_one_indexed: int=None, next_entry_id: int=None):  # noqa: E501
         """LifterOrder - a model defined in Swagger
 
         :param ordered_entries: The ordered_entries of this LifterOrder.  # noqa: E501
         :type ordered_entries: List[object]
         :param attempt_one_indexed: The attempt_one_indexed of this LifterOrder.  # noqa: E501
-        :type attempt_one_indexed: float
+        :type attempt_one_indexed: int
         :param current_entry_id: The current_entry_id of this LifterOrder.  # noqa: E501
-        :type current_entry_id: float
+        :type current_entry_id: int
         :param next_attempt_one_indexed: The next_attempt_one_indexed of this LifterOrder.  # noqa: E501
-        :type next_attempt_one_indexed: float
+        :type next_attempt_one_indexed: int
         :param next_entry_id: The next_entry_id of this LifterOrder.  # noqa: E501
-        :type next_entry_id: float
+        :type next_entry_id: int
         """
         self.swagger_types = {
             'ordered_entries': List[object],
-            'attempt_one_indexed': float,
-            'current_entry_id': float,
-            'next_attempt_one_indexed': float,
-            'next_entry_id': float
+            'attempt_one_indexed': int,
+            'current_entry_id': int,
+            'next_attempt_one_indexed': int,
+            'next_entry_id': int
         }
 
         self.attribute_map = {
@@ -82,85 +82,85 @@ class LifterOrder(Model):
         self._ordered_entries = ordered_entries
 
     @property
-    def attempt_one_indexed(self) -> float:
+    def attempt_one_indexed(self) -> int:
         """Gets the attempt_one_indexed of this LifterOrder.
 
 
         :return: The attempt_one_indexed of this LifterOrder.
-        :rtype: float
+        :rtype: int
         """
         return self._attempt_one_indexed
 
     @attempt_one_indexed.setter
-    def attempt_one_indexed(self, attempt_one_indexed: float):
+    def attempt_one_indexed(self, attempt_one_indexed: int):
         """Sets the attempt_one_indexed of this LifterOrder.
 
 
         :param attempt_one_indexed: The attempt_one_indexed of this LifterOrder.
-        :type attempt_one_indexed: float
+        :type attempt_one_indexed: int
         """
 
         self._attempt_one_indexed = attempt_one_indexed
 
     @property
-    def current_entry_id(self) -> float:
+    def current_entry_id(self) -> int:
         """Gets the current_entry_id of this LifterOrder.
 
 
         :return: The current_entry_id of this LifterOrder.
-        :rtype: float
+        :rtype: int
         """
         return self._current_entry_id
 
     @current_entry_id.setter
-    def current_entry_id(self, current_entry_id: float):
+    def current_entry_id(self, current_entry_id: int):
         """Sets the current_entry_id of this LifterOrder.
 
 
         :param current_entry_id: The current_entry_id of this LifterOrder.
-        :type current_entry_id: float
+        :type current_entry_id: int
         """
 
         self._current_entry_id = current_entry_id
 
     @property
-    def next_attempt_one_indexed(self) -> float:
+    def next_attempt_one_indexed(self) -> int:
         """Gets the next_attempt_one_indexed of this LifterOrder.
 
 
         :return: The next_attempt_one_indexed of this LifterOrder.
-        :rtype: float
+        :rtype: int
         """
         return self._next_attempt_one_indexed
 
     @next_attempt_one_indexed.setter
-    def next_attempt_one_indexed(self, next_attempt_one_indexed: float):
+    def next_attempt_one_indexed(self, next_attempt_one_indexed: int):
         """Sets the next_attempt_one_indexed of this LifterOrder.
 
 
         :param next_attempt_one_indexed: The next_attempt_one_indexed of this LifterOrder.
-        :type next_attempt_one_indexed: float
+        :type next_attempt_one_indexed: int
         """
 
         self._next_attempt_one_indexed = next_attempt_one_indexed
 
     @property
-    def next_entry_id(self) -> float:
+    def next_entry_id(self) -> int:
         """Gets the next_entry_id of this LifterOrder.
 
 
         :return: The next_entry_id of this LifterOrder.
-        :rtype: float
+        :rtype: int
         """
         return self._next_entry_id
 
     @next_entry_id.setter
-    def next_entry_id(self, next_entry_id: float):
+    def next_entry_id(self, next_entry_id: int):
         """Sets the next_entry_id of this LifterOrder.
 
 
         :param next_entry_id: The next_entry_id of this LifterOrder.
-        :type next_entry_id: float
+        :type next_entry_id: int
         """
 
         self._next_entry_id = next_entry_id

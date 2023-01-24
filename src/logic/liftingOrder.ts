@@ -328,6 +328,7 @@ export const getLiftingOrder = (
         nextAttemptOneIndexed: nextEntryInfo ? nextEntryInfo.attemptOneIndexed : null,
         nextEntryId: nextEntryInfo ? nextEntryInfo.entryId : null,
         platformDetails: lifting,
+        lightsCode: streaming.lightsCode,
       }),
     })
       .then((response) => response.json())

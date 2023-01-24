@@ -12,15 +12,17 @@ servers:
 - url: https://virtserver.swaggerhub.com/theonlyway/Openlifter/1.0.0
   description: SwaggerHub API Auto Mocking
 tags:
-- name: lifters
+- name: Lifters
   description: Lifter information
-- name: health
+- name: Lights
+  description: API for lifting lights
+- name: Health
   description: API health check
 paths:
   /lifter/{platform}/order:
     post:
       tags:
-      - lifters
+      - Lifters
       summary: Update the lifter order
       description: |
         Update the current lifter
@@ -58,7 +60,7 @@ paths:
   /lifter/{platform}/current:
     get:
       tags:
-      - lifters
+      - Lifters
       summary: Returns the current lifter
       description: |
         Returns the current lifter
@@ -85,7 +87,7 @@ paths:
   /lifter/{platform}/next:
     get:
       tags:
-      - lifters
+      - Lifters
       summary: Returns the next lifter
       description: |
         Returns the current lifter
@@ -109,10 +111,37 @@ paths:
       security:
       - api_key: []
       x-openapi-router-controller: swagger_server.controllers.lifters_controller
+  /lights/{platform}:
+    get:
+      tags:
+      - Lights
+      summary: Returns the code used for the lights
+      description: |
+        Returns the health of the API
+      operationId: lights_platform_get
+      parameters:
+      - name: platform
+        in: path
+        description: id of the account to return
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Lights code
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnyValue'
+      security:
+      - api_key: []
+      x-openapi-router-controller: swagger_server.controllers.lights_controller
   /health:
     get:
       tags:
-      - health
+      - Health
       summary: Checks the health of the API
       description: |
         Returns the health of the API

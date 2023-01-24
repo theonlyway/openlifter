@@ -23,7 +23,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { FormattedMessage } from "react-intl";
 import { Language, Validation } from "../../types/dataTypes";
-import { GlobalState, StreamingState } from "../../types/stateTypes";
+import { GlobalState, LiftingState, MeetState, StreamingState } from "../../types/stateTypes";
 import { Dispatch } from "redux";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
@@ -45,6 +45,8 @@ import { Button, Modal } from "react-bootstrap";
 
 interface StateProps {
   streaming: StreamingState;
+  lifting: LiftingState;
+  meet: MeetState;
   language: Language;
 }
 
@@ -350,6 +352,8 @@ const mapStateToProps = (state: GlobalState): StateProps => {
   return {
     streaming: state.streaming,
     language: state.language,
+    meet: state.meet,
+    lifting: state.lifting,
   };
 };
 
