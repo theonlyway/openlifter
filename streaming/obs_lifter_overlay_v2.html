@@ -96,16 +96,42 @@
     </style>
     <script type="text/javascript">
       const urlParams = new URLSearchParams(window.location.search);
-      const refreshTimeSeconds = parseInt(urlParams.get("refresh") || 10);
+      const refreshTimeSeconds = parseInt(urlParams.get("refresh") || 1);
       const platform = parseInt(urlParams.get("platform") || 1);
       const lifterType = urlParams.get("lifter") || "current";
       const authRequired = JSON.parse(urlParams.get("auth") || true);
       const apiUrl = urlParams.get("apiurl") || "http://localhost:8080/theonlyway/Openlifter/1.0.0";
       const apiKey = urlParams.get("apikey") || "441b6244-8a4f-4e0f-8624-e5c665ecc901";
+      const lightsApiUrl = urlParams.get("lightsurl") || "https://lights.barbelltracker.com/api/last_result";
 
       var timeInSecs;
       var ticker;
       var fetchHeaders = {};
+      let lightsCode;
+
+      const getLightsCode = async () => {
+        if (authRequired == true) {
+          fetchHeaders = {
+            "x-api-key": apiKey,
+            "Content-Type": "application/json",
+          };
+        } else {
+          fetchHeaders = {
+            "Content-Type": "application/json",
+          };
+        }
+        const response = await fetch(apiUrl + "/lights/" + platform, {
+          method: "GET",
+          headers: fetchHeaders,
+        });
+        const data = await response.json();
+        lightsCode = data;
+        return data;
+      };
+
+      (async () => {
+        await getLightsCode();
+      })();
 
       function startTimer(secs) {
         timeInSecs = parseInt(secs);
@@ -118,7 +144,8 @@
           timeInSecs--;
           console.log("Refresh in " + secs);
         } else {
-          getCurrentLifter();
+          //getCurrentLifter();
+          getLightsData(lightsCode);
           console.log("Refreshed");
           timeInSecs = refreshTimeSeconds;
         }
@@ -126,6 +153,29 @@
 
       function convertToPounds(kg) {
         return Math.round(kg * 2.2046);
+      }
+
+      function getLightsData(code) {
+        if (code != undefined) {
+          if ("lightsCode" in code && code.lightsCode != null) {
+            console.log(code);
+            url = lightsApiUrl + "/" + code.lightsCode;
+            fetchHeaders = {
+              "Content-Type": "application/json",
+            };
+            fetch(lightsApiUrl + "/" + code.lightsCode, {
+              method: "GET",
+              headers: fetchHeaders
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                console.log(data);
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          }
+        }
       }
 
       function getCurrentLifter() {
@@ -183,8 +233,8 @@
             document.getElementById("lifterAttempt3").innerHTML = lifterAttemptKgs3;
           });
       }
-
       getCurrentLifter();
+      getLightsData(lightsCode);
       startTimer(refreshTimeSeconds);
     </script>
     <div class="container">
