@@ -82,6 +82,8 @@ export type StreamingState = {
   readonly apiUrl: string;
   readonly apiAuthentication: boolean;
   readonly apiKey: string;
+  readonly lightsEnabled: boolean;
+  readonly lightsCode: string | null;
 };
 
 export type GlobalState = {

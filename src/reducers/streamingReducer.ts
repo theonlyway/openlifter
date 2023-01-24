@@ -8,6 +8,8 @@ const initialState: StreamingState = {
   apiUrl: "http://localhost:8080/theonlyway/Openlifter/1.0.0",
   apiAuthentication: true,
   apiKey: "441b6244-8a4f-4e0f-8624-e5c665ecc901",
+  lightsEnabled: false,
+  lightsCode: null,
 };
 
 export default function streamingReducer(state: StreamingState = initialState, action: Action) {
@@ -20,6 +22,10 @@ export default function streamingReducer(state: StreamingState = initialState, a
       return { ...state, apiAuthentication: action.apiAuthentication };
     case "SET_STREAMING_API_KEY":
       return { ...state, apiKey: action.apiKey };
+    case "ENABLE_LIGHTS":
+      return { ...state, lightsEnabled: action.lightsEnabled };
+    case "SET_LIGHTS_CODE":
+      return { ...state, lightsCode: action.lightsCode };
     default:
       return state;
   }

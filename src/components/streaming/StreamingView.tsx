@@ -32,8 +32,10 @@ import FormGroup from "react-bootstrap/FormGroup";
 import Row from "react-bootstrap/Row";
 import YesNoButton from "../common/YesNoButton";
 import {
+  enableLights,
   enableStreaming,
   enableStreamingApiAuthentication,
+  setLightsCode,
   setStreamingApiKey,
   setStreamingApiUrl,
 } from "../../actions/streamingActions";
@@ -51,6 +53,8 @@ interface DispatchProps {
   setStreamingApiUrl: (url: string) => void;
   enableStreamingApiAuthentication: (bool: boolean) => void;
   setStreamingApiKey: (key: string) => void;
+  enableLights: (bool: boolean) => void;
+  setLightsCode: (key: string) => void;
 }
 
 type Props = StateProps & DispatchProps;
@@ -219,11 +223,12 @@ class StreamingView extends React.Component<Props, InternalState> {
     const stringStreamingDisabled = getString("streaming.disabled", language);
     const stringApiUrl = getString("streaming.api.url", language);
     const stringApiKey = getString("streaming.api.key", language);
+    const stringLightCode = getString("streaming.api.light.code", language);
 
     return (
       <Container>
         <Row>
-          <Col xs md={this.props.streaming.streamingEnabled == true ? 6 : 0}>
+          <Col xs md={this.props.streaming.streamingEnabled == true ? 4 : 0}>
             <Card>
               <Card.Header>
                 <FormattedMessage id="streaming.settings" defaultMessage="Streaming settings" />
@@ -246,54 +251,93 @@ class StreamingView extends React.Component<Props, InternalState> {
             </Card>
           </Col>
           {this.props.streaming.streamingEnabled == true ? (
-            <Col md={6}>
-              <Card>
-                <Card.Header>
-                  <FormattedMessage id="streaming.api.configuration" defaultMessage="API configuration" />
-                </Card.Header>
-                <Card.Body>
-                  <ValidatedInput
-                    label={stringApiUrl}
-                    placeholder={stringApiUrl}
-                    initialValue={this.props.streaming.apiUrl}
-                    validate={this.validateRequiredText}
-                    onSuccess={this.props.setStreamingApiUrl}
-                    keepMargin={true}
-                  />
-                  <FormGroup key="streaming.api.authentication">
-                    <YesNoButton
-                      label={
-                        <FormattedMessage
-                          id="streaming.api.authentication.setting"
-                          defaultMessage="Enable authentication?"
-                        />
-                      }
-                      value={this.props.streaming.apiAuthentication}
-                      setValue={this.props.enableStreamingApiAuthentication}
-                      yes={stringStreamingEnabled}
-                      no={stringStreamingDisabled}
+            <React.Fragment>
+              <Col md={4}>
+                <Card>
+                  <Card.Header>
+                    <FormattedMessage id="streaming.api.configuration" defaultMessage="API configuration" />
+                  </Card.Header>
+                  <Card.Body>
+                    <ValidatedInput
+                      label={stringApiUrl}
+                      placeholder={stringApiUrl}
+                      initialValue={this.props.streaming.apiUrl}
+                      validate={this.validateRequiredText}
+                      onSuccess={this.props.setStreamingApiUrl}
+                      keepMargin={true}
                     />
-                  </FormGroup>
-                  {this.props.streaming.apiAuthentication == true ? (
-                    <React.Fragment>
-                      <ValidatedInput
-                        label={stringApiKey}
-                        placeholder={stringApiKey}
-                        initialValue={this.props.streaming.apiKey}
-                        validate={this.validateRequiredText}
-                        onSuccess={this.props.setStreamingApiKey}
-                        keepMargin={true}
+                    <FormGroup key="streaming.api.authentication">
+                      <YesNoButton
+                        label={
+                          <FormattedMessage
+                            id="streaming.api.authentication.setting"
+                            defaultMessage="Enable authentication?"
+                          />
+                        }
+                        value={this.props.streaming.apiAuthentication}
+                        setValue={this.props.enableStreamingApiAuthentication}
+                        yes={stringStreamingEnabled}
+                        no={stringStreamingDisabled}
                       />
-                    </React.Fragment>
-                  ) : null}
-                  <div className="d-grid">
-                    <Button variant="primary" onClick={this.handleTestApiConnection} style={{ marginTop: "8px" }}>
-                      <FormattedMessage id="streaming.api.test.connection" defaultMessage="Test connection" />
-                    </Button>
-                  </div>
-                </Card.Body>
-              </Card>
-            </Col>
+                    </FormGroup>
+                    {this.props.streaming.apiAuthentication == true ? (
+                      <React.Fragment>
+                        <ValidatedInput
+                          label={stringApiKey}
+                          placeholder={stringApiKey}
+                          initialValue={this.props.streaming.apiKey}
+                          validate={this.validateRequiredText}
+                          onSuccess={this.props.setStreamingApiKey}
+                          keepMargin={true}
+                        />
+                      </React.Fragment>
+                    ) : null}
+                    <div className="d-grid">
+                      <Button variant="primary" onClick={this.handleTestApiConnection} style={{ marginTop: "8px" }}>
+                        <FormattedMessage id="streaming.api.test.connection" defaultMessage="Test connection" />
+                      </Button>
+                    </div>
+                  </Card.Body>
+                </Card>
+              </Col>
+              <Col md={4}>
+                <Card>
+                  <Card.Header>
+                    <FormattedMessage
+                      id="streaming.lifting.lights.configuration"
+                      defaultMessage="Lifting lights configuration"
+                    />
+                  </Card.Header>
+                  <Card.Body>
+                    <FormGroup key="streaming.api.authentication">
+                      <YesNoButton
+                        label={<FormattedMessage id="streaming.api.lights.setting" defaultMessage="Enable lights?" />}
+                        value={this.props.streaming.lightsEnabled}
+                        setValue={this.props.enableLights}
+                        yes={stringStreamingEnabled}
+                        no={stringStreamingDisabled}
+                      />
+                    </FormGroup>
+                    <FormattedMessage
+                      id="streaming.lights.notification"
+                      defaultMessage="Note: This is only if you are using the lights from: https://lights.barbelltracker.com/"
+                    />
+                    {this.props.streaming.lightsEnabled == true ? (
+                      <React.Fragment>
+                        <ValidatedInput
+                          label={stringLightCode}
+                          placeholder={stringLightCode}
+                          initialValue=""
+                          validate={this.validateRequiredText}
+                          onSuccess={this.props.setLightsCode}
+                          keepMargin={true}
+                        />
+                      </React.Fragment>
+                    ) : null}
+                  </Card.Body>
+                </Card>
+              </Col>
+            </React.Fragment>
           ) : null}
         </Row>
         {this.renderConnectionModal()}
@@ -314,6 +358,8 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
   setStreamingApiUrl: (url: string) => dispatch(setStreamingApiUrl(url)),
   enableStreamingApiAuthentication: (bool: boolean) => dispatch(enableStreamingApiAuthentication(bool)),
   setStreamingApiKey: (key: string) => dispatch(setStreamingApiKey(key)),
+  enableLights: (bool: boolean) => dispatch(enableLights(bool)),
+  setLightsCode: (key: string) => dispatch(setLightsCode(key)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(StreamingView);

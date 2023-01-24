@@ -18,6 +18,7 @@
 
 // Defines shared types produced by Redux actions.
 
+import { setLightsCode } from "../actions/streamingActions";
 import { Entry, Flight, Formula, Language, Lift, Sex } from "./dataTypes";
 import { GlobalState, MeetState, LiftingState } from "./stateTypes";
 
@@ -208,7 +209,13 @@ export interface SetTableInfoAction {
 // Streaming Actions.
 //////////////////////////////////////////////////////////
 
-export type StreamingAction = EnableStreaming | SetStreamingApiUrl | EnableStreamingApiAuthentication | SetStreamingApiKey;
+export type StreamingAction =
+  | EnableStreaming
+  | SetStreamingApiUrl
+  | EnableStreamingApiAuthentication
+  | SetStreamingApiKey
+  | EnableLights
+  | SetLightsCode;
 
 export interface EnableStreaming {
   readonly type: "ENABLE_STREAMING";
@@ -228,4 +235,14 @@ export interface EnableStreamingApiAuthentication {
 export interface SetStreamingApiKey {
   readonly type: "SET_STREAMING_API_KEY";
   readonly apiKey: string;
+}
+
+export interface EnableLights {
+  readonly type: "ENABLE_LIGHTS";
+  readonly lightsEnabled: boolean;
+}
+
+export interface SetLightsCode {
+  readonly type: "SET_LIGHTS_CODE";
+  readonly lightsCode: string;
 }
