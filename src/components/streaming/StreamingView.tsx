@@ -329,7 +329,7 @@ class StreamingView extends React.Component<Props, InternalState> {
                         <ValidatedInput
                           label={stringLightCode}
                           placeholder={stringLightCode}
-                          initialValue=""
+                          initialValue={this.props.streaming.lightsCode !== null ? this.props.streaming.lightsCode : ""}
                           validate={this.validateRequiredText}
                           onSuccess={this.props.setLightsCode}
                           keepMargin={true}
