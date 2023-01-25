@@ -5,238 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lifter details</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+    <link rel="stylesheet" type="text/css" href="./obs_lifter_overlay_v2.css"  />
+    <script type="text/javascript" src="./obs_lifter_overlay_v2.js"></script>
   </head>
   <body>
-    <style>
-      .container {
-        width: 1000px;
-        visibility: visible;
-        opacity: 1;
-        margin: 1px;
-        position: absolute;
-        overflow: hidden;
-        font-family: "Roboto", sans-serif;
-        text-transform: uppercase;
-      }
-      table {
-        background: rgb(40, 40, 40) !important;
-        color: white;
-        text-align: center;
-        empty-cells: show;
-        padding: 4px;
-        border-top: 4px solid white;
-        border-bottom: 4px solid white;
-      }
-      .lifterName {
-        word-wrap: break-word;
-        max-width: 30ch;
-        font-size: 20px;
-        font-weight: 700;
-        height: 50px;
-        padding-left: 6px;
-      }
-      .lifterClass {
-        word-wrap: break-word;
-        max-width: 30ch;
-        padding-bottom: 10px;
-        padding-left: 6px;
-        font-size: 12px;
-      }
-      .lifterEvent {
-        width: 80px;
-      }
-      .lifterAttemptWeightContainer {
-        padding: 10px;
-      }
-      .lifterAttemptWeight {
-        width: 50px;
-        border-width: 2px;
-        border-style: solid;
-        border-color: white;
-        padding: 6px;
-      }
-      .lifterMaxWeight {
-        width: 50px;
-        border-width: 2px;
-        border-style: solid;
-        border-color: white;
-        margin-bottom: 6px;
-        margin-right: 10px;
-        font-size: small;
-        display: flex;
-        padding-left: 10px;
-      }
-      .lifterResultsContainer {
-        width: 180px;
-        border-width: 2px;
-        border-style: solid;
-        border-color: white;
-        margin-bottom: 20px;
-        margin-top: 10px;
-        font-size: small;
-        white-space: nowrap;
-        display: flex;
-        padding-left: 10px;
-      }
-      .lifterResultHeader {
-        width: 50%;
-      }
-      .lifterResultTotal {
-        flex: 1;
-        background-color: white;
-        color: black;
-      }
-      .emptyCell {
-        width: 50px;
-      }
-      tbody {
-        display: block;
-        height: 120px;
-      }
-    </style>
-    <script type="text/javascript">
-      const urlParams = new URLSearchParams(window.location.search);
-      const refreshTimeSeconds = parseInt(urlParams.get("refresh") || 1);
-      const platform = parseInt(urlParams.get("platform") || 1);
-      const lifterType = urlParams.get("lifter") || "current";
-      const authRequired = JSON.parse(urlParams.get("auth") || true);
-      const apiUrl = urlParams.get("apiurl") || "http://localhost:8080/theonlyway/Openlifter/1.0.0";
-      const apiKey = urlParams.get("apikey") || "441b6244-8a4f-4e0f-8624-e5c665ecc901";
-      const lightsApiUrl = urlParams.get("lightsurl") || "https://lights.barbelltracker.com/api/last_result";
-
-      var timeInSecs;
-      var ticker;
-      var fetchHeaders = {};
-      let lightsCode;
-
-      const getLightsCode = async () => {
-        if (authRequired == true) {
-          fetchHeaders = {
-            "x-api-key": apiKey,
-            "Content-Type": "application/json",
-          };
-        } else {
-          fetchHeaders = {
-            "Content-Type": "application/json",
-          };
-        }
-        const response = await fetch(apiUrl + "/lights/" + platform, {
-          method: "GET",
-          headers: fetchHeaders,
-        });
-        const data = await response.json();
-        lightsCode = data;
-        return data;
-      };
-
-      (async () => {
-        await getLightsCode();
-      })();
-
-      function startTimer(secs) {
-        timeInSecs = parseInt(secs);
-        ticker = setInterval("tick()", 1000);
-      }
-
-      function tick() {
-        var secs = timeInSecs;
-        if (secs > 0) {
-          timeInSecs--;
-          console.log("Refresh in " + secs);
-        } else {
-          //getCurrentLifter();
-          getLightsData(lightsCode);
-          console.log("Refreshed");
-          timeInSecs = refreshTimeSeconds;
-        }
-      }
-
-      function convertToPounds(kg) {
-        return Math.round(kg * 2.2046);
-      }
-
-      function getLightsData(code) {
-        if (code != undefined) {
-          if ("lightsCode" in code && code.lightsCode != null) {
-            console.log(code);
-            url = lightsApiUrl + "/" + code.lightsCode;
-            fetchHeaders = {
-              "Content-Type": "application/json",
-            };
-            fetch(lightsApiUrl + "/" + code.lightsCode, {
-              method: "GET",
-              headers: fetchHeaders
-            })
-              .then((response) => response.json())
-              .then((data) => {
-                console.log(data);
-              })
-              .catch((error) => {
-                console.log(error);
-              });
-          }
-        }
-      }
-
-      function getCurrentLifter() {
-        if (authRequired == true) {
-          fetchHeaders = {
-            "x-api-key": apiKey,
-            "Content-Type": "application/json",
-          };
-        } else {
-          fetchHeaders = {
-            "Content-Type": "application/json",
-          };
-        }
-        let i = 1;
-        fetch(apiUrl + "/lifter/" + platform + "/" + lifterType, {
-          method: "GET",
-          headers: fetchHeaders,
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            var lift;
-            var lifterAttemptKgs;
-            var lifterAttemptWeightLbs;
-
-            switch (data.platformDetails.lift) {
-              case "S":
-                lift = "Squat";
-                lifterAttemptKgs1 = data.entry.squatKg[0] || "-";
-                lifterAttemptKgs2 = data.entry.squatKg[1] || "-";
-                lifterAttemptKgs3 = data.entry.squatKg[2] || "-";
-                lifterAttemptWeightLbs = convertToPounds(data.entry.squatKg[data.attempt - 1]);
-
-                break;
-              case "D":
-                lift = "Deadlift";
-                lifterAttemptKgs1 = data.entry.deadliftKg[0] || "-";
-                lifterAttemptKgs2 = data.entry.deadliftKg[1] || "-";
-                lifterAttemptKgs3 = data.entry.deadliftKg[2] || "-";
-                lifterAttemptWeightLbs = convertToPounds(data.entry.deadliftKg[data.attempt - 1]);
-                break;
-              case "B":
-                lift = "Bench";
-                lifterAttemptKgs1 = data.entry.benchKg[0] || "-";
-                lifterAttemptKgs2 = data.entry.benchKg[1] || "-";
-                lifterAttemptKgs3 = data.entry.benchKg[2] || "-";
-                lifterAttemptWeightLbs = convertToPounds(data.entry.benchKg[data.attempt - 1]);
-                break;
-            }
-
-            document.getElementById("lifterName").innerHTML = data.entry.name;
-            document.getElementById("lifterClass").innerHTML = data.entry.divisions.join(", ");
-            document.getElementById("lifterEvent").innerHTML = lift;
-            document.getElementById("lifterAttempt1").innerHTML = lifterAttemptKgs1;
-            document.getElementById("lifterAttempt2").innerHTML = lifterAttemptKgs2;
-            document.getElementById("lifterAttempt3").innerHTML = lifterAttemptKgs3;
-          });
-      }
-      getCurrentLifter();
-      getLightsData(lightsCode);
-      startTimer(refreshTimeSeconds);
-    </script>
     <div class="container">
       <div>
         <table>
@@ -256,16 +28,16 @@
                 <div class="lifterAttemptWeight" id="lifterAttempt3" />
               </td>
               <td rowspan="2">
-                <div class="lifterMaxWeight">S: 123</div>
-                <div class="lifterMaxWeight">B: 123</div>
-                <div class="lifterMaxWeight">D: 123</div>
+                <div class="lifterMaxWeight" id="lifterMaxWeightSquat"></div>
+                <div class="lifterMaxWeight" id="lifterMaxWeightBench"></div>
+                <div class="lifterMaxWeight" id="lifterMaxWeightDeadlift"></div>
               </td>
               <td rowspan="2">
-                <div class="lifterResultsContainer">
+                <div class="lifterResultsContainer totalContainer">
                   <div class="lifterResultHeader">Total</div>
                   <div class="lifterResultTotal">1000</div>
                 </div>
-                <div class="lifterResultsContainer">
+                <div class="lifterResultsContainer placementContainer">
                   <div class="lifterResultHeader">Placement</div>
                   <div class="lifterResultTotal">1</div>
                 </div>

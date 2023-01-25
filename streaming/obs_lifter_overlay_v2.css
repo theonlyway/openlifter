@@ -1,0 +1,99 @@
+.container {
+  width: 1000px;
+  visibility: visible;
+  opacity: 1;
+  margin: 1px;
+  position: absolute;
+  overflow: hidden;
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+}
+table {
+  background: rgb(40, 40, 40) !important;
+  color: white;
+  text-align: center;
+  empty-cells: show;
+  padding: 4px;
+  border-top: 4px solid white;
+  border-bottom: 4px solid white;
+}
+.lifterName {
+  word-wrap: break-word;
+  max-width: 30ch;
+  font-size: 20px;
+  font-weight: 700;
+  height: 50px;
+  padding-left: 6px;
+}
+.lifterClass {
+  word-wrap: break-word;
+  max-width: 30ch;
+  padding-bottom: 10px;
+  padding-left: 6px;
+  font-size: 12px;
+}
+.lifterEvent {
+  width: 80px;
+}
+.lifterAttemptWeightContainer {
+  padding: 10px;
+}
+.lifterAttemptWeight {
+  width: 50px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: white;
+  padding: 6px;
+}
+.lifterMaxWeight {
+  width: 50px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: white;
+  margin-top: 10px;
+  margin-right: 10px;
+  font-size: small;
+  display: flex;
+  padding-left: 10px;
+}
+.lifterResultsContainer {
+  width: 180px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: white;
+  font-size: small;
+  white-space: nowrap;
+  display: flex;
+  padding-left: 10px;
+}
+.placementContainer {
+  margin-bottom: 20px;
+}
+.totalContainer {
+  margin-top: 25px;
+  margin-bottom: 20px;
+}
+.lifterResultHeader {
+  width: 50%;
+}
+.lifterResultTotal {
+  flex: 1;
+  background-color: white;
+  color: black;
+}
+.emptyCell {
+  width: 50px;
+}
+tbody {
+  display: block;
+  height: 120px;
+}
+.currentLift {
+  background-color: rgb(54, 53, 92);
+}
+.goodLift {
+  background-color: green;
+}
+.badLift {
+  background-color: red;
+}

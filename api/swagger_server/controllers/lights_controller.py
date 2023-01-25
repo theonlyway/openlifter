@@ -4,6 +4,7 @@ import six
 from swagger_server.models.any_value import AnyValue  # noqa: E501
 from swagger_server import util
 from swagger_server.config import Config, logger
+import requests
 
 
 config = Config()
@@ -30,6 +31,12 @@ def lights_platform_get(platform):  # noqa: E501
         raise DocumentNotFound(platform, "order")
 
     if "lightsCode" in document['order']:
-        return {'lightsCode': document['order']['lightsCode']}
+        try:
+            response = requests.get(
+                config.lightsUrl + f"/{document['order']['lightsCode']}")
+            jsonResponse = response.json()
+            return jsonResponse
+        except Exception as e:
+            raise e
     else:
-        return {'lightsCode': None}
+        return {}
