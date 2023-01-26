@@ -24,6 +24,7 @@ table {
   font-weight: 700;
   height: 50px;
   padding-left: 6px;
+  width: 210px;
 }
 .lifterClass {
   word-wrap: break-word;

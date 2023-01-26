@@ -58,7 +58,7 @@ function setAttemptColors(data) {
             element = document.getElementById("lifterAttempt" + i);
             element.classList.add("goodLift");
           } else {
-            if (data.entry.deadlifttKg[i - 1] !== 0) {
+            if (data.entry.deadliftKg[i - 1] !== 0) {
               element = document.getElementById("lifterAttempt" + i);
               element.classList.add("badLift");
             }
