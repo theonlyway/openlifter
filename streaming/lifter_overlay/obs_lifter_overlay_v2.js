@@ -160,6 +160,7 @@ function getCurrentLifter() {
 
       document.getElementById("lifterName").innerHTML = data.entry.name;
       document.getElementById("lifterClass").innerHTML = data.entry.divisions.join(", ");
+      document.getElementById("lifterBodyWeight").innerHTML = data.entry.bodyweightKg;
       document.getElementById("lifterEvent").innerHTML = lift;
       document.getElementById("lifterAttempt1").innerHTML = lifterAttemptKgs1;
       document.getElementById("lifterAttempt2").innerHTML = lifterAttemptKgs2;

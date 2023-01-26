@@ -44,10 +44,6 @@ const getLightsData = async () => {
       for (const [key, value] of Object.entries(data.last[0].referees)) {
         element = document.getElementById(value.name + "Light");
         switch (value.status) {
-          case "clear":
-            element.classList.remove("goodLift");
-            element.classList.remove("badLift");
-            break;
           case "good lift":
             element.classList.add("goodLift");
             element.classList.remove("badLift");
