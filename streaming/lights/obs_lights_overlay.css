@@ -1,5 +1,5 @@
 .container {
-  width: 1000px;
+  width: 400px;
   visibility: visible;
   opacity: 1;
   margin: 1px;
@@ -17,19 +17,23 @@ table {
   border-top: 4px solid white;
   border-bottom: 4px solid white;
 }
-.emptyCell {
-  width: 50px;
-}
 tbody {
   display: block;
-  height: 120px;
-}
-.currentLift {
-  background-color: rgb(54, 53, 92);
+
 }
 .goodLift {
-  background-color: green;
+  background-color: white;
 }
 .badLift {
   background-color: red;
+}
+.lightContainer {
+  padding:10px;
+}
+
+.leftLight, .centreLight, .rightLight {
+    border: 1px solid white;
+    height: 100px;
+    border-radius: 75px;
+    width: 100px;
 }
