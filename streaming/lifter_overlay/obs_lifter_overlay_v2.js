@@ -104,11 +104,11 @@ function setMaxLiftValues(data) {
   maxDeadliftValue = Math.max.apply(Math, maxDeadlift);
 
   document.getElementById("lifterMaxWeightSquat").innerHTML =
-    "S: " + (maxSquatValue !== -Infinity ? maxSquatValue : "");
+    "S: " + (maxSquatValue !== -Infinity ? maxSquatValue : "0");
   document.getElementById("lifterMaxWeightBench").innerHTML =
-    "B: " + (maxBenchValue !== -Infinity ? maxBenchValue : "");
+    "B: " + (maxBenchValue !== -Infinity ? maxBenchValue : "0");
   document.getElementById("lifterMaxWeightDeadlift").innerHTML =
-    "D: " + (maxDeadliftValue !== -Infinity ? maxDeadliftValue : "");
+    "D: " + (maxDeadliftValue !== -Infinity ? maxDeadliftValue : "0");
 }
 
 function getCurrentLifter() {
