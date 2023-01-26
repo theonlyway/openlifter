@@ -35,14 +35,10 @@ import AboutContainer from "./containers/AboutContainer";
 import Navigation from "./components/Navigation";
 import StreamingContainer from "./containers/StreamingContainer";
 
-import configureStore from "./store";
-
-import { getDefaultLanguage } from "./logic/strings";
+import { store, persistor } from "./store";
 
 class App extends React.Component {
   render() {
-    const { store, persistor } = configureStore({ language: getDefaultLanguage() });
-
     return (
       // Provider is a React component from the react-redux library.
       // Its purpose is to "provide" the given store to its child components.

@@ -30,7 +30,6 @@ import { GlobalState } from "../types/stateTypes";
 
 // Adds a blank (or default-initalized) row to the registrations table.
 export const newRegistration = (obj: Partial<Entry>): NewRegistrationAction => {
-  console.log("redux function");
   return {
     type: "NEW_REGISTRATION",
     overwriteDefaults: obj,
