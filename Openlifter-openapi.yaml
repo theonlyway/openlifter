@@ -13,27 +13,27 @@ info:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
 tags:
-  - name: lifters
+  - name: Lifters
     description: Lifter information
-  - name: registrations
-    description: Lifter information
-  - name: health
+  - name: Lights
+    description: API for lifting lights
+  - name: Health
     description: API health check
 paths:
   /lifter/{platform}/order:
     post:
       tags:
-        - lifters
+        - Lifters
       summary: Update the lifter order
       description: |
         Update the current lifter
       parameters:
         - name: platform
           in: path
-          description: id of the account to return
+          description: Platform number
           required: true
           schema:
-            type: string
+            type: integer
       requestBody:
         content:
           application/json:
@@ -41,17 +41,23 @@ paths:
               $ref: "#/components/schemas/LifterOrder"
       responses:
         '200':
-          description: current lifter
+          description: Order update response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CurrentLifter'
+                $ref: '#/components/schemas/OrderResponse'
+        '503':
+          description: Order update response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderResponse'
       security:
         - api_key: []
   /lifter/{platform}/current:
     get:
       tags:
-        - lifters
+        - Lifters
       summary: Returns the current lifter
       description: |
         Returns the current lifter
@@ -61,20 +67,20 @@ paths:
           description: id of the account to return
           required: true
           schema:
-            type: string
+            type: integer
       responses:
         '200':
-          description: current lifter
+          description: Current lifter data
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CurrentLifter'
+                $ref: '#/components/schemas/AnyValue'
       security:
         - api_key: []
   /lifter/{platform}/next:
     get:
       tags:
-        - lifters
+        - Lifters
       summary: Returns the next lifter
       description: |
         Returns the current lifter
@@ -84,20 +90,43 @@ paths:
           description: id of the account to return
           required: true
           schema:
-            type: string
+            type: integer
       responses:
         '200':
-          description: next lifter
+          description: Next lifer data
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CurrentLifter'
+                $ref: '#/components/schemas/AnyValue'
+      security:
+        - api_key: []
+  /lights/{platform}:
+    get:
+      tags:
+        - Lights
+      summary: Returns the code used for the lights
+      description: |
+        Returns the health of the API
+      parameters:
+        - name: platform
+          in: path
+          description: id of the account to return
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Lights code
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnyValue'
       security:
         - api_key: []
   /health:
     get:
       tags:
-        - health
+        - Health
       summary: Checks the health of the API
       description: |
         Returns the health of the API
@@ -112,26 +141,6 @@ paths:
         - api_key: []
 components:
   schemas:
-    CurrentLifter:
-      type: object
-      properties:
-        orderedEntries:
-            type: array
-            items:
-              type: object
-        attemptOneIndexed:
-          type: number  
-        currentEntryId:
-          nullable: true
-          type: number 
-        nextAttemptOneIndexed:
-          type: number
-          nullable: true
-          example: null
-        nextEntryId:
-          type: number
-          nullable: true
-          example: null
     LifterOrder:
       type: object
       properties:
@@ -140,16 +149,16 @@ components:
             items:
               type: object
         attemptOneIndexed:
-          type: number  
+          type: integer
         currentEntryId:
           nullable: true
-          type: number 
+          type: integer
         nextAttemptOneIndexed:
-          type: number
+          type: integer
           nullable: true
           example: null
         nextEntryId:
-          type: number
+          type: integer
           nullable: true
           example: null
     ApiHealth:
@@ -163,6 +172,13 @@ components:
         databaseStatus:
           type: string
         failureMessage:
+          type: string
+    OrderResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
           type: string
     AnyValue: {}
   securitySchemes:
