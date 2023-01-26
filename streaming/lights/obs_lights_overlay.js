@@ -9,6 +9,7 @@ var timeInSecs;
 var ticker;
 var fetchHeaders = {};
 var lightsData;
+var lastLightTimestamp;
 
 const getLightsData = async () => {
   if (authRequired == true) {
@@ -29,23 +30,35 @@ const getLightsData = async () => {
   lightsData = data;
   if ("referees" in data) {
     for (const [key, value] of Object.entries(data.referees)) {
-      console.log(value.name);
       element = document.getElementById(value.name + "Light");
       switch (value.status) {
         case "clear":
           element.classList.remove("goodLift");
           element.classList.remove("badLift");
           break;
-        case "good lift":
-          element.classList.add("goodLift");
-          element.classList.remove("badLift");
-          break;
-        case "no lift":
-          element.classList.add("badLift");
-          element.classList.add("goodLift");
-          break;
       }
     }
+  }
+  if ("last" in data) {
+    if (data.last[0].dts !== lastLightTimestamp)
+      for (const [key, value] of Object.entries(data.last[0].referees)) {
+        element = document.getElementById(value.name + "Light");
+        switch (value.status) {
+          case "clear":
+            element.classList.remove("goodLift");
+            element.classList.remove("badLift");
+            break;
+          case "good lift":
+            element.classList.add("goodLift");
+            element.classList.remove("badLift");
+            break;
+          case "no lift":
+            element.classList.remove("goodLift");
+            element.classList.add("badLift");
+            break;
+        }
+        lastLightTimestamp = data.last[0].dts;
+      }
   }
 };
 
