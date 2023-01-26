@@ -9,6 +9,31 @@ const apiKey = urlParams.get("apikey") || "441b6244-8a4f-4e0f-8624-e5c665ecc901"
 var timeInSecs;
 var ticker;
 var fetchHeaders = {};
+var lightsData;
+
+const getLightsData = async () => {
+  if (authRequired == true) {
+    fetchHeaders = {
+      "x-api-key": apiKey,
+      "Content-Type": "application/json",
+    };
+  } else {
+    fetchHeaders = {
+      "Content-Type": "application/json",
+    };
+  }
+  const response = await fetch(apiUrl + "/lights/" + platform, {
+    method: "GET",
+    headers: fetchHeaders,
+  });
+  const data = await response.json();
+  lightsData = data;
+  return data;
+};
+
+(async () => {
+  await getLightsData();
+})();
 
 function startTimer(secs) {
   timeInSecs = parseInt(secs);
@@ -22,6 +47,7 @@ function tick() {
     console.log("Refresh in " + secs);
   } else {
     getCurrentLifter();
+    getLightsData();
     console.log("Refreshed");
     timeInSecs = refreshTimeSeconds;
   }

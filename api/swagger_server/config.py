@@ -21,7 +21,7 @@ class Config:
     mongodbConnectionString = f"mongodb://{mongodbUsername}:{mongodbPassword}@{mongodbHost}:{mongodbPort}/{mongodbDatabaseName}"
     mongodbClient = MongoClient(mongodbConnectionString,
                                 serverSelectionTimeoutMS=5000)
-    lightsUrl = "https://lights.barbelltracker.com/api/last_result"
+    lightsUrl = "https://lights.barbelltracker.com/api/meet_status"
 
 
 def mongodb_connection_failure() -> str:

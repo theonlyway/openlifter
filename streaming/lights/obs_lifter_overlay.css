@@ -1,0 +1,35 @@
+.container {
+  width: 1000px;
+  visibility: visible;
+  opacity: 1;
+  margin: 1px;
+  position: absolute;
+  overflow: hidden;
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+}
+table {
+  background: rgb(40, 40, 40) !important;
+  color: white;
+  text-align: center;
+  empty-cells: show;
+  padding: 4px;
+  border-top: 4px solid white;
+  border-bottom: 4px solid white;
+}
+.emptyCell {
+  width: 50px;
+}
+tbody {
+  display: block;
+  height: 120px;
+}
+.currentLift {
+  background-color: rgb(54, 53, 92);
+}
+.goodLift {
+  background-color: green;
+}
+.badLift {
+  background-color: red;
+}
