@@ -18,6 +18,8 @@ tags:
   description: API for lifting lights
 - name: Health
   description: API health check
+- name: Results
+  description: API for resuls
 paths:
   /lifter/{platform}/order:
     post:
@@ -156,11 +158,36 @@ paths:
       security:
       - api_key: []
       x-openapi-router-controller: swagger_server.controllers.health_controller
+  /lifter/results:
+    post:
+      tags:
+      - Results
+      summary: Updates the lifter results
+      description: |
+        Update the current lifter
+      operationId: lifter_results_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnyValue'
+      responses:
+        "200":
+          description: Order update response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnyValue'
+      security:
+      - api_key: []
+      x-openapi-router-controller: swagger_server.controllers.results_controller
 components:
   schemas:
     LifterOrder:
       type: object
       properties:
+        meetName:
+          type: string
         orderedEntries:
           type: array
           items:

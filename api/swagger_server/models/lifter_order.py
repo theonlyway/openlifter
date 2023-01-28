@@ -14,9 +14,11 @@ class LifterOrder(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, ordered_entries: List[object]=None, attempt_one_indexed: int=None, current_entry_id: int=None, next_attempt_one_indexed: int=None, next_entry_id: int=None):  # noqa: E501
+    def __init__(self, meet_name: str=None, ordered_entries: List[object]=None, attempt_one_indexed: int=None, current_entry_id: int=None, next_attempt_one_indexed: int=None, next_entry_id: int=None):  # noqa: E501
         """LifterOrder - a model defined in Swagger
 
+        :param meet_name: The meet_name of this LifterOrder.  # noqa: E501
+        :type meet_name: str
         :param ordered_entries: The ordered_entries of this LifterOrder.  # noqa: E501
         :type ordered_entries: List[object]
         :param attempt_one_indexed: The attempt_one_indexed of this LifterOrder.  # noqa: E501
@@ -29,6 +31,7 @@ class LifterOrder(Model):
         :type next_entry_id: int
         """
         self.swagger_types = {
+            'meet_name': str,
             'ordered_entries': List[object],
             'attempt_one_indexed': int,
             'current_entry_id': int,
@@ -37,12 +40,14 @@ class LifterOrder(Model):
         }
 
         self.attribute_map = {
+            'meet_name': 'meetName',
             'ordered_entries': 'orderedEntries',
             'attempt_one_indexed': 'attemptOneIndexed',
             'current_entry_id': 'currentEntryId',
             'next_attempt_one_indexed': 'nextAttemptOneIndexed',
             'next_entry_id': 'nextEntryId'
         }
+        self._meet_name = meet_name
         self._ordered_entries = ordered_entries
         self._attempt_one_indexed = attempt_one_indexed
         self._current_entry_id = current_entry_id
@@ -59,6 +64,27 @@ class LifterOrder(Model):
         :rtype: LifterOrder
         """
         return util.deserialize_model(dikt, cls)
+
+    @property
+    def meet_name(self) -> str:
+        """Gets the meet_name of this LifterOrder.
+
+
+        :return: The meet_name of this LifterOrder.
+        :rtype: str
+        """
+        return self._meet_name
+
+    @meet_name.setter
+    def meet_name(self, meet_name: str):
+        """Sets the meet_name of this LifterOrder.
+
+
+        :param meet_name: The meet_name of this LifterOrder.
+        :type meet_name: str
+        """
+
+        self._meet_name = meet_name
 
     @property
     def ordered_entries(self) -> List[object]:

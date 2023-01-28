@@ -19,7 +19,7 @@
 import { liftToAttemptFieldName, liftToStatusFieldName, MAX_ATTEMPTS } from "./entry";
 
 import { LiftingOrder, Entry, FieldKg, FieldStatus } from "../types/dataTypes";
-import { LiftingState, StreamingState } from "../types/stateTypes";
+import { LiftingState, MeetState, StreamingState } from "../types/stateTypes";
 
 // Helper function: for a given entry, see what attempt number would be next.
 //
@@ -299,12 +299,14 @@ const getNextEntryInfo = (
 export const getLiftingOrder = (
   entriesInFlight: Array<Entry>,
   lifting: LiftingState,
-  streaming: StreamingState
+  streaming: StreamingState,
+  meet: MeetState
 ): LiftingOrder => {
   const attemptOneIndexed = getActiveAttemptNumber(entriesInFlight, lifting);
   const orderedEntries = orderEntriesForAttempt(entriesInFlight, lifting, attemptOneIndexed);
   const currentEntryId = getCurrentEntryId(lifting, orderedEntries, attemptOneIndexed);
   const nextEntryInfo = getNextEntryInfo(lifting, currentEntryId, orderedEntries, attemptOneIndexed);
+  const meetName = meet.name;
 
   if (streaming.streamingEnabled == true) {
     let fetchHeaders = {};
@@ -322,6 +324,7 @@ export const getLiftingOrder = (
       method: "POST",
       headers: fetchHeaders,
       body: JSON.stringify({
+        meetName: meetName,
         orderedEntries: orderedEntries,
         attemptOneIndexed: attemptOneIndexed,
         currentEntryId: currentEntryId,

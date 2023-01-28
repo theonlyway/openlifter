@@ -368,10 +368,13 @@ const sendResultsToApi = (results: Array<CategoryResults>) => {
         "Content-Type": "application/json",
       };
     }
-    fetch(state.streaming.apiUrl + "/results", {
+    fetch(state.streaming.apiUrl + "/lifter/results", {
       method: "POST",
       headers: fetchHeaders,
-      body: JSON.stringify(results),
+      body: JSON.stringify({
+        results: results,
+        meetName: state.meet.name,
+      }),
     })
       .then((response) => response.json())
       .catch((error) => {
