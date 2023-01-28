@@ -7,6 +7,7 @@ from swagger_server import util
 from swagger_server.config import Config, logger
 import json
 import time
+from swagger_server.controllers.helpers import calculate_max_lifts
 
 
 config = Config()
@@ -41,7 +42,8 @@ def lifter_platform_current_get(platform):  # noqa: E501
                 return {
                     'platformDetails': platformDetails,
                     'attempt': currentAttemptNumber,
-                    'entry': order
+                    'entry': order,
+                    'maxLift': calculate_max_lifts(order)
                 }
 
 def lifter_platform_next_get(platform):  # noqa: E501

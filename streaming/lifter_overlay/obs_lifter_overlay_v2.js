@@ -80,37 +80,6 @@ function setAttemptColors(data) {
   }
 }
 
-function setMaxLiftValues(data) {
-  var maxSquat = [];
-  var maxBench = [];
-  var maxDeadlift = [];
-  for (let i = 0; i <= 2; ++i) {
-    if (data.entry.squatStatus[i] === 1) {
-      maxSquat.push(data.entry.squatKg[i]);
-    }
-  }
-  for (let i = 0; i <= 2; ++i) {
-    if (data.entry.benchStatus[i] === 1) {
-      maxSquat.push(data.entry.benchKg[i]);
-    }
-  }
-  for (let i = 0; i <= 2; ++i) {
-    if (data.entry.deadliftStatus[i] === 1) {
-      maxSquat.push(data.entry.deadliftKg[i]);
-    }
-  }
-  maxSquatValue = Math.max.apply(Math, maxSquat);
-  maxBenchValue = Math.max.apply(Math, maxBench);
-  maxDeadliftValue = Math.max.apply(Math, maxDeadlift);
-
-  document.getElementById("lifterMaxWeightSquat").innerHTML =
-    "S: " + (maxSquatValue !== -Infinity ? maxSquatValue : "0");
-  document.getElementById("lifterMaxWeightBench").innerHTML =
-    "B: " + (maxBenchValue !== -Infinity ? maxBenchValue : "0");
-  document.getElementById("lifterMaxWeightDeadlift").innerHTML =
-    "D: " + (maxDeadliftValue !== -Infinity ? maxDeadliftValue : "0");
-}
-
 function getCurrentLifter() {
   if (authRequired == true) {
     fetchHeaders = {
@@ -130,8 +99,6 @@ function getCurrentLifter() {
     .then((response) => response.json())
     .then((data) => {
       var lift;
-      var lifterAttemptKgs;
-      var lifterAttemptWeightLbs;
 
       switch (data.platformDetails.lift) {
         case "S":
@@ -139,7 +106,6 @@ function getCurrentLifter() {
           lifterAttemptKgs1 = data.entry.squatKg[0] || "-";
           lifterAttemptKgs2 = data.entry.squatKg[1] || "-";
           lifterAttemptKgs3 = data.entry.squatKg[2] || "-";
-          lifterAttemptWeightLbs = convertToPounds(data.entry.squatKg[data.attempt - 1]);
 
           break;
         case "D":
@@ -147,14 +113,12 @@ function getCurrentLifter() {
           lifterAttemptKgs1 = data.entry.deadliftKg[0] || "-";
           lifterAttemptKgs2 = data.entry.deadliftKg[1] || "-";
           lifterAttemptKgs3 = data.entry.deadliftKg[2] || "-";
-          lifterAttemptWeightLbs = convertToPounds(data.entry.deadliftKg[data.attempt - 1]);
           break;
         case "B":
           lift = "Bench";
           lifterAttemptKgs1 = data.entry.benchKg[0] || "-";
           lifterAttemptKgs2 = data.entry.benchKg[1] || "-";
           lifterAttemptKgs3 = data.entry.benchKg[2] || "-";
-          lifterAttemptWeightLbs = convertToPounds(data.entry.benchKg[data.attempt - 1]);
           break;
       }
 
@@ -165,8 +129,10 @@ function getCurrentLifter() {
       document.getElementById("lifterAttempt1").innerHTML = lifterAttemptKgs1;
       document.getElementById("lifterAttempt2").innerHTML = lifterAttemptKgs2;
       document.getElementById("lifterAttempt3").innerHTML = lifterAttemptKgs3;
+      document.getElementById("lifterMaxWeightSquat").innerHTML = "S: " + data.maxLift.maxLifts.squat;
+      document.getElementById("lifterMaxWeightBench").innerHTML = "B: " + data.maxLift.maxLifts.bench;
+      document.getElementById("lifterMaxWeightDeadlift").innerHTML = "D: " + data.maxLift.maxLifts.deadlift;
       setAttemptColors(data);
-      setMaxLiftValues(data);
     });
 }
 getCurrentLifter();
