@@ -13,7 +13,7 @@ config = Config()
 def lifter_results_post(body=None):  # noqa: E501
     """Updates the lifter results
 
-    Update the current lifter  # noqa: E501
+    Update the lifter results  # noqa: E501
 
     :param body:
     :type body: dict | bytes
