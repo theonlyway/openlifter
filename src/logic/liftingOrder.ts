@@ -318,6 +318,12 @@ export const getLiftingOrder = (
       const event = orderedEntries[entry].events.length > 0 ? orderedEntries[entry].events[0] : "SBD";
       const points: number = getPoints(meet.formula, orderedEntries[entry], event, totalKg, meet.inKg);
       orderedEntries[entry]["points"] = displayPoints(points, language);
+      if (totalKg === 0) {
+        orderedEntries[entry]["place"] = "-";
+      }
+      if (orderedEntries[entry]["guest"] === true) {
+        orderedEntries[entry]["place"] = "GUEST";
+      }
     }
 
     if (streaming.streamingEnabled == true) {

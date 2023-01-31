@@ -91,6 +91,7 @@ export type Entry = {
   deadliftStatus: Array<LiftStatus>;
   //For streaming specific data
   points: string | null;
+  place: string | null;
 };
 
 // Represents a plate in the configuration.
