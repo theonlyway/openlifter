@@ -132,6 +132,7 @@ function getCurrentLifter() {
       document.getElementById("lifterMaxWeightSquat").innerHTML = "S: " + data.maxLift.maxLifts.squat;
       document.getElementById("lifterMaxWeightBench").innerHTML = "B: " + data.maxLift.maxLifts.bench;
       document.getElementById("lifterMaxWeightDeadlift").innerHTML = "D: " + data.maxLift.maxLifts.deadlift;
+      document.getElementById("lifterResultPoints").innerHTML = data.entry.points;
       setAttemptColors(data);
     });
 }

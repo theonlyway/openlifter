@@ -48,7 +48,7 @@ table {
   padding: 6px;
 }
 .lifterMaxWeight {
-  width: 50px;
+  width: 80px;
   border-width: 2px;
   border-style: solid;
   border-color: white;
@@ -59,7 +59,7 @@ table {
   padding-left: 10px;
 }
 .lifterResultsContainer {
-  width: 180px;
+  width: 150px;
   border-width: 2px;
   border-style: solid;
   border-color: white;
@@ -77,6 +77,7 @@ table {
 }
 .lifterResultHeader {
   width: 50%;
+  padding-right: 10px;
 }
 .lifterResultTotal {
   flex: 1;

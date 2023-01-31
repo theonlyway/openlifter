@@ -29,9 +29,6 @@ import { getWeightClassStr } from "../reducers/meetReducer";
 
 import { Sex, Event, Equipment, Entry, Lift } from "../types/dataTypes";
 import { checkExhausted } from "../types/utils";
-import { store } from "../store";
-
-const state = store.getState();
 
 export type Place = number | "DQ";
 
@@ -351,36 +348,7 @@ const getAllResults = (
   }
 
   sortCategoryResults(results);
-  sendResultsToApi(results);
   return results;
-};
-
-const sendResultsToApi = (results: Array<CategoryResults>) => {
-  if (state.streaming.streamingEnabled == true) {
-    let fetchHeaders = {};
-    if (state.streaming.streamingEnabled == true) {
-      fetchHeaders = {
-        "x-api-key": state.streaming.apiKey,
-        "Content-Type": "application/json",
-      };
-    } else {
-      fetchHeaders = {
-        "Content-Type": "application/json",
-      };
-    }
-    fetch(state.streaming.apiUrl + "/lifter/results", {
-      method: "POST",
-      headers: fetchHeaders,
-      body: JSON.stringify({
-        results: results,
-        meetName: state.meet.name,
-      }),
-    })
-      .then((response) => response.json())
-      .catch((error) => {
-        console.log(error);
-      });
-  }
 };
 
 export const getProjectedResults = (
