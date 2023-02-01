@@ -371,7 +371,10 @@ class LiftingTable extends React.Component<Props> {
       }
       case "Place": {
         // If the lifter has no total, then don't report a place.
-        if (getFinalTotalKg(entry) === 0) return <td key={columnType} />;
+        if (getFinalTotalKg(entry) === 0) {
+          entry.place = "-";
+          return <td key={columnType} />;
+        }
 
         // If the lifter is a guest, they cannot place, so just display the guest symbol.
         if (entry.guest) {
@@ -381,7 +384,10 @@ class LiftingTable extends React.Component<Props> {
 
         // Just show the Place from the first division in the list.
         // This is the same division as shown in the "Division" column.
-        if (entry.divisions.length === 0) return <td key={columnType} />;
+        if (entry.divisions.length === 0) {
+          entry.place = "-";
+          return <td key={columnType} />;
+        }
         const firstDiv = entry.divisions[0];
 
         // Look at all the categories, and find the first one including this division
