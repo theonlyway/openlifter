@@ -133,7 +133,7 @@ function getCurrentLifter() {
       document.getElementById("lifterMaxWeightBench").innerHTML = "B: " + data.maxLift.maxLifts.bench;
       document.getElementById("lifterMaxWeightDeadlift").innerHTML = "D: " + data.maxLift.maxLifts.deadlift;
       document.getElementById("lifterResultPoints").innerHTML = data.entry.points;
-      document.getElementById("lifterResultPlace").innerHTML = data.entry.place;
+      document.getElementById("lifterResultPlace").innerHTML = data.entry.place != null ? data.entry.place : "-";
       setAttemptColors(data);
     });
 }
