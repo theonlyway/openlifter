@@ -1,6 +1,6 @@
 {
   "name": "openlifter",
-  "version": "beta",
+  "version": "1.4.0",
   "homepage": "https://openlifter.theonlywaye.com",
   "router_basename": "/",
   "author": "Sean Stangl <sean.stangl@gmail.com>",
