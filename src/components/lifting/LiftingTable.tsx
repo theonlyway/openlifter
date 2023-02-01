@@ -374,7 +374,11 @@ class LiftingTable extends React.Component<Props> {
         if (getFinalTotalKg(entry) === 0) return <td key={columnType} />;
 
         // If the lifter is a guest, they cannot place, so just display the guest symbol.
-        if (entry.guest) return <td key={columnType}>{getString("results.lifter-guest", this.props.language)}</td>;
+        if (entry.guest) {
+          entry.place = "GUEST"
+          return <td key={columnType}>{getString("results.lifter-guest", this.props.language)}</td>;
+        }
+
 
         // Just show the Place from the first division in the list.
         // This is the same division as shown in the "Division" column.
