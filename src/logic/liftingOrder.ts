@@ -16,12 +16,10 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import { getFinalTotalKg, liftToAttemptFieldName, liftToStatusFieldName, MAX_ATTEMPTS } from "./entry";
+import { liftToAttemptFieldName, liftToStatusFieldName, MAX_ATTEMPTS } from "./entry";
 
-import { LiftingOrder, Entry, FieldKg, FieldStatus, Language } from "../types/dataTypes";
+import { LiftingOrder, Entry, FieldKg, FieldStatus } from "../types/dataTypes";
 import { LiftingState, MeetState, StreamingState } from "../types/stateTypes";
-import { getPoints } from "./coefficients/coefficients";
-import { displayPoints } from "./units";
 
 // Helper function: for a given entry, see what attempt number would be next.
 //
@@ -302,30 +300,17 @@ export const getLiftingOrder = (
   entriesInFlight: Array<Entry>,
   lifting: LiftingState,
   streaming: StreamingState,
-  meet: MeetState,
-  language: Language
+  meet: MeetState
 ): LiftingOrder => {
   const attemptOneIndexed = getActiveAttemptNumber(entriesInFlight, lifting);
   const orderedEntries = orderEntriesForAttempt(entriesInFlight, lifting, attemptOneIndexed);
   const currentEntryId = getCurrentEntryId(lifting, orderedEntries, attemptOneIndexed);
   const nextEntryInfo = getNextEntryInfo(lifting, currentEntryId, orderedEntries, attemptOneIndexed);
-  const meetName = meet.name;
 
   if (streaming.streamingEnabled == true) {
+    const meetName = meet.name;
+    //calculateStreamingPlacementStats(orderedEntries, meet, language, entries, lifting, attemptOneIndexed);
     let fetchHeaders = {};
-    for (const entry in orderedEntries) {
-      const totalKg: number = getFinalTotalKg(orderedEntries[entry]);
-      const event = orderedEntries[entry].events.length > 0 ? orderedEntries[entry].events[0] : "SBD";
-      const points: number = getPoints(meet.formula, orderedEntries[entry], event, totalKg, meet.inKg);
-      orderedEntries[entry]["points"] = displayPoints(points, language);
-      if (totalKg === 0) {
-        orderedEntries[entry]["place"] = "-";
-      }
-      if (orderedEntries[entry]["guest"] === true) {
-        orderedEntries[entry]["place"] = "GUEST";
-      }
-    }
-
     if (streaming.streamingEnabled == true) {
       fetchHeaders = {
         "x-api-key": streaming.apiKey,
