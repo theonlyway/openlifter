@@ -111,7 +111,7 @@ Data will only be sent to the API once you navigate to the `Lifting` section. So
 
 ### Lifting lights
 
-There is some baseline intergration built in to use the lifting lights solution provided by https://lights.barbelltracker.com/. This integration doesn't write any of the light data back in to Openlifter, it just exports the code to the API so when the overlay in OBS queries the API it is querying the correct lights for the the `Meet`
+There is some baseline intergration built in to use the lifting lights solution provided by https://lights.barbelltracker.com/. This integration doesn't write any of the light data back in to Openlifter, it just exports the code to the API so when the overlay in OBS queries the API it is querying the correct lights for the the `Meet` / `Platform`
 
 You can enable it by doing the following:
 
