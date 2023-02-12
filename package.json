@@ -1,7 +1,7 @@
 {
   "name": "openlifter",
-  "version": "1.4.0",
-  "homepage": "https://openlifter.theonlywaye.com",
+  "version": "beta",
+  "homepage": "./",
   "router_basename": "/",
   "author": "Sean Stangl <sean.stangl@gmail.com>",
   "description": "Simple software for running a local powerlifting competition",
