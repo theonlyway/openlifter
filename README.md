@@ -184,7 +184,7 @@ Each of the overlays have a set of URL parameters that you can provide if requir
    *  Full URL of the Openlifter API endpoint
 *  `apikey`
    *  Default: `441b6244-8a4f-4e0f-8624-e5c665ecc901`
-   *  This matches the default API key defined in Openlifter and the dockerfile however
+   *  This matches the default API key defined in Openlifter and the dockerfile
 
 Example OBS configuration using some of the above parameters: `file://C:/Repos/openlifter/streaming/lifter/obs_lifter_overlay_v2.html?refresh=1&platform=2`
 
@@ -203,6 +203,6 @@ Example OBS configuration using some of the above parameters: `file://C:/Repos/o
    *  Full URL of the Openlifter API endpoint
 *  `apikey`
    *  Default: `441b6244-8a4f-4e0f-8624-e5c665ecc901`
-   *  This matches the default API key defined in Openlifter and the dockerfile however
+   *  This matches the default API key defined in Openlifter and the dockerfile
 
 Example OBS configuration using some of the above parameters: `file://C:/Repos/openlifter/streaming/lights/obs_lights_overlay.html?refresh=1&platform=2`
