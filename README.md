@@ -154,7 +154,7 @@ This was designed to work with [OBS (Open Broadcaster Software)](https://obsproj
   * Click `OK`
 * Once done you can then position the overlay on your screen
   * It's size is designed so it will by default fit to either the left or the right of the current lifter overlay
-* Once you have the layout sorted you can keep them grouped together by holding shift and clicking on the `Lights and `CurrentLifter` sources and clicking `Group Selected items`
+* Once you have the layout sorted you can keep them grouped together by holding shift and clicking on the `Lights` and `CurrentLifter` sources and clicking `Group Selected items`
   * If you need to adjust their position it will allow you to move them together
 
 The source for the overlays is located [here](./streaming/)
