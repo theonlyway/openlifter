@@ -91,7 +91,7 @@ This will do the following:
   * You can also connect to the mongodb locally if you download something like [MongoDB Compass](https://www.mongodb.com/try/download/compass) and use the credentials defined in the [docker-compose.yml](./docker/docker-compose.yml)
 * Build a docker container for the API located [here](./api/)
 
-I will note that this method is designed to run the componnets locally. However, given this repo contains the source code of the API along with the OpenAPI spec you can in theory host the API wherever you want if it is a requirement.
+I will note that this method is designed to run the componnets locally. However, given this repo contains the source code of the API along with the OpenAPI spec you can in theory host the API wherever you want if it is a requirement. If you do host it elsewhere I suggest changing the API key value to something else.
 
 ### Openlifter
 
@@ -104,6 +104,8 @@ Be sure to do the steps before this to enable the API
   * If authentication is required to access the API endpoint input the API key
     * If you are using the defaults of this implementation you won't have to change any of the settings from it's defaults
 * Hit test connection to see if the connection is working
+
+Data will only be sent to the API once you navigate to the `Lifting` section. So if you don't see any data in the OBS overlays further down it's probably because no data has been sent to the API yet. This is done because I assume if you are nagivating to the `Lifting` section you have filled in all the other Openlifter prequisites are are ready to start. Updates will be sent to the API each time you either nagivate to the lifting section (If you navigate away then back) or if you click the `Good Lift` or `No Lift` buttons.
 
 ### Lifting lights
 
@@ -122,4 +124,83 @@ You can enable it by doing the following:
 
 ### Streaming overlays
 
-This was designed to work with [OBS (Open Broadcaster Software)](https://obsproject.com/)
+This was designed to work with [OBS (Open Broadcaster Software)](https://obsproject.com/). You can use OBS to connect to pretty much any major streaming provider. I'll assume you can figure out how to add sources required for streaming so I'll only detail how you can add the overlays to OBS.
+
+* Once OBS is open click the `+` button in the `Sources` section
+* Name the new source something identifiable like `CurrentLifter`
+* In the window that pops up this is where we will configure the overlay for the current lifter
+  * In URL put the path to the lifter overlay HTML file
+    * Example: `file://C:/Repos/openlifter/streaming/lifter/obs_lifter_overlay_v2.html?refresh=1`
+    * This file has some configuable parameters you can pass as query parameters to the HTML file that I will detail below
+  * Set `Width` to `1000`
+  * Set `Height` to `200`
+  * Remove the custom CSS
+  * Tick `Shutdown source when no visible`
+  * Tick `Refresh browser when scene becomes active`
+  * Click `OK`
+* Once done you can then position the overlay on your screen
+* If you are using the lights
+* Click the `+` button in the `Sources` section
+* Name the new source something identifiable like `Lights`
+* In the window that pops up this is where we will configure the overlay for the lights
+  * In URL put the path to the lifter overlay HTML file
+    * Example: `file://C:/Repos/openlifter/streaming/lights/obs_lights_overlay.html?refresh=1`
+    * This file has some configuable parameters you can pass as query parameters to the HTML file that I will detail below
+  * Set `Width` to `400`
+  * Set `Height` to `200`
+  * Remove the custom CSS
+  * Tick `Shutdown source when no visible`
+  * Tick `Refresh browser when scene becomes active`
+  * Click `OK`
+* Once done you can then position the overlay on your screen
+  * It's size is designed so it will by default fit to either the left or the right of the current lifter overlay
+* Once you have the layout sorted you can keep them grouped together by holding shift and clicking on the `Lights and `CurrentLifter` sources and clicking `Group Selected items`
+  * If you need to adjust their position it will allow you to move them together
+
+The source for the overlays is located [here](./streaming/)
+
+### Overlay parameters
+
+Each of the overlays have a set of URL parameters that you can provide if required. They all have default values but if at any point you need to change them you can by providing them in the URL as query parameters when you configure your browser source
+
+### Current lifter
+* `refresh`
+  * Defines how frequently the overlay will fetch data from the API
+  * Default: `1` second
+*  `platform`
+   *  If you are running multiple platforms you can specify the platform number
+   *  Default: `1`
+*  `lifter`
+   *  You can either fetch the current lifters info or the next lifters info from the API
+   *  Default: `current`
+   *  This can either be `current` or `next`
+*  `auth`
+   *  Default: `true`
+   *  This can either be `true` or `false`
+*  `apiurl`
+   *  Default: `http://localhost:8080/theonlyway/Openlifter/1.0.0`
+   *  Full URL of the Openlifter API endpoint
+*  `apikey`
+   *  Default: `441b6244-8a4f-4e0f-8624-e5c665ecc901`
+   *  This matches the default API key defined in Openlifter and the dockerfile however
+
+Example OBS configuration using some of the above parameters: `file://C:/Repos/openlifter/streaming/lifter/obs_lifter_overlay_v2.html?refresh=1&platform=2`
+
+### Lights
+* `refresh`
+  * Defines how frequently the overlay will fetch data from the API
+  * Default: `1` second
+*  `platform`
+   *  If you are running multiple platforms you can specify the platform number
+   *  Default: `1`
+*  `auth`
+   *  Default: `true`
+   *  This can either be `true` or `false`
+*  `apiurl`
+   *  Default: `http://localhost:8080/theonlyway/Openlifter/1.0.0`
+   *  Full URL of the Openlifter API endpoint
+*  `apikey`
+   *  Default: `441b6244-8a4f-4e0f-8624-e5c665ecc901`
+   *  This matches the default API key defined in Openlifter and the dockerfile however
+
+Example OBS configuration using some of the above parameters: `file://C:/Repos/openlifter/streaming/lights/obs_lights_overlay.html?refresh=1&platform=2`
