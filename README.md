@@ -91,6 +91,8 @@ This will do the following:
   * You can also connect to the mongodb locally if you download something like [MongoDB Compass](https://www.mongodb.com/try/download/compass) and use the credentials defined in the [docker-compose.yml](./docker/docker-compose.yml)
 * Build a docker container for the API located [here](./api/)
 
+To turn off the API you can run `docker compose down` from the same folder.
+
 I will note that this method is designed to run the componnets locally. However, given this repo contains the source code of the API along with the OpenAPI spec you can in theory host the API wherever you want if it is a requirement. If you do host it elsewhere I suggest changing the API key value to something else.
 
 ### Openlifter
