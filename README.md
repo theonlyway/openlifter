@@ -165,7 +165,7 @@ The source for the overlays is located [here](./streaming/)
 
 Each of the overlays have a set of URL parameters that you can provide if required. They all have default values but if at any point you need to change them you can by providing them in the URL as query parameters when you configure your browser source
 
-### Current lifter
+### Lifter
 * `refresh`
   * Defines how frequently the overlay will fetch data from the API
   * Default: `1` second
