@@ -79,7 +79,7 @@ The main reason for this fork is to enable a way to export the Openlifter data s
 
 ### API
 
-The main way Openlifter exports it's data is it sends it to a middleware API. You can view a copy of the API spec [here](Openlifter-openapi.yaml). A local copy of the API can be hosted locally on your machine as long as you have [Docker](https://www.docker.com/products/docker-desktop/) installed. Once docker is installed you can launch a copy of the API by doing the following:
+The main way Openlifter exports it's data is it sends it to a middleware API (Since Openlifter is a client side app things don't have access to the browser memory where the data is stored). You can view a copy of the API spec [here](Openlifter-openapi.yaml). A local copy of the API can be hosted locally on your machine as long as you have [Docker](https://www.docker.com/products/docker-desktop/) installed. Once docker is installed you can launch a copy of the API by doing the following:
 
 * Change directories to the [docker](./docker/) folder
 * Run `docker compose up -d`
