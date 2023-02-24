@@ -75,7 +75,7 @@ Official builds are permanently stored at https://www.openlifter.com/releases/ i
 
 ## Streaming
 
-The main reason for this fork is to enable a way to export the Openlifter data so other services can consume it, mainly for streaming purposes (I did take the libery of updating most of the packages and fixing up some of the CSS issues resulting from that so it may look slightly different to the original). Given streaming is a optional acticity for events if it is disabled by default and if it is needed you will need to enable it by doing the following
+The main reason for this fork is to enable a way to export the Openlifter data so other services can consume it, mainly for streaming purposes (I did take the liberty of updating most of the packages and fixing up some of the CSS issues resulting from that so it may look slightly different to the original). Given streaming is a optional activity for events if it is disabled by default and if it is needed you will need to enable it by doing the following
 
 ### API
 
