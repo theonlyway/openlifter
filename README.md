@@ -131,6 +131,7 @@ You can enable it by doing the following:
 This was designed to work with [OBS (Open Broadcaster Software)](https://obsproject.com/). You can use OBS to connect to pretty much any major streaming provider. I'll assume you can figure out how to add sources required for streaming so I'll only detail how you can add the overlays to OBS.
 
 * Once OBS is open click the `+` button in the `Sources` section
+* Select `Browser`
 * Name the new source something identifiable like `CurrentLifter`
 * In the window that pops up this is where we will configure the overlay for the current lifter
   * In URL put the path to the lifter overlay HTML file
@@ -145,6 +146,7 @@ This was designed to work with [OBS (Open Broadcaster Software)](https://obsproj
 * Once done you can then position the overlay on your screen
 * If you are using the lights
 * Click the `+` button in the `Sources` section
+* Select `Browser`
 * Name the new source something identifiable like `Lights`
 * In the window that pops up this is where we will configure the overlay for the lights
   * In URL put the path to the lifter overlay HTML file
