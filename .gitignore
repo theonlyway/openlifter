@@ -47,3 +47,4 @@ yarn-error.log*
 geckodriver.log
 *.retry
 .DS_Store
+ .venv

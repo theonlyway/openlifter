@@ -29,7 +29,6 @@ import { kg2lbs, lbs2kg, string2number, displayWeight } from "../../logic/units"
 
 import { Entry, Language, Lift, Validation } from "../../types/dataTypes";
 import { GlobalState } from "../../types/stateTypes";
-
 import styles from "./LiftingTable.module.scss";
 import { Dispatch } from "redux";
 

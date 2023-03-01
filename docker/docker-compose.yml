@@ -1,0 +1,34 @@
+version: '3.9'
+services:
+  mongodb:
+    image: mongo:6.0.3
+    container_name: mongodb
+    restart: always
+    environment:
+      - MONGO_INITDB_DATABASE=openlifter
+      - MONGO_INITDB_ROOT_USERNAME=localdevrootuser
+      - MONGO_INITDB_ROOT_PASSWORD=localdevrootpassword
+      - TZ=Australia/Brisbane
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb_data:/data/db
+      - ./docker-entrypoint-initdb.d/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+  openlifter_api:
+    build: ../api
+    container_name: openlifter_api
+    restart: always
+    environment:
+      - LOG_LEVEL=INFO
+      - API_KEY=441b6244-8a4f-4e0f-8624-e5c665ecc901
+      - MONGODB_HOST=mongodb
+      - MONGODB_PORT=27017
+      - MONGODB_USER=api_user
+      - MONGODB_PASSWORD=xaw!TNQ7cwp3fdr2cqf
+      - MONGODB_DATABASE=openlifter
+      - TZ=Australia/Brisbane
+    ports:
+      - 8080:8080
+
+volumes:
+  mongodb_data:

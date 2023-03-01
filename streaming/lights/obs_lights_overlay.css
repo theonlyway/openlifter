@@ -1,0 +1,42 @@
+.container {
+  width: 400px;
+  visibility: visible;
+  opacity: 1;
+  margin: 1px;
+  position: absolute;
+  overflow: hidden;
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+}
+table {
+  background: rgb(40, 40, 40) !important;
+  color: white;
+  text-align: center;
+  empty-cells: show;
+  padding: 4px;
+  border-top: 4px solid white;
+  border-bottom: 4px solid white;
+}
+tbody {
+  display: block;
+  height: 120px;
+
+}
+.goodLift {
+  background-color: white;
+  border: 1px solid rgb(40, 40, 40) !important;
+}
+.badLift {
+  background-color: red;
+  border: 1px solid rgb(40, 40, 40) !important;
+}
+.lightContainer {
+  padding:8px 10px 0px 10px;
+}
+
+.leftLight, .centreLight, .rightLight {
+    border: 1px solid white;
+    height: 100px;
+    border-radius: 75px;
+    width: 100px;
+}

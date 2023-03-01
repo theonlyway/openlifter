@@ -34,6 +34,10 @@ export function isString(value: any): value is string {
   return typeof value === "string";
 }
 
+export function isNumeric(num: any): num is number {
+  return (typeof num === "number" || (typeof num === "string" && num.trim() !== "")) && !isNaN(num as number);
+}
+
 // Throws an error if value isn't a string, narrows the type if it is.
 export function assertString(value: any): value is string {
   const result = isString(value);

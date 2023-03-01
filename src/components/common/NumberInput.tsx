@@ -124,12 +124,12 @@ class NumberInput extends React.Component<Props, InternalState> {
     return (
       <Form.Group style={{ marginBottom: `${this.props.marginBottom || undefined}` }}>
         {this.props.label && <Form.Label>{this.props.label}</Form.Label>}
-        <InputGroup>
-          <InputGroup.Prepend>
-            <Button variant="outline-secondary" style={{ borderRight: "0px" }} onMouseDown={this.handleDecrement}>
-              <FontAwesomeIcon icon={faMinus} />
+        <InputGroup size="sm" style={{ border: "none" }}>
+          <InputGroup.Text>
+            <Button variant="outline-secondary" onMouseDown={this.handleDecrement} size="sm">
+              <FontAwesomeIcon icon={faMinus} size="sm" />
             </Button>
-          </InputGroup.Prepend>
+          </InputGroup.Text>
           <Form.Control
             value={this.state.value}
             onChange={this.handleChange}
@@ -138,11 +138,11 @@ class NumberInput extends React.Component<Props, InternalState> {
             isInvalid={validation === "error"}
             className={validation === "warning" ? "is-warning" : undefined}
           />
-          <InputGroup.Append>
-            <Button variant="outline-secondary" style={{ borderLeft: "0px" }} onMouseDown={this.handleIncrement}>
-              <FontAwesomeIcon icon={faPlus} />
+          <InputGroup.Text>
+            <Button variant="outline-secondary" onMouseDown={this.handleIncrement} size="sm">
+              <FontAwesomeIcon icon={faPlus} size="sm" />
             </Button>
-          </InputGroup.Append>
+          </InputGroup.Text>
         </InputGroup>
       </Form.Group>
     );

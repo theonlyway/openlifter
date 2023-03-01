@@ -7,5 +7,8 @@
   },
   "files.autoSave": "onFocusChange",
   "npm.packageManager": "yarn",
-  "eslint.packageManager": "yarn"
+  "eslint.packageManager": "yarn",
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.python"
+  }
 }

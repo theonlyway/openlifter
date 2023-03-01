@@ -75,6 +75,8 @@ export const newDefaultEntry = (id: number): Entry => {
     squatStatus: [0, 0, 0, 0, 0],
     benchStatus: [0, 0, 0, 0, 0],
     deadliftStatus: [0, 0, 0, 0, 0],
+    points: null,
+    place: null,
   };
 };
 

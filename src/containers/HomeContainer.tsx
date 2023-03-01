@@ -43,6 +43,7 @@ import styles from "../components/common/ContentArea.module.scss";
 
 import { GlobalState } from "../types/stateTypes";
 import { Dispatch } from "redux";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 // Temporary CSS, just for prototyping.
 const centerConsole = { maxWidth: 700, marginRight: "auto", marginLeft: "auto" };
@@ -165,7 +166,7 @@ class HomeContainer extends React.Component<Props, InternalState> {
     }
     return (
       <LinkContainer to="/meet-setup">
-        <Button variant="primary" block style={buttonMargin}>
+        <Button variant="primary" style={buttonMargin}>
           <FormattedMessage
             id="home.button-continue"
             defaultMessage="Continue {meetName}"
@@ -178,14 +179,18 @@ class HomeContainer extends React.Component<Props, InternalState> {
 
   render() {
     let newMeetButton = (
-      <Button variant="primary" block onClick={this.handleNewClick} style={buttonMargin}>
+      <Button variant="primary" onClick={this.handleNewClick} style={buttonMargin}>
         <FormattedMessage id="home.button-new-meet" defaultMessage="New Meet" />
       </Button>
     );
 
     // If no meet is active, make the button just a LinkContainer.
     if (!this.props.redux.meet.name) {
-      newMeetButton = <LinkContainer to="/meet-setup">{newMeetButton}</LinkContainer>;
+      newMeetButton = (
+        <LinkContainer style={buttonMargin} to="/meet-setup">
+          {newMeetButton}
+        </LinkContainer>
+      );
     }
 
     const isBeta: boolean = releaseVersion.includes("eta");
@@ -246,19 +251,21 @@ class HomeContainer extends React.Component<Props, InternalState> {
             <Row>{warning}</Row>
             <Row style={buttonMargin}>
               <Col md={8}>
-                {wrongVersion === false ? (
-                  this.renderContinueButton()
-                ) : (
-                  <a href={"https://www.openlifter.com/releases/" + dataReleaseVersion}>
-                    <Button variant="success" block>
-                      <FormattedMessage
-                        id="home.button-switch-version"
-                        defaultMessage="Switch to OpenLifter {otherVersion}"
-                        values={{ otherVersion: dataReleaseVersion }}
-                      />
-                    </Button>
-                  </a>
-                )}
+                <div className="d-grid">
+                  {wrongVersion === false ? (
+                    this.renderContinueButton()
+                  ) : (
+                    <a href={"https://www.openlifter.com/releases/" + dataReleaseVersion}>
+                      <Button variant="success">
+                        <FormattedMessage
+                          id="home.button-switch-version"
+                          defaultMessage="Switch to OpenLifter {otherVersion}"
+                          values={{ otherVersion: dataReleaseVersion }}
+                        />
+                      </Button>
+                    </a>
+                  )}
+                </div>
               </Col>
               <Col md={4}>
                 <LanguageSelector />
@@ -267,13 +274,12 @@ class HomeContainer extends React.Component<Props, InternalState> {
 
             <Row>
               <Col md={8}>
-                <div>
+                <div className="d-grid">
                   {newMeetButton}
-
-                  <Button variant="warning" block onClick={this.handleLoadClick} style={buttonMargin}>
+                  <Button variant="warning" onClick={this.handleLoadClick} style={buttonMargin}>
                     <FormattedMessage id="home.button-load-from-file" defaultMessage="Load from File" />
                   </Button>
-                  <Button variant="success" block onClick={this.handleSaveClick} style={buttonMargin}>
+                  <Button variant="success" onClick={this.handleSaveClick} style={buttonMargin}>
                     <FormattedMessage id="home.button-save-tofile" defaultMessage="Save to File" />
                   </Button>
                 </div>
@@ -285,22 +291,22 @@ class HomeContainer extends React.Component<Props, InternalState> {
                   rel="noopener noreferrer"
                   target="_blank"
                 >
-                  <Button variant="outline-secondary" block style={buttonMargin}>
+                  <Button variant="outline-secondary" style={buttonMargin}>
                     <FormattedMessage id="home.button-report-issue" defaultMessage="Report an Issue" />
                   </Button>
                 </a>
                 <a href="https://www.openlifter.com/support" rel="noopener noreferrer" target="_blank">
-                  <Button variant="outline-secondary" block style={buttonMargin}>
+                  <Button variant="outline-secondary" style={buttonMargin}>
                     <FormattedMessage id="home.button-support" defaultMessage="Official Support" />
                   </Button>
                 </a>
-                <a href="https://gitlab.com/openpowerlifting/openlifter" rel="noopener noreferrer" target="_blank">
-                  <Button variant="outline-secondary" block style={buttonMargin}>
+                <a href="https://github.com/theonlyway/openlifter" rel="noopener noreferrer" target="_blank">
+                  <Button variant="outline-secondary" style={buttonMargin}>
                     <FormattedMessage id="home.button-source" defaultMessage="Full Source Code" />
                   </Button>
                 </a>
                 <LinkContainer to="/about">
-                  <Button variant="outline-secondary" block style={buttonMargin}>
+                  <Button variant="outline-secondary" style={buttonMargin}>
                     <FormattedMessage id="home.button-credits" defaultMessage="Credits and License" />
                   </Button>
                 </LinkContainer>

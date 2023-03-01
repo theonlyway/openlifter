@@ -1,0 +1,239 @@
+openapi: 3.0.3
+info:
+  title: Openlifter API
+  description: API designed to expose data from Openlifter
+  contact:
+    url: https://github.com/theonlyway/openlifter
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: https://virtserver.swaggerhub.com/theonlyway/Openlifter/1.0.0
+  description: SwaggerHub API Auto Mocking
+tags:
+- name: Lifters
+  description: Lifter information
+- name: Lights
+  description: API for lifting lights
+- name: Health
+  description: API health check
+- name: Results
+  description: API for resuls
+paths:
+  /lifter/{platform}/order:
+    post:
+      tags:
+      - Lifters
+      summary: Update the lifter order
+      description: |
+        Update the current lifter
+      operationId: lifter_platform_order_post
+      parameters:
+      - name: platform
+        in: path
+        description: Platform number
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LifterOrder'
+      responses:
+        "200":
+          description: Order update response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderResponse'
+        "503":
+          description: Order update response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderResponse'
+      security:
+      - api_key: []
+      x-openapi-router-controller: swagger_server.controllers.lifters_controller
+  /lifter/{platform}/current:
+    get:
+      tags:
+      - Lifters
+      summary: Returns the current lifter
+      description: |
+        Returns the current lifter
+      operationId: lifter_platform_current_get
+      parameters:
+      - name: platform
+        in: path
+        description: id of the account to return
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Current lifter data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnyValue'
+      security:
+      - api_key: []
+      x-openapi-router-controller: swagger_server.controllers.lifters_controller
+  /lifter/{platform}/next:
+    get:
+      tags:
+      - Lifters
+      summary: Returns the next lifter
+      description: |
+        Returns the current lifter
+      operationId: lifter_platform_next_get
+      parameters:
+      - name: platform
+        in: path
+        description: id of the account to return
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Next lifer data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnyValue'
+      security:
+      - api_key: []
+      x-openapi-router-controller: swagger_server.controllers.lifters_controller
+  /lights/{platform}:
+    get:
+      tags:
+      - Lights
+      summary: Returns the code used for the lights
+      description: |
+        Returns the health of the API
+      operationId: lights_platform_get
+      parameters:
+      - name: platform
+        in: path
+        description: id of the account to return
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Lights code
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnyValue'
+      security:
+      - api_key: []
+      x-openapi-router-controller: swagger_server.controllers.lights_controller
+  /health:
+    get:
+      tags:
+      - Health
+      summary: Checks the health of the API
+      description: |
+        Returns the health of the API
+      operationId: health_get
+      responses:
+        "200":
+          description: API health
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiHealth'
+      security:
+      - api_key: []
+      x-openapi-router-controller: swagger_server.controllers.health_controller
+  /lifter/results:
+    post:
+      tags:
+      - Results
+      summary: Updates the lifter results
+      description: |
+        Update the current lifter
+      operationId: lifter_results_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnyValue'
+      responses:
+        "200":
+          description: Order update response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnyValue'
+      security:
+      - api_key: []
+      x-openapi-router-controller: swagger_server.controllers.results_controller
+components:
+  schemas:
+    LifterOrder:
+      type: object
+      properties:
+        meetName:
+          type: string
+        orderedEntries:
+          type: array
+          items:
+            type: object
+        attemptOneIndexed:
+          type: integer
+        currentEntryId:
+          type: integer
+          nullable: true
+        nextAttemptOneIndexed:
+          type: integer
+          nullable: true
+        nextEntryId:
+          type: integer
+          nullable: true
+    ApiHealth:
+      required:
+      - apiStatus
+      - databaseStatus
+      type: object
+      properties:
+        apiStatus:
+          type: string
+        databaseStatus:
+          type: string
+        failureMessage:
+          type: string
+      example:
+        databaseStatus: databaseStatus
+        failureMessage: failureMessage
+        apiStatus: apiStatus
+    OrderResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+      example:
+        message: message
+        status: status
+    AnyValue: {}
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: x-api-key
+      in: header
+      x-apikeyInfoFunc: swagger_server.controllers.authorization_controller.check_api_key
+

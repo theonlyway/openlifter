@@ -23,6 +23,7 @@ import languageReducer from "./languageReducer";
 import meetReducer from "./meetReducer";
 import registrationReducer from "./registrationReducer";
 import liftingReducer from "./liftingReducer";
+import streamingReducer from "./streamingReducer";
 
 // Using combineReducers() guarantees that each part of the state object
 // fully bears the responsibility of managing itself by only sending a
@@ -38,4 +39,5 @@ export default combineReducers({
   meet: meetReducer,
   registration: registrationReducer,
   lifting: liftingReducer,
+  streaming: streamingReducer,
 });

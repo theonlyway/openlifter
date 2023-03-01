@@ -43,13 +43,15 @@ import styles from "./LiftingView.module.scss";
 import { getLiftingOrder } from "../../logic/liftingOrder";
 
 import { Entry, Flight, Language } from "../../types/dataTypes";
-import { GlobalState, MeetState, LiftingState } from "../../types/stateTypes";
+import { GlobalState, MeetState, LiftingState, StreamingState, RegistrationState } from "../../types/stateTypes";
 
 interface StateProps {
   meet: MeetState;
   lifting: LiftingState;
+  streaming: StreamingState;
   flightsOnPlatform: Array<Flight>;
   entriesInFlight: Array<Entry>;
+  registration: RegistrationState;
   language: Language;
 }
 
@@ -78,7 +80,7 @@ class LiftingView extends React.Component<Props, InternalState> {
   };
 
   render() {
-    const now = getLiftingOrder(this.props.entriesInFlight, this.props.lifting);
+    const now = getLiftingOrder(this.props.entriesInFlight, this.props.lifting, this.props.streaming, this.props.meet);
 
     let rightElement = null;
     if (this.state.replaceTableWithWeighins === false) {
@@ -174,6 +176,8 @@ const mapStateToProps = (state: GlobalState): StateProps => {
     lifting: state.lifting,
     flightsOnPlatform: flights,
     entriesInFlight: entriesInFlight,
+    streaming: state.streaming,
+    registration: state.registration,
     language: state.language,
   };
 };

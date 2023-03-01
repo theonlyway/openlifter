@@ -336,6 +336,15 @@ strings = strings.concat([
   { id: "results.category-template", defaultMessage: "{sex} {equipment} {event}" },
 ]);
 
+// Strings for Streaming page
+strings = strings.concat([
+  { id: "streaming.enabled", defaultMessage: "Enabled" },
+  { id: "streaming.disabled", defaultMessage: "Disabled" },
+  { id: "streaming.api.url", defaultMessage: "API URL" },
+  { id: "streaming.api.key", defaultMessage: "API Key" },
+  { id: "streaming.api.light.code", defaultMessage: "Light code" },
+]);
+
 /* eslint-enable */
 
 exports.strings = strings;

@@ -24,7 +24,7 @@ import storage from "redux-persist/lib/storage";
 import thunk from "redux-thunk";
 import rootReducer from "./reducers/rootReducer";
 
-import { GlobalState } from "./types/stateTypes";
+import { getDefaultLanguage } from "./logic/strings";
 
 const persistConfig = {
   key: "root",
@@ -33,8 +33,10 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-export default function configureStore(initialState: Partial<GlobalState> = {}) {
-  const store = createStore(persistedReducer, initialState, composeWithDevTools(applyMiddleware(thunk)));
-  const persistor = persistStore(store as any);
-  return { store, persistor };
-}
+const store = createStore(
+  persistedReducer,
+  { language: getDefaultLanguage() },
+  composeWithDevTools(applyMiddleware(thunk))
+);
+const persistor = persistStore(store as any);
+export { store, persistor };

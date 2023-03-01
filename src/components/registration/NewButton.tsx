@@ -47,7 +47,7 @@ class NewButton extends React.Component<Props> {
 
   render() {
     return (
-      <Button onClick={this.handleClick} variant="primary" size="lg" block>
+      <Button onClick={this.handleClick} variant="primary" size="lg">
         <FormattedMessage id="registration.button-new-lifter" defaultMessage="New Lifter" />
       </Button>
     );

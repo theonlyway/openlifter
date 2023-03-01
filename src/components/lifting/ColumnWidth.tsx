@@ -29,12 +29,10 @@ import { connect } from "react-redux";
 import Form from "react-bootstrap/Form";
 
 import { setTableInfo } from "../../actions/liftingActions";
-
 import { Validation } from "../../types/dataTypes";
 import { GlobalState, LiftingState } from "../../types/stateTypes";
 import { isString } from "../../types/utils";
 import { Dispatch } from "redux";
-import { isNumber } from "util";
 
 type WidthFields = "columnDivisionWidthPx";
 
@@ -84,7 +82,7 @@ class ColumnWidth extends React.Component<Props, InternalState> {
 
   handleChange = (event: React.BaseSyntheticEvent) => {
     const value = event.currentTarget.value;
-    if (!isNumber(value) && !isString(value)) {
+    if (!isNaN(value) && !isString(value)) {
       throw new Error(`Expected either a number or a string, but got "${value}"`);
     }
 

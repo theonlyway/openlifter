@@ -40,7 +40,7 @@ const Navigation = () => {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse>
         <Nav>
-          <LinkContainer exact to="/">
+          <LinkContainer to="/">
             <Nav.Link>
               <FormattedMessage id="nav.home" defaultMessage="Home" />
             </Nav.Link>
@@ -73,6 +73,11 @@ const Navigation = () => {
           <LinkContainer to="/results">
             <Nav.Link>
               <FormattedMessage id="nav.results" defaultMessage="Results" />
+            </Nav.Link>
+          </LinkContainer>
+          <LinkContainer to="/streaming">
+            <Nav.Link>
+              <FormattedMessage id="nav.streaming" defaultMessage="Streaming" />
             </Nav.Link>
           </LinkContainer>
           <LinkContainer to="/debug">

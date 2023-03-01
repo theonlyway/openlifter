@@ -336,6 +336,7 @@ class LiftingTable extends React.Component<Props> {
       case "ProjectedTotal": {
         const totalKg = getProjectedTotalKg(entry);
         const asNumber = this.props.meet.inKg ? totalKg : kg2lbs(totalKg);
+        entry.points = totalKg === 0 ? null : displayWeight(asNumber, this.props.language);
         return <td key={columnType}>{totalKg === 0 ? null : displayWeight(asNumber, this.props.language)}</td>;
       }
       case "ProjectedPoints": {
@@ -345,8 +346,10 @@ class LiftingTable extends React.Component<Props> {
 
         // Normally this column is hidden for "Total", but it's handled just in case.
         if (this.props.meet.formula === "Total") {
+          entry.points = points !== 0 ? displayWeight(points, this.props.language) : null;
           return <td key={columnType}>{points !== 0 ? displayWeight(points, this.props.language) : null}</td>;
         }
+        entry.points = points !== 0 ? displayPoints(points, this.props.language) : null;
         return <td key={columnType}>{points !== 0 ? displayPoints(points, this.props.language) : null}</td>;
       }
       case "FinalTotal": {
@@ -361,20 +364,30 @@ class LiftingTable extends React.Component<Props> {
 
         // Normally this column is hidden for "Total", but it's handled just in case.
         if (this.props.meet.formula === "Total") {
+          entry.points = points !== 0 ? displayWeight(points, this.props.language) : null;
           return <td key={columnType}>{points !== 0 ? displayWeight(points, this.props.language) : null}</td>;
         }
         return <td key={columnType}>{points !== 0 ? displayPoints(points, this.props.language) : null}</td>;
       }
       case "Place": {
         // If the lifter has no total, then don't report a place.
-        if (getFinalTotalKg(entry) === 0) return <td key={columnType} />;
+        if (getFinalTotalKg(entry) === 0) {
+          entry.place = "-";
+          return <td key={columnType} />;
+        }
 
         // If the lifter is a guest, they cannot place, so just display the guest symbol.
-        if (entry.guest) return <td key={columnType}>{getString("results.lifter-guest", this.props.language)}</td>;
+        if (entry.guest) {
+          entry.place = "GUEST";
+          return <td key={columnType}>{getString("results.lifter-guest", this.props.language)}</td>;
+        }
 
         // Just show the Place from the first division in the list.
         // This is the same division as shown in the "Division" column.
-        if (entry.divisions.length === 0) return <td key={columnType} />;
+        if (entry.divisions.length === 0) {
+          entry.place = "-";
+          return <td key={columnType} />;
+        }
         const firstDiv = entry.divisions[0];
 
         // Look at all the categories, and find the first one including this division
@@ -393,6 +406,7 @@ class LiftingTable extends React.Component<Props> {
             if (catEntry.id === entry.id) {
               // We can use the index into the array as their place, since it sorted and guests will be last in the array
               const ordinal = displayPlaceOrdinal(j + 1, entry, this.props.language);
+              entry.place = ordinal;
               return <td key={columnType}>{ordinal}</td>;
             }
           }

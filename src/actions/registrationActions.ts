@@ -16,6 +16,8 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+import { Action } from "redux";
+import { ThunkDispatch } from "redux-thunk";
 import {
   NewRegistrationAction,
   DeleteRegistrationAction,
@@ -24,6 +26,7 @@ import {
   AssignLotNumbersAction,
 } from "../types/actionTypes";
 import { Entry } from "../types/dataTypes";
+import { GlobalState } from "../types/stateTypes";
 
 // Adds a blank (or default-initalized) row to the registrations table.
 export const newRegistration = (obj: Partial<Entry>): NewRegistrationAction => {
@@ -61,6 +64,13 @@ export const updateRegistration = (entryId: number, obj: Partial<Entry>): Update
     changes: obj,
   };
 };
+
+export function middlewareUpdateRegistration(entryId: number, obj: Partial<Entry>) {
+  return async (dispatch: ThunkDispatch<GlobalState, void, Action<string>>) => {
+    console.log("redux-thunk function");
+    dispatch(updateRegistration(entryId, obj));
+  };
+}
 
 // Deletes all entries assigned to a given (day, platform), and then adds entries
 // assigned to that (day, platform) from a foreign save state.

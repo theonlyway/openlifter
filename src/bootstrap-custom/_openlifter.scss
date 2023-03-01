@@ -26,10 +26,16 @@ $dark: #343a40; // $gray-800.
 // Bootstrap button logic determines the text color from the background color
 // by deciding whether the background is "light" or "dark". We want it to always
 // use a white font color, even if the background is light.
+.btn-primary {
+  color: #fff !important;
+}
 .btn-info {
   color: #fff !important;
 }
 .btn-warning {
+  color: #fff !important;
+}
+.btn-success {
   color: #fff !important;
 }
 
@@ -64,6 +70,19 @@ $form-feedback-warning-background-color: #ffffc9; // Pale yellow.
 // Custom styling for the Navbar at the top of the screen.
 .navbar {
   padding: 0.25rem 1rem !important; // Decrease vertical padding.
+}
+
+.navbar-dark {
+  background-color: #343a40 !important
+}
+
+
+.form-control {
+  background-color: transparent !important;
+}
+
+span.input-group-text {
+background-color: transparent !important;
 }
 
 // Custom styling for the link to the current page in the Navbar.

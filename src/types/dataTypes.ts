@@ -89,6 +89,9 @@ export type Entry = {
   squatStatus: Array<LiftStatus>;
   benchStatus: Array<LiftStatus>;
   deadliftStatus: Array<LiftStatus>;
+  //For streaming specific data
+  points: string | null;
+  place: string | null;
 };
 
 // Represents a plate in the configuration.

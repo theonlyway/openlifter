@@ -22,7 +22,6 @@ import { connect } from "react-redux";
 import { setBarAndCollarsWeightKg } from "../../actions/meetSetupActions";
 import { getString } from "../../logic/strings";
 import { kg2lbs, lbs2kg } from "../../logic/units";
-
 import { Language, Lift, Validation } from "../../types/dataTypes";
 import { GlobalState } from "../../types/stateTypes";
 import { checkExhausted } from "../../types/utils";
