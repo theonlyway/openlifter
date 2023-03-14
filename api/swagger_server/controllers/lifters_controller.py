@@ -46,6 +46,7 @@ def lifter_platform_current_get(platform):  # noqa: E501
                     'maxLift': calculate_max_lifts(order)
                 }
 
+
 def lifter_platform_next_get(platform):  # noqa: E501
     """Returns the next lifter
 
@@ -95,9 +96,12 @@ def lifter_platform_order_post(platform, body=None):  # noqa: E501
     database = config.mongodbClient[config.mongodbDatabaseName]
     collection = database["order"]
     if connexion.request.is_json:
+        data = connexion.request.get_json()
         logger.debug(json.dumps(connexion.request.get_json()))
         order = {
             'platform': platform,
+            'meetData': data['meetData'],
+            'lightsCode': data['lightsCode'],
             'order': connexion.request.get_json(),
             'lastUpdated': time.strftime("%Y/%m/%d-%H:%M:%S", time.localtime())
         }

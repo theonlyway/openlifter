@@ -308,7 +308,6 @@ export const getLiftingOrder = (
   const nextEntryInfo = getNextEntryInfo(lifting, currentEntryId, orderedEntries, attemptOneIndexed);
 
   if (streaming.streamingEnabled == true) {
-    const meetName = meet.name;
     //calculateStreamingPlacementStats(orderedEntries, meet, language, entries, lifting, attemptOneIndexed);
     let fetchHeaders = {};
     if (streaming.streamingEnabled == true) {
@@ -325,14 +324,16 @@ export const getLiftingOrder = (
       method: "POST",
       headers: fetchHeaders,
       body: JSON.stringify({
-        meetName: meetName,
-        orderedEntries: orderedEntries,
-        attemptOneIndexed: attemptOneIndexed,
-        currentEntryId: currentEntryId,
-        nextAttemptOneIndexed: nextEntryInfo ? nextEntryInfo.attemptOneIndexed : null,
-        nextEntryId: nextEntryInfo ? nextEntryInfo.entryId : null,
-        platformDetails: lifting,
+        meetData: meet,
         lightsCode: streaming.lightsCode,
+        order: {
+          orderedEntries: orderedEntries,
+          attemptOneIndexed: attemptOneIndexed,
+          currentEntryId: currentEntryId,
+          nextAttemptOneIndexed: nextEntryInfo ? nextEntryInfo.attemptOneIndexed : null,
+          nextEntryId: nextEntryInfo ? nextEntryInfo.entryId : null,
+          platformDetails: lifting,
+        },
       }),
     })
       .then((response) => response.json())
