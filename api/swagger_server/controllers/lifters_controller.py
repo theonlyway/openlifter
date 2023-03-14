@@ -102,7 +102,7 @@ def lifter_platform_order_post(platform, body=None):  # noqa: E501
             'platform': platform,
             'meetData': data['meetData'],
             'lightsCode': data['lightsCode'],
-            'order': connexion.request.get_json(),
+            'order': data['order'],
             'lastUpdated': time.strftime("%Y/%m/%d-%H:%M:%S", time.localtime())
         }
         collection.update_one(

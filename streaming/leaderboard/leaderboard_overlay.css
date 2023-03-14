@@ -24,7 +24,6 @@ th {
   background: rgb(40, 40, 40) !important;
   color: white;
   text-align: left;
-  padding: 4px;
+  padding: 12px;
   border-top: 4px solid white;
-  border-bottom: 4px solid white;
 }

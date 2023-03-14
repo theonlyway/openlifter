@@ -159,21 +159,16 @@ paths:
       - api_key: []
       x-openapi-router-controller: swagger_server.controllers.health_controller
   /lifter/results:
-    post:
+    get:
       tags:
       - Results
-      summary: Updates the lifter results
+      summary: Get the results of all current lifts
       description: |
         Update the current lifter
-      operationId: lifter_results_post
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AnyValue'
+      operationId: lifter_results_get
       responses:
         "200":
-          description: Order update response
+          description: Results response
           content:
             application/json:
               schema:
