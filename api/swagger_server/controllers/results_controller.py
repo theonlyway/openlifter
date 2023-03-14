@@ -10,7 +10,7 @@ from swagger_server.config import Config, logger
 config = Config()
 
 
-def lifter_results_post(body=None):  # noqa: E501
+def lifter_results_get():  # noqa: E501
     """Updates the lifter results
 
     Update the lifter results  # noqa: E501
