@@ -23,6 +23,8 @@ def group_entries_by_weight_class(sex, weight_classes, entries, in_kg):
         return None
     fileteredEntries = {}
     outsideMax = weight_classes[-1:][0]
+    outsideMaxKey = str(outsideMax) + "+"
+    outsideMaxLbsKey = str(kg2lbs(outsideMax)) + "+"
     for weight_class in weight_classes:
         if in_kg is True:
             fileteredEntries.update({
@@ -33,8 +35,6 @@ def group_entries_by_weight_class(sex, weight_classes, entries, in_kg):
                 kg2lbs(weight_class): []
             })
     if in_kg is True:
-        outsideMaxKey = str(outsideMax) + "+"
-        outsideMaxLbsKey = str(kg2lbs(outsideMax)) + "+"
         fileteredEntries.update({
             outsideMaxKey: []
         })
