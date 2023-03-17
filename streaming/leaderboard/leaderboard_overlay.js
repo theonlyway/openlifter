@@ -4,27 +4,15 @@ const authRequired = JSON.parse(urlParams.get("auth") || true);
 const apiUrl = urlParams.get("apiurl") || "http://localhost:8080/theonlyway/Openlifter/1.0.0";
 const apiKey = urlParams.get("apikey") || "441b6244-8a4f-4e0f-8624-e5c665ecc901";
 
-var tableHeaders = [
-  "Rank",
-  "Lifter",
-  "Division",
-  "Class",
-  "Body weight",
-  "Age",
-  "Squat",
-  "Bench",
-  "Deadlift",
-  "Total",
-  "Points",
-];
+var tableHeaders = ["Rank", "Lifter", "Class", "Body weight", "Age", "Squat", "Bench", "Deadlift", "Total", "Points"];
 var data;
 var timeInSecs;
 var ticker;
 
-function startTimer(secs, table, key, data) {
+function startTimer(secs, table, weightClass, data) {
   timeInSecs = parseInt(secs);
-  generateRows(table, data[key]);
-  ticker = setInterval(tick, 1000);
+
+  //ticker = setInterval(tick, 1000);
 }
 
 function tick(table, key, data) {
@@ -34,7 +22,6 @@ function tick(table, key, data) {
     console.log("Refresh in " + secs);
   } else {
     console.log("Rotating");
-    timeInSecs = rotationTimeSeconds;
     clearInterval(ticker);
   }
 }
@@ -50,12 +37,67 @@ function generateTableHead(table, headers) {
   }
 }
 
-function generateRows(table, data) {
+function generateRows(table, weightClass, data) {
+  var rank = 1;
   for (let element of data) {
     let row = table.insertRow();
-    let cell = row.insertCell();
-    let text = document.createTextNode(element[key]);
-    cell.appendChild(text);
+    for (let header of tableHeaders) {
+      let cell;
+      let text;
+      switch (header) {
+        case "Rank":
+          cell = row.insertCell();
+          text = document.createTextNode(rank);
+          cell.appendChild(text);
+          rank = 1 + rank;
+          break;
+        case "Lifter":
+          cell = row.insertCell();
+          text = document.createTextNode(element.name);
+          cell.appendChild(text);
+          break;
+        case "Class":
+          cell = row.insertCell();
+          text = document.createTextNode(weightClass);
+          cell.appendChild(text);
+          break;
+        case "Body weight":
+          cell = row.insertCell();
+          text = document.createTextNode(element.bodyweightKg);
+          cell.appendChild(text);
+          break;
+        case "Age":
+          cell = row.insertCell();
+          text = document.createTextNode(element.age);
+          cell.appendChild(text);
+          break;
+        case "Squat":
+          cell = row.insertCell();
+          text = document.createTextNode(element.age);
+          cell.appendChild(text);
+          break;
+        case "Bench":
+          cell = row.insertCell();
+          text = document.createTextNode(element.age);
+          cell.appendChild(text);
+          break;
+        case "Deadlift":
+          cell = row.insertCell();
+          text = document.createTextNode(element.age);
+          cell.appendChild(text);
+          break;
+        case "Total":
+          cell = row.insertCell();
+          text = document.createTextNode(element.age);
+          cell.appendChild(text);
+          break;
+        case "Points":
+          cell = row.insertCell();
+          text = document.createTextNode(element.age);
+          cell.appendChild(text);
+          break;
+      }
+    }
   }
 }
 
@@ -64,10 +106,14 @@ function generateTitle(sex, weightClass) {
 }
 
 function handleTableLoop(table, sex, data) {
-  for (const key in data) {
-    console.log(key);
-    generateTitle(sex, key);
-    startTimer(rotationTimeSeconds, table, key, data);
+  for (const index in data) {
+    var sortedEntries = data[index]["entries"]
+      .sort(function (a, b) {
+        return a.points - b.points;
+      })
+      .reverse();
+    generateTitle(sex, data[index].weightClass);
+    generateRows(table, data[index].weightClass, sortedEntries);
   }
 }
 
@@ -90,7 +136,6 @@ async function generateTable() {
   });
   const data = JSON.parse(await response.json());
   for (const key in data) {
-    console.log(key);
     handleTableLoop(table, key, data[key]);
   }
 }
