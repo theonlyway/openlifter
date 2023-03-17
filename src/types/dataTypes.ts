@@ -90,8 +90,8 @@ export type Entry = {
   benchStatus: Array<LiftStatus>;
   deadliftStatus: Array<LiftStatus>;
   //For streaming specific data
-  points: string | null;
-  place: string | null;
+  points: number | null;
+  place: number | string | null;
 };
 
 // Represents a plate in the configuration.
