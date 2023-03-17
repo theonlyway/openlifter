@@ -1,7 +1,7 @@
 from pymongo import MongoClient
 import requests
 import json
-from operator import itemgetter
+
 
 def kg2lbs(kg):
     return round(kg * 2.20462262, 2)
@@ -21,49 +21,68 @@ def find_unique_event_combos(entries):
 def group_entries_by_weight_class(sex, weight_classes, entries, in_kg):
     if len(weight_classes) == 0:
         return None
-    sortedEntries = sorted(entries, key=itemgetter('points'))
-    fileteredEntries = {}
+    fileteredEntries = []
     outsideMax = weight_classes[-1:][0]
     outsideMaxKey = str(outsideMax) + "+"
     outsideMaxLbsKey = str(kg2lbs(outsideMax)) + "+"
     for weight_class in weight_classes:
         if in_kg is True:
-            fileteredEntries.update({
-                str(weight_class): []
+            fileteredEntries.append({
+                'weightClass': weight_class,
+                'entries': []
             })
         else:
-            fileteredEntries.update({
-                str(kg2lbs(weight_class)): []
+            fileteredEntries.append({
+                'weightClass': kg2lbs(weight_class),
+                'entries': []
             })
     if in_kg is True:
-        fileteredEntries.update({
-            outsideMaxKey: []
+        fileteredEntries.append({
+            'weightClass': outsideMaxKey,
+            'outsideMax': True,
+            'entries': []
         })
     else:
-        fileteredEntries.update({
-            outsideMaxLbsKey: []
+        fileteredEntries.append({
+            'weightClass': outsideMaxLbsKey,
+            'outsideMax': True,
+            'entries': []
         })
     for entry in entries:
         if entry['sex'] == sex:
-            for weight_class in weight_classes:
+            for index in range(len(weight_classes)):
                 if in_kg is True:
-                    if entry['bodyweightKg'] <= int(weight_class):
-                        fileteredEntries[str(weight_class)].append(entry)
+                    if entry['bodyweightKg'] <= weight_classes[index]:
+                        fileteredEntries[index]['entries'].append(entry)
                         break
                     elif entry['bodyweightKg'] >= outsideMax:
-                        fileteredEntries[outsideMaxKey].append(entry)
+                        fileteredEntries[len(weight_classes)
+                                         ]['entries'].append(entry)
                         break
                 else:
-                    if kg2lbs(entry['bodyweightKg']) <= int(kg2lbs(weight_class)):
-                        fileteredEntries[str(
-                            kg2lbs(weight_class))].append(entry)
+                    if kg2lbs(entry['bodyweightKg']) <= kg2lbs(weight_classes[index]):
+                        fileteredEntries[index]['entries'].append(entry)
                         break
                     elif kg2lbs(entry['bodyweightKg']) >= kg2lbs(outsideMax):
-                        fileteredEntries[outsideMaxLbsKey].append(entry)
+                        fileteredEntries[len(weight_classes)
+                                         ]['entries'].append(entry)
                         break
         else:
             continue
-    return sortedEntries
+    emptyKeysToRemove = []
+    for index in range(len(fileteredEntries)):
+        if len(fileteredEntries[index]['entries']) > 0:
+            continue
+        else:
+            emptyKeysToRemove.append(index)
+    for index in sorted(emptyKeysToRemove, reverse=True):
+        fileteredEntries.pop(index)
+    for index in range(len(fileteredEntries)):
+        currentEntriesOrder = fileteredEntries[index]['entries']
+        orderedbyPoints = sorted(currentEntriesOrder,
+                                 key=lambda d: d['points'], reverse=True)
+        fileteredEntries[index]['entries'] = orderedbyPoints
+    return fileteredEntries
 
 
 def leaderboard_results(data):
@@ -72,38 +91,11 @@ def leaderboard_results(data):
     weightClassesKgMx = data['meetData']['weightClassesKgMx']
 
     entriesByWeightClassesKgMen = group_entries_by_weight_class("M",
-                                                                weightClassesKgMen, data['entries'], data['meetData']['inKg'])
+                                                                weightClassesKgMen, data['entries'], False)
     entriesByWeightClassesKgWomen = group_entries_by_weight_class("F",
-                                                                  weightClassesKgWomen, data['entries'], data['meetData']['inKg'])
+                                                                  weightClassesKgWomen, data['entries'], False)
     entriesByWeightClassesKgMx = group_entries_by_weight_class("Mx",
-                                                               weightClassesKgMx, data['entries'], data['meetData']['inKg'])
-
-    emptyKeysToRemove = []
-    for k, v in entriesByWeightClassesKgMen.items():
-        if len(v) > 0:
-            continue
-        else:
-            emptyKeysToRemove.append(k)
-    for emptyKey in emptyKeysToRemove:
-        entriesByWeightClassesKgMen.pop(emptyKey)
-
-    emptyKeysToRemove = []
-    for k, v in entriesByWeightClassesKgWomen.items():
-        if len(v) > 0:
-            continue
-        else:
-            emptyKeysToRemove.append(k)
-    for emptyKey in emptyKeysToRemove:
-        entriesByWeightClassesKgWomen.pop(emptyKey)
-
-    emptyKeysToRemove = []
-    for k, v in entriesByWeightClassesKgMx.items():
-        if len(v) > 0:
-            continue
-        else:
-            emptyKeysToRemove.append(k)
-    for emptyKey in emptyKeysToRemove:
-        entriesByWeightClassesKgMx.pop(emptyKey)
+                                                               weightClassesKgMx, data['entries'], False)
 
     return {
         'male': entriesByWeightClassesKgMen,
