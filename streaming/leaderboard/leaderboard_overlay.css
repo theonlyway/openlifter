@@ -1,5 +1,5 @@
 .container {
-  width: 1000px;
+  width: 990px;
   visibility: visible;
   opacity: 1;
   margin: 1px;
@@ -31,21 +31,12 @@ th {
   font-size: 20px;
 }
 td {
-  padding: 6px;
   width: 10rem;
+  padding-bottom: 1rem;
 }
 
 .Lifter {
   word-wrap: break-word;
   max-width: 30ch;
-  height: 50px;
-  padding-left: 6px;
   width: 50rem;
-}
-
-.Total {
-  word-wrap: break-word;
-  max-width: 30ch;
-  height: 50px;
-  padding-left: 6px;
 }
