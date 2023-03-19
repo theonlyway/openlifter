@@ -37,6 +37,5 @@ td {
 
 .Lifter {
   word-wrap: break-word;
-  max-width: 30ch;
   width: 50rem;
 }

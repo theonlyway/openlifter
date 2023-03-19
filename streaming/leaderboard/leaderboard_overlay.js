@@ -1,29 +1,12 @@
 const urlParams = new URLSearchParams(window.location.search);
 const rotationTimeSeconds = parseInt(urlParams.get("rotation") || 15);
 const authRequired = JSON.parse(urlParams.get("auth") || true);
+const entriesPerTable = JSON.parse(urlParams.get("entries_per_table") || 5);
 const apiUrl = urlParams.get("apiurl") || "http://localhost:8080/theonlyway/Openlifter/1.0.0";
 const apiKey = urlParams.get("apikey") || "441b6244-8a4f-4e0f-8624-e5c665ecc901";
 
 var tableHeaders = ["Rank", "Lifter", "Class", "Body weight", "Age", "Squat", "Bench", "Deadlift", "Total", "Points"];
 var data;
-var timeInSecs;
-var ticker;
-
-function startTimer(secs) {
-  timeInSecs = parseInt(secs);
-  ticker = setInterval("tick()", 1000);
-}
-
-function tick() {
-  var secs = timeInSecs;
-  if (secs > 0) {
-    timeInSecs--;
-    console.log("Refresh in " + secs);
-  } else {
-    console.log("Refreshed");
-    clearInterval(ticker);
-  }
-}
 
 function generateTableHead(table, headers) {
   let thead = table.createTHead();
@@ -36,8 +19,8 @@ function generateTableHead(table, headers) {
   }
 }
 
-function generateRows(table, weightClass, data) {
-  var rank = 1;
+function generateRows(table, weightClass, data, chunk) {
+  var rank = entriesPerTable * chunk + 1;
   var tBody = table.getElementsByTagName("tbody")[0];
   for (let element of data) {
     let row = tBody.insertRow();
@@ -162,12 +145,27 @@ async function handleTableLoop(table, data) {
           return a.points - b.points;
         })
         .reverse();
-      table.innerHTML = "";
-      table.createTBody();
-      generateTableHead(table, tableHeaders);
-      generateTitle(key, data[key][index].weightClass);
-      generateRows(table, data[key][index].weightClass, sortedEntries);
-      await sleep(rotationTimeSeconds * 1000);
+      const perChunk = entriesPerTable;
+      const chunkedData = sortedEntries.reduce((resultArray, item, index) => {
+        const chunkIndex = Math.floor(index / perChunk);
+
+        if (!resultArray[chunkIndex]) {
+          resultArray[chunkIndex] = []; // start a new chunk
+        }
+
+        resultArray[chunkIndex].push(item);
+
+        return resultArray;
+      }, []);
+      for (let chunk = 0; chunk < chunkedData.length; chunk++) {
+        const element = chunkedData[chunk];
+        table.innerHTML = "";
+        table.createTBody();
+        generateTableHead(table, tableHeaders);
+        generateTitle(key, data[key][index].weightClass);
+        generateRows(table, data[key][index].weightClass, element, chunk);
+        await sleep(rotationTimeSeconds * 1000);
+      }
     }
   }
   generateTable();
