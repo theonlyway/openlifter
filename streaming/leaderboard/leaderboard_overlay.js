@@ -9,19 +9,18 @@ var data;
 var timeInSecs;
 var ticker;
 
-function startTimer(secs, table, weightClass, data) {
+function startTimer(secs) {
   timeInSecs = parseInt(secs);
-
-  //ticker = setInterval(tick, 1000);
+  ticker = setInterval("tick()", 1000);
 }
 
-function tick(table, key, data) {
+function tick() {
   var secs = timeInSecs;
   if (secs > 0) {
     timeInSecs--;
     console.log("Refresh in " + secs);
   } else {
-    console.log("Rotating");
+    console.log("Refreshed");
     clearInterval(ticker);
   }
 }
@@ -41,6 +40,9 @@ function generateRows(table, weightClass, data) {
   var rank = 1;
   for (let element of data) {
     let row = table.insertRow();
+    let successfulSquatLifts = [];
+    let successfulBenchLifts = [];
+    let successfulDeadliftLifts = [];
     for (let header of tableHeaders) {
       let cell;
       let text;
@@ -73,27 +75,63 @@ function generateRows(table, weightClass, data) {
           break;
         case "Squat":
           cell = row.insertCell();
-          text = document.createTextNode(element.age);
+          successfulSquatLifts = [];
+          for (let index = 0; index < element.squatStatus.length; index++) {
+            const squatStatus = element.squatStatus[index];
+            if (squatStatus == 1) {
+              successfulSquatLifts.push(element.squatKg[index]);
+            }
+          }
+          text = document.createTextNode(
+            Math.max(...successfulSquatLifts) != -Infinity ? Math.max(...successfulSquatLifts) : 0
+          );
           cell.appendChild(text);
           break;
         case "Bench":
           cell = row.insertCell();
-          text = document.createTextNode(element.age);
+          successfulBenchLifts = [];
+          for (let index = 0; index < element.squatStatus.length; index++) {
+            const squatStatus = element.squatStatus[index];
+            if (squatStatus == 1) {
+              successfulBenchLifts.push(element.squatKg[index]);
+            }
+          }
+          text = document.createTextNode(
+            Math.max(...successfulBenchLifts) != -Infinity ? Math.max(...successfulBenchLifts) : 0
+          );
           cell.appendChild(text);
           break;
         case "Deadlift":
           cell = row.insertCell();
-          text = document.createTextNode(element.age);
+          successfulDeadliftLifts = [];
+          for (let index = 0; index < element.squatStatus.length; index++) {
+            const squatStatus = element.squatStatus[index];
+            if (squatStatus == 1) {
+              successfulDeadliftLifts.push(element.squatKg[index]);
+            }
+          }
+          text = document.createTextNode(
+            Math.max(...successfulDeadliftLifts) != -Infinity ? Math.max(...successfulDeadliftLifts) : 0
+          );
           cell.appendChild(text);
           break;
         case "Total":
           cell = row.insertCell();
-          text = document.createTextNode(element.age);
+          text = document.createTextNode(
+            Math.max(...successfulSquatLifts) +
+              Math.max(...successfulBenchLifts) +
+              Math.max(...successfulDeadliftLifts) !=
+              -Infinity
+              ? Math.max(...successfulSquatLifts) +
+                  Math.max(...successfulBenchLifts) +
+                  Math.max(...successfulDeadliftLifts)
+              : 0
+          );
           cell.appendChild(text);
           break;
         case "Points":
           cell = row.insertCell();
-          text = document.createTextNode(element.age);
+          text = document.createTextNode(element.points || 0);
           cell.appendChild(text);
           break;
       }
@@ -105,21 +143,29 @@ function generateTitle(sex, weightClass) {
   document.getElementById("leaderboardDescription").innerHTML = `Sex: ${sex} | Class: ${weightClass}`;
 }
 
-function handleTableLoop(table, sex, data) {
-  for (const index in data) {
-    var sortedEntries = data[index]["entries"]
-      .sort(function (a, b) {
-        return a.points - b.points;
-      })
-      .reverse();
-    generateTitle(sex, data[index].weightClass);
-    generateRows(table, data[index].weightClass, sortedEntries);
+async function handleTableLoop(table, data) {
+  for (const key in data) {
+    for (const index in data[key]) {
+      var sortedEntries = data[key][index]["entries"]
+        .sort(function (a, b) {
+          return a.points - b.points;
+        })
+        .reverse();
+      table.innerHTML = "";
+      generateTableHead(table, tableHeaders);
+      generateTitle(key, data[key][index].weightClass);
+      generateRows(table, data[key][index].weightClass, sortedEntries);
+      await sleep(rotationTimeSeconds * 1000);
+    }
   }
+}
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 async function generateTable() {
   var table = document.getElementById("leaderboardTable");
-  generateTableHead(table, tableHeaders);
   if (authRequired == true) {
     fetchHeaders = {
       "x-api-key": apiKey,
@@ -135,7 +181,5 @@ async function generateTable() {
     headers: fetchHeaders,
   });
   const data = JSON.parse(await response.json());
-  for (const key in data) {
-    handleTableLoop(table, key, data[key]);
-  }
+  handleTableLoop(table, data);
 }

@@ -55,7 +55,7 @@ def group_entries_by_weight_class(sex, weight_classes, entries, in_kg):
                     if entry['bodyweightKg'] <= weight_classes[index]:
                         fileteredEntries[index]['entries'].append(entry)
                         break
-                    elif entry['bodyweightKg'] >= outsideMax:
+                    elif entry['bodyweightKg'] > outsideMax:
                         fileteredEntries[len(weight_classes)
                                          ]['entries'].append(entry)
                         break
@@ -63,7 +63,7 @@ def group_entries_by_weight_class(sex, weight_classes, entries, in_kg):
                     if kg2lbs(entry['bodyweightKg']) <= kg2lbs(weight_classes[index]):
                         fileteredEntries[index]['entries'].append(entry)
                         break
-                    elif kg2lbs(entry['bodyweightKg']) >= kg2lbs(outsideMax):
+                    elif kg2lbs(entry['bodyweightKg']) > kg2lbs(outsideMax):
                         fileteredEntries[len(weight_classes)
                                          ]['entries'].append(entry)
                         break
@@ -91,11 +91,11 @@ def leaderboard_results(data):
     weightClassesKgMx = data['meetData']['weightClassesKgMx']
 
     entriesByWeightClassesKgMen = group_entries_by_weight_class("M",
-                                                                weightClassesKgMen, data['entries'], False)
+                                                                weightClassesKgMen, data['entries'], data['meetData']['inKg'])
     entriesByWeightClassesKgWomen = group_entries_by_weight_class("F",
-                                                                  weightClassesKgWomen, data['entries'], False)
+                                                                  weightClassesKgWomen, data['entries'], data['meetData']['inKg'])
     entriesByWeightClassesKgMx = group_entries_by_weight_class("Mx",
-                                                               weightClassesKgMx, data['entries'], False)
+                                                               weightClassesKgMx, data['entries'], data['meetData']['inKg'])
 
     return {
         'male': entriesByWeightClassesKgMen,
