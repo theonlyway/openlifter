@@ -336,7 +336,6 @@ class LiftingTable extends React.Component<Props> {
       case "ProjectedTotal": {
         const totalKg = getProjectedTotalKg(entry);
         const asNumber = this.props.meet.inKg ? totalKg : kg2lbs(totalKg);
-        entry.points = totalKg === 0 ? 0 : parseInt(displayWeight(asNumber, this.props.language));
         return <td key={columnType}>{totalKg === 0 ? null : displayWeight(asNumber, this.props.language)}</td>;
       }
       case "ProjectedPoints": {
@@ -346,10 +345,10 @@ class LiftingTable extends React.Component<Props> {
 
         // Normally this column is hidden for "Total", but it's handled just in case.
         if (this.props.meet.formula === "Total") {
-          entry.points = points !== 0 ? parseInt(displayWeight(points, this.props.language)) : 0;
+          entry.points = points !== 0 ? parseFloat(displayPoints(points, this.props.language)) : 0;
           return <td key={columnType}>{points !== 0 ? displayWeight(points, this.props.language) : null}</td>;
         }
-        entry.points = points !== 0 ? parseInt(displayPoints(points, this.props.language)) : 0;
+        entry.points = points !== 0 ? parseFloat(displayPoints(points, this.props.language)) : 0;
         return <td key={columnType}>{points !== 0 ? displayPoints(points, this.props.language) : null}</td>;
       }
       case "FinalTotal": {
@@ -364,7 +363,7 @@ class LiftingTable extends React.Component<Props> {
 
         // Normally this column is hidden for "Total", but it's handled just in case.
         if (this.props.meet.formula === "Total") {
-          entry.points = points !== 0 ? parseInt(displayWeight(points, this.props.language)) : 0;
+          entry.points = points !== 0 ? parseFloat(displayPoints(points, this.props.language)) : 0;
           return <td key={columnType}>{points !== 0 ? displayWeight(points, this.props.language) : null}</td>;
         }
         return <td key={columnType}>{points !== 0 ? displayPoints(points, this.props.language) : null}</td>;
