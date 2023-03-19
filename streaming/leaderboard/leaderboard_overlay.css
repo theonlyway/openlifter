@@ -1,4 +1,5 @@
 .container {
+  width: 1000px;
   visibility: visible;
   opacity: 1;
   margin: 1px;
@@ -28,4 +29,23 @@ th {
   border-top: 4px solid white;
   text-transform:capitalize;
   font-size: 20px;
+}
+td {
+  padding: 6px;
+  width: 10rem;
+}
+
+.Lifter {
+  word-wrap: break-word;
+  max-width: 30ch;
+  height: 50px;
+  padding-left: 6px;
+  width: 50rem;
+}
+
+.Total {
+  word-wrap: break-word;
+  max-width: 30ch;
+  height: 50px;
+  padding-left: 6px;
 }

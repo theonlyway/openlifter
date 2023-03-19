@@ -1,5 +1,5 @@
 const urlParams = new URLSearchParams(window.location.search);
-const rotationTimeSeconds = parseInt(urlParams.get("rotation") || 10);
+const rotationTimeSeconds = parseInt(urlParams.get("rotation") || 15);
 const authRequired = JSON.parse(urlParams.get("auth") || true);
 const apiUrl = urlParams.get("apiurl") || "http://localhost:8080/theonlyway/Openlifter/1.0.0";
 const apiKey = urlParams.get("apikey") || "441b6244-8a4f-4e0f-8624-e5c665ecc901";
@@ -38,8 +38,9 @@ function generateTableHead(table, headers) {
 
 function generateRows(table, weightClass, data) {
   var rank = 1;
+  var tBody = table.getElementsByTagName("tbody")[0];
   for (let element of data) {
-    let row = table.insertRow();
+    let row = tBody.insertRow();
     let successfulSquatLifts = [];
     let successfulBenchLifts = [];
     let successfulDeadliftLifts = [];
@@ -50,27 +51,32 @@ function generateRows(table, weightClass, data) {
         case "Rank":
           cell = row.insertCell();
           text = document.createTextNode(rank);
+          cell.className = header;
           cell.appendChild(text);
           rank = 1 + rank;
           break;
         case "Lifter":
           cell = row.insertCell();
           text = document.createTextNode(element.name);
+          cell.className = header;
           cell.appendChild(text);
           break;
         case "Class":
           cell = row.insertCell();
           text = document.createTextNode(weightClass);
+          cell.className = header;
           cell.appendChild(text);
           break;
         case "Body weight":
           cell = row.insertCell();
           text = document.createTextNode(element.bodyweightKg);
+          cell.className = header;
           cell.appendChild(text);
           break;
         case "Age":
           cell = row.insertCell();
           text = document.createTextNode(element.age);
+          cell.className = header;
           cell.appendChild(text);
           break;
         case "Squat":
@@ -85,6 +91,7 @@ function generateRows(table, weightClass, data) {
           text = document.createTextNode(
             Math.max(...successfulSquatLifts) != -Infinity ? Math.max(...successfulSquatLifts) : 0
           );
+          cell.className = header;
           cell.appendChild(text);
           break;
         case "Bench":
@@ -99,6 +106,7 @@ function generateRows(table, weightClass, data) {
           text = document.createTextNode(
             Math.max(...successfulBenchLifts) != -Infinity ? Math.max(...successfulBenchLifts) : 0
           );
+          cell.className = header;
           cell.appendChild(text);
           break;
         case "Deadlift":
@@ -113,6 +121,7 @@ function generateRows(table, weightClass, data) {
           text = document.createTextNode(
             Math.max(...successfulDeadliftLifts) != -Infinity ? Math.max(...successfulDeadliftLifts) : 0
           );
+          cell.className = header;
           cell.appendChild(text);
           break;
         case "Total":
@@ -127,11 +136,13 @@ function generateRows(table, weightClass, data) {
                   Math.max(...successfulDeadliftLifts)
               : 0
           );
+          cell.className = header;
           cell.appendChild(text);
           break;
         case "Points":
           cell = row.insertCell();
           text = document.createTextNode(element.points || 0);
+          cell.className = header;
           cell.appendChild(text);
           break;
       }
@@ -152,12 +163,14 @@ async function handleTableLoop(table, data) {
         })
         .reverse();
       table.innerHTML = "";
+      table.createTBody();
       generateTableHead(table, tableHeaders);
       generateTitle(key, data[key][index].weightClass);
       generateRows(table, data[key][index].weightClass, sortedEntries);
       await sleep(rotationTimeSeconds * 1000);
     }
   }
+  generateTable();
 }
 
 function sleep(ms) {
