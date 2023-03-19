@@ -90,7 +90,7 @@ export type Entry = {
   benchStatus: Array<LiftStatus>;
   deadliftStatus: Array<LiftStatus>;
   //For streaming specific data
-  points: number | null;
+  points: number;
   place: number | string | null;
 };
 
