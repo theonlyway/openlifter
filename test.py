@@ -26,7 +26,39 @@ def group_entries(sex, weight_classes, entries, in_kg, entries_filter):
 
 
 def group_entries_by_total_points(sex, weight_classes, entries, in_kg):
-    pass
+    if len(weight_classes) == 0:
+        return None
+    fileteredEntries = []
+    outsideMax = weight_classes[-1:][0]
+    outsideMaxKey = str(outsideMax) + "+"
+    outsideMaxLbsKey = str(kg2lbs(outsideMax)) + "+"
+
+    for entry in entries:
+        if entry['sex'] == sex:
+            for index in range(len(weight_classes)):
+                if in_kg is True:
+                    if entry['bodyweightKg'] <= weight_classes[index]:
+                        entry["weightClass"] = weight_classes[index]
+                        fileteredEntries.append(entry)
+                        break
+                    elif entry['bodyweightKg'] > outsideMax:
+                        entry["weightClass"] = outsideMaxKey
+                        fileteredEntries.append(entry)
+                        break
+                else:
+                    if kg2lbs(entry['bodyweightKg']) <= kg2lbs(weight_classes[index]):
+                        entry["weightClass"] = kg2lbs(weight_classes[index])
+                        fileteredEntries.append(entry)
+                        break
+                    elif kg2lbs(entry['bodyweightKg']) > kg2lbs(outsideMax):
+                        entry["weightClass"] = outsideMaxLbsKey
+                        fileteredEntries.append(entry)
+                        break
+        else:
+            continue
+    orderedbyPoints = sorted(fileteredEntries,
+                             key=lambda d: d['points'], reverse=True)
+    return orderedbyPoints
 
 
 def group_entries_by_weight_class(sex, weight_classes, entries, in_kg):
@@ -128,5 +160,5 @@ data = {
 for document in documents:
     data['meetData'] = document['meetData']
     data['entries'].extend(document['order']['orderedEntries'])
-leaderboard_results(data, "class")
+leaderboard_results(data, "points")
 pass
