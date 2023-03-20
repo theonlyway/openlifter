@@ -81,10 +81,10 @@ function generateRows(table, weightClass = null, data, chunk) {
         case "Bench":
           cell = row.insertCell();
           successfulBenchLifts = [];
-          for (let index = 0; index < element.squatStatus.length; index++) {
-            const squatStatus = element.squatStatus[index];
+          for (let index = 0; index < element.benchStatus.length; index++) {
+            const squatStatus = element.benchStatus[index];
             if (squatStatus == 1) {
-              successfulBenchLifts.push(element.squatKg[index]);
+              successfulBenchLifts.push(element.benchKg[index]);
             }
           }
           text = document.createTextNode(
@@ -96,10 +96,10 @@ function generateRows(table, weightClass = null, data, chunk) {
         case "Deadlift":
           cell = row.insertCell();
           successfulDeadliftLifts = [];
-          for (let index = 0; index < element.squatStatus.length; index++) {
-            const squatStatus = element.squatStatus[index];
+          for (let index = 0; index < element.deadliftStatus.length; index++) {
+            const squatStatus = element.deadliftStatus[index];
             if (squatStatus == 1) {
-              successfulDeadliftLifts.push(element.squatKg[index]);
+              successfulDeadliftLifts.push(element.deadliftKg[index]);
             }
           }
           text = document.createTextNode(
