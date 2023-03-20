@@ -166,6 +166,17 @@ paths:
       description: |
         Update the current lifter
       operationId: lifter_results_get
+      parameters:
+      - name: filter
+        in: query
+        description: The number of items to skip before starting to collect the result
+          set
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          default: class
       responses:
         "200":
           description: Results response
