@@ -11,7 +11,7 @@ from swagger_server.controllers.helpers import leaderboard_results
 config = Config()
 
 
-def lifter_results_get(filter):  # noqa: E501
+def lifter_results_get(entries_filter):  # noqa: E501
     """Updates the lifter results
 
     Update the lifter results  # noqa: E501

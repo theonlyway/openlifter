@@ -167,7 +167,7 @@ paths:
         Update the current lifter
       operationId: lifter_results_get
       parameters:
-      - name: filter
+      - name: entries_filter
         in: query
         description: The number of items to skip before starting to collect the result
           set
@@ -177,6 +177,9 @@ paths:
         schema:
           type: string
           default: class
+          enum:
+          - class
+          - points
       responses:
         "200":
           description: Results response

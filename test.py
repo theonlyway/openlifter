@@ -18,6 +18,17 @@ def find_unique_event_combos(entries):
     return list(set(events))
 
 
+def group_entries(sex, weight_classes, entries, in_kg, entries_filter):
+    if entries_filter == "class":
+        return group_entries_by_weight_class(sex, weight_classes, entries, in_kg)
+    elif entries_filter == "points":
+        return group_entries_by_total_points(sex, weight_classes, entries, in_kg)
+
+
+def group_entries_by_total_points(sex, weight_classes, entries, in_kg):
+    pass
+
+
 def group_entries_by_weight_class(sex, weight_classes, entries, in_kg):
     if len(weight_classes) == 0:
         return None
@@ -85,17 +96,17 @@ def group_entries_by_weight_class(sex, weight_classes, entries, in_kg):
     return fileteredEntries
 
 
-def leaderboard_results(data):
+def leaderboard_results(data, entries_filter):
     weightClassesKgMen = data['meetData']['weightClassesKgMen']
     weightClassesKgWomen = data['meetData']['weightClassesKgWomen']
     weightClassesKgMx = data['meetData']['weightClassesKgMx']
 
-    entriesByWeightClassesKgMen = group_entries_by_weight_class("M",
-                                                                weightClassesKgMen, data['entries'], data['meetData']['inKg'])
-    entriesByWeightClassesKgWomen = group_entries_by_weight_class("F",
-                                                                  weightClassesKgWomen, data['entries'], data['meetData']['inKg'])
-    entriesByWeightClassesKgMx = group_entries_by_weight_class("Mx",
-                                                               weightClassesKgMx, data['entries'], data['meetData']['inKg'])
+    entriesByWeightClassesKgMen = group_entries("M",
+                                                weightClassesKgMen, data['entries'], data['meetData']['inKg'], entries_filter)
+    entriesByWeightClassesKgWomen = group_entries("F",
+                                                  weightClassesKgWomen, data['entries'], data['meetData']['inKg'], entries_filter)
+    entriesByWeightClassesKgMx = group_entries("Mx",
+                                               weightClassesKgMx, data['entries'], data['meetData']['inKg'], entries_filter)
 
     return {
         'male': entriesByWeightClassesKgMen,
@@ -117,5 +128,5 @@ data = {
 for document in documents:
     data['meetData'] = document['meetData']
     data['entries'].extend(document['order']['orderedEntries'])
-leaderboard_results(data)
+leaderboard_results(data, "class")
 pass

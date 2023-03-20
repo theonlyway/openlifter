@@ -17,7 +17,7 @@ class TestResultsController(BaseTestCase):
 
         Get the results of all current lifts
         """
-        query_string = [('filter', 'class')]
+        query_string = [('entries_filter', 'class')]
         response = self.client.open(
             '/theonlyway/Openlifter/1.0.0/lifter/results',
             method='GET',
