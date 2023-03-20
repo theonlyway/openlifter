@@ -71,26 +71,27 @@ def group_entries_by_total_points(sex, weight_classes, entries, in_kg):
                     f"Checking if entry id: {entry['id']} belongs in class: {weight_classes[index]}")
                 if in_kg is True:
                     if entry['bodyweightKg'] <= weight_classes[index]:
-                        logger.info(f"Within class: {weight_classes[index]}")
+                        logger.info(
+                            f"Body weight: {entry['bodyweightKg']} within class: {weight_classes[index]}")
                         entry["weightClass"] = weight_classes[index]
                         fileteredEntries.append(entry)
                         break
                     elif entry['bodyweightKg'] > outsideMax:
                         logger.info(
-                            f"Outside of maximum class assigned to: {outsideMaxKey}")
+                            f"Body weight: {entry['bodyweightKg']} outside of maximum class assigned to: {outsideMaxKey}")
                         entry["weightClass"] = outsideMaxKey
                         fileteredEntries.append(entry)
                         break
                 else:
                     if kg2lbs(entry['bodyweightKg']) <= kg2lbs(weight_classes[index]):
                         logger.info(
-                            f"Within class: {kg2lbs(weight_classes[index])}")
+                            f"Body weight: {kg2lbs(entry['bodyweightKg'])} within class: {kg2lbs(weight_classes[index])}")
                         entry["weightClass"] = kg2lbs(weight_classes[index])
                         fileteredEntries.append(entry)
                         break
                     elif kg2lbs(entry['bodyweightKg']) > kg2lbs(outsideMax):
                         logger.info(
-                            f"Outside of maximum class assigned to: {outsideMaxLbsKey}")
+                            f"Body weight: {kg2lbs(entry['bodyweightKg'])} outside of maximum class assigned to: {outsideMaxLbsKey}")
                         entry["weightClass"] = outsideMaxLbsKey
                         fileteredEntries.append(entry)
                         break
@@ -142,24 +143,25 @@ def group_entries_by_weight_class(sex, weight_classes, entries, in_kg):
                     f"Checking if entry id: {entry['id']} belongs in class: {weight_classes[index]}")
                 if in_kg is True:
                     if entry['bodyweightKg'] <= weight_classes[index]:
-                        logger.info(f"Within class: {weight_classes[index]}")
+                        logger.info(
+                            f"Body weight: {entry['bodyweightKg']} within class: {weight_classes[index]}")
                         fileteredEntries[index]['entries'].append(entry)
                         break
                     elif entry['bodyweightKg'] > outsideMax:
                         logger.info(
-                            f"Outside of maximum class assigned to: {outsideMaxKey}")
+                            f"Body weight: {entry['bodyweightKg']} outside of maximum class assigned to: {outsideMaxKey}")
                         fileteredEntries[len(weight_classes)
                                          ]['entries'].append(entry)
                         break
                 else:
                     if kg2lbs(entry['bodyweightKg']) <= kg2lbs(weight_classes[index]):
                         logger.info(
-                            f"Within class: {kg2lbs(weight_classes[index])}")
+                            f"Body weight: {kg2lbs(entry['bodyweightKg'])} within class: {kg2lbs(weight_classes[index])}")
                         fileteredEntries[index]['entries'].append(entry)
                         break
                     elif kg2lbs(entry['bodyweightKg']) > kg2lbs(outsideMax):
                         logger.info(
-                            f"Outside of maximum class assigned to: {outsideMaxLbsKey}")
+                            f"Body weight: {kg2lbs(entry['bodyweightKg'])} outside of maximum class assigned to: {outsideMaxLbsKey}")
                         fileteredEntries[len(weight_classes)
                                          ]['entries'].append(entry)
                         break
