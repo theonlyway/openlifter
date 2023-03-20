@@ -2,7 +2,7 @@ const urlParams = new URLSearchParams(window.location.search);
 const rotationTimeSeconds = parseInt(urlParams.get("rotation") || 15);
 const authRequired = JSON.parse(urlParams.get("auth") || true);
 const entriesPerTable = parseInt(urlParams.get("entries_per_table") || 5);
-const entriesFilter = urlParams.get("entries_per_table") || "points";
+const entriesGrouping = urlParams.get("entries_grouping") || "points";
 const apiUrl = urlParams.get("apiurl") || "http://localhost:8080/theonlyway/Openlifter/1.0.0";
 const apiKey = urlParams.get("apikey") || "441b6244-8a4f-4e0f-8624-e5c665ecc901";
 
@@ -135,15 +135,15 @@ function generateRows(table, weightClass = null, data, chunk) {
 }
 
 function generateTitle(sex, weightClass = null) {
-  if (entriesFilter === "class") {
+  if (entriesGrouping === "class") {
     document.getElementById("leaderboardDescription").innerHTML = `Sex: ${sex} | Class: ${weightClass}`;
-  } else if (entriesFilter === "points") {
+  } else if (entriesGrouping === "points") {
     document.getElementById("leaderboardDescription").innerHTML = `${sex} by points`;
   }
 }
 
 async function handleTableLoop(table, data) {
-  if (entriesFilter === "class") {
+  if (entriesGrouping === "class") {
     for (const key in data) {
       for (const index in data[key]) {
         var sortedEntries = data[key][index]["entries"]
@@ -175,7 +175,7 @@ async function handleTableLoop(table, data) {
       }
     }
     generateTable();
-  } else if (entriesFilter === "points") {
+  } else if (entriesGrouping === "points") {
     for (const key in data) {
       var sortedEntries = data[key]
         .sort(function (a, b) {
@@ -224,7 +224,7 @@ async function generateTable() {
       "Content-Type": "application/json",
     };
   }
-  const response = await fetch(apiUrl + "/lifter/results?entries_filter=" + entriesFilter, {
+  const response = await fetch(apiUrl + "/lifter/results?entries_filter=" + entriesGrouping, {
     method: "GET",
     headers: fetchHeaders,
   });
