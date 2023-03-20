@@ -2,7 +2,7 @@ const urlParams = new URLSearchParams(window.location.search);
 const rotationTimeSeconds = parseInt(urlParams.get("rotation") || 15);
 const authRequired = JSON.parse(urlParams.get("auth") || true);
 const entriesPerTable = parseInt(urlParams.get("entries_per_table") || 5);
-const entriesFilter = urlParams.get("entries_per_table") || "class";
+const entriesFilter = urlParams.get("entries_per_table") || "points";
 const apiUrl = urlParams.get("apiurl") || "http://localhost:8080/theonlyway/Openlifter/1.0.0";
 const apiKey = urlParams.get("apikey") || "441b6244-8a4f-4e0f-8624-e5c665ecc901";
 
@@ -20,7 +20,7 @@ function generateTableHead(table, headers) {
   }
 }
 
-function generateRows(table, weightClass, data, chunk) {
+function generateRows(table, weightClass = null, data, chunk) {
   var rank = entriesPerTable * chunk + 1;
   var tBody = table.getElementsByTagName("tbody")[0];
   for (let element of data) {
@@ -47,7 +47,7 @@ function generateRows(table, weightClass, data, chunk) {
           break;
         case "Class":
           cell = row.insertCell();
-          text = document.createTextNode(weightClass);
+          text = document.createTextNode(weightClass === null ? element.weightClass : weightClass);
           cell.className = header;
           cell.appendChild(text);
           break;
@@ -134,8 +134,12 @@ function generateRows(table, weightClass, data, chunk) {
   }
 }
 
-function generateTitle(sex, weightClass) {
-  document.getElementById("leaderboardDescription").innerHTML = `Sex: ${sex} | Class: ${weightClass}`;
+function generateTitle(sex, weightClass = null) {
+  if (entriesFilter === "class") {
+    document.getElementById("leaderboardDescription").innerHTML = `Sex: ${sex} | Class: ${weightClass}`;
+  } else if (entriesFilter === "points") {
+    document.getElementById("leaderboardDescription").innerHTML = `${sex} by points`;
+  }
 }
 
 async function handleTableLoop(table, data) {
@@ -172,7 +176,34 @@ async function handleTableLoop(table, data) {
     }
     generateTable();
   } else if (entriesFilter === "points") {
-    console.log(entriesFilter);
+    for (const key in data) {
+      var sortedEntries = data[key]
+        .sort(function (a, b) {
+          return a.points - b.points;
+        })
+        .reverse();
+      const perChunk = entriesPerTable;
+      const chunkedData = sortedEntries.reduce((resultArray, item, index) => {
+        const chunkIndex = Math.floor(index / perChunk);
+
+        if (!resultArray[chunkIndex]) {
+          resultArray[chunkIndex] = []; // start a new chunk
+        }
+
+        resultArray[chunkIndex].push(item);
+
+        return resultArray;
+      }, []);
+      for (let chunk = 0; chunk < chunkedData.length; chunk++) {
+        const element = chunkedData[chunk];
+        table.innerHTML = "";
+        table.createTBody();
+        generateTableHead(table, tableHeaders);
+        generateTitle(key);
+        generateRows(table, null, element, chunk);
+        await sleep(rotationTimeSeconds * 1000);
+      }
+    }
   }
 }
 
