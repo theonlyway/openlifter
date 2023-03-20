@@ -14,6 +14,7 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function rotateSponsors() {
   while (true) {
     for (const index in sponsorImages) {

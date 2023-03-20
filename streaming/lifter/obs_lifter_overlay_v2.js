@@ -7,6 +7,7 @@ const apiUrl = urlParams.get("apiurl") || "http://localhost:8080/theonlyway/Open
 const apiKey = urlParams.get("apikey") || "441b6244-8a4f-4e0f-8624-e5c665ecc901";
 
 var timeInSecs;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 var ticker;
 var fetchHeaders = {};
 
@@ -15,6 +16,7 @@ function startTimer(secs) {
   ticker = setInterval("tick()", 1000);
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function tick() {
   var secs = timeInSecs;
   if (secs > 0) {
@@ -27,6 +29,7 @@ function tick() {
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function convertToPounds(kg) {
   return Math.round(kg * 2.2046);
 }
@@ -91,7 +94,6 @@ function getCurrentLifter() {
       "Content-Type": "application/json",
     };
   }
-  let i = 1;
   fetch(apiUrl + "/lifter/" + platform + "/" + lifterType, {
     method: "GET",
     headers: fetchHeaders,

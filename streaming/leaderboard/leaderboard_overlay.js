@@ -7,6 +7,7 @@ const apiUrl = urlParams.get("apiurl") || "http://localhost:8080/theonlyway/Open
 const apiKey = urlParams.get("apikey") || "441b6244-8a4f-4e0f-8624-e5c665ecc901";
 
 var tableHeaders = ["Rank", "Lifter", "Class", "Body weight", "Age", "Squat", "Bench", "Deadlift", "Total", "Points"];
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 var data;
 
 function generateTableHead(table, headers) {
