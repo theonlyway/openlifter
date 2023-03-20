@@ -204,6 +204,7 @@ async function handleTableLoop(table, data) {
         await sleep(rotationTimeSeconds * 1000);
       }
     }
+    generateTable();
   }
 }
 
