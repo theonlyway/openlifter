@@ -219,7 +219,7 @@ Example OBS configuration using some of the above parameters: `file://C:/Repos/o
    *  Defines how it will chunk and split up the display of entries. For example, if you got 20 entries for Males it'll split it up in to 4 chunks and rotate through them in order
    *  Default: `5`
 *  `entries_grouping`
-   *  Define how you would like to filter entries. This will control how the entries are grouped. You can either group the results by weight class using `class` or best lifter by total points using `points`
+   *  This will control how the entries are grouped. You can either group the results by weight class using `class` or best lifter by total points using `points`. It will still group entries in to `Male`, `Female` and `Mx`.
    *  Default: `points`
 *  `auth`
    *  Default: `true`
