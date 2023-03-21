@@ -40,9 +40,7 @@ function generateStyles() {
   document.head.appendChild(style);
   let sheet = document.styleSheets[0];
   sheet.insertRule(
-    `.container {  visibility: visible;  opacity: 1;  margin: 1px;  position: absolute;  overflow: hidden; width: ${
-      imageWidth * 0.1
-    } }`,
+    `.container {  visibility: visible;  opacity: 1;  margin: 1px;  position: absolute;  overflow: hidden; width: ${imageWidth}px }`,
     0
   );
   for (const index in sponsorImages) {
