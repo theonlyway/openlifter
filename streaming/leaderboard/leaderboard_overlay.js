@@ -234,7 +234,7 @@ async function generateTable() {
     method: "GET",
     headers: fetchHeaders,
   });
-  const data = JSON.parse(await response.json());
+  const data = await response.json();
   inKgs = data.inKg;
   delete data["inKg"];
   handleTableLoop(table, data);

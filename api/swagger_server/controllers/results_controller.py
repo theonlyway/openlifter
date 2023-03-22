@@ -31,4 +31,4 @@ def lifter_results_get(entries_filter):  # noqa: E501
     for document in documents:
         data['meetData'] = document['meetData']
         data['entries'].extend(document['order']['orderedEntries'])
-    return json.dumps(leaderboard_results(data, entries_filter))
+    return leaderboard_results(data, entries_filter)
