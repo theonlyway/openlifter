@@ -19,7 +19,7 @@
 import { liftToAttemptFieldName, liftToStatusFieldName, MAX_ATTEMPTS } from "./entry";
 
 import { LiftingOrder, Entry, FieldKg, FieldStatus } from "../types/dataTypes";
-import { LiftingState, MeetState, StreamingState } from "../types/stateTypes";
+import { GlobalState, LiftingState, MeetState, StreamingState } from "../types/stateTypes";
 
 // Helper function: for a given entry, see what attempt number would be next.
 //
@@ -300,7 +300,8 @@ export const getLiftingOrder = (
   entriesInFlight: Array<Entry>,
   lifting: LiftingState,
   streaming: StreamingState,
-  meet: MeetState
+  meet: MeetState,
+  globalState: GlobalState
 ): LiftingOrder => {
   const attemptOneIndexed = getActiveAttemptNumber(entriesInFlight, lifting);
   const orderedEntries = orderEntriesForAttempt(entriesInFlight, lifting, attemptOneIndexed);
@@ -308,7 +309,6 @@ export const getLiftingOrder = (
   const nextEntryInfo = getNextEntryInfo(lifting, currentEntryId, orderedEntries, attemptOneIndexed);
 
   if (streaming.streamingEnabled == true) {
-    const meetName = meet.name;
     //calculateStreamingPlacementStats(orderedEntries, meet, language, entries, lifting, attemptOneIndexed);
     let fetchHeaders = {};
     if (streaming.streamingEnabled == true) {
@@ -325,15 +325,27 @@ export const getLiftingOrder = (
       method: "POST",
       headers: fetchHeaders,
       body: JSON.stringify({
-        meetName: meetName,
-        orderedEntries: orderedEntries,
-        attemptOneIndexed: attemptOneIndexed,
-        currentEntryId: currentEntryId,
-        nextAttemptOneIndexed: nextEntryInfo ? nextEntryInfo.attemptOneIndexed : null,
-        nextEntryId: nextEntryInfo ? nextEntryInfo.entryId : null,
-        platformDetails: lifting,
+        meetData: meet,
         lightsCode: streaming.lightsCode,
+        order: {
+          orderedEntries: orderedEntries,
+          attemptOneIndexed: attemptOneIndexed,
+          currentEntryId: currentEntryId,
+          nextAttemptOneIndexed: nextEntryInfo ? nextEntryInfo.attemptOneIndexed : null,
+          nextEntryId: nextEntryInfo ? nextEntryInfo.entryId : null,
+          platformDetails: lifting,
+        },
       }),
+    })
+      .then((response) => response.json())
+      .catch((error) => {
+        console.log(error);
+      });
+
+    fetch(streaming.apiUrl + "/backup/" + meet.name, {
+      method: "POST",
+      headers: fetchHeaders,
+      body: JSON.stringify(globalState),
     })
       .then((response) => response.json())
       .catch((error) => {

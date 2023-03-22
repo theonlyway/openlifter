@@ -2,41 +2,207 @@ from pymongo import MongoClient
 import requests
 import json
 
+from api.swagger_server.exceptions import DocumentNotFound
 
-def calculate_max_lifts(data):
-    goodSquat = []
-    goodBench = []
-    goodDeadlift = []
-    for i in range(len(data['squatStatus'])):
-        if data['squatStatus'][i] == 1:
-            goodSquat.append(data['squatKg'][i])
 
-    for i in range(len(data['benchStatus'])):
-        if data['benchStatus'][i] == 1:
-            goodBench.append(data['benchKg'][i])
+def lifter_platform_next_get(platform):  # noqa: E501
+    """Returns the next lifter
 
-    for i in range(len(data['deadliftStatus'])):
-        if data['deadliftStatus'][i] == 1:
-            goodSquat.append(data['deadliftKg'][i])
+    Returns the current lifter  # noqa: E501
+
+    :param platform: id of the account to return
+    :type platform: str
+
+    :rtype: CurrentLifter
+    """
+    mongodbConnectionString = "mongodb://api_user:xaw!TNQ7cwp3fdr2cqf@localhost:27017/openlifter"
+    mongodbClient = MongoClient(mongodbConnectionString,
+                                serverSelectionTimeoutMS=5000)
+    database = mongodbClient["openlifter"]
+    collection = database["order"]
+    query = {"platform": platform}
+    document = collection.find_one(query)
+    nextEntryId = document['order']['nextEntryId']
+    nextAttemptNumber = document['order']['nextAttemptOneIndexed']
+    platformDetails = document['order']['platformDetails']
+
+    if document is None:
+        raise DocumentNotFound(platform, "order")
+    else:
+        if nextEntryId is not None:
+            for order in document['order']['orderedEntries']:
+                if order['id'] == nextEntryId:
+                    return {
+                        'platformDetails': platformDetails,
+                        'attempt': nextAttemptNumber,
+                        'entry': order
+                    }
+        elif nextEntryId is None:
+            return {
+                'platformDetails': platformDetails,
+                'attempt': 3,
+                'entry': document['order']['orderedEntries'][-1]
+            }
+        else:
+            raise DocumentNotFound(platform, "order")
+
+
+def kg2lbs(kg):
+    return round(kg * 2.20462262, 2)
+
+
+def lbs2kgs(kg):
+    return round(kg / 2.20462262, 2)
+
+
+def find_unique_event_combos(entries):
+    events = []
+    for entry in entries:
+        events.extend(entry['events'])
+    return list(set(events))
+
+
+def group_entries(sex, weight_classes, entries, in_kg, entries_filter):
+    if entries_filter == "class":
+        return group_entries_by_weight_class(sex, weight_classes, entries, in_kg)
+    elif entries_filter == "points":
+        return group_entries_by_total_points(sex, weight_classes, entries, in_kg)
+
+
+def group_entries_by_total_points(sex, weight_classes, entries, in_kg):
+    if len(weight_classes) == 0:
+        return None
+    fileteredEntries = []
+    outsideMax = weight_classes[-1:][0]
+    outsideMaxKey = str(outsideMax) + "+"
+    outsideMaxLbsKey = str(kg2lbs(outsideMax)) + "+"
+
+    for entry in entries:
+        if entry['sex'] == sex:
+            for index in range(len(weight_classes)):
+                if in_kg is True:
+                    if entry['bodyweightKg'] <= weight_classes[index]:
+                        entry["weightClass"] = weight_classes[index]
+                        fileteredEntries.append(entry)
+                        break
+                    elif entry['bodyweightKg'] > outsideMax:
+                        entry["weightClass"] = outsideMaxKey
+                        fileteredEntries.append(entry)
+                        break
+                else:
+                    if kg2lbs(entry['bodyweightKg']) <= kg2lbs(weight_classes[index]):
+                        entry["weightClass"] = kg2lbs(weight_classes[index])
+                        fileteredEntries.append(entry)
+                        break
+                    elif kg2lbs(entry['bodyweightKg']) > kg2lbs(outsideMax):
+                        entry["weightClass"] = outsideMaxLbsKey
+                        fileteredEntries.append(entry)
+                        break
+        else:
+            continue
+    orderedbyPoints = sorted(fileteredEntries,
+                             key=lambda d: d['points'], reverse=True)
+    return orderedbyPoints
+
+
+def group_entries_by_weight_class(sex, weight_classes, entries, in_kg):
+    if len(weight_classes) == 0:
+        return None
+    fileteredEntries = []
+    outsideMax = weight_classes[-1:][0]
+    outsideMaxKey = str(outsideMax) + "+"
+    outsideMaxLbsKey = str(kg2lbs(outsideMax)) + "+"
+    for weight_class in weight_classes:
+        if in_kg is True:
+            fileteredEntries.append({
+                'weightClass': weight_class,
+                'entries': []
+            })
+        else:
+            fileteredEntries.append({
+                'weightClass': kg2lbs(weight_class),
+                'entries': []
+            })
+    if in_kg is True:
+        fileteredEntries.append({
+            'weightClass': outsideMaxKey,
+            'outsideMax': True,
+            'entries': []
+        })
+    else:
+        fileteredEntries.append({
+            'weightClass': outsideMaxLbsKey,
+            'outsideMax': True,
+            'entries': []
+        })
+    for entry in entries:
+        if entry['sex'] == sex:
+            for index in range(len(weight_classes)):
+                if in_kg is True:
+                    if entry['bodyweightKg'] <= weight_classes[index]:
+                        fileteredEntries[index]['entries'].append(entry)
+                        break
+                    elif entry['bodyweightKg'] > outsideMax:
+                        fileteredEntries[len(weight_classes)
+                                         ]['entries'].append(entry)
+                        break
+                else:
+                    if kg2lbs(entry['bodyweightKg']) <= kg2lbs(weight_classes[index]):
+                        fileteredEntries[index]['entries'].append(entry)
+                        break
+                    elif kg2lbs(entry['bodyweightKg']) > kg2lbs(outsideMax):
+                        fileteredEntries[len(weight_classes)
+                                         ]['entries'].append(entry)
+                        break
+        else:
+            continue
+    emptyKeysToRemove = []
+    for index in range(len(fileteredEntries)):
+        if len(fileteredEntries[index]['entries']) > 0:
+            continue
+        else:
+            emptyKeysToRemove.append(index)
+    for index in sorted(emptyKeysToRemove, reverse=True):
+        fileteredEntries.pop(index)
+    for index in range(len(fileteredEntries)):
+        currentEntriesOrder = fileteredEntries[index]['entries']
+        orderedbyPoints = sorted(currentEntriesOrder,
+                                 key=lambda d: d['points'], reverse=True)
+        fileteredEntries[index]['entries'] = orderedbyPoints
+    return fileteredEntries
+
+
+def leaderboard_results(data, entries_filter):
+    weightClassesKgMen = data['meetData']['weightClassesKgMen']
+    weightClassesKgWomen = data['meetData']['weightClassesKgWomen']
+    weightClassesKgMx = data['meetData']['weightClassesKgMx']
+
+    entriesByWeightClassesKgMen = group_entries("M",
+                                                weightClassesKgMen, data['entries'], data['meetData']['inKg'], entries_filter)
+    entriesByWeightClassesKgWomen = group_entries("F",
+                                                  weightClassesKgWomen, data['entries'], data['meetData']['inKg'], entries_filter)
+    entriesByWeightClassesKgMx = group_entries("Mx",
+                                               weightClassesKgMx, data['entries'], data['meetData']['inKg'], entries_filter)
+
     return {
-        'goodLifts': {
-            'squat': goodSquat,
-            'bench': goodBench,
-            'deadlift': goodDeadlift,
-        },
-        'maxLifts': {
-            'squat': max(goodSquat, default=0),
-            'bench': max(goodBench, default=0),
-            'deadlift': max(goodDeadlift, default=0),
-        }
+        'male': entriesByWeightClassesKgMen,
+        'female': entriesByWeightClassesKgWomen,
+        'mx': entriesByWeightClassesKgMx
     }
+
 
 mongodbConnectionString = "mongodb://api_user:xaw!TNQ7cwp3fdr2cqf@localhost:27017/openlifter"
 mongodbClient = MongoClient(mongodbConnectionString,
                             serverSelectionTimeoutMS=5000)
 database = mongodbClient["openlifter"]
 collection = database["order"]
-query = {"platform": 1}
-document = collection.find_one(query)
-calculate_max_lifts(document['order']['orderedEntries'][0])
-pass
+documents = collection.find({})
+data = {
+    'meetData': None,
+    'entries': []
+}
+for document in documents:
+    data['meetData'] = document['meetData']
+    data['entries'].extend(document['order']['orderedEntries'])
+leaderboard_results(data, "points")
+lifter_platform_next_get(1)

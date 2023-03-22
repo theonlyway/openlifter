@@ -12,17 +12,16 @@ from swagger_server.test import BaseTestCase
 class TestResultsController(BaseTestCase):
     """ResultsController integration test stubs"""
 
-    def test_lifter_results_post(self):
-        """Test case for lifter_results_post
+    def test_lifter_results_get(self):
+        """Test case for lifter_results_get
 
-        Updates the lifter results
+        Get the results of all current lifts
         """
-        body = Object()
+        query_string = [('entries_filter', 'class')]
         response = self.client.open(
             '/theonlyway/Openlifter/1.0.0/lifter/results',
-            method='POST',
-            data=json.dumps(body),
-            content_type='application/json')
+            method='GET',
+            query_string=query_string)
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
 

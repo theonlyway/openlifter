@@ -20,7 +20,77 @@ tags:
   description: API health check
 - name: Results
   description: API for resuls
+- name: Backup
+  description: API for resuls
 paths:
+  /backup/{meet}:
+    get:
+      tags:
+      - Backup
+      summary: Returns a copy of the global state for a meet
+      description: |
+        Update the current lifter
+      operationId: backup_meet_get
+      parameters:
+      - name: meet
+        in: path
+        description: Meet name
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Update response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnyValue'
+        "503":
+          description: Failure response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnyValue'
+      security:
+      - api_key: []
+      x-openapi-router-controller: swagger_server.controllers.backup_controller
+    post:
+      tags:
+      - Backup
+      summary: Stores a copy of the global state for a meet
+      description: |
+        Update the current lifter
+      operationId: backup_meet_post
+      parameters:
+      - name: meet
+        in: path
+        description: Meet name
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnyValue'
+      responses:
+        "200":
+          description: Update response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnyValue'
+        "503":
+          description: Failure response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnyValue'
+      x-openapi-router-controller: swagger_server.controllers.backup_controller
   /lifter/{platform}/order:
     post:
       tags:
@@ -159,21 +229,30 @@ paths:
       - api_key: []
       x-openapi-router-controller: swagger_server.controllers.health_controller
   /lifter/results:
-    post:
+    get:
       tags:
       - Results
-      summary: Updates the lifter results
+      summary: Get the results of all current lifts
       description: |
         Update the current lifter
-      operationId: lifter_results_post
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AnyValue'
+      operationId: lifter_results_get
+      parameters:
+      - name: entries_filter
+        in: query
+        description: The number of items to skip before starting to collect the result
+          set
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          default: class
+          enum:
+          - class
+          - points
       responses:
         "200":
-          description: Order update response
+          description: Results response
           content:
             application/json:
               schema:

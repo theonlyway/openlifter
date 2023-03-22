@@ -30,10 +30,10 @@ def lights_platform_get(platform):  # noqa: E501
         logger.info(f"Could not find document for platform: {platform}")
         raise DocumentNotFound(platform, "order")
 
-    if "lightsCode" in document['order']:
+    if "lightsCode" in document:
         try:
             response = requests.get(
-                config.lightsUrl + f"/{document['order']['lightsCode']}")
+                config.lightsUrl + f"/{document['lightsCode']}")
             jsonResponse = response.json()
             return jsonResponse
         except Exception as e:

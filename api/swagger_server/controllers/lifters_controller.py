@@ -36,15 +36,26 @@ def lifter_platform_current_get(platform):  # noqa: E501
         logger.info(f"Could not find document for platform: {platform}")
         raise DocumentNotFound(platform, "order")
     else:
-        for order in document['order']['orderedEntries']:
-            if order['id'] == currentEntryId:
-                logger.info(f"Found entry details for id: {currentEntryId}")
-                return {
-                    'platformDetails': platformDetails,
-                    'attempt': currentAttemptNumber,
-                    'entry': order,
-                    'maxLift': calculate_max_lifts(order)
-                }
+        if currentEntryId is not None:
+            for order in document['order']['orderedEntries']:
+                if order['id'] == currentEntryId:
+                    logger.info(
+                        f"Found entry details for id: {currentEntryId}")
+                    return {
+                        'platformDetails': platformDetails,
+                        'attempt': currentAttemptNumber,
+                        'entry': order,
+                        'maxLift': calculate_max_lifts(order)
+                    }
+        elif currentEntryId is None:
+            return {
+                'platformDetails': platformDetails,
+                'attempt': currentAttemptNumber,
+                'entry': document['order']['orderedEntries'][-1],
+                'maxLift': calculate_max_lifts(document['order']['orderedEntries'][-1])
+            }
+        else:
+            raise DocumentNotFound(platform, "order")
 
 def lifter_platform_next_get(platform):  # noqa: E501
     """Returns the next lifter
@@ -69,14 +80,23 @@ def lifter_platform_next_get(platform):  # noqa: E501
         logger.info(f"Could not find document for platform: {platform}")
         raise DocumentNotFound(platform, "order")
     else:
-        for order in document['order']['orderedEntries']:
-            if order['id'] == nextEntryId:
-                logger.info(f"Found entry details for id: {nextEntryId}")
-                return {
-                    'platformDetails': platformDetails,
-                    'attempt': nextAttemptNumber,
-                    'entry': order
-                }
+        if nextEntryId is not None:
+            for order in document['order']['orderedEntries']:
+                if order['id'] == nextEntryId:
+                    logger.info(f"Found entry details for id: {nextEntryId}")
+                    return {
+                        'platformDetails': platformDetails,
+                        'attempt': nextAttemptNumber,
+                        'entry': order
+                    }
+        elif nextEntryId is None:
+            return {
+                'platformDetails': platformDetails,
+                'attempt': 3,
+                'entry': document['order']['orderedEntries'][-1]
+            }
+        else:
+            raise DocumentNotFound(platform, "order")
 
 
 def lifter_platform_order_post(platform, body=None):  # noqa: E501
@@ -95,10 +115,13 @@ def lifter_platform_order_post(platform, body=None):  # noqa: E501
     database = config.mongodbClient[config.mongodbDatabaseName]
     collection = database["order"]
     if connexion.request.is_json:
+        data = connexion.request.get_json()
         logger.debug(json.dumps(connexion.request.get_json()))
         order = {
             'platform': platform,
-            'order': connexion.request.get_json(),
+            'meetData': data['meetData'],
+            'lightsCode': data['lightsCode'],
+            'order': data['order'],
             'lastUpdated': time.strftime("%Y/%m/%d-%H:%M:%S", time.localtime())
         }
         collection.update_one(

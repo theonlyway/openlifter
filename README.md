@@ -210,3 +210,38 @@ Example OBS configuration using some of the above parameters: `file://C:/Repos/o
    *  This matches the default API key defined in Openlifter and the dockerfile
 
 Example OBS configuration using some of the above parameters: `file://C:/Repos/openlifter/streaming/lights/obs_lights_overlay.html?refresh=1&platform=2`
+
+### Leaderboard
+* `rotation`
+  * Defines how frequently the overlay will rotate between table views
+  * Default: `15` second
+*  `entries_per_table`
+   *  Defines how it will chunk and split up the display of entries. For example, if you got 20 entries for Males it'll split it up in to 4 chunks and rotate through them in order
+   *  Default: `5`
+*  `entries_grouping`
+   *  This will control how the entries are grouped. You can either group the results by weight class using `class` or best lifter by total points using `points`. It will still group entries in to `Male`, `Female` and `Mx`.
+   *  Default: `points`
+*  `auth`
+   *  Default: `true`
+   *  This can either be `true` or `false`
+*  `apiurl`
+   *  Default: `http://localhost:8080/theonlyway/Openlifter/1.0.0`
+   *  Full URL of the Openlifter API endpoint
+*  `apikey`
+   *  Default: `441b6244-8a4f-4e0f-8624-e5c665ecc901`
+   *  This matches the default API key defined in Openlifter and the dockerfile
+
+Example OBS configuration using some of the above parameters: `file://C:/Repos/openlifter/streaming/leaderboard/leaderboard_overlay.html?rotation=15&entries_grouping=points`
+
+### Sponsors
+* `rotation`
+  * Defines how frequently the overlay will rotate between table views
+  * Default: `15` second
+*  `image_width`
+   *  Define the width max width of the image display element
+   *  Default: `350`
+*  `image_height`
+   *  Define the width max width of the image display element
+   *  Default: `200`
+
+Example OBS configuration using some of the above parameters: `file://C:/Repos/openlifter/streaming/sponsors/sponsors_overlay.html?image_height=250&image_width=350`
