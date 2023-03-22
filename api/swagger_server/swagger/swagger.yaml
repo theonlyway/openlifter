@@ -39,7 +39,7 @@ paths:
         style: simple
         explode: false
         schema:
-          type: integer
+          type: string
       responses:
         "200":
           description: Update response
@@ -71,7 +71,7 @@ paths:
         style: simple
         explode: false
         schema:
-          type: integer
+          type: string
       requestBody:
         content:
           application/json:

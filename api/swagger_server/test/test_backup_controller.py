@@ -18,7 +18,7 @@ class TestBackupController(BaseTestCase):
         Returns a copy of the global state for a meet
         """
         response = self.client.open(
-            '/theonlyway/Openlifter/1.0.0/backup/{meet}'.format(meet=56),
+            '/theonlyway/Openlifter/1.0.0/backup/{meet}'.format(meet='meet_example'),
             method='GET')
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
@@ -30,7 +30,7 @@ class TestBackupController(BaseTestCase):
         """
         body = Object()
         response = self.client.open(
-            '/theonlyway/Openlifter/1.0.0/backup/{meet}'.format(meet=56),
+            '/theonlyway/Openlifter/1.0.0/backup/{meet}'.format(meet='meet_example'),
             method='POST',
             data=json.dumps(body),
             content_type='application/json')
