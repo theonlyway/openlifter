@@ -20,7 +20,77 @@ tags:
   description: API health check
 - name: Results
   description: API for resuls
+- name: Backup
+  description: API for resuls
 paths:
+  /backup/{meet}:
+    get:
+      tags:
+      - Backup
+      summary: Returns a copy of the global state for a meet
+      description: |
+        Update the current lifter
+      operationId: backup_meet_get
+      parameters:
+      - name: meet
+        in: path
+        description: Meet name
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Update response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnyValue'
+        "503":
+          description: Failure response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnyValue'
+      security:
+      - api_key: []
+      x-openapi-router-controller: swagger_server.controllers.backup_controller
+    post:
+      tags:
+      - Backup
+      summary: Stores a copy of the global state for a meet
+      description: |
+        Update the current lifter
+      operationId: backup_meet_post
+      parameters:
+      - name: meet
+        in: path
+        description: Meet name
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnyValue'
+      responses:
+        "200":
+          description: Update response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnyValue'
+        "503":
+          description: Failure response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnyValue'
+      x-openapi-router-controller: swagger_server.controllers.backup_controller
   /lifter/{platform}/order:
     post:
       tags:

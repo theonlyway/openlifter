@@ -53,6 +53,7 @@ interface StateProps {
   entriesInFlight: Array<Entry>;
   registration: RegistrationState;
   language: Language;
+  globalState: GlobalState;
 }
 
 type Props = StateProps;
@@ -80,7 +81,13 @@ class LiftingView extends React.Component<Props, InternalState> {
   };
 
   render() {
-    const now = getLiftingOrder(this.props.entriesInFlight, this.props.lifting, this.props.streaming, this.props.meet);
+    const now = getLiftingOrder(
+      this.props.entriesInFlight,
+      this.props.lifting,
+      this.props.streaming,
+      this.props.meet,
+      this.props.globalState
+    );
 
     let rightElement = null;
     if (this.state.replaceTableWithWeighins === false) {
@@ -179,6 +186,7 @@ const mapStateToProps = (state: GlobalState): StateProps => {
     streaming: state.streaming,
     registration: state.registration,
     language: state.language,
+    globalState: state,
   };
 };
 
