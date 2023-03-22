@@ -9,7 +9,11 @@ const apiKey = urlParams.get("apikey") || "441b6244-8a4f-4e0f-8624-e5c665ecc901"
 var tableHeaders = ["Rank", "Lifter", "Class", "Body weight", "Age", "Squat", "Bench", "Deadlift", "Total", "Points"];
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 var data;
+var inKgs;
 
+function kgToLbs(kgs) {
+  return Math.floor(kgs * 2.20462);
+}
 function generateTableHead(table, headers) {
   let thead = table.createTHead();
   let row = thead.insertRow();
@@ -111,16 +115,17 @@ function generateRows(table, weightClass = null, data, chunk) {
           break;
         case "Total":
           cell = row.insertCell();
-          text = document.createTextNode(
-            Math.max(...successfulSquatLifts) +
-              Math.max(...successfulBenchLifts) +
-              Math.max(...successfulDeadliftLifts) !=
-              -Infinity
-              ? Math.max(...successfulSquatLifts) +
-                  Math.max(...successfulBenchLifts) +
-                  Math.max(...successfulDeadliftLifts)
-              : 0
-          );
+          let successfulSquatLiftsTotal = successfulSquatLifts.length > 0 ? Math.max(...successfulSquatLifts) : 0;
+          let successfulBenchLiftsTotal = successfulBenchLifts.length > 0 ? Math.max(...successfulBenchLifts) : 0;
+          let successfulDeadliftLiftsTotal =
+            successfulDeadliftLifts.length > 0 ? Math.max(...successfulDeadliftLifts) : 0;
+          let combinedLiftsTotal =
+            0 + successfulSquatLiftsTotal + successfulBenchLiftsTotal + successfulDeadliftLiftsTotal;
+          if (inKgs) {
+            text = document.createTextNode(`${combinedLiftsTotal} kgs | ${kgToLbs(combinedLiftsTotal)} lbs`);
+          } else {
+            text = document.createTextNode(`${kgToLbs(combinedLiftsTotal)} lbs | ${combinedLiftsTotal} kgs`);
+          }
           cell.className = header;
           cell.appendChild(text);
           break;
@@ -230,5 +235,7 @@ async function generateTable() {
     headers: fetchHeaders,
   });
   const data = JSON.parse(await response.json());
+  inKgs = data.inKg;
+  delete data["inKg"];
   handleTableLoop(table, data);
 }

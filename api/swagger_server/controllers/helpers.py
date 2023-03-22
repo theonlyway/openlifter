@@ -202,5 +202,6 @@ def leaderboard_results(data, entries_filter):
     return {
         'male': entriesByWeightClassesKgMen,
         'female': entriesByWeightClassesKgWomen,
-        'mx': entriesByWeightClassesKgMx
+        'mx': entriesByWeightClassesKgMx,
+        'inKg': data['meetData']['inKg']
     }

@@ -1,8 +1,7 @@
 .container {
-  width: 990px;
+  width: 1000px;
   visibility: visible;
   opacity: 1;
-  margin: 1px;
   position: absolute;
   overflow: hidden;
   font-family: "Roboto", sans-serif;
@@ -32,7 +31,7 @@ th {
 }
 td {
   width: 10rem;
-  padding-bottom: 1rem;
+  padding-bottom: 2px;
 }
 
 .Lifter {
