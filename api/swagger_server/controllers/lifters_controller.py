@@ -92,7 +92,7 @@ def lifter_platform_next_get(platform):  # noqa: E501
         elif nextEntryId is None:
             return {
                 'platformDetails': platformDetails,
-                'attempt': nextAttemptNumber,
+                'attempt': 3,
                 'entry': document['order']['orderedEntries'][-1]
             }
         else:

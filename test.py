@@ -2,6 +2,50 @@ from pymongo import MongoClient
 import requests
 import json
 
+from api.swagger_server.exceptions import DocumentNotFound
+
+
+def lifter_platform_next_get(platform):  # noqa: E501
+    """Returns the next lifter
+
+    Returns the current lifter  # noqa: E501
+
+    :param platform: id of the account to return
+    :type platform: str
+
+    :rtype: CurrentLifter
+    """
+    mongodbConnectionString = "mongodb://api_user:xaw!TNQ7cwp3fdr2cqf@localhost:27017/openlifter"
+    mongodbClient = MongoClient(mongodbConnectionString,
+                                serverSelectionTimeoutMS=5000)
+    database = mongodbClient["openlifter"]
+    collection = database["order"]
+    query = {"platform": platform}
+    document = collection.find_one(query)
+    nextEntryId = document['order']['nextEntryId']
+    nextAttemptNumber = document['order']['nextAttemptOneIndexed']
+    platformDetails = document['order']['platformDetails']
+
+    if document is None:
+        raise DocumentNotFound(platform, "order")
+    else:
+        if nextEntryId is not None:
+            for order in document['order']['orderedEntries']:
+                if order['id'] == nextEntryId:
+                    return {
+                        'platformDetails': platformDetails,
+                        'attempt': nextAttemptNumber,
+                        'entry': order
+                    }
+        elif nextEntryId is None:
+            return {
+                'platformDetails': platformDetails,
+                'attempt': 3,
+                'entry': document['order']['orderedEntries'][-1]
+            }
+        else:
+            raise DocumentNotFound(platform, "order")
+
 
 def kg2lbs(kg):
     return round(kg * 2.20462262, 2)
@@ -161,4 +205,4 @@ for document in documents:
     data['meetData'] = document['meetData']
     data['entries'].extend(document['order']['orderedEntries'])
 leaderboard_results(data, "points")
-pass
+lifter_platform_next_get(1)
