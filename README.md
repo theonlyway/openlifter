@@ -282,13 +282,17 @@ const sponsorImages = [
 It's basically just a list of objects with the following values able to be set
 * `image`
   * This is the image filename when it is located in the `images` folder
+  * This is a required key
 * `imageWidth`
   * This allows you to set a specific image width for the image. Sometimes the image file supplied has some weird dimensions and requires some extra fiddling to get it to fit within the size constraints of the settings defined in the query paramters
+  * This is an optional key
 * `imageHeight`
   * This allows you to set a specific image height for the image. Sometimes the image file supplied has some weird dimensions and requires some extra fiddling to get it to fit within the size constraints of the settings defined in the query paramters
+  * This is an optional key
 * `backgroundColor`
   * This allows you to set the background colour for the image. Some scenarios where you might want to do this is if you are provided a transparent image and it's design doesn't play nice with the background it's being overlayed on. This will allow you to set a specific background colour for the specific image
   * This is a CSS value so it can either be a colour by `name` example `white` or a hex colour `#FF0000`
+  * This is an optional key
 
 
 Example OBS configuration using some of the above parameters: `file://C:/Repos/openlifter/streaming/sponsors/sponsors_overlay.html?image_height=250&image_width=350`
