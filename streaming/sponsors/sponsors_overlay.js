@@ -1,5 +1,5 @@
 const urlParams = new URLSearchParams(window.location.search);
-const rotationTimeSeconds = parseInt(urlParams.get("rotation") || 5);
+const rotationTimeSeconds = parseInt(urlParams.get("rotation") || 30);
 const imageWidth = urlParams.get("image_width") || "350";
 const imageHeight = urlParams.get("image_height") || "200";
 const sponsorImages = [
