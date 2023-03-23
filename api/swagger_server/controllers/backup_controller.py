@@ -30,6 +30,7 @@ def backup_meet_get(meet):  # noqa: E501
         logger.info(f"Could not find document for meet: {meet}")
         raise DocumentNotFound(meet, "backup")
     else:
+        logger.info(f"Returning state for meet: {meet}")
         return document['globalState']
 
 
@@ -50,6 +51,7 @@ def backup_meet_post(meet, body=None):  # noqa: E501
     if connexion.request.is_json:
         data = connexion.request.get_json()  # noqa: E501
         logger.debug(json.dumps(connexion.request.get_json()))
+        logger.info(f"Backing up state for meet: {meet}")
         state = {
             'id': meet,
             'lastUpdated': time.strftime("%Y/%m/%d-%H:%M:%S", time.localtime()),
