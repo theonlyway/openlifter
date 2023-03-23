@@ -170,6 +170,7 @@ The source for the overlays is located [here](./streaming/)
 Each of the overlays have a set of URL parameters that you can provide if required. They all have default values but if at any point you need to change them you can by providing them in the URL as query parameters when you configure your browser source
 
 ### Lifter
+#### Query parameters
 * `refresh`
   * Defines how frequently the overlay will fetch data from the API
   * Default: `1` second
@@ -193,6 +194,7 @@ Each of the overlays have a set of URL parameters that you can provide if requir
 Example OBS configuration using some of the above parameters: `file://C:/Repos/openlifter/streaming/lifter/obs_lifter_overlay_v2.html?refresh=1&platform=2`
 
 ### Lights
+#### Query parameters
 * `refresh`
   * Defines how frequently the overlay will fetch data from the API
   * Default: `1` second
@@ -212,6 +214,7 @@ Example OBS configuration using some of the above parameters: `file://C:/Repos/o
 Example OBS configuration using some of the above parameters: `file://C:/Repos/openlifter/streaming/lights/obs_lights_overlay.html?refresh=1&platform=2`
 
 ### Leaderboard
+#### Query parameters
 * `rotation`
   * Defines how frequently the overlay will rotate between table views
   * Default: `15` second
@@ -234,6 +237,7 @@ Example OBS configuration using some of the above parameters: `file://C:/Repos/o
 Example OBS configuration using some of the above parameters: `file://C:/Repos/openlifter/streaming/leaderboard/leaderboard_overlay.html?rotation=15&entries_grouping=points`
 
 ### Sponsors
+#### Query parameters
 * `rotation`
   * Defines how frequently the overlay will rotate between table views
   * Default: `15` second
@@ -243,5 +247,48 @@ Example OBS configuration using some of the above parameters: `file://C:/Repos/o
 *  `image_height`
    *  Define the width max width of the image display element
    *  Default: `200`
+#### Configuration
+Unlike the other overlays that are pulling their data from the middleware API the sponsers overlay requires some configuration since the assets for the sponser images are stored locally on the machine running OBS. In addition those images can be named almost anything. So open the following file: [sponsors_overlay.js](streaming\sponsors\sponsors_overlay.js) and edit the `sponsorImages` variable.
+Example:
+```javascript
+const sponsorImages = [
+  {
+    image: "dental_members.png",
+    imageWidth: "290",
+    imageHeight: "180",
+    backgroundColour: "white",
+  },
+  {
+    image: "electro_systems_no_good.png",
+    imageWidth: "290",
+    imageHeight: "180",
+  },
+  {
+    image: "ideal_nutrition.png",
+    imageWidth: "290",
+  },
+  {
+    image: "myo_new.png",
+    imageWidth: "290",
+    imageHeight: "190",
+  },
+  {
+    image: "wayv.png",
+    imageWidth: "290",
+    imageHeight: "190",
+  },
+];
+```
+It's basically just a list of objects with the following values able to be set
+* `image`
+  * This is the image filename when it is located in the `images` folder
+* `imageWidth`
+  * This allows you to set a specific image width for the image. Sometimes the image file supplied has some weird dimensions and requires some extra fiddling to get it to fit within the size constraints of the settings defined in the query paramters
+* `imageHeight`
+  * This allows you to set a specific image height for the image. Sometimes the image file supplied has some weird dimensions and requires some extra fiddling to get it to fit within the size constraints of the settings defined in the query paramters
+* `backgroundColor`
+  * This allows you to set the background colour for the image. Some scenarios where you might want to do this is if you are provided a transparent image and it's design doesn't play nice with the background it's being overlayed on. This will allow you to set a specific background colour for the specific image
+  * This is a CSS value so it can either be a colour by `name` example `white` or a hex colour `#FF0000`
+
 
 Example OBS configuration using some of the above parameters: `file://C:/Repos/openlifter/streaming/sponsors/sponsors_overlay.html?image_height=250&image_width=350`
