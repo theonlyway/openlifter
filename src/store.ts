@@ -36,7 +36,7 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 const store = createStore(
   persistedReducer,
   { language: getDefaultLanguage() },
-  composeWithDevTools(applyMiddleware(thunk))
+  composeWithDevTools(applyMiddleware(thunk)),
 );
 const persistor = persistStore(store as any);
 export { store, persistor };

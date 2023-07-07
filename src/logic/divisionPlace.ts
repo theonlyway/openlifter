@@ -267,7 +267,7 @@ const mapSexToClasses = (
   sex: Sex,
   men: ReadonlyArray<number>,
   women: ReadonlyArray<number>,
-  mx: ReadonlyArray<number>
+  mx: ReadonlyArray<number>,
 ): ReadonlyArray<number> => {
   switch (sex) {
     case "M":
@@ -293,7 +293,7 @@ const getAllResults = (
   weightClassesKgMx: ReadonlyArray<number>,
   combineSleevesAndWraps: boolean,
   combineSingleAndMulti: boolean,
-  type: ResultsType
+  type: ResultsType,
 ): Array<CategoryResults> => {
   // Generate a map from category to the entries within that category.
   // The map is populated by iterating over each entry and having the entry
@@ -357,7 +357,7 @@ export const getProjectedResults = (
   weightClassesKgWomen: ReadonlyArray<number>,
   weightClassesKgMx: ReadonlyArray<number>,
   combineSleevesAndWraps: boolean,
-  combineSingleAndMulti: boolean
+  combineSingleAndMulti: boolean,
 ): Array<CategoryResults> => {
   return getAllResults(
     entries,
@@ -366,7 +366,7 @@ export const getProjectedResults = (
     weightClassesKgMx,
     combineSleevesAndWraps,
     combineSingleAndMulti,
-    "Projected"
+    "Projected",
   );
 };
 
@@ -376,7 +376,7 @@ export const getFinalResults = (
   weightClassesKgWomen: ReadonlyArray<number>,
   weightClassesKgMx: ReadonlyArray<number>,
   combineSleevesAndWraps: boolean,
-  combineSingleAndMulti: boolean
+  combineSingleAndMulti: boolean,
 ): Array<CategoryResults> => {
   return getAllResults(
     entries,
@@ -385,6 +385,6 @@ export const getFinalResults = (
     weightClassesKgMx,
     combineSleevesAndWraps,
     combineSingleAndMulti,
-    "Final"
+    "Final",
   );
 };

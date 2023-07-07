@@ -32,7 +32,7 @@ export const enterAttempt = (
   entryId: number,
   lift: Lift,
   attemptOneIndexed: number,
-  weightKg: number
+  weightKg: number,
 ): EnterAttemptAction => {
   return {
     type: "ENTER_ATTEMPT",

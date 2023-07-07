@@ -118,39 +118,72 @@ strings = strings.concat([
 // Strings for error messages.
 strings = strings.concat([
   { id: "error.invalid-openlifter", defaultMessage: "That didn't look like a valid OpenLifter file!" },
-  { id: "error.csv-unknown-header", defaultMessage: "Unknown header {name} in column {ABC}. Here's a list of all accepted column names: {validList}." },
-  { id: "error.csv-duplicate-header", defaultMessage: "The header {name} appears twice, in columns {firstABC} and {secondABC}." },
+  {
+    id: "error.csv-unknown-header",
+    defaultMessage: "Unknown header {name} in column {ABC}. Here's a list of all accepted column names: {validList}.",
+  },
+  {
+    id: "error.csv-duplicate-header",
+    defaultMessage: "The header {name} appears twice, in columns {firstABC} and {secondABC}.",
+  },
   { id: "error.csv-missing-header", defaultMessage: "The mandatory column {name} is missing." },
   { id: "error.csv-day-platform-order", defaultMessage: "The {day} column must precede the {platform} column." },
   { id: "error.csv-field-prefix", defaultMessage: "Invalid {cellType} '{cellValue}' in row {rowNumber}: " },
   { id: "error.csv-field-suffix-integer", defaultMessage: "expected an integer." },
   { id: "error.csv-field-suffix-positive", defaultMessage: "can't be less than 1." },
   { id: "error.csv-field-suffix-day-overflow", defaultMessage: "the Meet Setup page specifices only {numDays} days." },
-  { id: "error.csv-field-suffix-platform-overflow", defaultMessage: "Day {dayNumber} only has {numPlatforms} platforms." },
+  {
+    id: "error.csv-field-suffix-platform-overflow",
+    defaultMessage: "Day {dayNumber} only has {numPlatforms} platforms.",
+  },
   { id: "error.csv-field-suffix-flight-invalid", defaultMessage: "expected a valid flight." },
   { id: "error.csv-field-suffix-name-blank", defaultMessage: "every lifter must have a name." },
   { id: "error.csv-field-suffix-sex-invalid", defaultMessage: "valid sexes are {M}, {F}, and {Mx}." },
-  { id: "error.csv-field-suffix-equipment-invalid", defaultMessage: "valid Equipment values are {bare}, {sleeves}, {wraps}, {single}, and {multi}." },
+  {
+    id: "error.csv-field-suffix-equipment-invalid",
+    defaultMessage: "valid Equipment values are {bare}, {sleeves}, {wraps}, {single}, and {multi}.",
+  },
   { id: "error.csv-field-suffix-division-blank", defaultMessage: "the first division is mandatory." },
   { id: "error.csv-field-suffix-division-invalid", defaultMessage: "not a valid division per the Meet Setup page." },
-  { id: "error.csv-field-suffix-division-duplicate", defaultMessage: "the lifter was already registered in that division by another column." },
+  {
+    id: "error.csv-field-suffix-division-duplicate",
+    defaultMessage: "the lifter was already registered in that division by another column.",
+  },
   { id: "error.csv-field-suffix-event-blank", defaultMessage: "the first event is mandatory." },
-  { id: "error.csv-field-suffix-event-duplicate", defaultMessage: "the lifter was already registered in that event by another column." },
-  { id: "error.csv-field-suffix-event-invalid", defaultMessage: "valid events are {SBD}, {BD}, {SB}, {SD}, {S}, {B}, and {D}." },
-  { id: "error.csv-field-suffix-date-format", defaultMessage: "date must be in the unambiguous international standard: YYYY-MM-DD." },
+  {
+    id: "error.csv-field-suffix-event-duplicate",
+    defaultMessage: "the lifter was already registered in that event by another column.",
+  },
+  {
+    id: "error.csv-field-suffix-event-invalid",
+    defaultMessage: "valid events are {SBD}, {BD}, {SB}, {SD}, {S}, {B}, and {D}.",
+  },
+  {
+    id: "error.csv-field-suffix-date-format",
+    defaultMessage: "date must be in the unambiguous international standard: YYYY-MM-DD.",
+  },
   { id: "error.csv-field-empty-or-positive", defaultMessage: "expected an empty cell or a positive integer." },
   { id: "error.csv-field-unknown-boolean", defaultMessage: "expected '{Yes}', '{No}', or a blank field." },
   { id: "error.internal-error", defaultMessage: "An unexpected internal error occurred." },
-  { id: "error.version-mismatch", defaultMessage: "This meet uses data version {thisVersion}, but the selected file uses data version {otherVersion}." },
-  { id: "error.meetname-mismatch", defaultMessage: "This meet is named '{thisName}', but the selected file is for a meet named '{otherName}'. As a safety check, the names much match for merging to be allowed." },
-  { id: "error.no-platform-data", defaultMessage: "The selected file does not have any lifting data for Day {day} Platform {platform}." },
+  {
+    id: "error.version-mismatch",
+    defaultMessage:
+      "This meet uses data version {thisVersion}, but the selected file uses data version {otherVersion}.",
+  },
+  {
+    id: "error.meetname-mismatch",
+    defaultMessage:
+      "This meet is named '{thisName}', but the selected file is for a meet named '{otherName}'. As a safety check, the names much match for merging to be allowed.",
+  },
+  {
+    id: "error.no-platform-data",
+    defaultMessage: "The selected file does not have any lifting data for Day {day} Platform {platform}.",
+  },
   { id: "error.not-json", defaultMessage: "Could not parse file as JSON." },
 ]);
 
 // Strings for the Home page.
-strings = strings.concat([
-  { id: "home.error-load-popup-title", defaultMessage: "Load from File Error" },
-]);
+strings = strings.concat([{ id: "home.error-load-popup-title", defaultMessage: "Load from File Error" }]);
 
 // Strings for the Meet Setup page.
 strings = strings.concat([
@@ -332,7 +365,10 @@ strings = strings.concat([
   { id: "results.combined-single-multi", defaultMessage: "Single-ply + Multi-ply" },
   { id: "results.spoken-unit-kilo", defaultMessage: "kilo" },
   { id: "results.spoken-unit-pound", defaultMessage: "pound" },
-  { id: "results.division-template", defaultMessage: "{sex} {weightClass} {spokenUnits} {equipment} {division} {event}" },
+  {
+    id: "results.division-template",
+    defaultMessage: "{sex} {weightClass} {spokenUnits} {equipment} {division} {event}",
+  },
   { id: "results.category-template", defaultMessage: "{sex} {equipment} {event}" },
 ]);
 

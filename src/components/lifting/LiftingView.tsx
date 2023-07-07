@@ -86,7 +86,7 @@ class LiftingView extends React.Component<Props, InternalState> {
       this.props.lifting,
       this.props.streaming,
       this.props.meet,
-      this.props.globalState
+      this.props.globalState,
     );
 
     let rightElement = null;
@@ -162,7 +162,7 @@ const mapStateToProps = (state: GlobalState): StateProps => {
   const flight = state.lifting.flight;
 
   const entriesOnPlatform = state.registration.entries.filter(
-    (entry) => entry.day === day && entry.platform === platform
+    (entry) => entry.day === day && entry.platform === platform,
   );
 
   // Determine available flights from the entries themselves.

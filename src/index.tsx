@@ -20,6 +20,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
+import { Auth0Provider } from "@auth0/auth0-react";
 import App from "./App";
 
 import "./bootstrap-custom/bootstrap.scss";
@@ -28,8 +29,16 @@ import "react-datepicker/dist/react-datepicker.css";
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>
+    <Auth0Provider
+      domain="theonlyway.au.auth0.com"
+      clientId="yyShh71b5iDsJY6G6W3MgorwbjvLaeE8"
+      authorizationParams={{
+        redirect_uri: window.location.origin,
+      }}
+    >
+      <App />
+    </Auth0Provider>
+  </React.StrictMode>,
 );
 
 // If you want your app to work offline and load faster, you can change

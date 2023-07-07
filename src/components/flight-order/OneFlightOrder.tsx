@@ -239,7 +239,7 @@ class OneFlightOrder extends React.Component<Props> {
         builder.push(
           <td key={key} className={className}>
             {content}
-          </td>
+          </td>,
         );
       }
 

@@ -109,7 +109,7 @@ class Plates extends React.Component<Props> {
 
   render() {
     const plateRows = this.props.plates.map((obj: Plate) =>
-      this.renderWeightRow(obj.weightKg, obj.pairCount, obj.color)
+      this.renderWeightRow(obj.weightKg, obj.pairCount, obj.color),
     );
     const unitId = this.props.inKg ? "meet-setup.plates-kg" : "meet-setup.plates-lbs";
     const stringPlate = getString(unitId, this.props.language);

@@ -56,7 +56,7 @@ type NumberLookup = {
 
 export default function registrationReducer(
   state: RegistrationState = initialState,
-  action: Action
+  action: Action,
 ): RegistrationState {
   switch (action.type) {
     case "NEW_REGISTRATION": {

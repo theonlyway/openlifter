@@ -98,7 +98,7 @@ const initialState: MeetState = {
 export const getWeightClassStr = (
   classes: ReadonlyArray<number>,
   bodyweightKg: number,
-  language?: Language
+  language?: Language,
 ): string => {
   if (bodyweightKg === 0) return "";
   if (classes.length === 0) return "";

@@ -186,11 +186,7 @@ class HomeContainer extends React.Component<Props, InternalState> {
 
     // If no meet is active, make the button just a LinkContainer.
     if (!this.props.redux.meet.name) {
-      newMeetButton = (
-        <LinkContainer style={buttonMargin} to="/meet-setup">
-          {newMeetButton}
-        </LinkContainer>
-      );
+      newMeetButton = <LinkContainer to="/meet-setup">{newMeetButton}</LinkContainer>;
     }
 
     const isBeta: boolean = releaseVersion.includes("eta");

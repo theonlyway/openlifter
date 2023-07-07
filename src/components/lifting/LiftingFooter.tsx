@@ -274,7 +274,7 @@ class LiftingFooter extends React.Component<Props> {
       lifterOptions.push(
         <option value={entry.id} key={entry.id}>
           {entry.name}
-        </option>
+        </option>,
       );
     }
     return lifterOptions;
@@ -290,7 +290,7 @@ class LiftingFooter extends React.Component<Props> {
       dayOptions.push(
         <option value={i} key={i}>
           {dayTemplate.replace("{N}", displayNumber(i, language))}
-        </option>
+        </option>,
       );
     }
 
@@ -300,7 +300,7 @@ class LiftingFooter extends React.Component<Props> {
       platformOptions.push(
         <option value={i} key={i}>
           {platformTemplate.replace("{N}", displayNumber(i, language))}
-        </option>
+        </option>,
       );
     }
 
@@ -324,7 +324,7 @@ class LiftingFooter extends React.Component<Props> {
       flightOptions.push(
         <option value={flight} key={key}>
           {flightTemplate.replace("{flight}", localizeFlight(flight, language))}
-        </option>
+        </option>,
       );
     }
     if (flightOptions.length === 0) {
@@ -337,14 +337,14 @@ class LiftingFooter extends React.Component<Props> {
       attemptOptions.push(
         <option key={i} value={i}>
           {attemptTemplate.replace("{N}", displayNumber(i, language))}
-        </option>
+        </option>,
       );
     }
     if (this.props.allow4thAttempts === true) {
       attemptOptions.push(
         <option key={4} value={4}>
           {attemptTemplate.replace("{N}", displayNumber(4, language))}
-        </option>
+        </option>,
       );
     }
 

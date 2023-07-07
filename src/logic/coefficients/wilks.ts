@@ -44,7 +44,7 @@ export function wilksWomen(bodyweightKg: number): number {
     -0.00930733913,
     0.00004731582,
     -0.00000009054,
-    normalized
+    normalized,
   );
 }
 

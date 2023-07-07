@@ -81,7 +81,7 @@ export const getAgeAdjustedPoints = (
   entry: Entry,
   event: Event,
   totalKg: number,
-  inKg: boolean
+  inKg: boolean,
 ): number => {
   const points = getPoints(formula, entry, event, totalKg, inKg);
 

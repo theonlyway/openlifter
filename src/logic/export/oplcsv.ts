@@ -97,7 +97,7 @@ const addEntriesRow = (
   meetDate: string,
   formula: Formula,
   entry: Entry,
-  index: number
+  index: number,
 ) => {
   const unit: string = inKg ? "Kg" : "LBS";
   const finalEventTotalKg = getFinalEventTotalKg(entry, category.event);
@@ -201,7 +201,7 @@ const makeEntriesCsv = (state: GlobalState): Csv => {
     squatFieldnames,
     benchFieldnames,
     deadliftFieldnames,
-    ["Total" + unit, "Points", "Event", "Team"]
+    ["Total" + unit, "Points", "Event", "Team"],
   );
 
   const results: Array<CategoryResults> = getFinalResults(
@@ -210,7 +210,7 @@ const makeEntriesCsv = (state: GlobalState): Csv => {
     state.meet.weightClassesKgWomen,
     state.meet.weightClassesKgMx,
     state.meet.combineSleevesAndWraps,
-    state.meet.combineSingleAndMulti
+    state.meet.combineSingleAndMulti,
   );
 
   const meet_date = state.meet.date;

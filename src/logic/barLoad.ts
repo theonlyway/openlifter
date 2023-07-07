@@ -34,7 +34,7 @@ export const selectPlates = (
   loadingKg: number,
   barAndCollarsWeightKg: number,
   plates: ReadonlyArray<Plate>,
-  inKg: boolean
+  inKg: boolean,
 ): Array<LoadedPlate> => {
   // Flow doesn't like it when arguments get redefined.
   let loadingAny = loadingKg;

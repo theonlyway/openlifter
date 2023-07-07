@@ -120,7 +120,7 @@ class ResultsView extends React.Component<Props, InternalState> {
       options.push(
         <option key={day} value={day}>
           {justDayTemplate.replace("{N}", String(day))}
-        </option>
+        </option>,
       );
     }
     return options;
@@ -268,7 +268,7 @@ class ResultsView extends React.Component<Props, InternalState> {
     // Array accessed by platformsHaveLifted[day-1][platform-1].
     const platformsHaveLifted: Array<Array<boolean>> = getWhetherPlatformsHaveLifted(
       this.props.global.meet.platformsOnDays,
-      this.props.global.registration.entries
+      this.props.global.registration.entries,
     );
 
     const language = this.props.language;
@@ -301,7 +301,7 @@ class ResultsView extends React.Component<Props, InternalState> {
             }}
           >
             {actionTemplate.replace("{day}", String(i + 1)).replace("{platform}", String(j + 1))}
-          </Button>
+          </Button>,
         );
       }
 
@@ -310,7 +310,7 @@ class ResultsView extends React.Component<Props, InternalState> {
           <div>{combineTemplate.replace("{N}", String(i + 1))}</div>
           <div>{buttons}</div>
           {i < platformsHaveLifted.length - 1 ? <br /> : null}
-        </div>
+        </div>,
       );
     }
 

@@ -253,7 +253,7 @@ class ByDivision extends React.Component<Props> {
       this.props.weightClassesKgWomen,
       this.props.weightClassesKgMx,
       this.props.combineSleevesAndWraps,
-      this.props.combineSingleAndMulti
+      this.props.combineSingleAndMulti,
     );
 
     const categoryCards = [];

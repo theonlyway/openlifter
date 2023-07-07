@@ -296,7 +296,7 @@ class LifterRow extends React.Component<Props, InternalState> {
       dayOptions.push(
         <option value={i} key={i}>
           {i}
-        </option>
+        </option>,
       );
     }
 
@@ -305,7 +305,7 @@ class LifterRow extends React.Component<Props, InternalState> {
       platformOptions.push(
         <option value={i} key={i}>
           {i}
-        </option>
+        </option>,
       );
     }
 

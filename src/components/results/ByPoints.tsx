@@ -109,7 +109,7 @@ class ByPoints extends React.Component<Props> {
       entry,
       category.event,
       totalKg,
-      inKg
+      inKg,
     );
 
     let pointsStr = "";
@@ -291,7 +291,7 @@ class ByPoints extends React.Component<Props> {
       this.props.combineSleevesAndWraps,
       this.props.combineSingleAndMulti,
       this.props.inKg,
-      this.props.meetDate
+      this.props.meetDate,
     );
 
     const categoryCards = [];

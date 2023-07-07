@@ -439,7 +439,7 @@ class LiftingTable extends React.Component<Props> {
       rows.push(
         <tr key={entry.id} className={rowClassName}>
           {cells}
-        </tr>
+        </tr>,
       );
     }
     return rows;
@@ -583,7 +583,7 @@ class LiftingTable extends React.Component<Props> {
       headers.push(
         <th key={column} className={className} style={style}>
           {this.getColumnHeaderLabel(column)}
-        </th>
+        </th>,
       );
     }
 
@@ -595,7 +595,7 @@ class LiftingTable extends React.Component<Props> {
           this.props.meet.weightClassesKgWomen,
           this.props.meet.weightClassesKgMx,
           this.props.meet.combineSleevesAndWraps,
-          this.props.meet.combineSingleAndMulti
+          this.props.meet.combineSingleAndMulti,
         )
       : getFinalResults(
           this.props.registration.entries,
@@ -603,7 +603,7 @@ class LiftingTable extends React.Component<Props> {
           this.props.meet.weightClassesKgWomen,
           this.props.meet.weightClassesKgMx,
           this.props.meet.combineSleevesAndWraps,
-          this.props.meet.combineSingleAndMulti
+          this.props.meet.combineSingleAndMulti,
         );
 
     return (

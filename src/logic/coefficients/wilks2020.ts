@@ -38,7 +38,7 @@ export function wilks2020Men(bodyweightKg: number): number {
     -0.00139583381094385,
     0.00000707665973070743,
     -0.0000000120804336482315,
-    normalized
+    normalized,
   );
 }
 
@@ -51,7 +51,7 @@ export function wilks2020Women(bodyweightKg: number): number {
     -0.0010504000506583,
     0.00000938773881462799,
     -0.000000023334613884954,
-    normalized
+    normalized,
   );
 }
 

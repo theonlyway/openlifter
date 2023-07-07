@@ -56,7 +56,7 @@ $form-feedback-warning-color: #8a6d3b;
 }
 .form-control.is-warning:focus {
   border-color: $form-feedback-warning-color;
-  box-shadow: 0 0 0 .2rem rgba($form-feedback-warning-color, .25);
+  box-shadow: 0 0 0 0.2rem rgba($form-feedback-warning-color, 0.25);
 }
 
 // Custom styling for attempt inputs, since their borders are hidden.
@@ -73,16 +73,15 @@ $form-feedback-warning-background-color: #ffffc9; // Pale yellow.
 }
 
 .navbar-dark {
-  background-color: #343a40 !important
+  background-color: #343a40 !important;
 }
-
 
 .form-control {
   background-color: transparent !important;
 }
 
 span.input-group-text {
-background-color: transparent !important;
+  background-color: transparent !important;
 }
 
 // Custom styling for the link to the current page in the Navbar.

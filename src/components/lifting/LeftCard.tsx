@@ -115,13 +115,13 @@ class LeftCard extends React.Component<Props> {
       current.weightKg,
       barAndCollarsWeightKg,
       this.props.plates,
-      this.props.inKg
+      this.props.inKg,
     );
     const nextLoading: Array<LoadedPlate> = selectPlates(
       next.weightKg,
       barAndCollarsWeightKg,
       this.props.plates,
-      this.props.inKg
+      this.props.inKg,
     );
 
     // Set the next loading relative to the current loading.

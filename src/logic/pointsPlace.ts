@@ -61,7 +61,7 @@ const sortByFormulaPlaceInCategory = (
   formula: Formula,
   ageCoefficients: AgeCoefficients,
   inKg: boolean,
-  meetDate: string
+  meetDate: string,
 ): Array<Entry> => {
   // Make a map from Entry to initial index.
   const indexMap = new Map();
@@ -173,7 +173,7 @@ export const getAllRankings = (
   combineSleevesAndWraps: boolean,
   combineSingleAndMulti: boolean,
   inKg: boolean,
-  meetDate: string
+  meetDate: string,
 ): Array<PointsCategoryResults> => {
   // Generate a map from category to the entries within that category.
   // The map is populated by iterating over each entry and having the entry

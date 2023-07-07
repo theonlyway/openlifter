@@ -337,7 +337,7 @@ export const liftingPresentOnPlatform = (entries: ReadonlyArray<Entry>, day: num
 // taken an attempt.
 export const getWhetherPlatformsHaveLifted = (
   platformsOnDays: ReadonlyArray<number>,
-  entries: ReadonlyArray<Entry>
+  entries: ReadonlyArray<Entry>,
 ): Array<Array<boolean>> => {
   const ret = [];
   for (let day = 1; day <= platformsOnDays.length; day++) {

@@ -95,7 +95,7 @@ class FlightOrderView extends React.Component<Props, InternalState> {
       dayOptions.push(
         <option value={i} key={i}>
           {dayTemplate.replace("{N}", displayNumber(i, language))}
-        </option>
+        </option>,
       );
     }
 
@@ -107,7 +107,7 @@ class FlightOrderView extends React.Component<Props, InternalState> {
       platformOptions.push(
         <option value={i} key={i}>
           {platformTemplate.replace("{N}", displayNumber(i, language))}
-        </option>
+        </option>,
       );
     }
 

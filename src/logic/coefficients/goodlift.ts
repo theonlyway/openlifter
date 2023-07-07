@@ -62,7 +62,7 @@ export const goodlift = (
   bodyweightKg: number,
   sex: Sex,
   equipment: Equipment,
-  event: Event
+  event: Event,
 ): number => {
   if (totalKg === 0) return 0;
   if (bodyweightKg < 40) return 0;

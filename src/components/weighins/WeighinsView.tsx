@@ -106,7 +106,7 @@ class WeighinsView extends React.Component<Props> {
           <Card.Body>
             <LifterTable entries={lifters} rowRenderer={LifterRow} inLiftingPage={inLiftingPage} />
           </Card.Body>
-        </Card>
+        </Card>,
       );
     }
 
@@ -123,7 +123,7 @@ class WeighinsView extends React.Component<Props> {
               defaultMessage="Add lifters on the Registration page before weighing them in."
             />
           </Card.Body>
-        </Card>
+        </Card>,
       );
     }
 

@@ -93,7 +93,7 @@ const PlatesDiv: React.FC<PlateInfoProps> = ({ loading, inKg, language }) => {
       divs.push(
         <div key={"error"} className={styles.error}>
           ?{displayWeight(-1 * weightAny, language)}
-        </div>
+        </div>,
       );
       break;
     }
@@ -132,7 +132,7 @@ const PlatesDiv: React.FC<PlateInfoProps> = ({ loading, inKg, language }) => {
         >
           <div>{weightAnyToText(weightAny, language)}</div>
           {showCounter ? <div>{counter}</div> : null}
-        </div>
+        </div>,
       );
     }
 
