@@ -22,6 +22,7 @@ import React from "react";
 
 import styles from "../components/common/ContentArea.module.scss";
 import StreamingView from "../components/streaming/StreamingView";
+import { withAuthenticationRequired } from "@auth0/auth0-react";
 
 class StreamingContainer extends React.Component<{}> {
   render() {
@@ -33,4 +34,6 @@ class StreamingContainer extends React.Component<{}> {
   }
 }
 
-export default StreamingContainer;
+export default withAuthenticationRequired(StreamingContainer, {
+  returnTo: "/",
+});

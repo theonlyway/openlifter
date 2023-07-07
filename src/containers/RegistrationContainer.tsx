@@ -22,6 +22,7 @@ import React from "react";
 
 import RegistrationView from "../components/registration/RegistrationView";
 import styles from "../components/common/ContentArea.module.scss";
+import { withAuthenticationRequired } from "@auth0/auth0-react";
 
 class RegistrationContainer extends React.Component<{}> {
   render() {
@@ -33,4 +34,6 @@ class RegistrationContainer extends React.Component<{}> {
   }
 }
 
-export default RegistrationContainer;
+export default withAuthenticationRequired(RegistrationContainer, {
+  returnTo: "/",
+});

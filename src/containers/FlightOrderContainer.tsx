@@ -22,6 +22,7 @@ import React from "react";
 
 import FlightOrderView from "../components/flight-order/FlightOrderView";
 import styles from "../components/common/ContentArea.module.scss";
+import { withAuthenticationRequired } from "@auth0/auth0-react";
 
 class FlightOrderContainer extends React.Component<{}> {
   render() {
@@ -33,4 +34,6 @@ class FlightOrderContainer extends React.Component<{}> {
   }
 }
 
-export default FlightOrderContainer;
+export default withAuthenticationRequired(FlightOrderContainer, {
+  returnTo: "/",
+});

@@ -22,6 +22,7 @@ import React from "react";
 
 import WeighinsView from "../components/weighins/WeighinsView";
 import styles from "../components/common/ContentArea.module.scss";
+import { withAuthenticationRequired } from "@auth0/auth0-react";
 
 class WeighinsContainer extends React.Component<{}> {
   render() {
@@ -33,4 +34,6 @@ class WeighinsContainer extends React.Component<{}> {
   }
 }
 
-export default WeighinsContainer;
+export default withAuthenticationRequired(WeighinsContainer, {
+  returnTo: "/",
+});

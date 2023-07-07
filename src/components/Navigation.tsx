@@ -27,8 +27,12 @@ import Navbar from "react-bootstrap/Navbar";
 // The LinkContainer is used to wrap Components that change the URL,
 // hooking them up with the Router.
 import { LinkContainer } from "react-router-bootstrap";
+import { useAuth0 } from "@auth0/auth0-react";
+import LogoutButton from "./auth/LogoutButton";
+import LoginButton from "./auth/LoginButton";
 
 const Navigation = () => {
+  const { isAuthenticated } = useAuth0();
   return (
     <Navbar sticky="top" bg="dark" variant="dark" expand="lg">
       <Navbar.Brand>
@@ -87,6 +91,7 @@ const Navigation = () => {
           </LinkContainer>
         </Nav>
       </Navbar.Collapse>
+      {isAuthenticated ? <LogoutButton /> : <LoginButton />}
     </Navbar>
   );
 };

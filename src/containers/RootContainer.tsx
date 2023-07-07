@@ -40,6 +40,7 @@ import FlightOrderContainer from "./FlightOrderContainer";
 import ResultsContainer from "./ResultsContainer";
 import DebugContainer from "./DebugContainer";
 import AboutContainer from "./AboutContainer";
+import { withAuthenticationRequired } from "@auth0/auth0-react";
 
 class RootContainer extends React.Component {
   render() {
@@ -70,4 +71,6 @@ class RootContainer extends React.Component {
   }
 }
 
-export default RootContainer;
+export default withAuthenticationRequired(RootContainer, {
+  returnTo: "/",
+});

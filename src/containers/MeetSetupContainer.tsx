@@ -20,6 +20,7 @@ import React from "react";
 
 import MeetSetup from "../components/meet-setup/MeetSetup";
 import styles from "../components/common/ContentArea.module.scss";
+import { withAuthenticationRequired } from "@auth0/auth0-react";
 
 class MeetSetupContainer extends React.Component<{}> {
   render() {
@@ -31,4 +32,6 @@ class MeetSetupContainer extends React.Component<{}> {
   }
 }
 
-export default MeetSetupContainer;
+export default withAuthenticationRequired(MeetSetupContainer, {
+  returnTo: "/",
+});
