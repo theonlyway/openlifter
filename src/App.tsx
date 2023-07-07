@@ -36,6 +36,7 @@ import Navigation from "./components/Navigation";
 import StreamingContainer from "./containers/StreamingContainer";
 
 import { store, persistor } from "./store";
+import AuthenticationGuard from "./components/auth/AuthenticationGuard";
 
 class App extends React.Component {
   render() {
@@ -54,7 +55,7 @@ class App extends React.Component {
               <div>
                 <Navigation />
                 <Routes>
-                  <Route path="/" element={<RootContainer />} />
+                  <Route path="/" element={<AuthenticationGuard component={RootContainer} />} />
                   <Route path="/meet-setup" element={<MeetSetupContainer />} />
                   <Route path="/registration" element={<RegistrationContainer />} />
                   <Route path="/weigh-ins" element={<WeighinsContainer />} />

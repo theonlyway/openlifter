@@ -20,7 +20,6 @@
 
 import React from "react";
 import LiftingView from "../components/lifting/LiftingView";
-import { withAuthenticationRequired } from "@auth0/auth0-react";
 
 class LiftingContainer extends React.Component<{}> {
   render() {
@@ -28,6 +27,4 @@ class LiftingContainer extends React.Component<{}> {
   }
 }
 
-export default withAuthenticationRequired(LiftingContainer, {
-  returnTo: "/",
-});
+export default LiftingContainer;

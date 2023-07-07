@@ -43,7 +43,6 @@ import styles from "../components/common/ContentArea.module.scss";
 
 import { GlobalState } from "../types/stateTypes";
 import { Dispatch } from "redux";
-import { withAuthenticationRequired } from "@auth0/auth0-react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 // Temporary CSS, just for prototyping.
@@ -351,6 +350,4 @@ const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => {
   };
 };
 
-export default withAuthenticationRequired(connect(mapStateToProps, mapDispatchToProps)(HomeContainer), {
-  returnTo: "/",
-});
+export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer);

@@ -22,7 +22,6 @@ import React from "react";
 
 import StateTools from "../components/debug/StateTools";
 import styles from "../components/common/ContentArea.module.scss";
-import { withAuthenticationRequired } from "@auth0/auth0-react";
 
 const DebugContainer = () => {
   return (
@@ -32,6 +31,4 @@ const DebugContainer = () => {
   );
 };
 
-export default withAuthenticationRequired(DebugContainer, {
-  returnTo: "/",
-});
+export default DebugContainer;

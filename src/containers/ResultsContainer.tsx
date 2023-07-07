@@ -22,7 +22,6 @@ import React from "react";
 
 import ResultsView from "../components/results/ResultsView";
 import styles from "../components/common/ContentArea.module.scss";
-import { withAuthenticationRequired } from "@auth0/auth0-react";
 
 class ResultsContainer extends React.Component<{}> {
   render() {
@@ -34,6 +33,4 @@ class ResultsContainer extends React.Component<{}> {
   }
 }
 
-export default withAuthenticationRequired(ResultsContainer, {
-  returnTo: "/",
-});
+export default ResultsContainer;
