@@ -302,6 +302,7 @@ export const getLiftingOrder = (
   streaming: StreamingState,
   meet: MeetState,
   globalState: GlobalState,
+  sub: string,
 ): LiftingOrder => {
   const attemptOneIndexed = getActiveAttemptNumber(entriesInFlight, lifting);
   const orderedEntries = orderEntriesForAttempt(entriesInFlight, lifting, attemptOneIndexed);
@@ -327,6 +328,7 @@ export const getLiftingOrder = (
       body: JSON.stringify({
         meetData: meet,
         lightsCode: streaming.lightsCode,
+        sub: sub,
         order: {
           orderedEntries: orderedEntries,
           attemptOneIndexed: attemptOneIndexed,
@@ -345,7 +347,11 @@ export const getLiftingOrder = (
     fetch(streaming.apiUrl + "/backup/" + meet.name, {
       method: "POST",
       headers: fetchHeaders,
-      body: JSON.stringify(globalState),
+      body: JSON.stringify({
+        meet: meet.name,
+        sub: sub,
+        globalState: globalState,
+      }),
     })
       .then((response) => response.json())
       .catch((error) => {

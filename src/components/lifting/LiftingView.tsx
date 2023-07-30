@@ -44,6 +44,7 @@ import { getLiftingOrder } from "../../logic/liftingOrder";
 
 import { Entry, Flight, Language } from "../../types/dataTypes";
 import { GlobalState, MeetState, LiftingState, StreamingState, RegistrationState } from "../../types/stateTypes";
+import { Auth0Context, User } from "@auth0/auth0-react";
 
 interface StateProps {
   meet: MeetState;
@@ -79,16 +80,18 @@ class LiftingView extends React.Component<Props, InternalState> {
       replaceTableWithWeighins: !this.state.replaceTableWithWeighins,
     });
   };
+  static contextType = Auth0Context;
 
   render() {
+    const { user } = this.context as User;
     const now = getLiftingOrder(
       this.props.entriesInFlight,
       this.props.lifting,
       this.props.streaming,
       this.props.meet,
       this.props.globalState,
+      user.sub,
     );
-
     let rightElement = null;
     if (this.state.replaceTableWithWeighins === false) {
       rightElement = (

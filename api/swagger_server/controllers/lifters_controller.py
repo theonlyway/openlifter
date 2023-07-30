@@ -122,7 +122,8 @@ def lifter_platform_order_post(platform, body=None):  # noqa: E501
             'meetData': data['meetData'],
             'lightsCode': data['lightsCode'],
             'order': data['order'],
-            'lastUpdated': time.strftime("%Y/%m/%d-%H:%M:%S", time.localtime())
+            'lastUpdated': time.strftime("%Y/%m/%d-%H:%M:%S", time.localtime()),
+            'sub': data['sub']
         }
         collection.update_one(
             {'platform': platform}, {'$set': order}, upsert=True)

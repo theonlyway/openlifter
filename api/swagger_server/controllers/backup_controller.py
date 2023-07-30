@@ -54,6 +54,7 @@ def backup_meet_post(meet, body=None):  # noqa: E501
         logger.info(f"Backing up state for meet: {meet}")
         state = {
             'id': meet,
+            'sub': data["sub"],
             'lastUpdated': time.strftime("%Y/%m/%d-%H:%M:%S", time.localtime()),
             'globalState': data
         }
