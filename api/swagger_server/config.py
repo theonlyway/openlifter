@@ -1,4 +1,3 @@
-from dataclasses import dataclass
 import os
 import logging
 from pymongo import MongoClient
@@ -8,8 +7,6 @@ logging.basicConfig(
     format='%(asctime)s,%(msecs)03d %(levelname)-8s [%(filename)s:%(lineno)d] %(message)s')
 logger = logging.getLogger()
 
-
-@dataclass
 class Config:
     logLevel = os.environ.get('LOG_LEVEL', "INFO")
     apiKey = os.environ.get('API_KEY')
@@ -18,10 +15,18 @@ class Config:
     mongodbUsername = os.environ.get('MONGODB_USER')
     mongodbPassword = os.environ.get('MONGODB_PASSWORD')
     mongodbDatabaseName = os.environ.get('MONGODB_DATABASE')
-    mongodbConnectionString = f"mongodb://{mongodbUsername}:{mongodbPassword}@{mongodbHost}:{mongodbPort}/{mongodbDatabaseName}"
-    mongodbClient = MongoClient(mongodbConnectionString,
-                                serverSelectionTimeoutMS=5000)
+    mongodbConnectionString = f"mongodb+srv://{mongodbUsername}:{mongodbPassword}@{mongodbHost}:{mongodbPort}/{mongodbDatabaseName}"
     lightsUrl = "https://lights.barbelltracker.com/api/meet_status"
+
+    def __init__(self) -> None:
+        if os.environ.get('MONGODB_USE_SRV', "false").lower() == 'true':
+            self.mongodbConnectionString = f"mongodb+srv://{self.mongodbUsername}:{self.mongodbPassword}@{self.mongodbHost}/{self.mongodbDatabaseName}"
+        else:
+            self.mongodbConnectionString = f"mongodb+srv://{self.mongodbUsername}:{self.mongodbPassword}@{self.mongodbHost}:{self.mongodbPort}/{self.mongodbDatabaseName}"
+
+    def mongoClient(self) -> MongoClient:
+        return MongoClient(self.mongodbConnectionString,
+                           serverSelectionTimeoutMS=5000)
 
 
 def mongodb_connection_failure() -> str:

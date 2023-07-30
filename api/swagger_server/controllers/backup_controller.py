@@ -21,7 +21,7 @@ def backup_meet_get(meet):  # noqa: E501
 
     :rtype: AnyValue
     """
-    database = config.mongodbClient[config.mongodbDatabaseName]
+    database = config.mongoClient()[config.mongodbDatabaseName]
     collection = database["backup"]
     query = {"id": meet}
     document = collection.find_one(query)
@@ -46,19 +46,19 @@ def backup_meet_post(meet, body=None):  # noqa: E501
 
     :rtype: AnyValue
     """
-    database = config.mongodbClient[config.mongodbDatabaseName]
+    database = config.mongoClient()[config.mongodbDatabaseName]
     collection = database["backup"]
     if connexion.request.is_json:
         data = connexion.request.get_json()  # noqa: E501
         logger.debug(json.dumps(connexion.request.get_json()))
         logger.info(f"Backing up state for meet: {meet}")
         state = {
-            'id': meet,
+            'meetName': meet,
             'sub': data["sub"],
             'lastUpdated': time.strftime("%Y/%m/%d-%H:%M:%S", time.localtime()),
-            'globalState': data
+            'globalState': data['globalState']
         }
         collection.update_one(
-            {'id': meet}, {'$set': state}, upsert=True)
+            {'sub': data['sub'], 'meetName': meet}, {'$set': state}, upsert=True)
         return {'status': 'ok', 'message': 'state backed up'}
     return {'status': 'fail', 'message': 'No JSON object detected'}

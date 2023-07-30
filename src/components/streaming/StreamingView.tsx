@@ -42,6 +42,7 @@ import {
 import { getString } from "../../logic/strings";
 import ValidatedInput from "../ValidatedInput";
 import { Button, Modal } from "react-bootstrap";
+import { Auth0Context, User } from "@auth0/auth0-react";
 
 interface StateProps {
   streaming: StreamingState;
@@ -87,6 +88,7 @@ class StreamingView extends React.Component<Props, InternalState> {
       },
     };
   }
+  static contextType = Auth0Context;
 
   validateRequiredText = (value?: string): Validation => {
     if (!value) return "warning";
@@ -103,15 +105,21 @@ class StreamingView extends React.Component<Props, InternalState> {
         failureMessage: null,
       },
     });
-    let fetchHeaders = {};
+    const { user } = this.context as User;
+    let fetchHeaders: { "Content-Type": string; "x-api-key"?: string } = { "Content-Type": "application/json" };
     if (this.props.streaming.apiAuthentication == true) {
       fetchHeaders = {
+        ...fetchHeaders,
         "x-api-key": this.props.streaming.apiKey,
       };
     }
     fetch(this.props.streaming.apiUrl + "/health", {
-      method: "GET",
+      method: "POST",
       headers: fetchHeaders,
+      body: JSON.stringify({
+        meet: this.props.meet.name,
+        sub: user.sub,
+      }),
     })
       .then((response) => response.json())
       .then((data) => {

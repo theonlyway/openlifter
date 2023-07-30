@@ -211,20 +211,25 @@ paths:
       - api_key: []
       x-openapi-router-controller: swagger_server.controllers.lights_controller
   /health:
-    get:
+    post:
       tags:
       - Health
       summary: Checks the health of the API
       description: |
         Returns the health of the API
-      operationId: health_get
+      operationId: health_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApiHealth'
       responses:
         "200":
           description: API health
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiHealth'
+                $ref: '#/components/schemas/ApiHealthResp'
       security:
       - api_key: []
       x-openapi-router-controller: swagger_server.controllers.health_controller
@@ -283,6 +288,16 @@ components:
           type: integer
           nullable: true
     ApiHealth:
+      required:
+      - meet
+      - sub
+      type: object
+      properties:
+        meet:
+          type: string
+        sub:
+          type: string
+    ApiHealthResp:
       required:
       - apiStatus
       - databaseStatus

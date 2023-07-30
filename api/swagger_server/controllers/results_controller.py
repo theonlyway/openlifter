@@ -1,36 +1,18 @@
 import connexion
 import six
-import json
-import time
+
 from swagger_server.models.any_value import AnyValue  # noqa: E501
 from swagger_server import util
-from swagger_server.config import Config, logger
-from swagger_server.controllers.helpers import leaderboard_results
-
-
-config = Config()
 
 
 def lifter_results_get(entries_filter):  # noqa: E501
-    """Updates the lifter results
+    """Get the results of all current lifts
 
-    Update the lifter results  # noqa: E501
+    Update the current lifter  # noqa: E501
 
-    :param body:
-    :type body: dict | bytes
+    :param entries_filter: The number of items to skip before starting to collect the result set
+    :type entries_filter: str
 
     :rtype: AnyValue
     """
-    database = config.mongodbClient[config.mongodbDatabaseName]
-    collection = database["order"]
-    documents = collection.find({})
-    data = {
-        'meetData': None,
-        'entries': []
-    }
-    for document in documents:
-        data['meetData'] = document['meetData']
-        data['entries'].extend(document['order']['orderedEntries'])
-    logger.info(
-        f"Generating leaderboard results based on filter: {entries_filter}")
-    return leaderboard_results(data, entries_filter)
+    return 'do some magic!'

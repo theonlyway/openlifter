@@ -24,7 +24,7 @@ def lifter_platform_current_get(platform):  # noqa: E501
     :rtype: CurrentLifter
     """
     logger.debug(type(platform))
-    database = config.mongodbClient[config.mongodbDatabaseName]
+    database = config.mongoClient()[config.mongodbDatabaseName]
     collection = database["order"]
     query = {"platform": platform}
     document = collection.find_one(query)
@@ -68,7 +68,7 @@ def lifter_platform_next_get(platform):  # noqa: E501
     :rtype: CurrentLifter
     """
     logger.debug(type(platform))
-    database = config.mongodbClient[config.mongodbDatabaseName]
+    database = config.mongoClient()[config.mongodbDatabaseName]
     collection = database["order"]
     query = {"platform": platform}
     document = collection.find_one(query)
@@ -112,13 +112,14 @@ def lifter_platform_order_post(platform, body=None):  # noqa: E501
     :rtype: CurrentLifter
     """
     logger.debug(type(platform))
-    database = config.mongodbClient[config.mongodbDatabaseName]
+    database = config.mongoClient()[config.mongodbDatabaseName]
     collection = database["order"]
     if connexion.request.is_json:
         data = connexion.request.get_json()
         logger.debug(json.dumps(connexion.request.get_json()))
         order = {
             'platform': platform,
+            'meetName': data['meetData']['name'],
             'meetData': data['meetData'],
             'lightsCode': data['lightsCode'],
             'order': data['order'],
@@ -126,6 +127,6 @@ def lifter_platform_order_post(platform, body=None):  # noqa: E501
             'sub': data['sub']
         }
         collection.update_one(
-            {'platform': platform}, {'$set': order}, upsert=True)
+            {'platform': platform, 'sub': data['sub'], 'meetName': data['meetData']['name']}, {'$set': order}, upsert=True)
         return {'status': 'ok', 'message': 'order updated'}
     return {'status': 'fail', 'message': 'No JSON object detected'}

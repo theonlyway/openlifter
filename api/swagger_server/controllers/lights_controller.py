@@ -21,7 +21,7 @@ def lights_platform_get(platform):  # noqa: E501
     :rtype: AnyValue
     """
     logger.debug(type(platform))
-    database = config.mongodbClient[config.mongodbDatabaseName]
+    database = config.mongoClient()[config.mongodbDatabaseName]
     collection = database["order"]
     query = {"platform": platform}
     document = collection.find_one(query)

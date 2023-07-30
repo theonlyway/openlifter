@@ -14,30 +14,25 @@ class ApiHealth(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, api_status: str=None, database_status: str=None, failure_message: str=None):  # noqa: E501
+    def __init__(self, meet: str=None, sub: str=None):  # noqa: E501
         """ApiHealth - a model defined in Swagger
 
-        :param api_status: The api_status of this ApiHealth.  # noqa: E501
-        :type api_status: str
-        :param database_status: The database_status of this ApiHealth.  # noqa: E501
-        :type database_status: str
-        :param failure_message: The failure_message of this ApiHealth.  # noqa: E501
-        :type failure_message: str
+        :param meet: The meet of this ApiHealth.  # noqa: E501
+        :type meet: str
+        :param sub: The sub of this ApiHealth.  # noqa: E501
+        :type sub: str
         """
         self.swagger_types = {
-            'api_status': str,
-            'database_status': str,
-            'failure_message': str
+            'meet': str,
+            'sub': str
         }
 
         self.attribute_map = {
-            'api_status': 'apiStatus',
-            'database_status': 'databaseStatus',
-            'failure_message': 'failureMessage'
+            'meet': 'meet',
+            'sub': 'sub'
         }
-        self._api_status = api_status
-        self._database_status = database_status
-        self._failure_message = failure_message
+        self._meet = meet
+        self._sub = sub
 
     @classmethod
     def from_dict(cls, dikt) -> 'ApiHealth':
@@ -51,68 +46,47 @@ class ApiHealth(Model):
         return util.deserialize_model(dikt, cls)
 
     @property
-    def api_status(self) -> str:
-        """Gets the api_status of this ApiHealth.
+    def meet(self) -> str:
+        """Gets the meet of this ApiHealth.
 
 
-        :return: The api_status of this ApiHealth.
+        :return: The meet of this ApiHealth.
         :rtype: str
         """
-        return self._api_status
+        return self._meet
 
-    @api_status.setter
-    def api_status(self, api_status: str):
-        """Sets the api_status of this ApiHealth.
+    @meet.setter
+    def meet(self, meet: str):
+        """Sets the meet of this ApiHealth.
 
 
-        :param api_status: The api_status of this ApiHealth.
-        :type api_status: str
+        :param meet: The meet of this ApiHealth.
+        :type meet: str
         """
-        if api_status is None:
-            raise ValueError("Invalid value for `api_status`, must not be `None`")  # noqa: E501
+        if meet is None:
+            raise ValueError("Invalid value for `meet`, must not be `None`")  # noqa: E501
 
-        self._api_status = api_status
+        self._meet = meet
 
     @property
-    def database_status(self) -> str:
-        """Gets the database_status of this ApiHealth.
+    def sub(self) -> str:
+        """Gets the sub of this ApiHealth.
 
 
-        :return: The database_status of this ApiHealth.
+        :return: The sub of this ApiHealth.
         :rtype: str
         """
-        return self._database_status
+        return self._sub
 
-    @database_status.setter
-    def database_status(self, database_status: str):
-        """Sets the database_status of this ApiHealth.
+    @sub.setter
+    def sub(self, sub: str):
+        """Sets the sub of this ApiHealth.
 
 
-        :param database_status: The database_status of this ApiHealth.
-        :type database_status: str
+        :param sub: The sub of this ApiHealth.
+        :type sub: str
         """
-        if database_status is None:
-            raise ValueError("Invalid value for `database_status`, must not be `None`")  # noqa: E501
+        if sub is None:
+            raise ValueError("Invalid value for `sub`, must not be `None`")  # noqa: E501
 
-        self._database_status = database_status
-
-    @property
-    def failure_message(self) -> str:
-        """Gets the failure_message of this ApiHealth.
-
-
-        :return: The failure_message of this ApiHealth.
-        :rtype: str
-        """
-        return self._failure_message
-
-    @failure_message.setter
-    def failure_message(self, failure_message: str):
-        """Sets the failure_message of this ApiHealth.
-
-
-        :param failure_message: The failure_message of this ApiHealth.
-        :type failure_message: str
-        """
-
-        self._failure_message = failure_message
+        self._sub = sub
