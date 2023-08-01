@@ -21,7 +21,7 @@ def backup_meet_get(meet):  # noqa: E501
 
     :rtype: AnyValue
     """
-    database = config.mongoClient()[config.mongodbDatabaseName]
+    database = config.mongodbClient[config.mongodbDatabaseName]
     collection = database["backup"]
     query = {"id": meet}
     document = collection.find_one(query)
@@ -46,7 +46,7 @@ def backup_meet_post(meet, body=None):  # noqa: E501
 
     :rtype: AnyValue
     """
-    database = config.mongoClient()[config.mongodbDatabaseName]
+    database = config.mongodbClient[config.mongodbDatabaseName]
     collection = database["backup"]
     if connexion.request.is_json:
         data = connexion.request.get_json()  # noqa: E501

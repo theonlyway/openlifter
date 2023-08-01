@@ -15,7 +15,8 @@ class Config:
     mongodbUsername = os.environ.get('MONGODB_USER')
     mongodbPassword = os.environ.get('MONGODB_PASSWORD')
     mongodbDatabaseName = os.environ.get('MONGODB_DATABASE')
-    mongodbConnectionString = f"mongodb+srv://{mongodbUsername}:{mongodbPassword}@{mongodbHost}:{mongodbPort}/{mongodbDatabaseName}"
+    mongodbConnectionString = None
+    mongodbClient = None
     lightsUrl = "https://lights.barbelltracker.com/api/meet_status"
 
     def __init__(self) -> None:
@@ -23,10 +24,8 @@ class Config:
             self.mongodbConnectionString = f"mongodb+srv://{self.mongodbUsername}:{self.mongodbPassword}@{self.mongodbHost}/{self.mongodbDatabaseName}"
         else:
             self.mongodbConnectionString = f"mongodb+srv://{self.mongodbUsername}:{self.mongodbPassword}@{self.mongodbHost}:{self.mongodbPort}/{self.mongodbDatabaseName}"
-
-    def mongoClient(self) -> MongoClient:
-        return MongoClient(self.mongodbConnectionString,
-                           serverSelectionTimeoutMS=5000)
+        self.mongodbClient = MongoClient(self.mongodbConnectionString,
+                                         serverSelectionTimeoutMS=5000, maxPoolSize=1)
 
 
 def mongodb_connection_failure() -> str:

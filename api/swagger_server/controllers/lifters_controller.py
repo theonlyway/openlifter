@@ -24,7 +24,7 @@ def lifter_platform_current_get(platform):  # noqa: E501
     :rtype: CurrentLifter
     """
     logger.debug(type(platform))
-    database = config.mongoClient()[config.mongodbDatabaseName]
+    database = config.mongodbClient[config.mongodbDatabaseName]
     collection = database["order"]
     query = {"platform": platform}
     document = collection.find_one(query)
@@ -68,7 +68,7 @@ def lifter_platform_next_get(platform):  # noqa: E501
     :rtype: CurrentLifter
     """
     logger.debug(type(platform))
-    database = config.mongoClient()[config.mongodbDatabaseName]
+    database = config.mongodbClient[config.mongodbDatabaseName]
     collection = database["order"]
     query = {"platform": platform}
     document = collection.find_one(query)
@@ -112,7 +112,7 @@ def lifter_platform_order_post(platform, body=None):  # noqa: E501
     :rtype: CurrentLifter
     """
     logger.debug(type(platform))
-    database = config.mongoClient()[config.mongodbDatabaseName]
+    database = config.mongodbClient[config.mongodbDatabaseName]
     collection = database["order"]
     if connexion.request.is_json:
         data = connexion.request.get_json()

@@ -25,7 +25,7 @@ def health_post(body=None):  # noqa: E501
     if connexion.request.is_json:
         data = connexion.request.get_json()
         try:
-            database = config.mongoClient()[config.mongodbDatabaseName]
+            database = config.mongodbClient[config.mongodbDatabaseName]
             collection = database["health"]
             healthCheck = {
                 'reason': "API health check",

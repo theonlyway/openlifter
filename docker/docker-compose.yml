@@ -21,11 +21,12 @@ services:
     environment:
       - LOG_LEVEL=INFO
       - API_KEY=441b6244-8a4f-4e0f-8624-e5c665ecc901
-      - MONGODB_HOST=mongodb
+      - MONGODB_HOST=openlifter01.ri7wxbs.mongodb.net
       - MONGODB_PORT=27017
-      - MONGODB_USER=api_user
+      - MONGODB_USER=openlifter_api_user
       - MONGODB_PASSWORD=xaw!TNQ7cwp3fdr2cqf
       - MONGODB_DATABASE=openlifter
+      - MONGODB_USE_SRV=true
       - TZ=Australia/Brisbane
     ports:
       - 8080:8080

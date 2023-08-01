@@ -19,7 +19,7 @@ def registrations_put(body=None):  # noqa: E501
 
     :rtype: CurrentLifter
     """
-    database = config.mongoClient()[config.mongodbDatabaseName]
+    database = config.mongodbClient[config.mongodbDatabaseName]
     collection = database["registrations"]
     if connexion.request.is_json:
         logger.debug(json.dumps(connexion.request.get_json()))
